@@ -1,0 +1,14 @@
+{
+  "flag": {
+    "key": "paywall",
+    "rules": [
+      { "if": "country == 'CA'", "then": true },
+      { "if": "rollout(0.20)", "then": true }
+    ],
+    "default": false
+  },
+  "context": {
+    "userId": "u20",
+    "country": "US"
+  }
+}

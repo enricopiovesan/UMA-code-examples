@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Feature Flag Evaluator Demo</title>
+    <style>
+      body { font-family: sans-serif; margin: 2rem; }
+      textarea { width: 100%; max-width: 640px; }
+      pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Feature Flag Evaluator Demo</h1>
+    <p>Enter a flag definition and context in the text area below and press
+    “Evaluate”.  The result will be printed underneath.</p>
+    <textarea id="input" rows="12">{
+  "flag": {
+    "key": "paywall",
+    "rules": [
+      { "if": "country == 'CA'", "then": true },
+      { "if": "rollout(0.20)", "then": true }
+    ],
+    "default": false
+  },
+  "context": {
+    "userId": "u123",
+    "country": "CA"
+  }
+}</textarea>
+    <br />
+    <button id="evalBtn">Evaluate</button>
+    <pre id="output"></pre>
+    <p><strong>Note:</strong> This demo uses a minimal WASI polyfill implemented in
+    <code>ff.js</code>.  To run it, first build the WASI module (`cargo build
+    --release --target wasm32-wasi -p ff_eval_wasi_app`) and copy
+    <code>target/wasm32-wasi/release/ff_eval_wasi_app.wasm</code> into this
+    directory.</p>
+    <script type="module">
+      import { evaluateFlag } from './ff.js';
+      const inputEl = document.getElementById('input');
+      const outputEl = document.getElementById('output');
+      document.getElementById('evalBtn').addEventListener('click', async () => {
+        let input;
+        try {
+          input = JSON.parse(inputEl.value);
+        } catch (e) {
+          outputEl.textContent = 'Invalid JSON: ' + e.message;
+          return;
+        }
+        try {
+          const result = await evaluateFlag(input);
+          outputEl.textContent = JSON.stringify(result, null, 2);
+        } catch (err) {
+          outputEl.textContent = 'Error: ' + err.message;
+        }
+      });
+    </script>
+  </body>
+</html>

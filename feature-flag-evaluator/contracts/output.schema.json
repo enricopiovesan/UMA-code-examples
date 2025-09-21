@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feature Flag Evaluator Output",
+  "type": "object",
+  "properties": {
+    "key": { "type": "string" },
+    "enabled": { "type": "boolean" },
+    "matchedRule": {
+      "anyOf": [
+        { "type": "integer", "minimum": 0 },
+        { "type": "null" }
+      ],
+      "description": "Index of the matched rule or null if no rule matched."
+    }
+  },
+  "required": ["key", "enabled", "matchedRule"],
+  "additionalProperties": false
+}

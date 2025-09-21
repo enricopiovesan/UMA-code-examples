@@ -1,0 +1,19 @@
+[package]
+name = "ff_eval_wasi_app"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "WASI application wrapping the feature flag evaluator"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+ff_eval_core = { path = "../core" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[lib]
+name = "ff_eval_wasi_app"
+path = "src/main.rs"
+
+[profile.release]
+strip = true

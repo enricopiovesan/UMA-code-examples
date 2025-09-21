@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feature Flag Evaluator Input",
+  "type": "object",
+  "properties": {
+    "flag": {
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "if": { "type": "string" },
+              "then": { "type": "boolean" }
+            },
+            "required": ["if", "then"],
+            "additionalProperties": false
+          },
+          "maxItems": 64
+        },
+        "default": { "type": "boolean" }
+      },
+      "required": ["key", "rules", "default"],
+      "additionalProperties": false
+    },
+    "context": {
+      "type": "object",
+      "description": "Context values used when evaluating expressions.",
+      "propertyNames": { "pattern": "^[\\u0000-\\u007F]+$" },
+      "additionalProperties": {
+        "anyOf": [
+          { "type": "string" },
+          { "type": "number" },
+          { "type": "boolean" }
+        ]
+      }
+    }
+  },
+  "required": ["flag", "context"],
+  "additionalProperties": false
+}

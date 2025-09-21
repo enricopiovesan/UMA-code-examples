@@ -1,0 +1,13 @@
+[package]
+name = "ff_eval_core"
+version = "0.1.0"
+edition = "2021"
+description = "Deterministic feature flag evaluator core library"
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "ff_eval_core"
+path = "src/lib.rs"
+crate-type = ["rlib"]
+
+# The core crate has no dependencies beyond the standard library.
