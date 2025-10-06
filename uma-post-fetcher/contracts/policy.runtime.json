@@ -1,0 +1,28 @@
+{
+  "name": "default.runtime.policy",
+  "version": "1.0.0",
+  "adapterSelection": {
+    "network.fetch": {
+      "strategy": "runtime-driven",
+      "preferred": ["wasi-http", "host-fetch"],
+      "logAdapterSelection": true
+    }
+  },
+  "binding": {
+    "required": "eager",
+    "optional": "lazy"
+  },
+  "observability": {
+    "persistBindings": true
+  },
+  "lifecycleStates": [
+    "registered",
+    "validated",
+    "bound",
+    "initialized",
+    "running",
+    "terminated",
+    "failed",
+    "quarantined"
+  ]
+}

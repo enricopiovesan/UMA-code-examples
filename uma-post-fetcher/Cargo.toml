@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "runtime",
+    "service",
+    "adapters/network/rust"
+]

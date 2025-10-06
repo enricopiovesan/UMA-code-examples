@@ -1,0 +1,63 @@
+{
+  "name": "uma-post-fetcher.service",
+  "version": "1.0.0",
+  "description": "Contract for the UMA post fetcher service.  Defines the input and output schemas and error semantics.",
+  "input": {
+    "type": "object",
+    "properties": {
+      "request": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string", "format": "uri" },
+          "headers": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Optional HTTP request headers"
+          }
+        },
+        "required": ["url"]
+      },
+      "runId": { "type": "string" }
+    },
+    "required": ["request", "runId"],
+    "additionalProperties": false
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "normalizedPost": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "userId": { "type": "integer" },
+              "title": { "type": "string" },
+              "body": { "type": "string" }
+            },
+            "required": ["id", "userId", "title", "body"],
+            "additionalProperties": false
+          },
+          { "type": "null" }
+        ],
+        "description": "A canonical representation of the fetched post or null on error"
+      },
+      "events": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "t": { "type": "string" },
+            "type": { "type": "string" },
+            "data": { "type": "object" }
+          },
+          "required": ["t", "type", "data"],
+          "additionalProperties": false
+        },
+        "description": "Deterministic event log"
+      }
+    },
+    "required": ["normalizedPost", "events"],
+    "additionalProperties": false
+  }
+}

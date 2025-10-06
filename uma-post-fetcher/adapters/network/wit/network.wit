@@ -1,0 +1,19 @@
+// WIT definition for the `network.fetch` capability.  This file describes
+// the interface used by the UMA runtime to perform HTTP requests.  Host
+// environments provide an implementation of this interface, either via
+// WASI HTTP bindings or a custom import.
+
+package network
+
+interface fetch {
+    /// A response from the network.  The body is an opaque list of bytes.
+    record Response {
+        status: u16,
+        headers: list<tuple<string, string>>,
+        body: list<u8>,
+    }
+
+    /// Perform an HTTP request.  Only the GET method is supported in this
+    /// example.  Returns a `Response` record.
+    fetch: func(url: string, method: string, headers: list<tuple<string, string>>) -> Response
+}

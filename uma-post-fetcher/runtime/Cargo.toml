@@ -1,0 +1,38 @@
+[package]
+name = "uma_runtime"
+version = "0.1.0"
+edition = "2021"
+
+# Build as a cdylib so it can be compiled to WebAssembly.
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Dynamic error handling
+anyhow = "1"
+thiserror = "1"
+
+# Conditionally used for host fetch on non‑wasm targets
+reqwest = { version = "0.11", features = ["blocking"], optional = true }
+
+# HTTP types used by the WASI HTTP adapter.  The `http` crate
+# provides request and response types independent of a specific
+# implementation.  Required when compiling for wasm32.
+http = { version = "0.2", optional = true }
+
+# Experimental HTTP client for WASI.  Used by the `WasiHttpAdapter`
+# to send outbound requests when running under WASI preview 2.  This
+# crate is still unstable and subject to change.
+wasi-experimental-http-client = { version = "0.10.0", optional = true }
+
+# Depend on the service crate
+service = { path = "../service" }
+
+# When compiling for the `wasm32` architecture, ensure that the
+# WASI HTTP adapter dependencies are included.  These lines
+# override the optional settings above for the specific target.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+http = { version = "0.2" }
+wasi-experimental-http-client = { version = "0.10.0" }

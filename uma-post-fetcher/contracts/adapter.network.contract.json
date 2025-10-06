@@ -1,0 +1,38 @@
+{
+  "capability": "network.fetch",
+  "version": "1.0.0",
+  "operations": [
+    {
+      "name": "fetch",
+      "request": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string" },
+          "method": { "type": "string", "enum": ["GET"] },
+          "headers": {
+            "type": "object",
+            "additionalProperties": { "type": "string" },
+            "description": "Optional HTTP headers"
+          }
+        },
+        "required": ["url"],
+        "additionalProperties": false
+      },
+      "response": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "integer" },
+          "headers": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "body": { "type": "string", "contentEncoding": "base64", "description": "Raw response body encoded as base64" }
+        },
+        "required": ["status", "headers", "body"],
+        "additionalProperties": false
+      },
+      "semantics": "idempotent"
+    }
+  ],
+  "notes": "Portable HTTP fetch via host bindings or wasi-http"
+}

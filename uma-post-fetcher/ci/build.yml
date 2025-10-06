@@ -1,0 +1,26 @@
+name: Build UMA Post Fetcher
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: wasm32-wasi
+      - name: Build runtime
+        run: |
+          cd uma-post-fetcher
+          cargo build -p uma_runtime --release --target wasm32-wasi
+      - name: Run cloud host
+        run: |
+          cd uma-post-fetcher
+          bash hosts/cloud/run.sh

@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "service": { "type": "string" },
+    "serviceVersion": { "type": "string" },
+    "policyRef": { "type": "string" },
+    "bindings": {
+      "type": "object",
+      "properties": {
+        "network.fetch": {
+          "type": "object",
+          "properties": {
+            "impl": { "type": "string" },
+            "host": { "type": "string" }
+          },
+          "required": ["impl", "host"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "events": { "type": "array" },
+    "state": { "type": "string" },
+    "logicalClock": { "type": "number" }
+  },
+  "required": ["service", "serviceVersion", "policyRef", "bindings", "state", "logicalClock"],
+  "additionalProperties": false
+}
