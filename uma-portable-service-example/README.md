@@ -1,5 +1,5 @@
 
-# UMA Chapter 6.7 Example
+# UMA Chapter 6 Example
 
 This example demonstrates a UMA service that runs the same logic on both a WASM binary and a native binary, using one contract and one runtime shape.
 
