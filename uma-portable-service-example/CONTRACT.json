@@ -1,0 +1,93 @@
+{
+  "service": {
+    "name": "uma.image-analyzer",
+    "version": "1.0.0"
+  },
+  "capabilities": [
+    {
+      "name": "analyze.image",
+      "description": "Analyze a grayscale image and emit tags deterministically."
+    },
+    {
+      "name": "read.gpu.frame",
+      "description": "Read GPU adapter info and basic frame timing where supported."
+    }
+  ],
+  "events": [
+    {
+      "name": "image.analyzed",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metrics": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "service",
+          "path",
+          "tags"
+        ]
+      }
+    },
+    {
+      "name": "gpu.telemetry.reported",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "adapter": {
+            "type": "string"
+          },
+          "backend": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "timestamp"
+        ]
+      }
+    }
+  ],
+  "execution": {
+    "constraints": {
+      "portable": {
+        "compatibility": "universal",
+        "reason": "runs in WASI sandbox without host privileges",
+        "scope": [
+          "browser-wasm",
+          "edge-wasm",
+          "server-wasm"
+        ]
+      },
+      "native-gpu": {
+        "compatibility": "target-specific",
+        "reason": "requires GPU driver access for adapter enumeration and frame timestamps",
+        "scope": [
+          "desktop",
+          "native-gpu"
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "tagging": {
+      "avg_dark_threshold": 0.4,
+      "avg_bright_threshold": 0.6
+    }
+  }
+}

@@ -1,0 +1,28 @@
+[package]
+name = "runner_native"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+gpu = ["dep:wgpu"]
+
+[dependencies]
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+contract = { path = "../contract" }
+core_service = { path = "../core_service" }
+bus = { path = "../bus" }
+wgpu = { version = "0.20", optional = true }
+pollster = { version = "0.3", optional = true }
+
+[features]
+default = []
+
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+
+tracing = "0.1"
