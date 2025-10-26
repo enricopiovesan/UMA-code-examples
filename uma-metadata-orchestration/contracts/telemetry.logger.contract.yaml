@@ -1,0 +1,17 @@
+name: telemetry.logger
+version: 1.0.0
+capabilities:
+  - telemetry.ingest
+events:
+  subscribes:
+    - pattern: image.*
+      policy: org.telemetry.standard
+      schema: contracts/schemas/image.analyzed.v1.json
+  emits:
+    - name: validation.passed.v1
+      schema: contracts/schemas/telemetry.validation.v1.json
+constraints:
+  placement: [browser, edge, cloud]
+observability:
+  traces: required
+  metrics: required

@@ -1,0 +1,17 @@
+name: ai.workflow.orchestrator
+version: 1.0.0
+capabilities: []
+orchestration:
+  triggers:
+    - on: image.analyzed.v1
+      route:
+        - telemetry.logger
+        - edge.cache
+policies:
+  requires:
+    - org.telemetry.standard
+constraints:
+  placement: [browser, edge, cloud]
+observability:
+  traces: required
+  metrics: required

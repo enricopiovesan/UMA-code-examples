@@ -1,0 +1,7 @@
+sequenceDiagram
+  participant Dev
+  participant Runtime
+  Dev->>Runtime: Publish contract
+  Runtime-->>Dev: Validate
+  Runtime->>Runtime: Execute service
+  Runtime-->>Dev: Emit validation.passed

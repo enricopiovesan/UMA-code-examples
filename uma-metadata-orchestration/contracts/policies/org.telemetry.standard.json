@@ -1,0 +1,13 @@
+{
+  "name": "org.telemetry.standard",
+  "version": "1.0.0",
+  "deny": [
+    {
+      "rule": "forbid_evaluator_in_browser",
+      "if": {
+        "service": "ai.model.evaluator",
+        "placement": "browser"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+name: edge.cache
+version: 1.0.0
+capabilities:
+  - storage.kv
+events:
+  subscribes:
+    - pattern: image.analyzed.v1
+      schema: contracts/schemas/image.analyzed.v1.json
+  emits:
+    - name: cache.persisted.v1
+      schema: contracts/schemas/telemetry.validation.v1.json
+constraints:
+  placement: [edge, browser]
+observability:
+  traces: required
+  metrics: required

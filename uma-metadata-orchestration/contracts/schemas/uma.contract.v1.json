@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "uma.contract.v1",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "observability"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "type": "array"
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "latency_ms_p99": {
+          "type": "number"
+        },
+        "placement": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "browser",
+              "edge",
+              "cloud"
+            ]
+          }
+        },
+        "transport": {
+          "type": "object"
+        }
+      }
+    },
+    "events": {
+      "type": "object",
+      "properties": {
+        "emits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "schema"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "subscribes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "pattern"
+            ],
+            "properties": {
+              "pattern": {
+                "type": "string"
+              },
+              "policy": {
+                "type": "string"
+              },
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "properties": {
+        "requires": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "orchestration": {
+      "type": "object"
+    },
+    "observability": {
+      "type": "object",
+      "required": [
+        "traces",
+        "metrics"
+      ],
+      "properties": {
+        "traces": {
+          "enum": [
+            "required",
+            "off"
+          ]
+        },
+        "metrics": {
+          "enum": [
+            "required",
+            "off"
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

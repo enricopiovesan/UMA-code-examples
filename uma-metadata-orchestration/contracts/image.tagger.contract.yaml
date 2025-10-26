@@ -1,0 +1,21 @@
+name: image.tagger
+version: 1.1.0
+capabilities:
+  - media.tagging
+inputs:
+  - image/jpeg
+outputs:
+  - tags: [string]
+constraints:
+  latency_ms_p99: 50
+  placement: [browser, edge, cloud]
+events:
+  emits:
+    - name: image.analyzed.v1
+      schema: contracts/schemas/image.analyzed.v1.json
+policies:
+  requires:
+    - org.telemetry.standard
+observability:
+  traces: required
+  metrics: required

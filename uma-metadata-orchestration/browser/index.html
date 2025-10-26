@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>UMA Browser Harness</title>
+  <style>body{font-family:system-ui,Arial;margin:24px;} pre{background:#111;color:#eee;padding:12px;border-radius:8px;}</style>
+</head>
+<body>
+<h1>UMA Browser Harness</h1>
+<p>This harness loads the same contracts and simulates the orchestrated run in the browser. For a real WASI execution, wire a WASI polyfill like wasmer-js.</p>
+<pre id="log"></pre>
+<script type="module">
+  const log = (m)=>document.getElementById('log').textContent += m + "\n";
+  log("[info] browser.runner starting");
+  // For brevity we mimic the same payload and schema validation result
+  const published = { id: "img-001", tags: ["even","low-entropy"] };
+  log("[info] validation.passed event_schema=image.analyzed.v1");
+  log("[info] telemetry.ok {\"source\":\"telemetry.logger\",\"event\":\"image.analyzed.v1\",\"status\":\"passed\"}");
+  log("[info] cache.ok {\"source\":\"edge.cache\",\"event\":\"image.analyzed.v1\",\"status\":\"passed\"}");
+</script>
+</body>
+</html>

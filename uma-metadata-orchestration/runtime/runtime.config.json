@@ -1,0 +1,5 @@
+{
+  "policyFailMode": "closed",
+  "validateRuntime": "strict",
+  "bindings": "auto"
+}

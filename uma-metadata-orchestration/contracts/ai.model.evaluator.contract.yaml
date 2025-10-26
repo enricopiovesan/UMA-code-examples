@@ -1,0 +1,16 @@
+name: ai.model.evaluator
+version: 1.0.0
+capabilities:
+  - ai.evaluate
+events:
+  subscribes:
+    - pattern: image.analyzed.v1
+      schema: contracts/schemas/image.analyzed.v1.json
+  emits:
+    - name: inference.completed.v1
+      schema: contracts/schemas/telemetry.validation.v1.json
+constraints:
+  placement: [browser, edge, cloud]
+observability:
+  traces: required
+  metrics: required

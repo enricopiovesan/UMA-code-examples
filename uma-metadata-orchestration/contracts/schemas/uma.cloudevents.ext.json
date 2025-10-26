@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "uma.cloudevents.ext",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "specversion": {
+      "type": "string"
+    },
+    "time": {
+      "type": "string"
+    },
+    "datacontenttype": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object"
+    },
+    "uma.serviceId": {
+      "type": "string"
+    },
+    "uma.contractVersion": {
+      "type": "string"
+    },
+    "uma.runtimeId": {
+      "type": "string"
+    },
+    "traceparent": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string"
+    },
+    "reasonCode": {
+      "type": "string"
+    },
+    "tenant": {
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "type": "string"
+    }
+  }
+}
