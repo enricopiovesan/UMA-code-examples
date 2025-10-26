@@ -16,8 +16,7 @@ Each folder represents a standalone project that can be built and run independen
 | 4 | **Feature Flag Evaluator** | Demonstrates UMA service anatomy (contract, logic, abstraction, metadata) and shows stateless, stateful, and subscribable service types. | [`feature-flag-evaluator`](feature-flag-evaluator/) |
 | 5 | **Post Fetcher Runtime** | Demonstrates the UMA Runtime Layer: contract loading, adapter binding, deterministic execution, and lifecycle logging across browser, edge, and cloud. | [`uma-post-fetcher`](uma-post-fetcher/) |
 | 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same service as both a portable WASI module and a native binary. Includes schema validation, capability gating, and reader labs for parity and determinism. | [`uma-portable-service-example`](uma-portable-service-example/) |
-
-
+| 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability. Includes a multi-step learning path (interfaces → contracts → orchestration), OpenTelemetry + Jaeger integration, parity test for determinism across cloud and edge, and guided reader labs. | [`uma-metadata-orchestration`](uma-metadata-orchestration/) |
 
 ---
 
@@ -34,5 +33,5 @@ Build and test examples locally:
 
 ```bash
 git clone https://github.com/enricopiovesan/UMA-code-examples.git
-cd UMA-code-examples/feature-flag-evaluator
+cd UMA-code-examples/feature-flag-evaluator 
 # Follow example-specific README for build and run instructions
