@@ -2,7 +2,7 @@
 //!
 //! This crate implements a minimal, deterministic flag evaluation engine.  It is intentionally
 //! dependency free and does not perform any I/O.  All logic is pure and functions can be
-//! compiled to the `wasm32-wasi` target without modification.  The core supports a simple
+//! compiled to the `wasm32-wasip1` target without modification.  The core supports a simple
 //! expression language for flag rules and can be extended easily to support additional
 //! operators.
 

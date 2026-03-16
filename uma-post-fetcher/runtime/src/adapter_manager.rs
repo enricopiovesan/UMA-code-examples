@@ -2,10 +2,16 @@ use service::api::{NetworkAdapter, NetworkResponse};
 
 #[cfg(target_arch = "wasm32")]
 use crate::wasi_http_adapter::WasiHttpAdapter;
-use std::collections::HashMap;
-use anyhow::Result;
-use crate::retry_adapter::RetryAdapter;
+#[cfg(target_arch = "wasm32")]
 use crate::cache_adapter::CacheAdapter;
+#[cfg(target_arch = "wasm32")]
+use crate::retry_adapter::RetryAdapter;
+#[cfg(not(target_arch = "wasm32"))]
+use crate::cache_adapter::CacheAdapter;
+#[cfg(not(target_arch = "wasm32"))]
+use crate::retry_adapter::RetryAdapter;
+use anyhow::Result;
+use std::collections::HashMap;
 
 /// Metadata persisted about the adapter selection.  Records which
 /// implementation was chosen and the host environment.
@@ -65,7 +71,7 @@ impl AdapterManager {
                     adapter = Box::new(CacheAdapter::new(adapter));
                     impl_name = format!("cache-{}", impl_name);
                 }
-                let binding = AdapterBinding { impl_name, host: std::env::consts::OS.to_string() };
+                let binding = AdapterBinding { impl_name, host: "native".to_string() };
                 return Self { adapter, binding };
             }
             // Default host fetch adapter with optional wrappers.
@@ -81,7 +87,7 @@ impl AdapterManager {
                 adapter = Box::new(CacheAdapter::new(adapter));
                 impl_name = format!("cache-{}", impl_name);
             }
-            let binding = AdapterBinding { impl_name, host: std::env::consts::OS.to_string() };
+            let binding = AdapterBinding { impl_name, host: "native".to_string() };
             Self { adapter, binding }
         }
     }
@@ -103,7 +109,12 @@ impl NetworkAdapter for HostFetchAdapter {
         // Use reqwest::blocking to perform a GET request.
         // Note: for demonstration purposes only; proper error handling and
         // limits should be implemented in a real adapter.
-        let client = reqwest::blocking::Client::new();
+        // Disable ambient proxy discovery so the sample behaves
+        // deterministically on fresh reader machines, including macOS
+        // hosts where system proxy APIs can fail in restricted contexts.
+        let client = reqwest::blocking::Client::builder()
+            .no_proxy()
+            .build()?;
         let mut req = client.get(url);
         for (k, v) in headers {
             req = req.header(k.as_str(), v.as_str());

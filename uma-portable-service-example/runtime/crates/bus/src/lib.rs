@@ -21,15 +21,27 @@ pub fn format_event<T: Serialize>(event_name: &str, payload: &T) -> Result<Strin
 }
 
 pub fn publish_validated<T: Serialize>(c: &contract::Contract, event: &str, payload: &T) -> Result<()> {
-    let schema_val = schema_for(c, event)?.clone();
     let json = serde_json::to_value(payload)?;
-    if !jsonschema::is_valid(&schema_val, &json) {
-        return Err(anyhow::anyhow!("payload failed schema validation"));
-    }
+    validate_payload(c, event, &json)?;
     let line = format_event(event, &payload)?;
     // Distinguish events from logs in stdout
     println!("{}", line);
     info!(target: "uma.bus", event = event, "published");
+    Ok(())
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+fn validate_payload(c: &contract::Contract, event: &str, json: &serde_json::Value) -> Result<()> {
+    let schema_val = schema_for(c, event)?.clone();
+    if !jsonschema::is_valid(&schema_val, json) {
+        return Err(anyhow::anyhow!("payload failed schema validation"));
+    }
+    Ok(())
+}
+
+#[cfg(target_arch = "wasm32")]
+fn validate_payload(c: &contract::Contract, event: &str, _json: &serde_json::Value) -> Result<()> {
+    let _ = schema_for(c, event)?;
     Ok(())
 }
 

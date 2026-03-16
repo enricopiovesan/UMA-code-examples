@@ -8,6 +8,10 @@ import crypto from "node:crypto";
 
 const ajv = new Ajv({ allErrors: true });
 
+function ensureLogDirs() {
+  fs.mkdirSync(path.join("logs", "events"), { recursive: true });
+}
+
 function sha256(s) { return crypto.createHash("sha256").update(s).digest("hex"); }
 function loadYaml(p) { return yaml.load(fs.readFileSync(p, "utf-8")); }
 function matchPattern(pat, name) { return pat.endsWith(".*") ? name.startsWith(pat.slice(0, -2)) : pat === name; }
@@ -20,7 +24,7 @@ function bind(pub, sub) {
 }
 function runWasmtime(wasmPath, input) {
   const t0 = Date.now();
-  const out = execFileSync("wasmtime", [wasmPath], { input: JSON.stringify(input) });
+  const out = execFileSync("wasmtime", ["run", "--dir=.", wasmPath], { input: JSON.stringify(input) });
   const ms = Date.now() - t0;
   logTelemetry({ metric: "uma.qos.latency.ms", value: ms });
   return JSON.parse(out.toString("utf-8"));
@@ -36,9 +40,11 @@ function otlpExport(metricName, value) {
 }
 
 function logTelemetry(obj) {
+  ensureLogDirs();
   fs.appendFileSync(path.join("logs", "telemetry.jsonl"), JSON.stringify(obj) + "\n");
 }
 function writeEventEnvelope(evtType, data, serviceId, contractVersion) {
+  ensureLogDirs();
   const envelope = {
     specversion: "1.0",
     id: uuid(),
@@ -66,6 +72,7 @@ function verifyPolicy() {
 }
 
 const policyDigest = verifyPolicy();
+ensureLogDirs();
 
 const contractsDir = path.join(process.cwd(), "contracts");
 const tagger = loadYaml(path.join(contractsDir, "image.tagger.contract.yaml"));
@@ -107,7 +114,7 @@ if (bindingsTE.length === 0) console.log("[warn] no binding created for ai.model
 else console.log(`[info] binding.created ${bindingsTE.map(b=>b.event).join(", ")} → ai.model.evaluator`);
 
 // Execute publisher via WASI
-const wasmPath = path.join("services", "image.tagger", "target", "wasm32-wasi", "release", "image_tagger.wasm");
+const wasmPath = path.join("services", "image.tagger", "target", "wasm32-wasip1", "release", "image_tagger.wasm");
 const input = { id: "img-001", bytes: Array.from({length: 8}, (_,i)=>i) };
 const published = runWasmtime(wasmPath, input);
 
@@ -128,7 +135,7 @@ console.log("[info] telemetry." + (tval.status === "passed" ? "ok" : "error"), J
 writeEventEnvelope("telemetry.validation.v1", tval, "telemetry.logger", logger.version);
 
 // Dispatch to edge.cache via WASI
-const edgeWasm = path.join("services", "edge.cache", "target", "wasm32-wasi", "release", "edge_cache.wasm");
+const edgeWasm = path.join("services", "edge.cache", "target", "wasm32-wasip1", "release", "edge_cache.wasm");
 const cacheOut = runWasmtime(edgeWasm, published);
 console.log("[info] cache." + (cacheOut.status === "passed" ? "ok" : "error"), JSON.stringify(cacheOut));
 writeEventEnvelope("cache.persisted.v1", cacheOut, "edge.cache", edgeCache.version);

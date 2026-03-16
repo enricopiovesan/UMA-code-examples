@@ -2,13 +2,13 @@
   "output": {
     "normalizedPost": {
       "id": 1,
-      "userId": 1,
+      "user_id": 1,
       "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
       "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
     },
     "events": [
       { "t": "0", "type": "start", "data": { "runId": "demo-001" } },
-      { "t": "1", "type": "fetch_request", "data": { "url": "https://jsonplaceholder.typicode.com/posts/1" } },
+      { "t": "1", "type": "fetch_request", "data": { "url": "http://127.0.0.1:18080/posts/1" } },
       { "t": "2", "type": "fetch_response", "data": { "status": 200 } },
       { "t": "3", "type": "normalized", "data": { "id": 1 } },
       { "t": "4", "type": "end", "data": {} }
@@ -16,14 +16,14 @@
   },
   "lifecycle": {
     "service": "uma-post-fetcher.service",
-    "serviceVersion": "1.0.0",
-    "policyRef": "default.runtime.policy",
+    "service_version": "1.0.0",
+    "policy_ref": "default.runtime.policy",
     "bindings": {
       "network.fetch": { "impl": "host-fetch", "host": "native" }
     },
     "events": [
       { "t": "0", "type": "start", "data": { "runId": "demo-001" } },
-      { "t": "1", "type": "fetch_request", "data": { "url": "https://jsonplaceholder.typicode.com/posts/1" } },
+      { "t": "1", "type": "fetch_request", "data": { "url": "http://127.0.0.1:18080/posts/1" } },
       { "t": "2", "type": "fetch_response", "data": { "status": 200 } },
       { "t": "3", "type": "normalized", "data": { "id": 1 } },
       { "t": "4", "type": "end", "data": {} }

@@ -32,8 +32,8 @@
     <pre id="output"></pre>
     <p><strong>Note:</strong> This demo uses a minimal WASI polyfill implemented in
     <code>ff.js</code>.  To run it, first build the WASI module (`cargo build
-    --release --target wasm32-wasi -p ff_eval_wasi_app`) and copy
-    <code>target/wasm32-wasi/release/ff_eval_wasi_app.wasm</code> into this
+    --release --target wasm32-wasip1 -p ff_eval_wasi_app`) and copy
+    <code>target/wasm32-wasip1/release/ff_eval_wasi_app.wasm</code> into this
     directory.</p>
     <script type="module">
       import { evaluateFlag } from './ff.js';

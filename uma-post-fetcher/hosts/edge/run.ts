@@ -6,7 +6,7 @@
 // Adjust the import path depending on your build pipeline.  For example,
 // using wasm-pack with the --target deno flag will generate a `.ts` file
 // directly consumable by Deno.
-import init, { run_json } from '../target/wasm32-wasi/release/uma_runtime.js';
+import init, { run_json } from '../target/wasm32-wasip1/release/uma_runtime.js';
 
 async function main() {
   await init();

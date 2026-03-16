@@ -3,7 +3,7 @@
 // This implementation spawns the `wasmtime` binary installed on the system
 // to run the compiled WASI module.  It assumes that `wasmtime` is on
 // the environment `PATH` and that `ff_eval_wasi_app.wasm` has been built
-// into `target/wasm32-wasi/release` relative to the project root.  The
+// into `target/wasm32-wasip1/release` relative to the project root.  The
 // adapter reads the JSON body of the incoming request, writes it to
 // the evaluator’s stdin and returns the JSON output.
 
@@ -17,7 +17,7 @@ import { WASI } from 'wasi';
 // to JavaScript, __dirname resolves to the adapters/edge directory.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const wasmPath = join(__dirname, '..', '..', 'target', 'wasm32-wasi', 'release', 'ff_eval_wasi_app.wasm');
+const wasmPath = join(__dirname, '..', '..', 'target', 'wasm32-wasip1', 'release', 'ff_eval_wasi_app.wasm');
 
 /**
  * Run the evaluator using Node’s built‑in WASI API.  This function
