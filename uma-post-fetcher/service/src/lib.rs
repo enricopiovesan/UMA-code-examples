@@ -6,10 +6,8 @@
 pub mod api;
 pub mod model;
 
-use api::{NetworkAdapter, NetworkResponse};
 use model::{Post};
 use serde_json::Value;
-use anyhow::{anyhow, Result};
 
 /// Normalise a JSONPlaceholder post into a canonical shape.  The input must be
 /// a JSON object with `id`, `userId`, `title` and `body` fields.  Returns

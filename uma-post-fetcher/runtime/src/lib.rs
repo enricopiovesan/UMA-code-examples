@@ -19,7 +19,7 @@ use crate::metadata::LifecycleRecord;
 use serde_json::{json, Value};
 use anyhow::{Result};
 use service::api::NetworkAdapter;
-use service::model::{Input, Output, Event, Post};
+use service::model::{Input, Output, Post};
 use service::{normalize_post, error_message};
 
 /// Run the UMA post fetcher with the given JSON input.  Returns a pair of
@@ -39,13 +39,16 @@ pub fn run_json(input_json: &str, adapter: Option<Box<dyn NetworkAdapter>>) -> R
     // recognised header names and values under 1024 characters.  If
     // validation fails, emit an error and skip the network fetch.
     let allowed_headers = ["accept", "content-type", "authorization"];
+    let mut header_validation_failed = false;
     for (key, value) in &input.request.headers {
         let lower = key.to_ascii_lowercase();
         if !allowed_headers.contains(&lower.as_str()) {
             event_bus.emit("error", json!({ "error": format!("unexpected header {}", key) }));
+            header_validation_failed = true;
         }
         if value.len() > 1024 {
             event_bus.emit("error", json!({ "error": format!("header {} too long", key) }));
+            header_validation_failed = true;
         }
     }
 
@@ -54,47 +57,48 @@ pub fn run_json(input_json: &str, adapter: Option<Box<dyn NetworkAdapter>>) -> R
     let mut normalized_post: Option<Post> = None;
     let mut final_state = "terminated".to_string();
 
-    // Instantiate the adapter manager and issue the fetch request.
     let adapter_manager = AdapterManager::new(adapter);
-    // Record fetch_request event
-    event_bus.emit("fetch_request", json!({ "url": input.request.url.clone() }));
-    // Perform network request.  Capture status and body.
-    let fetch_result = thread_manager.run_sync(|| {
-        adapter_manager.fetch(&input.request.url, &input.request.headers)
-    });
-    match fetch_result {
-        Ok(resp) => {
-            // Emit fetch_response event
-            event_bus.emit("fetch_response", json!({ "status": resp.status }));
-            // Parse body into JSON
-            let body_str = resp.body;
-            let value: Result<Value, _> = serde_json::from_str(&body_str);
-            match value {
-                Ok(json_val) => {
-                    // Normalise the post
-                    normalized_post = normalize_post(&json_val);
-                    if let Some(ref post) = normalized_post {
-                        event_bus.emit("normalized", json!({ "id": post.id }));
-                    } else {
-                        // Emit parse error event when fields missing
-                        let err_msg = error_message(Some(resp.status), None);
+    if !header_validation_failed {
+        // Record fetch_request event only when the runtime will perform the fetch.
+        event_bus.emit("fetch_request", json!({ "url": input.request.url.clone() }));
+        // Perform network request.  Capture status and body.
+        let fetch_result = thread_manager.run_sync(|| {
+            adapter_manager.fetch(&input.request.url, &input.request.headers)
+        });
+        match fetch_result {
+            Ok(resp) => {
+                // Emit fetch_response event
+                event_bus.emit("fetch_response", json!({ "status": resp.status }));
+                // Parse body into JSON
+                let body_str = resp.body;
+                let value: Result<Value, _> = serde_json::from_str(&body_str);
+                match value {
+                    Ok(json_val) => {
+                        // Normalise the post
+                        normalized_post = normalize_post(&json_val);
+                        if let Some(ref post) = normalized_post {
+                            event_bus.emit("normalized", json!({ "id": post.id }));
+                        } else {
+                            // Emit parse error event when fields missing
+                            let err_msg = error_message(Some(resp.status), None);
+                            event_bus.emit("error", json!({ "error": err_msg }));
+                        }
+                    }
+                    Err(parse_err) => {
+                        // Invalid JSON
+                        let err_msg = error_message(Some(resp.status), Some(&parse_err));
                         event_bus.emit("error", json!({ "error": err_msg }));
+                        normalized_post = None;
                     }
                 }
-                Err(parse_err) => {
-                    // Invalid JSON
-                    let err_msg = error_message(Some(resp.status), Some(&parse_err));
-                    event_bus.emit("error", json!({ "error": err_msg }));
-                    normalized_post = None;
-                }
             }
-        }
-        Err(err) => {
-            // Network error
-            let err_msg = err.to_string();
-            event_bus.emit("fetch_response", json!({ "status": 0 }));
-            event_bus.emit("error", json!({ "error": err_msg }));
-            normalized_post = None;
+            Err(err) => {
+                // Network error
+                let err_msg = err.to_string();
+                event_bus.emit("fetch_response", json!({ "status": 0 }));
+                event_bus.emit("error", json!({ "error": err_msg }));
+                normalized_post = None;
+            }
         }
     }
 

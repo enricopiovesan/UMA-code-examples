@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
 import Ajv from "ajv";
+import yaml from "js-yaml";
 
 const ajv = new Ajv({ allErrors: true });
 
@@ -18,7 +19,6 @@ type Contract = {
 };
 
 function loadYaml(p: string): Contract {
-  const yaml = require("js-yaml");
   return yaml.load(fs.readFileSync(p, "utf-8"));
 }
 

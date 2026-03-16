@@ -1,6 +1,5 @@
 
 use anyhow::{Context, Result};
-use jsonschema::{Draft, JSONSchema};
 use serde::Serialize;
 use tracing::info;
 
@@ -22,11 +21,11 @@ pub fn format_event<T: Serialize>(event_name: &str, payload: &T) -> Result<Strin
 }
 
 pub fn publish_validated<T: Serialize>(c: &contract::Contract, event: &str, payload: &T) -> Result<()> {
-    let schema_val = schema_for(c, event)?;
-    let compiled = JSONSchema::options().with_draft(Draft::Draft7).compile(schema_val)?;
+    let schema_val = schema_for(c, event)?.clone();
     let json = serde_json::to_value(payload)?;
-    compiled.validate(&json)
-        .map_err(|errs| anyhow::anyhow!(format!("payload failed schema: {:#?}", errs.collect::<Vec<_>>())))?;
+    if !jsonschema::is_valid(&schema_val, &json) {
+        return Err(anyhow::anyhow!("payload failed schema validation"));
+    }
     let line = format_event(event, &payload)?;
     // Distinguish events from logs in stdout
     println!("{}", line);

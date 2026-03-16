@@ -1,5 +1,5 @@
 use service::model::Event;
-use serde_json::{json, Value};
+use serde_json::Value;
 
 /// Deterministic event bus.  Maintains a logical clock and appends events
 /// to an internal vector.  Each call to `emit` increments the clock and

@@ -2,9 +2,8 @@ use service::api::{NetworkAdapter, NetworkResponse};
 
 #[cfg(target_arch = "wasm32")]
 use crate::wasi_http_adapter::WasiHttpAdapter;
-use serde_json::Value;
 use std::collections::HashMap;
-use anyhow::{Result, anyhow};
+use anyhow::Result;
 use crate::retry_adapter::RetryAdapter;
 use crate::cache_adapter::CacheAdapter;
 

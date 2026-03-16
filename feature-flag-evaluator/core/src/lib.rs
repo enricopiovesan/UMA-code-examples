@@ -130,7 +130,7 @@ pub fn rollout(flag_key: &str, user_id: &str, p: f64) -> bool {
 /// The grammar supported by this evaluator is a subset of the contract described in
 /// the README:
 ///
-/// ```
+/// ```text
 /// expr      := or_expr
 /// or_expr   := and_expr { "||" and_expr }
 /// and_expr  := cmp_expr { "&&" cmp_expr }

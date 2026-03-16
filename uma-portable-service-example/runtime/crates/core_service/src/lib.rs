@@ -2,10 +2,7 @@
 use anyhow::{Context, Result};
 use serde::Serialize;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Write};
-
-#[derive(Debug, Serialize, Clone, PartialEq)]
-
+use std::io::{BufRead, BufReader};
 
 fn thresholds_from_contract(c: &contract::Contract) -> (f32, f32) {
     let mut dark = 0.4f32;
@@ -19,7 +16,8 @@ fn thresholds_from_contract(c: &contract::Contract) -> (f32, f32) {
     (dark, bright)
 }
 
-        pub struct ImageMetrics {
+#[derive(Debug, Serialize, Clone, PartialEq)]
+pub struct ImageMetrics {
     pub width: usize,
     pub height: usize,
     pub avg: f32,
@@ -79,10 +77,11 @@ pub fn analyze_image(path: &str, service_name: &str, contract: &contract::Contra
     let min = *px.iter().min().unwrap_or(&0) as f32;
     let max = *px.iter().max().unwrap_or(&0) as f32;
     let contrast = if maxval > 0 { (max - min) / maxval as f32 } else { 0.0 };
+    let (dark_threshold, bright_threshold) = thresholds_from_contract(contract);
 
     let mut tags = Vec::new();
-    if avg_norm < 0.4 { tags.push("mostly_dark".to_string()); }
-    if avg_norm > 0.6 { tags.push("mostly_bright".to_string()); }
+    if avg_norm < dark_threshold { tags.push("mostly_dark".to_string()); }
+    if avg_norm > bright_threshold { tags.push("mostly_bright".to_string()); }
     if contrast > 0.8 { tags.push("high_contrast".to_string()); }
     if tags.is_empty() { tags.push("neutral".to_string()); }
 
@@ -135,8 +134,9 @@ mod tests {
     fn analysis_is_deterministic() {
         let pgm = "P2\n2 2\n10\n0 10 10 0\n";
         let path = write_temp_pgm(pgm);
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
         // Should compute neutral with high contrast off at maxval 10
-        analyze_image(path.to_str().unwrap(), "svc:1.0").unwrap();
+        analyze_image(path.to_str().unwrap(), "svc:1.0", &contract).unwrap();
         // If it reaches here without panic, the deterministic path is fine.
     }
 }
