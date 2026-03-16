@@ -6,6 +6,10 @@ use super::*;
 use service::api::{NetworkAdapter, NetworkResponse};
 use serde_json::{json, Value};
 use std::collections::HashMap;
+use std::sync::{
+    atomic::{AtomicUsize, Ordering},
+    Arc,
+};
 
 // A dummy network adapter for testing.  Returns a fixed JSON body.
 struct DummyAdapter;
@@ -17,6 +21,21 @@ impl NetworkAdapter for DummyAdapter {
             status: 200,
             headers: HashMap::new(),
             body: body.to_string(),
+        })
+    }
+}
+
+struct CountingAdapter {
+    fetch_calls: Arc<AtomicUsize>,
+}
+
+impl NetworkAdapter for CountingAdapter {
+    fn fetch(&self, _url: &str, _headers: &HashMap<String, String>) -> anyhow::Result<NetworkResponse> {
+        self.fetch_calls.fetch_add(1, Ordering::SeqCst);
+        Ok(NetworkResponse {
+            status: 200,
+            headers: HashMap::new(),
+            body: r#"{"id":1,"userId":2,"title":"t","body":"b"}"#.to_string(),
         })
     }
 }
@@ -85,6 +104,36 @@ fn test_header_validation_and_final_state() {
     let out_val: Value = serde_json::from_str(&out_json).unwrap();
     // normalised post may be present because dummy adapter returns a valid body
     assert!(out_val.get("events").unwrap().as_array().unwrap().iter().any(|e| e["type"] == "error"));
+    let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
+    assert_eq!(meta_val["state"], "failed");
+}
+
+#[test]
+fn test_header_validation_skips_network_fetch() {
+    let fetch_calls = Arc::new(AtomicUsize::new(0));
+    let adapter = CountingAdapter {
+        fetch_calls: Arc::clone(&fetch_calls),
+    };
+    let input = json!({
+        "request": { "url": "https://example.com", "headers": { "x-foo": "bar" } },
+        "runId": "run-3"
+    });
+    let input_str = serde_json::to_string(&input).unwrap();
+
+    let (out_json, meta_json) = run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
+    let out_val: Value = serde_json::from_str(&out_json).unwrap();
+    let event_types: Vec<&str> = out_val["events"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter_map(|e| e["type"].as_str())
+        .collect();
+
+    assert_eq!(fetch_calls.load(Ordering::SeqCst), 0);
+    assert_eq!(out_val["normalizedPost"], Value::Null);
+    assert!(!event_types.contains(&"fetch_request"));
+    assert!(!event_types.contains(&"fetch_response"));
+
     let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
     assert_eq!(meta_val["state"], "failed");
 }

@@ -1,0 +1,9 @@
+[workspace]
+members = [
+  "core",
+  "wasi-app",
+]
+resolver = "2"
+
+[profile.release]
+strip = true

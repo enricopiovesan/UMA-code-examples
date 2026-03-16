@@ -26,7 +26,7 @@ pub struct Post {
 }
 
 /// An event in the deterministic event log.
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Event {
     pub t: String,
     #[serde(rename = "type")]

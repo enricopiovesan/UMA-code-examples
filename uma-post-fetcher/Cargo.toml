@@ -4,3 +4,4 @@ members = [
     "service",
     "adapters/network/rust"
 ]
+resolver = "2"

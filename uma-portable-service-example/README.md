@@ -8,7 +8,6 @@ This example demonstrates a UMA service that runs the same logic on both a WASM 
 - `CONTRACT.json` the UMA contract for the service.
 - `runtime/` Rust workspace with crates for contract types, a tiny JSONL bus, shared core logic, and two runners.
 - `sample-data/sample.pgm` a small test image.
-- `.github/workflows/ci.yml` basic CI that builds and tests.
 
 ## Requirements
 
@@ -49,12 +48,6 @@ What tests cover:
 - Bus layer formats events deterministically.
 - Core image parser and analyzer are deterministic and robust.
 - Workspace smoke test ensures the contract is reachable by runners.
-
-## CI
-
-A basic GitHub Actions workflow is included under `.github/workflows/ci.yml`. It builds all crates, runs tests, and compiles the WASM target to ensure portability.
-```
-
 
 ## Contract enforcement
 
