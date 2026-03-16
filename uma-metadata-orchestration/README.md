@@ -25,9 +25,13 @@ The same binaries can run in browser, edge, and cloud environments, with consist
 ./scripts/run_cloud.sh
 ```
 
-Expected log:
+`build_all.sh` compiles the WASI services and installs the root and service-level Node.js dependencies required by the runner.
+
+Expected log excerpt:
 
 ```
+[info] policy.digest <sha256>
+[warn] policy.violation policy.deny forbid_evaluator_in_browser continuing due to fail-open
 [info] binding.created image.analyzed.v1 → telemetry.logger
 [info] validation.passed event_schema=image.analyzed.v1
 [info] telemetry.ok {"source":"telemetry.logger","event":"image.analyzed.v1","status":"passed"}

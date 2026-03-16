@@ -17,6 +17,12 @@ if [ ! -f "$WASM" ]; then
   exit 1
 fi
 
+if ! command -v wasmtime >/dev/null 2>&1; then
+  echo "error: wasmtime is required to run the vectors"
+  echo "install it and ensure it is on your PATH, then rerun ./scripts/run_vectors.sh"
+  exit 1
+fi
+
 VECTORS_DIR="$(dirname "$0")/../tests/vectors"
 for vector in "$VECTORS_DIR"/*.json; do
   echo "=== Running $(basename "$vector") ==="
@@ -24,5 +30,6 @@ for vector in "$VECTORS_DIR"/*.json; do
     echo "error: evaluator failed for $vector"
     exit 1
   fi
+  printf '\n'
 done
 echo "All vectors executed successfully."
