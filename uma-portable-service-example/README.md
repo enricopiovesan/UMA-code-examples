@@ -12,22 +12,22 @@ This example demonstrates a UMA service that runs the same logic on both a WASM 
 ## Requirements
 
 - Rust 1.77+
-- For WASM build, `rustup target add wasm32-wasi`
+- For WASM build, `rustup target add wasm32-wasip1`
 - Optional, a WASI runner like `wasmtime` to execute the `.wasm`
 
 ## Build and Run
 
 ```bash
 cd runtime
-rustup target add wasm32-wasi
-cargo build -p runner_wasm --target wasm32-wasi
+rustup target add wasm32-wasip1
+cargo build -p runner_wasm --target wasm32-wasip1
 cargo run -p runner_native -- ../sample-data/sample.pgm
 cargo run -p runner_native --features gpu -- ../sample-data/sample.pgm
 ```
 
 To run the WASM binary with `wasmtime`:
 ```bash
-wasmtime target/wasm32-wasi/debug/runner_wasm.wasm -- ../sample-data/sample.pgm
+wasmtime run --dir=.. target/wasm32-wasip1/debug/runner_wasm.wasm ../sample-data/sample.pgm
 ```
 
 Events are emitted as JSON lines to stdout, for example:

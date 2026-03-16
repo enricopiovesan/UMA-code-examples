@@ -1,6 +1,6 @@
 # UMA Post Fetcher Example
 
-This repository contains a minimal but production‑quality example service for Chapter 5 of the UMA book.  The goal is to demonstrate how the UMA runtime layer loads contracts, binds an adapter at runtime, enforces deterministic execution and persists a small lifecycle record.  A single compiled WebAssembly component runs unmodified in three different hosts: a browser, an edge worker and a cloud CLI.
+This repository contains a minimal but production‑quality example service for Chapter 5 of the UMA book.  The goal is to demonstrate how the UMA runtime layer loads contracts, binds an adapter at runtime, enforces deterministic execution and persists a small lifecycle record.  The example includes a native cloud CLI quick-start plus browser and edge host paths.
 
 ## Overview
 
@@ -24,7 +24,7 @@ The service accepts an input document shaped like this:
 ```json
 {
   "request": {
-    "url": "https://jsonplaceholder.typicode.com/posts/1",
+    "url": "http://127.0.0.1:18080/posts/1",
     "headers": {
       "accept": "application/json"
     }
@@ -76,8 +76,8 @@ This repository demonstrates a complete example of a **UMA** service and runtime
 To build and run the example you will need:
 
 * A recent Rust toolchain (tested with Rust 1.74 or later).  Install via [rustup](https://rustup.rs/).
-* The `wasm32‑wasi` target added to your toolchain (`rustup target add wasm32-wasi`).
-* [`wasmtime`](https://wasmtime.dev/) or another WASI runtime for running the cloud CLI example.  For outbound HTTP requests under WASI you must use a runtime built with the [wasi‑http](https://github.com/WebAssembly/wasi-http) preview interface enabled (for example, the `wasmtime-http` wrapper from the `wasi-experimental-http` project).  Otherwise the `WasiHttpAdapter` will fail and the runtime will fall back to host fetch in other environments.
+* The `wasm32‑wasip1` target added to your toolchain (`rustup target add wasm32-wasip1`) if you want to experiment with the WASI build.
+* [`wasmtime`](https://wasmtime.dev/) or another WASI runtime only if you want to run the experimental WASI build manually.  The reader quick-start cloud script uses the native CLI path so outbound HTTP works without additional host bindings.
 * [npm](https://www.npmjs.com/) for building the browser and edge hosts, plus [`wasm-pack`](https://rustwasm.github.io/wasm-pack/) if you prefer to generate JS bindings.
 
 ### Build the Workspace
@@ -93,11 +93,11 @@ cargo build --workspace --release
 This command builds the service, runtime and adapter crates for your native platform.  To build the WebAssembly component for WASI:
 
 ```sh
-rustup target add wasm32-wasi # only needed once
-cargo build -p uma_runtime --release --target wasm32-wasi
+rustup target add wasm32-wasip1 # only needed once
+cargo build -p uma_runtime --release --target wasm32-wasip1
 ```
 
-The resulting Wasm file will be placed at `target/wasm32-wasi/release/uma_runtime.wasm`.
+The resulting Wasm file will be placed at `target/wasm32-wasip1/release/uma_runtime.wasm`.
 
 #### Optional adapters: enabling retries and caching
 
@@ -122,16 +122,16 @@ Currently the retry wrapper does not emit individual events for each retry attem
 
 The same compiled component can run in a cloud CLI, an edge worker and a web browser.  The `hosts/` directory contains scripts and templates for each environment.
 
-#### Cloud CLI (WASI)
+#### Cloud CLI
 
-Use the provided shell script to run the WebAssembly module via `wasmtime`:
+Use the provided shell script to run the native CLI entrypoint:
 
 ```sh
 cd uma-post-fetcher
 bash hosts/cloud/run.sh
 ```
 
-This script compiles the runtime for `wasm32‑wasi` (if needed) and invokes it with a sample input using `wasmtime`.  The output JSON and lifecycle record are printed to stdout.
+This script builds the runtime package for the local machine, starts a temporary localhost fixture server, and pipes a sample input into the CLI entrypoint.  The output JSON and lifecycle record are printed to stdout.
 
 #### Edge Worker (Deno/Node)
 
@@ -172,7 +172,7 @@ Unit tests cover the service and runtime logic.  Run them with:
 cargo test --workspace
 ```
 
-Integration test scripts live under `tests/integration`.  The cloud integration script exercises the WASI build; browser and edge tests require building the corresponding packages first.
+Integration test scripts live under `tests/integration`.  The reader quick-start cloud flow exercises the native CLI path; browser and edge tests require building the corresponding packages first.
 
 ### Extending the Example
 
@@ -196,7 +196,7 @@ Unset variables mean the corresponding wrappers are disabled.  You can set these
 
 ### WASI HTTP support
 
-When compiled for the `wasm32` target, the adapter manager attempts to select a `WasiHttpAdapter` if no custom adapter is provided.  This adapter uses the experimental `wasi-experimental-http-client` crate to send outbound HTTP requests via the WASI preview 2 `wasi:http` interface.  Your host runtime must support this interface; otherwise the adapter will return an error and the runtime will fall back to a host‑provided fetch in browser and edge environments.
+When compiled for the `wasm32` target, the adapter manager attempts to select a `WasiHttpAdapter` if no custom adapter is provided.  In this sample that adapter fails closed with a clear error message, so the reader quick-start uses the native CLI path instead of relying on host-specific WASI HTTP bindings.
 * **Batch Requests** – Modify the service API to accept a list of URLs and normalise multiple posts in a single run.  Extend the event bus to log events for each request deterministically.
 * **New Capabilities** – Define additional capability contracts (e.g. `storage.put`, `queue.publish`) under `contracts/` and provide corresponding adapters.  Update the runtime policy to select implementations at runtime.
 

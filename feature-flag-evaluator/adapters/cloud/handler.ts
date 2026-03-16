@@ -3,7 +3,7 @@
 // This handler is designed for Node.js serverless environments (for example
 // AWS Lambda).  It spawns the `wasmtime` binary installed on the system to
 // run the compiled WASI module.  The compiled evaluator must be present at
-// `target/wasm32-wasi/release/ff_eval_wasi_app.wasm` relative to the
+// `target/wasm32-wasip1/release/ff_eval_wasi_app.wasm` relative to the
 // project root.  The handler reads the JSON body of the incoming event,
 // writes it to the evaluator’s stdin and returns the JSON output.
 
@@ -15,7 +15,7 @@ import { WASI } from 'wasi';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const wasmPath = join(__dirname, '..', '..', 'target', 'wasm32-wasi', 'release', 'ff_eval_wasi_app.wasm');
+const wasmPath = join(__dirname, '..', '..', 'target', 'wasm32-wasip1', 'release', 'ff_eval_wasi_app.wasm');
 
 async function runEvaluator(input: any): Promise<string> {
   // Read the compiled WebAssembly binary.

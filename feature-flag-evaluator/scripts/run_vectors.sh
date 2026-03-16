@@ -6,14 +6,14 @@
 #   ./scripts/run_vectors.sh
 #
 # Ensure that you have built the evaluator with:
-#   cargo build --release --target wasm32-wasi -p ff_eval_wasi_app
+#   cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app
 # and that `wasmtime` is installed and available on your PATH.
 
 set -euo pipefail
-WASM="$(dirname "$0")/../target/wasm32-wasi/release/ff_eval_wasi_app.wasm"
+WASM="$(dirname "$0")/../target/wasm32-wasip1/release/ff_eval_wasi_app.wasm"
 if [ ! -f "$WASM" ]; then
   echo "error: wasm module not found at $WASM"
-  echo "build the module with: cargo build --release --target wasm32-wasi -p ff_eval_wasi_app"
+  echo "build the module with: cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app"
   exit 1
 fi
 

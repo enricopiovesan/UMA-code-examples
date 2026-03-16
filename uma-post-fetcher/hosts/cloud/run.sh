@@ -1,22 +1,48 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Build the runtime for the wasm32-wasi target.  Requires Rust with the
-# wasm32-wasi target installed and `wasmtime` available in PATH.
+# Build and run the native CLI entrypoint for the runtime package.  The
+# sample still supports a WASI build, but the reader quick-start uses the
+# native path so outbound HTTP works without additional host bindings.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 pushd "$ROOT_DIR" > /dev/null
 
-echo "Building WebAssembly module..."
-cargo build -p uma_runtime --release --target wasm32-wasi
-
-WASM_PATH="target/wasm32-wasi/release/uma_runtime.wasm"
-if [[ ! -f "$WASM_PATH" ]]; then
-  echo "Failed to build WebAssembly module at $WASM_PATH" >&2
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "python3 is required for the local fixture server used by this quick-start." >&2
   exit 1
 fi
 
-echo "Running the service in cloud host via wasmtime..."
-INPUT='{"request":{"url":"https://jsonplaceholder.typicode.com/posts/1","headers":{"accept":"application/json"}},"runId":"demo-001"}'
-wasmtime run "$WASM_PATH" --invoke run_json "$INPUT"
+TMP_DIR="$(mktemp -d)"
+PORT="${UMA_DEMO_PORT:-18080}"
+SERVER_PID=""
+
+cleanup() {
+  if [[ -n "$SERVER_PID" ]]; then
+    kill "$SERVER_PID" >/dev/null 2>&1 || true
+    wait "$SERVER_PID" 2>/dev/null || true
+  fi
+  rm -rf "$TMP_DIR"
+}
+
+trap cleanup EXIT
+
+mkdir -p "$TMP_DIR/posts"
+cp tests/fixtures/sample_post.json "$TMP_DIR/posts/1"
+python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$TMP_DIR" >/dev/null 2>&1 &
+SERVER_PID=$!
+sleep 1
+
+echo "Building native runtime CLI..."
+cargo build -p uma_runtime --release
+
+BIN_PATH="target/release/uma_runtime"
+if [[ ! -x "$BIN_PATH" ]]; then
+  echo "Failed to build native runtime CLI at $BIN_PATH" >&2
+  exit 1
+fi
+
+echo "Running the service in cloud host via native CLI..."
+INPUT='{"request":{"url":"http://127.0.0.1:'"$PORT"'/posts/1","headers":{"accept":"application/json"}},"runId":"demo-001"}'
+printf '%s' "$INPUT" | "$BIN_PATH"
 
 popd > /dev/null

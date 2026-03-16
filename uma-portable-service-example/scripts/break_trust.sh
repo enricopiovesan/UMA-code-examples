@@ -9,9 +9,9 @@ echo "Corrupted image run, expect error"
 cargo run -p runner_native -- /tmp/bad.pgm || echo "Error as expected"
 
 echo "WASM denied file access if not preopened"
-rustup target add wasm32-wasi >/dev/null 2>&1 || true
-cargo build -p runner_wasm --target wasm32-wasi
-wasmtime target/wasm32-wasi/debug/runner_wasm.wasm -- /tmp/bad.pgm || echo "Denied as expected"
+rustup target add wasm32-wasip1 >/dev/null 2>&1 || true
+cargo build -p runner_wasm --target wasm32-wasip1
+wasmtime run --dir=/tmp target/wasm32-wasip1/debug/runner_wasm.wasm /tmp/bad.pgm || echo "Denied as expected"
 
 echo "GPU path without feature still emits telemetry with reason"
 cargo run -p runner_native -- ../sample-data/sample.pgm | grep "gpu.telemetry.reported" || true

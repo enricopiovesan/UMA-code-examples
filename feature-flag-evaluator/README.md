@@ -1,6 +1,6 @@
 # Feature Flag Evaluator (ff‑eval)
 
-This repository contains a minimal yet complete implementation of a deterministic feature flag evaluator.  The evaluator can be compiled to `wasm32‑wasi` and reused from the browser, edge workers, or cloud handlers via thin adapters.  The goal of this example is to show how to build a portable flag evaluation engine that takes JSON in and returns JSON out with no external dependencies in the core logic.
+This repository contains a minimal yet complete implementation of a deterministic feature flag evaluator.  The evaluator can be compiled to `wasm32‑wasip1` and reused from the browser, edge workers, or cloud handlers via thin adapters.  The goal of this example is to show how to build a portable flag evaluation engine that takes JSON in and returns JSON out with no external dependencies in the core logic.
 
 ## Contract (v1)
 
@@ -81,7 +81,7 @@ ff-eval/
     vectors/
       t1.json            – test vector: country CA; matches rule 0
       t2.json            – test vector: country US; matches rollout rule 1
-      t3.json            – test vector: no match; uses default
+      t3.json            – test vector: rollout match for the beta cohort
 ```
 
 The `contracts/` directory contains illustrative JSON Schemas to document the input and output structure.  These schemas are intentionally simple and do not cover all possible edge cases.
@@ -100,14 +100,14 @@ You will need a working Rust toolchain and (optionally) a Node.js runtime if you
 
 ### Environment setup
 
-Once you have Rust installed you need to add the `wasm32-wasi` compilation target and install a WASI runtime.  The exact steps differ slightly between operating systems.
+Once you have Rust installed you need to add the `wasm32-wasip1` compilation target and install a WASI runtime.  The exact steps differ slightly between operating systems.
 
 **macOS**
 
 1. Add the WASI target:
 
    ```sh
-   rustup target add wasm32-wasi
+   rustup target add wasm32-wasip1
    ```
 
 2. (Optional) Install a standalone WASI runtime via Homebrew if you wish to run the `.wasm` outside of Node:
@@ -129,7 +129,7 @@ Once you have Rust installed you need to add the `wasm32-wasi` compilation targe
 1. Add the WASI compilation target:
 
    ```sh
-   rustup target add wasm32-wasi
+   rustup target add wasm32-wasip1
    ```
 
 2. (Optional) Download a [Wasmtime release](https://github.com/bytecodealliance/wasmtime/releases) for Linux, extract the archive into a directory (for example `~/bin/wasmtime`) and ensure that directory is in your `PATH`.  You can also install Wasmtime via your package manager if available.
@@ -143,7 +143,7 @@ Once you have Rust installed you need to add the `wasm32-wasi` compilation targe
 1. Add the WASI compilation target in PowerShell:
 
    ```powershell
-   rustup target add wasm32-wasi
+   rustup target add wasm32-wasip1
    ```
 
 2. (Optional) Download the Windows Wasmtime zip from the [Wasmtime releases page](https://github.com/bytecodealliance/wasmtime/releases).  Extract it to a directory (for example `C:\wasmtime`) and add this directory to your `PATH` if you plan to run the `.wasm` outside of Node.
@@ -157,12 +157,12 @@ After completing the above steps you can build the project and run the examples 
 To build the WASI binary:
 
 ```sh
-rustup target add wasm32-wasi
-cargo build --release --target wasm32-wasi -p ff_eval_wasi_app
+rustup target add wasm32-wasip1
+cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app
 ```
 
 The compiled WebAssembly module will be written to
-`target/wasm32-wasi/release/ff_eval_wasi_app.wasm`.
+`target/wasm32-wasip1/release/ff_eval_wasi_app.wasm`.
 
 ### Running unit tests
 
@@ -182,7 +182,7 @@ Three JSON files under `tests/vectors/` demonstrate typical inputs and expected 
 ./scripts/run_vectors.sh
 ```
 
-Ensure you have built the WASI module first (`cargo build --release --target wasm32-wasi -p ff_eval_wasi_app`) and that `wasmtime` is installed and on your `PATH`.
+Ensure you have built the WASI module first (`cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app`) and that `wasmtime` is installed and on your `PATH`.
 
 ### Running locally with wasmtime or wasmer
 
@@ -190,7 +190,7 @@ Assuming you have [wasmtime](https://github.com/bytecodealliance/wasmtime) or [w
 
 ```sh
 echo '{"flag":{"key":"paywall","rules":[{"if":"country == \'CA\'","then":true},{"if":"rollout(0.20)","then":true}],"default":false},"context":{"userId":"u123","country":"CA"}}' \
-| wasmtime target/wasm32-wasi/release/ff_eval_wasi_app.wasm
+| wasmtime target/wasm32-wasip1/release/ff_eval_wasi_app.wasm
 ```
 
 This should print `{"key":"paywall","enabled":true,"matchedRule":0}`.  If the input cannot be parsed, the process exits with status 1.
@@ -207,10 +207,10 @@ To run the browser demo:
 1. Build the WASI module:
 
    ```sh
-   cargo build --release --target wasm32-wasi -p ff_eval_wasi_app
+   cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app
    ```
 
-2. Copy the compiled module into the `adapters/browser` directory (for example using `cp target/wasm32-wasi/release/ff_eval_wasi_app.wasm ff-eval/adapters/browser/`).
+2. Copy the compiled module into the `adapters/browser` directory (for example using `cp target/wasm32-wasip1/release/ff_eval_wasi_app.wasm ff-eval/adapters/browser/`).
 
 3. Open `adapters/browser/index.html` in a web server that supports ES modules (for example `python3 -m http.server`) and click “Evaluate” to run the evaluator in your browser.
 
@@ -218,7 +218,7 @@ Two Node‑based adapters are provided:
 
 * **Edge worker (`adapters/edge/worker.ts`)**: This file exports a `fetch` function suitable for use in a Cloudflare Worker or similar environment.  It uses Node’s built‑in `wasi` module to instantiate and run the compiled WebAssembly module in memory.  The worker reads the incoming request body as JSON, writes it to the evaluator’s stdin and returns the evaluator’s stdout as the response.  Because it uses the standard `wasi` API there is no dependency on an external runtime like `wasmtime`.
 
-* **Cloud handler (`adapters/cloud/handler.ts`)**: This file defines an AWS Lambda–style handler that uses Node’s `wasi` API.  Like the edge worker it loads the compiled module into memory, writes the JSON input to stdin and returns the JSON output.  It expects the compiled `.wasm` file to reside in `target/wasm32-wasi/release/ff_eval_wasi_app.wasm`.  If the input is invalid JSON or the module fails, it returns a 400 or 500 status accordingly.
+* **Cloud handler (`adapters/cloud/handler.ts`)**: This file defines an AWS Lambda–style handler that uses Node’s `wasi` API.  Like the edge worker it loads the compiled module into memory, writes the JSON input to stdin and returns the JSON output.  It expects the compiled `.wasm` file to reside in `target/wasm32-wasip1/release/ff_eval_wasi_app.wasm`.  If the input is invalid JSON or the module fails, it returns a 400 or 500 status accordingly.
 
 For environments that support Deno or other runtimes, you can adapt these examples by replacing the Node‑specific APIs with appropriate equivalents and ensuring that a WASI implementation (either built‑in or via a polyfill) is available.
 

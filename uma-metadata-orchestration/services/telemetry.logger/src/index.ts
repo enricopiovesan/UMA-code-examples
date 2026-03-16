@@ -1,5 +1,5 @@
 import Ajv from "ajv";
-import fs from "node:fs";
+import * as fs from "node:fs";
 
 const ajv = new Ajv({ allErrors: true });
 

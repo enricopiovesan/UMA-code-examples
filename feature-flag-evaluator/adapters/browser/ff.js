@@ -11,7 +11,7 @@
 // and handling process exit.
 //
 // To use this adapter you must compile the evaluator for the
-// `wasm32‑wasi` target (`cargo build --release --target wasm32-wasi -p
+// `wasm32‑wasip1` target (`cargo build --release --target wasm32-wasip1 -p
 // ff_eval_wasi_app`) and copy the resulting
 // `ff_eval_wasi_app.wasm` file into this directory.  When the
 // browser loads `ff.js` it will fetch `ff_eval_wasi_app.wasm` from

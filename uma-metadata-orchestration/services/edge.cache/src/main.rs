@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::io::{Read, Write};
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct ImageAnalyzed { pub id: String, pub tags: Vec<String> }
 
 #[derive(Serialize)]

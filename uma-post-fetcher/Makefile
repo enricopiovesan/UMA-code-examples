@@ -10,8 +10,8 @@ build:
 
 # Build the WebAssembly module for the runtime
 wasm:
-	rustup target add wasm32-wasi || true
-	cargo build -p uma_runtime --release --target wasm32-wasi
+	rustup target add wasm32-wasip1 || true
+	cargo build -p uma_runtime --release --target wasm32-wasip1
 
 # Clean build artifacts
 clean:

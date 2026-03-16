@@ -6,6 +6,10 @@ import yaml from "js-yaml";
 
 const ajv = new Ajv({ allErrors: true });
 
+function ensureLogDirs() {
+  fs.mkdirSync(path.join("logs", "events"), { recursive: true });
+}
+
 type Contract = {
   name: string;
   version: string;
@@ -37,11 +41,12 @@ function bind(pub: Contract, sub: Contract) {
 }
 
 function runWasmtime(wasmPath: string, input: any): any {
-  const out = execFileSync("wasmtime", [wasmPath], { input: JSON.stringify(input) });
+  const out = execFileSync("wasmtime", ["run", "--dir=.", wasmPath], { input: JSON.stringify(input) });
   return JSON.parse(out.toString("utf-8"));
 }
 
 async function main() {
+  ensureLogDirs();
   const contractsDir = path.join(process.cwd(), "contracts");
   const tagger = loadYaml(path.join(contractsDir, "image.tagger.contract.yaml"));
   const logger = loadYaml(path.join(contractsDir, "telemetry.logger.contract.yaml"));
@@ -62,7 +67,7 @@ async function main() {
   }
 
   // Execute publisher via WASI
-  const wasmPath = path.join("services", "image.tagger", "target", "wasm32-wasi", "release", "image_tagger.wasm");
+  const wasmPath = path.join("services", "image.tagger", "target", "wasm32-wasip1", "release", "image_tagger.wasm");
   const input = { id: "img-001", bytes: Array.from({length: 8}, (_,i)=>i) };
   const published = runWasmtime(wasmPath, input);
 
@@ -83,7 +88,7 @@ async function main() {
   console.log("[info] telemetry." + (tval.status === "passed" ? "ok" : "error"), JSON.stringify(tval));
 
   // Dispatch to edge.cache via WASI
-  const edgeWasm = path.join("services", "edge.cache", "target", "wasm32-wasi", "release", "edge_cache.wasm");
+  const edgeWasm = path.join("services", "edge.cache", "target", "wasm32-wasip1", "release", "edge_cache.wasm");
   const cacheOut = runWasmtime(edgeWasm, published);
   console.log("[info] cache." + (cacheOut.status === "passed" ? "ok" : "error"), JSON.stringify(cacheOut));
 }
