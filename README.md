@@ -1,4 +1,4 @@
-# UMA Code Examples
+# Universal Microservices Architecture (UMA) Code Examples
 
 This repository hosts code samples for the **Universal Microservices Architecture (UMA)**.  
 UMA is a design pattern for building portable microservices that can run consistently across **client, edge, and cloud** environments.  
