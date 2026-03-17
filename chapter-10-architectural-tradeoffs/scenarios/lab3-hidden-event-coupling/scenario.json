@@ -1,0 +1,47 @@
+{
+  "title": "Hidden event coupling",
+  "summary": "A vague event replaces a stable domain fact, and multiple consumers begin depending on implied semantics.",
+  "services": [
+    {
+      "id": "upload-ingest",
+      "capability": "media.ingest",
+      "summary": "Accepts uploads and emits processing.ready, a vague workflow event.",
+      "placements": ["client", "edge", "cloud"],
+      "events": { "consumes": [], "emits": ["processing.ready"] },
+      "metadata": { "fields": ["capability", "placements", "inputSchema"], "selection_rank": 10 }
+    },
+    {
+      "id": "image-analyzer",
+      "capability": "media.analyze",
+      "summary": "Interprets processing.ready as a signal to analyze the uploaded image.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["processing.ready"], "emits": ["analysis.completed"] },
+      "metadata": { "fields": ["capability", "placements", "semanticHint"], "selection_rank": 20 }
+    },
+    {
+      "id": "metadata-indexer",
+      "capability": "media.index",
+      "summary": "Also interprets processing.ready as permission to index metadata.",
+      "placements": ["cloud"],
+      "events": { "consumes": ["processing.ready"], "emits": ["metadata.indexed"] },
+      "metadata": { "fields": ["capability", "placements", "semanticHint"], "selection_rank": 21 }
+    }
+  ],
+  "interactions": [
+    { "from": "upload-ingest", "event": "processing.ready", "to": "image-analyzer" },
+    { "from": "upload-ingest", "event": "processing.ready", "to": "metadata-indexer" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "ambiguous",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Broad or vague events create hidden coupling even when services do not call each other directly.",
+    "Consumers should depend on stable domain facts rather than on workflow hints.",
+    "Event semantics are part of architecture and must stay explicit."
+  ]
+}

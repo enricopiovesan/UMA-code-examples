@@ -1,0 +1,8 @@
+{
+  "name": "chapter-10-architectural-tradeoffs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/*.test.mjs"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "title": "Over orchestrated workflow",
+  "summary": "A central coordinator dictates too much of the process, reintroducing rigidity and coupling.",
+  "services": [
+    {
+      "id": "upload-ingest",
+      "capability": "media.ingest",
+      "summary": "Accepts uploads and emits image.uploaded.",
+      "placements": ["client", "edge", "cloud"],
+      "events": { "consumes": [], "emits": ["image.uploaded"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 10 }
+    },
+    {
+      "id": "workflow-coordinator",
+      "capability": "workflow.coordinate",
+      "summary": "Observes upload events and emits the exact next workflow step for each participant.",
+      "placements": ["cloud"],
+      "events": { "consumes": ["image.uploaded", "image.analyzed"], "emits": ["analyze.now", "index.now"] },
+      "metadata": {
+        "fields": ["capability", "placements", "workflowTable", "branchRules", "retryRules", "manualOverrides", "observabilityHooks", "priorityRules"],
+        "selection_rank": 50
+      }
+    },
+    {
+      "id": "image-analyzer",
+      "capability": "media.analyze",
+      "summary": "Runs only when the coordinator emits analyze.now.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["analyze.now"], "emits": ["image.analyzed"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 20 }
+    },
+    {
+      "id": "metadata-indexer",
+      "capability": "media.index",
+      "summary": "Runs only when the coordinator emits index.now.",
+      "placements": ["cloud"],
+      "events": { "consumes": ["index.now"], "emits": ["metadata.indexed"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 30 }
+    }
+  ],
+  "interactions": [
+    { "from": "upload-ingest", "event": "image.uploaded", "to": "workflow-coordinator" },
+    { "from": "workflow-coordinator", "event": "analyze.now", "to": "image-analyzer" },
+    { "from": "image-analyzer", "event": "image.analyzed", "to": "workflow-coordinator" },
+    { "from": "workflow-coordinator", "event": "index.now", "to": "metadata-indexer" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "workflow-instructions",
+    "metadata_quality": "bloated",
+    "orchestration": "rigid-centralized",
+    "runtime_placement": "constraint-driven",
+    "state_model": "duplicated-projections"
+  },
+  "expectations": [
+    "Central orchestration can improve visibility short term while making the system more fragile over time.",
+    "Instruction-like events are a warning sign that choreography is collapsing into imperative control.",
+    "Metadata bloat often appears when orchestration logic is pushed into configuration without clear boundaries."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "title": "Recovered architecture",
+  "summary": "The workflow is simplified back into stable domain events, explicit selection, and focused coordination.",
+  "services": [
+    {
+      "id": "upload-ingest",
+      "capability": "media.ingest",
+      "summary": "Accepts uploads and emits image.uploaded.",
+      "placements": ["client", "edge", "cloud"],
+      "events": { "consumes": [], "emits": ["image.uploaded"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 10 }
+    },
+    {
+      "id": "image-analyzer-edge",
+      "capability": "media.analyze",
+      "summary": "Primary low-latency analyzer with explicit rank and edge preference.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["image.uploaded"], "emits": ["image.analyzed"] },
+      "metadata": { "fields": ["capability", "placements", "latencyTargetMs"], "selection_rank": 40 }
+    },
+    {
+      "id": "metadata-indexer",
+      "capability": "media.index",
+      "summary": "Indexes analysis output from stable domain events.",
+      "placements": ["cloud"],
+      "events": { "consumes": ["image.analyzed"], "emits": ["metadata.indexed"] },
+      "metadata": { "fields": ["capability", "placements", "retention"], "selection_rank": 30 }
+    }
+  ],
+  "interactions": [
+    { "from": "upload-ingest", "event": "image.uploaded", "to": "image-analyzer-edge" },
+    { "from": "image-analyzer-edge", "event": "image.analyzed", "to": "metadata-indexer" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Architecture recovers when capability boundaries, events, and metadata become explicit and disciplined again.",
+    "Deterministic runtime selection should be explained by metadata instead of by hidden convention.",
+    "Selective coordination is fine, but system behavior should still emerge from stable shared rules."
+  ]
+}

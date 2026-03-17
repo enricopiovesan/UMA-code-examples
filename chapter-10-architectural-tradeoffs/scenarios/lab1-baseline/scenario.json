@@ -1,0 +1,65 @@
+{
+  "title": "Coherent baseline",
+  "summary": "A small UMA system with clear capability boundaries, stable events, concise metadata, and distributed event progression.",
+  "services": [
+    {
+      "id": "upload-ingest",
+      "capability": "media.ingest",
+      "summary": "Accepts uploads and emits a stable domain fact for downstream processing.",
+      "placements": ["client", "edge", "cloud"],
+      "events": {
+        "consumes": [],
+        "emits": ["image.uploaded"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "inputSchema", "outputSchema"],
+        "selection_rank": 10
+      }
+    },
+    {
+      "id": "image-analyzer",
+      "capability": "media.analyze",
+      "summary": "Derives image findings from uploaded media and emits image.analyzed.",
+      "placements": ["edge", "cloud"],
+      "events": {
+        "consumes": ["image.uploaded"],
+        "emits": ["image.analyzed"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "latencyTargetMs", "securityTier"],
+        "selection_rank": 20
+      }
+    },
+    {
+      "id": "metadata-indexer",
+      "capability": "media.index",
+      "summary": "Indexes completed analysis for later search and retrieval.",
+      "placements": ["cloud"],
+      "events": {
+        "consumes": ["image.analyzed"],
+        "emits": ["metadata.indexed"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "storageClass", "retention"],
+        "selection_rank": 30
+      }
+    }
+  ],
+  "interactions": [
+    { "from": "upload-ingest", "event": "image.uploaded", "to": "image-analyzer" },
+    { "from": "image-analyzer", "event": "image.analyzed", "to": "metadata-indexer" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "A coherent capability boundary should need only a few services and a short event chain.",
+    "Events should communicate domain facts instead of workflow instructions.",
+    "Metadata should guide placement and composition without becoming a second implementation."
+  ]
+}
