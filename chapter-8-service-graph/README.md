@@ -33,9 +33,13 @@ This folder follows the same reader-first structure used in earlier chapters:
 
 ```text
 chapter-8-service-graph/
+  Cargo.toml
   README.md
   contracts/
     schemas/
+  src/
+    lib.rs
+    main.rs
   runtime/
     graph.mjs
     graph_diff.mjs
@@ -58,17 +62,19 @@ chapter-8-service-graph/
     smoke_graph_labs.sh
 ```
 
-The runtime prints a simple graph snapshot so the reader can see which services and events are currently connected.
+The validated reader path is the Rust CLI in `src/`.
+The JavaScript files under `runtime/` remain as reference implementations and comparison material.
 
 ---
 
 ## Prerequisites
 
-- Node.js 20 or newer
+- Rust 1.76 or newer
 - a checkout of this repository
+- the `wasm32-wasip1` target is not required for this chapter
 
-No extra packages are required for this Chapter 8 scaffold.
-The runtime, validator, and tests use only the built-in Node standard library.
+No extra packages are required for the validated Rust path.
+The JavaScript runtime files are retained as a secondary reference implementation.
 The scenario contracts reference versioned schema files under `contracts/schemas/`.
 
 ---
@@ -155,6 +161,13 @@ The Git-oriented inspection step is:
 - `./scripts/graph_diff.sh <from> <to>` for graph changes
 
 This keeps the chapter runnable while still letting the reader inspect architectural evolution with Git's diff model.
+
+### "Which implementation should I treat as the main one?"
+
+Use the Rust CLI through the `scripts/` entry points.
+Those scripts call `cargo run --offline` and `cargo test --offline`, so the Chapter 8 quick-start path is Rust-first.
+
+The JavaScript files under `runtime/` are there as secondary reference material, not as the primary reader workflow.
 
 ### "What should I pay attention to in the output?"
 

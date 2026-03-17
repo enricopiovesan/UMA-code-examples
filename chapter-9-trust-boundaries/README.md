@@ -32,10 +32,14 @@ By the end of this hands-on section, the reader should be able to:
 
 ```text
 chapter-9-trust-boundaries/
+  Cargo.toml
   README.md
   contracts/
     policies/
     schemas/
+  src/
+    lib.rs
+    main.rs
   runtime/
     runner.mjs
     trust_lib.mjs
@@ -56,17 +60,18 @@ chapter-9-trust-boundaries/
     smoke_trust_labs.sh
 ```
 
-The runtime prints an allow or deny outcome and an audit log that explains the exact trust rule that fired.
+The validated reader path is the Rust CLI in `src/`.
+The JavaScript files under `runtime/` remain as reference implementations and comparison material.
 
 ---
 
 ## Prerequisites
 
-- Node.js 20 or newer
+- Rust 1.76 or newer
 - a checkout of this repository
 
-No extra packages are required for this Chapter 9 scaffold.
-The runtime, validator, and tests use only the built-in Node standard library.
+No extra packages are required for the validated Rust path.
+The JavaScript runtime files are retained as a secondary reference implementation.
 
 ---
 
@@ -178,6 +183,13 @@ The first answers "what changed in runtime behavior?"
 The second answers "which exact metadata fields changed?"
 
 Most readers should start with `trust_diff.sh` and only use `policy_diff.sh` when they want the underlying file diff.
+
+### "Which implementation should I treat as the main one?"
+
+Use the Rust CLI through the `scripts/` entry points.
+Those scripts call `cargo run --offline` and `cargo test --offline`, so the Chapter 9 quick-start path is Rust-first.
+
+The JavaScript files under `runtime/` are there as secondary reference material, not as the primary reader workflow.
 
 ### "How do I know if the lab gave me value?"
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-node runtime/runner.mjs --list
+cargo run --offline --quiet -- list
