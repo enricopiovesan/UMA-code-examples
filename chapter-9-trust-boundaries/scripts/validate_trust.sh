@@ -7,4 +7,4 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   exit 0
 fi
 
-node runtime/validate.mjs "$@"
+cargo run --offline --quiet -- validate "$@"

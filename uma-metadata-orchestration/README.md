@@ -2,7 +2,7 @@
 
 This example demonstrates Chapter 7 of the UMA Book, Contracts, Events, and Orchestration.
 It is production oriented, contract first, and runnable on a typical developer machine.
-The validated quick-start path is the cloud runner. The repository also includes lightweight browser and edge harnesses that illustrate how the same orchestration model can be surfaced in those environments.
+The validated quick-start path is now the Rust cloud runner. The repository also includes lightweight browser and edge harnesses plus TypeScript reference components that illustrate how the same orchestration model can be surfaced in other environments.
 
 ## Key concepts
 
@@ -14,9 +14,9 @@ The validated quick-start path is the cloud runner. The repository also includes
 ## Prerequisites
 
 - Rust 1.76 or newer
-- Node.js 20 or newer
 - Wasmtime 20 or newer, https://github.com/bytecodealliance/wasmtime
 - jq and yq are optional
+- Node.js 20 or newer only if you want to build the optional browser and edge helper artifacts
 
 ## Quick start
 
@@ -25,7 +25,8 @@ The validated quick-start path is the cloud runner. The repository also includes
 ./scripts/run_cloud.sh
 ```
 
-`build_all.sh` compiles the WASI services and installs the root and service-level Node.js dependencies required by the runner.
+`build_all.sh` compiles the WASI services and the Rust cloud runner.
+Set `BUILD_OPTIONAL_JS=1` if you also want to build the optional JavaScript helper artifacts for the browser and edge harnesses.
 
 Expected log excerpt:
 
@@ -41,14 +42,16 @@ Expected log excerpt:
 
 - contracts, all service contracts and JSON Schemas
 - services, source code for services
-- runtime, orchestration and validation runner
+- runtime-rust, validated Rust orchestration runner
+- runtime, secondary TypeScript reference runner and adapters
 - scripts, build, run, and validation helpers
 - docs, extra references
 
 ## Notes
 
-- The runner executes the Rust WASI module with wasmtime over stdin and stdout, then validates the produced event using the declared schema, then dispatches it to the telemetry subscriber.
+- The validated runner executes the Rust WASI module with wasmtime over stdin and stdout, then validates the produced event using the declared schema, then dispatches it to the telemetry and cache subscribers.
 - Policy adapter performs signature and digest checks as hooks, you can wire it to your own organization policy registry.
+- The TypeScript runner is kept as a secondary reference path, not the primary quick-start.
 
 
 ## Progressive learning path
@@ -85,7 +88,8 @@ Expected log excerpt:
 deno run --allow-run edge/edge_runner.ts
 ```
 
-The edge harness shells out to `node runtime/runner.js` for parity; it is a thin demonstration wrapper rather than a separate validated execution path.
+The browser and edge harnesses remain optional demonstrations.
+The validated Chapter 7 path is `./scripts/build_all.sh` plus `./scripts/run_cloud.sh`, which now uses the Rust runner.
 
 ## Policy rule, fail closed
 

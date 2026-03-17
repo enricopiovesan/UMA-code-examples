@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-node runtime/graph.mjs --list
+cargo run --offline --quiet -- list

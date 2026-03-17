@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Compile runner TypeScript on the fly using node --loader if available or ts-node.
-# For simplicity, transpile with a local tsc pass if present, otherwise run via ts-node/register.
-if ! command -v node >/dev/null 2>&1; then
-  echo "Node.js is required"
+if ! command -v cargo >/dev/null 2>&1; then
+  echo "Rust and cargo are required"
   exit 1
 fi
 if ! command -v wasmtime >/dev/null 2>&1; then
-  echo "Wasmtime is required to execute WASI modules"
-  exit 1
+  os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+  arch="$(uname -m)"
+  case "$arch" in
+    arm64) arch="aarch64" ;;
+    x86_64) arch="x86_64" ;;
+  esac
+  case "$os" in
+    darwin) os="macos" ;;
+    linux) os="linux" ;;
+  esac
+  for base in ".bin" "../.bin"; do
+    found=$(find "$base" -maxdepth 2 -type f -path "*${arch}-${os}*/wasmtime" 2>/dev/null | head -n 1 || true)
+    if [ -n "${found:-}" ]; then
+      PATH="$(dirname "$found"):$PATH"
+      export PATH
+      break
+    fi
+  done
 fi
-if [ ! -d node_modules/ajv ]; then
-  echo "Runtime dependencies are missing."
-  echo "Run ./scripts/build_all.sh first so the root runner dependencies are installed."
+if ! command -v wasmtime >/dev/null 2>&1; then
+  echo "Wasmtime is required to execute WASI modules"
   exit 1
 fi
 if [ ! -f services/image.tagger/target/wasm32-wasip1/release/image_tagger.wasm ] || \
@@ -21,5 +34,9 @@ if [ ! -f services/image.tagger/target/wasm32-wasip1/release/image_tagger.wasm ]
   echo "Run ./scripts/build_all.sh first to compile the services."
   exit 1
 fi
+if [ ! -f runtime-rust/Cargo.toml ]; then
+  echo "Rust cloud runner is missing."
+  exit 1
+fi
 # The quick-start path is fail-open so readers can see the full orchestration flow.
-POLICY_FAIL_MODE="${POLICY_FAIL_MODE:-open}" node runtime/runner.js
+POLICY_FAIL_MODE="${POLICY_FAIL_MODE:-open}" cargo run --offline --quiet --manifest-path runtime-rust/Cargo.toml
