@@ -77,4 +77,9 @@ pushd "$ROOT_DIR/chapter-10-architectural-tradeoffs" >/dev/null
 ./scripts/smoke_arch_labs.sh
 popd >/dev/null
 
+echo "== Chapter 11: chapter-11-evolution-without-fragmentation =="
+pushd "$ROOT_DIR/chapter-11-evolution-without-fragmentation" >/dev/null
+./scripts/smoke_evolution_labs.sh
+popd >/dev/null
+
 echo "Smoke run completed successfully."

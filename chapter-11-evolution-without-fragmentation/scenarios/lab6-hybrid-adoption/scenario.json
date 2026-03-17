@@ -1,0 +1,53 @@
+{
+  "title": "Hybrid adoption without a rewrite",
+  "summary": "A brownfield system still has legacy internals, but explicit contracts and runtime enforcement now govern the boundaries where change matters.",
+  "services": [
+    {
+      "id": "legacy-profile-core",
+      "capability": "customer.profile.legacy-core",
+      "version": "0.9.0",
+      "summary": "Legacy implementation kept in place behind a governed contract boundary.",
+      "placements": ["cloud"],
+      "consumers": ["profile-normalizer-v2"]
+    },
+    {
+      "id": "profile-normalizer-v2",
+      "capability": "customer.profile.normalize",
+      "version": "2.1.0",
+      "summary": "Governed façade that isolates legacy behavior and exposes one explicit contract line.",
+      "placements": ["cloud", "edge"],
+      "consumers": ["profile-indexer", "profile-audit", "profile-risk-score"]
+    },
+    {
+      "id": "profile-risk-score",
+      "capability": "customer.profile.score",
+      "version": "1.0.0",
+      "summary": "New capability introduced without rewriting the legacy core.",
+      "placements": ["cloud"],
+      "consumers": []
+    }
+  ],
+  "interactions": [
+    { "from": "legacy-profile-core", "relation": "isolated behind governed boundary of", "to": "profile-normalizer-v2" },
+    { "from": "profile-normalizer-v2", "relation": "emits profile.normalized.v2 to", "to": "profile-indexer" },
+    { "from": "profile-normalizer-v2", "relation": "emits profile.normalized.v2 to", "to": "profile-risk-score" }
+  ],
+  "choices": {
+    "contract_anchor": "stable",
+    "versioning": "controlled-coexistence",
+    "runtime_governance": "runtime-enforced",
+    "duplication": "none",
+    "event_semantics": "stable",
+    "adoption_mode": "hybrid"
+  },
+  "runtime_decisions": [
+    "Allowed the legacy core to remain because the governed façade defines the external behavior explicitly.",
+    "Validated all consumer interactions at the boundary rather than rewriting the old implementation first.",
+    "Recorded hybrid adoption evidence so operators can see which parts are governed and which remain legacy."
+  ],
+  "expectations": [
+    "Hybrid adoption is acceptable when contracts and runtime enforcement govern the interaction boundaries.",
+    "Chapter 11 does not require a rewrite; it requires changing how the system evolves.",
+    "The reader should leave this lab understanding that coherence can expand incrementally across a brownfield system."
+  ]
+}

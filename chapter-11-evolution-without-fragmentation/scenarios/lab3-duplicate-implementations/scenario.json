@@ -1,0 +1,60 @@
+{
+  "title": "Duplicate implementations",
+  "summary": "Instead of restoring a single contract meaning, teams duplicate the same capability across environments and let them evolve separately.",
+  "services": [
+    {
+      "id": "profile-normalizer-cloud",
+      "capability": "customer.profile.normalize",
+      "version": "1.1.0-cloud",
+      "summary": "Cloud copy optimized for analytics-side enrichment.",
+      "placements": ["cloud"],
+      "consumers": ["profile-indexer"]
+    },
+    {
+      "id": "profile-normalizer-edge",
+      "capability": "customer.profile.normalize",
+      "version": "1.1.0-edge",
+      "summary": "Edge copy optimized for low-latency request handling with different defaults.",
+      "placements": ["edge"],
+      "consumers": ["profile-audit"]
+    },
+    {
+      "id": "profile-indexer",
+      "capability": "customer.profile.index",
+      "version": "1.0.0",
+      "summary": "Indexes cloud-normalized profiles.",
+      "placements": ["cloud"],
+      "consumers": []
+    },
+    {
+      "id": "profile-audit",
+      "capability": "customer.profile.audit",
+      "version": "1.0.0",
+      "summary": "Audits edge-normalized profiles.",
+      "placements": ["cloud"],
+      "consumers": []
+    }
+  ],
+  "interactions": [
+    { "from": "profile-normalizer-cloud", "relation": "emits profile.normalized to", "to": "profile-indexer" },
+    { "from": "profile-normalizer-edge", "relation": "emits profile.normalized to", "to": "profile-audit" }
+  ],
+  "choices": {
+    "contract_anchor": "drifting",
+    "versioning": "parallel-duplicates",
+    "runtime_governance": "manual-only",
+    "duplication": "cross-environment",
+    "event_semantics": "unstable",
+    "adoption_mode": "implicit-legacy"
+  },
+  "runtime_decisions": [
+    "Observed two implementations of the same conceptual capability with no shared governance path.",
+    "Could not prove that profile.normalized means the same thing across edge and cloud.",
+    "Left consumers coupled to environment-specific behavior."
+  ],
+  "expectations": [
+    "Duplication often feels safer than changing a drifting capability, but it creates parallel behavior that diverges further.",
+    "Cross-environment copies are especially risky because they evolve under different constraints and assumptions.",
+    "Once the same capability has multiple meanings, consumers stop sharing one coherent model."
+  ]
+}

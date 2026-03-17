@@ -1,0 +1,52 @@
+{
+  "title": "Contract anchor baseline",
+  "summary": "A capability evolves behind a stable contract, and the runtime resolves interactions through one explicit behavioral definition.",
+  "services": [
+    {
+      "id": "profile-normalizer",
+      "capability": "customer.profile.normalize",
+      "version": "1.0.0",
+      "summary": "Normalizes incoming customer profiles against a stable contract.",
+      "placements": ["cloud", "edge"],
+      "consumers": ["profile-indexer", "profile-audit"]
+    },
+    {
+      "id": "profile-indexer",
+      "capability": "customer.profile.index",
+      "version": "1.0.0",
+      "summary": "Indexes normalized profiles for search and retrieval.",
+      "placements": ["cloud"],
+      "consumers": []
+    },
+    {
+      "id": "profile-audit",
+      "capability": "customer.profile.audit",
+      "version": "1.0.0",
+      "summary": "Records governed profile updates for operational review.",
+      "placements": ["cloud"],
+      "consumers": []
+    }
+  ],
+  "interactions": [
+    { "from": "profile-normalizer", "relation": "emits profile.normalized", "to": "profile-audit" },
+    { "from": "profile-normalizer", "relation": "emits profile.normalized", "to": "profile-indexer" }
+  ],
+  "choices": {
+    "contract_anchor": "stable",
+    "versioning": "single-contract-line",
+    "runtime_governance": "runtime-enforced",
+    "duplication": "none",
+    "event_semantics": "stable",
+    "adoption_mode": "governed"
+  },
+  "runtime_decisions": [
+    "Validated one contract lineage for customer.profile.normalize.",
+    "Allowed both consumers because they share the same normalized-profile semantics.",
+    "Recorded runtime compatibility evidence for the current contract version."
+  ],
+  "expectations": [
+    "A stable contract can absorb internal change without forcing consumer rewrites.",
+    "Runtime governance keeps behavior aligned by checking interactions against the same explicit definition.",
+    "This is the Chapter 11 reference state: evolution is possible, but coherence is preserved."
+  ]
+}
