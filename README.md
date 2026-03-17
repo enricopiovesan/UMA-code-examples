@@ -27,6 +27,7 @@ For a single repo-level verification pass after installing the prerequisites:
 ```
 
 This script runs the validated chapter flows in sequence and stops on the first failure.
+The same script is also used by the repository CI workflow on pull requests and pushes to `main`.
 
 ---
 

@@ -1,0 +1,40 @@
+name: Reader Smoke
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  reader-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Rust target
+        shell: bash
+        run: |
+          rustup toolchain install stable --profile minimal --no-self-update
+          rustup default stable
+          rustup target add wasm32-wasip1
+
+      - name: Install smoke script dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          mkdir -p .bin
+          curl -L https://github.com/bytecodealliance/wasmtime/releases/download/v39.0.0/wasmtime-v39.0.0-x86_64-linux.tar.xz -o /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz
+          tar -xf /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz -C .bin
+
+      - name: Run reader smoke script
+        shell: bash
+        run: ./scripts/smoke_reader_paths.sh
