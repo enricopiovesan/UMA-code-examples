@@ -1,18 +1,23 @@
-// Edge host runner.  This script can be executed with Deno or Node (with
-// appropriate flags) to run the UMA post fetcher WebAssembly module.  It
-// assumes that the wasm module has been compiled using wasm-bindgen to
-// generate a JS wrapper exposing a `run_json` function.
-
-// Adjust the import path depending on your build pipeline.  For example,
-// using wasm-pack with the --target deno flag will generate a `.ts` file
-// directly consumable by Deno.
-import init, { run_json } from '../target/wasm32-wasip1/release/uma_runtime.js';
+// Edge host sketch.  This file is not part of the validated quick-start
+// path; it expects a generated JS/Wasm binding package to exist under
+// `hosts/edge/pkg`.  If you generate such a package, update the import
+// below to match your chosen toolchain.
 
 async function main() {
+  let init: () => Promise<unknown>;
+  let run_json: (input: string) => [string, string];
+  try {
+    ({ default: init, run_json } = await import('./pkg/uma_runtime.js'));
+  } catch (err) {
+    throw new Error(
+      'Missing hosts/edge/pkg/uma_runtime.js. Generate a compatible JS/Wasm package before using the edge host sketch.'
+    );
+  }
+
   await init();
   const input = {
     request: {
-      url: 'https://jsonplaceholder.typicode.com/posts/1',
+      url: 'http://127.0.0.1:18080/posts/1',
       headers: { accept: 'application/json' },
     },
     runId: 'demo-001',

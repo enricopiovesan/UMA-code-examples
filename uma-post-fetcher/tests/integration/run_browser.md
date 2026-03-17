@@ -1,16 +1,10 @@
-## Browser Integration Test
+## Browser Host Sketch
 
-To run the UMA post fetcher in the browser, follow these steps:
+The browser files in this repository are an illustrative host sketch, not a validated quick-start.  They show how a browser-facing shim could call into a generated JS/Wasm package for `uma_runtime`, but this sample does not currently ship that generated package.
 
-1. Build the WebAssembly component using `wasm-pack` targeting the browser.  From the project root:
+If you want to continue from the sketch, the rough shape is:
 
-   ```sh
-   wasm-pack build --target web --out-dir adapters/network/ts-host/src/pkg --out-name uma_runtime runtime
-   ```
-
-   This command will compile the `uma_runtime` crate to WebAssembly and generate the corresponding JavaScript glue code in `adapters/network/ts-host/src/pkg`.
-
-2. Install dependencies and start the dev server:
+1. Generate a browser-consumable JS/Wasm package for the runtime crate using your preferred binding toolchain.
 
    ```sh
    cd adapters/network/ts-host
@@ -18,8 +12,8 @@ To run the UMA post fetcher in the browser, follow these steps:
    npm run dev
    ```
 
-   The application will be served at `http://localhost:5173` (or another port as reported by Vite).
+2. Update `src/host.ts` so its import path and call signature match the generated package you chose.
 
-3. Open the application in your browser.  The console will show the service output and lifecycle record.  You should see deterministic event ordering and a logical clock equal to the number of events.
+3. Serve the Vite app and verify the runtime output in the browser console.
 
-For a production build, run `npm run build` and deploy the contents of the `dist` directory.  The Wasm module and JS glue will be bundled automatically by Vite.
+Until a concrete JS binding layer is added to this repository, treat the browser host as reference scaffolding rather than a turnkey integration test.
