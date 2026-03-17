@@ -1,0 +1,34 @@
+{
+  "kind": "uma.service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "image-tagger",
+    "version": "1.0.0",
+    "summary": "Consumes uploaded images and emits semantic tags.",
+    "placements": ["cloud"]
+  },
+  "capabilities": [
+    {
+      "id": "media.tagging",
+      "version": "1.0"
+    }
+  ],
+  "events": {
+    "consumes": [
+      {
+        "name": "image.uploaded",
+        "schema": "contracts/schemas/image-uploaded.event.v1.json"
+      }
+    ],
+    "emits": [
+      {
+        "name": "image.tagged",
+        "schema": "contracts/schemas/image-tagged.event.v1.json"
+      }
+    ]
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/image-tagging.request.v1.json",
+    "outputSchema": "contracts/schemas/image-tagging.response.v1.json"
+  }
+}

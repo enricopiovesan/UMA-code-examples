@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/metadata-index.response.v1.json",
+  "title": "Metadata Index Response",
+  "type": "object",
+  "required": ["indexed", "documentId"],
+  "properties": {
+    "indexed": {
+      "type": "boolean"
+    },
+    "documentId": {
+      "type": "string"
+    }
+  }
+}

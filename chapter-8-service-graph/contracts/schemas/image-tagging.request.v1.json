@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/image-tagging.request.v1.json",
+  "title": "Image Tagging Request",
+  "type": "object",
+  "required": ["imageId", "storageKey"],
+  "properties": {
+    "imageId": {
+      "type": "string"
+    },
+    "storageKey": {
+      "type": "string"
+    }
+  }
+}

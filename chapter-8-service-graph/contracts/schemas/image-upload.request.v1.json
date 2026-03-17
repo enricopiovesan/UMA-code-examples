@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/image-upload.request.v1.json",
+  "title": "Image Upload Request",
+  "type": "object",
+  "required": ["imageId", "contentType"],
+  "properties": {
+    "imageId": {
+      "type": "string"
+    },
+    "contentType": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/image-tagged-renamed.event.v1.json",
+  "title": "Image Tagged Renamed Event",
+  "type": "object",
+  "required": ["imageId", "tags"],
+  "properties": {
+    "imageId": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

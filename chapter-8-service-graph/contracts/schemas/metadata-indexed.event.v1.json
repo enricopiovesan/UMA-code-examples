@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/metadata-indexed.event.v1.json",
+  "title": "Metadata Indexed Event",
+  "type": "object",
+  "required": ["documentId", "imageId"],
+  "properties": {
+    "documentId": {
+      "type": "string"
+    },
+    "imageId": {
+      "type": "string"
+    }
+  }
+}

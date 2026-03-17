@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/metadata-index.request.v1.json",
+  "title": "Metadata Index Request",
+  "type": "object",
+  "required": ["imageId", "tags"],
+  "properties": {
+    "imageId": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "uma.service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "metadata-indexer",
+    "version": "1.0.0",
+    "summary": "Indexes image metadata so downstream search can discover tagged assets.",
+    "placements": ["cloud"]
+  },
+  "capabilities": [
+    {
+      "id": "media.search-indexing",
+      "version": "1.0"
+    }
+  ],
+  "events": {
+    "consumes": [
+      {
+        "name": "image.tagged",
+        "schema": "contracts/schemas/image-tagged.event.v1.json"
+      }
+    ],
+    "emits": [
+      {
+        "name": "metadata.indexed",
+        "schema": "contracts/schemas/metadata-indexed.event.v1.json"
+      }
+    ]
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/metadata-index.request.v1.json",
+    "outputSchema": "contracts/schemas/metadata-index.response.v1.json"
+  }
+}

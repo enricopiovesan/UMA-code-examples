@@ -1,0 +1,29 @@
+{
+  "kind": "uma.service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "upload-service",
+    "version": "1.0.0",
+    "summary": "Accepts an image upload and emits a discovery event.",
+    "placements": ["cloud", "edge"]
+  },
+  "capabilities": [
+    {
+      "id": "media.ingest",
+      "version": "1.0"
+    }
+  ],
+  "events": {
+    "consumes": [],
+    "emits": [
+      {
+        "name": "image.uploaded",
+        "schema": "contracts/schemas/image-uploaded.event.v1.json"
+      }
+    ]
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/image-upload.request.v1.json",
+    "outputSchema": "contracts/schemas/image-upload.response.v1.json"
+  }
+}

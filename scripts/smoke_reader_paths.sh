@@ -49,4 +49,9 @@ pushd "$ROOT_DIR/uma-metadata-orchestration" >/dev/null
 bash -x ./tests/test_orchestration.sh
 popd >/dev/null
 
+echo "== Chapter 8: chapter-8-service-graph =="
+pushd "$ROOT_DIR/chapter-8-service-graph" >/dev/null
+./scripts/smoke_graph_labs.sh
+popd >/dev/null
+
 echo "Smoke run completed successfully."

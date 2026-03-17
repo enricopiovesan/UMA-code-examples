@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/image-upload.response.v1.json",
+  "title": "Image Upload Response",
+  "type": "object",
+  "required": ["accepted", "eventName"],
+  "properties": {
+    "accepted": {
+      "type": "boolean"
+    },
+    "eventName": {
+      "type": "string"
+    }
+  }
+}
