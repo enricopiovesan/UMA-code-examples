@@ -29,7 +29,8 @@ for chapter in \
   "$ROOT_DIR/uma-metadata-orchestration/README.md" \
   "$ROOT_DIR/chapter-8-service-graph/README.md" \
   "$ROOT_DIR/chapter-9-trust-boundaries/README.md" \
-  "$ROOT_DIR/chapter-10-architectural-tradeoffs/README.md"
+  "$ROOT_DIR/chapter-10-architectural-tradeoffs/README.md" \
+  "$ROOT_DIR/chapter-11-evolution-without-fragmentation/README.md"
 do
   require_heading "$chapter" "Prerequisites"
   require_heading "$chapter" "Quick start"

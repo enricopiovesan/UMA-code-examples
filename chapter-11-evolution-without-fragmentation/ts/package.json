@@ -1,0 +1,8 @@
+{
+  "name": "chapter-11-evolution-without-fragmentation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/*.test.mjs"
+  }
+}

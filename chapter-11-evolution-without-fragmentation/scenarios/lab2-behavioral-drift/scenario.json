@@ -1,0 +1,52 @@
+{
+  "title": "Behavioral drift",
+  "summary": "The same contract is stretched to satisfy different consumers, and its meaning begins to drift even though structure still looks compatible.",
+  "services": [
+    {
+      "id": "profile-normalizer",
+      "capability": "customer.profile.normalize",
+      "version": "1.1.0",
+      "summary": "Now adapts behavior per consumer instead of preserving one consistent profile-normalization meaning.",
+      "placements": ["cloud", "edge"],
+      "consumers": ["profile-indexer", "profile-audit", "legacy-sync"]
+    },
+    {
+      "id": "legacy-sync",
+      "capability": "customer.profile.sync",
+      "version": "1.0.0",
+      "summary": "Still expects the older profile semantics for downstream batch imports.",
+      "placements": ["cloud"],
+      "consumers": []
+    },
+    {
+      "id": "profile-indexer",
+      "capability": "customer.profile.index",
+      "version": "1.0.0",
+      "summary": "Indexes newer normalized profiles.",
+      "placements": ["cloud"],
+      "consumers": []
+    }
+  ],
+  "interactions": [
+    { "from": "profile-normalizer", "relation": "serves drifted normalization semantics to", "to": "legacy-sync" },
+    { "from": "profile-normalizer", "relation": "serves drifted normalization semantics to", "to": "profile-indexer" }
+  ],
+  "choices": {
+    "contract_anchor": "drifting",
+    "versioning": "single-contract-line",
+    "runtime_governance": "manual-only",
+    "duplication": "none",
+    "event_semantics": "stable",
+    "adoption_mode": "implicit-legacy"
+  },
+  "runtime_decisions": [
+    "Detected multiple consumer-specific interpretations behind one contract boundary.",
+    "Allowed execution because no runtime rule rejects it, but flagged drift for operators.",
+    "Observed that compatibility now depends on consumer context instead of one shared meaning."
+  ],
+  "expectations": [
+    "A contract can stay structurally stable while its behavior becomes less precise.",
+    "Behavioral drift is an architectural problem even before obvious breakage appears.",
+    "Manual coordination can notice drift, but it cannot reliably prevent it over time."
+  ]
+}

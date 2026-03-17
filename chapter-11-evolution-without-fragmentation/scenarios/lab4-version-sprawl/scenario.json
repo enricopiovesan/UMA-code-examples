@@ -1,0 +1,61 @@
+{
+  "title": "Uncontrolled version sprawl",
+  "summary": "Multiple profile-normalization versions now coexist, but compatibility and lifecycle rules are not governed by one runtime model.",
+  "services": [
+    {
+      "id": "profile-normalizer-v1",
+      "capability": "customer.profile.normalize",
+      "version": "1.0.0",
+      "summary": "Original normalization behavior still used by legacy consumers.",
+      "placements": ["cloud"],
+      "consumers": ["legacy-sync"]
+    },
+    {
+      "id": "profile-normalizer-v2",
+      "capability": "customer.profile.normalize",
+      "version": "2.0.0",
+      "summary": "Newer normalization behavior with different field interpretation and enrichment rules.",
+      "placements": ["cloud", "edge"],
+      "consumers": ["profile-indexer", "profile-audit"]
+    },
+    {
+      "id": "legacy-sync",
+      "capability": "customer.profile.sync",
+      "version": "1.0.0",
+      "summary": "Still depends on older profile semantics.",
+      "placements": ["cloud"],
+      "consumers": []
+    },
+    {
+      "id": "profile-indexer",
+      "capability": "customer.profile.index",
+      "version": "1.1.0",
+      "summary": "Consumes richer v2 semantics.",
+      "placements": ["cloud"],
+      "consumers": []
+    }
+  ],
+  "interactions": [
+    { "from": "profile-normalizer-v1", "relation": "serves old semantics to", "to": "legacy-sync" },
+    { "from": "profile-normalizer-v2", "relation": "serves new semantics to", "to": "profile-indexer" },
+    { "from": "profile-normalizer-v2", "relation": "serves new semantics to", "to": "profile-audit" }
+  ],
+  "choices": {
+    "contract_anchor": "drifting",
+    "versioning": "uncontrolled-proliferation",
+    "runtime_governance": "manual-only",
+    "duplication": "cross-environment",
+    "event_semantics": "unstable",
+    "adoption_mode": "implicit-legacy"
+  },
+  "runtime_decisions": [
+    "Resolved version selection through consumer-specific conventions instead of explicit compatibility rules.",
+    "Could not prove safe coexistence between v1 and v2 behaviors.",
+    "Flagged the capability set as fragmented because version growth is no longer governed."
+  ],
+  "expectations": [
+    "Versioning is necessary in evolving systems, but unmanaged versioning turns continuity into fragmentation.",
+    "The problem is not that multiple versions exist; it is that nothing explicitly governs how they coexist.",
+    "At this point the system is still functional, but behavior is no longer explained by one coherent model."
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "title": "Runtime-governed coexistence",
+  "summary": "Multiple versions still exist, but the runtime now resolves compatibility and version selection through explicit rules and contract lineage.",
+  "services": [
+    {
+      "id": "profile-normalizer-v1",
+      "capability": "customer.profile.normalize",
+      "version": "1.0.0",
+      "summary": "Legacy version retained for older consumers under explicit compatibility rules.",
+      "placements": ["cloud"],
+      "consumers": ["legacy-sync"]
+    },
+    {
+      "id": "profile-normalizer-v2",
+      "capability": "customer.profile.normalize",
+      "version": "2.0.0",
+      "summary": "Primary governed version selected for newer consumers by runtime policy.",
+      "placements": ["cloud", "edge"],
+      "consumers": ["profile-indexer", "profile-audit"]
+    },
+    {
+      "id": "legacy-sync",
+      "capability": "customer.profile.sync",
+      "version": "1.0.0",
+      "summary": "Pinned to the legacy contract line until migration is complete.",
+      "placements": ["cloud"],
+      "consumers": []
+    },
+    {
+      "id": "profile-indexer",
+      "capability": "customer.profile.index",
+      "version": "1.1.0",
+      "summary": "Consumes the newer contract line.",
+      "placements": ["cloud"],
+      "consumers": []
+    }
+  ],
+  "interactions": [
+    { "from": "runtime-policy", "relation": "routes legacy consumers to", "to": "profile-normalizer-v1" },
+    { "from": "runtime-policy", "relation": "routes governed consumers to", "to": "profile-normalizer-v2" },
+    { "from": "profile-normalizer-v2", "relation": "emits stable profile.normalized.v2 to", "to": "profile-indexer" }
+  ],
+  "choices": {
+    "contract_anchor": "stable",
+    "versioning": "controlled-coexistence",
+    "runtime_governance": "runtime-enforced",
+    "duplication": "none",
+    "event_semantics": "stable",
+    "adoption_mode": "governed"
+  },
+  "runtime_decisions": [
+    "Selected v1 only for consumers that explicitly declare legacy compatibility.",
+    "Selected v2 as the default governed path for new consumers.",
+    "Rejected ambiguous selection by requiring contract-line metadata during resolution."
+  ],
+  "expectations": [
+    "Multiple versions can coexist without fragmentation when compatibility is defined behaviorally and enforced at runtime.",
+    "The runtime restores coherence by resolving interactions through explicit rules instead of local conventions.",
+    "Chapter 11's core point is visible here: change is continuous, but fragmentation is optional."
+  ]
+}
