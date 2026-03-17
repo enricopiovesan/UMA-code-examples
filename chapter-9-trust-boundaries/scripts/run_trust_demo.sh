@@ -10,4 +10,4 @@ fi
 SCENARIO="${1:-lab1-trusted-service}"
 
 echo "Running Chapter 9 trust demo for ${SCENARIO}"
-cargo run --offline --quiet -- render "${SCENARIO}"
+cargo run --locked --quiet -- render "${SCENARIO}"

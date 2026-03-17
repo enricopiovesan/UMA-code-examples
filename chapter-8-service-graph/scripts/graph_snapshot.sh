@@ -9,4 +9,4 @@ fi
 
 SCENARIO="${1:-${CH8_SCENARIO:-lab1-upload-only}}"
 
-cargo run --offline --quiet -- render "${SCENARIO}" json
+cargo run --locked --quiet -- render "${SCENARIO}" json

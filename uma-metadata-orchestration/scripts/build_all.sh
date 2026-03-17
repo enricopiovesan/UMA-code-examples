@@ -12,7 +12,7 @@ popd >/dev/null
 
 echo "Building cloud runner (Rust)"
 pushd runtime-rust >/dev/null
-  cargo build --offline
+  cargo build --locked
 popd >/dev/null
 
 if [ "${BUILD_OPTIONAL_JS:-0}" = "1" ] && command -v npm >/dev/null 2>&1; then

@@ -7,4 +7,4 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   exit 0
 fi
 
-cargo run --offline --quiet -- validate "$@"
+  cargo run --locked --quiet -- validate "$@"

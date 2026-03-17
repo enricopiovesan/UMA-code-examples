@@ -14,7 +14,7 @@ if [[ -z "$LAB" ]]; then
   exit 1
 fi
 
-RUST_JSON="$(cargo run --offline --quiet --manifest-path rust/Cargo.toml -- render "$LAB" json)"
+RUST_JSON="$(cargo run --locked --quiet --manifest-path rust/Cargo.toml -- render "$LAB" json)"
 TS_JSON="$(node ts/src/main.mjs render "$LAB" json)"
 
 node - "$LAB" "$RUST_JSON" "$TS_JSON" <<'EOF'

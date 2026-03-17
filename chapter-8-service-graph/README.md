@@ -132,7 +132,7 @@ Run the full Chapter 8 reader path:
 
 ## Troubleshooting
 
-- If `cargo run --offline` fails because dependencies are missing, run the commands once on a machine that can populate your Cargo cache or switch to non-offline `cargo` locally.
+- If `cargo` reports dependency resolution failures, run the commands with network access at least once so Cargo can fetch the locked dependencies.
 - If you pass an unknown lab name, rerun `./scripts/list_labs.sh` and use one of the printed scenario ids.
 - If you want the raw metadata-level change instead of the graph summary, use `./scripts/contract_diff.sh <from> <to>`.
 
@@ -177,7 +177,7 @@ This keeps the chapter runnable while still letting the reader inspect architect
 ### "Which implementation should I treat as the main one?"
 
 Use the Rust CLI through the `scripts/` entry points.
-Those scripts call `cargo run --offline` and `cargo test --offline`, so the Chapter 8 quick-start path is Rust-first.
+Those scripts call `cargo run --locked` and `cargo test --locked`, so the Chapter 8 quick-start path is Rust-first and reproducible on a clean machine.
 
 The JavaScript files under `runtime/` are there as secondary reference material, not as the primary reader workflow.
 

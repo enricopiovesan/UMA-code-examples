@@ -39,4 +39,4 @@ if [ ! -f runtime-rust/Cargo.toml ]; then
   exit 1
 fi
 # The quick-start path is fail-open so readers can see the full orchestration flow.
-POLICY_FAIL_MODE="${POLICY_FAIL_MODE:-open}" cargo run --offline --quiet --manifest-path runtime-rust/Cargo.toml
+POLICY_FAIL_MODE="${POLICY_FAIL_MODE:-open}" cargo run --locked --quiet --manifest-path runtime-rust/Cargo.toml

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cargo test --offline --manifest-path rust/Cargo.toml
+cargo test --locked --manifest-path rust/Cargo.toml
 (
   cd ts
   npm test

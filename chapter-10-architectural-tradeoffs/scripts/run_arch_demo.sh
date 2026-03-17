@@ -9,4 +9,4 @@ fi
 
 LAB="${1:-lab1-baseline}"
 echo "Running Chapter 10 architecture demo for ${LAB}"
-cargo run --offline --quiet --manifest-path rust/Cargo.toml -- render "${LAB}"
+cargo run --locked --quiet --manifest-path rust/Cargo.toml -- render "${LAB}"

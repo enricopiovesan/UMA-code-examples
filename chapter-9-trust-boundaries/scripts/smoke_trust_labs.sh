@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 pushd "$ROOT_DIR" >/dev/null
-cargo test --offline
+cargo test --locked
 ./scripts/validate_trust.sh
 ./scripts/list_labs.sh
 ./scripts/run_trust_demo.sh lab1-trusted-service

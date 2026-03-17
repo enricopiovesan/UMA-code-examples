@@ -10,4 +10,4 @@ if [[ -z "${FROM_SCENARIO}" || -z "${TO_SCENARIO}" ]]; then
   exit 1
 fi
 
-cargo run --offline --quiet -- graph-diff "${FROM_SCENARIO}" "${TO_SCENARIO}"
+cargo run --locked --quiet -- graph-diff "${FROM_SCENARIO}" "${TO_SCENARIO}"

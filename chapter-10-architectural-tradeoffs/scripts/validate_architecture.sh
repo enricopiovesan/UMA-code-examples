@@ -3,7 +3,7 @@ set -euo pipefail
 
 LAB="${1:-}"
 if [[ -n "$LAB" ]]; then
-  cargo run --offline --quiet --manifest-path rust/Cargo.toml -- validate "$LAB"
+  cargo run --locked --quiet --manifest-path rust/Cargo.toml -- validate "$LAB"
 else
-  cargo run --offline --quiet --manifest-path rust/Cargo.toml -- validate
+  cargo run --locked --quiet --manifest-path rust/Cargo.toml -- validate
 fi

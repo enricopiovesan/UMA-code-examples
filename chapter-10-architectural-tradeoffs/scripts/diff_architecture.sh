@@ -16,4 +16,4 @@ if [[ -z "$FROM_LAB" || -z "$TO_LAB" ]]; then
   exit 1
 fi
 
-cargo run --offline --quiet --manifest-path rust/Cargo.toml -- diff "$FROM_LAB" "$TO_LAB"
+cargo run --locked --quiet --manifest-path rust/Cargo.toml -- diff "$FROM_LAB" "$TO_LAB"

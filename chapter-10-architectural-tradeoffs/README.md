@@ -183,7 +183,7 @@ Expected value:
 
 ## Troubleshooting
 
-- If `cargo run --offline` fails because the local Cargo cache is empty, rerun on a machine that can populate the cache first or switch to non-offline Cargo locally.
+- If `cargo` reports dependency resolution failures, run the commands with network access at least once so Cargo can fetch the locked dependencies.
 - If `npm test` fails in `ts/`, ensure you are using Node.js 20 or newer.
 - If you mistype a lab id, rerun `./scripts/list_labs.sh`.
 - If you forget a script’s arguments, use `--help` with `run_arch_demo.sh`, `diff_architecture.sh`, or `compare_impls.sh`.

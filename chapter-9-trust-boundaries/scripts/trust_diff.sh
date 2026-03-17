@@ -17,4 +17,4 @@ if [[ -z "${FROM_SCENARIO}" || -z "${TO_SCENARIO}" ]]; then
   exit 1
 fi
 
-cargo run --offline --quiet -- trust-diff "${FROM_SCENARIO}" "${TO_SCENARIO}"
+cargo run --locked --quiet -- trust-diff "${FROM_SCENARIO}" "${TO_SCENARIO}"
