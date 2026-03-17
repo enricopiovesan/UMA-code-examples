@@ -2,7 +2,7 @@
 
 This example demonstrates Chapter 7 of the UMA Book, Contracts, Events, and Orchestration.
 It is production oriented, contract first, and runnable on a typical developer machine.
-The same binaries can run in browser, edge, and cloud environments, with consistent behavior validated by contracts.
+The validated quick-start path is the cloud runner. The repository also includes lightweight browser and edge harnesses that illustrate how the same orchestration model can be surfaced in those environments.
 
 ## Key concepts
 
@@ -79,11 +79,13 @@ Expected log excerpt:
 
 ## Browser and Edge
 
-- Open browser/index.html in a local server to see the browser harness output
-- Run Deno edge harness:
+- Open `browser/index.html` in a local server to see the browser simulation harness output. It mirrors the orchestration log shape, but it does not execute the Rust WASI services directly in the browser.
+- Run the Deno edge harness if you have Deno installed:
 ```bash
 deno run --allow-run edge/edge_runner.ts
 ```
+
+The edge harness shells out to `node runtime/runner.js` for parity; it is a thin demonstration wrapper rather than a separate validated execution path.
 
 ## Policy rule, fail closed
 

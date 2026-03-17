@@ -7,10 +7,11 @@
 // project root.  The handler reads the JSON body of the incoming event,
 // writes it to the evaluator’s stdin and returns the JSON output.
 
-import { readFile } from 'fs/promises';
+import { closeSync, openSync } from 'fs';
+import { mkdtemp, readFile, rm, writeFile } from 'fs/promises';
+import { tmpdir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { Readable, Writable } from 'stream';
 import { WASI } from 'wasi';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,38 +19,44 @@ const __dirname = dirname(__filename);
 const wasmPath = join(__dirname, '..', '..', 'target', 'wasm32-wasip1', 'release', 'ff_eval_wasi_app.wasm');
 
 async function runEvaluator(input: any): Promise<string> {
-  // Read the compiled WebAssembly binary.
   const wasmBinary = await readFile(wasmPath);
-  // Prepare stdin as a stream containing the JSON input.
-  const inputStr = JSON.stringify(input);
-  const stdin = new Readable({
-    read() {
-      this.push(Buffer.from(inputStr, 'utf8'));
-      this.push(null);
-    },
-  });
-  // Capture stdout.
-  let output = '';
-  const stdout = new Writable({
-    write(chunk, _enc, cb) {
-      output += chunk.toString();
-      cb();
-    },
-  });
-  // Ignore stderr.
-  const stderr = new Writable({
-    write(_chunk, _enc, cb) {
-      cb();
-    },
-  });
-  // Instantiate WASI with our custom streams.
-  const wasi = new WASI({ args: [], env: {}, stdin, stdout, stderr });
-  const module = await WebAssembly.compile(wasmBinary);
-  const instance = await WebAssembly.instantiate(module, {
-    wasi_snapshot_preview1: wasi.wasiImport,
-  });
-  wasi.start(instance);
-  return output.trim();
+  const tmpDir = await mkdtemp(join(tmpdir(), 'ff-eval-cloud-'));
+  const stdinPath = join(tmpDir, 'stdin.json');
+  const stdoutPath = join(tmpDir, 'stdout.json');
+  const stderrPath = join(tmpDir, 'stderr.log');
+  let stdinFd: number | undefined;
+  let stdoutFd: number | undefined;
+  let stderrFd: number | undefined;
+
+  try {
+    await writeFile(stdinPath, JSON.stringify(input), 'utf8');
+    await writeFile(stdoutPath, '', 'utf8');
+    await writeFile(stderrPath, '', 'utf8');
+
+    stdinFd = openSync(stdinPath, 'r');
+    stdoutFd = openSync(stdoutPath, 'w');
+    stderrFd = openSync(stderrPath, 'w');
+
+    const wasi = new WASI({
+      version: 'preview1',
+      args: [],
+      env: {},
+      stdin: stdinFd,
+      stdout: stdoutFd,
+      stderr: stderrFd,
+    });
+    const module = await WebAssembly.compile(wasmBinary);
+    const instance = await WebAssembly.instantiate(module, {
+      wasi_snapshot_preview1: wasi.wasiImport,
+    });
+    wasi.start(instance);
+    return (await readFile(stdoutPath, 'utf8')).trim();
+  } finally {
+    if (stdinFd !== undefined) closeSync(stdinFd);
+    if (stdoutFd !== undefined) closeSync(stdoutFd);
+    if (stderrFd !== undefined) closeSync(stderrFd);
+    await rm(tmpDir, { recursive: true, force: true });
+  }
 }
 
 export async function handler(event: any) {

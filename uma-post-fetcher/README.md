@@ -78,7 +78,7 @@ To build and run the example you will need:
 * A recent Rust toolchain (tested with Rust 1.74 or later).  Install via [rustup](https://rustup.rs/).
 * The `wasm32‑wasip1` target added to your toolchain (`rustup target add wasm32-wasip1`) if you want to experiment with the WASI build.
 * [`wasmtime`](https://wasmtime.dev/) or another WASI runtime only if you want to run the experimental WASI build manually.  The reader quick-start cloud script uses the native CLI path so outbound HTTP works without additional host bindings.
-* [npm](https://www.npmjs.com/) for building the browser and edge hosts, plus [`wasm-pack`](https://rustwasm.github.io/wasm-pack/) if you prefer to generate JS bindings.
+* [npm](https://www.npmjs.com/) if you want to inspect or extend the illustrative browser host scaffolding under `adapters/network/ts-host`.
 
 ### Build the Workspace
 
@@ -133,36 +133,19 @@ bash hosts/cloud/run.sh
 
 This script builds the runtime package for the local machine, starts a temporary localhost fixture server, and pipes a sample input into the CLI entrypoint.  The output JSON and lifecycle record are printed to stdout.
 
-#### Edge Worker (Deno/Node)
+#### Edge and Browser sketches
 
-To run the example in an edge environment such as Deno or Node, you need to generate JavaScript bindings for the WebAssembly module.  One approach is to use `wasm-pack`:
+The files under `hosts/edge/` and `adapters/network/ts-host/` are illustrative host sketches, not a validated quick-start like the cloud CLI path above.  They show where a Node/edge runner or browser shim would bind `network.fetch`, but this sample does not currently ship a `wasm-bindgen` or component-model JavaScript package for `uma_runtime`.
 
-```sh
-cd uma-post-fetcher
-wasm-pack build runtime --target nodejs --out-dir hosts/edge/pkg --out-name uma_runtime
-```
-
-Then execute the script in `hosts/edge/run.ts` with Node (you may need to enable ECMAScript modules):
+If you want to turn these into runnable examples, treat them as starting points:
 
 ```sh
-node hosts/edge/run.ts
-```
-
-This script loads the Wasm module, constructs an input document and logs the service output and lifecycle record.  If you prefer Deno, build the package with `--target deno` and run it using `deno run`.
-
-#### Browser
-
-For the browser host, use `wasm-pack` to build for the web target and the Vite project in `adapters/network/ts-host` to serve the application:
-
-```sh
-cd uma-post-fetcher
-wasm-pack build runtime --target web --out-dir adapters/network/ts-host/src/pkg --out-name uma_runtime
-cd adapters/network/ts-host
+cd uma-post-fetcher/adapters/network/ts-host
 npm install
 npm run dev
 ```
 
-Open the reported URL (typically `http://localhost:5173`) in your browser.  The console will display the service output and lifecycle record.  The UI can be customised by editing `public/index.html` and `src/host.ts`.
+At that point you still need to provide a real JS/Wasm binding layer for the runtime module and update the import paths in `hosts/edge/run.ts` and `adapters/network/ts-host/src/host.ts` to match that generated output.
 
 ### Testing
 
@@ -172,7 +155,7 @@ Unit tests cover the service and runtime logic.  Run them with:
 cargo test --workspace
 ```
 
-Integration test scripts live under `tests/integration`.  The reader quick-start cloud flow exercises the native CLI path; browser and edge tests require building the corresponding packages first.
+Integration test scripts live under `tests/integration`.  The reader quick-start cloud flow exercises the native CLI path.  The browser and edge files are illustrative scaffolding and are not part of the validated quick-start path in this sample.
 
 ### Extending the Example
 
@@ -197,6 +180,9 @@ Unset variables mean the corresponding wrappers are disabled.  You can set these
 ### WASI HTTP support
 
 When compiled for the `wasm32` target, the adapter manager attempts to select a `WasiHttpAdapter` if no custom adapter is provided.  In this sample that adapter fails closed with a clear error message, so the reader quick-start uses the native CLI path instead of relying on host-specific WASI HTTP bindings.
+
+### Further extensions
+
 * **Batch Requests** – Modify the service API to accept a list of URLs and normalise multiple posts in a single run.  Extend the event bus to log events for each request deterministically.
 * **New Capabilities** – Define additional capability contracts (e.g. `storage.put`, `queue.publish`) under `contracts/` and provide corresponding adapters.  Update the runtime policy to select implementations at runtime.
 

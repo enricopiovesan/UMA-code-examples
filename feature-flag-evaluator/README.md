@@ -216,9 +216,9 @@ To run the browser demo:
 
 Two Node‑based adapters are provided:
 
-* **Edge worker (`adapters/edge/worker.ts`)**: This file exports a `fetch` function suitable for use in a Cloudflare Worker or similar environment.  It uses Node’s built‑in `wasi` module to instantiate and run the compiled WebAssembly module in memory.  The worker reads the incoming request body as JSON, writes it to the evaluator’s stdin and returns the evaluator’s stdout as the response.  Because it uses the standard `wasi` API there is no dependency on an external runtime like `wasmtime`.
+* **Edge worker (`adapters/edge/worker.ts`)**: This file exports a `fetch` function suitable for use in a Cloudflare Worker or similar environment.  It uses Node’s built‑in `wasi` module to instantiate and run the compiled WebAssembly module, feeding stdin/stdout through temporary files because modern Node expects numeric file descriptors for WASI stdio.  The worker reads the incoming request body as JSON and returns the evaluator’s stdout as the response.
 
-* **Cloud handler (`adapters/cloud/handler.ts`)**: This file defines an AWS Lambda–style handler that uses Node’s `wasi` API.  Like the edge worker it loads the compiled module into memory, writes the JSON input to stdin and returns the JSON output.  It expects the compiled `.wasm` file to reside in `target/wasm32-wasip1/release/ff_eval_wasi_app.wasm`.  If the input is invalid JSON or the module fails, it returns a 400 or 500 status accordingly.
+* **Cloud handler (`adapters/cloud/handler.ts`)**: This file defines an AWS Lambda–style handler that uses Node’s `wasi` API.  Like the edge worker it executes the compiled module with temporary stdio files, returns the JSON output on success, and expects the compiled `.wasm` file to reside in `target/wasm32-wasip1/release/ff_eval_wasi_app.wasm`.  If the input is invalid JSON or the module fails, it returns a 400 or 500 status accordingly.
 
 For environments that support Deno or other runtimes, you can adapt these examples by replacing the Node‑specific APIs with appropriate equivalents and ensuring that a WASI implementation (either built‑in or via a polyfill) is available.
 
