@@ -1,0 +1,42 @@
+{
+  "kind": "uma.trusted-service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "upload-bridge",
+    "version": "1.0.0",
+    "summary": "Bridges trusted uploads into a redaction workflow and emits case events.",
+    "publisher": "uma.book.team",
+    "trustTier": "internal",
+    "placements": ["cloud", "edge"]
+  },
+  "capabilities": [
+    {
+      "id": "case.bridge",
+      "version": "1.0"
+    }
+  ],
+  "permissions": [
+    "events.publish"
+  ],
+  "dependencies": [
+    {
+      "name": "event-router",
+      "version": "3.1.0",
+      "provenance": "verified",
+      "checksum": "sha256-event-router-3.1.0"
+    }
+  ],
+  "events": {
+    "consumes": [],
+    "emits": [
+      {
+        "name": "case.redacted",
+        "schema": "contracts/schemas/case-redacted.event.v1.json"
+      }
+    ]
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/redaction.request.v1.json",
+    "outputSchema": "contracts/schemas/redaction.response.v1.json"
+  }
+}

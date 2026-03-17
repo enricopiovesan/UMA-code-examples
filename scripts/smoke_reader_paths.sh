@@ -67,4 +67,9 @@ pushd "$ROOT_DIR/chapter-8-service-graph" >/dev/null
 ./scripts/smoke_graph_labs.sh
 popd >/dev/null
 
+echo "== Chapter 9: chapter-9-trust-boundaries =="
+pushd "$ROOT_DIR/chapter-9-trust-boundaries" >/dev/null
+./scripts/smoke_trust_labs.sh
+popd >/dev/null
+
 echo "Smoke run completed successfully."

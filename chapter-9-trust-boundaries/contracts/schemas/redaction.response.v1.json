@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/redaction.response.v1.json",
+  "title": "Redaction Response",
+  "type": "object",
+  "required": ["accepted", "resultEvent"],
+  "properties": {
+    "accepted": {
+      "type": "boolean"
+    },
+    "resultEvent": {
+      "type": "string"
+    }
+  }
+}

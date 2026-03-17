@@ -1,0 +1,15 @@
+{
+  "placement": "cloud",
+  "executions": [
+    {
+      "service": "case-redactor",
+      "requestedPermissions": [
+        "storage.read",
+        "storage.write",
+        "events.publish",
+        "external.api.invoke"
+      ]
+    }
+  ],
+  "communications": []
+}

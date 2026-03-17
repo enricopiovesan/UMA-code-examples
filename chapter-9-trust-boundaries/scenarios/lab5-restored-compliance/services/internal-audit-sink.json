@@ -1,0 +1,42 @@
+{
+  "kind": "uma.trusted-service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "internal-audit-sink",
+    "version": "1.0.0",
+    "summary": "An internal audit listener allowed to receive redaction events.",
+    "publisher": "uma.platform.ops",
+    "trustTier": "internal",
+    "placements": ["cloud"]
+  },
+  "capabilities": [
+    {
+      "id": "audit.ingest",
+      "version": "1.0"
+    }
+  ],
+  "permissions": [
+    "events.subscribe"
+  ],
+  "dependencies": [
+    {
+      "name": "audit-client",
+      "version": "2.3.1",
+      "provenance": "verified",
+      "checksum": "sha256-audit-client-2.3.1"
+    }
+  ],
+  "events": {
+    "consumes": [
+      {
+        "name": "case.redacted",
+        "schema": "contracts/schemas/case-redacted.event.v1.json"
+      }
+    ],
+    "emits": []
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/audit.request.v1.json",
+    "outputSchema": "contracts/schemas/audit.response.v1.json"
+  }
+}
