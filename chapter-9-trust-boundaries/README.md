@@ -91,16 +91,16 @@ Validate all Chapter 9 contracts and runtime plans:
 ./scripts/validate_trust.sh
 ```
 
-Inspect the policy and metadata delta between two labs:
-
-```bash
-./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission
-```
-
 Inspect the trust-decision delta between two labs:
 
 ```bash
 ./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission
+```
+
+Inspect the raw scenario metadata and policy delta when you want the exact file-level change:
+
+```bash
+./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission
 ```
 
 Run the full Chapter 9 reader path:
@@ -118,17 +118,17 @@ If you are following the chapter as a fresh reader, use this order:
 1. `./scripts/list_labs.sh`
 2. `./scripts/validate_trust.sh lab1-trusted-service`
 3. `./scripts/run_trust_demo.sh lab1-trusted-service`
-4. `./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission`
-5. `./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission`
+4. `./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission`
+5. `./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission`
 6. `./scripts/run_trust_demo.sh lab2-undeclared-permission`
-7. `./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
-8. `./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
+7. `./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
+8. `./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
 9. `./scripts/run_trust_demo.sh lab3-untrusted-dependency`
-10. `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
-11. `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+10. `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+11. `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
 12. `./scripts/run_trust_demo.sh lab4-forbidden-communication`
-13. `./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance`
-14. `./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance`
+13. `./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance`
+14. `./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance`
 15. `./scripts/run_trust_demo.sh lab5-restored-compliance`
 
 That flow mirrors the chapter idea:
@@ -172,10 +172,12 @@ The most important lines are:
 Use:
 
 - `./scripts/trust_diff.sh` when you want a short explanation of what changed in trust terms
-- `./scripts/policy_diff.sh` when you want the raw Git diff of the scenario files
+- `./scripts/policy_diff.sh` when you want the raw Git diff of the scenario files and metadata
 
 The first answers "what changed in runtime behavior?"
 The second answers "which exact metadata fields changed?"
+
+Most readers should start with `trust_diff.sh` and only use `policy_diff.sh` when they want the underlying file diff.
 
 ### "How do I know if the lab gave me value?"
 
@@ -224,8 +226,13 @@ Suggested commands:
 
 ```bash
 ./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission
-./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission
 ./scripts/run_trust_demo.sh lab2-undeclared-permission
+```
+
+Optional deeper inspection:
+
+```bash
+./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission
 ```
 
 Expected outcome:
@@ -246,8 +253,13 @@ Suggested commands:
 
 ```bash
 ./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency
-./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency
 ./scripts/run_trust_demo.sh lab3-untrusted-dependency
+```
+
+Optional deeper inspection:
+
+```bash
+./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency
 ```
 
 Expected outcome:
@@ -268,8 +280,13 @@ Suggested commands:
 
 ```bash
 ./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication
-./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication
 ./scripts/run_trust_demo.sh lab4-forbidden-communication
+```
+
+Optional deeper inspection:
+
+```bash
+./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication
 ```
 
 Expected outcome:
@@ -290,8 +307,13 @@ Suggested commands:
 
 ```bash
 ./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance
-./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance
 ./scripts/run_trust_demo.sh lab5-restored-compliance
+```
+
+Optional deeper inspection:
+
+```bash
+./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance
 ```
 
 Expected outcome:
