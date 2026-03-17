@@ -77,6 +77,12 @@ No extra packages are required for the validated Rust path.
 The JavaScript runtime files are retained as a secondary reference implementation.
 The scenario contracts reference versioned schema files under `contracts/schemas/`.
 
+## Validation status
+
+- Validated path: `./scripts/smoke_graph_labs.sh`
+- Main implementation: Rust CLI in `src/`
+- Optional path: JavaScript runtime files under `runtime/` for reference and comparison
+
 ---
 
 ## Quick start
@@ -123,6 +129,12 @@ Run the full Chapter 8 reader path:
 ```bash
 ./scripts/smoke_graph_labs.sh
 ```
+
+## Troubleshooting
+
+- If `cargo run --offline` fails because dependencies are missing, run the commands once on a machine that can populate your Cargo cache or switch to non-offline `cargo` locally.
+- If you pass an unknown lab name, rerun `./scripts/list_labs.sh` and use one of the printed scenario ids.
+- If you want the raw metadata-level change instead of the graph summary, use `./scripts/contract_diff.sh <from> <to>`.
 
 ---
 
