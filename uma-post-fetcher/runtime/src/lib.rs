@@ -2,7 +2,6 @@
 //! orchestrates contract loading, adapter binding, deterministic event
 //! emission, lifecycle metadata and service execution.
 
-mod loader;
 mod adapter_manager;
 mod thread_manager;
 mod event_bus;

@@ -9,6 +9,27 @@ Each folder represents a standalone project that can be built and run independen
 
 ---
 
+## Reader Setup
+
+Shared prerequisites for the validated reader flows:
+
+- Rust with the `wasm32-wasip1` target: `rustup target add wasm32-wasip1`
+- Node.js 20 or newer
+- `npm`
+- `wasmtime` on your `PATH` for the WASI-backed examples
+- Optional: `jq` for manual JSON inspection
+- Optional: Deno if you want to experiment with the Chapter 7 edge harness
+
+For a single repo-level verification pass after installing the prerequisites:
+
+```bash
+./scripts/smoke_reader_paths.sh
+```
+
+This script runs the validated chapter flows in sequence and stops on the first failure.
+
+---
+
 ## Table of Contents
 
 | Chapter | Example | Description | Folder |
@@ -33,5 +54,8 @@ Build and test examples locally:
 
 ```bash
 git clone https://github.com/enricopiovesan/UMA-code-examples.git
-cd UMA-code-examples/feature-flag-evaluator 
+cd UMA-code-examples
 # Follow example-specific README for build and run instructions
+```
+
+The chapter READMEs call out where a path is fully validated versus where a browser or edge host is still illustrative scaffolding.

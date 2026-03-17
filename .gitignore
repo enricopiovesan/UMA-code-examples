@@ -1,0 +1,6 @@
+.bin/
+**/target/
+**/node_modules/
+**/dist/
+**/logs/
+uma-metadata-orchestration/cache-img-001.json
