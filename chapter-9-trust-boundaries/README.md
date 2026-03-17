@@ -51,6 +51,7 @@ chapter-9-trust-boundaries/
     list_labs.sh
     run_trust_demo.sh
     validate_trust.sh
+    trust_diff.sh
     policy_diff.sh
     smoke_trust_labs.sh
 ```
@@ -96,6 +97,12 @@ Inspect the policy and metadata delta between two labs:
 ./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission
 ```
 
+Inspect the trust-decision delta between two labs:
+
+```bash
+./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission
+```
+
 Run the full Chapter 9 reader path:
 
 ```bash
@@ -112,13 +119,17 @@ If you are following the chapter as a fresh reader, use this order:
 2. `./scripts/validate_trust.sh lab1-trusted-service`
 3. `./scripts/run_trust_demo.sh lab1-trusted-service`
 4. `./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission`
-5. `./scripts/run_trust_demo.sh lab2-undeclared-permission`
-6. `./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
-7. `./scripts/run_trust_demo.sh lab3-untrusted-dependency`
-8. `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
-9. `./scripts/run_trust_demo.sh lab4-forbidden-communication`
-10. `./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance`
-11. `./scripts/run_trust_demo.sh lab5-restored-compliance`
+5. `./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission`
+6. `./scripts/run_trust_demo.sh lab2-undeclared-permission`
+7. `./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
+8. `./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
+9. `./scripts/run_trust_demo.sh lab3-untrusted-dependency`
+10. `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+11. `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+12. `./scripts/run_trust_demo.sh lab4-forbidden-communication`
+13. `./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance`
+14. `./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance`
+15. `./scripts/run_trust_demo.sh lab5-restored-compliance`
 
 That flow mirrors the chapter idea:
 
@@ -154,6 +165,17 @@ The most important lines are:
 - `[deny] ...: permission.undeclared`
 - `[deny] ...: dependency.provenance.untrusted`
 - `[deny] ...: communication.forbidden`
+- `Outcome: deny -> allow` in `./scripts/trust_diff.sh`
+
+### "When should I use `policy_diff.sh` versus `trust_diff.sh`?"
+
+Use:
+
+- `./scripts/trust_diff.sh` when you want a short explanation of what changed in trust terms
+- `./scripts/policy_diff.sh` when you want the raw Git diff of the scenario files
+
+The first answers "what changed in runtime behavior?"
+The second answers "which exact metadata fields changed?"
 
 ### "How do I know if the lab gave me value?"
 
@@ -165,8 +187,8 @@ You got value from the Chapter 9 lab if you can explain all three of these point
 
 If those points are not obvious from the output, compare:
 
-- `./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission`
-- `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+- `./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission`
+- `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
 - `./scripts/run_trust_demo.sh lab5-restored-compliance`
 
 ---
@@ -201,6 +223,7 @@ The service now requests a permission that was never declared in its contract.
 Suggested commands:
 
 ```bash
+./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission
 ./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission
 ./scripts/run_trust_demo.sh lab2-undeclared-permission
 ```
@@ -222,6 +245,7 @@ The service now carries a dependency whose provenance is not verified.
 Suggested commands:
 
 ```bash
+./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency
 ./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency
 ./scripts/run_trust_demo.sh lab3-untrusted-dependency
 ```
@@ -243,6 +267,7 @@ Two services are individually trusted enough to execute, but the consumer trust 
 Suggested commands:
 
 ```bash
+./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication
 ./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication
 ./scripts/run_trust_demo.sh lab4-forbidden-communication
 ```
@@ -264,6 +289,7 @@ Fix the consumer identity so the communication rule is satisfied again.
 Suggested commands:
 
 ```bash
+./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance
 ./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance
 ./scripts/run_trust_demo.sh lab5-restored-compliance
 ```

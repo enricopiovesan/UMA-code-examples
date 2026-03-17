@@ -35,6 +35,16 @@ test("lab5 restored communication is allowed", async () => {
   assert.equal(report.auditLog.at(-1).reason, "communication.trusted");
 });
 
+test("lab transition from forbidden to restored communication changes the outcome", async () => {
+  const fromReport = evaluateTrust(await loadScenario(rootDir, "lab4-forbidden-communication"));
+  const toReport = evaluateTrust(await loadScenario(rootDir, "lab5-restored-compliance"));
+
+  assert.equal(fromReport.outcome, "deny");
+  assert.equal(toReport.outcome, "allow");
+  assert.equal(fromReport.auditLog.at(-1).reason, "communication.forbidden");
+  assert.equal(toReport.auditLog.at(-1).reason, "communication.trusted");
+});
+
 test("scenario listing returns the reader lab order", async () => {
   assert.deepEqual(await listScenarios(rootDir), [
     "lab1-trusted-service",
