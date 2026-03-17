@@ -2,11 +2,24 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LOCAL_WASMTIME="$ROOT_DIR/.bin/wasmtime-v39.0.0-aarch64-macos"
 
-if [[ -d "$LOCAL_WASMTIME" ]]; then
-  export PATH="$LOCAL_WASMTIME:$PATH"
-fi
+add_local_wasmtime_to_path() {
+  local candidate
+
+  for candidate in "$ROOT_DIR"/.bin/wasmtime-*; do
+    if [[ -x "$candidate/wasmtime" ]]; then
+      export PATH="$candidate:$PATH"
+      return
+    fi
+
+    if [[ -x "$candidate/bin/wasmtime" ]]; then
+      export PATH="$candidate/bin:$PATH"
+      return
+    fi
+  done
+}
+
+add_local_wasmtime_to_path
 
 require_cmd() {
   if ! command -v "$1" >/dev/null 2>&1; then
