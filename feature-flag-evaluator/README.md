@@ -210,7 +210,7 @@ To run the browser demo:
    cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app
    ```
 
-2. Copy the compiled module into the `adapters/browser` directory (for example using `cp target/wasm32-wasip1/release/ff_eval_wasi_app.wasm ff-eval/adapters/browser/`).
+2. Copy the compiled module into the `adapters/browser` directory (for example using `cp target/wasm32-wasip1/release/ff_eval_wasi_app.wasm adapters/browser/`).
 
 3. Open `adapters/browser/index.html` in a web server that supports ES modules (for example `python3 -m http.server`) and click “Evaluate” to run the evaluator in your browser.
 
