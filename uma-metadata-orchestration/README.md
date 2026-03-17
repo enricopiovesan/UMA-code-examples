@@ -18,6 +18,12 @@ The validated quick-start path is now the Rust cloud runner. The repository also
 - jq and yq are optional
 - Node.js 20 or newer only if you want to build the optional browser and edge helper artifacts
 
+## Validation status
+
+- Validated path: `./scripts/build_all.sh`, `./scripts/run_cloud.sh`, and `bash -x ./tests/test_orchestration.sh`
+- Main implementation: Rust cloud runner in `runtime-rust/`
+- Optional paths: browser and edge helper harnesses, plus the TypeScript reference runner in `runtime/`
+
 ## Quick start
 
 ```bash
@@ -90,6 +96,12 @@ deno run --allow-run edge/edge_runner.ts
 
 The browser and edge harnesses remain optional demonstrations.
 The validated Chapter 7 path is `./scripts/build_all.sh` plus `./scripts/run_cloud.sh`, which now uses the Rust runner.
+
+## Troubleshooting
+
+- If `./scripts/run_cloud.sh` says `Wasmtime is required`, install Wasmtime or place a matching release under the repo `.bin/` directory.
+- If `./scripts/run_cloud.sh` says built WASI artifacts are missing, rerun `./scripts/build_all.sh`.
+- If you want the optional browser and edge helper artifacts, run `BUILD_OPTIONAL_JS=1 ./scripts/build_all.sh`.
 
 ## Policy rule, fail closed
 

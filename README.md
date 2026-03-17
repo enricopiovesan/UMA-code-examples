@@ -31,6 +31,21 @@ The same script is also used by the repository CI workflow on pull requests and 
 
 ---
 
+## Chapter Status
+
+| Chapter | Main implementation | Validated path | Optional paths |
+| --- | --- | --- | --- |
+| 4 | Rust | `cargo test` plus `./scripts/run_vectors.sh` | none |
+| 5 | Rust | `cargo test --workspace` plus native cloud host smoke | browser and edge sketches |
+| 6 | Rust | native plus WASM parity lab | none |
+| 7 | Rust | `./scripts/build_all.sh` then `./scripts/run_cloud.sh` | browser and edge helper harnesses |
+| 8 | Rust | `./scripts/smoke_graph_labs.sh` | JavaScript runtime kept as reference |
+| 9 | Rust | `./scripts/smoke_trust_labs.sh` | JavaScript runtime kept as reference |
+
+Validated path means the commands are exercised by the repo smoke script and are the first path a reader should trust.
+
+---
+
 ## Table of Contents
 
 | Chapter | Example | Description | Folder |

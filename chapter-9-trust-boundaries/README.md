@@ -73,6 +73,12 @@ The JavaScript files under `runtime/` remain as reference implementations and co
 No extra packages are required for the validated Rust path.
 The JavaScript runtime files are retained as a secondary reference implementation.
 
+## Validation status
+
+- Validated path: `./scripts/smoke_trust_labs.sh`
+- Main implementation: Rust CLI in `src/`
+- Optional path: JavaScript runtime files under `runtime/` for reference and comparison
+
 ---
 
 ## Quick start
@@ -113,6 +119,12 @@ Run the full Chapter 9 reader path:
 ```bash
 ./scripts/smoke_trust_labs.sh
 ```
+
+## Troubleshooting
+
+- If `cargo run --offline` fails because dependencies are missing, run the commands once on a machine that can populate your Cargo cache or switch to non-offline `cargo` locally.
+- If you are unsure which scenarios exist, run `./scripts/list_labs.sh`.
+- Start with `./scripts/trust_diff.sh` for behavioral changes and only use `./scripts/policy_diff.sh` when you want the raw file diff.
 
 ---
 
