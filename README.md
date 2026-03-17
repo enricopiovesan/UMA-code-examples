@@ -40,6 +40,7 @@ The same script is also used by the repository CI workflow on pull requests and 
 | 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same service as both a portable WASI module and a native binary. Includes schema validation, capability gating, and reader labs for parity and determinism. | [`uma-portable-service-example`](uma-portable-service-example/) |
 | 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability. Includes a multi-step learning path (interfaces → contracts → orchestration), OpenTelemetry + Jaeger integration, parity test for determinism across cloud and edge, and guided reader labs. | [`uma-metadata-orchestration`](uma-metadata-orchestration/) |
 | 8 | **Service Graph Evolution with Git** | Draft hands-on plan for Chapter 8 showing how UMA service graphs emerge through contracts, events, and runtime discovery across Git checkpoints. | [`chapter-8-service-graph`](chapter-8-service-graph/) |
+| 9 | **Trust Boundaries and Runtime Enforcement** | Demonstrates Chapter 9’s trust model by validating service identity, permissions, dependency provenance, and communication policy across five trust-boundary labs. | [`chapter-9-trust-boundaries`](chapter-9-trust-boundaries/) |
 
 ---
 

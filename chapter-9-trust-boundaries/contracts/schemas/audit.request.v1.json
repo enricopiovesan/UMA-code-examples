@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/audit.request.v1.json",
+  "title": "Audit Request",
+  "type": "object",
+  "required": ["eventName"],
+  "properties": {
+    "eventName": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/case-redacted.event.v1.json",
+  "title": "Case Redacted Event",
+  "type": "object",
+  "required": ["caseId", "classification"],
+  "properties": {
+    "caseId": {
+      "type": "string"
+    },
+    "classification": {
+      "type": "string"
+    }
+  }
+}

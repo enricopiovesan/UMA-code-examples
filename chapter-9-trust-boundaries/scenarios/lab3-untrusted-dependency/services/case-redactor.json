@@ -1,0 +1,44 @@
+{
+  "kind": "uma.trusted-service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "case-redactor",
+    "version": "1.1.0",
+    "summary": "Redacts sensitive case data but ships with an untrusted dependency.",
+    "publisher": "uma.book.team",
+    "trustTier": "internal",
+    "placements": ["cloud", "edge"]
+  },
+  "capabilities": [
+    {
+      "id": "case.redaction",
+      "version": "1.1"
+    }
+  ],
+  "permissions": [
+    "storage.read",
+    "storage.write",
+    "events.publish"
+  ],
+  "dependencies": [
+    {
+      "name": "fast-redaction-addon",
+      "version": "0.9.0",
+      "provenance": "untrusted",
+      "checksum": "sha256-fast-redaction-addon-0.9.0"
+    }
+  ],
+  "events": {
+    "consumes": [],
+    "emits": [
+      {
+        "name": "case.redacted",
+        "schema": "contracts/schemas/case-redacted.event.v1.json"
+      }
+    ]
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/redaction.request.v1.json",
+    "outputSchema": "contracts/schemas/redaction.response.v1.json"
+  }
+}

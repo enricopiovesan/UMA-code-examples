@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/schemas/redaction.request.v1.json",
+  "title": "Redaction Request",
+  "type": "object",
+  "required": ["documentId", "sensitivity"],
+  "properties": {
+    "documentId": {
+      "type": "string"
+    },
+    "sensitivity": {
+      "type": "string"
+    }
+  }
+}

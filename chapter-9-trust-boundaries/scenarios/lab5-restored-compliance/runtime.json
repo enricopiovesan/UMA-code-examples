@@ -1,0 +1,24 @@
+{
+  "placement": "cloud",
+  "executions": [
+    {
+      "service": "upload-bridge",
+      "requestedPermissions": [
+        "events.publish"
+      ]
+    },
+    {
+      "service": "internal-audit-sink",
+      "requestedPermissions": [
+        "events.subscribe"
+      ]
+    }
+  ],
+  "communications": [
+    {
+      "from": "upload-bridge",
+      "event": "case.redacted",
+      "to": "internal-audit-sink"
+    }
+  ]
+}

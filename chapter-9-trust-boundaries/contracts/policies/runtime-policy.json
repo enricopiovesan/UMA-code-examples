@@ -1,0 +1,42 @@
+{
+  "kind": "uma.runtime-trust-policy",
+  "specVersion": "1.0",
+  "trustedPublishers": [
+    "uma.book.team",
+    "uma.platform.ops"
+  ],
+  "allowedTrustTiers": [
+    "internal",
+    "partner"
+  ],
+  "placementRules": {
+    "cloud": {
+      "allowedPermissions": [
+        "storage.read",
+        "storage.write",
+        "events.publish",
+        "events.subscribe"
+      ]
+    },
+    "edge": {
+      "allowedPermissions": [
+        "storage.read",
+        "events.publish",
+        "events.subscribe"
+      ]
+    }
+  },
+  "eventRules": {
+    "image.uploaded": {
+      "allowedConsumerTiers": [
+        "internal",
+        "partner"
+      ]
+    },
+    "case.redacted": {
+      "allowedConsumerTiers": [
+        "internal"
+      ]
+    }
+  }
+}
