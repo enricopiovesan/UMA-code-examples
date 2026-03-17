@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import { mkdtemp, mkdir, writeFile } from "node:fs/promises";
 import os from "node:os";
-import { buildGraph, loadContracts, loadScenario, validateContract } from "./graph_lib.mjs";
+import { buildGraph, listScenarios, loadContracts, loadScenario, validateContract } from "./graph_lib.mjs";
 
 const rootDir = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 
@@ -195,6 +195,20 @@ test("loading contracts rejects duplicate service ids in one scenario", async ()
   await writeFile(path.join(servicesDir, "service-b.json"), `${JSON.stringify(duplicateContract, null, 2)}\n`, "utf8");
 
   await assert.rejects(loadContracts(tempRoot, scenarioDir), /duplicate service id/);
+});
+
+test("scenario listing exposes the reader lab order", async () => {
+  assert.deepEqual(await listScenarios(rootDir), [
+    "lab1-upload-only",
+    "lab2-image-tagger",
+    "lab3-indexer",
+    "lab4-broken-compat",
+    "lab5-fixed-compat",
+  ]);
+});
+
+test("loading an unknown scenario gives a helpful error", async () => {
+  await assert.rejects(loadScenario(rootDir, "does-not-exist"), /unknown scenario/);
 });
 
 test("graph builder marks missing emitters as waiting consumers", () => {

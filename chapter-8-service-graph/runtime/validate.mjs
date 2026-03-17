@@ -1,17 +1,26 @@
 import path from "node:path";
 import process from "node:process";
-import { readdir } from "node:fs/promises";
-import { loadScenario } from "./graph_lib.mjs";
-
-async function listScenarios(rootDir) {
-  const scenariosDir = path.join(rootDir, "scenarios");
-  const entries = await readdir(scenariosDir, { withFileTypes: true });
-  return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
-}
+import { listScenarios, loadScenario } from "./graph_lib.mjs";
 
 async function main() {
   const rootDir = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
   const scenarioNames = process.argv.slice(2);
+
+  if (scenarioNames[0] === "--help" || scenarioNames[0] === "-h") {
+    process.stdout.write(
+      "Usage: node runtime/validate.mjs [scenario-name ...]\n" +
+        "       node runtime/validate.mjs --list\n",
+    );
+    return;
+  }
+
+  if (scenarioNames[0] === "--list") {
+    for (const scenarioName of await listScenarios(rootDir)) {
+      process.stdout.write(`${scenarioName}\n`);
+    }
+    return;
+  }
+
   const targets = scenarioNames.length > 0 ? scenarioNames : await listScenarios(rootDir);
 
   for (const scenarioName of targets) {
