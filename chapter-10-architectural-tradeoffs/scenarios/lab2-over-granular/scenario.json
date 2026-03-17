@@ -1,0 +1,65 @@
+{
+  "title": "Over granular decomposition",
+  "summary": "A previously coherent capability is split into narrow technical steps, increasing runtime coordination overhead.",
+  "services": [
+    {
+      "id": "upload-ingest",
+      "capability": "media.ingest",
+      "summary": "Accepts uploads and emits image.uploaded.",
+      "placements": ["client", "edge", "cloud"],
+      "events": { "consumes": [], "emits": ["image.uploaded"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 10 }
+    },
+    {
+      "id": "image-bytes-loader",
+      "capability": "media.bytes.load",
+      "summary": "Loads upload bytes and emits image.bytes.loaded.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["image.uploaded"], "emits": ["image.bytes.loaded"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 11 }
+    },
+    {
+      "id": "image-validator",
+      "capability": "media.validate",
+      "summary": "Validates the image payload and emits image.validated.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["image.bytes.loaded"], "emits": ["image.validated"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 12 }
+    },
+    {
+      "id": "image-analyzer",
+      "capability": "media.analyze",
+      "summary": "Performs the actual image analysis and emits image.analyzed.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["image.validated"], "emits": ["image.analyzed"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 20 }
+    },
+    {
+      "id": "metadata-indexer",
+      "capability": "media.index",
+      "summary": "Indexes completed analysis for search.",
+      "placements": ["cloud"],
+      "events": { "consumes": ["image.analyzed"], "emits": ["metadata.indexed"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 30 }
+    }
+  ],
+  "interactions": [
+    { "from": "upload-ingest", "event": "image.uploaded", "to": "image-bytes-loader" },
+    { "from": "image-bytes-loader", "event": "image.bytes.loaded", "to": "image-validator" },
+    { "from": "image-validator", "event": "image.validated", "to": "image-analyzer" },
+    { "from": "image-analyzer", "event": "image.analyzed", "to": "metadata-indexer" }
+  ],
+  "choices": {
+    "granularity": "over-granular",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Over decomposition raises coordination cost even when each capability is valid in isolation.",
+    "Too many narrow capabilities make small workflow changes harder to reason about.",
+    "Architects should optimize for meaningful behavior units, not the smallest possible services."
+  ]
+}

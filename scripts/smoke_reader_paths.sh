@@ -72,4 +72,9 @@ pushd "$ROOT_DIR/chapter-9-trust-boundaries" >/dev/null
 ./scripts/smoke_trust_labs.sh
 popd >/dev/null
 
+echo "== Chapter 10: chapter-10-architectural-tradeoffs =="
+pushd "$ROOT_DIR/chapter-10-architectural-tradeoffs" >/dev/null
+./scripts/smoke_arch_labs.sh
+popd >/dev/null
+
 echo "Smoke run completed successfully."

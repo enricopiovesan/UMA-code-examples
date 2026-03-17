@@ -1,0 +1,56 @@
+{
+  "title": "Runtime ambiguity",
+  "summary": "Two analyzer capabilities overlap in scope and metadata, leaving runtime selection under-defined.",
+  "services": [
+    {
+      "id": "upload-ingest",
+      "capability": "media.ingest",
+      "summary": "Accepts uploads and emits image.uploaded.",
+      "placements": ["client", "edge", "cloud"],
+      "events": { "consumes": [], "emits": ["image.uploaded"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 10 }
+    },
+    {
+      "id": "image-analyzer-edge",
+      "capability": "media.analyze",
+      "summary": "Edge-oriented analyzer with no explicit preference ranking.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["image.uploaded"], "emits": ["image.analyzed"] },
+      "metadata": { "fields": ["capability", "placements", "latencyTargetMs"] }
+    },
+    {
+      "id": "image-analyzer-cloud",
+      "capability": "media.analyze",
+      "summary": "Cloud-oriented analyzer with overlapping scope and no deterministic rank.",
+      "placements": ["edge", "cloud"],
+      "events": { "consumes": ["image.uploaded"], "emits": ["image.analyzed"] },
+      "metadata": { "fields": ["capability", "placements", "throughputHint"] }
+    },
+    {
+      "id": "metadata-indexer",
+      "capability": "media.index",
+      "summary": "Indexes analysis output.",
+      "placements": ["cloud"],
+      "events": { "consumes": ["image.analyzed"], "emits": ["metadata.indexed"] },
+      "metadata": { "fields": ["capability", "placements"], "selection_rank": 30 }
+    }
+  ],
+  "interactions": [
+    { "from": "upload-ingest", "event": "image.uploaded", "to": "image-analyzer-edge" },
+    { "from": "upload-ingest", "event": "image.uploaded", "to": "image-analyzer-cloud" },
+    { "from": "image-analyzer-edge", "event": "image.analyzed", "to": "metadata-indexer" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "ambiguous-selection",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Multiple valid capabilities need explicit ranking or constraints for deterministic runtime behavior.",
+    "Ambiguous selection is an architectural problem even when both candidates are individually correct.",
+    "Metadata quality includes the ability to explain and reproduce runtime decisions."
+  ]
+}

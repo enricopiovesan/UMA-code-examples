@@ -41,6 +41,7 @@ The same script is also used by the repository CI workflow on pull requests and 
 | 7 | Rust | `./scripts/build_all.sh` then `./scripts/run_cloud.sh` | browser and edge helper harnesses |
 | 8 | Rust | `./scripts/smoke_graph_labs.sh` | JavaScript runtime kept as reference |
 | 9 | Rust | `./scripts/smoke_trust_labs.sh` | JavaScript runtime kept as reference |
+| 10 | Rust and TypeScript | `./scripts/smoke_arch_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
 
 Validated path means the commands are exercised by the repo smoke script and are the first path a reader should trust.
 
@@ -56,6 +57,7 @@ Validated path means the commands are exercised by the repo smoke script and are
 | 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability with a Rust-first validated cloud runner, plus optional browser and edge helper harnesses. | [`uma-metadata-orchestration`](uma-metadata-orchestration/) |
 | 8 | **Service Graph Evolution with Git** | Demonstrates Chapter 8 with a Rust-first hands-on lab showing how UMA service graphs emerge through contracts, events, and runtime discovery across Git-style checkpoints. | [`chapter-8-service-graph`](chapter-8-service-graph/) |
 | 9 | **Trust Boundaries and Runtime Enforcement** | Demonstrates Chapter 9’s trust model with a Rust-first lab that validates service identity, permissions, dependency provenance, and communication policy across five trust-boundary scenarios. | [`chapter-9-trust-boundaries`](chapter-9-trust-boundaries/) |
+| 10 | **Architectural Tradeoffs and Runtime Coherence** | Demonstrates Chapter 10 through a Rust-first hands-on lab that compares coherent and degraded architectural choices across capability boundaries, events, metadata, placement, and orchestration. Includes a parallel TypeScript implementation. | [`chapter-10-architectural-tradeoffs`](chapter-10-architectural-tradeoffs/) |
 
 ---
 

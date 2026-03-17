@@ -63,6 +63,7 @@ jobs:
         run: |
           cargo test --locked --manifest-path chapter-8-service-graph/Cargo.toml
           cargo test --locked --manifest-path chapter-9-trust-boundaries/Cargo.toml
+          cargo test --locked --manifest-path chapter-10-architectural-tradeoffs/rust/Cargo.toml
           cargo test --locked --manifest-path uma-metadata-orchestration/runtime-rust/Cargo.toml
 
       - name: Check reader documentation contract
