@@ -49,9 +49,13 @@ chapter-8-service-graph/
     lab4-broken-compat/
     lab5-fixed-compat/
   scripts/
+    list_labs.sh
     run_graph_demo.sh
     graph_snapshot.sh
     graph_diff.sh
+    contract_diff.sh
+    validate_graph_contracts.sh
+    smoke_graph_labs.sh
 ```
 
 The runtime prints a simple graph snapshot so the reader can see which services and events are currently connected.
@@ -71,15 +75,17 @@ The scenario contracts reference versioned schema files under `contracts/schemas
 
 ## Quick start
 
-Run each lab state directly:
+If you land here as a reader, start by listing the labs:
 
 ```bash
 cd chapter-8-service-graph
+./scripts/list_labs.sh
+```
+
+Run a single lab state directly:
+
+```bash
 ./scripts/run_graph_demo.sh lab1-upload-only
-./scripts/run_graph_demo.sh lab2-image-tagger
-./scripts/run_graph_demo.sh lab3-indexer
-./scripts/run_graph_demo.sh lab4-broken-compat
-./scripts/run_graph_demo.sh lab5-fixed-compat
 ```
 
 Inspect a machine-readable snapshot:
@@ -94,6 +100,12 @@ Compare two graph states:
 ./scripts/graph_diff.sh lab3-indexer lab4-broken-compat
 ```
 
+Inspect the contract-level change between two labs with Git's diff engine:
+
+```bash
+./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger
+```
+
 Validate the scenario contracts:
 
 ```bash
@@ -105,6 +117,66 @@ Run the full Chapter 8 reader path:
 ```bash
 ./scripts/smoke_graph_labs.sh
 ```
+
+---
+
+## Reader path
+
+If you are following the chapter as a fresh reader, use this order:
+
+1. `./scripts/list_labs.sh`
+2. `./scripts/validate_graph_contracts.sh lab1-upload-only`
+3. `./scripts/run_graph_demo.sh lab1-upload-only`
+4. `./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger`
+5. `./scripts/run_graph_demo.sh lab2-image-tagger`
+6. `./scripts/run_graph_demo.sh lab3-indexer`
+7. `./scripts/graph_diff.sh lab3-indexer lab4-broken-compat`
+8. `./scripts/run_graph_demo.sh lab4-broken-compat`
+9. `./scripts/run_graph_demo.sh lab5-fixed-compat`
+
+That flow mirrors the chapter idea:
+
+- start with one event-producing service
+- add compatible services
+- observe graph growth
+- break compatibility
+- restore it and see the graph recover
+
+---
+
+## Questions A Reader Might Ask
+
+### "Where is the Git part if all lab states are in one folder?"
+
+This repo ships the Chapter 8 labs as scenario directories so the reader can run everything from one checkout.
+The Git-oriented inspection step is:
+
+- `./scripts/contract_diff.sh <from> <to>` for contract changes
+- `./scripts/graph_diff.sh <from> <to>` for graph changes
+
+This keeps the chapter runnable while still letting the reader inspect architectural evolution with Git's diff model.
+
+### "What should I pay attention to in the output?"
+
+The most important lines are:
+
+- `capability: ...` to see what the service claims it can do
+- `consumes: ...` and `emits: ...` to see event compatibility
+- `Edges` to see the active service graph
+- `Waiting Consumers` to see where compatibility has broken
+
+### "How do I know if the hands-on gave me value?"
+
+You got value from the Chapter 8 lab if you can explain all three of these points after running it:
+
+- the upload service reports an event instead of orchestrating downstream work
+- adding a compatible service changes the graph without editing upstream services
+- a metadata mismatch removes graph edges and turns a downstream service into a waiting consumer
+
+If you cannot explain those three outcomes from the command outputs, reread Labs 8.2 through 8.4 and compare:
+
+- `./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger`
+- `./scripts/graph_diff.sh lab3-indexer lab4-broken-compat`
 
 ---
 
@@ -132,8 +204,14 @@ Suggested commands:
 Expected graph:
 
 ```text
-upload-service
-  emits -> image.uploaded
+Scenario: lab1-upload-only
+
+Services
+- upload-service v1.0.0
+  emits: image.uploaded (contracts/schemas/image-uploaded.event.v1.json)
+
+Edges
+- none
 ```
 
 Architectural point:
@@ -153,6 +231,7 @@ Suggested commands:
 
 ```bash
 ./scripts/validate_graph_contracts.sh lab2-image-tagger
+./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger
 ./scripts/run_graph_demo.sh lab2-image-tagger
 ./scripts/graph_snapshot.sh lab2-image-tagger
 ./scripts/graph_diff.sh lab1-upload-only lab2-image-tagger
@@ -161,11 +240,8 @@ Suggested commands:
 Expected graph:
 
 ```text
-upload-service
-  emits -> image.uploaded
-image-tagger
-  consumes -> image.uploaded
-  emits -> image.tagged
+Edges
+- upload-service -> image.uploaded -> image-tagger
 ```
 
 Architectural point:
@@ -186,6 +262,7 @@ Suggested commands:
 
 ```bash
 ./scripts/validate_graph_contracts.sh lab3-indexer
+./scripts/contract_diff.sh lab2-image-tagger lab3-indexer
 ./scripts/run_graph_demo.sh lab3-indexer
 ./scripts/graph_snapshot.sh lab3-indexer
 ./scripts/graph_diff.sh lab2-image-tagger lab3-indexer
@@ -194,13 +271,9 @@ Suggested commands:
 Expected graph:
 
 ```text
-upload-service
-  emits -> image.uploaded
-image-tagger
-  consumes -> image.uploaded
-  emits -> image.tagged
-metadata-indexer
-  consumes -> image.tagged
+Edges
+- image-tagger -> image.tagged -> metadata-indexer
+- upload-service -> image.uploaded -> image-tagger
 ```
 
 Architectural point:
@@ -219,6 +292,7 @@ Suggested commands:
 
 ```bash
 ./scripts/validate_graph_contracts.sh lab4-broken-compat
+./scripts/contract_diff.sh lab3-indexer lab4-broken-compat
 ./scripts/run_graph_demo.sh lab4-broken-compat
 ./scripts/graph_snapshot.sh lab4-broken-compat
 ./scripts/graph_diff.sh lab3-indexer lab4-broken-compat
@@ -227,12 +301,11 @@ Suggested commands:
 Expected graph:
 
 ```text
-upload-service
-  emits -> image.uploaded
-image-tagger
-  emits -> image-tagged-renamed
-metadata-indexer
-  waiting for -> image.tagged
+Edges
+- upload-service -> image.uploaded -> image-tagger
+
+Waiting Consumers
+- metadata-indexer waiting for image.tagged
 ```
 
 Architectural point:
@@ -253,6 +326,7 @@ Suggested commands:
 
 ```bash
 ./scripts/validate_graph_contracts.sh lab5-fixed-compat
+./scripts/contract_diff.sh lab4-broken-compat lab5-fixed-compat
 ./scripts/run_graph_demo.sh lab5-fixed-compat
 ./scripts/graph_snapshot.sh lab5-fixed-compat
 ./scripts/graph_diff.sh lab4-broken-compat lab5-fixed-compat
@@ -261,13 +335,9 @@ Suggested commands:
 Expected graph:
 
 ```text
-upload-service
-  emits -> image.uploaded
-image-tagger
-  consumes -> image.uploaded
-  emits -> image.tagged
-metadata-indexer
-  consumes -> image.tagged
+Edges
+- image-tagger -> image.tagged -> metadata-indexer
+- upload-service -> image.uploaded -> image-tagger
 ```
 
 Architectural point:
@@ -290,6 +360,7 @@ That gives you both teaching modes:
 
 - one branch for easy local execution
 - tags later if you want immutable chapter checkpoints
+- Git-style inspection now, using `contract_diff.sh` and `graph_diff.sh`
 
 ---
 

@@ -75,6 +75,12 @@ async function assertSchemaExists(rootDir, schemaPath, servicePath) {
   }
 }
 
+export async function listScenarios(rootDir) {
+  const scenariosDir = path.join(rootDir, "scenarios");
+  const entries = await readdir(scenariosDir, { withFileTypes: true });
+  return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+}
+
 function normalizeContract(contract) {
   return {
     kind: contract.kind,
@@ -264,6 +270,13 @@ export function formatTextGraph(graph, scenarioName) {
 }
 
 export async function loadScenario(rootDir, scenarioName) {
+  const availableScenarios = await listScenarios(rootDir);
+  if (!availableScenarios.includes(scenarioName)) {
+    throw new Error(
+      `unknown scenario "${scenarioName}". Available scenarios: ${availableScenarios.join(", ")}`,
+    );
+  }
+
   const scenarioDir = path.join(rootDir, "scenarios", scenarioName);
   const services = await loadContracts(rootDir, scenarioDir);
   return { scenarioDir, services, graph: buildGraph(services) };

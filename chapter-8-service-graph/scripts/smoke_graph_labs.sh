@@ -5,10 +5,15 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 pushd "$ROOT_DIR" >/dev/null
 ./scripts/validate_graph_contracts.sh
+./scripts/list_labs.sh
 ./scripts/run_graph_demo.sh lab1-upload-only
+./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger
 ./scripts/run_graph_demo.sh lab2-image-tagger
+./scripts/contract_diff.sh lab2-image-tagger lab3-indexer
 ./scripts/run_graph_demo.sh lab3-indexer
+./scripts/contract_diff.sh lab3-indexer lab4-broken-compat
 ./scripts/run_graph_demo.sh lab4-broken-compat
+./scripts/contract_diff.sh lab4-broken-compat lab5-fixed-compat
 ./scripts/run_graph_demo.sh lab5-fixed-compat
 ./scripts/graph_diff.sh lab1-upload-only lab2-image-tagger
 ./scripts/graph_diff.sh lab3-indexer lab4-broken-compat
