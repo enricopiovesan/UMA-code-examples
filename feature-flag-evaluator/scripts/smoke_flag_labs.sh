@@ -34,6 +34,7 @@ require_cmd npm
 require_cmd wasmtime
 
 cargo test --locked -p ff_eval_core --manifest-path "$ROOT_DIR/Cargo.toml"
+cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app --manifest-path "$ROOT_DIR/Cargo.toml" >/dev/null
 npm test --prefix "$ROOT_DIR/ts"
 "$ROOT_DIR/scripts/list_labs.sh"
 "$ROOT_DIR/scripts/run_vectors.sh"
