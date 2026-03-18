@@ -28,28 +28,16 @@ require_cmd() {
 
 require_cmd cargo
 require_cmd node
-require_cmd python3
 
 run_single() {
   local lab="$1"
   local rust_json
   local ts_json
   local input_json
-  local tmp_dir
-  local server_pid=""
-  local port="${UMA_DEMO_PORT:-18080}"
-
-  tmp_dir="$(mktemp -d)"
-  trap 'if [[ -n "$server_pid" ]]; then kill "$server_pid" >/dev/null 2>&1 || true; wait "$server_pid" 2>/dev/null || true; fi; rm -rf "$tmp_dir"' RETURN
 
   case "$lab" in
     lab1-cloud-golden-path|lab3-adapter-binding-and-wrappers)
-      mkdir -p "$tmp_dir/posts"
-      cp "$ROOT_DIR/tests/fixtures/sample_post.json" "$tmp_dir/posts/1"
-      python3 -m http.server "$port" --bind 127.0.0.1 --directory "$tmp_dir" >/dev/null 2>&1 &
-      server_pid=$!
-      sleep 1
-      input_json='{"request":{"url":"http://127.0.0.1:'"$port"'/posts/1","headers":{"accept":"application/json"}},"runId":"demo-001"}'
+      input_json='{"request":{"url":"uma-fixture://sample-post","headers":{"accept":"application/json"}},"runId":"demo-001"}'
       ;;
     lab2-header-validation-fail-fast)
       input_json='{"request":{"url":"https://example.com","headers":{"x-foo":"bar"}},"runId":"demo-001"}'

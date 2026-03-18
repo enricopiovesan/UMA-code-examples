@@ -10,8 +10,10 @@ use crate::retry_adapter::RetryAdapter;
 use crate::retry_adapter::RetryAdapter;
 #[cfg(target_arch = "wasm32")]
 use crate::wasi_http_adapter::WasiHttpAdapter;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use std::collections::HashMap;
+use std::fs;
+use std::path::PathBuf;
 
 /// Metadata persisted about the adapter selection.  Records which
 /// implementation was chosen and the host environment.
@@ -111,6 +113,24 @@ impl AdapterManager {
     }
 }
 
+fn fixture_response(url: &str) -> Result<Option<NetworkResponse>> {
+    if url != "uma-fixture://sample-post" {
+        return Ok(None);
+    }
+
+    let fixture_path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../tests/fixtures/sample_post.json");
+    let body = fs::read_to_string(&fixture_path)
+        .with_context(|| format!("failed to read fixture {}", fixture_path.display()))?;
+    let mut headers = HashMap::new();
+    headers.insert("content-type".to_string(), "application/json".to_string());
+    Ok(Some(NetworkResponse {
+        status: 200,
+        headers,
+        body,
+    }))
+}
+
 /// A simple host fetch adapter using `reqwest::blocking`.  Only available on
 /// non‑wasm targets.
 #[cfg(not(target_arch = "wasm32"))]
@@ -119,6 +139,10 @@ pub struct HostFetchAdapter;
 #[cfg(not(target_arch = "wasm32"))]
 impl NetworkAdapter for HostFetchAdapter {
     fn fetch(&self, url: &str, headers: &HashMap<String, String>) -> Result<NetworkResponse> {
+        if let Some(response) = fixture_response(url)? {
+            return Ok(response);
+        }
+
         // Use reqwest::blocking to perform a GET request.
         // Note: for demonstration purposes only; proper error handling and
         // limits should be implemented in a real adapter.

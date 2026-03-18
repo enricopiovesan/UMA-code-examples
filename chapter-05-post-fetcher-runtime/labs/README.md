@@ -14,6 +14,7 @@ Goal:
 - prove the validated cloud host path is deterministic and matches the checked-in golden fixture
 
 What to pay attention to:
+- the request URL is the hermetic fixture `uma-fixture://sample-post`, not a localhost server
 - the event order should be `start`, `fetch_request`, `fetch_response`, `normalized`, `end`
 - the lifecycle binding should show the chosen `network.fetch` implementation
 

@@ -6,6 +6,7 @@ use super::*;
 use serde_json::{json, Value};
 use service::api::{NetworkAdapter, NetworkResponse};
 use std::collections::HashMap;
+use std::path::PathBuf;
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
     Arc,
@@ -233,4 +234,37 @@ fn test_parse_error_marks_run_failed() {
 
     let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
     assert_eq!(meta_val["state"], "failed");
+}
+
+#[test]
+fn test_fixture_url_is_resolved_without_network() {
+    std::env::remove_var("UMA_ENABLE_RETRY");
+    std::env::remove_var("UMA_ENABLE_CACHE");
+
+    let input = json!({
+        "request": { "url": "uma-fixture://sample-post", "headers": { "accept": "application/json" } },
+        "runId": "run-fixture"
+    });
+    let input_str = serde_json::to_string(&input).unwrap();
+
+    let (out_json, meta_json) = run_json(&input_str, None).expect("fixture-backed run should succeed");
+
+    let out_val: Value = serde_json::from_str(&out_json).unwrap();
+    assert_eq!(out_val["normalizedPost"]["id"], 1);
+    assert!(out_val["events"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|e| e["type"] == "fetch_request" && e["data"]["url"] == "uma-fixture://sample-post"));
+
+    let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
+    assert_eq!(meta_val["state"], "terminated");
+    assert_eq!(meta_val["bindings"]["network.fetch"]["impl"], "host-fetch");
+}
+
+#[test]
+fn test_fixture_file_exists_for_validated_lab() {
+    let fixture_path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../tests/fixtures/sample_post.json");
+    assert!(fixture_path.is_file(), "missing fixture {}", fixture_path.display());
 }
