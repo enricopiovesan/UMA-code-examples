@@ -11,4 +11,5 @@ fn native_emits_jsonl() {
     let text = String::from_utf8(out).unwrap();
     assert!(text.contains(""event":"image.analyzed""));
     assert!(text.contains(""payload""));
+    assert!(text.contains(""event":"gpu.telemetry.reported""));
 }

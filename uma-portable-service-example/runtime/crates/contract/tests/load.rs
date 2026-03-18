@@ -1,4 +1,3 @@
-
 #[test]
 fn loads_contract() {
     let path = "../../../CONTRACT.json";
