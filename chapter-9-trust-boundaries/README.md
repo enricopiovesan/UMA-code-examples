@@ -40,11 +40,9 @@ chapter-9-trust-boundaries/
   src/
     lib.rs
     main.rs
-  runtime/
-    runner.mjs
-    trust_lib.mjs
-    validate.mjs
-    trust.test.mjs
+  ts/
+    package.json
+    src/
   scenarios/
     lab1-trusted-service/
     lab2-undeclared-permission/
@@ -57,27 +55,32 @@ chapter-9-trust-boundaries/
     validate_trust.sh
     trust_diff.sh
     policy_diff.sh
+    compare_impls.sh
+    run_trust_demo_ts.sh
     smoke_trust_labs.sh
 ```
 
 The validated reader path is the Rust CLI in `src/`.
-The JavaScript files under `runtime/` remain as reference implementations and comparison material.
+The secondary implementation is the TypeScript parity path under `ts/`.
 
 ---
 
 ## Prerequisites
 
 - Rust 1.76 or newer
+- Node.js 20 or newer
 - a checkout of this repository
 
-No extra packages are required for the validated Rust path.
-The JavaScript runtime files are retained as a secondary reference implementation.
+The Rust CLI is the validated default path.
+Node.js is still required for the full smoke run and the TypeScript parity checks.
+The TypeScript implementation is retained as a secondary implementation for comparison.
 
 ## Validation status
 
 - Validated path: `./scripts/smoke_trust_labs.sh`
 - Main implementation: Rust CLI in `src/`
-- Optional path: JavaScript runtime files under `runtime/` for reference and comparison
+- Secondary implementation: TypeScript implementation in `ts/`
+- Implementation parity check: `./scripts/compare_impls.sh <lab-name>`
 
 ---
 
@@ -108,6 +111,12 @@ Inspect the trust-decision delta between two labs:
 ./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission
 ```
 
+Verify Rust and TypeScript stay aligned for one lab:
+
+```bash
+./scripts/compare_impls.sh lab1-trusted-service
+```
+
 Inspect the raw scenario metadata and policy delta when you want the exact file-level change:
 
 ```bash
@@ -120,11 +129,19 @@ Run the full Chapter 9 reader path:
 ./scripts/smoke_trust_labs.sh
 ```
 
+If you want to inspect the TypeScript implementation directly:
+
+```bash
+./scripts/run_trust_demo_ts.sh lab1-trusted-service
+```
+
 ## Troubleshooting
 
 - If `cargo` reports dependency resolution failures, run the commands with network access at least once so Cargo can fetch the locked dependencies.
+- If `npm test` fails in `ts/`, ensure you are using Node.js 20 or newer.
 - If you are unsure which scenarios exist, run `./scripts/list_labs.sh`.
 - Start with `./scripts/trust_diff.sh` for behavioral changes and only use `./scripts/policy_diff.sh` when you want the raw file diff.
+- If you want to confirm Rust and TypeScript still agree for a scenario, use `./scripts/compare_impls.sh <lab>`.
 
 ---
 
@@ -136,17 +153,21 @@ If you are following the chapter as a fresh reader, use this order:
 2. `./scripts/validate_trust.sh lab1-trusted-service`
 3. `./scripts/run_trust_demo.sh lab1-trusted-service`
 4. `./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission`
-5. `./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission`
-6. `./scripts/run_trust_demo.sh lab2-undeclared-permission`
-7. `./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
-8. `./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
-9. `./scripts/run_trust_demo.sh lab3-untrusted-dependency`
-10. `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
-11. `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
-12. `./scripts/run_trust_demo.sh lab4-forbidden-communication`
-13. `./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance`
-14. `./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance`
-15. `./scripts/run_trust_demo.sh lab5-restored-compliance`
+5. `./scripts/compare_impls.sh lab2-undeclared-permission`
+6. `./scripts/policy_diff.sh lab1-trusted-service lab2-undeclared-permission`
+7. `./scripts/run_trust_demo.sh lab2-undeclared-permission`
+8. `./scripts/trust_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
+9. `./scripts/compare_impls.sh lab3-untrusted-dependency`
+10. `./scripts/policy_diff.sh lab2-undeclared-permission lab3-untrusted-dependency`
+11. `./scripts/run_trust_demo.sh lab3-untrusted-dependency`
+12. `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+13. `./scripts/compare_impls.sh lab4-forbidden-communication`
+14. `./scripts/policy_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
+15. `./scripts/run_trust_demo.sh lab4-forbidden-communication`
+16. `./scripts/trust_diff.sh lab4-forbidden-communication lab5-restored-compliance`
+17. `./scripts/compare_impls.sh lab5-restored-compliance`
+18. `./scripts/policy_diff.sh lab4-forbidden-communication lab5-restored-compliance`
+19. `./scripts/run_trust_demo.sh lab5-restored-compliance`
 
 That flow mirrors the chapter idea:
 
@@ -201,7 +222,7 @@ Most readers should start with `trust_diff.sh` and only use `policy_diff.sh` whe
 Use the Rust CLI through the `scripts/` entry points.
 Those scripts call `cargo run --locked` and `cargo test --locked`, so the Chapter 9 quick-start path is Rust-first and reproducible on a clean machine.
 
-The JavaScript files under `runtime/` are there as secondary reference material, not as the primary reader workflow.
+TypeScript lives under `ts/` and is kept in parity through `./scripts/compare_impls.sh`.
 
 ### "How do I know if the lab gave me value?"
 
@@ -216,6 +237,7 @@ If those points are not obvious from the output, compare:
 - `./scripts/trust_diff.sh lab1-trusted-service lab2-undeclared-permission`
 - `./scripts/trust_diff.sh lab3-untrusted-dependency lab4-forbidden-communication`
 - `./scripts/run_trust_demo.sh lab5-restored-compliance`
+- `./scripts/compare_impls.sh lab5-restored-compliance`
 
 ---
 

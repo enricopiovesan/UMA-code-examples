@@ -1,0 +1,8 @@
+{
+  "name": "chapter-9-trust-boundaries-ts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/*.test.mjs"
+  }
+}

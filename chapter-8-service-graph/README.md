@@ -40,12 +40,9 @@ chapter-8-service-graph/
   src/
     lib.rs
     main.rs
-  runtime/
-    graph.mjs
-    graph_diff.mjs
-    graph_lib.mjs
-    validate.mjs
-    graph.test.mjs
+  ts/
+    package.json
+    src/
   scenarios/
     lab1-upload-only/
     lab2-image-tagger/
@@ -58,30 +55,35 @@ chapter-8-service-graph/
     graph_snapshot.sh
     graph_diff.sh
     contract_diff.sh
+    compare_impls.sh
+    run_graph_demo_ts.sh
     validate_graph_contracts.sh
     smoke_graph_labs.sh
 ```
 
 The validated reader path is the Rust CLI in `src/`.
-The JavaScript files under `runtime/` remain as reference implementations and comparison material.
+The secondary implementation is the TypeScript parity path under `ts/`.
 
 ---
 
 ## Prerequisites
 
 - Rust 1.76 or newer
+- Node.js 20 or newer
 - a checkout of this repository
 - the `wasm32-wasip1` target is not required for this chapter
 
-No extra packages are required for the validated Rust path.
-The JavaScript runtime files are retained as a secondary reference implementation.
+The Rust CLI is the validated default path.
+Node.js is still required for the full smoke run and the TypeScript parity checks.
+The TypeScript implementation is kept in parity as a secondary implementation for comparison.
 The scenario contracts reference versioned schema files under `contracts/schemas/`.
 
 ## Validation status
 
 - Validated path: `./scripts/smoke_graph_labs.sh`
 - Main implementation: Rust CLI in `src/`
-- Optional path: JavaScript runtime files under `runtime/` for reference and comparison
+- Secondary implementation: TypeScript implementation in `ts/`
+- Implementation parity check: `./scripts/compare_impls.sh <lab-name>`
 
 ---
 
@@ -112,6 +114,12 @@ Compare two graph states:
 ./scripts/graph_diff.sh lab3-indexer lab4-broken-compat
 ```
 
+Verify Rust and TypeScript stay aligned for one lab:
+
+```bash
+./scripts/compare_impls.sh lab3-indexer
+```
+
 Inspect the contract-level change between two labs with Git's diff engine:
 
 ```bash
@@ -130,11 +138,19 @@ Run the full Chapter 8 reader path:
 ./scripts/smoke_graph_labs.sh
 ```
 
+If you want to inspect the TypeScript implementation directly:
+
+```bash
+./scripts/run_graph_demo_ts.sh lab1-upload-only
+```
+
 ## Troubleshooting
 
 - If `cargo` reports dependency resolution failures, run the commands with network access at least once so Cargo can fetch the locked dependencies.
+- If `npm test` fails in `ts/`, ensure you are using Node.js 20 or newer.
 - If you pass an unknown lab name, rerun `./scripts/list_labs.sh` and use one of the printed scenario ids.
 - If you want the raw metadata-level change instead of the graph summary, use `./scripts/contract_diff.sh <from> <to>`.
+- If you want to confirm Rust and TypeScript still agree for a scenario, use `./scripts/compare_impls.sh <lab>`.
 
 ---
 
@@ -146,11 +162,15 @@ If you are following the chapter as a fresh reader, use this order:
 2. `./scripts/validate_graph_contracts.sh lab1-upload-only`
 3. `./scripts/run_graph_demo.sh lab1-upload-only`
 4. `./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger`
-5. `./scripts/run_graph_demo.sh lab2-image-tagger`
-6. `./scripts/run_graph_demo.sh lab3-indexer`
-7. `./scripts/graph_diff.sh lab3-indexer lab4-broken-compat`
-8. `./scripts/run_graph_demo.sh lab4-broken-compat`
-9. `./scripts/run_graph_demo.sh lab5-fixed-compat`
+5. `./scripts/compare_impls.sh lab2-image-tagger`
+6. `./scripts/run_graph_demo.sh lab2-image-tagger`
+7. `./scripts/compare_impls.sh lab3-indexer`
+8. `./scripts/run_graph_demo.sh lab3-indexer`
+9. `./scripts/graph_diff.sh lab3-indexer lab4-broken-compat`
+10. `./scripts/compare_impls.sh lab4-broken-compat`
+11. `./scripts/run_graph_demo.sh lab4-broken-compat`
+12. `./scripts/compare_impls.sh lab5-fixed-compat`
+13. `./scripts/run_graph_demo.sh lab5-fixed-compat`
 
 That flow mirrors the chapter idea:
 
@@ -179,7 +199,7 @@ This keeps the chapter runnable while still letting the reader inspect architect
 Use the Rust CLI through the `scripts/` entry points.
 Those scripts call `cargo run --locked` and `cargo test --locked`, so the Chapter 8 quick-start path is Rust-first and reproducible on a clean machine.
 
-The JavaScript files under `runtime/` are there as secondary reference material, not as the primary reader workflow.
+TypeScript lives under `ts/` and is kept in parity through `./scripts/compare_impls.sh`.
 
 ### "What should I pay attention to in the output?"
 
@@ -202,6 +222,7 @@ If you cannot explain those three outcomes from the command outputs, reread Labs
 
 - `./scripts/contract_diff.sh lab1-upload-only lab2-image-tagger`
 - `./scripts/graph_diff.sh lab3-indexer lab4-broken-compat`
+- `./scripts/compare_impls.sh lab3-indexer`
 
 ---
 
