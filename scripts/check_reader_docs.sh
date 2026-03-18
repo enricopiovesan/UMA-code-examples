@@ -3,10 +3,21 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+has_text() {
+  local pattern="$1"
+  local file="$2"
+
+  if command -v rg >/dev/null 2>&1; then
+    rg -q "$pattern" "$file"
+  else
+    grep -Eq "$pattern" "$file"
+  fi
+}
+
 require_heading() {
   local file="$1"
   local heading="$2"
-  if ! rg -q "^## ${heading}$" "$file"; then
+  if ! has_text "^## ${heading}$" "$file"; then
     echo "Missing heading '## ${heading}' in ${file#$ROOT_DIR/}" >&2
     exit 1
   fi
@@ -15,7 +26,7 @@ require_heading() {
 require_text() {
   local file="$1"
   local text="$2"
-  if ! rg -q "$text" "$file"; then
+  if ! has_text "$text" "$file"; then
     echo "Missing expected text '${text}' in ${file#$ROOT_DIR/}" >&2
     exit 1
   fi
