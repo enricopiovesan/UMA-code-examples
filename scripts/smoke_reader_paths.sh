@@ -48,11 +48,8 @@ bash tests/integration/run_cloud.sh
 popd >/dev/null
 
 echo "== Chapter 6: uma-portable-service-example =="
-pushd "$ROOT_DIR/uma-portable-service-example/runtime" >/dev/null
-cargo test --all
-popd >/dev/null
 pushd "$ROOT_DIR/uma-portable-service-example" >/dev/null
-./scripts/lab_parity.sh
+./scripts/smoke_portability_labs.sh
 popd >/dev/null
 
 echo "== Chapter 7: uma-metadata-orchestration =="

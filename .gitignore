@@ -3,4 +3,5 @@
 **/node_modules/
 **/dist/
 **/logs/
+**/.artifacts/
 uma-metadata-orchestration/cache-img-001.json

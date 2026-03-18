@@ -1,6 +1,5 @@
-
-use serde::{Deserialize, Serialize};
 use anyhow::Result;
+use serde::{Deserialize, Serialize};
 use std::fs;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
@@ -32,8 +31,8 @@ pub struct Contract {
     pub capabilities: Vec<Capability>,
     pub events: Vec<EventDef>,
     pub execution: ExecutionConstraints,
-        #[serde(default)]
-        pub parameters: serde_json::Value,
+    #[serde(default)]
+    pub parameters: serde_json::Value,
 }
 
 impl Contract {
@@ -44,9 +43,12 @@ impl Contract {
     }
 }
 
-
 impl Contract {
     pub fn parameters(&self) -> Option<&serde_json::Value> {
-        if self.parameters.is_null() { None } else { Some(&self.parameters) }
+        if self.parameters.is_null() {
+            None
+        } else {
+            Some(&self.parameters)
+        }
     }
 }

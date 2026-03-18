@@ -26,6 +26,7 @@ require_heading "$ROOT_DIR/README.md" "Chapter Status"
 require_text "$ROOT_DIR/README.md" "Validated path"
 
 for chapter in \
+  "$ROOT_DIR/uma-portable-service-example/README.md" \
   "$ROOT_DIR/uma-metadata-orchestration/README.md" \
   "$ROOT_DIR/chapter-8-service-graph/README.md" \
   "$ROOT_DIR/chapter-9-trust-boundaries/README.md" \

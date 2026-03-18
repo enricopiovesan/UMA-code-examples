@@ -1,4 +1,3 @@
-
 use anyhow::Result;
 use std::path::PathBuf;
 
@@ -13,17 +12,17 @@ fn main() -> Result<()> {
     let svc = format!("{}:{}", contract.service.name, contract.service.version);
 
     let args: Vec<String> = std::env::args().collect();
-    let path = args
-        .get(1)
-        .cloned()
-        .unwrap_or_else(|| {
-            let relative = PathBuf::from("../sample-data/sample.pgm");
-            if relative.exists() {
-                relative.to_string_lossy().into_owned()
-            } else {
-                repo_root.join("sample-data/sample.pgm").to_string_lossy().into_owned()
-            }
-        });
+    let path = args.get(1).cloned().unwrap_or_else(|| {
+        let relative = PathBuf::from("../sample-data/sample.pgm");
+        if relative.exists() {
+            relative.to_string_lossy().into_owned()
+        } else {
+            repo_root
+                .join("sample-data/sample.pgm")
+                .to_string_lossy()
+                .into_owned()
+        }
+    });
 
     core_service::analyze_image(&path, &svc, &contract)?;
     Ok(())
