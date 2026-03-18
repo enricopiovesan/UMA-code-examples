@@ -33,33 +33,33 @@ require_cmd node
 require_cmd npm
 require_cmd wasmtime
 
-echo "== Chapter 4: feature-flag-evaluator =="
-pushd "$ROOT_DIR/feature-flag-evaluator" >/dev/null
+echo "== Chapter 4: chapter-04-feature-flag-evaluator =="
+pushd "$ROOT_DIR/chapter-04-feature-flag-evaluator" >/dev/null
 ./scripts/smoke_flag_labs.sh
 popd >/dev/null
 
-echo "== Chapter 5: uma-post-fetcher =="
-pushd "$ROOT_DIR/uma-post-fetcher" >/dev/null
+echo "== Chapter 5: chapter-05-post-fetcher-runtime =="
+pushd "$ROOT_DIR/chapter-05-post-fetcher-runtime" >/dev/null
 ./scripts/smoke_runtime_labs.sh
 popd >/dev/null
 
-echo "== Chapter 6: uma-portable-service-example =="
-pushd "$ROOT_DIR/uma-portable-service-example" >/dev/null
+echo "== Chapter 6: chapter-06-portability-lab =="
+pushd "$ROOT_DIR/chapter-06-portability-lab" >/dev/null
 ./scripts/smoke_portability_labs.sh
 popd >/dev/null
 
-echo "== Chapter 7: uma-metadata-orchestration =="
-pushd "$ROOT_DIR/uma-metadata-orchestration" >/dev/null
+echo "== Chapter 7: chapter-07-metadata-orchestration =="
+pushd "$ROOT_DIR/chapter-07-metadata-orchestration" >/dev/null
 ./scripts/smoke_orchestration_labs.sh
 popd >/dev/null
 
-echo "== Chapter 8: chapter-8-service-graph =="
-pushd "$ROOT_DIR/chapter-8-service-graph" >/dev/null
+echo "== Chapter 8: chapter-08-service-graph =="
+pushd "$ROOT_DIR/chapter-08-service-graph" >/dev/null
 ./scripts/smoke_graph_labs.sh
 popd >/dev/null
 
-echo "== Chapter 9: chapter-9-trust-boundaries =="
-pushd "$ROOT_DIR/chapter-9-trust-boundaries" >/dev/null
+echo "== Chapter 9: chapter-09-trust-boundaries =="
+pushd "$ROOT_DIR/chapter-09-trust-boundaries" >/dev/null
 ./scripts/smoke_trust_labs.sh
 popd >/dev/null
 

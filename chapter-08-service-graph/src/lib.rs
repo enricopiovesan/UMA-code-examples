@@ -247,7 +247,19 @@ fn validate_contract(raw: RawContract, label: &str, root_dir: &Path) -> Result<S
 }
 
 pub fn project_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+    let cwd = std::env::current_dir().ok();
+    if let Some(cwd) = cwd {
+        if cwd.join("scenarios").exists() && cwd.join("contracts").exists() {
+            return cwd;
+        }
+    }
+
+    let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    if manifest_dir.join("scenarios").exists() && manifest_dir.join("contracts").exists() {
+        return manifest_dir;
+    }
+
+    manifest_dir
 }
 
 pub fn list_scenarios(root_dir: &Path) -> Result<Vec<String>, String> {

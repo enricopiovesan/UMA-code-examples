@@ -1,6 +1,13 @@
-# Feature Flag Evaluator (ff-eval)
+# Chapter 4: Feature Flag Evaluator
 
 This chapter example shows how UMA service anatomy can stay portable and deterministic. The validated reader path is Rust-first: a pure Rust core plus a WASI CLI. A parallel TypeScript implementation is kept in parity so readers can compare the same contract and rule semantics across languages.
+
+## Key concepts
+
+- one UMA contract defines the evaluator boundary
+- rule semantics belong in the portable service logic, not in the host
+- deterministic rollout behavior must stay stable across runtimes
+- parity should be proven from observable output, not inferred from shared intent
 
 ## Prerequisites
 
@@ -57,20 +64,49 @@ Check Rust and TypeScript parity across every lab:
 - browser, edge, and cloud adapters remain illustrative host examples around the same evaluator contract
 - `./scripts/smoke_flag_labs.sh` is the Chapter 4 acceptance path used during repo-level validation
 
-## Troubleshooting
+## Reader path
 
-- `Missing required command: wasmtime`
-  Install Wasmtime and make sure it is on your `PATH`.
-- `error: wasm module not found`
-  Run `cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app`.
-- `Unknown lab`
-  Run `./scripts/list_labs.sh` to see the supported Chapter 4 labs.
-- TypeScript parity mismatch
-  Run `npm test --prefix ts` and then `./scripts/compare_impls.sh` to narrow the failure to a specific lab.
+Use this order if you are following Chapter 4 as a first-time reader:
 
-## Hands-on labs
+1. `./scripts/list_labs.sh`
+2. `./scripts/run_lab.sh lab1-country-match`
+3. `./scripts/run_lab.sh lab2-rollout-match`
+4. `./scripts/run_lab.sh lab3-default-fallback`
+5. `./scripts/run_lab.sh lab4-rule-language`
+6. `./scripts/compare_impls.sh`
 
-The guided lab inputs live in [labs/README.md](/Users/piovese/Documents/UMA-code-examples/feature-flag-evaluator/labs/README.md).
+Expected satisfaction point:
+- by the end of lab 4, you should be able to explain how one contract, one deterministic evaluator, and one output shape stay aligned across both implementations
+
+## Questions a reader might ask
+
+### "What am I supposed to learn from this?"
+
+You should leave this lab able to explain:
+
+- what belongs in the evaluator contract versus in a host adapter
+- why rollout behavior must stay deterministic and portable
+- how Rust and TypeScript can stay aligned when the contract and output semantics remain stable
+
+### "What should I pay attention to in the output?"
+
+The most important signals are:
+
+- `enabled`
+- `matchedRule`
+- the same lab producing the same decision in both implementations
+
+### "How do I know if the lab gave me value?"
+
+You got value from the Chapter 4 lab if you can explain all three of these points after running it:
+
+- the evaluator is portable because the rule engine is pure and host-independent
+- rollout decisions are sticky for the same `flag.key` and `userId`
+- parity between Rust and TypeScript is being proven from output, not assumed from similar code
+
+## Hands-on flow
+
+The guided lab inputs live in [labs/README.md](labs/README.md).
 
 - `lab1-country-match`: first-match-wins on a direct country rule
 - `lab2-rollout-match`: deterministic sticky rollout
@@ -80,10 +116,6 @@ The guided lab inputs live in [labs/README.md](/Users/piovese/Documents/UMA-code
 ## Contract (v1)
 
 The evaluator accepts an **input JSON** document with a flag definition and a context. It produces an **output JSON** document describing whether the flag is enabled and which rule matched.
-
-## Contract (v1)
-
-The evaluator accepts an **input JSON** document with a flag definition and a context.  It produces an **output JSON** document describing whether the flag is enabled and which rule matched.
 
 ### Input
 
@@ -132,10 +164,10 @@ Rollouts are sticky: the same `flag.key` and `userId` will always produce the sa
 3. Divide the hash by `2^32` to obtain a value in the range [0, 1).
 4. `rollout(p)` returns `true` if the value is strictly less than `p`.
 
-## Repository structure
+## Layout
 
 ```
-ff-eval/
+chapter-04-feature-flag-evaluator/
   README.md              – this file
   contracts/
     input.schema.json    – minimal JSON Schema for the evaluator input
@@ -301,7 +333,18 @@ Two Node‑based adapters are provided:
 
 For environments that support Deno or other runtimes, you can adapt these examples by replacing the Node‑specific APIs with appropriate equivalents and ensuring that a WASI implementation (either built‑in or via a polyfill) is available.
 
-## Reader value
+## Troubleshooting
+
+- `Missing required command: wasmtime`
+  Install Wasmtime and make sure it is on your `PATH`.
+- `error: wasm module not found`
+  Run `cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app`.
+- `Unknown lab`
+  Run `./scripts/list_labs.sh` to see the supported Chapter 4 labs.
+- TypeScript parity mismatch
+  Run `npm test --prefix ts` and then `./scripts/compare_impls.sh` to narrow the failure to a specific lab.
+
+## Value check
 
 After finishing the Chapter 4 labs, a reader should be able to explain:
 

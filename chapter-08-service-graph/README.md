@@ -14,25 +14,21 @@ The labs below let a reader inspect that evolution one commit at a time.
 
 ---
 
-## Learning goals
+## Key concepts
 
-By the end of this hands-on section, the reader should be able to:
-
-- start from a single UMA service that emits an event
-- add compatible services without hand-written orchestration
-- inspect how the service graph changes across commits
-- see how metadata compatibility determines system shape
-- understand how a broken contract fractures the graph
-- restore compatibility and verify that the graph recovers
+- service graphs emerge from contract and event compatibility
+- architecture grows by adding services, not rewriting upstream ones
+- graph changes should be inspectable as metadata changes
+- broken compatibility should fail visibly and recover predictably
 
 ---
 
-## Folder layout
+## Layout
 
 This folder follows the same reader-first structure used in earlier chapters:
 
 ```text
-chapter-8-service-graph/
+chapter-08-service-graph/
   Cargo.toml
   README.md
   contracts/
@@ -92,7 +88,7 @@ The scenario contracts reference versioned schema files under `contracts/schemas
 If you land here as a reader, start by listing the labs:
 
 ```bash
-cd chapter-8-service-graph
+cd chapter-08-service-graph
 ./scripts/list_labs.sh
 ```
 
@@ -182,7 +178,7 @@ That flow mirrors the chapter idea:
 
 ---
 
-## Questions A Reader Might Ask
+## Questions a reader might ask
 
 ### "Where is the Git part if all lab states are in one folder?"
 
@@ -418,6 +414,14 @@ That gives you both teaching modes:
 - Keep capability ids, event names, and schema references aligned across labs so the graph only changes when the chapter intends it to.
 - Avoid adding manual orchestration code between labs unless the exercise is explicitly about anti-patterns.
 - If browser or edge variants are added later, mark them as validated only after they have the same reader-quality pass as the earlier chapters.
+
+## Value check
+
+If this hands-on worked, you should finish it with three concrete gains:
+
+- you can explain how an event-first service graph grows without explicit orchestration code
+- you can point to the exact metadata change that created or removed a graph edge
+- you can explain why restoring declarative consistency restores the system graph
 
 ---
 

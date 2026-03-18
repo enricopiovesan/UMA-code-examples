@@ -449,14 +449,10 @@ mod tests {
 
     #[test]
     fn browser_placement_triggers_policy_violation() {
-        let contract_path = Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../contracts/ai.model.evaluator.contract.yaml");
+        let root = project_root().unwrap();
+        let contract_path = root.join("contracts/ai.model.evaluator.contract.yaml");
         let evaluator = load_contract(contract_path).unwrap();
-        let reason = enforce_policy(
-            Path::new(env!("CARGO_MANIFEST_DIR")).join("..").as_path(),
-            &evaluator,
-        )
-        .unwrap();
+        let reason = enforce_policy(&root, &evaluator).unwrap();
         assert_eq!(reason.as_deref(), Some("policy.deny forbid_evaluator_in_browser"));
     }
 

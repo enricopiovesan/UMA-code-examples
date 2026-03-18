@@ -16,22 +16,19 @@ The labs below let a reader watch those trust decisions become visible through d
 
 ---
 
-## Learning goals
+## Key concepts
 
-By the end of this hands-on section, the reader should be able to:
-
-- run a trusted service whose metadata satisfies runtime policy
-- see the runtime deny execution when a service asks for undeclared permissions
-- see supply-chain trust fail when dependency provenance is not acceptable
-- understand that valid message shape alone is not enough for trusted communication
-- restore compliance and explain why the runtime allows the system again
+- trust is evaluated from metadata and runtime policy, not inherited from location
+- undeclared permissions should fail before execution
+- dependency provenance is part of architecture, not separate compliance work
+- compatibility and trust must both agree before communication is allowed
 
 ---
 
-## Folder layout
+## Layout
 
 ```text
-chapter-9-trust-boundaries/
+chapter-09-trust-boundaries/
   Cargo.toml
   README.md
   contracts/
@@ -89,7 +86,7 @@ The TypeScript implementation is retained as a secondary implementation for comp
 Start by listing the labs:
 
 ```bash
-cd chapter-9-trust-boundaries
+cd chapter-09-trust-boundaries
 ./scripts/list_labs.sh
 ```
 
@@ -179,7 +176,7 @@ That flow mirrors the chapter idea:
 
 ---
 
-## Questions A Reader Might Ask
+## Questions a reader might ask
 
 ### "What exactly is the runtime checking?"
 
@@ -371,3 +368,11 @@ Outcome: allow
 
 Architectural point:
 Restoring compliant metadata restores trusted behavior without changing the runtime itself.
+
+## Value check
+
+If this hands-on worked, you should finish it with three concrete gains:
+
+- you can explain why a syntactically valid service can still be denied by trust policy
+- you can point to the exact metadata field or policy rule that caused an allow or deny decision
+- you can explain why restoring compliant metadata changes the runtime outcome without changing the runtime code

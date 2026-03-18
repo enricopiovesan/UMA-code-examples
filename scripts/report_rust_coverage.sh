@@ -19,12 +19,12 @@ require_cmd jq
 mkdir -p "$OUTPUT_DIR"
 
 entries=(
-  "Chapter 4|feature-flag-evaluator/Cargo.toml|"
-  "Chapter 5|uma-post-fetcher/Cargo.toml|--workspace"
-  "Chapter 6|uma-portable-service-example/runtime/Cargo.toml|--workspace"
-  "Chapter 7|uma-metadata-orchestration/runtime-rust/Cargo.toml|"
-  "Chapter 8|chapter-8-service-graph/Cargo.toml|"
-  "Chapter 9|chapter-9-trust-boundaries/Cargo.toml|"
+  "Chapter 4|chapter-04-feature-flag-evaluator/Cargo.toml|"
+  "Chapter 5|chapter-05-post-fetcher-runtime/Cargo.toml|--workspace"
+  "Chapter 6|chapter-06-portability-lab/runtime/Cargo.toml|--workspace"
+  "Chapter 7|chapter-07-metadata-orchestration/runtime-rust/Cargo.toml|"
+  "Chapter 8|chapter-08-service-graph/Cargo.toml|"
+  "Chapter 9|chapter-09-trust-boundaries/Cargo.toml|"
   "Chapter 10|chapter-10-architectural-tradeoffs/rust/Cargo.toml|"
   "Chapter 11|chapter-11-evolution-without-fragmentation/rust/Cargo.toml|"
 )

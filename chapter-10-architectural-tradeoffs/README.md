@@ -12,7 +12,14 @@ Chapter 10 is about:
 - runtime placement and deterministic selection
 - avoiding over-orchestration while keeping systems governable
 
-## Folder layout
+## Key concepts
+
+- architecture quality should be visible in runtime behavior, not only in diagrams
+- metadata works as a control plane for service selection and coordination
+- more services or more orchestration is not automatically better architecture
+- recovery comes from clearer constraints, not more complexity
+
+## Layout
 
 ```text
 chapter-10-architectural-tradeoffs/

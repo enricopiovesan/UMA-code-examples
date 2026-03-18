@@ -12,7 +12,14 @@ Chapter 11 is about:
 - runtime governance resolving coexistence instead of leaving it to coordination
 - hybrid adoption in brownfield systems without requiring a rewrite
 
-## Folder layout
+## Key concepts
+
+- systems keep evolving after deployment, so coherence must also be maintained after deployment
+- contracts anchor behavior while versions and implementations change
+- runtime governance is what lets coexistence stay safe instead of fragmenting
+- brownfield improvement should not require a rewrite to become governed
+
+## Layout
 
 ```text
 chapter-11-evolution-without-fragmentation/

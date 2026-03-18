@@ -18,9 +18,9 @@ jobs:
           target: wasm32-wasip1
       - name: Build runtime
         run: |
-          cd uma-post-fetcher
+          cd chapter-05-post-fetcher-runtime
           cargo build -p uma_runtime --release --target wasm32-wasip1
       - name: Run cloud host
         run: |
-          cd uma-post-fetcher
+          cd chapter-05-post-fetcher-runtime
           bash hosts/cloud/run.sh
