@@ -49,6 +49,31 @@ To simulate a first-time reader running from a clean tracked checkout:
 
 ---
 
+## Reader Journey
+
+The chapter folders now follow one naming convention:
+
+- `chapter-04-*` through `chapter-11-*`
+
+That gives the repo one visible reading order and makes it easier to move between the book and the code.
+
+The intended thread for a reader is:
+
+| Chapter | Why it matters in the sequence | Folder |
+| --- | --- | --- |
+| 4 | Start with one portable UMA service and understand its contract, rule evaluation, and deterministic output. | [`chapter-04-feature-flag-evaluator`](chapter-04-feature-flag-evaluator/) |
+| 5 | Wrap that pure service logic in a runtime layer that owns validation, adapter binding, and lifecycle evidence. | [`chapter-05-post-fetcher-runtime`](chapter-05-post-fetcher-runtime/) |
+| 6 | Prove portability by keeping one contract and one service aligned across native and WASI targets. | [`chapter-06-portability-lab`](chapter-06-portability-lab/) |
+| 7 | Let contracts and events create orchestration dynamically, then observe the policy and telemetry around that flow. | [`chapter-07-metadata-orchestration`](chapter-07-metadata-orchestration/) |
+| 8 | Watch a service graph emerge from metadata compatibility and inspect its evolution the way a system really grows. | [`chapter-08-service-graph`](chapter-08-service-graph/) |
+| 9 | Add trust policy, provenance, and communication boundaries so portability stays governed rather than naive. | [`chapter-09-trust-boundaries`](chapter-09-trust-boundaries/) |
+| 10 | Compare good and bad architectural decisions and see how they change runtime coherence. | [`chapter-10-architectural-tradeoffs`](chapter-10-architectural-tradeoffs/) |
+| 11 | Follow system evolution over time and see how contracts and runtime governance prevent fragmentation. | [`chapter-11-evolution-without-fragmentation`](chapter-11-evolution-without-fragmentation/) |
+
+Chapter 3 is intentionally not a full lab in this repository. It is the conceptual bridge into Chapter 4, which is the first validated hands-on entry point.
+
+---
+
 ## Chapter Status
 
 | Chapter | Main implementation | Validated path | Optional paths |
@@ -66,29 +91,38 @@ Validated path means the commands are exercised by the repo smoke script and are
 
 ---
 
-## Table of Contents
+## Chapter Index
 
 | Chapter | Example | Description | Folder |
 | --- | --- | --- | --- |
-| 4 | **Feature Flag Evaluator** | Demonstrates UMA service anatomy with a Rust-first evaluator core, WASI CLI, guided reader labs, and a TypeScript parity implementation that mirrors the same rule semantics. | [`feature-flag-evaluator`](feature-flag-evaluator/) |
-| 5 | **Post Fetcher Runtime** | Demonstrates the UMA Runtime Layer with a Rust-first reader lab covering deterministic cloud execution, fail-fast validation, adapter binding, lifecycle recording, and a TypeScript reference runtime kept in parity for the core scenarios. Browser and edge files remain illustrative sketches. | [`uma-post-fetcher`](uma-post-fetcher/) |
-| 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same Rust service as both a portable WASI module and a native binary. Includes guided reader labs for parity, payload digests, capability-boundary failure paths, and a TypeScript reference implementation of the shared analysis logic. | [`uma-portable-service-example`](uma-portable-service-example/) |
-| 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability with a Rust-first validated cloud runner, a TypeScript parity runner, and optional browser and edge helper harnesses. | [`uma-metadata-orchestration`](uma-metadata-orchestration/) |
-| 8 | **Service Graph Evolution with Git** | Demonstrates Chapter 8 with a Rust-first hands-on lab showing how UMA service graphs emerge through contracts, events, and runtime discovery across Git-style checkpoints. Includes a parallel TypeScript implementation. | [`chapter-8-service-graph`](chapter-8-service-graph/) |
-| 9 | **Trust Boundaries and Runtime Enforcement** | Demonstrates Chapter 9’s trust model with a Rust-first lab that validates service identity, permissions, dependency provenance, and communication policy across five trust-boundary scenarios. Includes a parallel TypeScript implementation. | [`chapter-9-trust-boundaries`](chapter-9-trust-boundaries/) |
+| 4 | **Feature Flag Evaluator** | Demonstrates UMA service anatomy with a Rust-first evaluator core, WASI CLI, guided reader labs, and a TypeScript parity implementation that mirrors the same rule semantics. | [`chapter-04-feature-flag-evaluator`](chapter-04-feature-flag-evaluator/) |
+| 5 | **Post Fetcher Runtime** | Demonstrates the UMA Runtime Layer with a Rust-first reader lab covering deterministic cloud execution, fail-fast validation, adapter binding, lifecycle recording, and a TypeScript reference runtime kept in parity for the core scenarios. Browser and edge files remain illustrative sketches. | [`chapter-05-post-fetcher-runtime`](chapter-05-post-fetcher-runtime/) |
+| 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same Rust service as both a portable WASI module and a native binary. Includes guided reader labs for parity, payload digests, capability-boundary failure paths, and a TypeScript reference implementation of the shared analysis logic. | [`chapter-06-portability-lab`](chapter-06-portability-lab/) |
+| 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability with a Rust-first validated cloud runner, a TypeScript parity runner, and optional browser and edge helper harnesses. | [`chapter-07-metadata-orchestration`](chapter-07-metadata-orchestration/) |
+| 8 | **Service Graph Evolution with Git** | Demonstrates Chapter 8 with a Rust-first hands-on lab showing how UMA service graphs emerge through contracts, events, and runtime discovery across Git-style checkpoints. Includes a parallel TypeScript implementation. | [`chapter-08-service-graph`](chapter-08-service-graph/) |
+| 9 | **Trust Boundaries and Runtime Enforcement** | Demonstrates Chapter 9’s trust model with a Rust-first lab that validates service identity, permissions, dependency provenance, and communication policy across five trust-boundary scenarios. Includes a parallel TypeScript implementation. | [`chapter-09-trust-boundaries`](chapter-09-trust-boundaries/) |
 | 10 | **Architectural Tradeoffs and Runtime Coherence** | Demonstrates Chapter 10 through a Rust-first hands-on lab that compares coherent and degraded architectural choices across capability boundaries, events, metadata, placement, and orchestration. Includes a parallel TypeScript implementation. | [`chapter-10-architectural-tradeoffs`](chapter-10-architectural-tradeoffs/) |
 | 11 | **Evolution Without Fragmentation** | Demonstrates Chapter 11 through a Rust-first hands-on lab that follows behavioral drift, duplication, version sprawl, and runtime-governed coexistence across an evolving system. Includes a parallel TypeScript implementation. | [`chapter-11-evolution-without-fragmentation`](chapter-11-evolution-without-fragmentation/) |
 
 ---
 
-## Usage
+## Chapter README Format
 
-Each example folder includes:
-- `README.md` — build and run instructions  
-- `contracts/` — UMA and adapter contracts  
-- `src/` — core service logic  
-- `runtime/` — example loaders and adapters for browser, edge, and cloud  
-- `metadata/` — lifecycle or execution logs (where applicable)
+Each validated chapter README now follows the same reader-first spine:
+
+- `## Key concepts`
+- `## Prerequisites`
+- `## Validation status`
+- `## Quick start`
+- `## Reader path`
+- `## Questions a reader might ask`
+- `## Layout`
+- `## Troubleshooting`
+- `## Value check`
+
+Some chapters add domain-specific sections such as contracts, diff tools, or reports, but that core shape should stay stable.
+
+## Working In The Repo
 
 Build and test examples locally:
 
@@ -100,4 +134,4 @@ cd UMA-code-examples
 
 The chapter READMEs call out where a path is fully validated versus where a browser or edge host is still illustrative scaffolding.
 
-Contributor expectations for keeping that bar are documented in [CONTRIBUTING.md](/Users/piovese/Documents/UMA-code-examples/CONTRIBUTING.md).
+Contributor expectations for keeping that bar are documented in [CONTRIBUTING.md](CONTRIBUTING.md).

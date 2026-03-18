@@ -1,4 +1,4 @@
-# UMA Portability Lab
+# Chapter 6: UMA Portability Lab
 
 This example demonstrates Chapter 6 of the UMA book: one contract, one core service, and two runtime targets that stay behaviorally aligned.
 It is a reader-facing hands-on lab, not just a code dump.
@@ -103,7 +103,7 @@ The contract includes:
 - `parameters.tagging.avg_dark_threshold`
 - `parameters.tagging.avg_bright_threshold`
 
-Edit those values in [CONTRACT.json](/Users/piovese/Documents/UMA-code-examples/uma-portable-service-example/CONTRACT.json) and rerun `./scripts/run_lab.sh lab1-native-wasm-parity`.
+Edit those values in [CONTRACT.json](CONTRACT.json) and rerun `./scripts/run_lab.sh lab1-native-wasm-parity`.
 This is the cleanest way to see Chapter 6’s point that behavior can evolve through the contract without forking the service logic.
 
 ## Build and run manually
@@ -126,7 +126,7 @@ Example event:
 
 ## Reader labs
 
-See [labs/README.md](/Users/piovese/Documents/UMA-code-examples/uma-portable-service-example/labs/README.md) for the guided Chapter 6 lab notes.
+See [labs/README.md](labs/README.md) for the guided Chapter 6 lab notes.
 
 ### `lab1-native-wasm-parity`
 

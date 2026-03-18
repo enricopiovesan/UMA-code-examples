@@ -33,8 +33,12 @@ require_text() {
 }
 
 require_heading "$ROOT_DIR/README.md" "Reader Setup"
+require_heading "$ROOT_DIR/README.md" "Reader Journey"
 require_heading "$ROOT_DIR/README.md" "Chapter Status"
+require_heading "$ROOT_DIR/README.md" "Chapter Index"
 require_text "$ROOT_DIR/README.md" "Validated path"
+require_text "$ROOT_DIR/README.md" "chapter-04-feature-flag-evaluator"
+require_text "$ROOT_DIR/README.md" "Chapter 3 is intentionally not a full lab"
 require_text "$ROOT_DIR/README.md" "smoke_flag_labs.sh"
 require_text "$ROOT_DIR/README.md" "smoke_runtime_labs.sh"
 require_text "$ROOT_DIR/README.md" "smoke_portability_labs.sh"
@@ -49,19 +53,23 @@ require_heading "$ROOT_DIR/CONTRIBUTING.md" "Reader Contract"
 require_heading "$ROOT_DIR/CONTRIBUTING.md" "Coverage Gate"
 
 for chapter in \
-  "$ROOT_DIR/feature-flag-evaluator/README.md" \
-  "$ROOT_DIR/uma-post-fetcher/README.md" \
-  "$ROOT_DIR/uma-portable-service-example/README.md" \
-  "$ROOT_DIR/uma-metadata-orchestration/README.md" \
-  "$ROOT_DIR/chapter-8-service-graph/README.md" \
-  "$ROOT_DIR/chapter-9-trust-boundaries/README.md" \
+  "$ROOT_DIR/chapter-04-feature-flag-evaluator/README.md" \
+  "$ROOT_DIR/chapter-05-post-fetcher-runtime/README.md" \
+  "$ROOT_DIR/chapter-06-portability-lab/README.md" \
+  "$ROOT_DIR/chapter-07-metadata-orchestration/README.md" \
+  "$ROOT_DIR/chapter-08-service-graph/README.md" \
+  "$ROOT_DIR/chapter-09-trust-boundaries/README.md" \
   "$ROOT_DIR/chapter-10-architectural-tradeoffs/README.md" \
   "$ROOT_DIR/chapter-11-evolution-without-fragmentation/README.md"
 do
+  require_heading "$chapter" "Key concepts"
   require_heading "$chapter" "Prerequisites"
-  require_heading "$chapter" "Quick start"
   require_heading "$chapter" "Validation status"
+  require_heading "$chapter" "Quick start"
+  require_heading "$chapter" "Reader path"
+  require_heading "$chapter" "Layout"
   require_heading "$chapter" "Troubleshooting"
+  require_heading "$chapter" "Value check"
 done
 
 echo "Reader documentation checks passed."

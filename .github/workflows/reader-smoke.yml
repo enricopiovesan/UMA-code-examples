@@ -65,31 +65,31 @@ jobs:
 
       - name: Install Chapter 7 TypeScript dependencies
         shell: bash
-        run: npm ci --prefix uma-metadata-orchestration
+        run: npm ci --prefix chapter-07-metadata-orchestration
 
       - name: Enforce Rust warning hygiene
         shell: bash
         env:
           RUSTFLAGS: -D warnings
         run: |
-          cargo test --locked --manifest-path feature-flag-evaluator/Cargo.toml
-          cargo test --locked --manifest-path uma-post-fetcher/Cargo.toml
-          cargo test --locked --manifest-path uma-portable-service-example/runtime/Cargo.toml
-          cargo test --locked --manifest-path chapter-8-service-graph/Cargo.toml
-          cargo test --locked --manifest-path chapter-9-trust-boundaries/Cargo.toml
+          cargo test --locked --manifest-path chapter-04-feature-flag-evaluator/Cargo.toml
+          cargo test --locked --manifest-path chapter-05-post-fetcher-runtime/Cargo.toml
+          cargo test --locked --manifest-path chapter-06-portability-lab/runtime/Cargo.toml
+          cargo test --locked --manifest-path chapter-08-service-graph/Cargo.toml
+          cargo test --locked --manifest-path chapter-09-trust-boundaries/Cargo.toml
           cargo test --locked --manifest-path chapter-10-architectural-tradeoffs/rust/Cargo.toml
           cargo test --locked --manifest-path chapter-11-evolution-without-fragmentation/rust/Cargo.toml
-          cargo test --locked --manifest-path uma-metadata-orchestration/runtime-rust/Cargo.toml
+          cargo test --locked --manifest-path chapter-07-metadata-orchestration/runtime-rust/Cargo.toml
 
       - name: Check TypeScript parity implementations
         shell: bash
         run: |
-          npm test --prefix feature-flag-evaluator/ts
-          npm test --prefix uma-post-fetcher/ts
-          npm test --prefix uma-portable-service-example/ts
-          npm test --prefix uma-metadata-orchestration
-          npm test --prefix chapter-8-service-graph/ts
-          npm test --prefix chapter-9-trust-boundaries/ts
+          npm test --prefix chapter-04-feature-flag-evaluator/ts
+          npm test --prefix chapter-05-post-fetcher-runtime/ts
+          npm test --prefix chapter-06-portability-lab/ts
+          npm test --prefix chapter-07-metadata-orchestration
+          npm test --prefix chapter-08-service-graph/ts
+          npm test --prefix chapter-09-trust-boundaries/ts
           npm test --prefix chapter-10-architectural-tradeoffs/ts
           npm test --prefix chapter-11-evolution-without-fragmentation/ts
 

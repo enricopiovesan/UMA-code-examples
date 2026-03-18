@@ -294,10 +294,21 @@ fn assess(services: &[Service], interactions: &[Interaction], choices: &Choices)
 }
 
 pub fn project_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .parent()
-        .unwrap()
-        .to_path_buf()
+    let cwd = std::env::current_dir().ok();
+    if let Some(cwd) = cwd {
+        if cwd.join("scenarios").exists() {
+            return cwd;
+        }
+    }
+
+    let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    if let Some(parent) = manifest_dir.parent() {
+        if parent.join("scenarios").exists() {
+            return parent.to_path_buf();
+        }
+    }
+
+    manifest_dir
 }
 
 pub fn list_labs(root_dir: &Path) -> Result<Vec<String>, String> {

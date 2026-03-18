@@ -1,4 +1,4 @@
-# UMA Metadata Orchestration Example
+# Chapter 7: Metadata Orchestration Example
 
 This example demonstrates Chapter 7 of the UMA Book, Contracts, Events, and Orchestration.
 It is contract first, runnable on a typical developer machine, and structured as a reader-facing hands-on lab.
@@ -169,7 +169,7 @@ Set `OTLP_ENDPOINT` to an HTTP collector to receive metrics. The runner exports 
 
 ## Labs
 
-See [labs/README.md](/Users/piovese/Documents/UMA-code-examples/uma-metadata-orchestration/labs/README.md) for the guided Chapter 7 reader labs.
+See [labs/README.md](labs/README.md) for the guided Chapter 7 reader labs.
 
 ## Reflection checklist
 

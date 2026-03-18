@@ -1,4 +1,4 @@
-# UMA Post Fetcher Runtime Lab
+# Chapter 5: Post Fetcher Runtime Lab
 
 This example demonstrates Chapter 5 of the UMA book: the runtime layer around a pure service.
 It shows how contracts, adapter binding, deterministic event ordering, and lifecycle metadata work together around a small HTTP-fetching service.
@@ -137,7 +137,7 @@ On success it emits a normalized post plus a deterministic event log:
 
 ## Reader labs
 
-See [labs/README.md](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/labs/README.md) for the guided Chapter 5 lab notes.
+See [labs/README.md](labs/README.md) for the guided Chapter 5 lab notes.
 
 ### `lab1-cloud-golden-path`
 
@@ -169,17 +169,17 @@ bash tests/integration/run_cloud.sh
 
 ### Adapter capability contract
 
-The runtime depends on one capability, `network.fetch`, described in [adapter.network.contract.json](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/contracts/adapter.network.contract.json).
+The runtime depends on one capability, `network.fetch`, described in [adapter.network.contract.json](contracts/adapter.network.contract.json).
 The lifecycle record persists which implementation satisfied that capability.
 
 ### Runtime policy
 
-[policy.runtime.json](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/contracts/policy.runtime.json) documents the intended adapter-selection and observability behavior for the sample.
+[policy.runtime.json](contracts/policy.runtime.json) documents the intended adapter-selection and observability behavior for the sample.
 The current runtime does not fully parse this policy file yet; in this example it acts as the declared runtime contract rather than a fully interpreted policy engine.
 
 ### Lifecycle metadata schema
 
-[metadata.schema.json](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/contracts/metadata.schema.json) defines the persisted lifecycle record shape, including:
+[metadata.schema.json](contracts/metadata.schema.json) defines the persisted lifecycle record shape, including:
 
 - service identity
 - policy reference
@@ -204,8 +204,8 @@ The runtime supports a few environment variables for the lab:
 The browser and edge files remain illustrative sketches.
 They are useful as reference material for where a JS/Wasm binding layer would go, but they are not part of the validated quick-start path.
 
-- [tests/integration/run_browser.md](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/tests/integration/run_browser.md) explains the browser scaffold
-- [tests/integration/run_edge.sh](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/tests/integration/run_edge.sh) fails fast with guidance instead of pretending the edge path is turnkey
+- [tests/integration/run_browser.md](tests/integration/run_browser.md) explains the browser scaffold
+- [tests/integration/run_edge.sh](tests/integration/run_edge.sh) fails fast with guidance instead of pretending the edge path is turnkey
 
 ## Reports and tests
 

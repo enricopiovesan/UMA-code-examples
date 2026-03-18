@@ -37,7 +37,20 @@ Validated chapter READMEs should keep these sections:
 At the repo root, keep:
 
 - `## Reader Setup`
+- `## Reader Journey`
 - `## Chapter Status`
+- `## Chapter Index`
+
+At the chapter level, keep:
+
+- `## Key concepts`
+- `## Prerequisites`
+- `## Validation status`
+- `## Quick start`
+- `## Reader path`
+- `## Layout`
+- `## Troubleshooting`
+- `## Value check`
 
 ## Coverage Gate
 
