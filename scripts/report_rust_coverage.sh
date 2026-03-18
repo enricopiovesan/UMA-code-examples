@@ -19,6 +19,7 @@ require_cmd jq
 mkdir -p "$OUTPUT_DIR"
 
 entries=(
+  "Chapter 4|feature-flag-evaluator/Cargo.toml|"
   "Chapter 5|uma-post-fetcher/Cargo.toml|--workspace"
   "Chapter 6|uma-portable-service-example/runtime/Cargo.toml|--workspace"
   "Chapter 7|uma-metadata-orchestration/runtime-rust/Cargo.toml|"

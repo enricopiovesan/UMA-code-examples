@@ -1,6 +1,85 @@
-# Feature Flag Evaluator (ff‑eval)
+# Feature Flag Evaluator (ff-eval)
 
-This repository contains a minimal yet complete implementation of a deterministic feature flag evaluator.  The evaluator can be compiled to `wasm32‑wasip1` and reused from the browser, edge workers, or cloud handlers via thin adapters.  The goal of this example is to show how to build a portable flag evaluation engine that takes JSON in and returns JSON out with no external dependencies in the core logic.
+This chapter example shows how UMA service anatomy can stay portable and deterministic. The validated reader path is Rust-first: a pure Rust core plus a WASI CLI. A parallel TypeScript implementation is kept in parity so readers can compare the same contract and rule semantics across languages.
+
+## Prerequisites
+
+- Rust with the `wasm32-wasip1` target: `rustup target add wasm32-wasip1`
+- `wasmtime` on your `PATH`
+- Node.js 20 or newer for the TypeScript parity path
+- `npm` for the TypeScript parity path and optional browser or cloud adapter exploration
+
+## Quick start
+
+Run the validated Chapter 4 reader path:
+
+```bash
+cargo test --locked -p ff_eval_core
+./scripts/smoke_flag_labs.sh
+```
+
+This smoke path will:
+
+- build the WASI evaluator
+- run the Rust unit tests
+- run the TypeScript parity tests
+- execute the vector suite
+- compare Rust and TypeScript outputs across the guided labs
+
+List the available labs:
+
+```bash
+./scripts/list_labs.sh
+```
+
+Run a specific lab with the Rust evaluator:
+
+```bash
+./scripts/run_lab.sh lab2-rollout-match
+```
+
+Run the same lab with the TypeScript implementation:
+
+```bash
+./scripts/run_lab.sh --impl ts lab2-rollout-match
+```
+
+Check Rust and TypeScript parity across every lab:
+
+```bash
+./scripts/compare_impls.sh
+```
+
+## Validation status
+
+- Rust is the validated default path
+- TypeScript is a maintained parity implementation used in tests and smoke checks
+- browser, edge, and cloud adapters remain illustrative host examples around the same evaluator contract
+- `./scripts/smoke_flag_labs.sh` is the Chapter 4 acceptance path used during repo-level validation
+
+## Troubleshooting
+
+- `Missing required command: wasmtime`
+  Install Wasmtime and make sure it is on your `PATH`.
+- `error: wasm module not found`
+  Run `cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app`.
+- `Unknown lab`
+  Run `./scripts/list_labs.sh` to see the supported Chapter 4 labs.
+- TypeScript parity mismatch
+  Run `npm test --prefix ts` and then `./scripts/compare_impls.sh` to narrow the failure to a specific lab.
+
+## Hands-on labs
+
+The guided lab inputs live in [labs/README.md](/Users/piovese/Documents/UMA-code-examples/feature-flag-evaluator/labs/README.md).
+
+- `lab1-country-match`: first-match-wins on a direct country rule
+- `lab2-rollout-match`: deterministic sticky rollout
+- `lab3-default-fallback`: no rule matches, so the default is returned
+- `lab4-rule-language`: demonstrates `in`, numeric comparison, and logical operators
+
+## Contract (v1)
+
+The evaluator accepts an **input JSON** document with a flag definition and a context. It produces an **output JSON** document describing whether the flag is enabled and which rule matched.
 
 ## Contract (v1)
 
@@ -154,7 +233,7 @@ Once you have Rust installed you need to add the `wasm32-wasip1` compilation tar
 
 After completing the above steps you can build the project and run the examples as described below.
 
-To build the WASI binary:
+To build the WASI binary directly:
 
 ```sh
 rustup target add wasm32-wasip1
@@ -221,6 +300,15 @@ Two Node‑based adapters are provided:
 * **Cloud handler (`adapters/cloud/handler.ts`)**: This file defines an AWS Lambda–style handler that uses Node’s `wasi` API.  Like the edge worker it executes the compiled module with temporary stdio files, returns the JSON output on success, and expects the compiled `.wasm` file to reside in `target/wasm32-wasip1/release/ff_eval_wasi_app.wasm`.  If the input is invalid JSON or the module fails, it returns a 400 or 500 status accordingly.
 
 For environments that support Deno or other runtimes, you can adapt these examples by replacing the Node‑specific APIs with appropriate equivalents and ensuring that a WASI implementation (either built‑in or via a polyfill) is available.
+
+## Reader value
+
+After finishing the Chapter 4 labs, a reader should be able to explain:
+
+- why the Rust core is portable across hosts
+- why deterministic rollout behavior has to live in the portable logic, not in an adapter
+- how the same contract can be kept in parity across Rust and TypeScript
+- why host adapters should stay thin around the evaluator instead of owning rule semantics
 
 ## Extending the evaluator
 

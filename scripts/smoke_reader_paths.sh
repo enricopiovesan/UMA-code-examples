@@ -35,9 +35,7 @@ require_cmd wasmtime
 
 echo "== Chapter 4: feature-flag-evaluator =="
 pushd "$ROOT_DIR/feature-flag-evaluator" >/dev/null
-cargo test -p ff_eval_core
-cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app
-./scripts/run_vectors.sh
+./scripts/smoke_flag_labs.sh
 popd >/dev/null
 
 echo "== Chapter 5: uma-post-fetcher =="
