@@ -70,6 +70,7 @@ jobs:
       - name: Check TypeScript parity implementations
         shell: bash
         run: |
+          npm test --prefix uma-metadata-orchestration
           npm test --prefix chapter-8-service-graph/ts
           npm test --prefix chapter-9-trust-boundaries/ts
           npm test --prefix chapter-10-architectural-tradeoffs/ts

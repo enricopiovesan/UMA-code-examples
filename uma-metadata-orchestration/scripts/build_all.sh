@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  echo "Usage: ./scripts/build_all.sh" >&2
+  echo "Set BUILD_OPTIONAL_JS=1 to also build the TypeScript reference artifacts." >&2
+  exit 0
+fi
+
 echo "Building image.tagger (WASI)"
 pushd services/image.tagger >/dev/null
   ./build.sh
