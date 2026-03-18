@@ -56,6 +56,10 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Chapter 7 TypeScript dependencies
+        shell: bash
+        run: npm ci --prefix uma-metadata-orchestration
+
       - name: Enforce Rust warning hygiene
         shell: bash
         env:
