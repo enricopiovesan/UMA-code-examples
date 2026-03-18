@@ -1,0 +1,16 @@
+{
+  "flag": {
+    "key": "checkout-rollout",
+    "rules": [
+      { "if": "region in ('EU','APAC') && ver >= 2", "then": true },
+      { "if": "country == 'US' || country == 'MX'", "then": true }
+    ],
+    "default": false
+  },
+  "context": {
+    "userId": "u4-language",
+    "country": "DE",
+    "region": "EU",
+    "ver": 2
+  }
+}

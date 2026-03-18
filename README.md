@@ -47,7 +47,7 @@ To enforce the current minimum Rust coverage floor locally:
 
 | Chapter | Main implementation | Validated path | Optional paths |
 | --- | --- | --- | --- |
-| 4 | Rust | `cargo test` plus `./scripts/run_vectors.sh` | none |
+| 4 | Rust and TypeScript | `./scripts/smoke_flag_labs.sh` with Rust as the validated default | browser, edge, and cloud adapters remain illustrative host examples |
 | 5 | Rust and TypeScript | `./scripts/smoke_runtime_labs.sh` with Rust as the validated default | browser and edge sketches |
 | 6 | Rust and TypeScript | `./scripts/smoke_portability_labs.sh` with Rust as the validated default | none |
 | 7 | Rust and TypeScript | `./scripts/smoke_orchestration_labs.sh` with Rust as the validated default | browser and edge helper harnesses |
@@ -64,7 +64,7 @@ Validated path means the commands are exercised by the repo smoke script and are
 
 | Chapter | Example | Description | Folder |
 | --- | --- | --- | --- |
-| 4 | **Feature Flag Evaluator** | Demonstrates UMA service anatomy (contract, logic, abstraction, metadata) and shows stateless, stateful, and subscribable service types. | [`feature-flag-evaluator`](feature-flag-evaluator/) |
+| 4 | **Feature Flag Evaluator** | Demonstrates UMA service anatomy with a Rust-first evaluator core, WASI CLI, guided reader labs, and a TypeScript parity implementation that mirrors the same rule semantics. | [`feature-flag-evaluator`](feature-flag-evaluator/) |
 | 5 | **Post Fetcher Runtime** | Demonstrates the UMA Runtime Layer with a Rust-first reader lab covering deterministic cloud execution, fail-fast validation, adapter binding, lifecycle recording, and a TypeScript reference runtime kept in parity for the core scenarios. Browser and edge files remain illustrative sketches. | [`uma-post-fetcher`](uma-post-fetcher/) |
 | 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same Rust service as both a portable WASI module and a native binary. Includes guided reader labs for parity, payload digests, capability-boundary failure paths, and a TypeScript reference implementation of the shared analysis logic. | [`uma-portable-service-example`](uma-portable-service-example/) |
 | 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability with a Rust-first validated cloud runner, a TypeScript parity runner, and optional browser and edge helper harnesses. | [`uma-metadata-orchestration`](uma-metadata-orchestration/) |
