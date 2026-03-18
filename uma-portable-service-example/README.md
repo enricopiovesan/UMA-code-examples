@@ -2,7 +2,7 @@
 
 This example demonstrates Chapter 6 of the UMA book: one contract, one core service, and two runtime targets that stay behaviorally aligned.
 It is a reader-facing hands-on lab, not just a code dump.
-The validated path proves that the same `image.analyzed` payload is emitted by both the native runner and the WASI runner while capability-gated native telemetry remains explicit.
+The validated path proves that the same `image.analyzed` payload is emitted by both the native runner and the WASI runner while capability-gated native telemetry remains explicit, and a TypeScript reference implementation mirrors the shared portable analysis logic.
 
 ## Key concepts
 
@@ -22,8 +22,10 @@ The validated path proves that the same `image.analyzed` payload is emitted by b
 
 - Validated path: `./scripts/smoke_portability_labs.sh`
 - Main implementation: Rust workspace in `runtime/`
+- Secondary implementation: TypeScript reference analysis implementation in `ts/`
 - Reader labs: `./scripts/list_labs.sh` and `./scripts/run_lab.sh`
 - Shared payload parity check: `./scripts/lab_parity.sh`
+- Rust/TypeScript reference parity check: `./scripts/compare_impls.sh`
 
 ## Quick start
 
@@ -32,6 +34,7 @@ The validated path proves that the same `image.analyzed` payload is emitted by b
 ./scripts/run_lab.sh lab1-native-wasm-parity
 ./scripts/run_lab.sh lab2-shared-payload-digest
 ./scripts/run_lab.sh lab3-failure-paths-and-capability-gates
+./scripts/run_lab.sh lab4-rust-ts-reference-parity
 ./scripts/smoke_portability_labs.sh
 ```
 
@@ -53,6 +56,7 @@ Use this order if you just finished Chapter 6 and want the best learning path:
 2. `./scripts/run_lab.sh lab1-native-wasm-parity`
 3. `./scripts/run_lab.sh lab2-shared-payload-digest`
 4. `./scripts/run_lab.sh lab3-failure-paths-and-capability-gates`
+5. `./scripts/run_lab.sh lab4-rust-ts-reference-parity`
 
 Expected satisfaction point:
 - by the end of lab 3, you should be able to explain what stayed portable, what remained target-specific, and why the contract still governed both targets
@@ -87,6 +91,7 @@ You got value from the Chapter 6 lab if you can explain all three of these point
 
 - `CONTRACT.json`, Chapter 6 contract for the image analyzer
 - `runtime/`, Rust workspace with the contract, bus, shared core logic, and both runners
+- `ts/`, TypeScript reference implementation of the shared portable image-analysis logic
 - `sample-data/`, example input images
 - `scripts/`, parity, digest, failure-path, and smoke helpers
 - `docs/`, supporting notes such as the runtime sequence diagram
@@ -135,6 +140,10 @@ Builds on lab 1 and computes SHA-256 digests of the shared payloads so parity st
 
 Exercises malformed input rejection, WASI preopen enforcement, and the native GPU telemetry fallback event.
 
+### `lab4-rust-ts-reference-parity`
+
+Compares the Rust shared analysis behavior against the TypeScript reference implementation for the built-in sample images.
+
 ## Portability matrix
 
 | Concern | WASM runner | Native runner | Where to look |
@@ -149,7 +158,9 @@ Exercises malformed input rejection, WASI preopen enforcement, and the native GP
 ## Reports and tests
 
 - `cargo test --locked --all` verifies the workspace
+- `npm test --prefix ts` verifies the TypeScript reference implementation
 - `./scripts/smoke_portability_labs.sh` is the validated Chapter 6 smoke path
+- `./scripts/compare_impls.sh` checks Rust/TypeScript parity for the shared analysis payload
 - `runtime/tests/events.rs` checks the native runner output shape
 - `runtime/tests/smoke.rs` checks that the shared contract is reachable
 
@@ -164,7 +175,7 @@ Exercises malformed input rejection, WASI preopen enforcement, and the native GP
 
 - The bus validates event payloads against the JSON schema in `CONTRACT.json`.
 - The WASI runner intentionally omits the native GPU telemetry path.
-- The validated reader path is Rust only for this chapter; there is no TypeScript parity implementation here because the point of Chapter 6 is portability across native and WASI targets of the same Rust service.
+- The validated reader path is still Rust-first because Chapter 6 is fundamentally about native and WASI portability of the same Rust service. The TypeScript code is a reference translation of the shared analysis logic so readers can inspect the behavior in a second language without changing the chapter’s core point.
 
 ## Reflection checklist
 

@@ -13,14 +13,18 @@ require_cmd() {
 require_cmd cargo
 require_cmd bash
 require_cmd jq
+require_cmd node
+require_cmd npm
 require_cmd python3
 
 pushd "$ROOT_DIR" >/dev/null
 cargo test --locked --workspace
+npm test --prefix ts
 ./scripts/list_labs.sh
 ./scripts/run_lab.sh lab1-cloud-golden-path
 ./scripts/run_lab.sh lab2-header-validation-fail-fast >/dev/null
 ./scripts/run_lab.sh lab3-adapter-binding-and-wrappers >/dev/null
+./scripts/run_lab.sh lab4-rust-ts-parity
 popd >/dev/null
 
 echo "Chapter 5 smoke run completed successfully."

@@ -47,6 +47,21 @@ What to pay attention to:
 - the WASI runner should fail without the expected preopen
 - the native runner should still emit `gpu.telemetry.reported` to make the capability boundary explicit
 
+## Lab 4: Rust and TypeScript reference parity
+
+Command:
+
+```bash
+./scripts/run_lab.sh lab4-rust-ts-reference-parity
+```
+
+Goal:
+- show that the portable analysis logic can be mirrored in a TypeScript reference implementation while Rust remains the real native/WASI portability target
+
+What to pay attention to:
+- the Rust `image.analyzed` payload should match the TypeScript reference payload for both `sample.pgm` and `bright.pgm`
+- the parity check is about shared analysis behavior, not about replacing the native/WASI portability story
+
 ## Reflection
 
 You got value from these labs if you can explain:

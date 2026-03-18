@@ -31,14 +31,19 @@ require_cmd cargo
 require_cmd rustup
 require_cmd wasmtime
 require_cmd jq
+require_cmd node
+require_cmd npm
 
 pushd "$ROOT_DIR/runtime" >/dev/null
 cargo test --locked --all
 popd >/dev/null
 
+npm test --prefix "$ROOT_DIR/ts"
+
 "$ROOT_DIR/scripts/list_labs.sh"
 "$ROOT_DIR/scripts/run_lab.sh" lab1-native-wasm-parity >/dev/null
 "$ROOT_DIR/scripts/run_lab.sh" lab2-shared-payload-digest
 "$ROOT_DIR/scripts/run_lab.sh" lab3-failure-paths-and-capability-gates
+"$ROOT_DIR/scripts/run_lab.sh" lab4-rust-ts-reference-parity
 
 echo "Chapter 6 smoke run completed successfully."

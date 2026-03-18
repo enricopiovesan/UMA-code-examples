@@ -72,6 +72,8 @@ jobs:
       - name: Check TypeScript parity implementations
         shell: bash
         run: |
+          npm test --prefix uma-post-fetcher/ts
+          npm test --prefix uma-portable-service-example/ts
           npm test --prefix uma-metadata-orchestration
           npm test --prefix chapter-8-service-graph/ts
           npm test --prefix chapter-9-trust-boundaries/ts
