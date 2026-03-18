@@ -12,6 +12,11 @@ Chapter 8 explains how a UMA system emerges from:
 
 The labs below let a reader inspect that evolution one commit at a time.
 
+## Learning path position
+
+- Previous: [Chapter 7: Metadata Orchestration Example](../chapter-07-metadata-orchestration/README.md)
+- Next: [Chapter 9: Trust Boundaries and Runtime Enforcement](../chapter-09-trust-boundaries/README.md)
+
 ---
 
 ## Key concepts

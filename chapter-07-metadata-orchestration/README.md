@@ -4,6 +4,11 @@ This example demonstrates Chapter 7 of the UMA Book, Contracts, Events, and Orch
 It is contract first, runnable on a typical developer machine, and structured as a reader-facing hands-on lab.
 The validated default path is the Rust cloud runner. The repository also includes a TypeScript reference runner plus lightweight browser and edge harnesses so the same orchestration model can be surfaced in other environments.
 
+## Learning path position
+
+- Previous: [Chapter 6: UMA Portability Lab](../chapter-06-portability-lab/README.md)
+- Next: [Chapter 8: Service Graph Evolution with Git](../chapter-08-service-graph/README.md)
+
 ## Key concepts
 
 - Contract driven orchestration where emits and subscribes create bindings without workflow code
@@ -14,7 +19,7 @@ The validated default path is the Rust cloud runner. The repository also include
 ## Prerequisites
 
 - Rust 1.76 or newer
-- Wasmtime 20 or newer, https://github.com/bytecodealliance/wasmtime
+- Wasmtime 20 or newer on your `PATH`
 - Node.js 20 or newer
 - jq and yq are optional
 

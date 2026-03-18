@@ -4,6 +4,11 @@ This example demonstrates Chapter 6 of the UMA book: one contract, one core serv
 It is a reader-facing hands-on lab, not just a code dump.
 The validated path proves that the same `image.analyzed` payload is emitted by both the native runner and the WASI runner while capability-gated native telemetry remains explicit, and a TypeScript reference implementation mirrors the shared portable analysis logic.
 
+## Learning path position
+
+- Previous: [Chapter 5: Post Fetcher Runtime](../chapter-05-post-fetcher-runtime/README.md)
+- Next: [Chapter 7: Metadata Orchestration Example](../chapter-07-metadata-orchestration/README.md)
+
 ## Key concepts
 
 - one UMA contract drives both native and WASI execution

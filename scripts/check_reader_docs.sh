@@ -33,7 +33,10 @@ require_text() {
 }
 
 require_heading "$ROOT_DIR/README.md" "Reader Setup"
+require_heading "$ROOT_DIR/README.md" "New To UMA"
+require_heading "$ROOT_DIR/README.md" "Start Here"
 require_heading "$ROOT_DIR/README.md" "Reader Journey"
+require_heading "$ROOT_DIR/README.md" "Learning Path"
 require_heading "$ROOT_DIR/README.md" "Chapter Status"
 require_heading "$ROOT_DIR/README.md" "Chapter Index"
 require_text "$ROOT_DIR/README.md" "Validated path"
@@ -62,6 +65,7 @@ for chapter in \
   "$ROOT_DIR/chapter-10-architectural-tradeoffs/README.md" \
   "$ROOT_DIR/chapter-11-evolution-without-fragmentation/README.md"
 do
+  require_heading "$chapter" "Learning path position"
   require_heading "$chapter" "Key concepts"
   require_heading "$chapter" "Prerequisites"
   require_heading "$chapter" "Validation status"

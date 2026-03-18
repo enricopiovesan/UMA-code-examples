@@ -12,6 +12,11 @@ Chapter 11 is about:
 - runtime governance resolving coexistence instead of leaving it to coordination
 - hybrid adoption in brownfield systems without requiring a rewrite
 
+## Learning path position
+
+- Previous: [Chapter 10: Architectural Tradeoffs and Runtime Coherence](../chapter-10-architectural-tradeoffs/README.md)
+- This is the end of the current validated tutorial path.
+
 ## Key concepts
 
 - systems keep evolving after deployment, so coherence must also be maintained after deployment

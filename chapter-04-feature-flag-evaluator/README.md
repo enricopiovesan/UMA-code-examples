@@ -2,6 +2,11 @@
 
 This chapter example shows how UMA service anatomy can stay portable and deterministic. The validated reader path is Rust-first: a pure Rust core plus a WASI CLI. A parallel TypeScript implementation is kept in parity so readers can compare the same contract and rule semantics across languages.
 
+## Learning path position
+
+- You are here: the first hands-on UMA chapter
+- Next: [Chapter 5: Post Fetcher Runtime](../chapter-05-post-fetcher-runtime/README.md)
+
 ## Key concepts
 
 - one UMA contract defines the evaluator boundary

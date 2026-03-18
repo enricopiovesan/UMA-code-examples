@@ -12,6 +12,11 @@ Chapter 10 is about:
 - runtime placement and deterministic selection
 - avoiding over-orchestration while keeping systems governable
 
+## Learning path position
+
+- Previous: [Chapter 9: Trust Boundaries and Runtime Enforcement](../chapter-09-trust-boundaries/README.md)
+- Next: [Chapter 11: Evolution Without Fragmentation](../chapter-11-evolution-without-fragmentation/README.md)
+
 ## Key concepts
 
 - architecture quality should be visible in runtime behavior, not only in diagrams

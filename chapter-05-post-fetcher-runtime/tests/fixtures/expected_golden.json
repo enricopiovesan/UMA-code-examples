@@ -8,7 +8,7 @@
     },
     "events": [
       { "t": "0", "type": "start", "data": { "runId": "demo-001" } },
-      { "t": "1", "type": "fetch_request", "data": { "url": "http://127.0.0.1:18080/posts/1" } },
+      { "t": "1", "type": "fetch_request", "data": { "url": "uma-fixture://sample-post" } },
       { "t": "2", "type": "fetch_response", "data": { "status": 200 } },
       { "t": "3", "type": "normalized", "data": { "id": 1 } },
       { "t": "4", "type": "end", "data": {} }
@@ -23,7 +23,7 @@
     },
     "events": [
       { "t": "0", "type": "start", "data": { "runId": "demo-001" } },
-      { "t": "1", "type": "fetch_request", "data": { "url": "http://127.0.0.1:18080/posts/1" } },
+      { "t": "1", "type": "fetch_request", "data": { "url": "uma-fixture://sample-post" } },
       { "t": "2", "type": "fetch_response", "data": { "status": 200 } },
       { "t": "3", "type": "normalized", "data": { "id": 1 } },
       { "t": "4", "type": "end", "data": {} }

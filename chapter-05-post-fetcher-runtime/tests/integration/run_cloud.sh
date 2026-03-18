@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Integration test script for the cloud host.  Builds the WebAssembly
-# component and compares the output against the golden fixture.  Requires
+# Integration test script for the validated cloud host.  Builds the native
+# runtime path and compares the output against the golden fixture.  Requires
 # `jq` for JSON comparison.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

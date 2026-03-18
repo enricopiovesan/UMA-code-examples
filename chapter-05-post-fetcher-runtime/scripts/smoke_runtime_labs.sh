@@ -15,7 +15,6 @@ require_cmd bash
 require_cmd jq
 require_cmd node
 require_cmd npm
-require_cmd python3
 
 pushd "$ROOT_DIR" >/dev/null
 cargo test --locked --workspace

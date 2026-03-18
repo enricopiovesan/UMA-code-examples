@@ -1,4 +1,10 @@
 import process from "node:process";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function normalizePost(json) {
   if (typeof json !== "object" || json === null || Array.isArray(json)) {
@@ -88,6 +94,17 @@ class CacheAdapter {
 
 class HostFetchAdapter {
   async fetch(url, headers) {
+    if (url === "uma-fixture://sample-post") {
+      const fixturePath = path.resolve(__dirname, "../../tests/fixtures/sample_post.json");
+      return {
+        status: 200,
+        headers: {
+          "content-type": "application/json",
+        },
+        body: await fs.readFile(fixturePath, "utf8"),
+      };
+    }
+
     const response = await fetch(url, {
       method: "GET",
       headers,

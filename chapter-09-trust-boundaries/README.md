@@ -14,6 +14,11 @@ Instead, a runtime must evaluate:
 
 The labs below let a reader watch those trust decisions become visible through deterministic allow and deny outcomes.
 
+## Learning path position
+
+- Previous: [Chapter 8: Service Graph Evolution with Git](../chapter-08-service-graph/README.md)
+- Next: [Chapter 10: Architectural Tradeoffs and Runtime Coherence](../chapter-10-architectural-tradeoffs/README.md)
+
 ---
 
 ## Key concepts

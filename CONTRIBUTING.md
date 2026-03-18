@@ -36,13 +36,17 @@ Validated chapter READMEs should keep these sections:
 
 At the repo root, keep:
 
+- `## New To UMA`
+- `## Start Here`
 - `## Reader Setup`
 - `## Reader Journey`
+- `## Learning Path`
 - `## Chapter Status`
 - `## Chapter Index`
 
 At the chapter level, keep:
 
+- `## Learning path position`
 - `## Key concepts`
 - `## Prerequisites`
 - `## Validation status`

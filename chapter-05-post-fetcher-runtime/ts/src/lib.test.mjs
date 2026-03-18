@@ -96,3 +96,20 @@ test("wrapper binding order is cache then retry then base", async () => {
     delete process.env.UMA_ENABLE_CACHE;
   }
 });
+
+test("fixture URL is resolved hermetically", async () => {
+  const report = await runJson(
+    JSON.stringify({
+      request: { url: "uma-fixture://sample-post", headers: { accept: "application/json" } },
+      runId: "ts-fixture",
+    }),
+  );
+
+  assert.equal(report.lifecycle.state, "terminated");
+  assert.equal(report.lifecycle.bindings["network.fetch"].impl, "host-fetch");
+  assert.equal(report.output.normalizedPost.id, 1);
+  assert.deepEqual(
+    report.output.events.map((event) => event.type),
+    ["start", "fetch_request", "fetch_response", "normalized", "end"],
+  );
+});

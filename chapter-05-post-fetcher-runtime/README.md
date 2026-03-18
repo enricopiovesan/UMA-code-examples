@@ -1,8 +1,14 @@
 # Chapter 5: Post Fetcher Runtime Lab
 
 This example demonstrates Chapter 5 of the UMA book: the runtime layer around a pure service.
-It shows how contracts, adapter binding, deterministic event ordering, and lifecycle metadata work together around a small HTTP-fetching service.
+It shows how contracts, adapter binding, deterministic event ordering, and lifecycle metadata work together around a small network-fetching service.
 The validated reader path is the native Rust cloud host smoke flow, with a TypeScript reference runtime kept in parity for the core lab scenarios.
+That validated path is hermetic: it resolves a checked-in fixture through the host adapter instead of opening a localhost server.
+
+## Learning path position
+
+- Previous: [Chapter 4: Feature Flag Evaluator](../chapter-04-feature-flag-evaluator/README.md)
+- Next: [Chapter 6: UMA Portability Lab](../chapter-06-portability-lab/README.md)
 
 ## Key concepts
 
@@ -15,7 +21,6 @@ The validated reader path is the native Rust cloud host smoke flow, with a TypeS
 
 - Rust 1.77 or newer
 - `cargo`
-- `python3` for the local fixture server used by the cloud host path
 - `jq` for the guided lab checks and golden-fixture comparisons
 - Optional: `npm` if you want to inspect the illustrative browser host scaffolding
 
@@ -106,7 +111,7 @@ The service accepts input like this:
 ```json
 {
   "request": {
-    "url": "http://127.0.0.1:18080/posts/1",
+    "url": "uma-fixture://sample-post",
     "headers": {
       "accept": "application/json"
     }
@@ -197,7 +202,6 @@ The runtime supports a few environment variables for the lab:
 | `UMA_ENABLE_RETRY` | Wraps the selected adapter with `RetryAdapter` |
 | `UMA_ENABLE_CACHE` | Wraps the selected adapter with `CacheAdapter` |
 | `UMA_POLICY_PATH` | Not implemented yet; would point the runtime to a custom policy file |
-| `UMA_DEMO_PORT` | Overrides the localhost fixture port used by `hosts/cloud/run.sh` |
 
 ## Browser and edge
 
@@ -218,10 +222,9 @@ They are useful as reference material for where a JS/Wasm binding layer would go
 
 ## Troubleshooting
 
-- If `./scripts/run_lab.sh` or `hosts/cloud/run.sh` says `python3 is required`, install Python 3 for the local fixture server.
 - If `jq` is missing, the guided labs and golden comparison scripts will fail early with an explicit message.
 - If you want to explore the browser scaffold, install dependencies under `adapters/network/ts-host/`, but treat that path as illustrative rather than validated.
-- If you see network differences on your machine, use the built-in localhost fixture path instead of external internet endpoints; the validated scripts already do this.
+- If you see network differences on your machine, stick to the validated `uma-fixture://sample-post` flow instead of external endpoints.
 
 ## Notes
 
