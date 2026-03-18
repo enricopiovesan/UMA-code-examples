@@ -9,6 +9,36 @@ Each folder represents a standalone project that can be built and run independen
 
 ---
 
+## New To UMA
+
+UMA is a way to build portable services whose behavior stays consistent across client, edge, and cloud runtimes.
+No prior UMA knowledge is assumed.
+
+If you are landing here cold, the important idea is:
+
+- the service logic should stay pure and portable
+- contracts should describe what the service needs and emits
+- the runtime should own placement, policy, adapters, and observability
+- architecture should remain understandable as systems grow, evolve, and cross trust boundaries
+
+This repository is not a generic microservices sample pack.
+It is a guided progression showing how those ideas build on each other from Chapter 4 through Chapter 11.
+
+## Start Here
+
+If you want the fastest useful entry path as a new developer:
+
+1. Read [chapter-04-feature-flag-evaluator](chapter-04-feature-flag-evaluator/README.md) to understand the smallest portable UMA service.
+2. Continue to [chapter-05-post-fetcher-runtime](chapter-05-post-fetcher-runtime/README.md) to see how the runtime wraps a pure service.
+3. Continue to [chapter-06-portability-lab](chapter-06-portability-lab/README.md) to see portability proven across native and WASI.
+4. Follow Chapters 7 through 11 in order if you want orchestration, trust, architectural tradeoffs, and long-term system evolution.
+
+If you only want one command to see whether the validated reader path works on your machine:
+
+```bash
+./scripts/smoke_reader_paths.sh
+```
+
 ## Reader Setup
 
 Shared prerequisites for the validated reader flows:
@@ -72,6 +102,21 @@ The intended thread for a reader is:
 
 Chapter 3 is intentionally not a full lab in this repository. It is the conceptual bridge into Chapter 4, which is the first validated hands-on entry point.
 
+## Learning Path
+
+Use this table if you want a chapter-by-chapter tutorial path instead of browsing the folders ad hoc:
+
+| Step | Chapter | First command | What you should understand before moving on |
+| --- | --- | --- | --- |
+| 1 | 4 | `cd chapter-04-feature-flag-evaluator && ./scripts/run_lab.sh lab1-country-match` | what a portable UMA service contract looks like and why deterministic behavior matters |
+| 2 | 5 | `cd chapter-05-post-fetcher-runtime && ./scripts/run_lab.sh lab1-cloud-golden-path` | what belongs in a runtime layer versus a pure service |
+| 3 | 6 | `cd chapter-06-portability-lab && ./scripts/run_lab.sh lab1-native-wasm-parity` | how portability is proven from observable output rather than assumed from shared code |
+| 4 | 7 | `cd chapter-07-metadata-orchestration && ./scripts/run_lab.sh lab1-baseline-cloud-flow` | how contracts and events create orchestration without hardcoded workflow logic |
+| 5 | 8 | `cd chapter-08-service-graph && ./scripts/run_graph_demo.sh lab1-upload-only` | how service graphs emerge from compatibility and evolve over time |
+| 6 | 9 | `cd chapter-09-trust-boundaries && ./scripts/run_trust_demo.sh lab1-trusted-service` | how portability must be governed by trust, provenance, and communication policy |
+| 7 | 10 | `cd chapter-10-architectural-tradeoffs && ./scripts/run_arch_demo.sh lab1-baseline` | how architectural choices change runtime coherence and system quality |
+| 8 | 11 | `cd chapter-11-evolution-without-fragmentation && ./scripts/run_evolution_demo.sh lab1-contract-anchor` | how systems keep evolving without fragmenting when contracts and runtime governance stay explicit |
+
 ---
 
 ## Chapter Status
@@ -121,6 +166,8 @@ Each validated chapter README now follows the same reader-first spine:
 - `## Value check`
 
 Some chapters add domain-specific sections such as contracts, diff tools, or reports, but that core shape should stay stable.
+
+Each chapter README should also make it obvious where the reader came from and where they should go next in the learning path.
 
 ## Working In The Repo
 

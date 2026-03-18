@@ -4,6 +4,11 @@ This example demonstrates Chapter 5 of the UMA book: the runtime layer around a 
 It shows how contracts, adapter binding, deterministic event ordering, and lifecycle metadata work together around a small HTTP-fetching service.
 The validated reader path is the native Rust cloud host smoke flow, with a TypeScript reference runtime kept in parity for the core lab scenarios.
 
+## Learning path position
+
+- Previous: [Chapter 4: Feature Flag Evaluator](../chapter-04-feature-flag-evaluator/README.md)
+- Next: [Chapter 6: UMA Portability Lab](../chapter-06-portability-lab/README.md)
+
 ## Key concepts
 
 - pure service logic stays separate from host capabilities
