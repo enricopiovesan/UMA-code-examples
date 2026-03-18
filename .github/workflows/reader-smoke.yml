@@ -83,3 +83,7 @@ jobs:
       - name: Check reader documentation contract
         shell: bash
         run: ./scripts/check_reader_docs.sh
+
+      - name: Enforce Rust coverage floor
+        shell: bash
+        run: ./scripts/check_rust_coverage.sh

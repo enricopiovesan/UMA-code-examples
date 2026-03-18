@@ -35,6 +35,12 @@ For measured Rust coverage across the validated reader chapters:
 ./scripts/report_rust_coverage.sh
 ```
 
+To enforce the current minimum Rust coverage floor locally:
+
+```bash
+./scripts/check_rust_coverage.sh
+```
+
 ---
 
 ## Chapter Status
@@ -87,3 +93,5 @@ cd UMA-code-examples
 ```
 
 The chapter READMEs call out where a path is fully validated versus where a browser or edge host is still illustrative scaffolding.
+
+Contributor expectations for keeping that bar are documented in [CONTRIBUTING.md](/Users/piovese/Documents/UMA-code-examples/CONTRIBUTING.md).
