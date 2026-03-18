@@ -1,25 +1,101 @@
-# UMA Post Fetcher Example
+# UMA Post Fetcher Runtime Lab
 
-This repository contains a minimal but production‑quality example service for Chapter 5 of the UMA book.  The goal is to demonstrate how the UMA runtime layer loads contracts, binds an adapter at runtime, enforces deterministic execution and persists a small lifecycle record.  The example includes a native cloud CLI quick-start plus browser and edge host paths.
+This example demonstrates Chapter 5 of the UMA book: the runtime layer around a pure service.
+It shows how contracts, adapter binding, deterministic event ordering, and lifecycle metadata work together around a small HTTP-fetching service.
+The validated reader path is the native cloud host smoke flow, not the browser or edge sketches.
 
-## Overview
+## Key concepts
 
-The service implements a simple HTTP fetcher.  It accepts a JSON document describing a request and a `runId` and returns a normalized representation of a [JSONPlaceholder](https://jsonplaceholder.typicode.com) post along with a deterministic event log.  The UMA runtime layer drives the service through a well‑defined lifecycle, ensures deterministic ordering of events and persists metadata about the run.
+- pure service logic stays separate from host capabilities
+- the runtime selects and records the `network.fetch` adapter binding
+- validation can stop execution before side effects happen
+- event ordering and lifecycle metadata make runtime behavior auditable
 
-The repository is organised into several parts:
+## Prerequisites
 
-| Path | Purpose |
-| --- | --- |
-| `contracts/` | JSON contracts for the service interface, the network adapter, the runtime policy and the lifecycle metadata schema. |
-| `service/` | Pure application logic (normalisation functions, models and API wrapper). |
-| `runtime/` | The UMA runtime implementation (loader, adapter manager, thread manager, event bus and metadata). |
-| `adapters/` | Portable capability adapters for network fetch.  Each adapter exposes the same WIT interface but uses different host binding strategies. |
-| `hosts/` | Thin shims for running the compiled WebAssembly in different environments (cloud CLI, edge/Node worker and browser). |
-| `tests/` | Integration test scripts and fixtures. |
+- Rust 1.77 or newer
+- `cargo`
+- `python3` for the local fixture server used by the cloud host path
+- `jq` for the guided lab checks and golden-fixture comparisons
+- Optional: `npm` if you want to inspect the illustrative browser host scaffolding
 
-## Service Contract
+## Validation status
 
-The service accepts an input document shaped like this:
+- Validated path: `./scripts/smoke_runtime_labs.sh`
+- Main implementation: Rust workspace rooted at `Cargo.toml`
+- Guided reader labs: `./scripts/list_labs.sh` and `./scripts/run_lab.sh`
+- Optional paths: browser and edge host sketches remain illustrative, not validated quick-starts
+
+## Quick start
+
+```bash
+./scripts/list_labs.sh
+./scripts/run_lab.sh lab1-cloud-golden-path
+./scripts/run_lab.sh lab2-header-validation-fail-fast
+./scripts/run_lab.sh lab3-adapter-binding-and-wrappers
+./scripts/smoke_runtime_labs.sh
+```
+
+Expected log signals:
+
+```text
+Integration test passed: output matches golden fixture.
+Building native runtime CLI...
+Running the service in cloud host via native CLI...
+Chapter 5 smoke run completed successfully.
+```
+
+## Reader path
+
+Use this order if you just finished Chapter 5 and want the best learning path:
+
+1. `./scripts/list_labs.sh`
+2. `./scripts/run_lab.sh lab1-cloud-golden-path`
+3. `./scripts/run_lab.sh lab2-header-validation-fail-fast`
+4. `./scripts/run_lab.sh lab3-adapter-binding-and-wrappers`
+
+Expected satisfaction point:
+- by the end of lab 3, you should be able to explain how the runtime validates input, chooses an adapter implementation, and records that decision without changing the pure service logic
+
+## Questions a reader might ask
+
+### "What am I supposed to learn from this?"
+
+You should leave this lab able to explain:
+
+- what belongs in the service crate versus what belongs in the runtime layer
+- why runtime validation should fail fast before side effects happen
+- how lifecycle metadata proves which adapter path actually ran
+
+### "What should I pay attention to in the output?"
+
+The most important signals are:
+
+- the deterministic event sequence in `output.events`
+- the `network.fetch` binding recorded in `lifecycle.bindings`
+- the final `lifecycle.state`
+
+### "How do I know if the lab gave me value?"
+
+You got value from the Chapter 5 lab if you can explain all three of these points after running it:
+
+- the service logic normalized a post, but the runtime owned validation, fetch orchestration, and lifecycle recording
+- invalid headers stopped the run before any `fetch_request` event happened
+- enabling retry/cache wrappers changed the binding record without changing the normalized service output
+
+## Layout
+
+- `contracts/`, JSON contracts for the service, runtime policy, adapter capability, and metadata schema
+- `service/`, pure normalization logic and service-facing API types
+- `runtime/`, runtime orchestration, adapter binding, event bus, lifecycle record, and native CLI entrypoint
+- `adapters/`, capability adapter definitions plus illustrative TS/browser scaffolding
+- `hosts/`, cloud and edge host shims
+- `tests/`, fixtures and integration scripts
+- `scripts/`, guided Chapter 5 lab helpers
+
+## Service contract
+
+The service accepts input like this:
 
 ```json
 {
@@ -33,7 +109,7 @@ The service accepts an input document shaped like this:
 }
 ```
 
-It returns a JSON object containing a normalised post and a deterministic event log.  An example response on a successful run:
+On success it emits a normalized post plus a deterministic event log:
 
 ```json
 {
@@ -53,159 +129,104 @@ It returns a JSON object containing a normalised post and a deterministic event 
 }
 ```
 
-In error cases (non‑2xx status or parse error) the `normalizedPost` field is set to `null` and the last event contains an `error` key describing the condition.
+## Reader labs
 
-### Adapter Capability Contract
+See [labs/README.md](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/labs/README.md) for the guided Chapter 5 lab notes.
 
-The network adapter exposes a single capability, `network.fetch`, defined in `adapter.network.contract.json`.  It describes an idempotent `fetch` operation that accepts a URL, HTTP method (only `GET` is supported in this example) and optional headers.  The response includes a status code, headers and a raw body in bytes.  The UMA runtime selects an implementation at runtime based on the policy and persists the decision in the lifecycle record.  See `contracts/adapter.network.contract.json` for the full schema.
+### `lab1-cloud-golden-path`
 
-### Runtime Policy
+Runs the validated cloud host path and compares the output against the checked-in golden fixture.
 
-The default runtime policy (`contracts/policy.runtime.json`) drives adapter selection, binding semantics, observability and lifecycle states.  It instructs the runtime to attempt to bind a `wasi-http` implementation first and fall back to a host‑provided fetch.  Binding of required capabilities is eager, and the runtime persists adapter selection decisions.  If you wish to override the default policy or experiment with different behaviours (for example, prefer a custom adapter, enable caching or adjust observability), you can create your own policy JSON file.  In this example the policy file serves as documentation; the runtime loader does not currently parse it at runtime, but in a full UMA implementation the loader would read the policy and act accordingly.
+### `lab2-header-validation-fail-fast`
 
-### Lifecycle Metadata Schema
+Feeds an invalid header into the native CLI path and proves that validation stops the run before any fetch happens.
 
-The runtime persists a lifecycle record after each run.  The record includes the service name and version, a reference to the policy used, the bindings chosen for each capability, the final state, a logical clock (equal to the number of emitted events) and the event log itself.  See `contracts/metadata.schema.json` for the full schema.
+### `lab3-adapter-binding-and-wrappers`
 
-## Getting Started
+Enables the retry and cache wrappers and verifies that the runtime binding record changes to `cache-retry-host-fetch`.
 
-This repository demonstrates a complete example of a **UMA** service and runtime layer.  It includes contracts, pure service logic, a runtime that selects and binds adapters, event logging and lifecycle metadata, plus host shims for running the same compiled WebAssembly component in a cloud CLI, an edge worker and a web browser.
+## Manual commands
 
-### Prerequisites
+If you want the lower-level commands instead of the guided labs:
 
-To build and run the example you will need:
-
-* A recent Rust toolchain (tested with Rust 1.74 or later).  Install via [rustup](https://rustup.rs/).
-* The `wasm32‑wasip1` target added to your toolchain (`rustup target add wasm32-wasip1`) if you want to experiment with the WASI build.
-* [`wasmtime`](https://wasmtime.dev/) or another WASI runtime only if you want to run the experimental WASI build manually.  The reader quick-start cloud script uses the native CLI path so outbound HTTP works without additional host bindings.
-* [npm](https://www.npmjs.com/) if you want to inspect or extend the illustrative browser host scaffolding under `adapters/network/ts-host`.
-
-### Build the Workspace
-
-Clone this repository and build all crates:
-
-```sh
-git clone <repo-url>
-cd uma-post-fetcher
-cargo build --workspace --release
-```
-
-This command builds the service, runtime and adapter crates for your native platform.  To build the WebAssembly component for WASI:
-
-```sh
-rustup target add wasm32-wasip1 # only needed once
-cargo build -p uma_runtime --release --target wasm32-wasip1
-```
-
-The resulting Wasm file will be placed at `target/wasm32-wasip1/release/uma_runtime.wasm`.
-
-#### Optional adapters: enabling retries and caching
-
-The runtime can wrap the underlying network adapter with additional behaviours.  Two wrappers are provided out of the box:
-
-* **RetryAdapter** – transparently retries failed requests a fixed number of times.  The number of retries is hard‑coded to three in this example and no back‑off delays are used so that execution remains deterministic.
-* **CacheAdapter** – caches responses by URL for the lifetime of the adapter.  Subsequent requests for the same URL return the cached response instead of hitting the network.
-
-You can enable these wrappers by setting environment variables when running the service.  For example, to enable both retries and caching for the cloud host:
-
-```sh
-export UMA_ENABLE_RETRY=1
-export UMA_ENABLE_CACHE=1
+```bash
+cargo test --locked --workspace
 bash hosts/cloud/run.sh
+bash tests/integration/run_cloud.sh
 ```
 
-The adapter manager reads these variables at runtime and wraps the selected adapter accordingly.  If both retry and cache are enabled, the cache adapter wraps the retry adapter.  You can apply the same variables when running the edge or browser examples.
+## Contracts and runtime behavior
 
-Currently the retry wrapper does not emit individual events for each retry attempt; only the final outcome (success or error) is recorded.  Extending the event bus to log `retry_attempt` events is a potential enhancement.
+### Adapter capability contract
 
-### Running on Multiple Targets
+The runtime depends on one capability, `network.fetch`, described in [adapter.network.contract.json](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/contracts/adapter.network.contract.json).
+The lifecycle record persists which implementation satisfied that capability.
 
-The same compiled component can run in a cloud CLI, an edge worker and a web browser.  The `hosts/` directory contains scripts and templates for each environment.
+### Runtime policy
 
-#### Cloud CLI
+[policy.runtime.json](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/contracts/policy.runtime.json) documents the intended adapter-selection and observability behavior for the sample.
+The current runtime does not fully parse this policy file yet; in this example it acts as the declared runtime contract rather than a fully interpreted policy engine.
 
-Use the provided shell script to run the native CLI entrypoint:
+### Lifecycle metadata schema
 
-```sh
-cd uma-post-fetcher
-bash hosts/cloud/run.sh
-```
+[metadata.schema.json](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/contracts/metadata.schema.json) defines the persisted lifecycle record shape, including:
 
-This script builds the runtime package for the local machine, starts a temporary localhost fixture server, and pipes a sample input into the CLI entrypoint.  The output JSON and lifecycle record are printed to stdout.
+- service identity
+- policy reference
+- capability bindings
+- event log
+- final state
+- logical clock
 
-#### Edge and Browser sketches
+## Environment variables
 
-The files under `hosts/edge/` and `adapters/network/ts-host/` are illustrative host sketches, not a validated quick-start like the cloud CLI path above.  They show where a Node/edge runner or browser shim would bind `network.fetch`, but this sample does not currently ship a `wasm-bindgen` or component-model JavaScript package for `uma_runtime`.
-
-If you want to turn these into runnable examples, treat them as starting points:
-
-```sh
-cd uma-post-fetcher/adapters/network/ts-host
-npm install
-npm run dev
-```
-
-At that point you still need to provide a real JS/Wasm binding layer for the runtime module and update the import paths in `hosts/edge/run.ts` and `adapters/network/ts-host/src/host.ts` to match that generated output.
-
-### Testing
-
-Unit tests cover the service and runtime logic.  Run them with:
-
-```sh
-cargo test --workspace
-```
-
-Integration test scripts live under `tests/integration`.  The reader quick-start cloud flow exercises the native CLI path.  The browser and edge files are illustrative scaffolding and are not part of the validated quick-start path in this sample.
-
-### Extending the Example
-
-This repository is meant as a starting point for exploring UMA concepts.  You can extend it in several ways:
-
-* **Retry and Backoff** – Add a runtime policy that instructs the adapter manager to retry failed fetches with exponential backoff.  The core logic in `service` remains pure; only the runtime changes.
-* **Header Validation and Size Limits** – Inspect and validate request headers in the service contract and enforce response size limits in the adapter implementation.
-* **Caching** – Implement an optional caching adapter for edge or browser hosts.  The runtime can select a cache adapter before falling back to network fetch.
-
-### Environment variables
-
-The runtime reads a few environment variables to control optional behaviour at runtime.  These variables allow you to enable the retry and cache wrappers without changing any code or configuration files:
+The runtime supports a few environment variables for the lab:
 
 | Variable | Description |
 | --- | --- |
-| `UMA_ENABLE_RETRY` | When set (to any value), wraps the selected network adapter in a `RetryAdapter` that retries failed requests up to three times. |
-| `UMA_ENABLE_CACHE` | When set, wraps the selected network adapter in a `CacheAdapter` that caches responses by URL for the lifetime of the adapter. |
-| `UMA_POLICY_PATH` | Not yet implemented.  Would instruct the runtime loader to read a custom policy JSON file instead of the default embedded policy. |
+| `UMA_ENABLE_RETRY` | Wraps the selected adapter with `RetryAdapter` |
+| `UMA_ENABLE_CACHE` | Wraps the selected adapter with `CacheAdapter` |
+| `UMA_POLICY_PATH` | Not implemented yet; would point the runtime to a custom policy file |
+| `UMA_DEMO_PORT` | Overrides the localhost fixture port used by `hosts/cloud/run.sh` |
 
-Unset variables mean the corresponding wrappers are disabled.  You can set these variables on a per‑invocation basis to experiment with different behaviours without recompiling the service.
+## Browser and edge
 
-### WASI HTTP support
+The browser and edge files remain illustrative sketches.
+They are useful as reference material for where a JS/Wasm binding layer would go, but they are not part of the validated quick-start path.
 
-When compiled for the `wasm32` target, the adapter manager attempts to select a `WasiHttpAdapter` if no custom adapter is provided.  In this sample that adapter fails closed with a clear error message, so the reader quick-start uses the native CLI path instead of relying on host-specific WASI HTTP bindings.
+- [tests/integration/run_browser.md](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/tests/integration/run_browser.md) explains the browser scaffold
+- [tests/integration/run_edge.sh](/Users/piovese/Documents/UMA-code-examples/uma-post-fetcher/tests/integration/run_edge.sh) fails fast with guidance instead of pretending the edge path is turnkey
 
-### Further extensions
+## Reports and tests
 
-* **Batch Requests** – Modify the service API to accept a list of URLs and normalise multiple posts in a single run.  Extend the event bus to log events for each request deterministically.
-* **New Capabilities** – Define additional capability contracts (e.g. `storage.put`, `queue.publish`) under `contracts/` and provide corresponding adapters.  Update the runtime policy to select implementations at runtime.
+- `cargo test --locked --workspace` verifies the service and runtime crates
+- `./scripts/smoke_runtime_labs.sh` is the validated Chapter 5 smoke path
+- `bash tests/integration/run_cloud.sh` compares the cloud output against the golden fixture
+- `runtime/src/tests.rs` covers runtime determinism, fail-fast validation, adapter wrapping, and parse-error handling
 
-When extending the example, maintain the principles of determinism, pure service logic and clear separation between capabilities (adapters) and business logic.  Document new contracts and policies in the `README` or separate design notes so that readers understand the service’s behaviour and extension points.
+## Troubleshooting
 
-### Tests and Coverage
+- If `./scripts/run_lab.sh` or `hosts/cloud/run.sh` says `python3 is required`, install Python 3 for the local fixture server.
+- If `jq` is missing, the guided labs and golden comparison scripts will fail early with an explicit message.
+- If you want to explore the browser scaffold, install dependencies under `adapters/network/ts-host/`, but treat that path as illustrative rather than validated.
+- If you see network differences on your machine, use the built-in localhost fixture path instead of external internet endpoints; the validated scripts already do this.
 
-Comprehensive unit tests are provided for both the service and runtime crates under the `src/tests.rs` files.  These tests cover the normalisation logic, error handling, event bus, lifecycle record construction and the top‑level `run_json` function using a stub network adapter.  To run the tests:
+## Notes
 
-```sh
-cargo test --workspace
-```
+- The validated Chapter 5 path is Rust only for this chapter. The browser and edge host files are sketches around the Rust runtime, not full TypeScript parity implementations.
+- The runtime is deliberately deterministic: no timers or random values influence event ordering.
+- The logical clock increments once per emitted event so host behavior is easy to compare.
 
-Code in the repository is documented with Rust doc comments.  You can generate HTML documentation with:
+## Reflection checklist
 
-```sh
-cargo doc --workspace --open
-```
+- Did the labs make the runtime layer responsibilities more obvious than the raw code alone?
+- Did the failure-path lab clearly show why validation belongs before adapter execution?
+- Did the binding record make the capability indirection feel concrete instead of abstract?
 
-This will open the API documentation in your browser, where you can explore the modules, traits and structs exposed by the service, runtime and adapter crates.
+## Value check
 
-The core logic is deliberately pure and deterministic: it does not depend on timers or random values.  A logical clock increments with each emitted event, guaranteeing consistent ordering across hosts.
+If this hands-on worked, you should finish it with three concrete gains:
 
-## Extensibility
-
-The example is intentionally simple to highlight the UMA runtime responsibilities.  The runtime can be extended to support retries, caching, header allowlists and more.  See the section in the book and the comments in the code for suggested extension points.
+- you can point to the exact event sequence that proves the runtime behaved deterministically
+- you can explain why invalid headers stop before fetch rather than after it
+- you can show where the lifecycle record captures the actual adapter decision the runtime made

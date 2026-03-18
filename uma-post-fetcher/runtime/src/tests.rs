@@ -3,8 +3,8 @@
 // adapter.  Note: the WASI HTTP adapter is not exercised here.
 
 use super::*;
-use service::api::{NetworkAdapter, NetworkResponse};
 use serde_json::{json, Value};
+use service::api::{NetworkAdapter, NetworkResponse};
 use std::collections::HashMap;
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
@@ -15,8 +15,12 @@ use std::sync::{
 struct DummyAdapter;
 
 impl NetworkAdapter for DummyAdapter {
-    fn fetch(&self, _url: &str, _headers: &HashMap<String, String>) -> anyhow::Result<NetworkResponse> {
-        let body = r#"{\"id\":1,\"userId\":2,\"title\":\"t\",\"body\":\"b\"}"#;
+    fn fetch(
+        &self,
+        _url: &str,
+        _headers: &HashMap<String, String>,
+    ) -> anyhow::Result<NetworkResponse> {
+        let body = r#"{"id":1,"userId":2,"title":"t","body":"b"}"#;
         Ok(NetworkResponse {
             status: 200,
             headers: HashMap::new(),
@@ -30,7 +34,11 @@ struct CountingAdapter {
 }
 
 impl NetworkAdapter for CountingAdapter {
-    fn fetch(&self, _url: &str, _headers: &HashMap<String, String>) -> anyhow::Result<NetworkResponse> {
+    fn fetch(
+        &self,
+        _url: &str,
+        _headers: &HashMap<String, String>,
+    ) -> anyhow::Result<NetworkResponse> {
         self.fetch_calls.fetch_add(1, Ordering::SeqCst);
         Ok(NetworkResponse {
             status: 200,
@@ -53,8 +61,15 @@ fn test_event_bus_increment() {
 
 #[test]
 fn test_lifecycle_record() {
-    let binding = adapter_manager::AdapterBinding { impl_name: "test-impl".to_string(), host: "native".to_string() };
-    let events = vec![service::model::Event { t: "0".to_string(), type_: "start".to_string(), data: json!({}) }];
+    let binding = adapter_manager::AdapterBinding {
+        impl_name: "test-impl".to_string(),
+        host: "native".to_string(),
+    };
+    let events = vec![service::model::Event {
+        t: "0".to_string(),
+        type_: "start".to_string(),
+        data: json!({}),
+    }];
     let rec = metadata::LifecycleRecord::new(
         "svc",
         "0.1",
@@ -77,11 +92,12 @@ fn test_run_json_with_dummy_adapter() {
     });
     let input_str = serde_json::to_string(&input).unwrap();
     let adapter = DummyAdapter;
-    let (out_json, meta_json) = run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
+    let (out_json, meta_json) =
+        run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
     let out_val: Value = serde_json::from_str(&out_json).unwrap();
     let post = out_val.get("normalizedPost").unwrap();
     assert_eq!(post["id"], 1);
-    assert_eq!(post["userId"], 2);
+    assert_eq!(post["user_id"], 2);
     assert_eq!(out_val["events"].as_array().unwrap().len(), 5);
     let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
     assert_eq!(meta_val["logicalClock"], 5);
@@ -93,17 +109,23 @@ fn test_header_validation_and_final_state() {
     // "failed" when unexpected headers are present.  Use a dummy adapter
     // that returns a successful response so that the only error comes from
     // header validation.
-    use std::env;
     let input = json!({
         "request": { "url": "https://example.com", "headers": { "x-foo": "bar" } },
         "runId": "run-2"
     });
     let input_str = serde_json::to_string(&input).unwrap();
     let adapter = DummyAdapter;
-    let (out_json, meta_json) = run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
+    let (out_json, meta_json) =
+        run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
     let out_val: Value = serde_json::from_str(&out_json).unwrap();
     // normalised post may be present because dummy adapter returns a valid body
-    assert!(out_val.get("events").unwrap().as_array().unwrap().iter().any(|e| e["type"] == "error"));
+    assert!(out_val
+        .get("events")
+        .unwrap()
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|e| e["type"] == "error"));
     let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
     assert_eq!(meta_val["state"], "failed");
 }
@@ -120,7 +142,8 @@ fn test_header_validation_skips_network_fetch() {
     });
     let input_str = serde_json::to_string(&input).unwrap();
 
-    let (out_json, meta_json) = run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
+    let (out_json, meta_json) =
+        run_json(&input_str, Some(Box::new(adapter))).expect("run_json should succeed");
     let out_val: Value = serde_json::from_str(&out_json).unwrap();
     let event_types: Vec<&str> = out_val["events"]
         .as_array()
@@ -168,4 +191,46 @@ fn test_adapter_manager_env_wrappers() {
     // Clean up
     env::remove_var("UMA_ENABLE_RETRY");
     env::remove_var("UMA_ENABLE_CACHE");
+}
+
+#[test]
+fn test_parse_error_marks_run_failed() {
+    struct InvalidJsonAdapter;
+
+    impl NetworkAdapter for InvalidJsonAdapter {
+        fn fetch(
+            &self,
+            _url: &str,
+            _headers: &HashMap<String, String>,
+        ) -> anyhow::Result<NetworkResponse> {
+            Ok(NetworkResponse {
+                status: 200,
+                headers: HashMap::new(),
+                body: "not-json".to_string(),
+            })
+        }
+    }
+
+    let input = json!({
+        "request": { "url": "https://example.com", "headers": {} },
+        "runId": "run-4"
+    });
+    let input_str = serde_json::to_string(&input).unwrap();
+    let (out_json, meta_json) =
+        run_json(&input_str, Some(Box::new(InvalidJsonAdapter))).expect("run_json should succeed");
+
+    let out_val: Value = serde_json::from_str(&out_json).unwrap();
+    assert_eq!(out_val["normalizedPost"], Value::Null);
+    assert!(out_val["events"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|e| e["type"] == "error"
+            && e["data"]["error"]
+                .as_str()
+                .unwrap()
+                .starts_with("parse error")));
+
+    let meta_val: Value = serde_json::from_str(&meta_json).unwrap();
+    assert_eq!(meta_val["state"], "failed");
 }

@@ -1,15 +1,15 @@
 use service::api::{NetworkAdapter, NetworkResponse};
 
 #[cfg(target_arch = "wasm32")]
+use crate::cache_adapter::CacheAdapter;
+#[cfg(not(target_arch = "wasm32"))]
+use crate::cache_adapter::CacheAdapter;
+#[cfg(target_arch = "wasm32")]
+use crate::retry_adapter::RetryAdapter;
+#[cfg(not(target_arch = "wasm32"))]
+use crate::retry_adapter::RetryAdapter;
+#[cfg(target_arch = "wasm32")]
 use crate::wasi_http_adapter::WasiHttpAdapter;
-#[cfg(target_arch = "wasm32")]
-use crate::cache_adapter::CacheAdapter;
-#[cfg(target_arch = "wasm32")]
-use crate::retry_adapter::RetryAdapter;
-#[cfg(not(target_arch = "wasm32"))]
-use crate::cache_adapter::CacheAdapter;
-#[cfg(not(target_arch = "wasm32"))]
-use crate::retry_adapter::RetryAdapter;
 use anyhow::Result;
 use std::collections::HashMap;
 
@@ -43,15 +43,22 @@ impl AdapterManager {
             // implements the `wasi:http` proposal.  Failing that, a
             // host-provided adapter must be supplied.
             if let Some(adapter) = adapter {
-                let binding = AdapterBinding { impl_name: "custom".to_string(), host: "wasm32".to_string() };
+                let binding = AdapterBinding {
+                    impl_name: "custom".to_string(),
+                    host: "wasm32".to_string(),
+                };
                 return Self { adapter, binding };
             }
             // Attempt to select a WasiHttpAdapter.  Note that this adapter
             // currently returns an error because the WASI HTTP API is not
             // implemented in this example.  If you enable a working
             // implementation, set the impl_name accordingly.
-            let adapter = Box::new(crate::wasi_http_adapter::WasiHttpAdapter {}) as Box<dyn NetworkAdapter>;
-            let binding = AdapterBinding { impl_name: "wasi-http".to_string(), host: "wasm32".to_string() };
+            let adapter =
+                Box::new(crate::wasi_http_adapter::WasiHttpAdapter {}) as Box<dyn NetworkAdapter>;
+            let binding = AdapterBinding {
+                impl_name: "wasi-http".to_string(),
+                host: "wasm32".to_string(),
+            };
             return Self { adapter, binding };
         }
 
@@ -71,7 +78,10 @@ impl AdapterManager {
                     adapter = Box::new(CacheAdapter::new(adapter));
                     impl_name = format!("cache-{}", impl_name);
                 }
-                let binding = AdapterBinding { impl_name, host: "native".to_string() };
+                let binding = AdapterBinding {
+                    impl_name,
+                    host: "native".to_string(),
+                };
                 return Self { adapter, binding };
             }
             // Default host fetch adapter with optional wrappers.
@@ -87,7 +97,10 @@ impl AdapterManager {
                 adapter = Box::new(CacheAdapter::new(adapter));
                 impl_name = format!("cache-{}", impl_name);
             }
-            let binding = AdapterBinding { impl_name, host: "native".to_string() };
+            let binding = AdapterBinding {
+                impl_name,
+                host: "native".to_string(),
+            };
             Self { adapter, binding }
         }
     }
@@ -112,9 +125,7 @@ impl NetworkAdapter for HostFetchAdapter {
         // Disable ambient proxy discovery so the sample behaves
         // deterministically on fresh reader machines, including macOS
         // hosts where system proxy APIs can fail in restricted contexts.
-        let client = reqwest::blocking::Client::builder()
-            .no_proxy()
-            .build()?;
+        let client = reqwest::blocking::Client::builder().no_proxy().build()?;
         let mut req = client.get(url);
         for (k, v) in headers {
             req = req.header(k.as_str(), v.as_str());
@@ -127,6 +138,10 @@ impl NetworkAdapter for HostFetchAdapter {
             resp_headers.insert(k.to_string(), val);
         }
         let body = resp.text()?;
-        Ok(NetworkResponse { status, headers: resp_headers, body })
+        Ok(NetworkResponse {
+            status,
+            headers: resp_headers,
+            body,
+        })
     }
 }

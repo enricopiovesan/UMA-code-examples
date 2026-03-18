@@ -5,6 +5,26 @@ set -euo pipefail
 # sample still supports a WASI build, but the reader quick-start uses the
 # native path so outbound HTTP works without additional host bindings.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
+usage() {
+  cat <<'EOF'
+Build and run the Chapter 5 native cloud host path against a local fixture server.
+
+Usage:
+  bash hosts/cloud/run.sh
+
+Environment:
+  UMA_DEMO_PORT        Override the local fixture port (default: 18080)
+  UMA_ENABLE_RETRY     Enable the retry wrapper
+  UMA_ENABLE_CACHE     Enable the cache wrapper
+EOF
+}
+
+if [[ "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
 pushd "$ROOT_DIR" > /dev/null
 
 if ! command -v python3 >/dev/null 2>&1; then

@@ -1,4 +1,4 @@
-use serde::{Serialize};
+use serde::Serialize;
 use serde_json::Value;
 
 use crate::adapter_manager::AdapterBinding;

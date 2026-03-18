@@ -3,19 +3,22 @@
 //! the underlying adapter; subsequent requests return the cached
 //! response.  The cache persists for the lifetime of the adapter.
 
-use service::api::{NetworkAdapter, NetworkResponse};
 use anyhow::Result;
-use std::collections::HashMap;
+use service::api::{NetworkAdapter, NetworkResponse};
 use std::cell::RefCell;
+use std::collections::HashMap;
 
 pub struct CacheAdapter {
     inner: Box<dyn NetworkAdapter>,
-    cache: RefCell<HashMap<String, NetworkResponse>>, 
+    cache: RefCell<HashMap<String, NetworkResponse>>,
 }
 
 impl CacheAdapter {
     pub fn new(inner: Box<dyn NetworkAdapter>) -> Self {
-        Self { inner, cache: RefCell::new(HashMap::new()) }
+        Self {
+            inner,
+            cache: RefCell::new(HashMap::new()),
+        }
     }
 }
 
@@ -30,11 +33,14 @@ impl NetworkAdapter for CacheAdapter {
             });
         }
         let resp = self.inner.fetch(url, headers)?;
-        self.cache.borrow_mut().insert(url.to_string(), NetworkResponse {
-            status: resp.status,
-            headers: resp.headers.clone(),
-            body: resp.body.clone(),
-        });
+        self.cache.borrow_mut().insert(
+            url.to_string(),
+            NetworkResponse {
+                status: resp.status,
+                headers: resp.headers.clone(),
+                body: resp.body.clone(),
+            },
+        );
         Ok(resp)
     }
 }

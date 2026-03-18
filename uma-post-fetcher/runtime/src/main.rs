@@ -10,9 +10,12 @@ fn main() -> Result<()> {
     let output: serde_json::Value = serde_json::from_str(&output_json)?;
     let lifecycle: serde_json::Value = serde_json::from_str(&lifecycle_json)?;
 
-    println!("{}", serde_json::to_string_pretty(&json!({
-        "output": output,
-        "lifecycle": lifecycle,
-    }))?);
+    println!(
+        "{}",
+        serde_json::to_string_pretty(&json!({
+            "output": output,
+            "lifecycle": lifecycle,
+        }))?
+    );
     Ok(())
 }

@@ -6,7 +6,7 @@
 pub mod api;
 pub mod model;
 
-use model::{Post};
+use model::Post;
 use serde_json::Value;
 
 /// Normalise a JSONPlaceholder post into a canonical shape.  The input must be
@@ -17,17 +17,25 @@ pub fn normalize_post(json: &Value) -> Option<Post> {
     let user_id = json.get("userId")?.as_u64()?;
     let title = json.get("title")?.as_str()?.to_string();
     let body = json.get("body")?.as_str()?.to_string();
-    Some(Post { id, user_id, title, body })
+    Some(Post {
+        id,
+        user_id,
+        title,
+        body,
+    })
 }
 
 /// Pure helper to extract an error value for error events.  Returns a string
 /// describing the error given a status code or a parsing failure.
 pub fn error_message(status: Option<u16>, parse_error: Option<&serde_json::Error>) -> String {
-    if let Some(code) = status {
-        format!("status {}", code)
-    } else if let Some(err) = parse_error {
+    if let Some(err) = parse_error {
         format!("parse error: {}", err)
+    } else if let Some(code) = status {
+        format!("status {}", code)
     } else {
         "unknown error".to_string()
     }
 }
+
+#[cfg(test)]
+mod tests;

@@ -9,6 +9,20 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
+usage() {
+  cat <<'EOF'
+Explain why the Chapter 5 edge host is still illustrative and fail with guidance.
+
+Usage:
+  bash tests/integration/run_edge.sh
+EOF
+}
+
+if [[ "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
 pushd "$ROOT_DIR" > /dev/null
 
 if [[ ! -f hosts/edge/pkg/uma_runtime.js ]]; then
