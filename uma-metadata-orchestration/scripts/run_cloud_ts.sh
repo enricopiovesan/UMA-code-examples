@@ -1,16 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
-  echo "Usage: ./scripts/run_cloud.sh" >&2
-  echo "Runs the validated Rust cloud runner. Set POLICY_FAIL_MODE=closed to stop on policy violations." >&2
-  exit 0
-fi
-
-if ! command -v cargo >/dev/null 2>&1; then
-  echo "Rust and cargo are required"
+if ! command -v node >/dev/null 2>&1; then
+  echo "Node.js is required"
   exit 1
 fi
+
 if ! command -v wasmtime >/dev/null 2>&1; then
   os="$(uname -s | tr '[:upper:]' '[:lower:]')"
   arch="$(uname -m)"
@@ -31,19 +26,24 @@ if ! command -v wasmtime >/dev/null 2>&1; then
     fi
   done
 fi
+
 if ! command -v wasmtime >/dev/null 2>&1; then
-  echo "Wasmtime is required to execute WASI modules"
+  echo "Wasmtime is required to execute the TypeScript reference runner"
   exit 1
 fi
+
 if [ ! -f services/image.tagger/target/wasm32-wasip1/release/image_tagger.wasm ] || \
    [ ! -f services/edge.cache/target/wasm32-wasip1/release/edge_cache.wasm ]; then
   echo "Built WASI artifacts are missing."
-  echo "Run ./scripts/build_all.sh first to compile the services."
+  echo "Run BUILD_OPTIONAL_JS=1 ./scripts/build_all.sh first."
   exit 1
 fi
-if [ ! -f runtime-rust/Cargo.toml ]; then
-  echo "Rust cloud runner is missing."
+
+if [ ! -f services/telemetry.logger/dist/index.js ] || \
+   [ ! -f services/ai.model.evaluator/dist/index.js ]; then
+  echo "Built TypeScript service artifacts are missing."
+  echo "Run BUILD_OPTIONAL_JS=1 ./scripts/build_all.sh first."
   exit 1
 fi
-# The quick-start path is fail-open so readers can see the full orchestration flow.
-POLICY_FAIL_MODE="${POLICY_FAIL_MODE:-open}" cargo run --locked --quiet --manifest-path runtime-rust/Cargo.toml
+
+POLICY_FAIL_MODE="${POLICY_FAIL_MODE:-open}" node runtime/runner.js

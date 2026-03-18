@@ -57,9 +57,7 @@ popd >/dev/null
 
 echo "== Chapter 7: uma-metadata-orchestration =="
 pushd "$ROOT_DIR/uma-metadata-orchestration" >/dev/null
-./scripts/build_all.sh
-./scripts/run_cloud.sh
-bash -x ./tests/test_orchestration.sh
+./scripts/smoke_orchestration_labs.sh
 popd >/dev/null
 
 echo "== Chapter 8: chapter-8-service-graph =="
