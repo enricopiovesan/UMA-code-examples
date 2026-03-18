@@ -48,6 +48,21 @@ What to pay attention to:
 - the lifecycle binding should report `cache-retry-host-fetch`
 - the normalized output should stay the same even though the runtime path changed
 
+## Lab 4: Rust and TypeScript parity
+
+Command:
+
+```bash
+./scripts/run_lab.sh lab4-rust-ts-parity
+```
+
+Goal:
+- verify that the Rust runtime and the TypeScript reference runtime report the same validated behavior for the main Chapter 5 scenarios
+
+What to pay attention to:
+- parity should hold for the cloud golden path, the fail-fast validation path, and the wrapper-binding path
+- the TypeScript implementation is a reference model of the runtime behavior, not the primary validated quick-start
+
 ## Reflection
 
 You got value from these labs if you can explain:

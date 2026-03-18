@@ -5,4 +5,5 @@ cat <<'EOF'
 lab1-native-wasm-parity
 lab2-shared-payload-digest
 lab3-failure-paths-and-capability-gates
+lab4-rust-ts-reference-parity
 EOF

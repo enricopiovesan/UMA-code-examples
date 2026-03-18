@@ -4,4 +4,5 @@
 **/dist/
 **/logs/
 **/.artifacts/
+coverage/
 uma-metadata-orchestration/cache-img-001.json

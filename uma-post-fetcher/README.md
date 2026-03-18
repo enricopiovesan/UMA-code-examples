@@ -2,7 +2,7 @@
 
 This example demonstrates Chapter 5 of the UMA book: the runtime layer around a pure service.
 It shows how contracts, adapter binding, deterministic event ordering, and lifecycle metadata work together around a small HTTP-fetching service.
-The validated reader path is the native cloud host smoke flow, not the browser or edge sketches.
+The validated reader path is the native Rust cloud host smoke flow, with a TypeScript reference runtime kept in parity for the core lab scenarios.
 
 ## Key concepts
 
@@ -23,7 +23,9 @@ The validated reader path is the native cloud host smoke flow, not the browser o
 
 - Validated path: `./scripts/smoke_runtime_labs.sh`
 - Main implementation: Rust workspace rooted at `Cargo.toml`
+- Secondary implementation: TypeScript reference runtime in `ts/`
 - Guided reader labs: `./scripts/list_labs.sh` and `./scripts/run_lab.sh`
+- Implementation parity check: `./scripts/compare_impls.sh`
 - Optional paths: browser and edge host sketches remain illustrative, not validated quick-starts
 
 ## Quick start
@@ -33,6 +35,7 @@ The validated reader path is the native cloud host smoke flow, not the browser o
 ./scripts/run_lab.sh lab1-cloud-golden-path
 ./scripts/run_lab.sh lab2-header-validation-fail-fast
 ./scripts/run_lab.sh lab3-adapter-binding-and-wrappers
+./scripts/run_lab.sh lab4-rust-ts-parity
 ./scripts/smoke_runtime_labs.sh
 ```
 
@@ -53,6 +56,7 @@ Use this order if you just finished Chapter 5 and want the best learning path:
 2. `./scripts/run_lab.sh lab1-cloud-golden-path`
 3. `./scripts/run_lab.sh lab2-header-validation-fail-fast`
 4. `./scripts/run_lab.sh lab3-adapter-binding-and-wrappers`
+5. `./scripts/run_lab.sh lab4-rust-ts-parity`
 
 Expected satisfaction point:
 - by the end of lab 3, you should be able to explain how the runtime validates input, chooses an adapter implementation, and records that decision without changing the pure service logic
@@ -66,6 +70,7 @@ You should leave this lab able to explain:
 - what belongs in the service crate versus what belongs in the runtime layer
 - why runtime validation should fail fast before side effects happen
 - how lifecycle metadata proves which adapter path actually ran
+- how a TypeScript reference runtime can model the same Chapter 5 behavior while Rust remains the validated default path
 
 ### "What should I pay attention to in the output?"
 
@@ -88,6 +93,7 @@ You got value from the Chapter 5 lab if you can explain all three of these point
 - `contracts/`, JSON contracts for the service, runtime policy, adapter capability, and metadata schema
 - `service/`, pure normalization logic and service-facing API types
 - `runtime/`, runtime orchestration, adapter binding, event bus, lifecycle record, and native CLI entrypoint
+- `ts/`, TypeScript reference runtime kept in parity with the core Chapter 5 scenarios
 - `adapters/`, capability adapter definitions plus illustrative TS/browser scaffolding
 - `hosts/`, cloud and edge host shims
 - `tests/`, fixtures and integration scripts
@@ -145,6 +151,10 @@ Feeds an invalid header into the native CLI path and proves that validation stop
 
 Enables the retry and cache wrappers and verifies that the runtime binding record changes to `cache-retry-host-fetch`.
 
+### `lab4-rust-ts-parity`
+
+Runs the Rust and TypeScript implementations against the validated Chapter 5 scenarios and compares their summarized runtime behavior.
+
 ## Manual commands
 
 If you want the lower-level commands instead of the guided labs:
@@ -200,7 +210,9 @@ They are useful as reference material for where a JS/Wasm binding layer would go
 ## Reports and tests
 
 - `cargo test --locked --workspace` verifies the service and runtime crates
+- `npm test --prefix ts` verifies the TypeScript reference runtime
 - `./scripts/smoke_runtime_labs.sh` is the validated Chapter 5 smoke path
+- `./scripts/compare_impls.sh` checks Rust/TypeScript parity for the core labs
 - `bash tests/integration/run_cloud.sh` compares the cloud output against the golden fixture
 - `runtime/src/tests.rs` covers runtime determinism, fail-fast validation, adapter wrapping, and parse-error handling
 
@@ -213,7 +225,7 @@ They are useful as reference material for where a JS/Wasm binding layer would go
 
 ## Notes
 
-- The validated Chapter 5 path is Rust only for this chapter. The browser and edge host files are sketches around the Rust runtime, not full TypeScript parity implementations.
+- The validated Chapter 5 path is still Rust-first. The TypeScript runtime is a parity/reference implementation for the chapter concepts, while the browser and edge host files remain illustrative sketches around the same runtime model.
 - The runtime is deliberately deterministic: no timers or random values influence event ordering.
 - The logical clock increments once per emitted event so host behavior is easy to compare.
 

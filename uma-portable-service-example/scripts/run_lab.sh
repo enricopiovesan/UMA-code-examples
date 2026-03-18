@@ -14,6 +14,7 @@ Available labs:
   lab1-native-wasm-parity
   lab2-shared-payload-digest
   lab3-failure-paths-and-capability-gates
+  lab4-rust-ts-reference-parity
 EOF
 }
 
@@ -28,6 +29,9 @@ run_lab() {
       ;;
     lab3-failure-paths-and-capability-gates)
       "$ROOT_DIR/scripts/break_trust.sh"
+      ;;
+    lab4-rust-ts-reference-parity)
+      "$ROOT_DIR/scripts/compare_impls.sh"
       ;;
     *)
       echo "Unknown lab: $1" >&2

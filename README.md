@@ -29,6 +29,12 @@ For a single repo-level verification pass after installing the prerequisites:
 This script runs the validated chapter flows in sequence and stops on the first failure.
 The same script is also used by the repository CI workflow on pull requests and pushes to `main`.
 
+For measured Rust coverage across the validated reader chapters:
+
+```bash
+./scripts/report_rust_coverage.sh
+```
+
 ---
 
 ## Chapter Status
@@ -36,8 +42,8 @@ The same script is also used by the repository CI workflow on pull requests and 
 | Chapter | Main implementation | Validated path | Optional paths |
 | --- | --- | --- | --- |
 | 4 | Rust | `cargo test` plus `./scripts/run_vectors.sh` | none |
-| 5 | Rust | `./scripts/smoke_runtime_labs.sh` with Rust as the validated default | browser and edge sketches |
-| 6 | Rust | `./scripts/smoke_portability_labs.sh` with Rust as the validated default | none |
+| 5 | Rust and TypeScript | `./scripts/smoke_runtime_labs.sh` with Rust as the validated default | browser and edge sketches |
+| 6 | Rust and TypeScript | `./scripts/smoke_portability_labs.sh` with Rust as the validated default | none |
 | 7 | Rust and TypeScript | `./scripts/smoke_orchestration_labs.sh` with Rust as the validated default | browser and edge helper harnesses |
 | 8 | Rust and TypeScript | `./scripts/smoke_graph_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
 | 9 | Rust and TypeScript | `./scripts/smoke_trust_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
@@ -53,8 +59,8 @@ Validated path means the commands are exercised by the repo smoke script and are
 | Chapter | Example | Description | Folder |
 | --- | --- | --- | --- |
 | 4 | **Feature Flag Evaluator** | Demonstrates UMA service anatomy (contract, logic, abstraction, metadata) and shows stateless, stateful, and subscribable service types. | [`feature-flag-evaluator`](feature-flag-evaluator/) |
-| 5 | **Post Fetcher Runtime** | Demonstrates the UMA Runtime Layer with a Rust-first reader lab covering deterministic cloud execution, fail-fast validation, adapter binding, and lifecycle recording. Browser and edge files remain illustrative sketches. | [`uma-post-fetcher`](uma-post-fetcher/) |
-| 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same Rust service as both a portable WASI module and a native binary. Includes guided reader labs for parity, payload digests, and capability-boundary failure paths. | [`uma-portable-service-example`](uma-portable-service-example/) |
+| 5 | **Post Fetcher Runtime** | Demonstrates the UMA Runtime Layer with a Rust-first reader lab covering deterministic cloud execution, fail-fast validation, adapter binding, lifecycle recording, and a TypeScript reference runtime kept in parity for the core scenarios. Browser and edge files remain illustrative sketches. | [`uma-post-fetcher`](uma-post-fetcher/) |
+| 6 | **UMA Portability Lab** | Demonstrates UMA portability across runtimes by running the same Rust service as both a portable WASI module and a native binary. Includes guided reader labs for parity, payload digests, capability-boundary failure paths, and a TypeScript reference implementation of the shared analysis logic. | [`uma-portable-service-example`](uma-portable-service-example/) |
 | 7 | **Metadata Orchestration and Validation** | Implements Chapter 7’s concepts of declarative orchestration, policy enforcement, and observability with a Rust-first validated cloud runner, a TypeScript parity runner, and optional browser and edge helper harnesses. | [`uma-metadata-orchestration`](uma-metadata-orchestration/) |
 | 8 | **Service Graph Evolution with Git** | Demonstrates Chapter 8 with a Rust-first hands-on lab showing how UMA service graphs emerge through contracts, events, and runtime discovery across Git-style checkpoints. Includes a parallel TypeScript implementation. | [`chapter-8-service-graph`](chapter-8-service-graph/) |
 | 9 | **Trust Boundaries and Runtime Enforcement** | Demonstrates Chapter 9’s trust model with a Rust-first lab that validates service identity, permissions, dependency provenance, and communication policy across five trust-boundary scenarios. Includes a parallel TypeScript implementation. | [`chapter-9-trust-boundaries`](chapter-9-trust-boundaries/) |
