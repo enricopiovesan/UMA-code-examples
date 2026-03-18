@@ -38,3 +38,14 @@ fn test_error_message_parse_error() {
     let msg = error_message(None, Some(&parse_err));
     assert!(msg.starts_with("parse error"));
 }
+
+#[test]
+fn test_normalize_post_wrong_field_types() {
+    let input = json!({
+        "id": "42",
+        "userId": 7,
+        "title": "Hello",
+        "body": "World"
+    });
+    assert!(normalize_post(&input).is_none());
+}

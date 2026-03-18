@@ -42,9 +42,7 @@ popd >/dev/null
 
 echo "== Chapter 5: uma-post-fetcher =="
 pushd "$ROOT_DIR/uma-post-fetcher" >/dev/null
-cargo test --workspace
-bash hosts/cloud/run.sh
-bash tests/integration/run_cloud.sh
+./scripts/smoke_runtime_labs.sh
 popd >/dev/null
 
 echo "== Chapter 6: uma-portable-service-example =="

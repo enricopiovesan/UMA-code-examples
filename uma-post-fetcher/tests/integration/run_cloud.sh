@@ -10,6 +10,20 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 GOLDEN="$ROOT_DIR/tests/fixtures/expected_golden.json"
 
+usage() {
+  cat <<'EOF'
+Run the validated Chapter 5 cloud integration test and compare it to the golden fixture.
+
+Usage:
+  bash tests/integration/run_cloud.sh
+EOF
+}
+
+if [[ "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
 pushd "$ROOT_DIR" > /dev/null
 
 echo "Running cloud host..."

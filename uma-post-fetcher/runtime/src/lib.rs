@@ -3,29 +3,32 @@
 //! emission, lifecycle metadata and service execution.
 
 mod adapter_manager;
-mod thread_manager;
+mod cache_adapter;
 mod event_bus;
 mod metadata;
-mod wasi_http_adapter;
 mod retry_adapter;
-mod cache_adapter;
+mod thread_manager;
+mod wasi_http_adapter;
 
 use crate::adapter_manager::AdapterManager;
 use crate::event_bus::EventBus;
-use crate::thread_manager::ThreadManager;
 use crate::metadata::LifecycleRecord;
+use crate::thread_manager::ThreadManager;
 
+use anyhow::Result;
 use serde_json::{json, Value};
-use anyhow::{Result};
 use service::api::NetworkAdapter;
 use service::model::{Input, Output, Post};
-use service::{normalize_post, error_message};
+use service::{error_message, normalize_post};
 
 /// Run the UMA post fetcher with the given JSON input.  Returns a pair of
 /// strings: the service output JSON and the lifecycle metadata JSON.  The
 /// runtime is deterministic: given the same input and adapter implementation
 /// it will emit the same sequence of events and the same logical clock.
-pub fn run_json(input_json: &str, adapter: Option<Box<dyn NetworkAdapter>>) -> Result<(String, String)> {
+pub fn run_json(
+    input_json: &str,
+    adapter: Option<Box<dyn NetworkAdapter>>,
+) -> Result<(String, String)> {
     // Parse the input according to the service contract.
     let input: Input = serde_json::from_str(input_json)?;
 
@@ -42,11 +45,17 @@ pub fn run_json(input_json: &str, adapter: Option<Box<dyn NetworkAdapter>>) -> R
     for (key, value) in &input.request.headers {
         let lower = key.to_ascii_lowercase();
         if !allowed_headers.contains(&lower.as_str()) {
-            event_bus.emit("error", json!({ "error": format!("unexpected header {}", key) }));
+            event_bus.emit(
+                "error",
+                json!({ "error": format!("unexpected header {}", key) }),
+            );
             header_validation_failed = true;
         }
         if value.len() > 1024 {
-            event_bus.emit("error", json!({ "error": format!("header {} too long", key) }));
+            event_bus.emit(
+                "error",
+                json!({ "error": format!("header {} too long", key) }),
+            );
             header_validation_failed = true;
         }
     }
@@ -61,9 +70,8 @@ pub fn run_json(input_json: &str, adapter: Option<Box<dyn NetworkAdapter>>) -> R
         // Record fetch_request event only when the runtime will perform the fetch.
         event_bus.emit("fetch_request", json!({ "url": input.request.url.clone() }));
         // Perform network request.  Capture status and body.
-        let fetch_result = thread_manager.run_sync(|| {
-            adapter_manager.fetch(&input.request.url, &input.request.headers)
-        });
+        let fetch_result = thread_manager
+            .run_sync(|| adapter_manager.fetch(&input.request.url, &input.request.headers));
         match fetch_result {
             Ok(resp) => {
                 // Emit fetch_response event
@@ -130,3 +138,6 @@ pub fn run_json(input_json: &str, adapter: Option<Box<dyn NetworkAdapter>>) -> R
 
     Ok((output_json, lifecycle_json))
 }
+
+#[cfg(test)]
+mod tests;

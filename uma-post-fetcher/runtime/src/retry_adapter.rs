@@ -4,8 +4,8 @@
 //! example because the runtime must remain deterministic and avoid
 //! timers.
 
+use anyhow::Result;
 use service::api::{NetworkAdapter, NetworkResponse};
-use anyhow::{Result};
 use std::collections::HashMap;
 
 pub struct RetryAdapter {

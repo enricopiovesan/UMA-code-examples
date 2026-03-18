@@ -4,7 +4,11 @@ use serde_json::Value;
 /// Trait representing a network capability.  The UMA runtime will provide an implementation
 /// of this trait at runtime, either via a `wasi-http` binding or a host‑provided fetch.
 pub trait NetworkAdapter {
-    fn fetch(&self, url: &str, headers: &std::collections::HashMap<String, String>) -> Result<NetworkResponse>;
+    fn fetch(
+        &self,
+        url: &str,
+        headers: &std::collections::HashMap<String, String>,
+    ) -> Result<NetworkResponse>;
 }
 
 /// Response returned by the network adapter.  The body is returned as a string to

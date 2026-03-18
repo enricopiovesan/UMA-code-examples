@@ -5,8 +5,8 @@
 //! callers must supply an alternative implementation (this crate will not
 //! compile to wasm32 by default).
 
-use service::api::{NetworkAdapter, NetworkResponse};
 use anyhow::Result;
+use service::api::{NetworkAdapter, NetworkResponse};
 use std::collections::HashMap;
 
 pub struct HostFetch;
@@ -26,6 +26,10 @@ impl NetworkAdapter for HostFetch {
             resp_headers.insert(k.to_string(), val);
         }
         let body = resp.text()?;
-        Ok(NetworkResponse { status, headers: resp_headers, body })
+        Ok(NetworkResponse {
+            status,
+            headers: resp_headers,
+            body,
+        })
     }
 }

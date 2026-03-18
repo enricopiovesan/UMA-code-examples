@@ -1,5 +1,5 @@
-use service::model::Event;
 use serde_json::Value;
+use service::model::Event;
 
 /// Deterministic event bus.  Maintains a logical clock and appends events
 /// to an internal vector.  Each call to `emit` increments the clock and
@@ -12,7 +12,10 @@ pub struct EventBus {
 impl EventBus {
     /// Create a new event bus with logical clock starting at zero.
     pub fn new() -> Self {
-        Self { events: Vec::new(), clock: 0 }
+        Self {
+            events: Vec::new(),
+            clock: 0,
+        }
     }
 
     /// Emit an event of the given type with arbitrary data.  The logical
