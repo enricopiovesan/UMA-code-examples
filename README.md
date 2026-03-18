@@ -41,6 +41,12 @@ To enforce the current minimum Rust coverage floor locally:
 ./scripts/check_rust_coverage.sh
 ```
 
+To simulate a first-time reader running from a clean tracked checkout:
+
+```bash
+./scripts/simulate_fresh_reader_checkout.sh
+```
+
 ---
 
 ## Chapter Status

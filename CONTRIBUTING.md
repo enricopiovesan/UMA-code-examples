@@ -8,6 +8,7 @@ Before opening or merging a change, run the checks that apply to your work:
 
 - `./scripts/check_reader_docs.sh`
 - `./scripts/smoke_reader_paths.sh`
+- `./scripts/simulate_fresh_reader_checkout.sh`
 - `./scripts/check_rust_coverage.sh`
 - `RUSTFLAGS='-D warnings' cargo test --locked --manifest-path <chapter-manifest>`
 - `npm test --prefix <chapter-ts-dir>` for chapters that keep a TypeScript parity path
@@ -53,3 +54,13 @@ The current CI gate enforces a minimum floor for the validated reader chapters:
 - region coverage: `52%`
 
 Those numbers are a floor, not a target. Raise them when the measured baseline improves.
+
+## Clean Checkout Validation
+
+To simulate a first-time reader using only tracked files from the current branch:
+
+```bash
+./scripts/simulate_fresh_reader_checkout.sh
+```
+
+This exports the current `HEAD` to a temporary directory and reruns the reader docs and smoke checks there.

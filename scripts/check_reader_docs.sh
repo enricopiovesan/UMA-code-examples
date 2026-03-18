@@ -24,6 +24,18 @@ require_text() {
 require_heading "$ROOT_DIR/README.md" "Reader Setup"
 require_heading "$ROOT_DIR/README.md" "Chapter Status"
 require_text "$ROOT_DIR/README.md" "Validated path"
+require_text "$ROOT_DIR/README.md" "smoke_flag_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_runtime_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_portability_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_orchestration_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_graph_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_trust_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_arch_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_evolution_labs.sh"
+
+require_heading "$ROOT_DIR/CONTRIBUTING.md" "Acceptance Bar"
+require_heading "$ROOT_DIR/CONTRIBUTING.md" "Reader Contract"
+require_heading "$ROOT_DIR/CONTRIBUTING.md" "Coverage Gate"
 
 for chapter in \
   "$ROOT_DIR/feature-flag-evaluator/README.md" \
