@@ -491,6 +491,10 @@ h3 {
   padding: 8px 0;
 }
 
+.hero-mobile-actions {
+  display: none;
+}
+
 .cover-frame::after {
   position: absolute;
   inset: auto 0 0 0;
@@ -1310,60 +1314,87 @@ h3 {
     width: min(100% - 18px, var(--content));
   }
 
+  body {
+    background: #050505;
+  }
+
+  body::before {
+    opacity: 0.18;
+  }
+
   .topbar {
     flex-wrap: wrap;
     align-items: center;
+    gap: 10px 14px;
+    padding: 12px 0;
+  }
+
+  .brand-copy {
+    display: flex;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    font-size: 0.8rem;
+  }
+
+  .brand-copy strong {
+    font-size: 0.9rem;
   }
 
   h1 {
-    max-width: 11.5ch;
-    font-size: clamp(2.1rem, 8.6vw, 3.1rem);
+    max-width: 9.5ch;
+    font-size: clamp(2.2rem, 8.4vw, 2.9rem);
+    line-height: 0.92;
   }
 
   .hero-subtitle {
-    font-size: 1.18rem;
-    line-height: 1.35;
+    font-size: 1rem;
+    line-height: 1.28;
   }
 
   .hero-copy .lede {
-    font-size: 0.96rem;
-    line-height: 1.55;
+    font-size: 0.92rem;
+    line-height: 1.46;
   }
 
   h2 {
-    font-size: clamp(2rem, 9vw, 3rem);
+    font-size: clamp(1.6rem, 6.8vw, 2.2rem);
+    line-height: 1.08;
   }
 
   .section {
-    padding: 40px 0;
+    padding: 28px 0;
   }
 
   .section-label-row {
     gap: 26px;
-    padding: 12px 0 34px;
+    padding: 8px 0 20px;
   }
 
   .section-kicker {
-    font-size: 1.02rem;
+    font-size: 0.92rem;
   }
 
   .content-section-title {
     gap: 26px;
-    padding: 12px 0 34px;
+    padding: 8px 0 20px;
   }
 
   .content-section-kicker {
-    font-size: 1.02rem;
+    font-size: 0.92rem;
   }
 
   .editorial-heading {
-    gap: 26px;
-    margin-bottom: 46px;
+    gap: 12px;
+    margin-bottom: 24px;
   }
 
   .editorial-copy {
     max-width: none;
-    font-size: 0.96rem;
+    font-size: 0.9rem;
+    line-height: 1.42;
   }
 
   .editorial-quote {
@@ -1371,119 +1402,166 @@ h3 {
   }
 
   .content-heading {
-    gap: 26px;
-    margin-bottom: 46px;
+    gap: 12px;
+    margin-bottom: 24px;
   }
 
   .content-copy {
     max-width: none;
-    font-size: 0.96rem;
+    font-size: 0.9rem;
+    line-height: 1.42;
   }
 
   .problem-card {
+    display: none;
+  }
+
+  .hero {
     grid-template-columns: 1fr;
-    row-gap: 16px;
+    gap: 12px;
+    padding-top: 26px;
   }
 
-  .problem-index {
-    min-width: 0;
-    font-size: 4.2rem;
-  }
-
-  .problem-card h3,
-  .problem-card p {
-    max-width: none;
-  }
-
-  .thesis {
-    margin-top: 56px;
-  }
-
+  .hero-visual,
+  .statement-image,
   .tutorial-hero-image,
-  .proof-quote-image {
-    width: 100%;
-  }
-
+  .proof-quote-image,
+  .lab-thumb,
+  .proof-console,
+  .topnav,
+  .problem-grid,
+  .learn-pillars,
   .tutorial-columns,
   .labs-grid,
-  .samples-grid {
-    gap: 22px;
+  .samples-grid,
+  #team-value,
+  #author,
+  #blog,
+  .thesis {
+    display: none;
   }
 
-  .tutorial-number {
-    margin-bottom: 18px;
-    font-size: 0.86rem;
+  .hero-copy {
+    display: grid;
+    gap: 10px;
   }
 
-  .tutorial-item {
-    min-height: 0;
+  .hero-subtitle {
+    max-width: none;
+    margin-top: 0;
+    font-size: 0.95rem;
+    line-height: 1.24;
   }
 
-  .tutorial-item h3 {
-    margin-bottom: 14px;
-    font-size: 0.98rem;
+  .hero-copy .lede {
+    margin-top: 0;
+    max-width: 33ch;
+    font-size: 0.9rem;
+    line-height: 1.44;
   }
 
-  .tutorial-question {
-    margin-bottom: 14px;
-    font-size: 0.92rem;
+  .hero-mobile-actions {
+    display: flex;
+    margin-top: 10px;
+    gap: 8px;
   }
 
-  .lab-card {
-    grid-template-columns: 1fr auto;
+  .hero-mobile-actions .button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 38px;
+    padding: 0 14px;
+    font-size: 0.82rem;
   }
 
   .statement-band {
-    padding: 42px 0 34px;
+    padding: 0;
   }
 
-  .statement-copy {
+  .statement-copy,
+  .tutorial-hero,
+  .proof-hero {
     min-height: 0;
+    display: block;
   }
 
-  .statement-band h2 {
+  .statement-copy h2,
+  .tutorial-quote,
+  .proof-quote,
+  .audience-quote,
+  .author-quote {
+    position: static;
+    width: auto;
     max-width: none;
+    margin: 0;
+    transform: none;
+    text-align: left;
   }
 
   .quote-display {
-    font-size: clamp(2.55rem, 10vw, 3.8rem);
-    line-height: 1.08;
+    font-size: clamp(1.95rem, 9.2vw, 2.8rem);
+    line-height: 1.02;
   }
 
-  .statement-image {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: min(100%, 520px);
-    margin: -22px 0 0 auto;
-    transform: none;
+  .content-copy,
+  .editorial-copy,
+  .proof-copy p,
+  .tutorial-intro,
+  .proof-learning,
+  .audience-note p,
+  .author-copy p,
+  .author-highlight p,
+  .learn-pillar p,
+  .tutorial-item p,
+  .sample-body p {
+    max-width: none;
+    font-size: 0.9rem;
+    line-height: 1.42;
   }
 
-  .topnav {
-    order: 3;
-    width: 100%;
-    margin-left: 0;
-    padding-top: 4px;
+  .tutorial-intro,
+  .proof-learning {
+    position: static;
+    width: auto;
+    margin-top: 10px;
+    text-align: left;
   }
 
   .header-cta {
     margin-left: auto;
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 0.78rem;
   }
 
-  .chapter-card header {
-    grid-template-columns: 1fr;
+  .proof-copy {
+    margin-bottom: 20px;
   }
 
-  .system-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .final-cta-card {
-    padding: 26px 20px;
+  .contacts-band {
+    margin-top: 28px;
+    padding: 22px 18px 36px;
   }
 
   .contacts-heading {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     align-items: flex-start;
+    gap: 10px;
+  }
+
+  .contacts-heading h2 {
+    font-size: clamp(2.3rem, 14vw, 3.2rem);
+    line-height: 0.96;
+  }
+
+  .contacts-nav {
+    justify-content: flex-start;
+    gap: 8px 14px;
+    padding-top: 0;
+  }
+
+  .contacts-nav a {
+    font-size: 0.84rem;
   }
 }
