@@ -1,0 +1,139 @@
+.subpage-main {
+  padding: 72px 0 0;
+}
+
+.subpage-hero {
+  padding: 24px 0 52px;
+  border-bottom: 1px solid var(--line);
+}
+
+.subpage-hero h1 {
+  max-width: 12ch;
+  margin: 0 0 18px;
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  line-height: 0.94;
+}
+
+.subpage-hero p {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.66;
+}
+
+.subpage-body {
+  width: min(100%, 860px);
+  padding: 42px 0 56px;
+}
+
+.subpage-body section + section {
+  margin-top: 34px;
+}
+
+.subpage-body h2 {
+  max-width: none;
+  margin: 0 0 14px;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  line-height: 1.06;
+}
+
+.subpage-body h3 {
+  margin: 0 0 10px;
+  font-size: 1.08rem;
+  line-height: 1.15;
+}
+
+.subpage-body p,
+.subpage-body li {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.subpage-body p {
+  margin: 0 0 14px;
+}
+
+.subpage-body ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.subpage-body li + li {
+  margin-top: 8px;
+}
+
+.subpage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 34px;
+}
+
+.subpage-card {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.subpage-callout {
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.subpage-callout strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.subpage-inline-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 18px;
+}
+
+.subpage-inline-links a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+@media (max-width: 900px) {
+  .subpage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .subpage-main {
+    padding-top: 88px;
+  }
+
+  .subpage-hero {
+    padding: 8px 0 28px;
+  }
+
+  .subpage-hero h1 {
+    max-width: none;
+    margin-bottom: 14px;
+    font-size: clamp(2.2rem, 9.6vw, 3.2rem);
+  }
+
+  .subpage-hero p,
+  .subpage-body p,
+  .subpage-body li {
+    font-size: 0.94rem;
+    line-height: 1.52;
+  }
+
+  .subpage-body {
+    width: 100%;
+    padding: 28px 0 34px;
+  }
+
+  .subpage-body h2 {
+    font-size: clamp(1.45rem, 6vw, 1.95rem);
+  }
+}

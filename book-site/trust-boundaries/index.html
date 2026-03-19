@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trust Boundaries in UMA</title>
+    <meta
+      name="description"
+      content="Learn why trust boundaries matter in Universal Microservices Architecture and how identity, permissions, provenance, and runtime policy shape safe execution."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/trust-boundaries/" />
+    <meta property="og:title" content="Trust Boundaries in UMA" />
+    <meta
+      property="og:description"
+      content="An original overview of trust boundaries in Universal Microservices Architecture, focused on identity, permissions, provenance, and runtime enforcement."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/trust-boundaries/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>Trust boundaries in UMA</h1>
+          <p>
+            Portability only works in production if trust remains explicit. Universal Microservices Architecture treats identity,
+            permissions, provenance, and runtime policy as part of the architecture rather than as controls bolted on after the service has
+            already spread across environments.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>Why trust cannot be added later</h2>
+            <p>
+              When a service moves between hosts, runtimes, and execution contexts, the questions change quickly. What is allowed to run?
+              What is allowed to call what? Which capabilities can be used, and under which policy? If those answers do not live in the
+              architecture, portability becomes a liability instead of a strength.
+            </p>
+          </section>
+
+          <section>
+            <h2>What a trust boundary means in UMA</h2>
+            <p>
+              A trust boundary is the point where the system decides what a portable service is allowed to do, what it is allowed to access,
+              and under which identity it is allowed to execute. In UMA, that boundary is not assumed from the deployment environment. It is
+              expressed as part of the runtime model so the architecture can explain it before production incidents do.
+            </p>
+            <p>
+              That matters because portable systems often expand faster than their governance model. A service that is safe in one runtime
+              can become risky in another if the trust story is left implicit.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Identity</h3>
+              <p>Each portable unit needs a stable identity so the system can reason about what is being executed.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Permissions</h3>
+              <p>Capabilities should be declared and enforced deliberately instead of being inherited from the host by accident.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Provenance</h3>
+              <p>The architecture needs a story for where the executable unit came from and why it is trusted.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime enforcement</h3>
+              <p>Trust boundaries only matter when the runtime can explain, apply, and audit the policy consistently.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why this is architectural, not operational</h2>
+            <p>
+              Teams often treat trust as a platform concern that appears after the software already exists. UMA makes the opposite choice.
+              It treats trust as part of the design of the system itself, because portability without governance creates invisible risk.
+            </p>
+            <p>
+              That is what makes trust boundaries an architectural topic. They change how services can compose, what they can consume, and
+              which environments they can safely inhabit. Those are system design questions, not just platform configuration choices.
+            </p>
+          </section>
+
+          <section>
+            <h2>Where teams usually go wrong</h2>
+            <ul>
+              <li>They assume the host environment will imply the right permissions.</li>
+              <li>They treat provenance as an operational concern instead of a runtime input.</li>
+              <li>They let identity emerge from deployment shape instead of from the service model.</li>
+              <li>They add policy after portability has already expanded the blast radius.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Frequently asked question</h2>
+            <h3>Why are trust boundaries more important in portable systems?</h3>
+            <p>
+              Because portable systems cross more execution contexts. The more places a service can run, the more important it becomes to
+              define who it is, what it can do, and how the runtime enforces those decisions consistently.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Related topics</strong>
+            <p>
+              Trust boundaries connect directly to runtime-agnostic architecture and to service graph evolution, because safe composition is
+              impossible when the system cannot explain who is allowed to do what.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../service-graph-evolution/">Service graph evolution</a>
+              <a href="../examples/">Examples</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band">
+          <div class="contacts-heading">
+            <h2>contacts</h2>
+            <div class="contacts-meta">
+              <nav class="contacts-nav" aria-label="Contacts">
+                <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+                <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+                <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+                <a href="https://x.com/enricopiovesan">x</a>
+              </nav>
+            </div>
+          </div>
+          <nav class="footer-links" aria-label="Site links">
+            <a href="../book/">book</a>
+            <a href="../what-is-uma/">what is uma</a>
+            <a href="../learning-path/">learning path</a>
+            <a href="../examples/">examples</a>
+            <a href="../webassembly-architecture/">webassembly architecture</a>
+            <a href="../runtime-agnostic-architecture/">runtime-agnostic architecture</a>
+            <a href="../portable-business-logic/">portable business logic</a>
+            <a href="../trust-boundaries/">trust boundaries</a>
+            <a href="../service-graph-evolution/">service graph evolution</a>
+            <a href="../about-enrico/">about enrico</a>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

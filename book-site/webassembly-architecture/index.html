@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebAssembly Architecture and UMA</title>
+    <meta
+      name="description"
+      content="Learn how WebAssembly architecture supports Universal Microservices Architecture and why portable execution still needs contracts, policy, and runtime governance."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/webassembly-architecture/" />
+    <meta property="og:title" content="WebAssembly Architecture and UMA" />
+    <meta
+      property="og:description"
+      content="An original guide to how WebAssembly and Universal Microservices Architecture fit together without reducing architecture to packaging."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/webassembly-architecture/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>WebAssembly architecture in UMA</h1>
+          <p>
+            WebAssembly matters to Universal Microservices Architecture because it gives portable service behavior a stable execution
+            boundary. But the architecture is not “just use WebAssembly.” UMA depends on contracts, runtime governance, and explicit system
+            composition as much as it depends on a portable binary target.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>What WebAssembly contributes</h2>
+            <p>
+              WebAssembly makes it easier to preserve a service boundary across environments because the same core behavior can be compiled
+              into a portable executable form. That lowers the cost of running the same logic in multiple places, but it does not by itself
+              answer the harder questions about orchestration, trust, capability access, or long-term change.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why WebAssembly fits this model</h2>
+            <p>
+              WebAssembly is useful here because it creates a repeatable execution boundary. That boundary makes it easier to preserve the
+              identity of a service as it moves between hosts. Instead of re-implementing the same behavior in multiple runtime-specific
+              forms, a team can preserve one portable expression of the service and then surround it with runtime governance.
+            </p>
+            <p>
+              That does not make WebAssembly the architecture by itself. It makes WebAssembly a strong implementation fit for an
+              architecture that already cares about portable behavior, explicit contracts, and governed execution.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Execution portability</h3>
+              <p>One service can move across client, edge, and cloud contexts without being reauthored for each one.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime boundaries</h3>
+              <p>The host still matters, which is why UMA keeps runtime responsibilities explicit rather than pretending they disappear.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Capability control</h3>
+              <p>Portable execution only stays useful when permissions, adapters, and host bindings are declared and enforced clearly.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Architectural consistency</h3>
+              <p>WebAssembly is most powerful when it supports a durable service model instead of becoming another packaging layer.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why this is bigger than packaging</h2>
+            <p>
+              Many discussions about WebAssembly focus on where binaries can run. UMA is more interested in what the system becomes when the
+              same business behavior can move safely across runtimes. That is an architectural question, not a distribution feature.
+            </p>
+            <p>
+              In other words, a WebAssembly artifact is only part of the story. The harder problem is deciding how the runtime knows what
+              the service is allowed to do, how it should be composed, how it is versioned, and how trust should be enforced. UMA exists to
+              answer those questions at the architectural level.
+            </p>
+          </section>
+
+          <section>
+            <h2>What architects should pay attention to</h2>
+            <ul>
+              <li>Whether the portable unit has a clear service boundary.</li>
+              <li>Whether host capabilities are explicit instead of implied.</li>
+              <li>Whether runtime policies stay visible as part of the system model.</li>
+              <li>Whether portability reduces duplication instead of creating new blind spots.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Frequently asked question</h2>
+            <h3>Does WebAssembly automatically make a system portable?</h3>
+            <p>
+              No. It makes portable execution more practical, but the system still needs contracts, trust, policy, and a coherent service
+              model. Without those, WebAssembly becomes another delivery mechanism rather than a durable architectural boundary.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Related pages</strong>
+            <p>
+              If you want to connect WebAssembly to the rest of the UMA model, continue to portable business logic and runtime-agnostic
+              architecture next.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../portable-business-logic/">Portable business logic</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../examples/">Examples</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band">
+          <div class="contacts-heading">
+            <h2>contacts</h2>
+            <div class="contacts-meta">
+              <nav class="contacts-nav" aria-label="Contacts">
+                <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+                <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+                <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+                <a href="https://x.com/enricopiovesan">x</a>
+              </nav>
+            </div>
+          </div>
+          <nav class="footer-links" aria-label="Site links">
+            <a href="../book/">book</a>
+            <a href="../what-is-uma/">what is uma</a>
+            <a href="../learning-path/">learning path</a>
+            <a href="../examples/">examples</a>
+            <a href="../webassembly-architecture/">webassembly architecture</a>
+            <a href="../runtime-agnostic-architecture/">runtime-agnostic architecture</a>
+            <a href="../portable-business-logic/">portable business logic</a>
+            <a href="../trust-boundaries/">trust boundaries</a>
+            <a href="../service-graph-evolution/">service graph evolution</a>
+            <a href="../about-enrico/">about enrico</a>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>
