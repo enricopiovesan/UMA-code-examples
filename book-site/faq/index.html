@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA FAQ | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Frequently asked questions about Universal Microservices Architecture, including portability, WebAssembly, runtime governance, trust boundaries, and examples."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/faq/" />
+    <meta property="og:title" content="UMA FAQ | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="A maintained FAQ for Universal Microservices Architecture, designed to answer common questions clearly and support the book, site, and example repository."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/faq/" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Universal Microservices Architecture?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Universal Microservices Architecture is a model for keeping business behavior portable across runtimes while making contracts, policy, trust, and execution boundaries explicit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does UMA exist?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UMA exists because the same business behavior is often duplicated across client, edge, and server stacks, creating drift, hidden runtime decisions, and inconsistent outcomes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is UMA only about WebAssembly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. WebAssembly is a strong execution fit for UMA, but the larger subject is architectural coherence across runtimes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is UMA different from traditional microservices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Traditional microservices usually emphasize deployable units and service ownership. UMA focuses on keeping service behavior portable while making contracts, runtime policy, trust, and execution boundaries visible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to adopt UMA all at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. UMA can start with one portable service and expand gradually as orchestration, trust, policy, and graph evolution become more important."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do trust boundaries live in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trust boundaries live in the runtime and governance layer around the portable service, where identity, permissions, provenance, and policy decisions are enforced."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I prove portability instead of assuming it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Portability should be validated by running the same service behavior across more than one runtime target and comparing the observable result, contracts, and supporting evidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who is UMA for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "UMA is most useful for architects, senior engineers, platform engineers, and technical leads designing systems that must stay coherent across runtimes and over time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to move away from Medium to use this site?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Medium can remain the publishing channel while this site acts as the authority hub for the book, examples, learning path, and related topic pages."
+      }
+    }
+  ]
+}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>Universal Microservices Architecture FAQ</h1>
+          <p>
+            This FAQ is meant to be maintained over time as the site, examples, and book evolve. It collects short, direct answers to the
+            questions that come up most often when people first encounter UMA and want to understand how the model behaves in practice.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>Foundations</h2>
+            <h3>What is Universal Microservices Architecture?</h3>
+            <p>
+              Universal Microservices Architecture is a model for keeping service behavior portable across runtimes while making contracts,
+              runtime policy, trust, and execution boundaries explicit. It focuses on preserving business meaning while the system moves
+              across client, edge, and cloud environments.
+            </p>
+            <h3>Why does UMA exist?</h3>
+            <p>
+              UMA exists because modern systems increasingly duplicate the same business logic across many runtime surfaces. That duplication
+              creates drift, inconsistent outcomes, and hidden architecture. UMA addresses that by preserving one portable expression of the
+              behavior and surrounding it with explicit runtime governance.
+            </p>
+            <h3>How is UMA different from traditional microservices?</h3>
+            <p>
+              Traditional microservices usually focus on deployable units, service ownership, and networked boundaries. UMA focuses on a
+              different question: can the same business behavior remain stable while the execution context changes? That leads to a stronger
+              emphasis on portability, contracts, runtime visibility, and long-term system coherence.
+            </p>
+            <h3>Does UMA replace frontend and backend architecture?</h3>
+            <p>
+              No. UMA does not erase frontend, backend, edge, or cloud concerns. It gives teams a different way to place business behavior
+              inside those environments. The important shift is that service meaning is no longer tightly bound to one stack.
+            </p>
+          </section>
+
+          <section>
+            <h2>Runtime and execution</h2>
+            <h3>Is UMA only about WebAssembly?</h3>
+            <p>
+              No. WebAssembly is a strong fit because it gives portable behavior a practical execution boundary, but the larger subject is
+              architectural coherence across runtimes. UMA is about service meaning, contracts, runtime visibility, and system evolution.
+            </p>
+            <h3>Why does WebAssembly matter here?</h3>
+            <p>
+              WebAssembly matters because it gives portable service behavior a compact, sandboxed execution target that is easier to move
+              between environments. It does not define the whole model by itself, but it makes runtime portability more practical.
+            </p>
+            <h3>What belongs in the runtime layer?</h3>
+            <p>
+              The runtime layer owns the concerns around the service rather than the core behavior inside it. Validation, policy decisions,
+              adapter binding, host capability access, transport, observability, and trust enforcement belong in the runtime because they
+              vary by environment.
+            </p>
+            <h3>How do I prove portability instead of assuming it?</h3>
+            <p>
+              Portability should be validated with evidence. Run the same service behavior in more than one runtime target, compare the
+              outputs, and inspect the surrounding runtime behavior that shapes the result. The examples on this site are designed to make
+              that proof visible instead of leaving it implicit.
+            </p>
+          </section>
+
+          <section>
+            <h2>Governance and trust</h2>
+            <h3>Where do trust boundaries live in UMA?</h3>
+            <p>
+              Trust boundaries live in the runtime and governance layer around the portable service. Identity resolution, permissions,
+              provenance, policy evaluation, and audit evidence should stay visible there rather than being hidden inside business logic.
+            </p>
+            <h3>What does governed execution mean?</h3>
+            <p>
+              Governed execution means that the runtime can explain why a capability was allowed, denied, routed, or adapted in a specific
+              way. The point is not only to run code, but to keep the decisions around that execution understandable and reviewable.
+            </p>
+            <h3>Can UMA support enterprise systems?</h3>
+            <p>
+              Yes. In fact, UMA is most relevant when systems have to survive scale, multiple runtimes, organizational boundaries, and long
+              product lifecycles. That is where hidden drift and runtime ambiguity become expensive, and where clearer contracts and
+              boundaries matter most.
+            </p>
+          </section>
+
+          <section>
+            <h2>Adoption and learning path</h2>
+            <h3>Do I need to adopt UMA all at once?</h3>
+            <p>
+              No. The model can start with a single portable service and then expand as runtime, orchestration, trust, and governance
+              concerns become more important. That is also how the book and examples are structured.
+            </p>
+            <h3>Who is UMA for?</h3>
+            <p>
+              UMA is most useful for architects, senior engineers, platform engineers, and technical leads who need a more durable way to
+              reason about systems that cross runtime boundaries and long product lifecycles.
+            </p>
+            <h3>Where should I start?</h3>
+            <p>
+              Start with the <a href="../what-is-uma/">What is UMA?</a> page if you want the conceptual definition. Start with the
+              <a href="../learning-path/">Learning Path</a> if you want the chapter sequence. Start with the
+              <a href="../examples/">Examples</a> page if you want runnable proof immediately.
+            </p>
+            <h3>Do I need to move away from Medium to use this site?</h3>
+            <p>
+              No. Medium can remain the publishing channel while this site acts as the authority hub for the book, examples, topic pages,
+              and the reader journey. The two properties can support each other instead of competing.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>This page will keep growing</strong>
+            <p>
+              This FAQ is meant to be maintained over time. As the site grows and new chapter pages are added, the recurring questions from
+              readers, Medium posts, and the repository should feed back into this page so it stays useful as a quick-reference layer.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-is-uma/">What is UMA?</a>
+              <a href="../learning-path/">Learning Path</a>
+              <a href="../examples/">Examples</a>
+              <a href="../diagrams/">Diagrams</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

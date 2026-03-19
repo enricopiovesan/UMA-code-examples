@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA Diagrams</title>
+    <meta
+      name="description"
+      content="Structured UMA diagrams for service boundaries, runtime flow, trust decisions, and service graph evolution, with reusable downloadable source."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/diagrams/" />
+    <meta property="og:title" content="UMA Diagrams" />
+    <meta
+      property="og:description"
+      content="UMA diagrams showing portable service boundaries, runtime flow, trust decisions, and service graph evolution."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/diagrams/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>UMA diagrams</h1>
+          <p>
+            This page collects reusable diagrams for Universal Microservices Architecture. Each section explains what the diagram is trying
+            to make visible, when to use it, and how to adapt the underlying source for documentation, architecture reviews, and
+            implementation discussions.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>Why diagram curation matters</h2>
+            <p>
+              UMA depends on architectural visibility. The more clearly a team can show service boundaries, runtime transitions, trust
+              decisions, and compatibility relationships, the easier the model is to teach, review, and evolve. These diagrams are designed
+              to clarify one important boundary at a time instead of collapsing the whole architecture into one poster.
+            </p>
+            <p>
+              A useful UMA diagram should answer one concrete question. What is portable and what is runtime-owned? Where is a trust
+              boundary enforced? How does a graph of compatible services emerge over time? When the question is specific, the diagram stays
+              readable and reusable.
+            </p>
+          </section>
+
+          <section>
+            <h2>Diagram conventions</h2>
+            <p>
+              The diagrams on this page reuse the same conventions so readers do not need to learn a new visual language each time. Portable
+              service behavior is highlighted as the part that must remain stable. Runtime-owned elements are shown separately so transport,
+              policy, validation, and adapter decisions do not disappear into the background. Supporting metadata is shown as its own layer
+              whenever it shapes compatibility or governance.
+            </p>
+            <ul>
+              <li>Portable service behavior is the durable center of the model.</li>
+              <li>Runtime shells, adapters, and policy decisions stay explicit.</li>
+              <li>Trust transitions are shown before a protected capability executes.</li>
+              <li>Graphs evolve through visible contracts and metadata, not hidden rewiring.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Diagram 1: Portable service boundary</h2>
+            <p>
+              This diagram shows the core UMA split between pure service behavior and the runtime shell that validates input, binds adapters,
+              and decides where execution happens. The point is to make the portable unit of behavior explicit instead of burying it inside a
+              stack-specific application boundary.
+            </p>
+            <p class="diagram-caption">
+              Caption: The service stays portable and deterministic. The runtime owns validation, transport, policy, and adapter binding.
+            </p>
+            <div class="diagram-render">
+              <pre class="mermaid">flowchart LR
+    Client["Client / Caller"] --> Runtime["Runtime shell"]
+    Runtime --> Contract["Contract validation"]
+    Contract --> Service["Portable UMA service"]
+    Service --> Output["Deterministic result"]
+    Runtime --> Adapters["Adapters / host capabilities"]
+    Adapters --> Output
+
+    classDef portable fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef runtime fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class Service portable;
+    class Runtime,Contract,Adapters runtime;</pre>
+            </div>
+            <p>
+              Use this diagram when a reader needs to understand the most important UMA boundary first: what belongs inside the portable
+              service and what belongs in the runtime shell around it. It works well on introductory pages, capability documentation, and
+              design reviews where teams are still separating business behavior from environment-specific concerns.
+            </p>
+            <details class="diagram-source">
+              <summary>View diagram source</summary>
+              <pre class="diagram-code"><code>flowchart LR
+    Client["Client / Caller"] --> Runtime["Runtime shell"]
+    Runtime --> Contract["Contract validation"]
+    Contract --> Service["Portable UMA service"]
+    Service --> Output["Deterministic result"]
+    Runtime --> Adapters["Adapters / host capabilities"]
+    Adapters --> Output
+
+    classDef portable fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef runtime fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class Service portable;
+    class Runtime,Contract,Adapters runtime;</code></pre>
+              <a class="diagram-download" href="./portable-service-boundary.mmd" download>Download source</a>
+            </details>
+          </section>
+
+          <section>
+            <h2>Diagram 2: Runtime execution flow</h2>
+            <p>
+              UMA is not only about where behavior lives. It is also about how the runtime executes that behavior predictably. This sequence
+              shows the flow from request to validation, service execution, adapter access, and final response without hiding the runtime
+              decisions that shape the outcome.
+            </p>
+            <p class="diagram-caption">
+              Caption: The runtime remains visible. Validation and adapter binding are first-class parts of the execution model.
+            </p>
+            <div class="diagram-render">
+              <pre class="mermaid">sequenceDiagram
+    participant Caller
+    participant Runtime
+    participant Service
+    participant Adapter
+
+    Caller->>Runtime: Invoke capability
+    Runtime->>Runtime: Validate against contract
+    Runtime->>Service: Execute portable logic
+    Service->>Adapter: Request host capability
+    Adapter-->>Service: Return external data
+    Service-->>Runtime: Produce result
+    Runtime-->>Caller: Return validated response</pre>
+            </div>
+            <p>
+              Use this diagram when the architectural question is about execution rather than boundaries. It shows that a UMA runtime is not
+              a black box around the service. Validation, adapter access, and response shaping are visible stages that determine whether the
+              system behaves predictably across environments.
+            </p>
+            <details class="diagram-source">
+              <summary>View diagram source</summary>
+              <pre class="diagram-code"><code>sequenceDiagram
+    participant Caller
+    participant Runtime
+    participant Service
+    participant Adapter
+
+    Caller->>Runtime: Invoke capability
+    Runtime->>Runtime: Validate against contract
+    Runtime->>Service: Execute portable logic
+    Service->>Adapter: Request host capability
+    Adapter-->>Service: Return external data
+    Service-->>Runtime: Produce result
+    Runtime-->>Caller: Return validated response</code></pre>
+              <a class="diagram-download" href="./runtime-execution-flow.mmd" download>Download source</a>
+            </details>
+          </section>
+
+          <section>
+            <h2>Diagram 3: Trust boundary decision</h2>
+            <p>
+              Trust decisions in UMA should not be implicit. This diagram shows a simplified runtime trust flow where identity, policy, and
+              capability intent are evaluated before the runtime allows a protected service to execute. It is a useful pattern for pages that
+              explain trust boundaries and governed execution.
+            </p>
+            <p class="diagram-caption">
+              Caption: Access is not assumed. The runtime evaluates identity and policy before crossing a protected boundary.
+            </p>
+            <div class="diagram-render">
+              <pre class="mermaid">flowchart TD
+    Request["Invocation request"] --> Identity["Resolve identity"]
+    Identity --> Policy["Evaluate policy"]
+    Policy -->|allowed| Capability["Protected capability"]
+    Policy -->|denied| Rejected["Denied decision"]
+    Capability --> Audit["Audit / evidence"]
+
+    classDef allow fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef deny fill:#151515,stroke:#666666,color:#ffffff;
+
+    class Capability,Audit allow;
+    class Rejected deny;</pre>
+            </div>
+            <p>
+              Use this diagram when readers need to see where governance happens. UMA is stronger when trust, identity, permissions, and
+              audit evidence stay visible. This pattern works well for security-oriented pages, policy discussions, and runtime trust
+              documentation where the system must explain why a protected capability was allowed or denied.
+            </p>
+            <details class="diagram-source">
+              <summary>View diagram source</summary>
+              <pre class="diagram-code"><code>flowchart TD
+    Request["Invocation request"] --> Identity["Resolve identity"]
+    Identity --> Policy["Evaluate policy"]
+    Policy -->|allowed| Capability["Protected capability"]
+    Policy -->|denied| Rejected["Denied decision"]
+    Capability --> Audit["Audit / evidence"]
+
+    classDef allow fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef deny fill:#151515,stroke:#666666,color:#ffffff;
+
+    class Capability,Audit allow;
+    class Rejected deny;</code></pre>
+              <a class="diagram-download" href="./trust-boundary-decision.mmd" download>Download source</a>
+            </details>
+          </section>
+
+          <section>
+            <h2>Diagram 4: Service graph evolution</h2>
+            <p>
+              Once systems grow beyond one portable service, teams need to visualize how compatible capabilities form a graph. This diagram
+              shows a simple evolution path from a single service to a governed graph, where contracts and metadata keep relationships
+              understandable instead of turning into hidden rewiring.
+            </p>
+            <p class="diagram-caption">
+              Caption: Services evolve into a graph through visible contracts and metadata, not through accidental coupling.
+            </p>
+            <div class="diagram-render">
+              <pre class="mermaid">flowchart LR
+    A["Feature flag evaluator"] --> B["Post fetcher runtime"]
+    B --> C["Metadata orchestration"]
+    C --> D["Service graph"]
+    D --> E["Trust boundaries"]
+    E --> F["System evolution"]
+
+    Meta["Contracts + metadata"] --- C
+    Meta --- D
+    Meta --- E
+
+    classDef main fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef meta fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class A,B,C,D,E,F main;
+    class Meta meta;</pre>
+            </div>
+            <p>
+              Use this diagram when the conversation moves from one portable service to a broader system. It helps explain how compatible
+              services, metadata, and policy start to form a graph that can change over time without becoming opaque. It is especially
+              useful on pages about growth, compatibility, and runtime-governed evolution.
+            </p>
+            <details class="diagram-source">
+              <summary>View diagram source</summary>
+              <pre class="diagram-code"><code>flowchart LR
+    A["Feature flag evaluator"] --> B["Post fetcher runtime"]
+    B --> C["Metadata orchestration"]
+    C --> D["Service graph"]
+    D --> E["Trust boundaries"]
+    E --> F["System evolution"]
+
+    Meta["Contracts + metadata"] --- C
+    Meta --- D
+    Meta --- E
+
+    classDef main fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef meta fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class A,B,C,D,E,F main;
+    class Meta meta;</code></pre>
+              <a class="diagram-download" href="./service-graph-evolution.mmd" download>Download source</a>
+            </details>
+          </section>
+
+          <section>
+            <h2>How to choose the right diagram</h2>
+            <p>
+              Use the service boundary diagram when the question is about separation of concerns. Use the execution flow when the question is
+              about what a runtime actually does. Use the trust diagram when readers need to see where permissions and policy are enforced.
+              Use the graph evolution diagram when the system story is about growth, compatibility, and governed change.
+            </p>
+            <p>
+              These diagrams should support the prose on this site, not replace it. The right use is to put one of them next to a paragraph
+              that answers a specific question in plain language. That makes the visual reinforce the explanation instead of competing with
+              it.
+            </p>
+          </section>
+
+          <section>
+            <h2>Download the current diagram set</h2>
+            <p>
+              Every diagram on this page has a downloadable source file so the same visual models can move into repository documentation,
+              issue discussions, architecture notes, and future chapter pages. That keeps the diagrams reusable and versionable instead of
+              trapped inside static screenshots.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="./portable-service-boundary.mmd" download>Portable service boundary</a>
+              <a href="./runtime-execution-flow.mmd" download>Runtime execution flow</a>
+              <a href="./trust-boundary-decision.mmd" download>Trust boundary decision</a>
+              <a href="./service-graph-evolution.mmd" download>Service graph evolution</a>
+            </div>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Where these diagrams connect next</strong>
+            <p>
+              The strongest next uses for these diagrams are the pages that explain service graphs, runtime trust decisions, portability,
+              and the learning path from one portable service to governed system evolution.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../service-graph-evolution/">Service graph evolution</a>
+              <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../learning-path/">Learning path</a>
+              <a href="../portable-business-logic/">Portable business logic</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: "dark",
+        securityLevel: "loose",
+        themeVariables: {
+          background: "#0d0d0d",
+          primaryColor: "#151515",
+          primaryTextColor: "#ffffff",
+          primaryBorderColor: "#ffc501",
+          lineColor: "#bfb8a2",
+          tertiaryColor: "#111111",
+          fontFamily: "Space Grotesk, sans-serif",
+          clusterBkg: "#111111",
+          clusterBorder: "#4a4a4a"
+        }
+      });
+    </script>
+  </body>
+</html>

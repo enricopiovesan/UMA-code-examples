@@ -1,0 +1,16 @@
+flowchart LR
+    A["Feature flag evaluator"] --> B["Post fetcher runtime"]
+    B --> C["Metadata orchestration"]
+    C --> D["Service graph"]
+    D --> E["Trust boundaries"]
+    E --> F["System evolution"]
+
+    Meta["Contracts + metadata"] --- C
+    Meta --- D
+    Meta --- E
+
+    classDef main fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef meta fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class A,B,C,D,E,F main;
+    class Meta meta;

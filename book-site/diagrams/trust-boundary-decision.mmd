@@ -1,0 +1,12 @@
+flowchart TD
+    Request["Invocation request"] --> Identity["Resolve identity"]
+    Identity --> Policy["Evaluate policy"]
+    Policy -->|allowed| Capability["Protected capability"]
+    Policy -->|denied| Rejected["Denied decision"]
+    Capability --> Audit["Audit / evidence"]
+
+    classDef allow fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef deny fill:#151515,stroke:#666666,color:#ffffff;
+
+    class Capability,Audit allow;
+    class Rejected deny;

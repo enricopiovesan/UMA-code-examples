@@ -64,6 +64,46 @@ const coverFrame = document.querySelector(".cover-frame");
 const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuClose = document.querySelector(".mobile-menu-close");
+const sharedFooter = document.querySelector("[data-shared-footer]");
+
+const siteRoot = new URL(".", import.meta.url);
+const footerPages = [
+  ["book", "book/"],
+  ["what is uma", "what-is-uma/"],
+  ["learning path", "learning-path/"],
+  ["examples", "examples/"],
+  ["webassembly architecture", "webassembly-architecture/"],
+  ["runtime-agnostic architecture", "runtime-agnostic-architecture/"],
+  ["portable business logic", "portable-business-logic/"],
+  ["trust boundaries", "trust-boundaries/"],
+  ["service graph evolution", "service-graph-evolution/"],
+  ["diagrams", "diagrams/"],
+  ["faq", "faq/"],
+  ["about enrico", "about-enrico/"],
+];
+
+if (sharedFooter) {
+  const footerLinks = footerPages
+    .map(([label, path]) => `<a href="${new URL(path, siteRoot)}">${label}</a>`)
+    .join("");
+
+  sharedFooter.innerHTML = `
+    <div class="contacts-heading">
+      <h2>contacts</h2>
+      <div class="contacts-meta">
+        <nav class="contacts-nav" aria-label="Contacts">
+          <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+          <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+          <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+          <a href="https://x.com/enricopiovesan">x</a>
+        </nav>
+      </div>
+    </div>
+    <nav class="footer-links" aria-label="Site links">
+      ${footerLinks}
+    </nav>
+  `;
+}
 
 if (chapterCards) {
   for (const chapter of chapters) {

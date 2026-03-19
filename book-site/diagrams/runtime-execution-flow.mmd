@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant Caller
+    participant Runtime
+    participant Service
+    participant Adapter
+
+    Caller->>Runtime: Invoke capability
+    Runtime->>Runtime: Validate against contract
+    Runtime->>Service: Execute portable logic
+    Service->>Adapter: Request host capability
+    Adapter-->>Service: Return external data
+    Service-->>Runtime: Produce result
+    Runtime-->>Caller: Return validated response

@@ -1,0 +1,13 @@
+flowchart LR
+    Client["Client / Caller"] --> Runtime["Runtime shell"]
+    Runtime --> Contract["Contract validation"]
+    Contract --> Service["Portable UMA service"]
+    Service --> Output["Deterministic result"]
+    Runtime --> Adapters["Adapters / host capabilities"]
+    Adapters --> Output
+
+    classDef portable fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef runtime fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class Service portable;
+    class Runtime,Contract,Adapters runtime;
