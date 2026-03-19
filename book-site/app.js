@@ -61,6 +61,9 @@ const chapterCards = document.querySelector("#chapter-cards");
 const blogCards = document.querySelector("#blog-cards");
 const topbar = document.querySelector(".topbar");
 const coverFrame = document.querySelector(".cover-frame");
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileMenu = document.querySelector(".mobile-menu");
+const mobileMenuClose = document.querySelector(".mobile-menu-close");
 
 if (chapterCards) {
   for (const chapter of chapters) {
@@ -117,6 +120,31 @@ if (topbar) {
 
   syncTopbar();
   window.addEventListener("scroll", syncTopbar, { passive: true });
+}
+
+if (menuToggle && mobileMenu && mobileMenuClose) {
+  const openMenu = () => {
+    mobileMenu.hidden = false;
+    mobileMenu.classList.add("is-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+  };
+
+  const closeMenu = () => {
+    mobileMenu.classList.remove("is-open");
+    mobileMenu.hidden = true;
+    menuToggle.setAttribute("aria-expanded", "false");
+  };
+
+  menuToggle.addEventListener("click", openMenu);
+  mobileMenuClose.addEventListener("click", closeMenu);
+  mobileMenu.addEventListener("click", (event) => {
+    if (event.target === mobileMenu) {
+      closeMenu();
+    }
+  });
+  for (const link of mobileMenu.querySelectorAll("a")) {
+    link.addEventListener("click", closeMenu);
+  }
 }
 
 if (coverFrame) {

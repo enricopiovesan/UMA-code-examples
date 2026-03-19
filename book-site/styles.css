@@ -155,6 +155,11 @@ a {
   white-space: nowrap;
 }
 
+.menu-toggle,
+.mobile-menu {
+  display: none;
+}
+
 .section {
   position: relative;
   padding: 50px 0;
@@ -1310,8 +1315,17 @@ h3 {
 }
 
 @media (max-width: 760px) {
+  body {
+    padding-top: 64px;
+  }
+
   .page-shell {
-    width: min(100% - 18px, var(--content));
+    width: min(100% - 40px, var(--content));
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
   }
 
   body {
@@ -1323,14 +1337,27 @@ h3 {
   }
 
   .topbar {
-    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: min(100% - 40px, var(--content));
+    transform: translateX(-50%);
+    flex-wrap: nowrap;
     align-items: center;
     gap: 10px 14px;
     padding: 12px 0;
   }
 
+  .menu-toggle {
+    order: 3;
+  }
+
+  .header-cta {
+    order: 2;
+  }
+
   .brand-copy {
-    display: flex;
+    display: none;
   }
 
   .brand-mark {
@@ -1339,13 +1366,9 @@ h3 {
     font-size: 0.8rem;
   }
 
-  .brand-copy strong {
-    font-size: 0.9rem;
-  }
-
   h1 {
     max-width: 9.5ch;
-    font-size: clamp(2.2rem, 8.4vw, 2.9rem);
+    font-size: clamp(2.2rem, 12.4vw, 4.9rem);
     line-height: 0.92;
   }
 
@@ -1360,12 +1383,13 @@ h3 {
   }
 
   h2 {
-    font-size: clamp(1.6rem, 6.8vw, 2.2rem);
-    line-height: 1.08;
+    font-size: clamp(1.45rem, 6vw, 2rem);
+    line-height: 1.06;
   }
 
   .section {
-    padding: 28px 0;
+    padding: 8px 0;
+    margin-top: 0;
   }
 
   .section-label-row {
@@ -1387,29 +1411,40 @@ h3 {
   }
 
   .editorial-heading {
+    display: flex;
+    flex-direction: column;
     gap: 12px;
     margin-bottom: 24px;
   }
 
   .editorial-copy {
+    order: 2;
     max-width: none;
     font-size: 0.9rem;
     line-height: 1.42;
   }
 
   .editorial-quote {
+    order: 1;
     max-width: none;
   }
 
   .content-heading {
+    display: flex;
+    flex-direction: column;
     gap: 12px;
     margin-bottom: 24px;
   }
 
   .content-copy {
+    order: 2;
     max-width: none;
     font-size: 0.9rem;
     line-height: 1.42;
+  }
+
+  .content-quote {
+    order: 1;
   }
 
   .problem-card {
@@ -1455,7 +1490,7 @@ h3 {
 
   .hero-copy .lede {
     margin-top: 0;
-    max-width: 33ch;
+    max-width: none;
     font-size: 0.9rem;
     line-height: 1.44;
   }
@@ -1494,13 +1529,18 @@ h3 {
     width: auto;
     max-width: none;
     margin: 0;
+    margin-bottom: 40px;
     transform: none;
     text-align: left;
   }
 
+  .statement-copy h2 {
+    margin-top: 60px;
+  }
+
   .quote-display {
-    font-size: clamp(1.95rem, 9.2vw, 2.8rem);
-    line-height: 1.02;
+    font-size: clamp(1.7rem, 5.8vw, 2.2rem);
+    line-height: 1.04;
   }
 
   .content-copy,
@@ -1527,11 +1567,76 @@ h3 {
     text-align: left;
   }
 
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.78rem;
+  }
+
   .header-cta {
     margin-left: auto;
     min-height: 34px;
     padding: 0 12px;
     font-size: 0.78rem;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: none;
+    background: rgba(5, 5, 5, 0.72);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-menu.is-open {
+    display: block;
+  }
+
+  .mobile-menu-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(82vw, 320px);
+    height: 100%;
+    padding: 18px;
+    background: #0a0a0a;
+    border-left: 1px solid var(--line);
+    display: grid;
+    align-content: start;
+    gap: 18px;
+  }
+
+  .mobile-menu-close {
+    justify-self: end;
+    min-height: 32px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.78rem;
+  }
+
+  .mobile-menu-nav {
+    display: grid;
+    gap: 10px;
+  }
+
+  .mobile-menu-nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.96rem;
+    line-height: 1.2;
   }
 
   .proof-copy {
