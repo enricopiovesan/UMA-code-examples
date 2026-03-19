@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is UMA? | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Learn what Universal Microservices Architecture is, why it matters, and how it keeps business behavior portable across client, edge, and cloud runtimes."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/what-is-uma/" />
+    <meta property="og:title" content="What Is UMA? | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="An original introduction to Universal Microservices Architecture, focused on portable business behavior, runtime clarity, and long-term system coherence."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/what-is-uma/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>What is Universal Microservices Architecture?</h1>
+          <p>
+            Universal Microservices Architecture, or UMA, is a model for keeping business behavior portable while still treating runtime
+            policy, transport, trust, and execution boundaries as first-class architectural concerns. It is not an argument for ignoring
+            runtimes. It is an argument for keeping the most valuable behavior of the system independent from any single runtime choice.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>The problem UMA is trying to solve</h2>
+            <p>
+              Most software teams do not struggle because they cannot build services. They struggle because the same behavior keeps being
+              reimplemented in different places. A decision appears once in the browser, once in the backend, once in an edge worker, and
+              again inside an internal workflow. Over time the architecture drifts, the product experience diverges, and the system becomes
+              harder to reason about.
+            </p>
+            <p>
+              UMA starts from the idea that architecture should preserve behavior before it preserves deployment shape. Instead of using
+              “frontend,” “backend,” or “microservice” as the primary organizing principle, it treats the portable service boundary as the
+              durable unit and then makes runtime-specific responsibilities explicit around it.
+            </p>
+          </section>
+
+          <section>
+            <h2>A practical definition of UMA</h2>
+            <p>
+              UMA is a design model for software that must survive across many execution environments without losing its architectural
+              clarity. It treats the portable service boundary as the durable unit of the system, while treating validation, transport,
+              policy, permissions, and runtime placement as explicit surrounding concerns. That distinction is what keeps portability from
+              collapsing into duplication.
+            </p>
+            <p>
+              Another way to say it is this: UMA keeps the meaning of the service stable while allowing the execution context to change. The
+              service remains recognizable. The runtime remains governed. The system stays explainable for longer.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Portable service behavior</h3>
+              <p>Rules, decisions, and business intent should survive across runtimes without being rewritten every time execution moves.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Explicit contracts</h3>
+              <p>Inputs, outputs, events, and capability expectations should be machine-readable instead of hidden in framework glue code.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Governed runtime decisions</h3>
+              <p>Placement, policy, trust, and orchestration are still important, but they become visible parts of the model.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Long-term coherence</h3>
+              <p>Versioning, change, compatibility, and system growth remain architectural topics instead of operational cleanup work.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>How UMA differs from conventional boundaries</h2>
+            <p>
+              Traditional architectural labels mostly describe where code runs or which team owns it. UMA is more interested in whether the
+              behavior itself can remain stable while the runtime context changes. That is why the model aligns naturally with WebAssembly:
+              WebAssembly provides a portable execution boundary, while UMA provides the architectural discipline required to keep that
+              boundary meaningful at system scale.
+            </p>
+            <p>
+              In that sense, UMA is not trying to replace every existing architectural style with a new label. It is trying to answer a
+              modern problem that older labels do not explain well enough: how to keep one business capability coherent when it must execute
+              across client, edge, server, background, and agent-like contexts.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why this matters in real systems</h2>
+            <p>
+              Organizations rarely plan to duplicate important business behavior. It happens because teams are rewarded for shipping inside
+              local boundaries. The browser team adds a rule for responsiveness. The backend team repeats it for safety. The edge layer
+              reintroduces it for latency reasons. A workflow adds it again because the event model does not expose the same logic. Each
+              step feels reasonable, but the result is drift.
+            </p>
+            <p>
+              UMA matters because it gives that organization a different architectural center of gravity. Instead of treating local runtime
+              ownership as the default, it starts from a portable behavior model and forces the runtime-specific decisions to stay visible.
+            </p>
+          </section>
+
+          <section>
+            <h2>What UMA is not</h2>
+            <ul>
+              <li>It is not a promise that every service should run everywhere.</li>
+              <li>It is not a claim that runtimes stop mattering once logic is portable.</li>
+              <li>It is not a framework feature or a deployment trick.</li>
+              <li>It is not an excuse to ignore trust, policy, or operational design.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Who should care about this model</h2>
+            <p>
+              UMA is useful for architects, platform engineers, senior developers, and technical leads who need a more stable way to think
+              about software that crosses runtime boundaries. It is especially useful when systems must preserve behavior across product
+              surfaces and when architectural drift is starting to show up as duplicated rules, inconsistent outcomes, or governance gaps.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked question</h2>
+            <h3>Is UMA only relevant if I use WebAssembly?</h3>
+            <p>
+              No. WebAssembly is a strong fit because it provides a practical execution boundary for portable behavior, but the architectural
+              model is larger than the compilation target. UMA is fundamentally about keeping service meaning stable and runtime decisions
+              explicit.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Continue the path</strong>
+            <p>
+              If you want the practical version of this idea, use the learning path and examples next. That is where UMA stops being a
+              definition and becomes something you can inspect, run, and evaluate.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../learning-path/">Learning Path</a>
+              <a href="../examples/">Examples</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band">
+          <div class="contacts-heading">
+            <h2>contacts</h2>
+            <div class="contacts-meta">
+              <nav class="contacts-nav" aria-label="Contacts">
+                <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+                <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+                <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+                <a href="https://x.com/enricopiovesan">x</a>
+              </nav>
+            </div>
+          </div>
+          <nav class="footer-links" aria-label="Site links">
+            <a href="../book/">book</a>
+            <a href="../what-is-uma/">what is uma</a>
+            <a href="../learning-path/">learning path</a>
+            <a href="../examples/">examples</a>
+            <a href="../webassembly-architecture/">webassembly architecture</a>
+            <a href="../runtime-agnostic-architecture/">runtime-agnostic architecture</a>
+            <a href="../portable-business-logic/">portable business logic</a>
+            <a href="../trust-boundaries/">trust boundaries</a>
+            <a href="../service-graph-evolution/">service graph evolution</a>
+            <a href="../about-enrico/">about enrico</a>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

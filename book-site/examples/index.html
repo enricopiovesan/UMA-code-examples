@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA Examples | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, TypeScript parity paths, and runnable tutorials."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/examples/" />
+    <meta property="og:title" content="UMA Examples | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="A practical entry point into the chapter-aligned UMA examples, including validated learning flows and runnable repository material."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/examples/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>UMA examples</h1>
+          <p>
+            The examples are the practical proof layer of Universal Microservices Architecture. They let readers inspect how a portable
+            service is defined, how a runtime wraps it, how orchestration emerges from metadata, and how system evolution and trust
+            decisions become visible rather than hidden inside operational glue.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>Why the examples matter</h2>
+            <p>
+              Architecture claims are easy to make and hard to validate. The examples exist to close that gap. They give the reader a way
+              to compare intention against output, contracts against runtime decisions, and design coherence against the real drift that
+              appears once a system grows.
+            </p>
+          </section>
+
+          <section>
+            <h2>What makes these examples different</h2>
+            <p>
+              These examples are not generic demos attached to a book launch. Each one exists to make a specific architectural question
+              visible. What does a portable service boundary look like? What belongs in the runtime layer? How does metadata shape
+              orchestration? When do trust and compatibility become part of the architecture rather than operational cleanup?
+            </p>
+            <p>
+              That makes the examples valuable even outside the book flow. A reader can inspect one example in isolation and still learn
+              something important about portability, runtime governance, or long-term system design. Used in sequence, they become a
+              practical walk through the model.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Chapter-aligned</h3>
+              <p>The examples map directly to the later chapters so the learning path continues from explanation into runnable material.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Rust-first</h3>
+              <p>The primary validated path uses Rust for the core runtime and architecture examples.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>TypeScript parity</h3>
+              <p>Selected chapters include TypeScript parity paths to make comparison easier for readers coming from different stacks.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Reader-tested flows</h3>
+              <p>Scripts, smoke checks, and learning-path validation make the examples easier to follow chapter by chapter.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>What you can do with them</h2>
+            <p>
+              Use the examples to test the book’s architectural claims against concrete behavior. You can run a minimal service, trace a
+              runtime wrapper, compare implementations, follow orchestration decisions, and see where trust and compatibility start to
+              matter.
+            </p>
+            <p>
+              They also give teams a way to discuss architecture with evidence. Instead of debating portability or coherence in abstract
+              terms, readers can point to actual contracts, runtime outputs, and learning-path transitions.
+            </p>
+          </section>
+
+          <section>
+            <h2>How the repository is organized</h2>
+            <p>
+              The repository follows the same broad progression as the learning path. Earlier chapters keep the system intentionally small.
+              Later chapters introduce orchestration, service graphs, trust boundaries, and governed evolution. That organization helps the
+              reader understand not just individual samples, but the architectural consequences of adding more runtime responsibility over
+              time.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why Rust-first matters here</h2>
+            <p>
+              The validated default path uses Rust because it makes the portable runtime story concrete and rigorous. TypeScript parity is
+              included where it adds value for comparison, but the repository stays centered on one primary validated path so the learning
+              experience remains consistent and defensible.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked question</h2>
+            <h3>Do I need to run every example to understand UMA?</h3>
+            <p>
+              No, but the examples are where the architectural claims become easiest to verify. Even running a few of the core chapters
+              gives much more confidence in the model than reading about it alone.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Repository entry point</strong>
+            <p>
+              The examples live in the public repository and follow the same story arc as the site and the book. That makes the repository
+              the right place to continue after this overview.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub repository</a>
+              <a href="../learning-path/">Learning Path</a>
+              <a href="../#hands-on">Hands-on</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band">
+          <div class="contacts-heading">
+            <h2>contacts</h2>
+            <div class="contacts-meta">
+              <nav class="contacts-nav" aria-label="Contacts">
+                <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+                <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+                <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+                <a href="https://x.com/enricopiovesan">x</a>
+              </nav>
+            </div>
+          </div>
+          <nav class="footer-links" aria-label="Site links">
+            <a href="../book/">book</a>
+            <a href="../what-is-uma/">what is uma</a>
+            <a href="../learning-path/">learning path</a>
+            <a href="../examples/">examples</a>
+            <a href="../webassembly-architecture/">webassembly architecture</a>
+            <a href="../runtime-agnostic-architecture/">runtime-agnostic architecture</a>
+            <a href="../portable-business-logic/">portable business logic</a>
+            <a href="../trust-boundaries/">trust boundaries</a>
+            <a href="../service-graph-evolution/">service graph evolution</a>
+            <a href="../about-enrico/">about enrico</a>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>
