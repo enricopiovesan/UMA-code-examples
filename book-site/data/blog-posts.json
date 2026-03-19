@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Why Agents Make Bad Decisions in Distributed Systems",
+    "subtitle": "Universal Microservices Architecture fixes inconsistent discovery and unclear boundaries",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*YuNV75dP0XnjsrEhWVKnPw.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/why-agents-make-bad-decisions-in-distributed-systems-0bc1e11e1604",
+    "alt": "Why Agents Make Bad Decisions in Distributed Systems"
+  },
+  {
+    "title": "The Hidden Layer That Makes Agents Actually Useful",
+    "subtitle": "Why UMA descriptors turn chaotic runtimes into something an agent can understand.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*_JMnIYZP4epF4YZfy4s3FQ.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-hidden-layer-that-makes-agents-actually-useful-6cc0c01076f5",
+    "alt": "The Hidden Layer That Makes Agents Actually Useful"
+  },
+  {
+    "title": "The Systems That Scale Themselves",
+    "subtitle": "How metadata-driven runtimes change the way teams build, integrate, and ship software.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*Aa17r6F7gBYBLAV8gqi7ow.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-systems-that-scale-themselves-6fc89090183f",
+    "alt": "The Systems That Scale Themselves"
+  },
+  {
+    "title": "The End of Control: Building Software That Thinks Together",
+    "subtitle": "Why the next generation of systems will coordinate through trust, not commands",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*-aBz5-cIF76F4xoZ8-fgUg.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-end-of-control-building-software-that-thinks-together-9dfbf6cb04c1",
+    "alt": "The End of Control: Building Software That Thinks Together"
+  },
+  {
+    "title": "The Runtime That Knows It’s Alive",
+    "subtitle": "Inside UMA’s new Runtime API, where every service, policy, and capability can describe itself in real time.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*ld6yISpBGKEclvuJSQ2sdg.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-runtime-that-knows-its-alive-9ac65f09dc92",
+    "alt": "The Runtime That Knows It’s Alive"
+  },
+  {
+    "title": "From Java to WebAssembly: The Long Road to True Portability",
+    "subtitle": "How UMA and WASM deliver what decades of “write once, run anywhere” promises couldn’t.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*anIZRd4Y4KV44p9uMhYbLQ.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/from-java-to-webassembly-the-long-road-to-true-portability-d846ac953311",
+    "alt": "From Java to WebAssembly: The Long Road to True Portability"
+  },
+  {
+    "title": "How to Keep Going When the Connection Breaks",
+    "subtitle": "From mountain trails to modern runtimes, endurance starts where control ends.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*_Vg-QBWVy4oghUne3kqlpQ.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/how-to-keep-going-when-the-connection-breaks-89bbaae23771",
+    "alt": "How to Keep Going When the Connection Breaks"
+  },
+  {
+    "title": "Invisible Safety: How We Learn to Trust What We Don’t See",
+    "subtitle": "From the world’s first mountain cable car to modern runtime, the secret to progress lies in hidden reliability.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*pYuNhJRnoHg6SQ9gHUm3wA.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/invisible-safety-how-we-learn-to-trust-what-we-dont-see-5851fa8d14bd",
+    "alt": "Invisible Safety: How We Learn to Trust What We Don’t See"
+  },
+  {
+    "title": "Why Trust, Not Speed, Decides If Software Survives",
+    "subtitle": "Portable code only matters if every runtime can prove it’s safe.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*VB9ZrOfkMDdNinDW5HMx-g.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/why-trust-not-speed-decides-if-software-survives-1b623b81a003",
+    "alt": "Why Trust, Not Speed, Decides If Software Survives"
+  },
+  {
+    "title": "The Benchmark Bake-Off: Which Runtime Actually Wins in 2025?",
+    "subtitle": "Cold starts, memory, cost curves: how UMA tests reveal the trade-offs behind every runtime.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*9nf6R3mrzSI2evyJxJnWJg.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-benchmark-bake-off-which-runtime-actually-wins-in-2025-ebf69ec5a080",
+    "alt": "The Benchmark Bake-Off: Which Runtime Actually Wins in 2025?"
+  }
+]

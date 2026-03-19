@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Universal Microservices Architecture | Device-Independent Modelling for Modern Software Design with WASM</title>
+    <meta
+      name="description"
+      content="Universal Microservices Architecture: Device-Independent Modelling for Modern Software Design with WASM. A book and runnable learning path for portable, modular, runtime-agnostic software design."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <nav class="topnav" aria-label="Primary">
+          <a href="#why-uma">Why</a>
+          <a href="#book-arc">What</a>
+          <a href="#learning-path">How</a>
+          <a href="#hands-on">Hands-on</a>
+          <a href="#team-value">Who</a>
+          <a href="#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="http://universalmicroservices.com">Buy the book</a>
+      </header>
+
+      <main id="top">
+        <section class="hero section">
+          <div class="hero-copy">
+            <h1>Universal<br />Microservices<br />Architecture</h1>
+            <p class="hero-subtitle">Device-Independent Modelling for Modern Software Design with WASM</p>
+            <p class="lede">
+              Modern software development is increasingly fragmented across platforms, runtimes, and teams. This book introduces Universal
+              Microservices Architecture, a portable WebAssembly-based model that decouples business logic from a specific stack and shows
+              how to build modular, scalable systems that work consistently across environments.
+            </p>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="cover-frame">
+              <img src="./assets/cover.png" alt="Universal Microservices Architecture book cover" />
+            </div>
+            <div class="cta-row hero-cover-actions">
+              <a class="button button-primary" href="http://universalmicroservices.com">Buy the book</a>
+              <a class="button button-secondary" href="https://github.com/enricopiovesan/UMA-code-examples">Read the examples</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="why-uma" class="section section-panel">
+          <div class="statement-band">
+            <div class="statement-copy">
+              <h2 class="quote-display">Build <span class="quote-accent">portable</span>, runtime-agnostic systems without duplicating business logic across platforms.</h2>
+              <div class="statement-image" aria-hidden="true">
+                <img src="./assets/home-quote-1.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="section-label-row">
+            <p class="section-kicker">WHY UNIVERSAL MICROSERVICES</p>
+          </div>
+          <div class="editorial-heading">
+            <p class="editorial-copy">
+              Traditional monolith, microservice, frontend, and backend boundaries do not solve the newer problem: the
+              same business behaviour now has to survive across web, mobile, server, edge, and AI-driven execution
+              contexts.
+            </p>
+            <h2 class="quote-display editorial-quote">
+              Most architecture drift starts <span class="quote-accent">after the service is “done.”</span>
+            </h2>
+          </div>
+          <div class="problem-grid">
+            <article class="problem-card">
+              <span class="problem-index">01</span>
+              <div class="problem-copy">
+                <h3>Logic fragments across runtimes</h3>
+                <p>Developers duplicate the same logic across client, server, and edge stacks, creating drift, inconsistent UX, and wasted effort.</p>
+              </div>
+            </article>
+            <article class="problem-card">
+              <span class="problem-index">02</span>
+              <div class="problem-copy">
+                <h3>Runtime choices become hidden architecture</h3>
+                <p>Placement, transport, adapters, and orchestration decide outcomes, but those decisions rarely stay visible in the system model.</p>
+              </div>
+            </article>
+            <article class="problem-card">
+              <span class="problem-index">03</span>
+              <div class="problem-copy">
+                <h3>Trust and policy arrive late</h3>
+                <p>Security, enforcement boundaries, and provenance often get layered on after the fact, when portability is already producing risk.</p>
+              </div>
+            </article>
+            <article class="problem-card">
+              <span class="problem-index">04</span>
+              <div class="problem-copy">
+                <h3>Evolution becomes fragmentation</h3>
+                <p>Version sprawl, duplicated behavior, and runtime drift make distributed systems harder to scale, reason about, and sustain.</p>
+              </div>
+            </article>
+          </div>
+          <div class="thesis">
+            <p>
+              UMA treats service logic, contracts, runtime policy, transport, security, and observability as one architectural system.
+              The book and the repo are designed to make that model visible, teachable, and runnable.
+            </p>
+          </div>
+        </section>
+
+        <section id="book-arc" class="section section-with-title">
+          <div class="content-section-title">
+            <p class="content-section-kicker">WHAT YOU WILL LEARN</p>
+          </div>
+          <div class="content-heading">
+            <p class="content-copy">
+              The book explains the principles and building blocks of UMA, how it differs from older architectural
+              models, and how to design enterprise applications that are portable, modular, and runtime-agnostic
+              using WebAssembly.
+            </p>
+            <h2 class="quote-display content-quote">
+              A progression from one portable service to <span class="quote-accent">governed system evolution.</span>
+            </h2>
+          </div>
+          <div class="learn-pillars">
+            <article class="learn-pillar">
+              <strong>Portable logic</strong>
+              <p>Learn how to structure, compile, version, and preserve business logic across environments without binding it to one stack.</p>
+            </article>
+            <article class="learn-pillar">
+              <strong>Runtime architecture</strong>
+              <p>Understand transport layers, contracts, orchestration, trust boundaries, and operational patterns for distributed execution.</p>
+            </article>
+            <article class="learn-pillar">
+              <strong>System evolution</strong>
+              <p>See how UMA scales across domains, teams, and AI-generated workflows without turning into fragmented delivery pipelines.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="learning-path" class="section section-panel section-with-title">
+          <div class="content-section-title">
+            <p class="content-section-kicker">READER LEARNING PATH</p>
+          </div>
+          <div class="tutorial-hero">
+            <div class="tutorial-hero-image" aria-hidden="true">
+              <img src="./assets/home-quote-2.jpg" alt="" />
+            </div>
+            <h2 class="quote-display tutorial-quote">
+              Follow the <span class="quote-accent">tutorials</span><br />
+              sequence chapter<br />
+              by chapter.
+            </h2>
+            <p class="tutorial-intro">
+              Every stop answers one concrete architectural question before sending the reader to the next concept.
+            </p>
+          </div>
+          <div class="tutorial-columns">
+            <div class="tutorial-column">
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 1</span>
+                <h3>Why software architecture keeps fragmenting</h3>
+                <strong class="tutorial-question">Why do modern systems keep duplicating logic across runtimes?</strong>
+                <p>Sets up the problem UMA addresses: platform drift, brittle delivery models, and repeated business behavior across stacks.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 3</span>
+                <h3>Why UMA is needed</h3>
+                <strong class="tutorial-question">What gap does UMA close in current distributed software design?</strong>
+                <p>Connects the conceptual problem to a portable, runtime-agnostic service model that can survive across environments.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 5</span>
+                <h3>Post Fetcher Runtime</h3>
+                <strong class="tutorial-question">What belongs in the runtime layer?</strong>
+                <p>See validation, adapter binding, and lifecycle evidence around a pure service.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 7</span>
+                <h3>Metadata Orchestration</h3>
+                <strong class="tutorial-question">How does orchestration emerge from contracts and events?</strong>
+                <p>Watch policy, subscriptions, and telemetry shape a distributed flow.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 9</span>
+                <h3>Trust Boundaries</h3>
+                <strong class="tutorial-question">What governs portability when trust matters?</strong>
+                <p>Introduce identity, permissions, provenance, and runtime trust decisions.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 11</span>
+                <h3>Evolution Without Fragmentation</h3>
+                <strong class="tutorial-question">How does a system keep changing without splitting apart?</strong>
+                <p>Follow drift, duplication, version sprawl, and runtime-governed recovery.</p>
+              </article>
+            </div>
+            <div class="tutorial-column">
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 2</span>
+                <h3>From stack ownership to behavior ownership</h3>
+                <strong class="tutorial-question">What changes when architecture centers on behavior instead of tiers?</strong>
+                <p>Reframes design around portable behavior, contracts, and runtime responsibilities instead of fixed application boundaries.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 4</span>
+                <h3>Feature Flag Evaluator</h3>
+                <strong class="tutorial-question">What is the smallest portable UMA service?</strong>
+                <p>Start with one contract, one service, and deterministic rule evaluation.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 6</span>
+                <h3>Portability Lab</h3>
+                <strong class="tutorial-question">How do you prove portability instead of assuming it?</strong>
+                <p>Compare the same service across native and WASI with observable parity.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 8</span>
+                <h3>Service Graph Evolution</h3>
+                <strong class="tutorial-question">How do systems grow without hidden rewiring?</strong>
+                <p>See a service graph emerge from compatibility and change over time.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 10</span>
+                <h3>Architectural Tradeoffs</h3>
+                <strong class="tutorial-question">Which decisions preserve runtime coherence?</strong>
+                <p>Compare coherent and degraded designs through runtime-visible outcomes.</p>
+              </article>
+              <article class="tutorial-item">
+                <span class="tutorial-number">Chapter 12</span>
+                <h3>Putting UMA into practice at scale</h3>
+                <strong class="tutorial-question">How does UMA change delivery at organizational scale?</strong>
+                <p>Close the journey with adoption patterns, operating constraints, and a forward-looking implementation view.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="hands-on" class="section section-with-title">
+          <div class="content-section-title">
+            <p class="content-section-kicker">HANDS-ON</p>
+          </div>
+          <div class="proof-hero">
+            <div class="proof-quote-image" aria-hidden="true">
+              <img src="./assets/home-quote-3.jpg" alt="" />
+            </div>
+            <h2 class="quote-display proof-quote">
+              From architecture to <span class="quote-accent">execution.</span>
+            </h2>
+          </div>
+          <article class="proof-copy">
+            <p>
+              Universal Microservices Architecture is not presented as theory alone. The book is backed by a maintained
+              <a class="inline-link" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a> repository with practical,
+              chapter-by-chapter examples that let readers see the model in action. Instead of stopping at principles,
+              the material continues into runnable labs, validated flows, and implementation parity across the examples.
+            </p>
+          </article>
+          <div class="proof-detail">
+            <p class="proof-learning">
+              The result is a learning experience that moves from explanation to execution: read the concept, inspect the code,
+              run the tutorial, and see how UMA behaves across real examples.
+            </p>
+            <aside class="proof-console" aria-label="Companion proof">
+              <div class="console-bar">
+                <span></span><span></span><span></span>
+              </div>
+              <pre><code>$ repo companion proof
+
+== chapter-aligned examples ==
+Mapped directly to the book chapters
+
+== maintained companion repository ==
+Continuously updated alongside the material
+
+== Rust-first practical labs ==
+TypeScript parity included where it adds value
+
+== guided learning path ==
+Readers can move chapter by chapter
+
+== validated tutorial flows ==
+Smoke-tested and documented</code></pre>
+            </aside>
+          </div>
+          <div class="samples-cta">
+            <p class="samples-kicker">Code samples</p>
+            <a class="samples-button" href="https://github.com/enricopiovesan/UMA-code-examples">UMA-code-examples - GitHub</a>
+          </div>
+          <div class="samples-grid">
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-04-feature-flag-evaluator">chapter-04-feature-flag-evaluator</a>
+              <div class="sample-body">
+                <h3>Chapter 4</h3>
+                <p>Start with one portable UMA service and understand its contract, rule evaluation, and deterministic output.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-05-post-fetcher-runtime">chapter-05-post-fetcher-runtime</a>
+              <div class="sample-body">
+                <h3>Chapter 5</h3>
+                <p>Wrap that pure service logic in a runtime layer that owns validation, adapter binding, and lifecycle evidence.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-06-portability-lab">chapter-06-portability-lab</a>
+              <div class="sample-body">
+                <h3>Chapter 6</h3>
+                <p>Prove portability by comparing the same service across native and WASI execution with observable parity.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-07-metadata-orchestration">chapter-07-metadata-orchestration</a>
+              <div class="sample-body">
+                <h3>Chapter 7</h3>
+                <p>Let metadata, policy, and event subscriptions shape orchestration instead of hardcoded process flow.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-08-service-graph">chapter-08-service-graph</a>
+              <div class="sample-body">
+                <h3>Chapter 8</h3>
+                <p>See how compatible services form a graph and evolve without hidden rewiring or brittle orchestration.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-09-trust-boundaries">chapter-09-trust-boundaries</a>
+              <div class="sample-body">
+                <h3>Chapter 9</h3>
+                <p>Introduce identity, permissions, provenance, and runtime trust decisions into the portable execution model.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-10-architectural-tradeoffs">chapter-10-architectural-tradeoffs</a>
+              <div class="sample-body">
+                <h3>Chapter 10</h3>
+                <p>Compare coherent and degraded designs by making architectural tradeoffs visible through runtime outcomes.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <a class="sample-link" href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-11-evolution-without-fragmentation">chapter-11-evolution-without-fragmentation</a>
+              <div class="sample-body">
+                <h3>Chapter 11</h3>
+                <p>Follow drift, duplication, version sprawl, and runtime-governed recovery in a system that keeps evolving.</p>
+              </div>
+            </article>
+            <article class="sample-card">
+              <span class="sample-link sample-link-placeholder">chapter-12-coming-soon</span>
+              <div class="sample-body">
+                <h3>Chapter 12</h3>
+                <p>Placeholder for the closing chapter sample once the companion implementation is added to the repository.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="team-value" class="section section-panel section-with-title">
+          <div class="content-section-title">
+            <p class="content-section-kicker">WHO THIS BOOK IS FOR</p>
+          </div>
+          <div class="audience-layout">
+            <h2 class="quote-display audience-quote">
+              UMA is for software architects, senior engineers, and technical leads designing <span class="quote-accent">modern enterprise systems.</span>
+            </h2>
+            <div class="audience-notes">
+              <article class="audience-note">
+                <h3>For architects</h3>
+                <p>It provides a concrete model for decoupling software design from platform constraints while preserving architectural clarity.</p>
+              </article>
+              <article class="audience-note">
+                <h3>For platform engineers</h3>
+                <p>It turns contracts, transport, policy, and placement into visible operational design choices instead of hidden runtime detail.</p>
+              </article>
+              <article class="audience-note">
+                <h3>For technical leads</h3>
+                <p>It offers a practical path to scaling client applications, aligning teams, and preparing for modular AI-assisted workflows.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="author" class="section section-with-title">
+          <div class="content-section-title">
+            <p class="content-section-kicker">ABOUT THE AUTHOR</p>
+          </div>
+          <div class="author-layout">
+            <div class="author-copy">
+              <p>Enrico Piovesan is a platform software architect with 20+ years of experience building cloud-native, event-driven, and modular systems.</p>
+              <p>In large tech companies, he focuses on scalability, performance, developer experience, and architecture that does not just scale, but lasts.</p>
+            </div>
+            <h2 class="quote-display author-quote">
+              Enrico Piovesan writes from <span class="quote-accent">platform and product reality.</span>
+            </h2>
+          </div>
+          <div class="author-highlights">
+            <article class="author-highlight">
+              <h3>Enterprise scale</h3>
+              <p>Brings experience from cloud-native, event-driven systems built to survive long product lifecycles and organizational complexity.</p>
+            </article>
+            <article class="author-highlight">
+              <h3>Startup background</h3>
+              <p>Co-founded ventures in education, travel, and payments, always working at the intersection of innovation and delivery.</p>
+            </article>
+            <article class="author-highlight">
+              <h3>Architectural focus</h3>
+              <p>Focuses on modular systems, developer experience, and architectural models that preserve autonomy while scaling across teams.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="blog" class="section labs-section section-with-title">
+          <div class="content-section-title">
+            <p class="content-section-kicker">UMA BLOG</p>
+          </div>
+          <div class="labs-grid" id="blog-cards"></div>
+        </section>
+
+        <section id="contacts" class="section contacts-band">
+          <div class="contacts-heading">
+            <h2>contacts</h2>
+            <nav class="contacts-nav" aria-label="Contacts">
+              <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+              <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+              <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+              <a href="https://x.com/enricopiovesan">x</a>
+            </nav>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
