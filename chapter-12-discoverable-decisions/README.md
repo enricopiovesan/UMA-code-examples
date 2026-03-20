@@ -80,6 +80,8 @@ cd chapter-12-discoverable-decisions
 ./scripts/smoke_discoverability_labs.sh
 ```
 
+The Chapter 12 scripts resolve paths from their own location, so the same commands also work from the repo root with the `chapter-12-discoverable-decisions/` prefix.
+
 If you want to inspect the TypeScript implementation directly:
 
 ```bash
@@ -124,6 +126,12 @@ You should leave this lab able to explain:
 Rust is the validated main path because it is the primary implementation standard for these examples.
 TypeScript is included in parallel so the same decision model can be inspected from another language stack without changing the scenario semantics.
 
+### "Why is lab 2 already `discoverable` if the trace is still missing?"
+
+Because Chapter 12 treats discoverability as a ladder, not a binary switch.
+The system becomes `discoverable` once the proposal and authority boundary are explicit and queryable enough that a reader can inspect intent before execution.
+It only becomes `governed` when the trace chain is complete and the approved decision can be replayed end to end without hidden steps.
+
 ### "What should I pay attention to in the output?"
 
 The key signals are:
@@ -138,6 +146,16 @@ The key signals are:
 
 The diff is the shortest way to answer the Chapter 12 question, "what part of the decision lifecycle became more visible?"
 Use `./scripts/diff_decisions.sh <from> <to>` first, then run the next lab report to see how that changed the discoverability model in detail.
+
+### "How do I just get the raw lab ids for scripting?"
+
+Use:
+
+```bash
+./scripts/list_labs.sh --ids-only
+```
+
+The default `list_labs.sh` output is reader-oriented and includes a title and summary for each lab.
 
 ### "Is this supposed to be a full MCP server?"
 

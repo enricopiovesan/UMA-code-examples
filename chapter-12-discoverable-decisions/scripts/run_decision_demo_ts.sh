@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
 if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
   echo "Usage: ./scripts/run_decision_demo_ts.sh <lab-name>" >&2
   echo "Run ./scripts/list_labs.sh to see the available Chapter 12 labs." >&2
@@ -14,4 +16,4 @@ if [[ -z "$LAB" ]]; then
   exit 1
 fi
 
-node ts/src/main.mjs render "$LAB" text
+node "$ROOT_DIR/ts/src/main.mjs" render "$LAB" text

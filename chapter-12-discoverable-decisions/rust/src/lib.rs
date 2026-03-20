@@ -457,6 +457,14 @@ pub fn list_labs(root: &Path) -> Result<Vec<String>, String> {
     Ok(labs)
 }
 
+fn format_list(values: &[String], separator: &str) -> String {
+    if values.is_empty() {
+        "none".to_string()
+    } else {
+        values.join(separator)
+    }
+}
+
 pub fn load_report(root: &Path, lab: &str) -> Result<ScenarioReport, String> {
     let labs = list_labs(root)?;
     if !labs.iter().any(|item| item == lab) {
@@ -613,7 +621,7 @@ pub fn format_report(report: &ScenarioReport) -> String {
         let _ = writeln!(
             out,
             "  visible: {}",
-            surface.visible_capabilities.join(", ")
+            format_list(&surface.visible_capabilities, ", ")
         );
         let hidden = if surface.hidden_constraints.is_empty() {
             "none".to_string()
@@ -621,19 +629,19 @@ pub fn format_report(report: &ScenarioReport) -> String {
             surface.hidden_constraints.join(", ")
         };
         let _ = writeln!(out, "  hidden: {}", hidden);
-        let _ = writeln!(out, "  queries: {}", surface.queries.join(" | "));
+        let _ = writeln!(out, "  queries: {}", format_list(&surface.queries, " | "));
     }
     let _ = writeln!(out);
 
     let _ = writeln!(out, "Proposal:");
     let _ = writeln!(out, "- status: {}", report.proposal.status);
     let _ = writeln!(out, "- summary: {}", report.proposal.summary);
-    let _ = writeln!(out, "- assumptions: {}", report.proposal.assumptions.join(" | "));
-    let unresolved = if report.proposal.unresolved.is_empty() {
-        "none".to_string()
-    } else {
-        report.proposal.unresolved.join(" | ")
-    };
+    let _ = writeln!(
+        out,
+        "- assumptions: {}",
+        format_list(&report.proposal.assumptions, " | ")
+    );
+    let unresolved = format_list(&report.proposal.unresolved, " | ");
     let _ = writeln!(out, "- unresolved: {}\n", unresolved);
 
     let _ = writeln!(out, "Validation:");
@@ -642,12 +650,20 @@ pub fn format_report(report: &ScenarioReport) -> String {
     if report.validation.violations.is_empty() {
         let _ = writeln!(out, "- violations: none");
     } else {
-        let _ = writeln!(out, "- violations: {}", report.validation.violations.join(" | "));
+        let _ = writeln!(
+            out,
+            "- violations: {}",
+            format_list(&report.validation.violations, " | ")
+        );
     }
     if report.validation.guidance.is_empty() {
         let _ = writeln!(out, "- guidance: none");
     } else {
-        let _ = writeln!(out, "- guidance: {}", report.validation.guidance.join(" | "));
+        let _ = writeln!(
+            out,
+            "- guidance: {}",
+            format_list(&report.validation.guidance, " | ")
+        );
     }
     if report.validation.authority_notes.is_empty() {
         let _ = writeln!(out, "- authority notes: none\n");
@@ -655,7 +671,7 @@ pub fn format_report(report: &ScenarioReport) -> String {
         let _ = writeln!(
             out,
             "- authority notes: {}\n",
-            report.validation.authority_notes.join(" | ")
+            format_list(&report.validation.authority_notes, " | ")
         );
     }
 
@@ -668,20 +684,24 @@ pub fn format_report(report: &ScenarioReport) -> String {
         let _ = writeln!(
             out,
             "- selected capabilities: {}",
-            report.execution.selected_capabilities.join(", ")
+            format_list(&report.execution.selected_capabilities, ", ")
         );
     }
     if report.execution.placement.is_empty() {
         let _ = writeln!(out, "- placement: none\n");
     } else {
-        let _ = writeln!(out, "- placement: {}\n", report.execution.placement.join(" | "));
+        let _ = writeln!(
+            out,
+            "- placement: {}\n",
+            format_list(&report.execution.placement, " | ")
+        );
     }
 
     let _ = writeln!(out, "Trace:");
     let _ = writeln!(out, "- status: {}", report.trace.status);
     let _ = writeln!(out, "- summary: {}", report.trace.summary);
-    let _ = writeln!(out, "- artifacts: {}", report.trace.artifacts.join(" | "));
-    let _ = writeln!(out, "- queries: {}\n", report.trace.queries.join(" | "));
+    let _ = writeln!(out, "- artifacts: {}", format_list(&report.trace.artifacts, " | "));
+    let _ = writeln!(out, "- queries: {}\n", format_list(&report.trace.queries, " | "));
 
     let _ = writeln!(out, "Functions, Not Fixed Roles:");
     let _ = writeln!(out, "- planning: {}", report.functions.planning);
@@ -776,5 +796,13 @@ mod tests {
         let report = load_report(&project_root(), "lab6-queryable-trace").unwrap();
         assert_eq!(report.assessment.verdict, "governed");
         assert!(report.assessment.warnings.is_empty());
+    }
+
+    #[test]
+    fn formatter_prints_none_for_empty_trace_artifacts() {
+        let report = load_report(&project_root(), "lab1-capability-projection").unwrap();
+        let rendered = format_report(&report);
+        assert!(rendered.contains("- artifacts: none"));
+        assert!(rendered.contains("- queries: none"));
     }
 }

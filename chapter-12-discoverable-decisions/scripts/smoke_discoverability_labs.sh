@@ -9,7 +9,7 @@ pushd "$ROOT_DIR" >/dev/null
 cargo test --locked --manifest-path rust/Cargo.toml
 npm test --prefix ts
 
-for lab in $(./scripts/list_labs.sh); do
+for lab in $(./scripts/list_labs.sh --ids-only); do
   ./scripts/run_decision_demo.sh "$lab" >/dev/null
   ./scripts/run_decision_demo_ts.sh "$lab" >/dev/null
   ./scripts/compare_impls.sh "$lab"
