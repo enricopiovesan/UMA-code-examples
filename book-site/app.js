@@ -55,6 +55,13 @@ const chapters = [
     payoff: "Follow drift, duplication, version sprawl, and runtime-governed recovery.",
     href: "https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-11-evolution-without-fragmentation",
   },
+  {
+    number: "Chapter 12",
+    title: "Discoverable Decisions",
+    question: "How does a governed UMA system expose decisions as queryable artifacts?",
+    payoff: "Follow capability projection, proposal, validation, revision, execution, and full traceability.",
+    href: "https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-12-discoverable-decisions",
+  },
 ];
 
 const chapterCards = document.querySelector("#chapter-cards");
