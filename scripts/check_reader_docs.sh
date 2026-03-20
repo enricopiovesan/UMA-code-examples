@@ -50,6 +50,7 @@ require_text "$ROOT_DIR/README.md" "smoke_graph_labs.sh"
 require_text "$ROOT_DIR/README.md" "smoke_trust_labs.sh"
 require_text "$ROOT_DIR/README.md" "smoke_arch_labs.sh"
 require_text "$ROOT_DIR/README.md" "smoke_evolution_labs.sh"
+require_text "$ROOT_DIR/README.md" "smoke_discoverability_labs.sh"
 
 require_heading "$ROOT_DIR/CONTRIBUTING.md" "Acceptance Bar"
 require_heading "$ROOT_DIR/CONTRIBUTING.md" "Reader Contract"
@@ -63,7 +64,8 @@ for chapter in \
   "$ROOT_DIR/chapter-08-service-graph/README.md" \
   "$ROOT_DIR/chapter-09-trust-boundaries/README.md" \
   "$ROOT_DIR/chapter-10-architectural-tradeoffs/README.md" \
-  "$ROOT_DIR/chapter-11-evolution-without-fragmentation/README.md"
+  "$ROOT_DIR/chapter-11-evolution-without-fragmentation/README.md" \
+  "$ROOT_DIR/chapter-12-discoverable-decisions/README.md"
 do
   require_heading "$chapter" "Learning path position"
   require_heading "$chapter" "Key concepts"

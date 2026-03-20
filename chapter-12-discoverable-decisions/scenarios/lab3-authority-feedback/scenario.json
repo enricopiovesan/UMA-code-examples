@@ -1,0 +1,106 @@
+{
+  "title": "Lab 12.3: Authority Feedback",
+  "summary": "The authoritative layer evaluates the edge proposal, rejects the initial move, and returns violations plus remediation guidance instead of a silent no.",
+  "decision_question": "What should authoritative validation contribute besides approval or rejection?",
+  "surfaces": [
+    {
+      "name": "edge projection",
+      "runtime": "edge",
+      "scope": "bounded",
+      "authority": "proposal and revision shaping",
+      "visible_capabilities": [
+        "proposal.route_shift.write",
+        "violation.feedback.read",
+        "revision.plan.compose"
+      ],
+      "hidden_constraints": [
+        "full tenant compliance classification"
+      ],
+      "queries": [
+        "show proposal assumptions",
+        "show validation feedback returned to the planner"
+      ]
+    },
+    {
+      "name": "cloud authority",
+      "runtime": "cloud",
+      "scope": "authoritative",
+      "authority": "constraint evaluation authority",
+      "visible_capabilities": [
+        "compliance.guard",
+        "trust_boundary.check",
+        "approval.reason.explain"
+      ],
+      "hidden_constraints": [],
+      "queries": [
+        "show policy violations for the current proposal",
+        "show remediation guidance from authority"
+      ]
+    }
+  ],
+  "proposal": {
+    "status": "draft",
+    "summary": "The initial proposal is preserved intact so authority can evaluate it against the full graph and trust metadata.",
+    "assumptions": [
+      "edge locality still offers the desired latency gain",
+      "the routing step can be isolated from the rest of the workflow"
+    ],
+    "unresolved": [
+      "whether the planner can keep the route hint local while deferring the compliance-sensitive branch"
+    ]
+  },
+  "validation": {
+    "status": "violations",
+    "summary": "Authority rejects the move because the original proposal attempted to decide a compliance-sensitive routing branch outside the approved trust zone.",
+    "violations": [
+      "route authorization depends on policy metadata not replicated at the edge",
+      "the proposed path would weaken the audit story for sensitive tenants"
+    ],
+    "guidance": [
+      "keep edge planning focused on route hint generation, not final authorization",
+      "defer the compliance-sensitive branch resolution to the authoritative cloud path"
+    ],
+    "authority_notes": [
+      "validation transforms the proposal by explaining what must change, not just by blocking it"
+    ]
+  },
+  "execution": {
+    "status": "not-run",
+    "summary": "The system refuses to execute the draft because authority feedback is now part of the visible lifecycle.",
+    "selected_capabilities": [],
+    "placement": []
+  },
+  "trace": {
+    "status": "proposal-only",
+    "summary": "The system now records the proposal and the compliance response, but has not yet reached an executed outcome.",
+    "artifacts": [
+      "initial-proposal.json",
+      "validation-response.json"
+    ],
+    "queries": [
+      "show the violations that blocked the first proposal",
+      "show authority guidance for the next revision"
+    ]
+  },
+  "functions": {
+    "planning": "Planning is still local, but its output is now shaped by authority-visible constraints.",
+    "validation": "Validation explains why the proposal failed and what bounded change would make it acceptable.",
+    "execution": "Execution remains dormant until a revised proposal satisfies the authoritative checks."
+  },
+  "axes": {
+    "projection_scope": "bounded",
+    "proposal_visibility": "structured",
+    "authority_model": "authoritative-validation",
+    "revision_model": "none",
+    "execution_model": "direct-action",
+    "traceability": "proposal-only"
+  },
+  "expectations": [
+    "Validation becomes part of discoverability when the system exposes reasons, not just results.",
+    "Authority should improve the proposal instead of remaining a black-box veto."
+  ],
+  "runtime_decisions": [
+    "the system exposes why the initial move was invalid under the full capability and policy graph",
+    "the planner can now revise against explicit feedback instead of against guesswork"
+  ]
+}

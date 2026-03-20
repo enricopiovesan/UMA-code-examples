@@ -73,4 +73,9 @@ pushd "$ROOT_DIR/chapter-11-evolution-without-fragmentation" >/dev/null
 ./scripts/smoke_evolution_labs.sh
 popd >/dev/null
 
+echo "== Chapter 12: chapter-12-discoverable-decisions =="
+pushd "$ROOT_DIR/chapter-12-discoverable-decisions" >/dev/null
+./scripts/smoke_discoverability_labs.sh
+popd >/dev/null
+
 echo "Smoke run completed successfully."

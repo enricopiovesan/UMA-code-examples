@@ -1,0 +1,102 @@
+{
+  "title": "Lab 12.4: Single Revision",
+  "summary": "The planner revises the proposal once, preserving the latency goal while deferring the trust-sensitive decision to the authoritative layer.",
+  "decision_question": "How much negotiation should the system allow before clarity collapses?",
+  "surfaces": [
+    {
+      "name": "edge projection",
+      "runtime": "edge",
+      "scope": "bounded",
+      "authority": "bounded planning and revision",
+      "visible_capabilities": [
+        "proposal.route_shift.write",
+        "revision.plan.compose",
+        "latency_budget.observe"
+      ],
+      "hidden_constraints": [
+        "final branch authorization policy"
+      ],
+      "queries": [
+        "show the revised proposal",
+        "compare the original and revised assumptions"
+      ]
+    },
+    {
+      "name": "cloud authority",
+      "runtime": "cloud",
+      "scope": "authoritative",
+      "authority": "approval authority",
+      "visible_capabilities": [
+        "compliance.guard",
+        "trust_boundary.check",
+        "approval.reason.explain"
+      ],
+      "hidden_constraints": [],
+      "queries": [
+        "show the revised proposal outcome",
+        "show which assumptions are now acceptable"
+      ]
+    }
+  ],
+  "proposal": {
+    "status": "revised",
+    "summary": "The revised proposal keeps route hint generation at the edge but leaves final authorization and tenant-sensitive branching in the cloud.",
+    "assumptions": [
+      "edge planning may narrow options without finalizing the trust-sensitive branch",
+      "the authoritative path still receives enough context to justify the final route"
+    ],
+    "unresolved": []
+  },
+  "validation": {
+    "status": "approved",
+    "summary": "Authority accepts the revision because the planner preserved the latency objective while respecting trust-zone boundaries.",
+    "violations": [],
+    "guidance": [
+      "no further revision is required"
+    ],
+    "authority_notes": [
+      "the decision lifecycle is intentionally bounded to one revision cycle"
+    ]
+  },
+  "execution": {
+    "status": "not-run",
+    "summary": "Approval exists, but execution still waits for the chapter to show explicit resolution as its own step.",
+    "selected_capabilities": [],
+    "placement": []
+  },
+  "trace": {
+    "status": "proposal-only",
+    "summary": "The trace now captures both the original and revised proposal plus the approval outcome.",
+    "artifacts": [
+      "initial-proposal.json",
+      "validation-response.json",
+      "revised-proposal.json",
+      "approval-summary.json"
+    ],
+    "queries": [
+      "show what changed between proposal and revision",
+      "show why the revised plan became acceptable"
+    ]
+  },
+  "functions": {
+    "planning": "Planning stays explicit while remaining bounded; it may revise a proposal, but it does not negotiate forever.",
+    "validation": "Validation closes the loop by approving a revision that fits both objective and policy.",
+    "execution": "Execution remains separate so approval can be observed before the system binds it to runtime actions."
+  },
+  "axes": {
+    "projection_scope": "bounded",
+    "proposal_visibility": "structured",
+    "authority_model": "authoritative-validation",
+    "revision_model": "single-revision",
+    "execution_model": "direct-action",
+    "traceability": "proposal-only"
+  },
+  "expectations": [
+    "Bounded revision is what keeps discoverability from turning into endless negotiation.",
+    "The reader should be able to compare original intent, feedback, and revised intent directly."
+  ],
+  "runtime_decisions": [
+    "the edge now proposes only the locally justifiable part of the change",
+    "the cloud remains the place where sensitive authorization is approved"
+  ]
+}

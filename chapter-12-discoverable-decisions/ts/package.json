@@ -1,0 +1,8 @@
+{
+  "name": "chapter-12-discoverable-decisions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/*.test.mjs"
+  }
+}
