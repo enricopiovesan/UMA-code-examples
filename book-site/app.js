@@ -62,6 +62,13 @@ const chapters = [
     payoff: "Follow capability projection, proposal, validation, revision, execution, and full traceability.",
     href: "https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-12-discoverable-decisions",
   },
+  {
+    number: "Chapter 13",
+    title: "Portable MCP Runtime",
+    question: "How do MCP discovery, runtime validation, eventing, and agent proposals compose one portable experience?",
+    payoff: "Generate a structured French report from distributed sources through authoritative runtime coordination.",
+    href: "https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-13-portable-mcp-runtime",
+  },
 ];
 
 const chapterCards = document.querySelector("#chapter-cards");

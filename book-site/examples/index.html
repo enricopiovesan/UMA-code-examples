@@ -6,7 +6,7 @@
     <title>UMA Examples | Universal Microservices Architecture</title>
     <meta
       name="description"
-      content="Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, TypeScript parity paths, and runnable tutorials."
+      content="Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, portable MCP runtime composition, and runnable tutorials."
     />
     <link rel="canonical" href="https://www.universalmicroservices.com/examples/" />
     <meta property="og:title" content="UMA Examples | Universal Microservices Architecture" />
@@ -136,8 +136,9 @@
               time.
             </p>
             <p>
-              The latest step in that progression is the Chapter 12 lab on discoverable decisions, where projections, proposals, validation
-              feedback, approved execution, and trace artifacts become first-class outputs instead of hidden runtime behavior.
+              The latest steps in that progression are the Chapter 12 lab on discoverable decisions and the Chapter 13 portable MCP runtime,
+              where projections, proposals, validation feedback, approved execution, MCP discovery, and event-driven composition become
+              first-class outputs instead of hidden runtime behavior.
             </p>
           </section>
 
@@ -151,11 +152,16 @@
           </section>
 
           <section>
-            <h2>What the closing example proves</h2>
+            <h2>What the closing examples prove</h2>
             <p>
               The Chapter 12 example matters because it demonstrates a final architectural shift: a system should not only execute correctly,
               it should expose why it acted. That lab makes decision stages queryable so readers can inspect capability projection, proposal
               shape, authority feedback, bounded revision, approved execution, and full traceability in one sequence.
+            </p>
+            <p>
+              Chapter 13 then carries that idea into a richer reference experience. The runtime discovers distributed capabilities through
+              MCP-style descriptors, evaluates compatibility and constraints, accepts or rejects agent proposals, coordinates event-driven
+              execution, and produces a structured French report without collapsing back into a hardwired workflow.
             </p>
           </section>
 
