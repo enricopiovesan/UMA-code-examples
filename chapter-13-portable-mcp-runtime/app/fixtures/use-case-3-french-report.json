@@ -1,0 +1,1124 @@
+{
+  "scenario": "use-case-3-french-report",
+  "title": "Use Case 3: French Output with Translation",
+  "summary": "Generate a structured report in French from distributed source fragments, inserting translation dynamically because the goal requires it.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "fr",
+    "preferAI": false,
+    "allowDegraded": false,
+    "localOnly": true
+  },
+  "initial_context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "The browser shell holds recent customer feedback snippets.",
+      "An edge cache exposes regional rollout data with low latency.",
+      "A cloud record confirms that contract validation reduced incident handoff time."
+    ],
+    "availableCapabilities": [
+      "DataProviderLocal",
+      "InsightEnricher",
+      "SummarizerBasic",
+      "TranslatorFr",
+      "Formatter"
+    ],
+    "aiAvailable": false
+  },
+  "selected_path": [
+    "DataProviderLocal",
+    "InsightEnricher",
+    "SummarizerBasic",
+    "TranslatorFr",
+    "Formatter"
+  ],
+  "rejected_capabilities": [],
+  "steps": [
+    {
+      "index": 1,
+      "need": "provide-source-fragments",
+      "agent_proposal": "DataProviderLocal",
+      "selected_capability": "DataProviderLocal",
+      "discovery": {
+        "need": "provide-source-fragments",
+        "available": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "DataProviderLocal",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Loaded 3 distributed source fragment(s)",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "DataProviderLocal",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "DataProviderLocal",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "DataProviderLocal",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "DataProviderLocal",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityExecuted",
+          "capability": "DataProviderLocal",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "need": "derive-structured-insights",
+      "agent_proposal": "InsightEnricher",
+      "selected_capability": "InsightEnricher",
+      "discovery": {
+        "need": "derive-structured-insights",
+        "available": [
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "InsightEnricher",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Derived 3 structured fact(s)",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "InsightEnricher",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "InsightEnricher",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "InsightEnricher",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "InsightEnricher",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "ContextUpdated",
+          "capability": "InsightEnricher",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "need": "generate-summary",
+      "agent_proposal": "SummarizerBasic",
+      "selected_capability": "SummarizerBasic",
+      "discovery": {
+        "need": "generate-summary",
+        "available": [
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "SummarizerBasic",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "SummarizerBasic",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "SummarizerBasic",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "SummarizerBasic",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "SummarizerBasic",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityExecuted",
+          "capability": "SummarizerBasic",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "need": "translate-to-target-language",
+      "agent_proposal": "TranslatorFr",
+      "selected_capability": "TranslatorFr",
+      "discovery": {
+        "need": "translate-to-target-language",
+        "available": [
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "TranslatorFr",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "TranslatorFr",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "TranslatorFr",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "TranslatorFr",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "TranslatorFr",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityExecuted",
+          "capability": "TranslatorFr",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "need": "format-structured-report",
+      "agent_proposal": "Formatter",
+      "selected_capability": "Formatter",
+      "discovery": {
+        "need": "format-structured-report",
+        "available": [
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "Formatter",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nHighlights: Fact: The browser shell holds recent customer feedback snippets. Fact: An edge cache exposes regional rollout data with low latency.",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "Formatter",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "Formatter",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "Formatter",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "Formatter",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        },
+        {
+          "type": "GoalSatisfied",
+          "capability": "Formatter",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nHighlights: Fact: The browser shell holds recent customer feedback snippets. Fact: An edge cache exposes regional rollout data with low latency.",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+          }
+        }
+      ]
+    }
+  ],
+  "final_output": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nHighlights: Fact: The browser shell holds recent customer feedback snippets. Fact: An edge cache exposes regional rollout data with low latency.",
+  "final_language": "fr",
+  "status": "complete",
+  "graph_nodes": [
+    {
+      "id": "goal",
+      "label": "Goal",
+      "kind": "goal",
+      "state": "complete",
+      "x": -260.0,
+      "y": -150.0,
+      "z": -80.0
+    },
+    {
+      "id": "mcp",
+      "label": "MCP node",
+      "kind": "mcp",
+      "state": "active",
+      "x": -140.0,
+      "y": -20.0,
+      "z": 60.0
+    },
+    {
+      "id": "agent",
+      "label": "Agent",
+      "kind": "agent",
+      "state": "candidate",
+      "x": 0.0,
+      "y": -170.0,
+      "z": 40.0
+    },
+    {
+      "id": "runtime",
+      "label": "UMA runtime",
+      "kind": "runtime",
+      "state": "active",
+      "x": 10.0,
+      "y": -10.0,
+      "z": 0.0
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "kind": "result",
+      "state": "complete",
+      "x": 290.0,
+      "y": 130.0,
+      "z": 40.0
+    },
+    {
+      "id": "DataProviderLocal",
+      "label": "DataProviderLocal",
+      "kind": "capability",
+      "state": "complete",
+      "x": -210.0,
+      "y": 110.0,
+      "z": -10.0
+    },
+    {
+      "id": "InsightEnricher",
+      "label": "InsightEnricher",
+      "kind": "capability",
+      "state": "complete",
+      "x": -60.0,
+      "y": 140.0,
+      "z": 30.0
+    },
+    {
+      "id": "SummarizerBasic",
+      "label": "SummarizerBasic",
+      "kind": "capability",
+      "state": "complete",
+      "x": 60.0,
+      "y": 90.0,
+      "z": 80.0
+    },
+    {
+      "id": "SummarizerAI",
+      "label": "SummarizerAI",
+      "kind": "capability",
+      "state": "inactive",
+      "x": 120.0,
+      "y": -80.0,
+      "z": 120.0
+    },
+    {
+      "id": "TranslatorFr",
+      "label": "TranslatorFr",
+      "kind": "capability",
+      "state": "complete",
+      "x": 210.0,
+      "y": 20.0,
+      "z": 20.0
+    },
+    {
+      "id": "Formatter",
+      "label": "Formatter",
+      "kind": "capability",
+      "state": "complete",
+      "x": 160.0,
+      "y": 180.0,
+      "z": -30.0
+    }
+  ],
+  "graph_edges": [
+    {
+      "from": "goal",
+      "to": "mcp",
+      "state": "active"
+    },
+    {
+      "from": "mcp",
+      "to": "agent",
+      "state": "active"
+    },
+    {
+      "from": "agent",
+      "to": "runtime",
+      "state": "active"
+    },
+    {
+      "from": "runtime",
+      "to": "DataProviderLocal",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "InsightEnricher",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "SummarizerBasic",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "TranslatorFr",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "Formatter",
+      "state": "complete"
+    },
+    {
+      "from": "Formatter",
+      "to": "result",
+      "state": "complete"
+    }
+  ]
+}

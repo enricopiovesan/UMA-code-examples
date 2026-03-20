@@ -1,0 +1,22 @@
+{
+  "id": "use-case-3-french-report",
+  "title": "Use Case 3: French Output with Translation",
+  "summary": "Generate a structured report in French from distributed source fragments, inserting translation dynamically because the goal requires it.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "fr",
+    "preferAI": false,
+    "allowDegraded": false,
+    "localOnly": true
+  },
+  "context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "The browser shell holds recent customer feedback snippets.",
+      "An edge cache exposes regional rollout data with low latency.",
+      "A cloud record confirms that contract validation reduced incident handoff time."
+    ],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "TranslatorFr", "Formatter"],
+    "aiAvailable": false
+  }
+}

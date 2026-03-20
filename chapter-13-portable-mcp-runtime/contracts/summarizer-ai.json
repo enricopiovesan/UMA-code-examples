@@ -1,0 +1,17 @@
+{
+  "name": "SummarizerAI",
+  "version": "1.0.0",
+  "intent": "generate-summary",
+  "inputs": ["source_fragments", "structured_facts"],
+  "outputs": ["summary"],
+  "constraints": {
+    "runtime": ["edge-wasm", "cloud-wasm"],
+    "requires": ["ai"],
+    "excludes": ["local-only"]
+  },
+  "emitsEvents": ["CapabilityExecuted", "ContextUpdated"],
+  "metadata": {
+    "description": "Optional model-backed summarizer with higher quality but stronger runtime constraints.",
+    "tags": ["summary", "ai", "quality"]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "use-case-2-ai-report",
+  "title": "Use Case 2: AI-Preferred Report Generation",
+  "summary": "The same distributed French report goal resolves through the AI summarizer when local-only constraints are lifted and higher-quality summarization is allowed.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "fr",
+    "preferAI": true,
+    "allowDegraded": false,
+    "localOnly": false
+  },
+  "context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "Browser telemetry shows strong adoption in three customer regions with localized interface demand.",
+      "Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+      "Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+    ],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "SummarizerAI", "TranslatorFr", "Formatter"],
+    "aiAvailable": true
+  }
+}

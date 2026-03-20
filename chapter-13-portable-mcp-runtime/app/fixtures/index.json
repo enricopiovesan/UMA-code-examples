@@ -1,0 +1,7 @@
+[
+{"id": "use-case-1-basic-report", "title": "Use Case 1: Basic Report Generation", "summary": "Generate a structured report from distributed source fragments with deterministic local execution and no translation.", "status": "complete"},
+{"id": "use-case-2-ai-report", "title": "Use Case 2: AI-Preferred Report Generation", "summary": "The same distributed French report goal resolves through the AI summarizer when local-only constraints are lifted and higher-quality summarization is allowed.", "status": "complete"},
+{"id": "use-case-3-french-report", "title": "Use Case 3: French Output with Translation", "summary": "Generate a structured report in French from distributed source fragments, inserting translation dynamically because the goal requires it.", "status": "complete"},
+{"id": "use-case-4-runtime-adapts", "title": "Use Case 4: Capability Unavailable, Runtime Adapts", "summary": "The translator is unavailable, so the runtime degrades gracefully and produces a structured English report while making the limitation explicit.", "status": "degraded"},
+{"id": "use-case-5-agent-validation", "title": "Use Case 5: Agent Proposes, Runtime Validates", "summary": "The agent proposes the AI summarizer for a French report, but the runtime rejects it under local-only constraints and selects the deterministic path instead.", "status": "complete"}
+]

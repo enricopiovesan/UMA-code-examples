@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chapter 13 Reference Experience</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">Chapter 13</p>
+          <h1>Portable MCP Runtime Reference Experience</h1>
+          <p class="intro">
+            A reader-facing shell for the Chapter 13 Rust runtime. The timeline explains what happened to the request. The graph shows how MCP, the agent, the runtime, and capabilities were coordinated.
+          </p>
+        </div>
+        <form class="controls">
+          <label for="scenario-select">Scenario</label>
+          <select id="scenario-select" name="scenario"></select>
+          <button id="run-scenario" type="button">Run scenario</button>
+        </form>
+      </header>
+
+      <section class="app-summary" id="summary-strip"></section>
+
+      <section class="app-layout">
+        <section class="panel timeline-panel">
+          <div class="panel-head">
+            <p class="eyebrow">Left panel</p>
+            <h2>Execution timeline</h2>
+          </div>
+          <div id="timeline"></div>
+        </section>
+
+        <section class="panel graph-panel">
+          <div class="panel-head">
+            <p class="eyebrow">Right panel</p>
+            <h2>3D capability graph</h2>
+          </div>
+          <div class="graph-stage">
+            <div class="graph-scene" id="graph-scene"></div>
+          </div>
+          <div class="legend">
+            <span class="legend-item candidate">candidate</span>
+            <span class="legend-item active">active</span>
+            <span class="legend-item complete">complete</span>
+            <span class="legend-item rejected">rejected</span>
+            <span class="legend-item inactive">inactive</span>
+          </div>
+        </section>
+      </section>
+
+      <section class="app-output">
+        <div class="panel-head">
+          <p class="eyebrow">Result</p>
+          <h2>Final output</h2>
+        </div>
+        <pre id="final-output"></pre>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

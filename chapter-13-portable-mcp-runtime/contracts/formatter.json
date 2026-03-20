@@ -1,0 +1,17 @@
+{
+  "name": "Formatter",
+  "version": "1.0.0",
+  "intent": "format-structured-report",
+  "inputs": ["structured_facts", "summary_or_translation"],
+  "outputs": ["report"],
+  "constraints": {
+    "runtime": ["browser-wasm", "edge-wasm", "cloud-wasm"],
+    "requires": [],
+    "excludes": []
+  },
+  "emitsEvents": ["CapabilityExecuted", "GoalSatisfied"],
+  "metadata": {
+    "description": "Formats a structured report from insights and the final summary text.",
+    "tags": ["report", "formatting", "output"]
+  }
+}

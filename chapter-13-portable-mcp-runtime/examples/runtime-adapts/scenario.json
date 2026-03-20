@@ -1,0 +1,22 @@
+{
+  "id": "use-case-4-runtime-adapts",
+  "title": "Use Case 4: Capability Unavailable, Runtime Adapts",
+  "summary": "The translator is unavailable, so the runtime degrades gracefully and produces a structured English report while making the limitation explicit.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "fr",
+    "preferAI": false,
+    "allowDegraded": true,
+    "localOnly": true
+  },
+  "context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "Browser-side notes describe the current delivery goal and supported languages.",
+      "Edge summaries show that no French translator module is healthy in this local-only mode.",
+      "Cloud references remain visible but are excluded under the current execution constraints."
+    ],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "Formatter"],
+    "aiAvailable": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "InsightEnricher",
+  "version": "1.0.0",
+  "intent": "derive-structured-insights",
+  "inputs": ["source_fragments"],
+  "outputs": ["structured_facts"],
+  "constraints": {
+    "runtime": ["browser-wasm", "edge-wasm", "cloud-wasm"],
+    "requires": [],
+    "excludes": []
+  },
+  "emitsEvents": ["CapabilityExecuted", "ContextUpdated"],
+  "metadata": {
+    "description": "Derives structured facts from raw project source fragments.",
+    "tags": ["analysis", "facts", "enrichment"]
+  }
+}

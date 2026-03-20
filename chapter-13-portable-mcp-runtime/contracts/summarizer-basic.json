@@ -1,0 +1,17 @@
+{
+  "name": "SummarizerBasic",
+  "version": "1.0.0",
+  "intent": "generate-summary",
+  "inputs": ["source_fragments", "structured_facts"],
+  "outputs": ["summary"],
+  "constraints": {
+    "runtime": ["browser-wasm", "edge-wasm", "cloud-wasm"],
+    "requires": ["local-safe"],
+    "excludes": []
+  },
+  "emitsEvents": ["CapabilityExecuted", "ContextUpdated"],
+  "metadata": {
+    "description": "Deterministic local summarizer for project report generation.",
+    "tags": ["summary", "deterministic", "local"]
+  }
+}

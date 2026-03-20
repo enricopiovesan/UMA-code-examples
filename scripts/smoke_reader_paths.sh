@@ -78,4 +78,9 @@ pushd "$ROOT_DIR/chapter-12-discoverable-decisions" >/dev/null
 ./scripts/smoke_discoverability_labs.sh
 popd >/dev/null
 
+echo "== Chapter 13: chapter-13-portable-mcp-runtime =="
+pushd "$ROOT_DIR/chapter-13-portable-mcp-runtime" >/dev/null
+./scripts/smoke_portable_mcp_labs.sh
+popd >/dev/null
+
 echo "Smoke run completed successfully."

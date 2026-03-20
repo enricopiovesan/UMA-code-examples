@@ -1,0 +1,22 @@
+{
+  "id": "use-case-5-agent-validation",
+  "title": "Use Case 5: Agent Proposes, Runtime Validates",
+  "summary": "The agent proposes the AI summarizer for a French report, but the runtime rejects it under local-only constraints and selects the deterministic path instead.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "fr",
+    "preferAI": true,
+    "allowDegraded": false,
+    "localOnly": true
+  },
+  "context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "Local browser data includes a release note timeline and user-facing metrics.",
+      "Edge services expose compatibility summaries for active deployments.",
+      "Cloud analysis indicates that deterministic summaries are still accurate enough for this request."
+    ],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "SummarizerAI", "TranslatorFr", "Formatter"],
+    "aiAvailable": true
+  }
+}

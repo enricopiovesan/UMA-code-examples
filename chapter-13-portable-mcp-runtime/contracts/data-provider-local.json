@@ -1,0 +1,17 @@
+{
+  "name": "DataProviderLocal",
+  "version": "1.0.0",
+  "intent": "provide-source-fragments",
+  "inputs": [],
+  "outputs": ["source_fragments"],
+  "constraints": {
+    "runtime": ["browser-wasm", "edge-wasm"],
+    "requires": ["local"],
+    "excludes": []
+  },
+  "emitsEvents": ["CapabilityExecuted", "ContextUpdated"],
+  "metadata": {
+    "description": "Exposes local project source fragments to the runtime.",
+    "tags": ["source", "local", "input"]
+  }
+}

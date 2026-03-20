@@ -1,0 +1,22 @@
+{
+  "id": "use-case-1-basic-report",
+  "title": "Use Case 1: Basic Report Generation",
+  "summary": "Generate a structured report from distributed source fragments with deterministic local execution and no translation.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "en",
+    "preferAI": false,
+    "allowDegraded": false,
+    "localOnly": true
+  },
+  "context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "Browser client captured usage metrics for three active regions.",
+      "Edge aggregation detected rising request volume and a stable error rate.",
+      "Cloud analytics recorded that the reporting module reduced triage time by eighteen percent."
+    ],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "TranslatorFr", "Formatter"],
+    "aiAvailable": false
+  }
+}

@@ -15,7 +15,7 @@ Chapter 12 is about:
 ## Learning path position
 
 - Previous: [Chapter 11: Evolution Without Fragmentation](../chapter-11-evolution-without-fragmentation/README.md)
-- This is the next validated tutorial step after the current Chapter 11 path.
+- Next: [Chapter 13: Portable MCP Runtime](../chapter-13-portable-mcp-runtime/README.md)
 
 ## Key concepts
 
