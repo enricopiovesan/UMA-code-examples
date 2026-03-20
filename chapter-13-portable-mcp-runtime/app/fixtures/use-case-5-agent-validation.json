@@ -47,6 +47,7 @@
       "index": 1,
       "need": "provide-source-fragments",
       "agent_proposal": "DataProviderLocal",
+      "proposed_validation": null,
       "selected_capability": "DataProviderLocal",
       "discovery": {
         "need": "provide-source-fragments",
@@ -234,6 +235,7 @@
       "index": 2,
       "need": "derive-structured-insights",
       "agent_proposal": "InsightEnricher",
+      "proposed_validation": null,
       "selected_capability": "InsightEnricher",
       "discovery": {
         "need": "derive-structured-insights",
@@ -421,6 +423,13 @@
       "index": 3,
       "need": "generate-summary",
       "agent_proposal": "SummarizerAI",
+      "proposed_validation": {
+        "capability": "SummarizerAI",
+        "status": "rejected",
+        "reasons": [
+          "capability violates local-only execution constraints"
+        ]
+      },
       "selected_capability": "SummarizerBasic",
       "discovery": {
         "need": "generate-summary",
@@ -564,6 +573,19 @@
           }
         },
         {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "rejected",
+          "reason": "capability violates local-only execution constraints",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Local browser data includes a release note timeline and user-facing metrics. | Fact: Edge services expose compatibility summaries for active deployments. | Fact: Cloud analysis indicates that deterministic summaries are still accurate enough for this request.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
           "type": "CapabilitySelected",
           "capability": "SummarizerBasic",
           "status": "selected",
@@ -608,6 +630,7 @@
       "index": 4,
       "need": "translate-to-target-language",
       "agent_proposal": "TranslatorFr",
+      "proposed_validation": null,
       "selected_capability": "TranslatorFr",
       "discovery": {
         "need": "translate-to-target-language",
@@ -795,6 +818,7 @@
       "index": 5,
       "need": "format-structured-report",
       "agent_proposal": "Formatter",
+      "proposed_validation": null,
       "selected_capability": "Formatter",
       "discovery": {
         "need": "format-structured-report",

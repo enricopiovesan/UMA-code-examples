@@ -53,6 +53,9 @@ function renderTimeline(report) {
     const reasons = step.validation.reasons
       .map((reason) => `<li>${reason}</li>`)
       .join("");
+    const proposedValidation = step.proposed_validation
+      ? `<p class="summary-text"><strong>Proposal rejected:</strong> ${step.proposed_validation.capability} - ${step.proposed_validation.reasons.join(", ")}</p>`
+      : "";
     const events = step.events
       .map((event) => `<li>${event.type} - ${event.capability} (${event.status})</li>`)
       .join("");
@@ -66,6 +69,7 @@ function renderTimeline(report) {
         </div>
         <h3>${step.selected_capability}</h3>
         <p class="summary-text"><strong>Agent proposal:</strong> ${step.agent_proposal ?? "none"}</p>
+        ${proposedValidation}
         <p class="summary-text"><strong>Discovery:</strong> ${discovery}</p>
         ${rejected ? `<ul class="reason-list">${rejected}</ul>` : ""}
         ${reasons ? `<ul class="reason-list">${reasons}</ul>` : ""}

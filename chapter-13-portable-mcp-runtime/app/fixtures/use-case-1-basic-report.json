@@ -37,6 +37,7 @@
       "index": 1,
       "need": "provide-source-fragments",
       "agent_proposal": "DataProviderLocal",
+      "proposed_validation": null,
       "selected_capability": "DataProviderLocal",
       "discovery": {
         "need": "provide-source-fragments",
@@ -224,6 +225,7 @@
       "index": 2,
       "need": "derive-structured-insights",
       "agent_proposal": "InsightEnricher",
+      "proposed_validation": null,
       "selected_capability": "InsightEnricher",
       "discovery": {
         "need": "derive-structured-insights",
@@ -411,6 +413,7 @@
       "index": 3,
       "need": "generate-summary",
       "agent_proposal": "SummarizerBasic",
+      "proposed_validation": null,
       "selected_capability": "SummarizerBasic",
       "discovery": {
         "need": "generate-summary",
@@ -598,6 +601,7 @@
       "index": 4,
       "need": "format-structured-report",
       "agent_proposal": "Formatter",
+      "proposed_validation": null,
       "selected_capability": "Formatter",
       "discovery": {
         "need": "format-structured-report",

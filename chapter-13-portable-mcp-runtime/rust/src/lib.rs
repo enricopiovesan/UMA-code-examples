@@ -103,6 +103,7 @@ pub struct ExecutionStep {
     pub index: usize,
     pub need: String,
     pub agent_proposal: Option<String>,
+    pub proposed_validation: Option<ValidationResult>,
     pub selected_capability: String,
     pub discovery: DiscoverySnapshot,
     pub validation: ValidationResult,
@@ -468,6 +469,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
 
         let mut selected_contract = None;
         let mut validation = None;
+        let mut proposed_validation = None;
 
         if let Some(proposed_name) = proposal.clone() {
             if let Some(contract) = visible.iter().find(|item| item.name == proposed_name) {
@@ -476,6 +478,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
                     selected_contract = Some(contract.clone());
                     validation = Some(result);
                 } else {
+                    proposed_validation = Some(result.clone());
                     rejected_capabilities.push(result.clone());
                     validation = Some(result);
                 }
@@ -529,6 +532,15 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
                 proposed,
                 "proposed",
                 None,
+                &state,
+            ));
+        }
+        if let Some(ref rejected) = proposed_validation {
+            events.push(emit_event(
+                "CapabilityRejected",
+                &rejected.capability,
+                "rejected",
+                Some(rejected.reasons.join(" | ")),
                 &state,
             ));
         }
@@ -633,6 +645,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
             index,
             need: need.to_string(),
             agent_proposal: proposal,
+            proposed_validation,
             selected_capability: contract.name,
             discovery,
             validation,
@@ -792,6 +805,14 @@ pub fn format_report(report: &ExecutionReport) -> String {
             "  agent proposal: {}",
             step.agent_proposal.as_deref().unwrap_or("none")
         );
+        if let Some(rejected) = &step.proposed_validation {
+            let _ = writeln!(
+                out,
+                "  proposal rejected: {} ({})",
+                rejected.capability,
+                rejected.reasons.join(" | ")
+            );
+        }
         let _ = writeln!(out, "  discovery candidates:");
         for item in &step.discovery.available {
             let _ = writeln!(out, "  - {}", item.capability);
