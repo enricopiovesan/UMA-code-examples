@@ -79,6 +79,7 @@ jobs:
           cargo test --locked --manifest-path chapter-09-trust-boundaries/Cargo.toml
           cargo test --locked --manifest-path chapter-10-architectural-tradeoffs/rust/Cargo.toml
           cargo test --locked --manifest-path chapter-11-evolution-without-fragmentation/rust/Cargo.toml
+          cargo test --locked --manifest-path chapter-12-discoverable-decisions/rust/Cargo.toml
           cargo test --locked --manifest-path chapter-07-metadata-orchestration/runtime-rust/Cargo.toml
 
       - name: Check TypeScript parity implementations
@@ -92,6 +93,7 @@ jobs:
           npm test --prefix chapter-09-trust-boundaries/ts
           npm test --prefix chapter-10-architectural-tradeoffs/ts
           npm test --prefix chapter-11-evolution-without-fragmentation/ts
+          npm test --prefix chapter-12-discoverable-decisions/ts
 
       - name: Check reader documentation contract
         shell: bash

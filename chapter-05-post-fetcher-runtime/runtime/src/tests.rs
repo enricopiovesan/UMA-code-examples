@@ -9,8 +9,13 @@ use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
-    Arc,
+    Arc, Mutex, OnceLock,
 };
+
+fn env_lock() -> std::sync::MutexGuard<'static, ()> {
+    static LOCK: OnceLock<Mutex<()>> = OnceLock::new();
+    LOCK.get_or_init(|| Mutex::new(())).lock().unwrap()
+}
 
 // A dummy network adapter for testing.  Returns a fixed JSON body.
 struct DummyAdapter;
@@ -164,6 +169,7 @@ fn test_header_validation_skips_network_fetch() {
 
 #[test]
 fn test_adapter_manager_env_wrappers() {
+    let _guard = env_lock();
     // Test that environment variables cause the adapter manager to wrap
     // adapters in retry and cache wrappers.  The binding impl_name should
     // reflect the applied wrappers.
@@ -238,6 +244,7 @@ fn test_parse_error_marks_run_failed() {
 
 #[test]
 fn test_fixture_url_is_resolved_without_network() {
+    let _guard = env_lock();
     std::env::remove_var("UMA_ENABLE_RETRY");
     std::env::remove_var("UMA_ENABLE_CACHE");
 

@@ -1,0 +1,99 @@
+{
+  "title": "Lab 12.2: Edge Proposal",
+  "summary": "The edge now exposes a structured proposal that names the desired change, its assumptions, and the constraints it cannot validate locally.",
+  "decision_question": "How does the system describe intent before authority approves it?",
+  "surfaces": [
+    {
+      "name": "edge projection",
+      "runtime": "edge",
+      "scope": "bounded",
+      "authority": "planning only",
+      "visible_capabilities": [
+        "route_hint.lookup",
+        "tenant_profile.read",
+        "proposal.route_shift.write"
+      ],
+      "hidden_constraints": [
+        "global trust zone policy",
+        "authoritative compliance metadata"
+      ],
+      "queries": [
+        "list locally visible routing capabilities",
+        "show the current proposal draft",
+        "show unresolved constraint checks"
+      ]
+    },
+    {
+      "name": "cloud catalog",
+      "runtime": "cloud",
+      "scope": "authoritative",
+      "authority": "validation and execution authority",
+      "visible_capabilities": [
+        "route_selector.resolve",
+        "compliance.guard",
+        "trace_artifact.write"
+      ],
+      "hidden_constraints": [],
+      "queries": [
+        "show which constraints remain authoritative",
+        "show where final approval can occur"
+      ]
+    }
+  ],
+  "proposal": {
+    "status": "draft",
+    "summary": "The planner proposes moving the routing step closer to the edge to reduce round-trip latency on repeated requests.",
+    "assumptions": [
+      "the route hint can be computed from locally visible inputs",
+      "edge placement reduces latency for downstream steps"
+    ],
+    "unresolved": [
+      "whether the routing decision is allowed in the edge trust zone",
+      "whether the resulting placement still satisfies audit obligations"
+    ]
+  },
+  "validation": {
+    "status": "pending",
+    "summary": "The proposal is visible and structured, but has not yet been evaluated against the authoritative constraint set.",
+    "violations": [],
+    "guidance": [],
+    "authority_notes": [
+      "the edge is now useful for reasoning, but not for approval"
+    ]
+  },
+  "execution": {
+    "status": "not-run",
+    "summary": "No runtime move occurs yet because the system now treats proposal and execution as separate stages.",
+    "selected_capabilities": [],
+    "placement": []
+  },
+  "trace": {
+    "status": "absent",
+    "summary": "The proposal exists, but the system still does not preserve a trace artifact beyond the current planning surface.",
+    "artifacts": [],
+    "queries": [
+      "show the current edge proposal"
+    ]
+  },
+  "functions": {
+    "planning": "Planning now emits a structured proposal that can be inspected independently of execution.",
+    "validation": "Validation remains separate because the edge does not claim authority it does not have.",
+    "execution": "Execution is intentionally blocked until the proposal reaches the authoritative layer."
+  },
+  "axes": {
+    "projection_scope": "bounded",
+    "proposal_visibility": "structured",
+    "authority_model": "split-authority",
+    "revision_model": "none",
+    "execution_model": "direct-action",
+    "traceability": "absent"
+  },
+  "expectations": [
+    "The important gain is not edge execution yet; it is explicit, machine-readable intent.",
+    "A system becomes more understandable when it admits what it knows and what it cannot yet justify."
+  ],
+  "runtime_decisions": [
+    "the planner records unresolved trust and compliance questions instead of guessing them",
+    "the system keeps authority in the cloud while still making the proposal visible at the edge"
+  ]
+}

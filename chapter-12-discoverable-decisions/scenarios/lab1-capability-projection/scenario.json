@@ -1,0 +1,103 @@
+{
+  "title": "Lab 12.1: Capability Projection",
+  "summary": "The system executes a latency-sensitive routing step successfully, but the decision remains buried inside cloud execution and cannot be inspected as a first-class proposal.",
+  "decision_question": "What can a reader or tool actually discover before the system acts?",
+  "surfaces": [
+    {
+      "name": "edge projection",
+      "runtime": "edge",
+      "scope": "bounded",
+      "authority": "local context only",
+      "visible_capabilities": [
+        "route_hint.lookup",
+        "tenant_profile.read",
+        "latency_budget.observe"
+      ],
+      "hidden_constraints": [
+        "regional compliance policy",
+        "approved trust zone list",
+        "audit retention obligations"
+      ],
+      "queries": [
+        "list capabilities near the request entry point",
+        "show which inputs are locally available"
+      ]
+    },
+    {
+      "name": "cloud catalog",
+      "runtime": "cloud",
+      "scope": "authoritative",
+      "authority": "full policy and placement authority",
+      "visible_capabilities": [
+        "route_selector.resolve",
+        "compliance.guard",
+        "trace_artifact.write"
+      ],
+      "hidden_constraints": [],
+      "queries": [
+        "show approved placement zones",
+        "show policy authority for routing changes"
+      ]
+    }
+  ],
+  "proposal": {
+    "status": "hidden",
+    "summary": "The cloud runtime shifts the routing step under load, but the reasoning is not emitted as an explicit proposal artifact.",
+    "assumptions": [
+      "the latency budget is tight enough to justify movement",
+      "edge inputs appear sufficient for the route hint"
+    ],
+    "unresolved": [
+      "whether edge placement satisfies trust policy",
+      "whether the move remains auditable under compliance requirements"
+    ]
+  },
+  "validation": {
+    "status": "not-exposed",
+    "summary": "Validation exists inside the cloud path, but its reasoning is not queryable from outside execution.",
+    "violations": [],
+    "guidance": [],
+    "authority_notes": [
+      "authority is real, but invisible to the reader"
+    ]
+  },
+  "execution": {
+    "status": "resolved-inline",
+    "summary": "Execution produces the right route selection result, but the final state cannot be traced back to a visible decision lifecycle.",
+    "selected_capabilities": [
+      "route_selector.resolve"
+    ],
+    "placement": [
+      "routing remains in the cloud because no explicit proposal was reviewed"
+    ]
+  },
+  "trace": {
+    "status": "absent",
+    "summary": "The outcome exists, but no proposal, evaluation, or trace artifact explains how the system arrived there.",
+    "artifacts": [],
+    "queries": [
+      "none"
+    ]
+  },
+  "functions": {
+    "planning": "Planning is implicit inside the runtime path instead of being exposed as a machine-readable function output.",
+    "validation": "Validation happens internally, but the system does not separate it visibly from execution.",
+    "execution": "Execution both chooses and performs the change, which keeps the result correct but architecturally opaque."
+  },
+  "axes": {
+    "projection_scope": "bounded",
+    "proposal_visibility": "hidden",
+    "authority_model": "local-only",
+    "revision_model": "none",
+    "execution_model": "direct-action",
+    "traceability": "absent"
+  },
+  "expectations": [
+    "Execution success is not enough if the system cannot expose what it knew and why it acted.",
+    "Partial discoverability starts with making the capability surface explicit, even before proposals become visible."
+  ],
+  "runtime_decisions": [
+    "the browser request exposes enough context to imagine a better placement, but not enough to approve it",
+    "the cloud runtime still owns the outcome because no explicit proposal surface exists yet"
+  ]
+}

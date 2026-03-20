@@ -1,0 +1,107 @@
+{
+  "title": "Lab 12.5: Approved Execution",
+  "summary": "The system now resolves the approved proposal into concrete capability selection and final placement under authoritative control.",
+  "decision_question": "What changes when execution becomes resolution instead of hidden replanning?",
+  "surfaces": [
+    {
+      "name": "edge projection",
+      "runtime": "edge",
+      "scope": "bounded",
+      "authority": "planning and local hint generation",
+      "visible_capabilities": [
+        "route_hint.lookup",
+        "proposal.route_shift.write",
+        "approval.summary.read"
+      ],
+      "hidden_constraints": [
+        "authoritative tenant compliance details"
+      ],
+      "queries": [
+        "show the approved route hint strategy",
+        "show what remains cloud-only"
+      ]
+    },
+    {
+      "name": "cloud authority",
+      "runtime": "cloud",
+      "scope": "authoritative",
+      "authority": "execution authority",
+      "visible_capabilities": [
+        "route_selector.resolve",
+        "compliance.guard",
+        "trace_artifact.write"
+      ],
+      "hidden_constraints": [],
+      "queries": [
+        "show selected capabilities for approved execution",
+        "show final placement under authority"
+      ]
+    }
+  ],
+  "proposal": {
+    "status": "approved",
+    "summary": "The approved plan keeps the route hint at the edge while preserving final branch authorization and policy evaluation in the cloud.",
+    "assumptions": [
+      "edge-generated hints are advisory and can be validated centrally",
+      "cloud execution still owns the authoritative branch decision"
+    ],
+    "unresolved": []
+  },
+  "validation": {
+    "status": "approved",
+    "summary": "Authority confirms that the revised proposal can now be resolved into an executable placement plan.",
+    "violations": [],
+    "guidance": [],
+    "authority_notes": [
+      "approval is now tied directly to a concrete execution path"
+    ]
+  },
+  "execution": {
+    "status": "resolved",
+    "summary": "Execution binds the proposal to concrete capabilities without inventing a new plan on the fly.",
+    "selected_capabilities": [
+      "route_hint.lookup",
+      "route_selector.resolve",
+      "compliance.guard"
+    ],
+    "placement": [
+      "route hint generation runs at the edge",
+      "final route authorization remains in the cloud",
+      "trace writing remains in the authoritative zone"
+    ]
+  },
+  "trace": {
+    "status": "proposal-only",
+    "summary": "The system records the approved proposal and the execution summary, but not yet a complete replayable artifact chain.",
+    "artifacts": [
+      "revised-proposal.json",
+      "approval-summary.json",
+      "execution-summary.json"
+    ],
+    "queries": [
+      "show which capabilities were selected for the approved plan",
+      "show where the final resolution executed"
+    ]
+  },
+  "functions": {
+    "planning": "Planning has finished; its output is now an approved decision surface rather than a hidden guess.",
+    "validation": "Validation no longer negotiates, it confirms the proposal that execution must honor.",
+    "execution": "Execution resolves an approved plan into concrete placement and capability selection without changing its architectural meaning."
+  },
+  "axes": {
+    "projection_scope": "bounded",
+    "proposal_visibility": "structured",
+    "authority_model": "authoritative-validation",
+    "revision_model": "single-revision",
+    "execution_model": "approved-resolution",
+    "traceability": "proposal-only"
+  },
+  "expectations": [
+    "Execution should feel narrower and more disciplined once planning and validation have already done their work.",
+    "The remaining gap is trace richness, not proposal clarity."
+  ],
+  "runtime_decisions": [
+    "the final route still depends on cloud authority, but the edge now contributes a visible hint instead of an invisible shortcut",
+    "execution honors the approved proposal instead of silently improvising a different composition"
+  ]
+}

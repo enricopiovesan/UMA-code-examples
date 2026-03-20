@@ -22,7 +22,7 @@ If you are landing here cold, the important idea is:
 - architecture should remain understandable as systems grow, evolve, and cross trust boundaries
 
 This repository is not a generic microservices sample pack.
-It is a guided progression showing how those ideas build on each other from Chapter 4 through Chapter 11.
+It is a guided progression showing how those ideas build on each other from Chapter 4 through Chapter 12.
 
 ## Start Here
 
@@ -31,7 +31,7 @@ If you want the fastest useful entry path as a new developer:
 1. Read [chapter-04-feature-flag-evaluator](chapter-04-feature-flag-evaluator/README.md) to understand the smallest portable UMA service.
 2. Continue to [chapter-05-post-fetcher-runtime](chapter-05-post-fetcher-runtime/README.md) to see how the runtime wraps a pure service.
 3. Continue to [chapter-06-portability-lab](chapter-06-portability-lab/README.md) to see portability proven across native and WASI.
-4. Follow Chapters 7 through 11 in order if you want orchestration, trust, architectural tradeoffs, and long-term system evolution.
+4. Follow Chapters 7 through 12 in order if you want orchestration, trust, architectural tradeoffs, system evolution, and discoverable decision flows.
 
 If you only want one command to see whether the validated reader path works on your machine:
 
@@ -83,7 +83,7 @@ To simulate a first-time reader running from a clean tracked checkout:
 
 The chapter folders now follow one naming convention:
 
-- `chapter-04-*` through `chapter-11-*`
+- `chapter-04-*` through `chapter-12-*`
 
 That gives the repo one visible reading order and makes it easier to move between the book and the code.
 
@@ -99,6 +99,7 @@ The intended thread for a reader is:
 | 9 | Add trust policy, provenance, and communication boundaries so portability stays governed rather than naive. | [`chapter-09-trust-boundaries`](chapter-09-trust-boundaries/) |
 | 10 | Compare good and bad architectural decisions and see how they change runtime coherence. | [`chapter-10-architectural-tradeoffs`](chapter-10-architectural-tradeoffs/) |
 | 11 | Follow system evolution over time and see how contracts and runtime governance prevent fragmentation. | [`chapter-11-evolution-without-fragmentation`](chapter-11-evolution-without-fragmentation/) |
+| 12 | Make runtime decisions discoverable by exposing projections, proposals, validation feedback, and trace artifacts as queryable system surfaces. | [`chapter-12-discoverable-decisions`](chapter-12-discoverable-decisions/) |
 
 Chapter 3 is intentionally not a full lab in this repository. It is the conceptual bridge into Chapter 4, which is the first validated hands-on entry point.
 
@@ -116,6 +117,7 @@ Use this table if you want a chapter-by-chapter tutorial path instead of browsin
 | 6 | 9 | `cd chapter-09-trust-boundaries && ./scripts/run_trust_demo.sh lab1-trusted-service` | how portability must be governed by trust, provenance, and communication policy |
 | 7 | 10 | `cd chapter-10-architectural-tradeoffs && ./scripts/run_arch_demo.sh lab1-baseline` | how architectural choices change runtime coherence and system quality |
 | 8 | 11 | `cd chapter-11-evolution-without-fragmentation && ./scripts/run_evolution_demo.sh lab1-contract-anchor` | how systems keep evolving without fragmenting when contracts and runtime governance stay explicit |
+| 9 | 12 | `cd chapter-12-discoverable-decisions && ./scripts/run_decision_demo.sh lab1-capability-projection` | how a UMA system becomes discoverable when decisions, validation, and traces are exposed as artifacts |
 
 ---
 
@@ -131,6 +133,7 @@ Use this table if you want a chapter-by-chapter tutorial path instead of browsin
 | 9 | Rust and TypeScript | `./scripts/smoke_trust_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
 | 10 | Rust and TypeScript | `./scripts/smoke_arch_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
 | 11 | Rust and TypeScript | `./scripts/smoke_evolution_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
+| 12 | Rust and TypeScript | `./scripts/smoke_discoverability_labs.sh` with Rust as the validated default | TypeScript implementation kept in parity and exposed directly for comparison |
 
 Validated path means the commands are exercised by the repo smoke script and are the first path a reader should trust.
 
@@ -148,6 +151,7 @@ Validated path means the commands are exercised by the repo smoke script and are
 | 9 | **Trust Boundaries and Runtime Enforcement** | Demonstrates Chapter 9’s trust model with a Rust-first lab that validates service identity, permissions, dependency provenance, and communication policy across five trust-boundary scenarios. Includes a parallel TypeScript implementation. | [`chapter-09-trust-boundaries`](chapter-09-trust-boundaries/) |
 | 10 | **Architectural Tradeoffs and Runtime Coherence** | Demonstrates Chapter 10 through a Rust-first hands-on lab that compares coherent and degraded architectural choices across capability boundaries, events, metadata, placement, and orchestration. Includes a parallel TypeScript implementation. | [`chapter-10-architectural-tradeoffs`](chapter-10-architectural-tradeoffs/) |
 | 11 | **Evolution Without Fragmentation** | Demonstrates Chapter 11 through a Rust-first hands-on lab that follows behavioral drift, duplication, version sprawl, and runtime-governed coexistence across an evolving system. Includes a parallel TypeScript implementation. | [`chapter-11-evolution-without-fragmentation`](chapter-11-evolution-without-fragmentation/) |
+| 12 | **Discoverable Decisions** | Demonstrates Chapter 12 through a Rust-first hands-on lab that moves from hidden execution to queryable projections, structured proposals, authoritative validation feedback, bounded revision, approved execution, and full decision traces. Includes a parallel TypeScript implementation. | [`chapter-12-discoverable-decisions`](chapter-12-discoverable-decisions/) |
 
 ---
 

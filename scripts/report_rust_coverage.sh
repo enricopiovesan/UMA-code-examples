@@ -27,6 +27,7 @@ entries=(
   "Chapter 9|chapter-09-trust-boundaries/Cargo.toml|"
   "Chapter 10|chapter-10-architectural-tradeoffs/rust/Cargo.toml|"
   "Chapter 11|chapter-11-evolution-without-fragmentation/rust/Cargo.toml|"
+  "Chapter 12|chapter-12-discoverable-decisions/rust/Cargo.toml|"
 )
 
 printf '# Reader Rust Coverage\n\n' > "$SUMMARY_PATH"

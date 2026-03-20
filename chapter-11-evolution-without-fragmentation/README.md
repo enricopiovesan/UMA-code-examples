@@ -15,7 +15,7 @@ Chapter 11 is about:
 ## Learning path position
 
 - Previous: [Chapter 10: Architectural Tradeoffs and Runtime Coherence](../chapter-10-architectural-tradeoffs/README.md)
-- This is the end of the current validated tutorial path.
+- Next: [Chapter 12: Discoverable Decisions](../chapter-12-discoverable-decisions/README.md)
 
 ## Key concepts
 

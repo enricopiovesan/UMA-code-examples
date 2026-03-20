@@ -1,0 +1,116 @@
+{
+  "title": "Lab 12.6: Queryable Trace",
+  "summary": "The full decision lifecycle is now exposed through discoverable surfaces: proposal, violations, revision, approval, execution summary, and replayable trace artifacts.",
+  "decision_question": "What does a governed and understandable UMA decision look like end to end?",
+  "surfaces": [
+    {
+      "name": "edge projection",
+      "runtime": "edge",
+      "scope": "bounded",
+      "authority": "planning and trace query entry point",
+      "visible_capabilities": [
+        "route_hint.lookup",
+        "proposal.route_shift.write",
+        "decision_trace.query"
+      ],
+      "hidden_constraints": [
+        "none; hidden concerns are now exposed through explicit authority queries"
+      ],
+      "queries": [
+        "show the current approved decision",
+        "show trace identifiers for the routing change",
+        "show which assumptions belonged to the edge planner"
+      ]
+    },
+    {
+      "name": "cloud authority",
+      "runtime": "cloud",
+      "scope": "authoritative",
+      "authority": "validation, execution, and trace authority",
+      "visible_capabilities": [
+        "compliance.guard",
+        "route_selector.resolve",
+        "trace_artifact.write",
+        "decision_trace.query"
+      ],
+      "hidden_constraints": [],
+      "queries": [
+        "show the full artifact chain for the approved decision",
+        "show violations that shaped the final plan",
+        "show final placement and selected capabilities"
+      ]
+    }
+  ],
+  "proposal": {
+    "status": "queryable",
+    "summary": "The final proposal is preserved as a queryable artifact that links initial intent, revision, and approved execution together.",
+    "assumptions": [
+      "edge planning stays useful when it remains explicit and bounded",
+      "authority can be queried without collapsing into a hidden implementation detail"
+    ],
+    "unresolved": []
+  },
+  "validation": {
+    "status": "approved",
+    "summary": "Authority not only approves the decision but preserves the reasoning path that made the approval possible.",
+    "violations": [],
+    "guidance": [],
+    "authority_notes": [
+      "the final state includes both the approved decision and the explanation of how it was formed"
+    ]
+  },
+  "execution": {
+    "status": "resolved",
+    "summary": "Execution resolves the approved plan into edge hinting plus authoritative cloud routing, while keeping the full artifact chain available for audit and replay.",
+    "selected_capabilities": [
+      "route_hint.lookup",
+      "route_selector.resolve",
+      "compliance.guard",
+      "trace_artifact.write"
+    ],
+    "placement": [
+      "browser initiates the request and receives the visible decision id",
+      "edge computes the route hint and surfaces proposal metadata",
+      "cloud validates, resolves, and records the authoritative trace"
+    ]
+  },
+  "trace": {
+    "status": "full-trace",
+    "summary": "The trace is now a first-class output that captures proposal, feedback, revision, approval, execution, and artifact identifiers in one queryable chain.",
+    "artifacts": [
+      "initial-proposal.json",
+      "validation-response.json",
+      "revised-proposal.json",
+      "approval-summary.json",
+      "execution-summary.json",
+      "decision-trace.json"
+    ],
+    "queries": [
+      "show decision-trace.json for the last route shift",
+      "show the artifact sequence from proposal to execution",
+      "show why cloud authority kept the final authorization step"
+    ]
+  },
+  "functions": {
+    "planning": "Planning is explicit, bounded, and queryable without pretending that the edge is authoritative.",
+    "validation": "Validation remains the place where global trust and compliance are enforced, but it also exposes its reasoning.",
+    "execution": "Execution resolves the approved plan and records evidence instead of reopening the decision."
+  },
+  "axes": {
+    "projection_scope": "bounded",
+    "proposal_visibility": "queryable",
+    "authority_model": "authoritative-validation",
+    "revision_model": "single-revision",
+    "execution_model": "approved-resolution",
+    "traceability": "full-trace"
+  },
+  "expectations": [
+    "This is the Chapter 12 payoff: the system is executable, discoverable, and explainable at the same time.",
+    "A reader should be able to inspect the full decision lifecycle without reading hidden runtime code paths."
+  ],
+  "runtime_decisions": [
+    "the edge remains a bounded planning surface rather than a secret source of authority",
+    "the authoritative cloud path approves and resolves the final routing choice under full policy control",
+    "the complete artifact chain is preserved for query, audit, and replay"
+  ]
+}
