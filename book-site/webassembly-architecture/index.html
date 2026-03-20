@@ -79,6 +79,11 @@
               into a portable executable form. That lowers the cost of running the same logic in multiple places, but it does not by itself
               answer the harder questions about orchestration, trust, capability access, or long-term change.
             </p>
+            <p>
+              This is why UMA treats WebAssembly as an execution fit rather than the whole architectural answer. WebAssembly gives the
+              service a stable binary boundary. The rest of the model still has to explain contracts, policy, runtime governance, trust, and
+              system evolution.
+            </p>
           </section>
 
           <section>
@@ -127,21 +132,66 @@
           </section>
 
           <section>
+            <h2>What WebAssembly does not solve by itself</h2>
+            <p>
+              WebAssembly does not automatically define the service boundary, the contract, the trust model, or the operational policy. It
+              does not decide where a service should execute, how compatibility should be described, or how the system should evolve when
+              more capabilities are added. Those are architectural responsibilities that still need a clear model around the portable unit.
+            </p>
+            <p>
+              This is where UMA adds value. It gives WebAssembly a larger architectural context so the binary target contributes to a durable
+              system model rather than becoming one more technical layer that teams still have to interpret differently.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why architects care</h2>
+            <p>
+              Architects care about WebAssembly in this context because it changes the cost of preserving service behavior. Once the same
+              behavior can move across controlled runtimes with stronger isolation, the architecture can stop centering everything on stack
+              ownership. The conversation becomes less about where code happens to live today and more about how to preserve meaning over
+              time.
+            </p>
+            <p>
+              That makes WebAssembly relevant not just for performance or sandboxing, but for system design. It supports a more durable
+              answer to the question of how one service model can survive across many runtime surfaces.
+            </p>
+          </section>
+
+          <section>
             <h2>What architects should pay attention to</h2>
             <ul>
               <li>Whether the portable unit has a clear service boundary.</li>
               <li>Whether host capabilities are explicit instead of implied.</li>
               <li>Whether runtime policies stay visible as part of the system model.</li>
               <li>Whether portability reduces duplication instead of creating new blind spots.</li>
+              <li>Whether the service can be validated consistently across multiple runtime targets.</li>
             </ul>
           </section>
 
           <section>
-            <h2>Frequently asked question</h2>
+            <h2>Where teams go wrong</h2>
+            <p>
+              A common failure mode is to treat WebAssembly as if it alone guarantees a portable architecture. In practice, teams can still
+              build brittle systems if contracts stay vague, host bindings are hidden, or runtime policy lives only in undocumented code.
+            </p>
+            <p>
+              Another failure mode is treating WebAssembly as only a packaging choice. That misses the bigger opportunity. Its real value in
+              UMA is that it gives portable service behavior a stable execution target that the surrounding runtime can govern explicitly.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
             <h3>Does WebAssembly automatically make a system portable?</h3>
             <p>
               No. It makes portable execution more practical, but the system still needs contracts, trust, policy, and a coherent service
               model. Without those, WebAssembly becomes another delivery mechanism rather than a durable architectural boundary.
+            </p>
+            <h3>Does UMA require WebAssembly everywhere?</h3>
+            <p>
+              No. UMA benefits from WebAssembly as a strong portable execution target, but the architectural point is larger than one
+              technology choice. The key question is whether service behavior stays durable while runtime responsibilities remain explicit.
             </p>
           </section>
 
@@ -155,6 +205,7 @@
               <a href="../portable-business-logic/">Portable business logic</a>
               <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
               <a href="../examples/">Examples</a>
+              <a href="../diagrams/">Diagrams</a>
             </div>
           </section>
         </div>

@@ -73,11 +73,30 @@
 
         <div class="subpage-body">
           <section>
+            <h2>What runtime-agnostic architecture actually means</h2>
+            <p>
+              Runtime-agnostic architecture is often described too loosely, as if it only means code that can execute in more than one
+              place. That is not enough. The harder and more useful question is whether the business meaning of a service can stay stable
+              while the runtime around it changes. In UMA, the portable unit is the service behavior itself, while validation, transport,
+              policy, trust, placement, and host capability access stay visible around it.
+            </p>
+            <p>
+              This makes runtime-agnostic architecture a discipline of separation rather than a vague portability claim. The goal is not to
+              pretend every environment is the same. The goal is to stop every environment from quietly redefining what the service means.
+            </p>
+          </section>
+
+          <section>
             <h2>What should remain portable</h2>
             <p>
               The most valuable behavior in a system is usually the part that expresses rules, decisions, and domain meaning. That is the
               behavior that should remain portable. Storage choices, transport layers, host permissions, and placement strategies still
               matter, but they should not own the meaning of the service itself.
+            </p>
+            <p>
+              When this boundary is explicit, the same service behavior can move between client, edge, and cloud contexts without forcing a
+              fresh rewrite of the underlying business model. The runtime can still adapt how the service is hosted and executed, but it no
+              longer becomes the place where domain logic is silently reauthored.
             </p>
           </section>
 
@@ -90,7 +109,8 @@
             </p>
             <p>
               That makes the architecture easier to reason about because teams can separate “what this service means” from “how this
-              environment allows it to run.”
+              environment allows it to run.” A portable service is not an abstract idea floating above the system. It is a stable behavior
+              with a visible runtime story around it.
             </p>
           </section>
 
@@ -114,6 +134,20 @@
           </section>
 
           <section>
+            <h2>Why teams struggle without it</h2>
+            <p>
+              Most organizations already support many runtime surfaces whether they planned to or not. A browser client may contain decision
+              logic for speed, an edge worker may enforce a variation of the same rule for latency, and a backend service may reimplement
+              the logic again for final authority. Over time, these copies drift because each environment accumulates its own assumptions,
+              shortcuts, and local optimizations.
+            </p>
+            <p>
+              Runtime-agnostic architecture matters because it interrupts that pattern. It gives teams a more durable answer to the question
+              of what should be preserved as shared service behavior and what should remain visible as runtime-specific execution policy.
+            </p>
+          </section>
+
+          <section>
             <h2>Why it matters now</h2>
             <p>
               Modern systems are already spread across web, mobile, server, edge, and AI-driven execution contexts. The question is no
@@ -126,20 +160,57 @@
           </section>
 
           <section>
-            <h2>Common misunderstanding</h2>
+            <h2>How UMA frames the problem differently</h2>
+            <p>
+              UMA treats runtime-agnostic architecture as a boundary problem. It asks which part of the system should remain stable enough to
+              survive movement, and which part must remain explicit because it changes with the environment. That is different from a
+              conventional framework conversation, which often begins by asking which stack or deployment model should own the logic.
+            </p>
+            <p>
+              In practice, this means contracts matter more, runtime responsibilities stay visible, and trust and policy stop being
+              afterthoughts. The architecture becomes easier to review because the model itself tells you where a decision belongs.
+            </p>
+          </section>
+
+          <section>
+            <h2>Common misunderstandings</h2>
             <p>
               Runtime-agnostic does not mean runtime-neutral in the sense of treating all environments as interchangeable. Some services
               belong closer to users. Some belong in controlled backend environments. Some require more policy or trust than others. UMA is
               not trying to erase those differences. It is trying to stop them from owning the business model.
             </p>
+            <p>
+              Another common misunderstanding is that runtime-agnostic architecture removes the need for optimization. It does not. Teams
+              can still optimize for latency, placement, caching, security, and cost. The difference is that those optimizations happen
+              around a visible service boundary instead of forcing a new implementation of the service behavior itself.
+            </p>
           </section>
 
           <section>
-            <h2>Frequently asked question</h2>
+            <h2>What a good adoption path looks like</h2>
+            <p>
+              The best adoption path is usually small and evidence-driven. Start with one service whose behavior is clearly defined, preserve
+              that behavior through an explicit contract, and let the runtime own validation and adaptation around it. Once that pattern is
+              visible, it becomes easier to extend it into orchestration, trust decisions, and graph evolution.
+            </p>
+            <p>
+              This is also why the learning path on the site starts with a small portable service and only later moves into governance and
+              system evolution. Runtime-agnostic architecture is easier to understand when the first boundary is small and explicit.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
             <h3>Can a runtime-agnostic architecture still be optimized for one runtime?</h3>
             <p>
               Yes. The architecture can preserve one portable service model while still optimizing deployment, placement, caching, or
               transport around the runtime that matters most for a given use case.
+            </p>
+            <h3>Does runtime-agnostic architecture mean every service should run everywhere?</h3>
+            <p>
+              No. A runtime-agnostic service model is about preserving meaning, not forcing universal placement. Some services should stay
+              close to users, some should stay inside governed backend environments, and some should move between both. The important point
+              is that the service behavior is not rewritten every time placement changes.
             </p>
           </section>
 
@@ -153,6 +224,7 @@
               <a href="../portable-business-logic/">Portable business logic</a>
               <a href="../webassembly-architecture/">WebAssembly architecture</a>
               <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../examples/">Examples</a>
             </div>
           </section>
         </div>

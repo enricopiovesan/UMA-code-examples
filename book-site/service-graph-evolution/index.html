@@ -79,6 +79,26 @@
               together at runtime. The more that graph depends on declared compatibility rather than hidden rewiring, the more durable the
               architecture becomes.
             </p>
+            <p>
+              In UMA, the graph matters because it reveals how the system actually evolves. It shows which capabilities can participate,
+              which relationships are supported by contracts and metadata, and where growth is happening through governed compatibility
+              rather than accidental coupling.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why graph evolution matters more than static structure</h2>
+            <p>
+              Many architectures look coherent when drawn as a static picture. The harder question is whether they stay coherent as new
+              services, policies, and runtime environments are added. Service graph evolution is the point where the true quality of the
+              system becomes visible, because that is where hidden rewiring, duplicated orchestration, and ambiguous compatibility start to
+              accumulate.
+            </p>
+            <p>
+              A system that grows well is not just one that adds more nodes. It is one that remains interpretable while it changes. Teams
+              should be able to explain why a service participates in the graph, what relationships are allowed, and which runtime and trust
+              conditions shape that participation.
+            </p>
           </section>
 
           <section>
@@ -90,7 +110,8 @@
             </p>
             <p>
               UMA treats the graph as something that should remain interpretable over time. If teams can no longer explain how a service
-              becomes part of the graph, the architecture is already drifting.
+              becomes part of the graph, the architecture is already drifting. Growth should happen through visible relationships, not
+              through increasingly fragile knowledge hidden inside a few coordinating components.
             </p>
           </section>
 
@@ -114,6 +135,20 @@
           </section>
 
           <section>
+            <h2>What makes a graph governable</h2>
+            <p>
+              A governable graph is one where compatibility is explicit, metadata is trustworthy, and runtime selection can be explained.
+              It should be possible to understand why a service is compatible, why it was selected, and what policies shape its role in the
+              broader system. Without that visibility, a graph becomes just another hidden layer of system behavior.
+            </p>
+            <p>
+              This is also where service graph evolution connects directly to trust boundaries. A graph that grows without explicit runtime
+              trust and policy tends to become ambiguous. A graph that grows with visible compatibility and governed selection remains much
+              easier to reason about.
+            </p>
+          </section>
+
+          <section>
             <h2>Why this topic matters</h2>
             <p>
               Service graph evolution is where the real architectural cost of change becomes visible. If the graph can grow through explicit
@@ -133,28 +168,48 @@
               <li>Compatibility is inferred from implementation detail instead of declared contracts.</li>
               <li>Runtime placement and trust decisions stay hidden from the graph model.</li>
               <li>Teams cannot explain why one service participates and another does not.</li>
+              <li>Policy and metadata drift faster than the system can document them.</li>
             </ul>
           </section>
 
           <section>
-            <h2>Frequently asked question</h2>
+            <h2>What healthy graph growth looks like in practice</h2>
+            <p>
+              Healthy graph growth usually starts small. One service becomes compatible with another through a contract or event boundary.
+              Metadata makes that compatibility visible. Runtime policy determines whether and where that relationship is allowed. Over time,
+              new services can join the graph without requiring the old ones to be rewritten around them.
+            </p>
+            <p>
+              That kind of growth is slower to design up front, but cheaper to sustain. It keeps change visible, which is exactly what a
+              long-lived architecture needs.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
             <h3>Is a service graph just another architecture diagram?</h3>
             <p>
               No. In UMA, the graph is valuable because it reflects runtime-visible compatibility and composition, not just a static drawing
               made after the fact.
+            </p>
+            <h3>Does every UMA system need a large service graph?</h3>
+            <p>
+              No. Some systems remain small and should stay small. The point is not to maximize graph complexity. The point is to make
+              system growth legible and governed when it does happen.
             </p>
           </section>
 
           <section class="subpage-callout">
             <strong>Follow the practical path</strong>
             <p>
-              This idea becomes much clearer when paired with the examples and the learning path, where the graph emerges chapter by
-              chapter and its tradeoffs can be observed directly.
+              This idea becomes much clearer when paired with the examples, the learning path, and the diagrams page, where graph behavior
+              and compatibility can be inspected more directly.
             </p>
             <div class="subpage-inline-links">
               <a href="../examples/">Examples</a>
               <a href="../learning-path/">Learning Path</a>
               <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../diagrams/">Diagrams</a>
             </div>
           </section>
         </div>
