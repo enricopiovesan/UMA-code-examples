@@ -79,6 +79,11 @@
               What is allowed to call what? Which capabilities can be used, and under which policy? If those answers do not live in the
               architecture, portability becomes a liability instead of a strength.
             </p>
+            <p>
+              Portable systems expand faster than many teams expect. A service that is safe in one environment can become risky in another
+              if the trust story is left implicit. That is why UMA treats trust boundaries as part of the design model rather than as a late
+              layer of operational hardening.
+            </p>
           </section>
 
           <section>
@@ -89,8 +94,9 @@
               expressed as part of the runtime model so the architecture can explain it before production incidents do.
             </p>
             <p>
-              That matters because portable systems often expand faster than their governance model. A service that is safe in one runtime
-              can become risky in another if the trust story is left implicit.
+              That makes the trust boundary a design surface. It is where identity, policy, capability access, provenance, and auditability
+              come together around the service. The runtime is responsible for enforcing those decisions, but the architecture has to say
+              clearly what the decisions are.
             </p>
           </section>
 
@@ -126,21 +132,66 @@
           </section>
 
           <section>
+            <h2>What governed execution means</h2>
+            <p>
+              Governed execution means the runtime can explain why a capability was allowed, denied, or adapted in a particular way. The
+              important part is not only that the policy exists, but that it remains visible and reviewable as part of the system model.
+            </p>
+            <p>
+              In a portable system, governed execution is what keeps the same service from turning into a different risk profile every time
+              it moves. Identity, provenance, and permissions have to travel with the service boundary strongly enough that the runtime can
+              make consistent decisions across environments.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why trust becomes harder in portable systems</h2>
+            <p>
+              The more places a service can run, the more important it becomes to define who it is, what it can do, and what evidence the
+              runtime needs before it allows execution. Portability increases freedom, but it also increases the need for precise
+              governance. Without a clear trust model, a portable architecture can scale its blast radius faster than it scales confidence.
+            </p>
+            <p>
+              This is one reason trust boundaries connect so directly to service graph evolution. A graph of compatible services only remains
+              safe when the runtime can explain which relationships are permitted and why.
+            </p>
+          </section>
+
+          <section>
             <h2>Where teams usually go wrong</h2>
             <ul>
               <li>They assume the host environment will imply the right permissions.</li>
               <li>They treat provenance as an operational concern instead of a runtime input.</li>
               <li>They let identity emerge from deployment shape instead of from the service model.</li>
               <li>They add policy after portability has already expanded the blast radius.</li>
+              <li>They document trust informally instead of making it part of the runtime model.</li>
             </ul>
           </section>
 
           <section>
-            <h2>Frequently asked question</h2>
+            <h2>What good trust design looks like</h2>
+            <p>
+              Good trust design starts by naming the executable unit clearly, defining its contracts, and deciding which capabilities it is
+              allowed to use. The runtime then enforces those decisions consistently, with identity and provenance visible enough that the
+              system can audit what happened later.
+            </p>
+            <p>
+              This does not make the system rigid. It makes change safer. New services and new runtime contexts can still be introduced, but
+              only through a model that can explain what was permitted and why.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
             <h3>Why are trust boundaries more important in portable systems?</h3>
             <p>
               Because portable systems cross more execution contexts. The more places a service can run, the more important it becomes to
               define who it is, what it can do, and how the runtime enforces those decisions consistently.
+            </p>
+            <h3>Can trust be delegated entirely to the platform team?</h3>
+            <p>
+              The platform team can implement and operate enforcement, but the architecture still has to define what should be trusted, what
+              is allowed, and which runtime inputs matter. Otherwise the platform only enforces an incomplete model.
             </p>
           </section>
 
@@ -154,6 +205,7 @@
               <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
               <a href="../service-graph-evolution/">Service graph evolution</a>
               <a href="../examples/">Examples</a>
+              <a href="../diagrams/">Diagrams</a>
             </div>
           </section>
         </div>
