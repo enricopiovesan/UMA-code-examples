@@ -5,6 +5,7 @@ const finalOutput = document.getElementById("final-output");
 const graphScene = document.getElementById("graph-scene");
 const summaryStrip = document.getElementById("summary-strip");
 const graphInspector = document.getElementById("graph-inspector");
+const openReport = document.getElementById("open-report");
 
 function escapeHtml(value) {
   return String(value)
@@ -41,6 +42,11 @@ function goalSummary(report) {
 }
 
 function renderSummary(report) {
+  const reportHref = `./fixtures/${report.scenario}.json`;
+  if (openReport) {
+    openReport.href = reportHref;
+  }
+
   const rejectedSummary = report.rejected_capabilities.length
     ? report.rejected_capabilities
         .map((item) => `${escapeHtml(item.capability)} (${escapeHtml(item.reasons.join(", "))})`)
@@ -52,6 +58,10 @@ function renderSummary(report) {
       <p class="eyebrow">Scenario</p>
       <h2>${escapeHtml(report.title)}</h2>
       <p class="summary-text">${escapeHtml(report.summary)}</p>
+      <p class="summary-meta">
+        <span><strong>Scenario id:</strong> ${escapeHtml(report.scenario)}</span>
+        <a href="${reportHref}" target="_blank" rel="noreferrer">Inspect JSON report</a>
+      </p>
       <p class="summary-text"><strong>Goal framing:</strong> ${escapeHtml(goalSummary(report))}</p>
     </div>
     <div class="summary-grid">

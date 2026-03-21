@@ -96,6 +96,14 @@ button {
   gap: 10px;
 }
 
+.control-link {
+  color: var(--text);
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  font-size: 0.92rem;
+}
+
 select,
 button {
   width: 100%;
@@ -127,6 +135,22 @@ button {
 .summary-intro h2 {
   margin-bottom: 10px;
   font-size: clamp(1.55rem, 2.5vw, 2.4rem);
+}
+
+.summary-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.summary-meta a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .summary-grid {

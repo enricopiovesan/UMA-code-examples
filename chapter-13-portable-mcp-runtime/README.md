@@ -61,6 +61,12 @@ cd chapter-13-portable-mcp-runtime
 
 The scripts also work from the repo root if you prefix them with `chapter-13-portable-mcp-runtime/`.
 
+If you want the machine-readable report for one scenario, use:
+
+```bash
+cargo run --manifest-path rust/Cargo.toml -- render use-case-3-french-report json
+```
+
 ## Reader path
 
 Use this order if you are following Chapter 13 as a first-time reader:
@@ -151,6 +157,8 @@ python3 -m http.server 4173
 ```
 
 Then open [http://localhost:4173](http://localhost:4173).
+
+The shell also exposes a direct link to the machine-readable JSON for the currently selected scenario, so the CLI and browser views can be inspected side by side.
 
 ## Troubleshooting
 
