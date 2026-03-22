@@ -16,6 +16,8 @@ It is not a generic app and not a production orchestration platform. It is a sma
 - the runtime can adapt when constraints or availability change
 - the agent can propose, but the runtime remains authoritative
 - the current planner agent is deterministic and local in the validated path
+- `SummarizerAI` is treated as a real runtime-hosted capability contract even before its portable model provider is bound
+- if that capability falls back, the fallback stays explicit in the execution trace
 - MCP is exposed through a real server surface rather than only through diagrams
 - the same model stays portable across WASM-oriented environments
 

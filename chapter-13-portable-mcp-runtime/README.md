@@ -14,6 +14,7 @@ The point of Chapter 13 is not to add another generic workflow demo. The point i
 - requests define intent, not a fixed workflow
 - MCP exposes capability descriptors and invocation surfaces through a real stdio server
 - the agent proposes a path, but the runtime validates it
+- `PlannerAI` and `SummarizerAI` are modeled as explicit AI capabilities
 - capabilities execute through contracts rather than hardwired service calls
 - events make the transformation between steps visible
 - WASM portability keeps execution behavior stable across runtimes
@@ -50,7 +51,8 @@ What is real in this chapter today:
 What is not yet model-backed:
 
 - the planner agent does not call an external or embedded language model in the validated path
-- the seam for a future Hugging Face-backed planner or summarizer is preserved, but the current authoritative path remains local and inspectable
+- `SummarizerAI` is already treated as a real runtime-hosted capability contract, but the validated path still falls back to a deterministic implementation until the portable provider is bound
+- the fallback is reported explicitly in the machine-readable report and in the execution step that used it
 
 ## Validation status
 
@@ -146,6 +148,16 @@ Not in the validated path yet.
 The agent is real in the sense that it is an explicit planner component with its own provider boundary, and the runtime does not fake its decisions inside unrelated code. But the current provider is deterministic and local, because that keeps the authoritative execution path reproducible and inspectable.
 
 The chapter already preserves the right architectural seam for a future model-backed provider. What remains authoritative even then is still the UMA runtime: contracts, compatibility, validation, and execution do not become model-controlled.
+
+### "What happens when SummarizerAI is selected today?"
+
+The runtime still resolves the real `SummarizerAI` contract and validates it normally.
+In the current validated path, if `SummarizerAI` is selected, execution falls back automatically to a deterministic summarization provider because the portable runtime-hosted model provider is not yet bound.
+
+That fallback is not hidden:
+
+- the execution report records the provider, mode, and fallback reason
+- the browser shell can show the same note in the transformation step
 
 ## Hands-on flow
 

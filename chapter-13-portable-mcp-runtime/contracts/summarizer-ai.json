@@ -11,7 +11,7 @@
   },
   "emitsEvents": ["CapabilityExecuted", "ContextUpdated"],
   "metadata": {
-    "description": "Optional model-backed summarizer with higher quality but stronger runtime constraints.",
+    "description": "Runtime-hosted AI summarizer contract with higher quality expectations and stronger runtime constraints.",
     "tags": ["summary", "ai", "quality"]
   }
 }

@@ -25,6 +25,10 @@
     ],
     "aiAvailable": false
   },
+  "planner_provider": "deterministic-local-planner",
+  "summarizer_ai_provider": "not-invoked",
+  "summarizer_ai_mode": "not-invoked",
+  "summarizer_ai_fallback_reason": null,
   "selected_path": [
     "DataProviderLocal",
     "InsightEnricher",
@@ -40,6 +44,9 @@
       "agent_proposal": "DataProviderLocal",
       "proposed_validation": null,
       "selected_capability": "DataProviderLocal",
+      "execution_provider": "DataProviderLocal",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "provide-source-fragments",
         "available": [
@@ -56,6 +63,12 @@
             "intent": "derive-structured-insights",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
           },
           {
             "capability": "SummarizerBasic",
@@ -108,6 +121,19 @@
           "capability": "InsightEnricher",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
           "contextSnapshot": {
             "report": "none",
             "sourceLoaded": "false",
@@ -229,6 +255,9 @@
       "agent_proposal": "InsightEnricher",
       "proposed_validation": null,
       "selected_capability": "InsightEnricher",
+      "execution_provider": "InsightEnricher",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "derive-structured-insights",
         "available": [
@@ -245,6 +274,12 @@
             "intent": "provide-source-fragments",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
           },
           {
             "capability": "SummarizerBasic",
@@ -297,6 +332,19 @@
           "capability": "DataProviderLocal",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
           "contextSnapshot": {
             "report": "none",
             "sourceLoaded": "true",
@@ -418,6 +466,9 @@
       "agent_proposal": "SummarizerBasic",
       "proposed_validation": null,
       "selected_capability": "SummarizerBasic",
+      "execution_provider": "deterministic-local-summarizer",
+      "execution_mode": "deterministic",
+      "fallback_reason": null,
       "discovery": {
         "need": "generate-summary",
         "available": [
@@ -440,6 +491,12 @@
             "intent": "derive-structured-insights",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
           },
           {
             "capability": "SummarizerAI",
@@ -499,6 +556,19 @@
           "capability": "InsightEnricher",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser client captured usage metrics for three active regions. | Fact: Edge aggregation detected rising request volume and a stable error rate. | Fact: Cloud analytics recorded that the reporting module reduced triage time by eighteen percent.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
           "contextSnapshot": {
             "report": "none",
             "sourceLoaded": "true",
@@ -607,6 +677,9 @@
       "agent_proposal": "Formatter",
       "proposed_validation": null,
       "selected_capability": "Formatter",
+      "execution_provider": "Formatter",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "format-structured-report",
         "available": [
@@ -629,6 +702,12 @@
             "intent": "derive-structured-insights",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
           },
           {
             "capability": "SummarizerBasic",
@@ -688,6 +767,19 @@
           "capability": "InsightEnricher",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser client captured usage metrics for three active regions. | Fact: Edge aggregation detected rising request volume and a stable error rate. | Fact: Cloud analytics recorded that the reporting module reduced triage time by eighteen percent.",
+            "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
           "contextSnapshot": {
             "report": "none",
             "sourceLoaded": "true",
@@ -814,7 +906,7 @@
     },
     {
       "id": "agent",
-      "label": "Agent",
+      "label": "deterministic-local-planner",
       "kind": "agent",
       "state": "candidate",
       "x": 0.0,
@@ -856,6 +948,15 @@
       "x": -60.0,
       "y": 140.0,
       "z": 30.0
+    },
+    {
+      "id": "PlannerAI",
+      "label": "PlannerAI",
+      "kind": "capability",
+      "state": "inactive",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
     },
     {
       "id": "SummarizerBasic",

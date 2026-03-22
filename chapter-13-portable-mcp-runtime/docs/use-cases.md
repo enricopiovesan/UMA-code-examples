@@ -54,7 +54,8 @@ Generate a structured report in French.
 
 - the same goal can resolve through a different valid path
 - the runtime swaps capabilities based on current constraints instead of application rewrites
-- AI can participate as a capability without becoming the runtime authority
+- `PlannerAI` and `SummarizerAI` can participate as capabilities without becoming the runtime authority
+- if `SummarizerAI` is selected before its runtime-hosted provider is bound, the fallback must remain explicit and visible
 
 ## Use Case 3: French output with translation
 
@@ -131,5 +132,6 @@ Generate a structured report in French.
 ### What it proves
 
 - the agent participates in planning
+- `PlannerAI` is visible as an explicit planning capability
 - the runtime remains contract-authoritative
 - rejected candidates are visible and explainable

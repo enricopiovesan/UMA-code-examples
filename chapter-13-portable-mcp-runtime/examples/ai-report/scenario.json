@@ -16,7 +16,7 @@
       "Edge summaries report that French output improves stakeholder review time during rollout coordination.",
       "Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
     ],
-    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "SummarizerAI", "TranslatorFr", "Formatter"],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "PlannerAI", "SummarizerBasic", "SummarizerAI", "TranslatorFr", "Formatter"],
     "aiAvailable": true
   }
 }

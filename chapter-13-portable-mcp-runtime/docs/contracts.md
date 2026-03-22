@@ -41,6 +41,28 @@ The runtime maintains a shared execution context containing:
 - output language
 - runtime constraints
 
+For the Chapter 13 AI path, two AI-facing capabilities are modeled explicitly:
+
+- `PlannerAI`
+- `SummarizerAI`
+
+`PlannerAI` proposes the next capability from the visible contract surface, goal, and current context.
+`SummarizerAI` generates a richer report summary when constraints allow it.
+
+`SummarizerAI` is defined as a runtime-hosted AI capability.
+That means the contract is stable even if the current implementation path changes underneath it.
+In the validated Chapter 13 path today:
+
+- the runtime still resolves the `SummarizerAI` contract
+- execution remains visible and inspectable
+- if the runtime-hosted AI provider is not bound, the runtime falls back automatically
+- the fallback must be reported explicitly in both the machine-readable report and the UI step that executed it
+
+The runtime remains authoritative in both cases:
+
+- planner output is a proposal, not execution authority
+- summarization output is still consumed through validated capability execution
+
 ## Event model
 
 The event model stays small and explicit.

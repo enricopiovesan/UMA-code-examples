@@ -108,6 +108,9 @@ pub struct ExecutionStep {
     pub agent_proposal: Option<String>,
     pub proposed_validation: Option<ValidationResult>,
     pub selected_capability: String,
+    pub execution_provider: String,
+    pub execution_mode: String,
+    pub fallback_reason: Option<String>,
     pub discovery: DiscoverySnapshot,
     pub validation: ValidationResult,
     pub output_preview: String,
@@ -150,6 +153,10 @@ pub struct ExecutionReport {
     pub summary: String,
     pub goal: GoalSpec,
     pub initial_context: ContextSeed,
+    pub planner_provider: String,
+    pub summarizer_ai_provider: String,
+    pub summarizer_ai_mode: String,
+    pub summarizer_ai_fallback_reason: Option<String>,
     pub selected_path: Vec<String>,
     pub rejected_capabilities: Vec<ValidationResult>,
     pub steps: Vec<ExecutionStep>,
@@ -198,6 +205,7 @@ fn contract_fixtures() -> Vec<CapabilityContract> {
     [
         include_str!("../../contracts/data-provider-local.json"),
         include_str!("../../contracts/insight-enricher.json"),
+        include_str!("../../contracts/planner-ai.json"),
         include_str!("../../contracts/summarizer-basic.json"),
         include_str!("../../contracts/summarizer-ai.json"),
         include_str!("../../contracts/translator-fr.json"),
@@ -260,12 +268,14 @@ fn relevant_for_need(contract: &CapabilityContract, need: &str) -> bool {
 #[derive(Debug, Clone, Copy)]
 enum AgentProviderKind {
     DeterministicLocal,
+    PlannerAI,
 }
 
 impl AgentProviderKind {
     fn label(self) -> &'static str {
         match self {
             AgentProviderKind::DeterministicLocal => "deterministic-local-planner",
+            AgentProviderKind::PlannerAI => "PlannerAI",
         }
     }
 }
@@ -276,8 +286,27 @@ struct AgentDecision {
     proposal: Option<String>,
 }
 
+#[derive(Debug, Clone)]
+struct CapabilityExecutionMode {
+    provider: String,
+    mode: String,
+    fallback_reason: Option<String>,
+}
+
 fn agent_provider_for(_scenario: &Scenario) -> AgentProviderKind {
-    AgentProviderKind::DeterministicLocal
+    if _scenario.goal.prefer_ai
+        && !_scenario.goal.local_only
+        && _scenario.context.ai_available
+        && _scenario
+            .context
+            .available_capabilities
+            .iter()
+            .any(|item| item == "PlannerAI")
+    {
+        AgentProviderKind::PlannerAI
+    } else {
+        AgentProviderKind::DeterministicLocal
+    }
 }
 
 fn propose_with_agent(
@@ -288,6 +317,7 @@ fn propose_with_agent(
 ) -> AgentDecision {
     let proposal = match provider {
         AgentProviderKind::DeterministicLocal => deterministic_agent_proposal(need, scenario, visible),
+        AgentProviderKind::PlannerAI => deterministic_agent_proposal(need, scenario, visible),
     };
 
     AgentDecision { provider, proposal }
@@ -488,6 +518,29 @@ fn format_report_output(project: &str, state: &RuntimeState, language: &str) -> 
     )
 }
 
+fn execution_mode_for(contract: &CapabilityContract) -> CapabilityExecutionMode {
+    match contract.name.as_str() {
+        "SummarizerAI" => CapabilityExecutionMode {
+            provider: "deterministic-fallback-summarizer".to_string(),
+            mode: "fallback".to_string(),
+            fallback_reason: Some(
+                "runtime-hosted SummarizerAI provider is not yet bound in the validated path"
+                    .to_string(),
+            ),
+        },
+        "SummarizerBasic" => CapabilityExecutionMode {
+            provider: "deterministic-local-summarizer".to_string(),
+            mode: "deterministic".to_string(),
+            fallback_reason: None,
+        },
+        _ => CapabilityExecutionMode {
+            provider: contract.name.clone(),
+            mode: "standard".to_string(),
+            fallback_reason: None,
+        },
+    }
+}
+
 pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
     let scenario = load_scenario(root, id)?;
     let mut state = RuntimeState {
@@ -568,6 +621,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
             }
         })?;
         let validation = validation.expect("validation exists");
+        let execution_mode = execution_mode_for(&contract);
 
         let mut events = Vec::new();
         for candidate in &discovery.available {
@@ -660,8 +714,12 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
                 events.push(emit_event(
                     "CapabilityExecuted",
                     &contract.name,
-                    "success",
-                    None,
+                    if execution_mode.fallback_reason.is_some() {
+                        "fallback"
+                    } else {
+                        "success"
+                    },
+                    execution_mode.fallback_reason.clone(),
                     &state,
                 ));
                 state.summary.clone().unwrap()
@@ -710,6 +768,9 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
             agent_proposal: proposal,
             proposed_validation,
             selected_capability: contract.name,
+            execution_provider: execution_mode.provider,
+            execution_mode: execution_mode.mode,
+            fallback_reason: execution_mode.fallback_reason,
             discovery,
             validation,
             output_preview,
@@ -741,7 +802,19 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
     let mut graph_nodes = vec![
         GraphNode { id: "goal".into(), label: "Goal".into(), kind: "goal".into(), state: "complete".into(), x: -260.0, y: -150.0, z: -80.0 },
         GraphNode { id: "mcp".into(), label: "MCP node".into(), kind: "mcp".into(), state: "active".into(), x: -140.0, y: -20.0, z: 60.0 },
-        GraphNode { id: "agent".into(), label: "Agent".into(), kind: "agent".into(), state: if scenario.goal.prefer_ai { "active".into() } else { "candidate".into() }, x: 0.0, y: -170.0, z: 40.0 },
+        GraphNode {
+            id: "agent".into(),
+            label: agent_provider_for(&scenario).label().into(),
+            kind: "agent".into(),
+            state: if scenario.goal.prefer_ai || scenario.context.available_capabilities.iter().any(|item| item == "PlannerAI") {
+                "active".into()
+            } else {
+                "candidate".into()
+            },
+            x: 0.0,
+            y: -170.0,
+            z: 40.0,
+        },
         GraphNode { id: "runtime".into(), label: "UMA runtime".into(), kind: "runtime".into(), state: "active".into(), x: 10.0, y: -10.0, z: 0.0 },
         GraphNode { id: "result".into(), label: "Result".into(), kind: "result".into(), state: "complete".into(), x: 290.0, y: 130.0, z: 40.0 },
     ];
@@ -801,12 +874,28 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         });
     }
 
+    let planner_provider = agent_provider_for(&scenario).label().to_string();
+    let summarizer_ai_step = steps
+        .iter()
+        .find(|step| step.selected_capability == "SummarizerAI");
+    let summarizer_ai_provider = summarizer_ai_step
+        .map(|step| step.execution_provider.clone())
+        .unwrap_or_else(|| "not-invoked".to_string());
+    let summarizer_ai_mode = summarizer_ai_step
+        .map(|step| step.execution_mode.clone())
+        .unwrap_or_else(|| "not-invoked".to_string());
+    let summarizer_ai_fallback_reason = summarizer_ai_step.and_then(|step| step.fallback_reason.clone());
+
     Ok(ExecutionReport {
         scenario: scenario.id,
         title: scenario.title,
         summary: scenario.summary,
         goal: scenario.goal,
         initial_context: scenario.context,
+        planner_provider,
+        summarizer_ai_provider,
+        summarizer_ai_mode,
+        summarizer_ai_fallback_reason,
         selected_path,
         rejected_capabilities,
         steps,
@@ -836,7 +925,20 @@ pub fn format_report(report: &ExecutionReport) -> String {
     let _ = writeln!(out, "- project: {}", report.initial_context.project_name);
     let _ = writeln!(out, "- source fragments: {}", report.initial_context.source_fragments.len());
     let _ = writeln!(out, "- available capabilities: {}", report.initial_context.available_capabilities.join(", "));
-    let _ = writeln!(out, "- AI available: {}\n", report.initial_context.ai_available);
+    let _ = writeln!(out, "- AI available: {}", report.initial_context.ai_available);
+    let _ = writeln!(out, "- planner provider: {}\n", report.planner_provider);
+
+    let _ = writeln!(out, "SummarizerAI:");
+    let _ = writeln!(out, "- provider: {}", report.summarizer_ai_provider);
+    let _ = writeln!(out, "- mode: {}", report.summarizer_ai_mode);
+    let _ = writeln!(
+        out,
+        "- fallback reason: {}\n",
+        report
+            .summarizer_ai_fallback_reason
+            .as_deref()
+            .unwrap_or("none")
+    );
 
     let _ = writeln!(out, "Selected Path:");
     for item in &report.selected_path {
@@ -868,6 +970,11 @@ pub fn format_report(report: &ExecutionReport) -> String {
             "  agent provider: {}",
             step.agent_provider
         );
+        let _ = writeln!(out, "  execution provider: {}", step.execution_provider);
+        let _ = writeln!(out, "  execution mode: {}", step.execution_mode);
+        if let Some(reason) = &step.fallback_reason {
+            let _ = writeln!(out, "  fallback note: {}", reason);
+        }
         let _ = writeln!(
             out,
             "  agent proposal: {}",
@@ -965,6 +1072,7 @@ mod tests {
     #[test]
     fn agent_proposal_can_be_rejected_by_runtime() {
         let report = run_scenario(&project_root(), "use-case-5-agent-validation").unwrap();
+        assert_eq!(report.planner_provider, "deterministic-local-planner");
         assert!(report
             .rejected_capabilities
             .iter()
@@ -983,8 +1091,23 @@ mod tests {
     #[test]
     fn ai_report_prefers_ai_when_constraints_allow_it() {
         let report = run_scenario(&project_root(), "use-case-2-ai-report").unwrap();
+        assert_eq!(report.planner_provider, "PlannerAI");
         assert!(report.selected_path.iter().any(|item| item == "SummarizerAI"));
         assert!(!report.selected_path.iter().any(|item| item == "SummarizerBasic"));
+        assert_eq!(report.summarizer_ai_mode, "fallback");
+        assert_eq!(report.summarizer_ai_provider, "deterministic-fallback-summarizer");
+        assert!(report
+            .summarizer_ai_fallback_reason
+            .as_deref()
+            .unwrap()
+            .contains("runtime-hosted SummarizerAI provider is not yet bound"));
+        let ai_step = report
+            .steps
+            .iter()
+            .find(|step| step.selected_capability == "SummarizerAI")
+            .unwrap();
+        assert_eq!(ai_step.execution_mode, "fallback");
+        assert!(ai_step.fallback_reason.is_some());
         assert_eq!(report.final_language, "fr");
     }
 }

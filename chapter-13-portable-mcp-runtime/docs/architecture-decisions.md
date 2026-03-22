@@ -18,7 +18,8 @@ TypeScript may be used only for the browser shell or integration glue. There is 
 
 - the planner agent is deterministic and local for the MVP
 - the planner agent must remain behind a provider boundary so a model-backed implementation can be added later without changing runtime authority
-- a model-backed summarization capability may exist as an optional execution candidate
+- `SummarizerAI` is modeled as a runtime-hosted AI capability with a stable contract
+- until the runtime-hosted provider is bound, fallback is allowed for continuity, but the fallback must be explicit in reports and UI
 - the runtime remains authoritative for validation and execution
 
 ## UX decision

@@ -1,0 +1,17 @@
+{
+  "name": "PlannerAI",
+  "version": "1.0.0",
+  "intent": "propose-next-capability",
+  "inputs": ["goal", "available_capabilities", "runtime_context"],
+  "outputs": ["capability_proposal"],
+  "constraints": {
+    "runtime": ["edge-wasm", "cloud-wasm"],
+    "requires": ["ai"],
+    "excludes": ["local-only"]
+  },
+  "emitsEvents": ["CapabilityProposed"],
+  "metadata": {
+    "description": "Model-backed planner that proposes the next capability from the current goal, constraints, and visible contracts.",
+    "tags": ["planning", "ai", "proposal"]
+  }
+}

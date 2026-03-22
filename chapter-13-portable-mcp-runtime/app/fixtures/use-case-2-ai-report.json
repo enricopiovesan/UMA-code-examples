@@ -19,6 +19,7 @@
     "availableCapabilities": [
       "DataProviderLocal",
       "InsightEnricher",
+      "PlannerAI",
       "SummarizerBasic",
       "SummarizerAI",
       "TranslatorFr",
@@ -26,6 +27,10 @@
     ],
     "aiAvailable": true
   },
+  "planner_provider": "PlannerAI",
+  "summarizer_ai_provider": "deterministic-fallback-summarizer",
+  "summarizer_ai_mode": "fallback",
+  "summarizer_ai_fallback_reason": "runtime-hosted SummarizerAI provider is not yet bound in the validated path",
   "selected_path": [
     "DataProviderLocal",
     "InsightEnricher",
@@ -38,10 +43,13 @@
     {
       "index": 1,
       "need": "provide-source-fragments",
-      "agent_provider": "deterministic-local-planner",
+      "agent_provider": "PlannerAI",
       "agent_proposal": "DataProviderLocal",
       "proposed_validation": null,
       "selected_capability": "DataProviderLocal",
+      "execution_provider": "DataProviderLocal",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "provide-source-fragments",
         "available": [
@@ -56,6 +64,12 @@
           {
             "capability": "InsightEnricher",
             "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
           },
@@ -108,6 +122,19 @@
         {
           "type": "CapabilityRejected",
           "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
           "contextSnapshot": {
@@ -227,10 +254,13 @@
     {
       "index": 2,
       "need": "derive-structured-insights",
-      "agent_provider": "deterministic-local-planner",
+      "agent_provider": "PlannerAI",
       "agent_proposal": "InsightEnricher",
       "proposed_validation": null,
       "selected_capability": "InsightEnricher",
+      "execution_provider": "InsightEnricher",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "derive-structured-insights",
         "available": [
@@ -245,6 +275,12 @@
           {
             "capability": "DataProviderLocal",
             "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
           },
@@ -297,6 +333,19 @@
         {
           "type": "CapabilityRejected",
           "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
           "contextSnapshot": {
@@ -416,10 +465,13 @@
     {
       "index": 3,
       "need": "generate-summary",
-      "agent_provider": "deterministic-local-planner",
+      "agent_provider": "PlannerAI",
       "agent_proposal": "SummarizerAI",
       "proposed_validation": null,
       "selected_capability": "SummarizerAI",
+      "execution_provider": "deterministic-fallback-summarizer",
+      "execution_mode": "fallback",
+      "fallback_reason": "runtime-hosted SummarizerAI provider is not yet bound in the validated path",
       "discovery": {
         "need": "generate-summary",
         "available": [
@@ -446,6 +498,12 @@
           {
             "capability": "InsightEnricher",
             "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
           },
@@ -524,6 +582,19 @@
         },
         {
           "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
           "capability": "TranslatorFr",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
@@ -590,8 +661,8 @@
         {
           "type": "CapabilityExecuted",
           "capability": "SummarizerAI",
-          "status": "success",
-          "reason": null,
+          "status": "fallback",
+          "reason": "runtime-hosted SummarizerAI provider is not yet bound in the validated path",
           "contextSnapshot": {
             "report": "none",
             "sourceLoaded": "true",
@@ -605,10 +676,13 @@
     {
       "index": 4,
       "need": "translate-to-target-language",
-      "agent_provider": "deterministic-local-planner",
+      "agent_provider": "PlannerAI",
       "agent_proposal": "TranslatorFr",
       "proposed_validation": null,
       "selected_capability": "TranslatorFr",
+      "execution_provider": "TranslatorFr",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "translate-to-target-language",
         "available": [
@@ -629,6 +703,12 @@
           {
             "capability": "InsightEnricher",
             "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
           },
@@ -688,6 +768,19 @@
         {
           "type": "CapabilityRejected",
           "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
           "contextSnapshot": {
@@ -794,10 +887,13 @@
     {
       "index": 5,
       "need": "format-structured-report",
-      "agent_provider": "deterministic-local-planner",
+      "agent_provider": "PlannerAI",
       "agent_proposal": "Formatter",
       "proposed_validation": null,
       "selected_capability": "Formatter",
+      "execution_provider": "Formatter",
+      "execution_mode": "standard",
+      "fallback_reason": null,
       "discovery": {
         "need": "format-structured-report",
         "available": [
@@ -818,6 +914,12 @@
           {
             "capability": "InsightEnricher",
             "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
             "reason": "does not contribute to the current unmet need",
             "status": "not-relevant"
           },
@@ -877,6 +979,19 @@
         {
           "type": "CapabilityRejected",
           "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
           "status": "not-relevant",
           "reason": "does not contribute to the current unmet need",
           "contextSnapshot": {
@@ -1005,7 +1120,7 @@
     },
     {
       "id": "agent",
-      "label": "Agent",
+      "label": "PlannerAI",
       "kind": "agent",
       "state": "active",
       "x": 0.0,
@@ -1047,6 +1162,15 @@
       "x": -60.0,
       "y": 140.0,
       "z": 30.0
+    },
+    {
+      "id": "PlannerAI",
+      "label": "PlannerAI",
+      "kind": "capability",
+      "state": "candidate",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
     },
     {
       "id": "SummarizerBasic",

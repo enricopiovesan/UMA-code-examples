@@ -16,7 +16,7 @@
       "Edge services expose compatibility summaries for active deployments.",
       "Cloud analysis indicates that deterministic summaries are still accurate enough for this request."
     ],
-    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "SummarizerBasic", "SummarizerAI", "TranslatorFr", "Formatter"],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "PlannerAI", "SummarizerBasic", "SummarizerAI", "TranslatorFr", "Formatter"],
     "aiAvailable": true
   }
 }

@@ -131,6 +131,9 @@ function renderTransformations(report, focusedStepIndex) {
             step.proposed_validation.reasons.join(", ")
           )}</p>`
         : "";
+      const fallbackNote = step.fallback_reason
+        ? `<p class="summary-text proposal-reject"><strong>Fallback:</strong> ${escapeHtml(step.fallback_reason)}</p>`
+        : "";
 
       return `
         <article class="transform-card ${isFocused ? "is-focused" : ""}">
@@ -142,6 +145,7 @@ function renderTransformations(report, focusedStepIndex) {
           <h3>${escapeHtml(step.selected_capability)}</h3>
           <p class="summary-text"><strong>Agent proposal:</strong> ${escapeHtml(step.agent_proposal ?? "none")}</p>
           ${proposalStatus}
+          ${fallbackNote}
           <div class="transform-boxes">
             <div class="transform-box">
               <small>Input state</small>
