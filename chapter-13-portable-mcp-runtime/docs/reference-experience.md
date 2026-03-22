@@ -15,6 +15,8 @@ It is not a generic app and not a production orchestration platform. It is a sma
 - composition is not hardwired
 - the runtime can adapt when constraints or availability change
 - the agent can propose, but the runtime remains authoritative
+- the current planner agent is deterministic and local in the validated path
+- MCP is exposed through a real server surface rather than only through diagrams
 - the same model stays portable across WASM-oriented environments
 
 ## Primary scenario

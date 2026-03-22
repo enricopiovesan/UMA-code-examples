@@ -1,4 +1,4 @@
-use chapter13_portable_mcp_runtime::{format_report, list_scenarios, project_root, run_scenario};
+use chapter13_portable_mcp_runtime::{format_report, list_scenarios, mcp, project_root, run_scenario};
 
 fn usage_text() -> String {
     [
@@ -6,6 +6,7 @@ fn usage_text() -> String {
         "  cargo run --manifest-path rust/Cargo.toml -- list",
         "  cargo run --manifest-path rust/Cargo.toml -- render <scenario> [text|json]",
         "  cargo run --manifest-path rust/Cargo.toml -- validate [scenario]",
+        "  cargo run --manifest-path rust/Cargo.toml -- mcp-serve",
     ]
     .join("\n")
 }
@@ -61,13 +62,21 @@ where
                 Ok(summaries.join("\n"))
             }
         }
+        "mcp-serve" => {
+            mcp::serve_stdio()?;
+            Ok(String::new())
+        }
         _ => Err(usage_text()),
     }
 }
 
 fn main() {
     match run(std::env::args().skip(1)) {
-        Ok(output) => println!("{output}"),
+        Ok(output) => {
+            if !output.is_empty() {
+                println!("{output}");
+            }
+        }
         Err(err) => {
             eprintln!("{err}");
             std::process::exit(1);
@@ -95,5 +104,10 @@ mod tests {
         .unwrap();
         assert!(output.contains("\"selected_path\""));
         assert!(output.contains("\"TranslatorFr\""));
+    }
+
+    #[test]
+    fn usage_text_mentions_mcp_server() {
+        assert!(usage_text().contains("mcp-serve"));
     }
 }

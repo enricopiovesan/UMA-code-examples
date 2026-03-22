@@ -2,7 +2,7 @@
 
 This example turns Chapter 13 of the UMA book into a reference lab.
 
-The point of Chapter 13 is not to add another generic workflow demo. The point is to show how a UMA runtime, MCP discovery, event-driven capabilities, WASM portability, and agent-assisted reasoning combine into one coherent execution flow.
+The point of Chapter 13 is not to add another generic workflow demo. The point is to show how a UMA runtime, a real MCP discovery surface, event-driven capabilities, WASM portability, and agent-assisted reasoning combine into one coherent execution flow.
 
 ## Learning path position
 
@@ -12,7 +12,7 @@ The point of Chapter 13 is not to add another generic workflow demo. The point i
 ## Key concepts
 
 - requests define intent, not a fixed workflow
-- MCP exposes capability descriptors and discovery surfaces
+- MCP exposes capability descriptors and invocation surfaces through a real stdio server
 - the agent proposes a path, but the runtime validates it
 - capabilities execute through contracts rather than hardwired service calls
 - events make the transformation between steps visible
@@ -40,6 +40,18 @@ chapter-13-portable-mcp-runtime/
 
 No external services are required for the validated CLI path.
 
+What is real in this chapter today:
+
+- the UMA runtime is real Rust code
+- the browser shell is fed by real runtime reports
+- the MCP server is a real stdio JSON-RPC server in Rust
+- the planner agent is a real explicit provider, currently deterministic and local
+
+What is not yet model-backed:
+
+- the planner agent does not call an external or embedded language model in the validated path
+- the seam for a future Hugging Face-backed planner or summarizer is preserved, but the current authoritative path remains local and inspectable
+
 ## Validation status
 
 - Validated path: `./scripts/smoke_portable_mcp_labs.sh`
@@ -56,6 +68,7 @@ cd chapter-13-portable-mcp-runtime
 ./scripts/run_lab.sh use-case-2-ai-report
 ./scripts/run_lab.sh use-case-3-french-report
 ./scripts/run_lab.sh use-case-5-agent-validation
+./scripts/smoke_mcp_server.sh
 ./scripts/smoke_portable_mcp_labs.sh
 ```
 
@@ -66,6 +79,21 @@ If you want the machine-readable report for one scenario, use:
 ```bash
 cargo run --manifest-path rust/Cargo.toml -- render use-case-3-french-report json
 ```
+
+If you want to run the Chapter 13 MCP server directly, use:
+
+```bash
+./scripts/run_mcp_server.sh
+```
+
+It serves the chapter through stdio JSON-RPC and exposes:
+
+- `list_scenarios`
+- `describe_scenario`
+- `list_capabilities`
+- `run_scenario`
+- `validate_scenario`
+- `render_report`
 
 ## Reader path
 
@@ -105,11 +133,19 @@ The key sections are:
 
 ### "Where is MCP in this chapter?"
 
-MCP is the discoverability and invocation surface. It exposes capability descriptors and acts as the entry point through which capabilities are queried and invoked. It does not own business execution logic.
+MCP is the discoverability and invocation surface. In this repo, it is a real stdio JSON-RPC server implemented in Rust. It exposes capability descriptors and runtime tools, and acts as the entry point through which capabilities are queried and scenarios are invoked. It does not own business execution logic.
 
 ### "Why is Rust the only runtime implementation here?"
 
 Chapter 13 is the reference experience. The strongest version is one authoritative Rust/WASM implementation rather than a duplicated parity path that would add surface area without improving architectural clarity.
+
+### "Is the agent a real AI model?"
+
+Not in the validated path yet.
+
+The agent is real in the sense that it is an explicit planner component with its own provider boundary, and the runtime does not fake its decisions inside unrelated code. But the current provider is deterministic and local, because that keeps the authoritative execution path reproducible and inspectable.
+
+The chapter already preserves the right architectural seam for a future model-backed provider. What remains authoritative even then is still the UMA runtime: contracts, compatibility, validation, and execution do not become model-controlled.
 
 ## Hands-on flow
 

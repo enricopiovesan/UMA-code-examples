@@ -35,6 +35,7 @@
     {
       "index": 1,
       "need": "provide-source-fragments",
+      "agent_provider": "deterministic-local-planner",
       "agent_proposal": "DataProviderLocal",
       "proposed_validation": null,
       "selected_capability": "DataProviderLocal",
@@ -223,6 +224,7 @@
     {
       "index": 2,
       "need": "derive-structured-insights",
+      "agent_provider": "deterministic-local-planner",
       "agent_proposal": "InsightEnricher",
       "proposed_validation": null,
       "selected_capability": "InsightEnricher",
@@ -411,6 +413,7 @@
     {
       "index": 3,
       "need": "generate-summary",
+      "agent_provider": "deterministic-local-planner",
       "agent_proposal": "SummarizerBasic",
       "proposed_validation": null,
       "selected_capability": "SummarizerBasic",
@@ -599,6 +602,7 @@
     {
       "index": 4,
       "need": "format-structured-report",
+      "agent_provider": "deterministic-local-planner",
       "agent_proposal": "Formatter",
       "proposed_validation": null,
       "selected_capability": "Formatter",

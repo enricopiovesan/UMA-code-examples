@@ -11,12 +11,13 @@ TypeScript may be used only for the browser shell or integration glue. There is 
 - the runtime is written in Rust
 - the runtime is designed to compile to WASM
 - capability implementations are modeled as WASM-oriented contracts and resolvable runtime modules
-- the MCP-facing surface is represented through runtime discovery and invocation APIs
+- the MCP-facing surface is implemented as a real stdio JSON-RPC server in Rust
 - eventing is used for capability interaction and visibility
 
 ## AI integration
 
 - the planner agent is deterministic and local for the MVP
+- the planner agent must remain behind a provider boundary so a model-backed implementation can be added later without changing runtime authority
 - a model-backed summarization capability may exist as an optional execution candidate
 - the runtime remains authoritative for validation and execution
 

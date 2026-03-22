@@ -9,37 +9,56 @@
   <body>
     <main class="app-shell">
       <header class="app-header">
-        <div>
-          <p class="eyebrow">Chapter 13</p>
-          <h1>Portable MCP Runtime Reference Experience</h1>
-          <p class="intro">
-            A reader-facing shell for the Chapter 13 Rust runtime. The timeline explains what happened to the request. The graph shows how MCP, the agent, the runtime, and capabilities were coordinated.
-          </p>
-        </div>
+        <h1>UMA Ref APP</h1>
         <form class="controls">
-          <label for="scenario-select">Scenario</label>
-          <select id="scenario-select" name="scenario"></select>
-          <button id="run-scenario" type="button">Run scenario</button>
-          <a id="open-report" class="control-link" href="./fixtures/use-case-1-basic-report.json" target="_blank" rel="noreferrer">
-            Open machine-readable report
-          </a>
+          <div class="scenario-picker">
+            <select id="scenario-select" name="scenario"></select>
+            <button id="run-scenario" type="button">Play</button>
+            <button id="open-commands" class="icon-button" type="button" aria-label="Open workflow info">i</button>
+          </div>
         </form>
       </header>
 
       <section class="app-summary" id="summary-strip"></section>
 
-      <section class="app-layout">
-        <section class="panel timeline-panel">
-          <div class="panel-head">
-            <p class="eyebrow">Left panel</p>
-            <h2>Execution timeline</h2>
+      <aside class="commands-modal" id="commands-modal" hidden>
+        <div class="commands-backdrop" data-close-commands></div>
+        <div class="commands-dialog" role="dialog" aria-modal="true" aria-labelledby="commands-title">
+          <div class="commands-dialog-head">
+            <h2 id="commands-title">Workflow info</h2>
+            <button class="commands-close" id="close-commands" type="button" aria-label="Close CLI commands">Close</button>
           </div>
-          <div id="timeline"></div>
+          <div class="scenario-facts" id="scenario-facts"></div>
+          <div class="command-stack" id="command-stack"></div>
+        </div>
+      </aside>
+
+      <section class="app-layout">
+        <section class="panel transform-panel">
+          <div class="panel-head">
+            <h2>State transformations</h2>
+            <p class="panel-copy">
+              Each step shows how the request state changes as the runtime selects, validates, and executes one capability at a time.
+            </p>
+            <div class="step-focus-row">
+              <label for="step-select">Step focus</label>
+              <select id="step-select" name="step"></select>
+              <a id="open-report" class="control-link inline" href="./fixtures/use-case-1-basic-report.json" target="_blank" rel="noreferrer">
+                JSON report
+              </a>
+            </div>
+          </div>
+          <div id="transformation-flow"></div>
+          <div class="final-output-card">
+            <div class="panel-head compact">
+              <h2>Final output</h2>
+            </div>
+            <pre id="final-output"></pre>
+          </div>
         </section>
 
         <section class="panel graph-panel">
           <div class="panel-head">
-            <p class="eyebrow">Right panel</p>
             <h2>3D capability graph</h2>
             <p class="panel-copy">
               Candidate, rejected, and completed nodes stay synchronized with the execution timeline so the runtime path remains inspectable.
@@ -57,14 +76,6 @@
           </div>
           <div class="graph-inspector" id="graph-inspector"></div>
         </section>
-      </section>
-
-      <section class="app-output">
-        <div class="panel-head">
-          <p class="eyebrow">Result</p>
-          <h2>Final output</h2>
-        </div>
-        <pre id="final-output"></pre>
       </section>
     </main>
 

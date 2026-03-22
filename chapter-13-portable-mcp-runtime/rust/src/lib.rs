@@ -5,6 +5,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use wasm_bindgen::prelude::*;
 
+pub mod mcp;
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct CapabilityContract {
     pub name: String,
@@ -102,6 +104,7 @@ pub struct ValidationResult {
 pub struct ExecutionStep {
     pub index: usize,
     pub need: String,
+    pub agent_provider: String,
     pub agent_proposal: Option<String>,
     pub proposed_validation: Option<ValidationResult>,
     pub selected_capability: String,
@@ -205,6 +208,24 @@ fn contract_fixtures() -> Vec<CapabilityContract> {
     .collect()
 }
 
+pub fn capability_descriptors() -> Vec<CapabilityContract> {
+    contract_fixtures()
+}
+
+pub fn available_capabilities_for_scenario(root: &Path, id: &str) -> Result<Vec<CapabilityContract>, String> {
+    let scenario = load_scenario(root, id)?;
+    Ok(contract_fixtures()
+        .into_iter()
+        .filter(|contract| {
+            scenario
+                .context
+                .available_capabilities
+                .iter()
+                .any(|item| item == &contract.name)
+        })
+        .collect())
+}
+
 fn current_need(goal: &GoalSpec, state: &RuntimeState) -> &'static str {
     if !state.source_loaded {
         "provide-source-fragments"
@@ -236,7 +257,47 @@ fn relevant_for_need(contract: &CapabilityContract, need: &str) -> bool {
     contract.intent == need
 }
 
-fn agent_proposal(need: &str, scenario: &Scenario, visible: &[CapabilityContract]) -> Option<String> {
+#[derive(Debug, Clone, Copy)]
+enum AgentProviderKind {
+    DeterministicLocal,
+}
+
+impl AgentProviderKind {
+    fn label(self) -> &'static str {
+        match self {
+            AgentProviderKind::DeterministicLocal => "deterministic-local-planner",
+        }
+    }
+}
+
+#[derive(Debug, Clone)]
+struct AgentDecision {
+    provider: AgentProviderKind,
+    proposal: Option<String>,
+}
+
+fn agent_provider_for(_scenario: &Scenario) -> AgentProviderKind {
+    AgentProviderKind::DeterministicLocal
+}
+
+fn propose_with_agent(
+    provider: AgentProviderKind,
+    need: &str,
+    scenario: &Scenario,
+    visible: &[CapabilityContract],
+) -> AgentDecision {
+    let proposal = match provider {
+        AgentProviderKind::DeterministicLocal => deterministic_agent_proposal(need, scenario, visible),
+    };
+
+    AgentDecision { provider, proposal }
+}
+
+fn deterministic_agent_proposal(
+    need: &str,
+    scenario: &Scenario,
+    visible: &[CapabilityContract],
+) -> Option<String> {
     if need == "generate-summary" && scenario.goal.prefer_ai {
         if visible.iter().any(|c| c.name == "SummarizerAI") {
             return Some("SummarizerAI".to_string());
@@ -465,7 +526,8 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         }
 
         let (visible, discovery) = discover_candidates(&scenario, &state, need);
-        let proposal = agent_proposal(need, &scenario, &visible);
+        let agent_decision = propose_with_agent(agent_provider_for(&scenario), need, &scenario, &visible);
+        let proposal = agent_decision.proposal.clone();
 
         let mut selected_contract = None;
         let mut validation = None;
@@ -644,6 +706,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         steps.push(ExecutionStep {
             index,
             need: need.to_string(),
+            agent_provider: agent_decision.provider.label().to_string(),
             agent_proposal: proposal,
             proposed_validation,
             selected_capability: contract.name,
@@ -800,6 +863,11 @@ pub fn format_report(report: &ExecutionReport) -> String {
     for step in &report.steps {
         let _ = writeln!(out, "Step {}: {}", step.index, step.selected_capability);
         let _ = writeln!(out, "  unmet need: {}", step.need);
+        let _ = writeln!(
+            out,
+            "  agent provider: {}",
+            step.agent_provider
+        );
         let _ = writeln!(
             out,
             "  agent proposal: {}",

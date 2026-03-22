@@ -10,5 +10,7 @@ for lab in $(./scripts/list_labs.sh --ids-only); do
   ./scripts/run_lab.sh "$lab" >/dev/null
 done
 
+./scripts/smoke_mcp_server.sh
+
 echo "Chapter 13 portable MCP labs passed."
 popd >/dev/null
