@@ -51,8 +51,15 @@ What is real in this chapter today:
 What is not yet model-backed:
 
 - the planner agent does not call an external or embedded language model in the validated path
-- `SummarizerAI` is already treated as a real runtime-hosted capability contract, but the validated path still falls back to a deterministic implementation until the portable provider is bound
+- `SummarizerAI` is already treated as a real runtime-hosted capability contract, and it runs through a separate WASI module once the chapter-local model artifacts are installed and the module is built
+- if the runtime-hosted provider is missing or unavailable, the runtime falls back to the deterministic implementation instead of failing the whole scenario
 - the fallback is reported explicitly in the machine-readable report and in the execution step that used it
+
+What is already pinned for the real model path:
+
+- `SummarizerAI` uses the chapter-local model manifest at `models/manifest.json`
+- the first runtime-hosted model path is a pinned ONNX summarization artifact
+- setup is handled by `./scripts/setup_models.sh` with checksum validation
 
 ## Validation status
 
@@ -65,6 +72,8 @@ What is not yet model-backed:
 
 ```bash
 cd chapter-13-portable-mcp-runtime
+./scripts/setup_models.sh
+./scripts/build_summarizer_ai_wasi.sh
 ./scripts/list_labs.sh
 ./scripts/run_lab.sh use-case-1-basic-report
 ./scripts/run_lab.sh use-case-2-ai-report
@@ -75,6 +84,12 @@ cd chapter-13-portable-mcp-runtime
 ```
 
 The scripts also work from the repo root if you prefix them with `chapter-13-portable-mcp-runtime/`.
+
+`./scripts/setup_models.sh` downloads the pinned Chapter 13 ONNX summarizer artifacts into `models/`
+and verifies their SHA-256 checksums. The manifest is committed; the binary model files remain local.
+
+`./scripts/build_summarizer_ai_wasi.sh` compiles the separate `SummarizerAI` WASI module that the
+Rust Chapter 13 runtime can invoke when `SummarizerAI` is selected.
 
 If you want the machine-readable report for one scenario, use:
 
@@ -152,7 +167,9 @@ The chapter already preserves the right architectural seam for a future model-ba
 ### "What happens when SummarizerAI is selected today?"
 
 The runtime still resolves the real `SummarizerAI` contract and validates it normally.
-In the current validated path, if `SummarizerAI` is selected, execution falls back automatically to a deterministic summarization provider because the portable runtime-hosted model provider is not yet bound.
+If the chapter-local model artifacts are installed and the WASI summarizer module is built,
+`SummarizerAI` executes as a real runtime-hosted extractive summarizer.
+If either piece is missing, execution falls back automatically to a deterministic summarization provider.
 
 That fallback is not hidden:
 

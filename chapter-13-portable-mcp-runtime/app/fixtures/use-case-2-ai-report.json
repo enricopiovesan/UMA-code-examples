@@ -28,9 +28,9 @@
     "aiAvailable": true
   },
   "planner_provider": "PlannerAI",
-  "summarizer_ai_provider": "deterministic-fallback-summarizer",
-  "summarizer_ai_mode": "fallback",
-  "summarizer_ai_fallback_reason": "runtime-hosted SummarizerAI provider is not yet bound in the validated path",
+  "summarizer_ai_provider": "chapter13-summarizer-ai-wasi",
+  "summarizer_ai_mode": "runtime-hosted-extractive",
+  "summarizer_ai_fallback_reason": null,
   "selected_path": [
     "DataProviderLocal",
     "InsightEnricher",
@@ -469,9 +469,9 @@
       "agent_proposal": "SummarizerAI",
       "proposed_validation": null,
       "selected_capability": "SummarizerAI",
-      "execution_provider": "deterministic-fallback-summarizer",
-      "execution_mode": "fallback",
-      "fallback_reason": "runtime-hosted SummarizerAI provider is not yet bound in the validated path",
+      "execution_provider": "chapter13-summarizer-ai-wasi",
+      "execution_mode": "runtime-hosted-extractive",
+      "fallback_reason": null,
       "discovery": {
         "need": "generate-summary",
         "available": [
@@ -526,7 +526,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+      "output_preview": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -661,13 +661,13 @@
         {
           "type": "CapabilityExecuted",
           "capability": "SummarizerAI",
-          "status": "fallback",
-          "reason": "runtime-hosted SummarizerAI provider is not yet bound in the validated path",
+          "status": "success",
+          "reason": null,
           "contextSnapshot": {
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         }
@@ -737,7 +737,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s).",
+      "output_preview": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -748,7 +748,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -761,7 +761,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -774,7 +774,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -787,7 +787,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -800,7 +800,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -813,7 +813,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -826,7 +826,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -839,7 +839,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -852,7 +852,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -865,7 +865,7 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "translatedSummary": "none"
           }
         },
@@ -878,8 +878,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         }
       ]
@@ -948,7 +948,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s).\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+      "output_preview": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -959,8 +959,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -972,8 +972,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -985,8 +985,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -998,8 +998,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1011,8 +1011,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1024,8 +1024,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1037,8 +1037,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1050,8 +1050,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1063,8 +1063,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1076,8 +1076,8 @@
             "report": "none",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         },
         {
@@ -1086,17 +1086,17 @@
           "status": "success",
           "reason": null,
           "contextSnapshot": {
-            "report": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s).\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+            "report": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "summary": "UMA Runtime Atlas shows how adaptive summarization can combine distributed sources into a richer narrative while still depending on runtime validation across 3 insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s)."
+            "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
           }
         }
       ]
     }
   ],
-  "final_output": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas montre comment une synthese adaptative peut combiner des sources distribuees dans un recit plus riche tout en restant soumise a la validation du runtime sur 3 insight(s).\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+  "final_output": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
   "final_language": "fr",
   "status": "complete",
   "graph_nodes": [

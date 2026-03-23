@@ -17,8 +17,23 @@ printf '[\n' > "$tmp_index"
 
 first=1
 while IFS= read -r scenario; do
-  cargo run --locked --quiet --manifest-path "$MANIFEST_PATH" -- render "$scenario" json > "$FIXTURE_DIR/$scenario.json"
-  summary="$(cargo run --locked --quiet --manifest-path "$MANIFEST_PATH" -- render "$scenario" json | python3 -c 'import json,sys; data=json.load(sys.stdin); print(json.dumps({"id": data["scenario"], "title": data["title"], "summary": data["summary"], "status": data["status"]}))')"
+  fixture_path="$FIXTURE_DIR/$scenario.json"
+  cargo run --locked --quiet --manifest-path "$MANIFEST_PATH" -- render "$scenario" json > "$fixture_path"
+  summary="$(python3 - "$fixture_path" <<'PY'
+import json
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+data = json.loads(path.read_text())
+print(json.dumps({
+    "id": data["scenario"],
+    "title": data["title"],
+    "summary": data["summary"],
+    "status": data["status"],
+}))
+PY
+)"
   if [[ "$first" -eq 0 ]]; then
     printf ',\n' >> "$tmp_index"
   fi

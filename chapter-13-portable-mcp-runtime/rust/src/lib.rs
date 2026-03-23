@@ -2,7 +2,9 @@ use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::Write as _;
 use std::fs;
+use std::io::Write;
 use std::path::{Path, PathBuf};
+use std::process::{Command, Stdio};
 use wasm_bindgen::prelude::*;
 
 pub mod mcp;
@@ -291,6 +293,20 @@ struct CapabilityExecutionMode {
     provider: String,
     mode: String,
     fallback_reason: Option<String>,
+    hosted_summary: Option<String>,
+}
+
+#[derive(Debug, Deserialize)]
+struct RuntimeHostedSummarizerResult {
+    summary: String,
+    provider: String,
+    mode: String,
+    #[serde(rename = "model_id")]
+    _model_id: String,
+    #[serde(rename = "model_revision")]
+    _model_revision: String,
+    #[serde(rename = "model_checksum")]
+    _model_checksum: String,
 }
 
 fn agent_provider_for(_scenario: &Scenario) -> AgentProviderKind {
@@ -518,27 +534,114 @@ fn format_report_output(project: &str, state: &RuntimeState, language: &str) -> 
     )
 }
 
-fn execution_mode_for(contract: &CapabilityContract) -> CapabilityExecutionMode {
+fn execution_mode_for(root: &Path, contract: &CapabilityContract, project: &str, facts: &[String]) -> CapabilityExecutionMode {
     match contract.name.as_str() {
-        "SummarizerAI" => CapabilityExecutionMode {
-            provider: "deterministic-fallback-summarizer".to_string(),
-            mode: "fallback".to_string(),
-            fallback_reason: Some(
-                "runtime-hosted SummarizerAI provider is not yet bound in the validated path"
-                    .to_string(),
-            ),
-        },
+        "SummarizerAI" => runtime_hosted_summarizer_execution_mode(root, project, facts),
         "SummarizerBasic" => CapabilityExecutionMode {
             provider: "deterministic-local-summarizer".to_string(),
             mode: "deterministic".to_string(),
             fallback_reason: None,
+            hosted_summary: None,
         },
         _ => CapabilityExecutionMode {
             provider: contract.name.clone(),
             mode: "standard".to_string(),
             fallback_reason: None,
+            hosted_summary: None,
         },
     }
+}
+
+fn runtime_hosted_summarizer_execution_mode(
+    root: &Path,
+    project: &str,
+    facts: &[String],
+) -> CapabilityExecutionMode {
+    match invoke_runtime_hosted_summarizer(root, project, facts) {
+        Ok(result) => CapabilityExecutionMode {
+            provider: result.provider,
+            mode: result.mode,
+            fallback_reason: None,
+            hosted_summary: Some(result.summary),
+        },
+        Err(reason) => CapabilityExecutionMode {
+            provider: "deterministic-fallback-summarizer".to_string(),
+            mode: "fallback".to_string(),
+            fallback_reason: Some(reason),
+            hosted_summary: None,
+        },
+    }
+}
+
+fn invoke_runtime_hosted_summarizer(
+    root: &Path,
+    project: &str,
+    facts: &[String],
+) -> Result<RuntimeHostedSummarizerResult, String> {
+    let module_path = root.join(
+        "summarizer-ai-wasi/target/wasm32-wasip1/debug/chapter13_summarizer_ai_wasi.wasm",
+    );
+    if !module_path.exists() {
+        return Err("runtime-hosted SummarizerAI module is not built yet".to_string());
+    }
+
+    let models_dir = root.join("models");
+    if !models_dir.join("model_quantized.onnx").exists() || !models_dir.join("manifest.json").exists() {
+        return Err("runtime-hosted SummarizerAI model artifacts are not installed".to_string());
+    }
+
+    let repo_root = root
+        .parent()
+        .ok_or_else(|| "missing repo root for Chapter 13 runtime".to_string())?;
+    let embedded_wasmtime = repo_root.join(".bin/wasmtime-v39.0.0-aarch64-macos/wasmtime");
+    let wasmtime = if embedded_wasmtime.exists() {
+        embedded_wasmtime
+    } else {
+        PathBuf::from("wasmtime")
+    };
+
+    let request = serde_json::json!({
+        "project_name": project,
+        "structured_facts": facts,
+        "model_dir": "/models",
+        "max_length": 2
+    });
+
+    let mut child = Command::new(wasmtime)
+        .arg("run")
+        .arg("--dir")
+        .arg(format!("{}::/models", models_dir.display()))
+        .arg(module_path)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|err| format!("failed to start runtime-hosted SummarizerAI: {err}"))?;
+
+    {
+        let mut stdin = child
+            .stdin
+            .take()
+            .ok_or_else(|| "failed to open runtime-hosted SummarizerAI stdin".to_string())?;
+        stdin
+            .write_all(request.to_string().as_bytes())
+            .map_err(|err| format!("failed to send runtime-hosted SummarizerAI request: {err}"))?;
+    }
+
+    let output = child
+        .wait_with_output()
+        .map_err(|err| format!("failed to wait for runtime-hosted SummarizerAI: {err}"))?;
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
+        return Err(if stderr.is_empty() {
+            "runtime-hosted SummarizerAI returned a non-zero exit status".to_string()
+        } else {
+            format!("runtime-hosted SummarizerAI failed: {stderr}")
+        });
+    }
+
+    serde_json::from_slice::<RuntimeHostedSummarizerResult>(&output.stdout)
+        .map_err(|err| format!("failed to parse runtime-hosted SummarizerAI output: {err}"))
 }
 
 pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
@@ -621,7 +724,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
             }
         })?;
         let validation = validation.expect("validation exists");
-        let execution_mode = execution_mode_for(&contract);
+        let execution_mode = execution_mode_for(root, &contract, &scenario.context.project_name, &state.structured_facts);
 
         let mut events = Vec::new();
         for candidate in &discovery.available {
@@ -710,7 +813,18 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
                 state.summary.clone().unwrap()
             }
             "SummarizerAI" => {
-                state.summary = Some(summarize_ai(&scenario.context.project_name, &state.structured_facts));
+                let ai_summary = if execution_mode.mode == "runtime-hosted-extractive" {
+                    execution_mode
+                        .hosted_summary
+                        .clone()
+                        .ok_or_else(|| {
+                            "runtime-hosted SummarizerAI was selected without a cached hosted summary"
+                                .to_string()
+                        })?
+                } else {
+                    summarize_ai(&scenario.context.project_name, &state.structured_facts)
+                };
+                state.summary = Some(ai_summary);
                 events.push(emit_event(
                     "CapabilityExecuted",
                     &contract.name,
@@ -1094,20 +1208,24 @@ mod tests {
         assert_eq!(report.planner_provider, "PlannerAI");
         assert!(report.selected_path.iter().any(|item| item == "SummarizerAI"));
         assert!(!report.selected_path.iter().any(|item| item == "SummarizerBasic"));
-        assert_eq!(report.summarizer_ai_mode, "fallback");
-        assert_eq!(report.summarizer_ai_provider, "deterministic-fallback-summarizer");
-        assert!(report
-            .summarizer_ai_fallback_reason
-            .as_deref()
-            .unwrap()
-            .contains("runtime-hosted SummarizerAI provider is not yet bound"));
+        assert!(report.summarizer_ai_mode == "fallback" || report.summarizer_ai_mode == "runtime-hosted-extractive");
+        if report.summarizer_ai_mode == "fallback" {
+            assert_eq!(report.summarizer_ai_provider, "deterministic-fallback-summarizer");
+            assert!(report
+                .summarizer_ai_fallback_reason
+                .as_deref()
+                .unwrap()
+                .contains("runtime-hosted SummarizerAI"));
+        } else {
+            assert_eq!(report.summarizer_ai_provider, "chapter13-summarizer-ai-wasi");
+            assert!(report.summarizer_ai_fallback_reason.is_none());
+        }
         let ai_step = report
             .steps
             .iter()
             .find(|step| step.selected_capability == "SummarizerAI")
             .unwrap();
-        assert_eq!(ai_step.execution_mode, "fallback");
-        assert!(ai_step.fallback_reason.is_some());
+        assert_eq!(ai_step.execution_mode, report.summarizer_ai_mode);
         assert_eq!(report.final_language, "fr");
     }
 }
