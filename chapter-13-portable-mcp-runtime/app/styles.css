@@ -562,6 +562,25 @@ button {
   animation: edgePulse 1.1s ease-in-out infinite;
 }
 
+.graph-edge.workflow-edge {
+  height: 4px;
+  background: rgba(246, 194, 0, 0.18);
+  z-index: 1;
+}
+
+.graph-edge.workflow-edge.complete {
+  background: rgba(246, 194, 0, 0.68);
+}
+
+.graph-edge.workflow-edge.active {
+  background: rgba(246, 194, 0, 0.92);
+}
+
+.graph-edge.workflow-edge.is-current {
+  background: rgba(246, 194, 0, 1);
+  box-shadow: 0 0 16px rgba(246, 194, 0, 0.42);
+}
+
 .graph-node {
   position: absolute;
   width: 112px;

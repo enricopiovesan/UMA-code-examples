@@ -205,6 +205,7 @@ function graphStatesForStep(report, focusedStepIndex) {
   const currentStep = report.steps.find((step) => step.index === focusedStepIndex) || null;
   const activeCapability = currentStep?.selected_capability ?? null;
   const proposedCapability = currentStep?.agent_proposal ?? null;
+  const workflowNodes = report.steps.map((step) => step.selected_capability);
 
   const nodeStates = new Map();
   for (const node of report.graph_nodes) {
@@ -252,7 +253,30 @@ function graphStatesForStep(report, focusedStepIndex) {
     return { ...edge, state };
   });
 
-  return { nodeStates, edgeStates };
+  const workflowEdges = workflowNodes.map((nodeId, index) => {
+    const previousNode = index === 0 ? "goal" : workflowNodes[index - 1];
+    let state = "inactive";
+    if (index + 1 < focusedStepIndex) {
+      state = "complete";
+    } else if (index + 1 === focusedStepIndex) {
+      state = "active";
+    }
+    return {
+      from: previousNode,
+      to: nodeId,
+      state,
+    };
+  });
+
+  if (workflowNodes.length > 0) {
+    workflowEdges.push({
+      from: workflowNodes[workflowNodes.length - 1],
+      to: "result",
+      state: focusedStepIndex >= report.steps.length ? "active" : "inactive",
+    });
+  }
+
+  return { nodeStates, edgeStates, workflowEdges };
 }
 
 function graphPoint(node) {
@@ -265,7 +289,7 @@ function graphPoint(node) {
 
 function renderGraph(report, focusedStepIndex) {
   graphScene.innerHTML = "";
-  const { nodeStates, edgeStates } = graphStatesForStep(report, focusedStepIndex);
+  const { nodeStates, edgeStates, workflowEdges } = graphStatesForStep(report, focusedStepIndex);
   const currentStep = report.steps.find((step) => step.index === focusedStepIndex) || null;
   const activeCapability = currentStep?.selected_capability ?? null;
 
@@ -308,6 +332,30 @@ function renderGraph(report, focusedStepIndex) {
       (edge.from === "mcp" && edge.to === "agent") ||
       (edge.from === "agent" && edge.to === "runtime")
     ) {
+      classes.push("is-current");
+    }
+    line.className = classes.join(" ");
+    line.style.left = `${from.x + 56}px`;
+    line.style.top = `${from.y + 26}px`;
+    line.style.width = `${distance}px`;
+    line.style.transform = `rotate(${angle}deg)`;
+    graphScene.appendChild(line);
+  }
+
+  for (const edge of workflowEdges) {
+    const from = nodeMap.get(edge.from);
+    const to = nodeMap.get(edge.to);
+    if (!from || !to) {
+      continue;
+    }
+    const dx = to.x - from.x;
+    const dy = to.y - from.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+
+    const line = document.createElement("div");
+    const classes = ["graph-edge", "workflow-edge", edge.state];
+    if (edge.state === "active") {
       classes.push("is-current");
     }
     line.className = classes.join(" ");
