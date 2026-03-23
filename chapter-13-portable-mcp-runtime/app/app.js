@@ -287,18 +287,75 @@ function graphPoint(node) {
   };
 }
 
+function layoutGraph(report) {
+  const layout = new Map();
+  const selected = report.selected_path || [];
+  const hiddenNodes = new Set(["PlannerAI"]);
+
+  const supportNodes = [
+    ["goal", { x: 72, y: 86, role: "support-start" }],
+    ["mcp", { x: 196, y: 86, role: "support" }],
+    ["agent", { x: 332, y: 86, role: "support" }],
+    ["runtime", { x: 468, y: 86, role: "support" }],
+  ];
+
+  for (const [id, point] of supportNodes) {
+    layout.set(id, point);
+  }
+
+  const startX = 86;
+  const gap = selected.length >= 5 ? 116 : 132;
+  const flowY = 260;
+  selected.forEach((id, index) => {
+    layout.set(id, {
+      x: startX + index * gap,
+      y: flowY,
+      role: "workflow",
+    });
+  });
+
+  const resultX = startX + selected.length * gap + 116;
+  layout.set("result", { x: resultX, y: flowY, role: "result" });
+
+  const secondary = report.graph_nodes.filter(
+    (node) =>
+      node.kind === "capability" &&
+      !selected.includes(node.id) &&
+      !hiddenNodes.has(node.id)
+  );
+
+  const secondaryStart = 170;
+  const secondaryGap = secondary.length > 1 ? 156 : 0;
+  secondary.forEach((node, index) => {
+    layout.set(node.id, {
+      x: secondaryStart + index * secondaryGap,
+      y: 168 + (index % 2) * 64,
+      role: "secondary",
+    });
+  });
+
+  return layout;
+}
+
 function renderGraph(report, focusedStepIndex) {
   graphScene.innerHTML = "";
   const { nodeStates, edgeStates, workflowEdges } = graphStatesForStep(report, focusedStepIndex);
   const currentStep = report.steps.find((step) => step.index === focusedStepIndex) || null;
   const activeCapability = currentStep?.selected_capability ?? null;
+  const layout = layoutGraph(report);
 
   const nodeMap = new Map();
   for (const node of report.graph_nodes) {
-    const point = graphPoint(node);
+    if (!layout.has(node.id)) {
+      continue;
+    }
+    const point = layout.get(node.id);
     nodeMap.set(node.id, point);
     const element = document.createElement("div");
     const classes = ["graph-node", node.kind, nodeStates.get(node.id) || node.state];
+    if (point.role) {
+      classes.push(`graph-${point.role}`);
+    }
     if (node.id === activeCapability) {
       classes.push("is-current");
     }
@@ -308,7 +365,7 @@ function renderGraph(report, focusedStepIndex) {
     element.className = classes.join(" ");
     element.style.left = `${point.x}px`;
     element.style.top = `${point.y}px`;
-    element.style.transform = `translate3d(0, 0, ${point.z}px) rotateY(-16deg) rotateX(10deg)`;
+    element.style.transform = "translate3d(0, 0, 0)";
     element.innerHTML = `<small>${escapeHtml(node.kind)}</small><strong>${escapeHtml(node.label)}</strong>`;
     graphScene.appendChild(element);
   }
@@ -335,8 +392,8 @@ function renderGraph(report, focusedStepIndex) {
       classes.push("is-current");
     }
     line.className = classes.join(" ");
-    line.style.left = `${from.x + 56}px`;
-    line.style.top = `${from.y + 26}px`;
+    line.style.left = `${from.x + 48}px`;
+    line.style.top = `${from.y + 22}px`;
     line.style.width = `${distance}px`;
     line.style.transform = `rotate(${angle}deg)`;
     graphScene.appendChild(line);
@@ -359,8 +416,8 @@ function renderGraph(report, focusedStepIndex) {
       classes.push("is-current");
     }
     line.className = classes.join(" ");
-    line.style.left = `${from.x + 56}px`;
-    line.style.top = `${from.y + 26}px`;
+    line.style.left = `${from.x + 48}px`;
+    line.style.top = `${from.y + 22}px`;
     line.style.width = `${distance}px`;
     line.style.transform = `rotate(${angle}deg)`;
     graphScene.appendChild(line);
@@ -368,8 +425,8 @@ function renderGraph(report, focusedStepIndex) {
 
   if (activeCapability && nodeMap.has(activeCapability)) {
     const point = nodeMap.get(activeCapability);
-    const offsetX = Math.max(Math.min(420 - point.x, 110), -110);
-    const offsetY = Math.max(Math.min(250 - point.y, 90), -90);
+    const offsetX = Math.max(Math.min(330 - point.x, 70), -70);
+    const offsetY = Math.max(Math.min(220 - point.y, 48), -48);
     graphScene.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
   } else {
     graphScene.style.transform = "translate3d(0, 0, 0)";
