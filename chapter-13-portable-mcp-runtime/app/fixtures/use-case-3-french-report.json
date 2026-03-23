@@ -26,7 +26,7 @@
     "aiAvailable": false
   },
   "planner_provider": "deterministic-local-planner",
-  "planner_mode": "deterministic",
+  "planner_mode": "direct",
   "planner_fallback_reason": null,
   "summarizer_ai_provider": "not-invoked",
   "summarizer_ai_mode": "not-invoked",
@@ -43,8 +43,8 @@
     {
       "index": 1,
       "need": "provide-source-fragments",
-      "agent_provider": "deterministic-local-planner",
-      "agent_mode": "deterministic",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "DataProviderLocal",
       "proposed_validation": null,
@@ -256,8 +256,8 @@
     {
       "index": 2,
       "need": "derive-structured-insights",
-      "agent_provider": "deterministic-local-planner",
-      "agent_mode": "deterministic",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "InsightEnricher",
       "proposed_validation": null,
@@ -469,8 +469,8 @@
     {
       "index": 3,
       "need": "generate-summary",
-      "agent_provider": "deterministic-local-planner",
-      "agent_mode": "deterministic",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "SummarizerBasic",
       "proposed_validation": null,
@@ -682,8 +682,8 @@
     {
       "index": 4,
       "need": "translate-to-target-language",
-      "agent_provider": "deterministic-local-planner",
-      "agent_mode": "deterministic",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "TranslatorFr",
       "proposed_validation": null,
@@ -895,8 +895,8 @@
     {
       "index": 5,
       "need": "format-structured-report",
-      "agent_provider": "deterministic-local-planner",
-      "agent_mode": "deterministic",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "Formatter",
       "proposed_validation": null,

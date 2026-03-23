@@ -362,6 +362,15 @@ fn propose_with_agent(
     scenario: &Scenario,
     visible: &[CapabilityContract],
 ) -> AgentDecision {
+    if visible.len() <= 1 {
+        return AgentDecision {
+            provider: "runtime-direct-selection".to_string(),
+            mode: "direct".to_string(),
+            fallback_reason: None,
+            proposal: visible.first().map(|item| item.name.clone()),
+        };
+    }
+
     match provider {
         AgentProviderKind::DeterministicLocal => AgentDecision {
             provider: provider.label().to_string(),
@@ -1050,15 +1059,23 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         rejected.insert(item.capability.clone());
     }
 
+    let planner_summary_step = steps.iter().find(|step| step.agent_mode != "direct");
+    let planner_provider = planner_summary_step
+        .map(|step| step.agent_provider.clone())
+        .unwrap_or_else(|| agent_provider_for(&scenario).label().to_string());
+    let planner_mode = planner_summary_step
+        .map(|step| step.agent_mode.clone())
+        .unwrap_or_else(|| "direct".to_string());
+    let planner_fallback_reason = steps
+        .iter()
+        .find_map(|step| step.agent_fallback_reason.clone());
+
     let mut graph_nodes = vec![
         GraphNode { id: "goal".into(), label: "Goal".into(), kind: "goal".into(), state: "complete".into(), x: -260.0, y: -150.0, z: -80.0 },
         GraphNode { id: "mcp".into(), label: "MCP node".into(), kind: "mcp".into(), state: "active".into(), x: -140.0, y: -20.0, z: 60.0 },
         GraphNode {
             id: "agent".into(),
-            label: steps
-                .first()
-                .map(|step| step.agent_provider.clone())
-                .unwrap_or_else(|| agent_provider_for(&scenario).label().to_string()),
+            label: planner_provider.clone(),
             kind: "agent".into(),
             state: if scenario.goal.prefer_ai || scenario.context.available_capabilities.iter().any(|item| item == "PlannerAI") {
                 "active".into()
@@ -1128,17 +1145,6 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         });
     }
 
-    let planner_provider = steps
-        .first()
-        .map(|step| step.agent_provider.clone())
-        .unwrap_or_else(|| agent_provider_for(&scenario).label().to_string());
-    let planner_mode = steps
-        .first()
-        .map(|step| step.agent_mode.clone())
-        .unwrap_or_else(|| "not-invoked".to_string());
-    let planner_fallback_reason = steps
-        .iter()
-        .find_map(|step| step.agent_fallback_reason.clone());
     let summarizer_ai_step = steps
         .iter()
         .find(|step| step.selected_capability == "SummarizerAI");

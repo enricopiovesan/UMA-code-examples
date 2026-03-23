@@ -45,8 +45,8 @@
     {
       "index": 1,
       "need": "provide-source-fragments",
-      "agent_provider": "chapter13-planner-ai-wasi",
-      "agent_mode": "runtime-hosted-ranking",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "DataProviderLocal",
       "proposed_validation": null,
@@ -258,8 +258,8 @@
     {
       "index": 2,
       "need": "derive-structured-insights",
-      "agent_provider": "chapter13-planner-ai-wasi",
-      "agent_mode": "runtime-hosted-ranking",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "InsightEnricher",
       "proposed_validation": null,
@@ -684,8 +684,8 @@
     {
       "index": 4,
       "need": "translate-to-target-language",
-      "agent_provider": "chapter13-planner-ai-wasi",
-      "agent_mode": "runtime-hosted-ranking",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "TranslatorFr",
       "proposed_validation": null,
@@ -897,8 +897,8 @@
     {
       "index": 5,
       "need": "format-structured-report",
-      "agent_provider": "chapter13-planner-ai-wasi",
-      "agent_mode": "runtime-hosted-ranking",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
       "agent_fallback_reason": null,
       "agent_proposal": "Formatter",
       "proposed_validation": null,
