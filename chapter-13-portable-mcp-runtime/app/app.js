@@ -1,3 +1,5 @@
+import { Graph } from "@antv/g6";
+
 const scenarioSelect = document.getElementById("scenario-select");
 const stepSelect = document.getElementById("step-select");
 const runButton = document.getElementById("run-scenario");
@@ -15,6 +17,8 @@ const openReport = document.getElementById("open-report");
 let currentReport = null;
 let playbackTimer = null;
 let isPlaying = false;
+let graph = null;
+let graphResizeObserver = null;
 
 function escapeHtml(value) {
   return String(value)
@@ -279,14 +283,6 @@ function graphStatesForStep(report, focusedStepIndex) {
   return { nodeStates, edgeStates, workflowEdges };
 }
 
-function graphPoint(node) {
-  return {
-    x: node.x + 360,
-    y: node.y + 240,
-    z: node.z,
-  };
-}
-
 function layoutGraph(report) {
   const layout = new Map();
   const selected = report.selected_path || [];
@@ -337,99 +333,263 @@ function layoutGraph(report) {
   return layout;
 }
 
-function renderGraph(report, focusedStepIndex) {
-  graphScene.innerHTML = "";
-  const { nodeStates, edgeStates, workflowEdges } = graphStatesForStep(report, focusedStepIndex);
+function ensureGraph() {
+  if (graph) {
+    return graph;
+  }
+
+  const width = graphScene.clientWidth || 760;
+  const height = graphScene.clientHeight || 560;
+
+  graph = new Graph({
+    container: graphScene,
+    width,
+    height,
+    animation: true,
+    autoFit: false,
+    background: "#11131a",
+    behaviors: ["drag-canvas", "zoom-canvas"],
+    node: {
+      style: {
+        lineWidth: 1.5,
+        shadowBlur: 18,
+        shadowColor: "rgba(98, 87, 255, 0.18)",
+        label: true,
+        labelFontFamily: "IBM Plex Sans, system-ui, sans-serif",
+      },
+    },
+    edge: {
+      style: {
+        lineWidth: 2,
+        endArrow: false,
+        strokeOpacity: 1,
+      },
+    },
+  });
+
+  if (!graphResizeObserver) {
+    graphResizeObserver = new ResizeObserver(() => {
+      if (!graph) {
+        return;
+      }
+      const nextWidth = graphScene.clientWidth || 760;
+      const nextHeight = graphScene.clientHeight || 560;
+      graph.setSize(nextWidth, nextHeight);
+    });
+    graphResizeObserver.observe(graphScene);
+  }
+
+  return graph;
+}
+
+function buildGraphData(report, focusedStepIndex) {
+  const { nodeStates } = graphStatesForStep(report, focusedStepIndex);
   const currentStep = report.steps.find((step) => step.index === focusedStepIndex) || null;
-  const activeCapability = currentStep?.selected_capability ?? null;
   const layout = layoutGraph(report);
+  const selected = report.selected_path || [];
+  const nodes = [];
 
-  const nodeMap = new Map();
+  const supportNodeIds = ["goal", "mcp", "agent", "runtime"];
+  for (const nodeId of supportNodeIds) {
+    const source = report.graph_nodes.find((item) => item.id === nodeId);
+    const point = layout.get(nodeId);
+    if (!source || !point) {
+      continue;
+    }
+    const active = nodeId === "agent" ? currentStep?.agent_mode === "runtime-hosted-ranking" : nodeStates.get(nodeId) === "active";
+    nodes.push({
+      id: nodeId,
+      type: "circle",
+      data: { label: source.label },
+      style: {
+        x: point.x,
+        y: point.y,
+        size: 72,
+        fill: active ? "#7c5cff" : "#1a1d28",
+        stroke: active ? "#b6a8ff" : "rgba(181, 185, 204, 0.22)",
+        shadowBlur: active ? 28 : 12,
+        shadowColor: active ? "rgba(124, 92, 255, 0.34)" : "rgba(17, 19, 26, 0.22)",
+        labelText: source.label,
+        labelPlacement: "bottom",
+        labelOffsetY: 10,
+        labelFill: active ? "#ffffff" : "rgba(229, 231, 241, 0.78)",
+        labelFontSize: 12,
+        labelFontWeight: active ? 700 : 500,
+      },
+    });
+  }
+
+  for (const nodeId of selected) {
+    const source = report.graph_nodes.find((item) => item.id === nodeId);
+    const point = layout.get(nodeId);
+    if (!source || !point) {
+      continue;
+    }
+    const state = nodeStates.get(nodeId) || "inactive";
+    const isCurrent = nodeId === currentStep?.selected_capability;
+    nodes.push({
+      id: nodeId,
+      type: "rect",
+      data: { label: source.label },
+      style: {
+        x: point.x,
+        y: point.y,
+        size: [124, 56],
+        radius: 18,
+        fill: isCurrent ? "#f5f3ff" : "#ffffff",
+        stroke: state === "complete" ? "#7c5cff" : isCurrent ? "#7c5cff" : "rgba(181, 185, 204, 0.22)",
+        shadowBlur: isCurrent ? 26 : 14,
+        shadowColor: isCurrent ? "rgba(124, 92, 255, 0.26)" : "rgba(17, 19, 26, 0.10)",
+        labelText: source.label,
+        labelPlacement: "center",
+        labelFill: "#12131a",
+        labelFontSize: 13,
+        labelFontWeight: isCurrent ? 700 : 600,
+      },
+    });
+  }
+
   for (const node of report.graph_nodes) {
-    if (!layout.has(node.id)) {
-      continue;
-    }
     const point = layout.get(node.id);
-    nodeMap.set(node.id, point);
-    const element = document.createElement("div");
-    const classes = ["graph-node", node.kind, nodeStates.get(node.id) || node.state];
-    if (point.role) {
-      classes.push(`graph-${point.role}`);
-    }
-    if (node.id === activeCapability) {
-      classes.push("is-current");
-    }
-    if (currentStep?.proposed_validation?.capability === node.id) {
-      classes.push("is-proposed-rejected");
-    }
-    element.className = classes.join(" ");
-    element.style.left = `${point.x}px`;
-    element.style.top = `${point.y}px`;
-    element.style.transform = "translate3d(0, 0, 0)";
-    element.innerHTML = `<small>${escapeHtml(node.kind)}</small><strong>${escapeHtml(node.label)}</strong>`;
-    graphScene.appendChild(element);
-  }
-
-  for (const edge of edgeStates) {
-    const from = nodeMap.get(edge.from);
-    const to = nodeMap.get(edge.to);
-    if (!from || !to) {
+    if (!point || selected.includes(node.id) || ["goal", "mcp", "agent", "runtime", "result"].includes(node.id)) {
       continue;
     }
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-    const line = document.createElement("div");
-    const classes = ["graph-edge", edge.state];
-    if (
-      (edge.from === "runtime" && edge.to === activeCapability) ||
-      (edge.from === "goal" && edge.to === "mcp") ||
-      (edge.from === "mcp" && edge.to === "agent") ||
-      (edge.from === "agent" && edge.to === "runtime")
-    ) {
-      classes.push("is-current");
-    }
-    line.className = classes.join(" ");
-    line.style.left = `${from.x + 48}px`;
-    line.style.top = `${from.y + 22}px`;
-    line.style.width = `${distance}px`;
-    line.style.transform = `rotate(${angle}deg)`;
-    graphScene.appendChild(line);
+    const state = nodeStates.get(node.id) || "inactive";
+    nodes.push({
+      id: node.id,
+      type: "circle",
+      data: { label: node.label },
+      style: {
+        x: point.x,
+        y: point.y,
+        size: 44,
+        fill: "#171922",
+        stroke: state === "rejected" ? "#ea6c6c" : "rgba(181, 185, 204, 0.18)",
+        shadowBlur: 8,
+        shadowColor: "rgba(17, 19, 26, 0.12)",
+        labelText: node.label,
+        labelPlacement: "bottom",
+        labelOffsetY: 8,
+        labelFill: state === "rejected" ? "#f28e8e" : "rgba(207, 210, 221, 0.52)",
+        labelFontSize: 11,
+        opacity: 0.76,
+      },
+    });
   }
 
-  for (const edge of workflowEdges) {
-    const from = nodeMap.get(edge.from);
-    const to = nodeMap.get(edge.to);
-    if (!from || !to) {
-      continue;
-    }
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
-
-    const line = document.createElement("div");
-    const classes = ["graph-edge", "workflow-edge", edge.state];
-    if (edge.state === "active") {
-      classes.push("is-current");
-    }
-    line.className = classes.join(" ");
-    line.style.left = `${from.x + 48}px`;
-    line.style.top = `${from.y + 22}px`;
-    line.style.width = `${distance}px`;
-    line.style.transform = `rotate(${angle}deg)`;
-    graphScene.appendChild(line);
+  const resultPoint = layout.get("result");
+  if (resultPoint) {
+    nodes.push({
+      id: "result",
+      type: "circle",
+      data: { label: "Result" },
+      style: {
+        x: resultPoint.x,
+        y: resultPoint.y,
+        size: 72,
+        fill: focusedStepIndex >= report.steps.length ? "#7c5cff" : "#1a1d28",
+        stroke: focusedStepIndex >= report.steps.length ? "#b6a8ff" : "rgba(181, 185, 204, 0.22)",
+        shadowBlur: focusedStepIndex >= report.steps.length ? 26 : 12,
+        shadowColor: focusedStepIndex >= report.steps.length ? "rgba(124, 92, 255, 0.30)" : "rgba(17, 19, 26, 0.18)",
+        labelText: "Result",
+        labelPlacement: "bottom",
+        labelOffsetY: 10,
+        labelFill: focusedStepIndex >= report.steps.length ? "#ffffff" : "rgba(229, 231, 241, 0.78)",
+        labelFontSize: 12,
+        labelFontWeight: 700,
+      },
+    });
   }
 
-  if (activeCapability && nodeMap.has(activeCapability)) {
-    const point = nodeMap.get(activeCapability);
-    const offsetX = Math.max(Math.min(330 - point.x, 70), -70);
-    const offsetY = Math.max(Math.min(220 - point.y, 48), -48);
-    graphScene.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
-  } else {
-    graphScene.style.transform = "translate3d(0, 0, 0)";
+  const edges = [];
+  const supportChain = ["goal", "mcp", "agent", "runtime"];
+  for (let index = 0; index < supportChain.length - 1; index += 1) {
+    edges.push({
+      id: `support-${supportChain[index]}-${supportChain[index + 1]}`,
+      source: supportChain[index],
+      target: supportChain[index + 1],
+      style: {
+        stroke: "rgba(124, 92, 255, 0.28)",
+        lineWidth: 2,
+      },
+    });
+  }
+
+  if (selected.length > 0) {
+    edges.push({
+      id: "workflow-runtime-start",
+      source: "runtime",
+      target: selected[0],
+      style: {
+        stroke: focusedStepIndex >= 1 ? "#7c5cff" : "rgba(124, 92, 255, 0.18)",
+        lineWidth: focusedStepIndex >= 1 ? 4 : 2,
+        shadowBlur: focusedStepIndex >= 1 ? 18 : 0,
+        shadowColor: "rgba(124, 92, 255, 0.24)",
+      },
+    });
+  }
+
+  selected.forEach((nodeId, index) => {
+    const next = selected[index + 1];
+    if (!next) {
+      return;
+    }
+    const currentEdgeStep = index + 2;
+    const complete = currentEdgeStep < focusedStepIndex;
+    const active = currentEdgeStep === focusedStepIndex;
+    edges.push({
+      id: `workflow-${nodeId}-${next}`,
+      source: nodeId,
+      target: next,
+      style: {
+        stroke: active ? "#7c5cff" : complete ? "rgba(124, 92, 255, 0.70)" : "rgba(124, 92, 255, 0.18)",
+        lineWidth: active ? 4 : complete ? 3 : 2,
+        shadowBlur: active ? 18 : 0,
+        shadowColor: "rgba(124, 92, 255, 0.24)",
+      },
+    });
+  });
+
+  if (selected.length > 0) {
+    edges.push({
+      id: "workflow-result",
+      source: selected[selected.length - 1],
+      target: "result",
+      style: {
+        stroke: focusedStepIndex >= report.steps.length ? "#7c5cff" : "rgba(124, 92, 255, 0.18)",
+        lineWidth: focusedStepIndex >= report.steps.length ? 4 : 2,
+        shadowBlur: focusedStepIndex >= report.steps.length ? 18 : 0,
+        shadowColor: "rgba(124, 92, 255, 0.24)",
+      },
+    });
+  }
+
+  if (currentStep?.proposed_validation?.capability && layout.has(currentStep.proposed_validation.capability)) {
+    edges.push({
+      id: `rejected-${currentStep.proposed_validation.capability}`,
+      source: "runtime",
+      target: currentStep.proposed_validation.capability,
+      style: {
+        stroke: "#ea6c6c",
+        lineWidth: 2,
+        lineDash: [6, 4],
+        shadowBlur: 10,
+        shadowColor: "rgba(234, 108, 108, 0.16)",
+      },
+    });
+  }
+
+  return { nodes, edges };
+}
+
+function renderGraph(report, focusedStepIndex) {
+  const instance = ensureGraph();
+  const data = buildGraphData(report, focusedStepIndex);
+  try {
+    instance.setData(data);
+    instance.render();
+  } catch (error) {
+    graphScene.innerHTML = `<div class="graph-error">${escapeHtml(error.message)}</div>`;
   }
 }
 

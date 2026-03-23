@@ -222,14 +222,16 @@ Expected value:
 
 The browser shell under `app/` is a reader-facing visualization layer for the same Chapter 13 reports.
 It uses generated JSON fixtures from the Rust runtime so the timeline and graph stay aligned with the authoritative implementation.
+The graph panel is rendered with G6 rather than hand-built DOM edges, so playback and workflow highlighting stay clearer as the scenario changes.
 
 ```bash
 ./scripts/export_app_fixtures.sh
 cd app
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open [http://localhost:4173](http://localhost:4173).
+Then open the local Vite URL shown in the terminal, typically [http://localhost:5173](http://localhost:5173).
 
 The shell also exposes a direct link to the machine-readable JSON for the currently selected scenario, so the CLI and browser views can be inspected side by side.
 

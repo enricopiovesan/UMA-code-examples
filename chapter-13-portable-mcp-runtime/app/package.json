@@ -1,0 +1,16 @@
+{
+  "name": "chapter-13-reference-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@antv/g6": "^5.0.50"
+  },
+  "devDependencies": {
+    "vite": "^7.1.10"
+  }
+}
