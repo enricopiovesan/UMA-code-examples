@@ -223,6 +223,7 @@ Expected value:
 The browser shell under `app/` is a reader-facing visualization layer for the same Chapter 13 reports.
 It uses generated JSON fixtures from the Rust runtime so the timeline and graph stay aligned with the authoritative implementation.
 The graph panel is rendered with G6 rather than hand-built DOM edges, so playback and workflow highlighting stay clearer as the scenario changes.
+Because the app now imports `@antv/g6`, it must be served through Vite rather than a plain static file server.
 
 ```bash
 ./scripts/export_app_fixtures.sh
@@ -232,6 +233,8 @@ npm run dev
 ```
 
 Then open the local Vite URL shown in the terminal, typically [http://localhost:5173](http://localhost:5173).
+
+Do not use `python3 -m http.server` for the G6 app. A plain static server cannot resolve the `@antv/g6` module import.
 
 The shell also exposes a direct link to the machine-readable JSON for the currently selected scenario, so the CLI and browser views can be inspected side by side.
 
