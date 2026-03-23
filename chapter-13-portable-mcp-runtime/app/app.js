@@ -289,19 +289,19 @@ function layoutGraph(report) {
   const hiddenNodes = new Set(["PlannerAI"]);
 
   const supportNodes = [
-    ["goal", { x: 72, y: 86, role: "support-start" }],
-    ["mcp", { x: 196, y: 86, role: "support" }],
-    ["agent", { x: 332, y: 86, role: "support" }],
-    ["runtime", { x: 468, y: 86, role: "support" }],
+    ["goal", { x: 88, y: 78, role: "support-start" }],
+    ["mcp", { x: 222, y: 78, role: "support" }],
+    ["agent", { x: 382, y: 78, role: "support" }],
+    ["runtime", { x: 548, y: 78, role: "support" }],
   ];
 
   for (const [id, point] of supportNodes) {
     layout.set(id, point);
   }
 
-  const startX = 86;
-  const gap = selected.length >= 5 ? 116 : 132;
-  const flowY = 260;
+  const startX = 96;
+  const gap = selected.length >= 5 ? 128 : 142;
+  const flowY = 250;
   selected.forEach((id, index) => {
     layout.set(id, {
       x: startX + index * gap,
@@ -310,7 +310,7 @@ function layoutGraph(report) {
     });
   });
 
-  const resultX = startX + selected.length * gap + 116;
+  const resultX = startX + selected.length * gap + 132;
   layout.set("result", { x: resultX, y: flowY, role: "result" });
 
   const secondary = report.graph_nodes.filter(
@@ -320,12 +320,12 @@ function layoutGraph(report) {
       !hiddenNodes.has(node.id)
   );
 
-  const secondaryStart = 170;
-  const secondaryGap = secondary.length > 1 ? 156 : 0;
+  const secondaryStart = 214;
+  const secondaryGap = secondary.length > 1 ? 176 : 0;
   secondary.forEach((node, index) => {
     layout.set(node.id, {
       x: secondaryStart + index * secondaryGap,
-      y: 168 + (index % 2) * 64,
+      y: 358,
       role: "secondary",
     });
   });
@@ -388,6 +388,8 @@ function buildGraphData(report, focusedStepIndex) {
   const layout = layoutGraph(report);
   const selected = report.selected_path || [];
   const nodes = [];
+  const currentProposalCapability = currentStep?.proposed_validation?.capability ?? null;
+  const currentAgentProposal = currentStep?.agent_proposal ?? null;
 
   const supportNodeIds = ["goal", "mcp", "agent", "runtime"];
   for (const nodeId of supportNodeIds) {
@@ -396,25 +398,34 @@ function buildGraphData(report, focusedStepIndex) {
     if (!source || !point) {
       continue;
     }
+    const label =
+      nodeId === "mcp"
+        ? "MCP"
+        : nodeId === "agent"
+          ? "Planner"
+          : nodeId === "runtime"
+            ? "Runtime"
+            : source.label;
     const active = nodeId === "agent" ? currentStep?.agent_mode === "runtime-hosted-ranking" : nodeStates.get(nodeId) === "active";
+    const complete = nodeId === "goal" || nodeId === "mcp" || nodeId === "runtime";
     nodes.push({
       id: nodeId,
       type: "circle",
-      data: { label: source.label },
+      data: { label },
       style: {
         x: point.x,
         y: point.y,
-        size: 72,
-        fill: active ? "#7c5cff" : "#1a1d28",
-        stroke: active ? "#b6a8ff" : "rgba(181, 185, 204, 0.22)",
-        shadowBlur: active ? 28 : 12,
-        shadowColor: active ? "rgba(124, 92, 255, 0.34)" : "rgba(17, 19, 26, 0.22)",
-        labelText: source.label,
+        size: 64,
+        fill: active ? "#7c5cff" : complete ? "#272039" : "#1a1d28",
+        stroke: active || complete ? "#b6a8ff" : "rgba(181, 185, 204, 0.22)",
+        shadowBlur: active ? 28 : complete ? 18 : 12,
+        shadowColor: active || complete ? "rgba(124, 92, 255, 0.26)" : "rgba(17, 19, 26, 0.22)",
+        labelText: label,
         labelPlacement: "bottom",
-        labelOffsetY: 10,
-        labelFill: active ? "#ffffff" : "rgba(229, 231, 241, 0.78)",
-        labelFontSize: 12,
-        labelFontWeight: active ? 700 : 500,
+        labelOffsetY: 8,
+        labelFill: active || complete ? "#ffffff" : "rgba(229, 231, 241, 0.78)",
+        labelFontSize: 11,
+        labelFontWeight: active || complete ? 700 : 500,
       },
     });
   }
@@ -434,7 +445,7 @@ function buildGraphData(report, focusedStepIndex) {
       style: {
         x: point.x,
         y: point.y,
-        size: [124, 56],
+        size: [136, 56],
         radius: 18,
         fill: isCurrent ? "#f5f3ff" : "#ffffff",
         stroke: state === "complete" ? "#7c5cff" : isCurrent ? "#7c5cff" : "rgba(181, 185, 204, 0.22)",
@@ -454,6 +465,10 @@ function buildGraphData(report, focusedStepIndex) {
     if (!point || selected.includes(node.id) || ["goal", "mcp", "agent", "runtime", "result"].includes(node.id)) {
       continue;
     }
+    const showNode = node.id === currentProposalCapability || node.id === currentAgentProposal;
+    if (!showNode) {
+      continue;
+    }
     const state = nodeStates.get(node.id) || "inactive";
     nodes.push({
       id: node.id,
@@ -462,17 +477,17 @@ function buildGraphData(report, focusedStepIndex) {
       style: {
         x: point.x,
         y: point.y,
-        size: 44,
+        size: 38,
         fill: "#171922",
         stroke: state === "rejected" ? "#ea6c6c" : "rgba(181, 185, 204, 0.18)",
         shadowBlur: 8,
         shadowColor: "rgba(17, 19, 26, 0.12)",
         labelText: node.label,
         labelPlacement: "bottom",
-        labelOffsetY: 8,
+        labelOffsetY: 6,
         labelFill: state === "rejected" ? "#f28e8e" : "rgba(207, 210, 221, 0.52)",
-        labelFontSize: 11,
-        opacity: 0.76,
+        labelFontSize: 10,
+        opacity: 0.58,
       },
     });
   }
@@ -504,13 +519,16 @@ function buildGraphData(report, focusedStepIndex) {
   const edges = [];
   const supportChain = ["goal", "mcp", "agent", "runtime"];
   for (let index = 0; index < supportChain.length - 1; index += 1) {
+    const active = index === 2 && currentStep?.agent_mode === "runtime-hosted-ranking";
     edges.push({
       id: `support-${supportChain[index]}-${supportChain[index + 1]}`,
       source: supportChain[index],
       target: supportChain[index + 1],
       style: {
-        stroke: "rgba(124, 92, 255, 0.28)",
-        lineWidth: 2,
+        stroke: active || index < 2 ? "rgba(124, 92, 255, 0.78)" : "rgba(124, 92, 255, 0.28)",
+        lineWidth: active || index < 2 ? 3 : 2,
+        shadowBlur: active ? 16 : 0,
+        shadowColor: "rgba(124, 92, 255, 0.20)",
       },
     });
   }
