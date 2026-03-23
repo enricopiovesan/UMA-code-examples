@@ -1071,8 +1071,8 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         .find_map(|step| step.agent_fallback_reason.clone());
 
     let mut graph_nodes = vec![
-        GraphNode { id: "goal".into(), label: "Goal".into(), kind: "goal".into(), state: "complete".into(), x: -260.0, y: -150.0, z: -80.0 },
-        GraphNode { id: "mcp".into(), label: "MCP node".into(), kind: "mcp".into(), state: "active".into(), x: -140.0, y: -20.0, z: 60.0 },
+        GraphNode { id: "goal".into(), label: "Goal".into(), kind: "goal".into(), state: "complete".into(), x: -280.0, y: -180.0, z: -80.0 },
+        GraphNode { id: "mcp".into(), label: "MCP node".into(), kind: "mcp".into(), state: "active".into(), x: -150.0, y: -40.0, z: 40.0 },
         GraphNode {
             id: "agent".into(),
             label: planner_provider.clone(),
@@ -1082,21 +1082,22 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
             } else {
                 "candidate".into()
             },
-            x: 0.0,
-            y: -170.0,
-            z: 40.0,
+            x: 130.0,
+            y: -180.0,
+            z: 80.0,
         },
-        GraphNode { id: "runtime".into(), label: "UMA runtime".into(), kind: "runtime".into(), state: "active".into(), x: 10.0, y: -10.0, z: 0.0 },
-        GraphNode { id: "result".into(), label: "Result".into(), kind: "result".into(), state: "complete".into(), x: 290.0, y: 130.0, z: 40.0 },
+        GraphNode { id: "runtime".into(), label: "UMA runtime".into(), kind: "runtime".into(), state: "active".into(), x: -20.0, y: -60.0, z: -20.0 },
+        GraphNode { id: "result".into(), label: "Result".into(), kind: "result".into(), state: "complete".into(), x: 320.0, y: 180.0, z: 40.0 },
     ];
 
     let capability_positions = [
-        ("DataProviderLocal", -210.0, 110.0, -10.0),
-        ("InsightEnricher", -60.0, 140.0, 30.0),
-        ("SummarizerBasic", 60.0, 90.0, 80.0),
-        ("SummarizerAI", 120.0, -80.0, 120.0),
-        ("TranslatorFr", 210.0, 20.0, 20.0),
-        ("Formatter", 160.0, 180.0, -30.0),
+        ("DataProviderLocal", -250.0, 110.0, -10.0),
+        ("InsightEnricher", -90.0, 150.0, 20.0),
+        ("PlannerAI", 60.0, -150.0, 100.0),
+        ("SummarizerBasic", 80.0, 40.0, 60.0),
+        ("SummarizerAI", 120.0, 140.0, 110.0),
+        ("TranslatorFr", 250.0, 90.0, 20.0),
+        ("Formatter", 210.0, 210.0, -20.0),
     ];
 
     for contract in contract_fixtures() {

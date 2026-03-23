@@ -901,8 +901,8 @@
       "label": "Goal",
       "kind": "goal",
       "state": "complete",
-      "x": -260.0,
-      "y": -150.0,
+      "x": -280.0,
+      "y": -180.0,
       "z": -80.0
     },
     {
@@ -910,35 +910,35 @@
       "label": "MCP node",
       "kind": "mcp",
       "state": "active",
-      "x": -140.0,
-      "y": -20.0,
-      "z": 60.0
+      "x": -150.0,
+      "y": -40.0,
+      "z": 40.0
     },
     {
       "id": "agent",
       "label": "deterministic-local-planner",
       "kind": "agent",
       "state": "candidate",
-      "x": 0.0,
-      "y": -170.0,
-      "z": 40.0
+      "x": 130.0,
+      "y": -180.0,
+      "z": 80.0
     },
     {
       "id": "runtime",
       "label": "UMA runtime",
       "kind": "runtime",
       "state": "active",
-      "x": 10.0,
-      "y": -10.0,
-      "z": 0.0
+      "x": -20.0,
+      "y": -60.0,
+      "z": -20.0
     },
     {
       "id": "result",
       "label": "Result",
       "kind": "result",
       "state": "complete",
-      "x": 290.0,
-      "y": 130.0,
+      "x": 320.0,
+      "y": 180.0,
       "z": 40.0
     },
     {
@@ -946,7 +946,7 @@
       "label": "DataProviderLocal",
       "kind": "capability",
       "state": "complete",
-      "x": -210.0,
+      "x": -250.0,
       "y": 110.0,
       "z": -10.0
     },
@@ -955,27 +955,27 @@
       "label": "InsightEnricher",
       "kind": "capability",
       "state": "complete",
-      "x": -60.0,
-      "y": 140.0,
-      "z": 30.0
+      "x": -90.0,
+      "y": 150.0,
+      "z": 20.0
     },
     {
       "id": "PlannerAI",
       "label": "PlannerAI",
       "kind": "capability",
       "state": "inactive",
-      "x": 0.0,
-      "y": 0.0,
-      "z": 0.0
+      "x": 60.0,
+      "y": -150.0,
+      "z": 100.0
     },
     {
       "id": "SummarizerBasic",
       "label": "SummarizerBasic",
       "kind": "capability",
       "state": "complete",
-      "x": 60.0,
-      "y": 90.0,
-      "z": 80.0
+      "x": 80.0,
+      "y": 40.0,
+      "z": 60.0
     },
     {
       "id": "SummarizerAI",
@@ -983,16 +983,16 @@
       "kind": "capability",
       "state": "inactive",
       "x": 120.0,
-      "y": -80.0,
-      "z": 120.0
+      "y": 140.0,
+      "z": 110.0
     },
     {
       "id": "TranslatorFr",
       "label": "TranslatorFr",
       "kind": "capability",
       "state": "candidate",
-      "x": 210.0,
-      "y": 20.0,
+      "x": 250.0,
+      "y": 90.0,
       "z": 20.0
     },
     {
@@ -1000,9 +1000,9 @@
       "label": "Formatter",
       "kind": "capability",
       "state": "complete",
-      "x": 160.0,
-      "y": 180.0,
-      "z": -30.0
+      "x": 210.0,
+      "y": 210.0,
+      "z": -20.0
     }
   ],
   "graph_edges": [
