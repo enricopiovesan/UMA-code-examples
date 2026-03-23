@@ -245,6 +245,7 @@ Then open the local Vite URL shown in the terminal, typically [http://localhost:
 Do not use `python3 -m http.server` for the G6 app. A plain static server cannot resolve the `@antv/g6` module import.
 
 The shell also exposes a direct link to the machine-readable JSON for the currently selected scenario, so the CLI and browser views can be inspected side by side.
+The human-readable CLI report intentionally suppresses generic "not relevant" discovery noise so the reader sees the meaningful runtime decisions first. The full raw event/discovery detail remains available in the JSON report.
 
 ## Troubleshooting
 

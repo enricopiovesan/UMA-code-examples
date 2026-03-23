@@ -1278,9 +1278,18 @@ pub fn format_report(report: &ExecutionReport) -> String {
         for item in &step.discovery.available {
             let _ = writeln!(out, "  - {}", item.capability);
         }
-        if !step.discovery.rejected.is_empty() {
+        let visible_rejections = step
+            .discovery
+            .rejected
+            .iter()
+            .filter(|item| {
+                item.status != "hidden"
+                    && item.reason.as_deref() != Some("does not contribute to the current unmet need")
+            })
+            .collect::<Vec<_>>();
+        if !visible_rejections.is_empty() {
             let _ = writeln!(out, "  rejected during discovery:");
-            for item in &step.discovery.rejected {
+            for item in visible_rejections {
                 let _ = writeln!(
                     out,
                     "  - {}: {}",
@@ -1300,7 +1309,19 @@ pub fn format_report(report: &ExecutionReport) -> String {
         }
         let _ = writeln!(out, "  output: {}", step.output_preview);
         let _ = writeln!(out, "  events:");
-        for event in &step.events {
+        let visible_events = step
+            .events
+            .iter()
+            .filter(|event| {
+                !(event.event_type == "CapabilityRejected"
+                    && matches!(
+                        event.reason.as_deref(),
+                        Some("does not contribute to the current unmet need")
+                            | Some("capability not available in this scenario")
+                    ))
+            })
+            .collect::<Vec<_>>();
+        for event in visible_events {
             let _ = writeln!(
                 out,
                 "  - {} {} ({})",
