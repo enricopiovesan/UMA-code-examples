@@ -80,6 +80,7 @@ cd chapter-13-portable-mcp-runtime
 ./scripts/run_lab.sh use-case-2-ai-report
 ./scripts/run_lab.sh use-case-3-french-report
 ./scripts/run_lab.sh use-case-5-agent-validation
+./scripts/run_lab.sh use-case-6-ai-executive-briefing
 ./scripts/smoke_mcp_server.sh
 ./scripts/smoke_portable_mcp_labs.sh
 ```
@@ -127,6 +128,7 @@ Use this order if you are following Chapter 13 as a first-time reader:
 4. `./scripts/run_lab.sh use-case-3-french-report`
 5. `./scripts/run_lab.sh use-case-4-runtime-adapts`
 6. `./scripts/run_lab.sh use-case-5-agent-validation`
+7. `./scripts/run_lab.sh use-case-6-ai-executive-briefing`
 
 Expected satisfaction point:
 - by the end of use case 5, you should be able to explain how the agent can suggest a path while the runtime still owns compatibility, validation, and execution authority
@@ -224,6 +226,12 @@ The browser shell under `app/` is a reader-facing visualization layer for the sa
 It uses generated JSON fixtures from the Rust runtime so the timeline and graph stay aligned with the authoritative implementation.
 The graph panel is rendered with G6 rather than hand-built DOM edges, so playback and workflow highlighting stay clearer as the scenario changes.
 Because the app now imports `@antv/g6`, it must be served through Vite rather than a plain static file server.
+The browser shell automatically focuses on the workflows that actually exercise the real runtime-hosted AI path:
+
+- `use-case-2-ai-report`
+- `use-case-6-ai-executive-briefing`
+
+The deterministic-only, degraded, and fallback-validation scenarios remain in the chapter CLI, tests, and fixtures, but they are not shown in the app selector by default because they do not invoke the real model-backed AI path end to end.
 
 ```bash
 ./scripts/export_app_fixtures.sh

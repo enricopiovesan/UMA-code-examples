@@ -135,3 +135,29 @@ Generate a structured report in French.
 - `PlannerAI` is visible as an explicit planning capability
 - the runtime remains contract-authoritative
 - rejected candidates are visible and explainable
+
+## Use Case 6: AI executive briefing without translation
+
+### Goal
+
+Generate a structured report in English.
+
+### Initial context
+
+- distributed source fragments are available
+- AI planning is available
+- AI summarization is available
+- translation is not required
+
+### Expected path
+
+- DataProviderLocal
+- InsightEnricher
+- SummarizerAI
+- Formatter
+
+### What it proves
+
+- the real runtime-hosted AI path can run without the translation step
+- `PlannerAI` still participates where ranking matters
+- `SummarizerAI` remains a capability selected under current constraints rather than a hardwired shortcut

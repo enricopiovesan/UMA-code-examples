@@ -1,0 +1,22 @@
+{
+  "id": "use-case-6-ai-executive-briefing",
+  "title": "Use Case 6: AI Executive Briefing",
+  "summary": "Generate an English executive briefing from distributed source fragments using the runtime-hosted PlannerAI and SummarizerAI capabilities without inserting translation.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "en",
+    "preferAI": true,
+    "allowDegraded": false,
+    "localOnly": false
+  },
+  "context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views.",
+      "Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning.",
+      "Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions."
+    ],
+    "availableCapabilities": ["DataProviderLocal", "InsightEnricher", "PlannerAI", "SummarizerBasic", "SummarizerAI", "Formatter"],
+    "aiAvailable": true
+  }
+}

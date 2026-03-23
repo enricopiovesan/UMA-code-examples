@@ -1419,4 +1419,26 @@ mod tests {
         assert_eq!(ai_step.execution_mode, report.summarizer_ai_mode);
         assert_eq!(report.final_language, "fr");
     }
+
+    #[test]
+    fn ai_executive_briefing_uses_real_ai_path_without_translation() {
+        let report = run_scenario(&project_root(), "use-case-6-ai-executive-briefing").unwrap();
+        assert!(
+            report.planner_provider == "chapter13-planner-ai-wasi"
+                || report.planner_provider == "deterministic-local-planner"
+        );
+        assert!(
+            report.planner_mode == "runtime-hosted-ranking" || report.planner_mode == "fallback"
+        );
+        assert!(report.selected_path.iter().any(|item| item == "SummarizerAI"));
+        assert!(!report.selected_path.iter().any(|item| item == "TranslatorFr"));
+        assert!(!report.selected_path.iter().any(|item| item == "SummarizerBasic"));
+        assert_eq!(report.final_language, "en");
+        let ai_step = report
+            .steps
+            .iter()
+            .find(|step| step.selected_capability == "SummarizerAI")
+            .unwrap();
+        assert_eq!(ai_step.execution_mode, report.summarizer_ai_mode);
+    }
 }

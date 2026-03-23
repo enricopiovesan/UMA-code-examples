@@ -1,0 +1,1051 @@
+{
+  "scenario": "use-case-6-ai-executive-briefing",
+  "title": "Use Case 6: AI Executive Briefing",
+  "summary": "Generate an English executive briefing from distributed source fragments using the runtime-hosted PlannerAI and SummarizerAI capabilities without inserting translation.",
+  "goal": {
+    "target": "report",
+    "targetLanguage": "en",
+    "preferAI": true,
+    "allowDegraded": false,
+    "localOnly": false
+  },
+  "initial_context": {
+    "projectName": "UMA Runtime Atlas",
+    "sourceFragments": [
+      "Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views.",
+      "Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning.",
+      "Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions."
+    ],
+    "availableCapabilities": [
+      "DataProviderLocal",
+      "InsightEnricher",
+      "PlannerAI",
+      "SummarizerBasic",
+      "SummarizerAI",
+      "Formatter"
+    ],
+    "aiAvailable": true
+  },
+  "planner_provider": "chapter13-planner-ai-wasi",
+  "planner_mode": "runtime-hosted-ranking",
+  "planner_fallback_reason": null,
+  "summarizer_ai_provider": "chapter13-summarizer-ai-wasi",
+  "summarizer_ai_mode": "runtime-hosted-extractive",
+  "summarizer_ai_fallback_reason": null,
+  "selected_path": [
+    "DataProviderLocal",
+    "InsightEnricher",
+    "SummarizerAI",
+    "Formatter"
+  ],
+  "rejected_capabilities": [],
+  "steps": [
+    {
+      "index": 1,
+      "need": "provide-source-fragments",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
+      "agent_fallback_reason": null,
+      "agent_proposal": "DataProviderLocal",
+      "proposed_validation": null,
+      "selected_capability": "DataProviderLocal",
+      "execution_provider": "DataProviderLocal",
+      "execution_mode": "standard",
+      "fallback_reason": null,
+      "discovery": {
+        "need": "provide-source-fragments",
+        "available": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "DataProviderLocal",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Loaded 3 distributed source fragment(s)",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "DataProviderLocal",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "DataProviderLocal",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "DataProviderLocal",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "DataProviderLocal",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "false",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityExecuted",
+          "capability": "DataProviderLocal",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "need": "derive-structured-insights",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
+      "agent_fallback_reason": null,
+      "agent_proposal": "InsightEnricher",
+      "proposed_validation": null,
+      "selected_capability": "InsightEnricher",
+      "execution_provider": "InsightEnricher",
+      "execution_mode": "standard",
+      "fallback_reason": null,
+      "discovery": {
+        "need": "derive-structured-insights",
+        "available": [
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "InsightEnricher",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Derived 3 structured fact(s)",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "InsightEnricher",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "InsightEnricher",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "InsightEnricher",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "InsightEnricher",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "ContextUpdated",
+          "capability": "InsightEnricher",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "need": "generate-summary",
+      "agent_provider": "chapter13-planner-ai-wasi",
+      "agent_mode": "runtime-hosted-ranking",
+      "agent_fallback_reason": null,
+      "agent_proposal": "SummarizerAI",
+      "proposed_validation": null,
+      "selected_capability": "SummarizerAI",
+      "execution_provider": "chapter13-summarizer-ai-wasi",
+      "execution_mode": "runtime-hosted-extractive",
+      "fallback_reason": null,
+      "discovery": {
+        "need": "generate-summary",
+        "available": [
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": null,
+            "status": "candidate"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          },
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "SummarizerAI",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "SummarizerBasic",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "SummarizerAI",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "Formatter",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "SummarizerAI",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "SummarizerAI",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "SummarizerAI",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "none",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityExecuted",
+          "capability": "SummarizerAI",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "need": "format-structured-report",
+      "agent_provider": "runtime-direct-selection",
+      "agent_mode": "direct",
+      "agent_fallback_reason": null,
+      "agent_proposal": "Formatter",
+      "proposed_validation": null,
+      "selected_capability": "Formatter",
+      "execution_provider": "Formatter",
+      "execution_mode": "standard",
+      "fallback_reason": null,
+      "discovery": {
+        "need": "format-structured-report",
+        "available": [
+          {
+            "capability": "Formatter",
+            "intent": "format-structured-report",
+            "reason": null,
+            "status": "candidate"
+          }
+        ],
+        "rejected": [
+          {
+            "capability": "DataProviderLocal",
+            "intent": "provide-source-fragments",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "InsightEnricher",
+            "intent": "derive-structured-insights",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "PlannerAI",
+            "intent": "propose-next-capability",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerBasic",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "SummarizerAI",
+            "intent": "generate-summary",
+            "reason": "does not contribute to the current unmet need",
+            "status": "not-relevant"
+          },
+          {
+            "capability": "TranslatorFr",
+            "intent": "translate-to-target-language",
+            "reason": "capability not available in this scenario",
+            "status": "hidden"
+          }
+        ]
+      },
+      "validation": {
+        "capability": "Formatter",
+        "status": "accepted",
+        "reasons": []
+      },
+      "output_preview": "Project: UMA Runtime Atlas\nLanguage: en\nSummary: Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.\nHighlights: Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning.",
+      "events": [
+        {
+          "type": "CapabilityDiscovered",
+          "capability": "Formatter",
+          "status": "candidate",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "DataProviderLocal",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "InsightEnricher",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "PlannerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerBasic",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "SummarizerAI",
+          "status": "not-relevant",
+          "reason": "does not contribute to the current unmet need",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityRejected",
+          "capability": "TranslatorFr",
+          "status": "hidden",
+          "reason": "capability not available in this scenario",
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityProposed",
+          "capability": "Formatter",
+          "status": "proposed",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilitySelected",
+          "capability": "Formatter",
+          "status": "selected",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "CapabilityValidated",
+          "capability": "Formatter",
+          "status": "accepted",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "none",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        },
+        {
+          "type": "GoalSatisfied",
+          "capability": "Formatter",
+          "status": "success",
+          "reason": null,
+          "contextSnapshot": {
+            "report": "Project: UMA Runtime Atlas\nLanguage: en\nSummary: Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.\nHighlights: Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning.",
+            "sourceLoaded": "true",
+            "structuredFacts": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. | Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning. | Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "summary": "Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.",
+            "translatedSummary": "none"
+          }
+        }
+      ]
+    }
+  ],
+  "final_output": "Project: UMA Runtime Atlas\nLanguage: en\nSummary: Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Cloud portfolio analysis indicates that leadership teams want one English briefing that connects adoption, risk posture, and next actions.\nHighlights: Fact: Browser-side account telemetry shows that enterprise readers spend more time on concise executive summaries than on raw trace views. Fact: Edge coordination logs report that regional rollout status is now stable enough to shift attention from incident response to operational planning.",
+  "final_language": "en",
+  "status": "complete",
+  "graph_nodes": [
+    {
+      "id": "goal",
+      "label": "Goal",
+      "kind": "goal",
+      "state": "complete",
+      "x": -280.0,
+      "y": -180.0,
+      "z": -80.0
+    },
+    {
+      "id": "mcp",
+      "label": "MCP node",
+      "kind": "mcp",
+      "state": "active",
+      "x": -150.0,
+      "y": -40.0,
+      "z": 40.0
+    },
+    {
+      "id": "agent",
+      "label": "chapter13-planner-ai-wasi",
+      "kind": "agent",
+      "state": "active",
+      "x": 130.0,
+      "y": -180.0,
+      "z": 80.0
+    },
+    {
+      "id": "runtime",
+      "label": "UMA runtime",
+      "kind": "runtime",
+      "state": "active",
+      "x": -20.0,
+      "y": -60.0,
+      "z": -20.0
+    },
+    {
+      "id": "result",
+      "label": "Result",
+      "kind": "result",
+      "state": "complete",
+      "x": 320.0,
+      "y": 180.0,
+      "z": 40.0
+    },
+    {
+      "id": "DataProviderLocal",
+      "label": "DataProviderLocal",
+      "kind": "capability",
+      "state": "complete",
+      "x": -250.0,
+      "y": 110.0,
+      "z": -10.0
+    },
+    {
+      "id": "InsightEnricher",
+      "label": "InsightEnricher",
+      "kind": "capability",
+      "state": "complete",
+      "x": -90.0,
+      "y": 150.0,
+      "z": 20.0
+    },
+    {
+      "id": "PlannerAI",
+      "label": "PlannerAI",
+      "kind": "capability",
+      "state": "candidate",
+      "x": 60.0,
+      "y": -150.0,
+      "z": 100.0
+    },
+    {
+      "id": "SummarizerBasic",
+      "label": "SummarizerBasic",
+      "kind": "capability",
+      "state": "candidate",
+      "x": 80.0,
+      "y": 40.0,
+      "z": 60.0
+    },
+    {
+      "id": "SummarizerAI",
+      "label": "SummarizerAI",
+      "kind": "capability",
+      "state": "complete",
+      "x": 120.0,
+      "y": 140.0,
+      "z": 110.0
+    },
+    {
+      "id": "TranslatorFr",
+      "label": "TranslatorFr",
+      "kind": "capability",
+      "state": "inactive",
+      "x": 250.0,
+      "y": 90.0,
+      "z": 20.0
+    },
+    {
+      "id": "Formatter",
+      "label": "Formatter",
+      "kind": "capability",
+      "state": "complete",
+      "x": 210.0,
+      "y": 210.0,
+      "z": -20.0
+    }
+  ],
+  "graph_edges": [
+    {
+      "from": "goal",
+      "to": "mcp",
+      "state": "active"
+    },
+    {
+      "from": "mcp",
+      "to": "agent",
+      "state": "active"
+    },
+    {
+      "from": "agent",
+      "to": "runtime",
+      "state": "active"
+    },
+    {
+      "from": "runtime",
+      "to": "DataProviderLocal",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "InsightEnricher",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "SummarizerAI",
+      "state": "complete"
+    },
+    {
+      "from": "runtime",
+      "to": "Formatter",
+      "state": "complete"
+    },
+    {
+      "from": "Formatter",
+      "to": "result",
+      "state": "complete"
+    }
+  ]
+}

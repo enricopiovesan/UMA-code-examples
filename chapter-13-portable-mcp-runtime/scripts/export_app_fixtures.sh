@@ -19,26 +19,33 @@ first=1
 while IFS= read -r scenario; do
   fixture_path="$FIXTURE_DIR/$scenario.json"
   cargo run --locked --quiet --manifest-path "$MANIFEST_PATH" -- render "$scenario" json > "$fixture_path"
-  summary="$(python3 - "$fixture_path" <<'PY'
+summary="$(python3 - "$fixture_path" <<'PY'
 import json
 import pathlib
 import sys
 
 path = pathlib.Path(sys.argv[1])
 data = json.loads(path.read_text())
-print(json.dumps({
-    "id": data["scenario"],
-    "title": data["title"],
-    "summary": data["summary"],
-    "status": data["status"],
-}))
+include = (
+    data.get("planner_mode") == "runtime-hosted-ranking"
+    or data.get("summarizer_ai_mode") == "runtime-hosted-extractive"
+)
+if include:
+    print(json.dumps({
+        "id": data["scenario"],
+        "title": data["title"],
+        "summary": data["summary"],
+        "status": data["status"],
+    }))
 PY
 )"
-  if [[ "$first" -eq 0 ]]; then
-    printf ',\n' >> "$tmp_index"
+  if [[ -n "$summary" ]]; then
+    if [[ "$first" -eq 0 ]]; then
+      printf ',\n' >> "$tmp_index"
+    fi
+    printf '%s' "$summary" >> "$tmp_index"
+    first=0
   fi
-  printf '%s' "$summary" >> "$tmp_index"
-  first=0
 done < <(cargo run --locked --quiet --manifest-path "$MANIFEST_PATH" -- list)
 printf '\n]\n' >> "$tmp_index"
 
