@@ -131,6 +131,9 @@ function renderTransformations(report, focusedStepIndex) {
             step.proposed_validation.reasons.join(", ")
           )}</p>`
         : "";
+      const agentNote = step.agent_fallback_reason
+        ? `<p class="summary-text proposal-reject"><strong>Planner fallback:</strong> ${escapeHtml(step.agent_fallback_reason)}</p>`
+        : "";
       const fallbackNote = step.fallback_reason
         ? `<p class="summary-text proposal-reject"><strong>Fallback:</strong> ${escapeHtml(step.fallback_reason)}</p>`
         : "";
@@ -143,7 +146,9 @@ function renderTransformations(report, focusedStepIndex) {
             <span class="pill">${escapeHtml(step.need)}</span>
           </div>
           <h3>${escapeHtml(step.selected_capability)}</h3>
+          <p class="summary-text"><strong>Agent:</strong> ${escapeHtml(step.agent_provider)} · ${escapeHtml(step.agent_mode)}</p>
           <p class="summary-text"><strong>Agent proposal:</strong> ${escapeHtml(step.agent_proposal ?? "none")}</p>
+          ${agentNote}
           ${proposalStatus}
           ${fallbackNote}
           <div class="transform-boxes">

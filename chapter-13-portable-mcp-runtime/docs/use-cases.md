@@ -55,7 +55,7 @@ Generate a structured report in French.
 - the same goal can resolve through a different valid path
 - the runtime swaps capabilities based on current constraints instead of application rewrites
 - `PlannerAI` and `SummarizerAI` can participate as capabilities without becoming the runtime authority
-- if `SummarizerAI` is selected before its runtime-hosted provider is bound, the fallback must remain explicit and visible
+- if a runtime-hosted AI provider is unavailable, the fallback must remain explicit and visible
 
 ## Use Case 3: French output with translation
 

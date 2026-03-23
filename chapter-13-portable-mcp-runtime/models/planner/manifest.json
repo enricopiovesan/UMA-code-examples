@@ -1,0 +1,33 @@
+{
+  "modelId": "Xenova/paraphrase-MiniLM-L3-v2",
+  "revision": "main",
+  "format": "onnx",
+  "task": "capability-ranking",
+  "files": [
+    {
+      "name": "model_quantized.onnx",
+      "path": "onnx/model_quantized.onnx",
+      "sha256": "b190f50dd46296b9895ae8f274c3455762d08610f8788f4a9bd15019f4f7160c"
+    },
+    {
+      "name": "config.json",
+      "path": "config.json",
+      "sha256": "c8bcaca23b245d64047ee04fa2edcc55867064b67cbbe2772f660cdbdfb1978c"
+    },
+    {
+      "name": "tokenizer.json",
+      "path": "tokenizer.json",
+      "sha256": "2fc687b11de0bc1b3d8348f92e3b49ef1089a621506c7661fbf3248fcd54947e"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "path": "tokenizer_config.json",
+      "sha256": "9261e7d79b44c8195c1cada2b453e55b00aeb81e907a6664974b4d7776172ab3"
+    },
+    {
+      "name": "vocab.txt",
+      "path": "vocab.txt",
+      "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+    }
+  ]
+}

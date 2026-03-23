@@ -46,19 +46,19 @@ What is real in this chapter today:
 - the UMA runtime is real Rust code
 - the browser shell is fed by real runtime reports
 - the MCP server is a real stdio JSON-RPC server in Rust
-- the planner agent is a real explicit provider, currently deterministic and local
+- `PlannerAI` can run as a real runtime-hosted WASI planning capability once its chapter-local model artifacts are installed and the module is built
+- `SummarizerAI` can run as a real runtime-hosted WASI summarization capability once its chapter-local model artifacts are installed and the module is built
 
 What is not yet model-backed:
 
-- the planner agent does not call an external or embedded language model in the validated path
-- `SummarizerAI` is already treated as a real runtime-hosted capability contract, and it runs through a separate WASI module once the chapter-local model artifacts are installed and the module is built
-- if the runtime-hosted provider is missing or unavailable, the runtime falls back to the deterministic implementation instead of failing the whole scenario
+- if either runtime-hosted AI provider is missing or unavailable, the runtime falls back to the deterministic implementation instead of failing the whole scenario
 - the fallback is reported explicitly in the machine-readable report and in the execution step that used it
 
 What is already pinned for the real model path:
 
 - `SummarizerAI` uses the chapter-local model manifest at `models/manifest.json`
-- the first runtime-hosted model path is a pinned ONNX summarization artifact
+- `PlannerAI` uses the chapter-local model manifest at `models/planner/manifest.json`
+- both runtime-hosted model paths use pinned ONNX artifacts
 - setup is handled by `./scripts/setup_models.sh` with checksum validation
 
 ## Validation status
@@ -73,6 +73,7 @@ What is already pinned for the real model path:
 ```bash
 cd chapter-13-portable-mcp-runtime
 ./scripts/setup_models.sh
+./scripts/build_planner_ai_wasi.sh
 ./scripts/build_summarizer_ai_wasi.sh
 ./scripts/list_labs.sh
 ./scripts/run_lab.sh use-case-1-basic-report
@@ -86,7 +87,11 @@ cd chapter-13-portable-mcp-runtime
 The scripts also work from the repo root if you prefix them with `chapter-13-portable-mcp-runtime/`.
 
 `./scripts/setup_models.sh` downloads the pinned Chapter 13 ONNX summarizer artifacts into `models/`
-and verifies their SHA-256 checksums. The manifest is committed; the binary model files remain local.
+and planner artifacts into `models/planner/`, then verifies their SHA-256 checksums.
+The manifests are committed; the binary model files remain local.
+
+`./scripts/build_planner_ai_wasi.sh` compiles the separate `PlannerAI` WASI module that the
+Rust Chapter 13 runtime can invoke when a model-backed planner is selected.
 
 `./scripts/build_summarizer_ai_wasi.sh` compiles the separate `SummarizerAI` WASI module that the
 Rust Chapter 13 runtime can invoke when `SummarizerAI` is selected.
@@ -158,11 +163,14 @@ Chapter 13 is the reference experience. The strongest version is one authoritati
 
 ### "Is the agent a real AI model?"
 
-Not in the validated path yet.
+It can be.
 
-The agent is real in the sense that it is an explicit planner component with its own provider boundary, and the runtime does not fake its decisions inside unrelated code. But the current provider is deterministic and local, because that keeps the authoritative execution path reproducible and inspectable.
+If the chapter-local planner model artifacts are installed and the WASI planner module is built,
+`PlannerAI` executes as a real runtime-hosted ranking planner.
+If that provider is missing, the runtime falls back to the deterministic local planner.
 
-The chapter already preserves the right architectural seam for a future model-backed provider. What remains authoritative even then is still the UMA runtime: contracts, compatibility, validation, and execution do not become model-controlled.
+What remains authoritative either way is still the UMA runtime: contracts, compatibility,
+validation, and execution do not become model-controlled.
 
 ### "What happens when SummarizerAI is selected today?"
 

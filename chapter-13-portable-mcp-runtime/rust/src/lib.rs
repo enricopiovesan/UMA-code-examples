@@ -107,6 +107,8 @@ pub struct ExecutionStep {
     pub index: usize,
     pub need: String,
     pub agent_provider: String,
+    pub agent_mode: String,
+    pub agent_fallback_reason: Option<String>,
     pub agent_proposal: Option<String>,
     pub proposed_validation: Option<ValidationResult>,
     pub selected_capability: String,
@@ -156,6 +158,8 @@ pub struct ExecutionReport {
     pub goal: GoalSpec,
     pub initial_context: ContextSeed,
     pub planner_provider: String,
+    pub planner_mode: String,
+    pub planner_fallback_reason: Option<String>,
     pub summarizer_ai_provider: String,
     pub summarizer_ai_mode: String,
     pub summarizer_ai_fallback_reason: Option<String>,
@@ -284,7 +288,9 @@ impl AgentProviderKind {
 
 #[derive(Debug, Clone)]
 struct AgentDecision {
-    provider: AgentProviderKind,
+    provider: String,
+    mode: String,
+    fallback_reason: Option<String>,
     proposal: Option<String>,
 }
 
@@ -299,6 +305,30 @@ struct CapabilityExecutionMode {
 #[derive(Debug, Deserialize)]
 struct RuntimeHostedSummarizerResult {
     summary: String,
+    provider: String,
+    mode: String,
+    #[serde(rename = "model_id")]
+    _model_id: String,
+    #[serde(rename = "model_revision")]
+    _model_revision: String,
+    #[serde(rename = "model_checksum")]
+    _model_checksum: String,
+}
+
+#[derive(Debug, Serialize)]
+struct PlannerCapabilityDescriptor {
+    name: String,
+    intent: String,
+    description: String,
+    tags: Vec<String>,
+    runtime: Vec<String>,
+    requires: Vec<String>,
+    excludes: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+struct RuntimeHostedPlannerResult {
+    proposal: String,
     provider: String,
     mode: String,
     #[serde(rename = "model_id")]
@@ -326,17 +356,34 @@ fn agent_provider_for(_scenario: &Scenario) -> AgentProviderKind {
 }
 
 fn propose_with_agent(
+    root: &Path,
     provider: AgentProviderKind,
     need: &str,
     scenario: &Scenario,
     visible: &[CapabilityContract],
 ) -> AgentDecision {
-    let proposal = match provider {
-        AgentProviderKind::DeterministicLocal => deterministic_agent_proposal(need, scenario, visible),
-        AgentProviderKind::PlannerAI => deterministic_agent_proposal(need, scenario, visible),
-    };
-
-    AgentDecision { provider, proposal }
+    match provider {
+        AgentProviderKind::DeterministicLocal => AgentDecision {
+            provider: provider.label().to_string(),
+            mode: "deterministic".to_string(),
+            fallback_reason: None,
+            proposal: deterministic_agent_proposal(need, scenario, visible),
+        },
+        AgentProviderKind::PlannerAI => match invoke_runtime_hosted_planner(root, need, scenario, visible) {
+            Ok(result) => AgentDecision {
+                provider: result.provider,
+                mode: result.mode,
+                fallback_reason: None,
+                proposal: Some(result.proposal),
+            },
+            Err(reason) => AgentDecision {
+                provider: AgentProviderKind::DeterministicLocal.label().to_string(),
+                mode: "fallback".to_string(),
+                fallback_reason: Some(reason),
+                proposal: deterministic_agent_proposal(need, scenario, visible),
+            },
+        },
+    }
 }
 
 fn deterministic_agent_proposal(
@@ -351,6 +398,94 @@ fn deterministic_agent_proposal(
     }
 
     visible.first().map(|item| item.name.clone())
+}
+
+fn planner_descriptor_for(contract: &CapabilityContract) -> PlannerCapabilityDescriptor {
+    PlannerCapabilityDescriptor {
+        name: contract.name.clone(),
+        intent: contract.intent.clone(),
+        description: contract.metadata.description.clone(),
+        tags: contract.metadata.tags.clone(),
+        runtime: contract.constraints.runtime.clone(),
+        requires: contract.constraints.requires.clone(),
+        excludes: contract.constraints.excludes.clone(),
+    }
+}
+
+fn invoke_runtime_hosted_planner(
+    root: &Path,
+    need: &str,
+    scenario: &Scenario,
+    visible: &[CapabilityContract],
+) -> Result<RuntimeHostedPlannerResult, String> {
+    let module_path =
+        root.join("planner-ai-wasi/target/wasm32-wasip1/debug/chapter13_planner_ai_wasi.wasm");
+    if !module_path.exists() {
+        return Err("runtime-hosted PlannerAI module is not built yet".to_string());
+    }
+
+    let models_dir = root.join("models/planner");
+    if !models_dir.join("model_quantized.onnx").exists() || !models_dir.join("manifest.json").exists() {
+        return Err("runtime-hosted PlannerAI model artifacts are not installed".to_string());
+    }
+
+    let repo_root = root
+        .parent()
+        .ok_or_else(|| "missing repo root for Chapter 13 runtime".to_string())?;
+    let embedded_wasmtime = repo_root.join(".bin/wasmtime-v39.0.0-aarch64-macos/wasmtime");
+    let wasmtime = if embedded_wasmtime.exists() {
+        embedded_wasmtime
+    } else {
+        PathBuf::from("wasmtime")
+    };
+
+    let request = serde_json::json!({
+        "need": need,
+        "target_language": scenario.goal.target_language,
+        "prefer_ai": scenario.goal.prefer_ai,
+        "local_only": scenario.goal.local_only,
+        "allow_degraded": scenario.goal.allow_degraded,
+        "project_name": scenario.context.project_name,
+        "source_fragment_count": scenario.context.source_fragments.len(),
+        "visible_capabilities": visible.iter().map(planner_descriptor_for).collect::<Vec<_>>(),
+        "model_dir": "/models"
+    });
+
+    let mut child = Command::new(wasmtime)
+        .arg("run")
+        .arg("--dir")
+        .arg(format!("{}::/models", models_dir.display()))
+        .arg(module_path)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|err| format!("failed to start runtime-hosted PlannerAI: {err}"))?;
+
+    {
+        let mut stdin = child
+            .stdin
+            .take()
+            .ok_or_else(|| "failed to open runtime-hosted PlannerAI stdin".to_string())?;
+        stdin
+            .write_all(request.to_string().as_bytes())
+            .map_err(|err| format!("failed to send runtime-hosted PlannerAI request: {err}"))?;
+    }
+
+    let output = child
+        .wait_with_output()
+        .map_err(|err| format!("failed to wait for runtime-hosted PlannerAI: {err}"))?;
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
+        return Err(if stderr.is_empty() {
+            "runtime-hosted PlannerAI returned a non-zero exit status".to_string()
+        } else {
+            format!("runtime-hosted PlannerAI failed: {stderr}")
+        });
+    }
+
+    serde_json::from_slice::<RuntimeHostedPlannerResult>(&output.stdout)
+        .map_err(|err| format!("failed to parse runtime-hosted PlannerAI output: {err}"))
 }
 
 fn validate_contract(
@@ -682,7 +817,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         }
 
         let (visible, discovery) = discover_candidates(&scenario, &state, need);
-        let agent_decision = propose_with_agent(agent_provider_for(&scenario), need, &scenario, &visible);
+        let agent_decision = propose_with_agent(root, agent_provider_for(&scenario), need, &scenario, &visible);
         let proposal = agent_decision.proposal.clone();
 
         let mut selected_contract = None;
@@ -878,7 +1013,9 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         steps.push(ExecutionStep {
             index,
             need: need.to_string(),
-            agent_provider: agent_decision.provider.label().to_string(),
+            agent_provider: agent_decision.provider.clone(),
+            agent_mode: agent_decision.mode.clone(),
+            agent_fallback_reason: agent_decision.fallback_reason.clone(),
             agent_proposal: proposal,
             proposed_validation,
             selected_capability: contract.name,
@@ -918,7 +1055,10 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         GraphNode { id: "mcp".into(), label: "MCP node".into(), kind: "mcp".into(), state: "active".into(), x: -140.0, y: -20.0, z: 60.0 },
         GraphNode {
             id: "agent".into(),
-            label: agent_provider_for(&scenario).label().into(),
+            label: steps
+                .first()
+                .map(|step| step.agent_provider.clone())
+                .unwrap_or_else(|| agent_provider_for(&scenario).label().to_string()),
             kind: "agent".into(),
             state: if scenario.goal.prefer_ai || scenario.context.available_capabilities.iter().any(|item| item == "PlannerAI") {
                 "active".into()
@@ -988,7 +1128,17 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         });
     }
 
-    let planner_provider = agent_provider_for(&scenario).label().to_string();
+    let planner_provider = steps
+        .first()
+        .map(|step| step.agent_provider.clone())
+        .unwrap_or_else(|| agent_provider_for(&scenario).label().to_string());
+    let planner_mode = steps
+        .first()
+        .map(|step| step.agent_mode.clone())
+        .unwrap_or_else(|| "not-invoked".to_string());
+    let planner_fallback_reason = steps
+        .iter()
+        .find_map(|step| step.agent_fallback_reason.clone());
     let summarizer_ai_step = steps
         .iter()
         .find(|step| step.selected_capability == "SummarizerAI");
@@ -1007,6 +1157,8 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         goal: scenario.goal,
         initial_context: scenario.context,
         planner_provider,
+        planner_mode,
+        planner_fallback_reason,
         summarizer_ai_provider,
         summarizer_ai_mode,
         summarizer_ai_fallback_reason,
@@ -1040,7 +1192,16 @@ pub fn format_report(report: &ExecutionReport) -> String {
     let _ = writeln!(out, "- source fragments: {}", report.initial_context.source_fragments.len());
     let _ = writeln!(out, "- available capabilities: {}", report.initial_context.available_capabilities.join(", "));
     let _ = writeln!(out, "- AI available: {}", report.initial_context.ai_available);
-    let _ = writeln!(out, "- planner provider: {}\n", report.planner_provider);
+    let _ = writeln!(out, "- planner provider: {}", report.planner_provider);
+    let _ = writeln!(out, "- planner mode: {}", report.planner_mode);
+    let _ = writeln!(
+        out,
+        "- planner fallback reason: {}\n",
+        report
+            .planner_fallback_reason
+            .as_deref()
+            .unwrap_or("none")
+    );
 
     let _ = writeln!(out, "SummarizerAI:");
     let _ = writeln!(out, "- provider: {}", report.summarizer_ai_provider);
@@ -1084,6 +1245,10 @@ pub fn format_report(report: &ExecutionReport) -> String {
             "  agent provider: {}",
             step.agent_provider
         );
+        let _ = writeln!(out, "  agent mode: {}", step.agent_mode);
+        if let Some(reason) = &step.agent_fallback_reason {
+            let _ = writeln!(out, "  agent fallback note: {}", reason);
+        }
         let _ = writeln!(out, "  execution provider: {}", step.execution_provider);
         let _ = writeln!(out, "  execution mode: {}", step.execution_mode);
         if let Some(reason) = &step.fallback_reason {
@@ -1187,6 +1352,7 @@ mod tests {
     fn agent_proposal_can_be_rejected_by_runtime() {
         let report = run_scenario(&project_root(), "use-case-5-agent-validation").unwrap();
         assert_eq!(report.planner_provider, "deterministic-local-planner");
+        assert_eq!(report.planner_mode, "deterministic");
         assert!(report
             .rejected_capabilities
             .iter()
@@ -1205,7 +1371,24 @@ mod tests {
     #[test]
     fn ai_report_prefers_ai_when_constraints_allow_it() {
         let report = run_scenario(&project_root(), "use-case-2-ai-report").unwrap();
-        assert_eq!(report.planner_provider, "PlannerAI");
+        assert!(
+            report.planner_provider == "chapter13-planner-ai-wasi"
+                || report.planner_provider == "deterministic-local-planner"
+        );
+        assert!(
+            report.planner_mode == "runtime-hosted-ranking" || report.planner_mode == "fallback"
+        );
+        if report.planner_mode == "runtime-hosted-ranking" {
+            assert_eq!(report.planner_provider, "chapter13-planner-ai-wasi");
+            assert!(report.planner_fallback_reason.is_none());
+        } else {
+            assert_eq!(report.planner_provider, "deterministic-local-planner");
+            assert!(report
+                .planner_fallback_reason
+                .as_deref()
+                .unwrap()
+                .contains("runtime-hosted PlannerAI"));
+        }
         assert!(report.selected_path.iter().any(|item| item == "SummarizerAI"));
         assert!(!report.selected_path.iter().any(|item| item == "SummarizerBasic"));
         assert!(report.summarizer_ai_mode == "fallback" || report.summarizer_ai_mode == "runtime-hosted-extractive");
@@ -1225,6 +1408,7 @@ mod tests {
             .iter()
             .find(|step| step.selected_capability == "SummarizerAI")
             .unwrap();
+        assert_eq!(ai_step.agent_mode, report.planner_mode);
         assert_eq!(ai_step.execution_mode, report.summarizer_ai_mode);
         assert_eq!(report.final_language, "fr");
     }
