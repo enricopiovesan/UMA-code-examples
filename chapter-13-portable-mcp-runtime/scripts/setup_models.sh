@@ -38,6 +38,7 @@ import json
 import pathlib
 import subprocess
 import sys
+import time
 import urllib.request
 
 for manifest_arg in sys.argv[1:]:
@@ -63,8 +64,26 @@ for manifest_arg in sys.argv[1:]:
             target.unlink()
 
         print(f"Downloading {target.relative_to(manifest_path.parents[1])}")
-        with urllib.request.urlopen(url) as response, target.open("wb") as handle:
-            handle.write(response.read())
+        last_error = None
+        for attempt in range(1, 6):
+            try:
+                with urllib.request.urlopen(url, timeout=60) as response, target.open("wb") as handle:
+                    handle.write(response.read())
+                last_error = None
+                break
+            except Exception as exc:
+                last_error = exc
+                target.unlink(missing_ok=True)
+                if attempt == 5:
+                    break
+                print(
+                    f"Retrying download for {target.name} (attempt {attempt}/5 failed: {exc})",
+                    file=sys.stderr,
+                )
+                time.sleep(min(attempt * 2, 8))
+
+        if last_error is not None:
+            raise SystemExit(f"Failed to download {target.name}: {last_error}")
 
         actual = subprocess.check_output(["shasum", "-a", "256", str(target)], text=True).split()[0]
         if actual != expected:

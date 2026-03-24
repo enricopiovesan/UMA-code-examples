@@ -35,6 +35,12 @@ jobs:
           curl -L https://github.com/bytecodealliance/wasmtime/releases/download/v39.0.0/wasmtime-v39.0.0-x86_64-linux.tar.xz -o /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz
           tar -xf /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz -C .bin
 
+      - name: Cache Chapter 13 model artifacts
+        uses: actions/cache@v4
+        with:
+          path: chapter-13-portable-mcp-runtime/models
+          key: chapter13-models-${{ runner.os }}-${{ hashFiles('chapter-13-portable-mcp-runtime/models/manifest.json', 'chapter-13-portable-mcp-runtime/models/planner/manifest.json', 'chapter-13-portable-mcp-runtime/models/translator/manifest.json') }}
+
       - name: Run reader smoke script
         shell: bash
         run: ./scripts/smoke_reader_paths.sh
