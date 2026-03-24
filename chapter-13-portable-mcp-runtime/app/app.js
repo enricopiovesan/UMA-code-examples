@@ -1140,7 +1140,12 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
 
   selected.forEach((nodeId, index) => {
     const stepNumber = index + 1;
-    const complete = phase !== "idle" && stepNumber < focusedStepIndex;
+    const complete =
+      phase !== "idle" &&
+      (
+        stepNumber < focusedStepIndex ||
+        (phase === "result" && stepNumber === focusedStepIndex)
+      );
     const active = stepNumber === focusedStepIndex && phase === "capability";
     edges.push({
       id: `workflow-runtime-${nodeId}`,

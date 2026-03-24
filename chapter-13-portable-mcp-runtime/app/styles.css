@@ -112,9 +112,15 @@ button {
   border: 0;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .scenario-picker {
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) auto auto;
+  grid-template-columns: auto minmax(320px, 1fr) auto;
   gap: 8px;
   align-items: stretch;
 }
@@ -130,6 +136,19 @@ button {
   line-height: 1;
   cursor: pointer;
   border-radius: var(--radius-sm);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.source-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .control-link {

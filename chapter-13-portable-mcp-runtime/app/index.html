@@ -10,12 +10,23 @@
   <body>
     <main class="app-shell">
       <header class="app-header">
-        <h1>UMA Ref APP</h1>
+        <h1>UMA Reference APP</h1>
         <form class="controls">
-          <div class="scenario-picker">
-            <select id="scenario-select" name="workflow" aria-label="Select workflow"></select>
-            <button id="run-scenario" type="button">Play workflow</button>
-            <button id="open-commands" class="icon-button" type="button" aria-label="Open workflow info">i</button>
+          <div class="header-actions">
+            <div class="scenario-picker">
+              <button id="open-commands" class="icon-button" type="button" aria-label="Open workflow info">i</button>
+              <select id="scenario-select" name="workflow" aria-label="Select workflow"></select>
+              <button id="run-scenario" type="button">Play workflow</button>
+            </div>
+            <a
+              class="source-link"
+              href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-13-portable-mcp-runtime"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open Chapter 13 source code on GitHub"
+            >
+              GitHub
+            </a>
           </div>
         </form>
       </header>
