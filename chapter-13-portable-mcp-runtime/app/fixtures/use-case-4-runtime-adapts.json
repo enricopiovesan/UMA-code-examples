@@ -30,6 +30,9 @@
   "summarizer_ai_provider": "not-invoked",
   "summarizer_ai_mode": "not-invoked",
   "summarizer_ai_fallback_reason": null,
+  "translator_ai_provider": "not-used",
+  "translator_ai_mode": "not-used",
+  "translator_ai_fallback_reason": null,
   "selected_path": [
     "DataProviderLocal",
     "InsightEnricher",
@@ -116,6 +119,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -129,6 +133,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -142,6 +147,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -155,6 +161,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -168,6 +175,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -181,6 +189,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -194,6 +203,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -207,6 +217,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -220,6 +231,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -233,6 +245,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -246,6 +259,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -329,6 +343,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -342,6 +357,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -355,6 +371,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -368,6 +385,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -381,6 +399,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -394,6 +413,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -407,6 +427,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -420,6 +441,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -433,6 +455,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -446,6 +469,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -459,6 +483,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -542,6 +567,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -555,6 +581,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -568,6 +595,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -581,6 +609,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -594,6 +623,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -607,6 +637,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -620,6 +651,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -633,6 +665,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -646,6 +679,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -659,6 +693,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -672,6 +707,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -743,7 +779,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).\nHighlights: Fact: Browser-side notes describe the current delivery goal and supported languages. Fact: Edge summaries show that no French translator module is healthy in this local-only mode.",
+      "output_preview": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).\nPoints cles: Fact: Browser-side notes describe the current delivery goal and supported languages. Fact: Edge summaries show that no French translator module is healthy in this local-only mode.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -755,6 +791,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -768,6 +805,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -781,6 +819,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -794,6 +833,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -807,6 +847,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -820,6 +861,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -833,6 +875,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -846,6 +889,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -859,6 +903,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -872,6 +917,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -881,17 +927,18 @@
           "status": "success",
           "reason": "runtime satisfied the goal in degraded mode",
           "contextSnapshot": {
-            "report": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).\nHighlights: Fact: Browser-side notes describe the current delivery goal and supported languages. Fact: Edge summaries show that no French translator module is healthy in this local-only mode.",
+            "report": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).\nPoints cles: Fact: Browser-side notes describe the current delivery goal and supported languages. Fact: Edge summaries show that no French translator module is healthy in this local-only mode.",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser-side notes describe the current delivery goal and supported languages. | Fact: Edge summaries show that no French translator module is healthy in this local-only mode. | Fact: Cloud references remain visible but are excluded under the current execution constraints.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
       ]
     }
   ],
-  "final_output": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).\nHighlights: Fact: Browser-side notes describe the current delivery goal and supported languages. Fact: Edge summaries show that no French translator module is healthy in this local-only mode.",
+  "final_output": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).\nPoints cles: Fact: Browser-side notes describe the current delivery goal and supported languages. Fact: Edge summaries show that no French translator module is healthy in this local-only mode.",
   "final_language": "en (degraded)",
   "status": "degraded",
   "graph_nodes": [

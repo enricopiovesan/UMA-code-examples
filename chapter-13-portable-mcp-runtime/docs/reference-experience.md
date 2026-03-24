@@ -15,7 +15,7 @@ It is not a generic app and not a production orchestration platform. It is a sma
 - composition is not hardwired
 - the runtime can adapt when constraints or availability change
 - the agent can propose, but the runtime remains authoritative
-- `PlannerAI` and `SummarizerAI` can execute through real runtime-hosted WASI modules
+- `PlannerAI`, `SummarizerAI`, and `TranslatorFr` can execute through real runtime-hosted WASI modules
 - if either AI capability falls back, the fallback stays explicit in the execution trace
 - MCP is exposed through a real server surface rather than only through diagrams
 - the same model stays portable across WASM-oriented environments

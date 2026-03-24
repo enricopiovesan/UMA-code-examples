@@ -19,7 +19,7 @@ let playbackTimer = null;
 let isPlaying = false;
 let graph = null;
 let graphResizeObserver = null;
-let currentPhase = "capability";
+let currentPhase = "idle";
 
 function escapeHtml(value) {
   return String(value)
@@ -114,10 +114,17 @@ function renderCommands(report) {
     .join("");
 }
 
-function renderTransformations(report, focusedStepIndex) {
+function renderTransformations(report, focusedStepIndex, phase = "idle") {
   transformationFlow.innerHTML = report.steps
     .map((step) => {
       const isFocused = step.index === focusedStepIndex;
+      const cardPhase = isFocused ? phase : "idle";
+      const phaseStrip = phaseItemsForStep(step, report)
+        .map((item) => {
+          const state = phaseItemState(item, cardPhase);
+          return `<span class="phase-chip is-${state}">${escapeHtml(item.label)}</span>`;
+        })
+        .join("");
       const before = step.index === 1 ? formatInitialState(report) : report.steps[step.index - 2].output_preview;
       const rejected = step.discovery.rejected
         .filter(
@@ -151,6 +158,9 @@ function renderTransformations(report, focusedStepIndex) {
             <span class="pill">${escapeHtml(step.need)}</span>
           </div>
           <h3>${escapeHtml(step.selected_capability)}</h3>
+          <div class="phase-strip">${phaseStrip}</div>
+          <p class="summary-text"><strong>Execution phase:</strong> ${escapeHtml(phaseLabel(cardPhase))}</p>
+          <p class="summary-text"><strong>Control flow:</strong> ${escapeHtml(phaseExecutionSummary(step, cardPhase))}</p>
           <p class="summary-text"><strong>Agent:</strong> ${escapeHtml(step.agent_provider)} · ${escapeHtml(step.agent_mode)}</p>
           <p class="summary-text"><strong>Agent proposal:</strong> ${escapeHtml(step.agent_proposal ?? "none")}</p>
           ${agentNote}
@@ -224,6 +234,14 @@ function graphStatesForStep(report, focusedStepIndex) {
       state = proposedCapability ? "active" : "candidate";
     } else if (node.id === "result") {
       state = focusedStepIndex >= report.steps.length ? "complete" : "inactive";
+    } else if (node.id === "PlannerAI") {
+      if (completedCapabilities.has(node.id)) {
+        state = "complete";
+      } else if (currentStep && usesPlanner(currentStep)) {
+        state = "candidate";
+      } else if (report.initial_context.availableCapabilities.includes(node.id)) {
+        state = "candidate";
+      }
     } else if (completedCapabilities.has(node.id)) {
       state = "complete";
     } else if (node.id === activeCapability) {
@@ -318,6 +336,8 @@ function phaseLabel(phase) {
       return "Capability running";
     case "result":
       return "Result produced";
+    case "idle":
+      return "Ready";
     default:
       return "Capability running";
   }
@@ -340,62 +360,279 @@ function phaseDuration(phase) {
   }
 }
 
+const IDLE_COLOR = "#a6afbe";
+const IDLE_GLOW = "rgba(166, 175, 190, 0.14)";
+const RUNNING_COLOR = "#f0c94b";
+const RUNNING_GLOW = "rgba(240, 201, 75, 0.34)";
+const COMPLETE_COLOR = "#a8efae";
+const COMPLETE_GLOW = "rgba(168, 239, 174, 0.28)";
+
+function stateFillColor(state) {
+  if (state === "running") {
+    return "#f8e08a";
+  }
+  if (state === "complete") {
+    return "#c6f4ca";
+  }
+  return "#c7ced9";
+}
+
+function stateStrokeColor(state) {
+  if (state === "running") {
+    return "#d3a91d";
+  }
+  if (state === "complete") {
+    return "#6ecf78";
+  }
+  return "#8d96a5";
+}
+
+function phaseExecutionSummary(step, phase) {
+  switch (phase) {
+    case "mcp":
+      return "WASM MCP inspects the goal and current capability contracts.";
+    case "planner":
+      return `Planner AI ranks candidate capabilities for "${step.need}".`;
+    case "runtime":
+      return "UMA runtime validates the selected capability against contracts and constraints.";
+    case "capability":
+      return `${step.selected_capability} executes and publishes the next state.`;
+    case "result":
+      return "UMA runtime emits the final result.";
+    default:
+      return "Ready to execute this step.";
+  }
+}
+
+function phaseItemsForStep(step, report) {
+  const items = [
+    { id: "mcp", label: "WASM MCP" },
+    { id: "planner", label: "Planner AI", skipped: !usesPlanner(step) },
+    { id: "runtime", label: "UMA runtime" },
+    { id: "capability", label: step.selected_capability },
+  ];
+
+  if (step.index === report.steps.length) {
+    items.push({ id: "result", label: "Result" });
+  }
+
+  return items;
+}
+
+function phaseItemState(item, currentPhase) {
+  if (currentPhase === "idle") {
+    return "idle";
+  }
+  if (item.skipped) {
+    return "skipped";
+  }
+
+  const phaseOrder = ["mcp", "planner", "runtime", "capability", "result"];
+  const itemIndex = phaseOrder.indexOf(item.id);
+  const currentIndex = phaseOrder.indexOf(currentPhase);
+
+  if (item.id === currentPhase) {
+    return "running";
+  }
+  if (itemIndex > -1 && currentIndex > -1 && itemIndex < currentIndex) {
+    return "complete";
+  }
+  return "idle";
+}
+
 function isAIAgentNode(nodeId) {
   return nodeId === "agent" || nodeId === "PlannerAI";
 }
 
 function isAICapabilityNode(nodeId) {
-  return nodeId === "SummarizerAI" || nodeId === "PlannerAI";
+  return nodeId === "SummarizerAI" || nodeId === "PlannerAI" || nodeId === "TranslatorFr";
+}
+
+function displayName(nodeId, fallbackLabel) {
+  if (nodeId === "agent" || nodeId === "PlannerAI") {
+    return "Planner AI";
+  }
+  if (nodeId === "SummarizerAI") {
+    return "Summarizer AI";
+  }
+  if (nodeId === "TranslatorFr") {
+    return "Translator AI";
+  }
+  return fallbackLabel;
+}
+
+function labelWithRoleIcon(nodeId, label) {
+  return label;
+}
+
+function specialNodeIconFill({ active = false, complete = false, darkFill = false }) {
+  if (active) {
+    return "#08352a";
+  }
+  if (complete && darkFill) {
+    return "#ffffff";
+  }
+  if (complete) {
+    return "#241b07";
+  }
+  return darkFill ? "rgba(255, 255, 255, 0.94)" : "#3a2d09";
+}
+
+function stackedNodeLabel(icon, label) {
+  return `${icon}\n${label}`;
+}
+
+function nodeFootprint(nodeId) {
+  if (nodeId === "goal" || nodeId === "result") {
+    return { width: 112, height: 112 };
+  }
+  if (nodeId === "mcp" || nodeId === "runtime") {
+    return { width: 104, height: 104 };
+  }
+  if (isAICapabilityNode(nodeId) || nodeId === "PlannerAI") {
+    return { width: 124, height: 124 };
+  }
+  return { width: 188, height: 86 };
+}
+
+function resolveLayoutCollisions(layout, lockedIds) {
+  const nodes = [...layout.entries()].map(([id, point]) => ({
+    id,
+    x: point.x,
+    y: point.y,
+    role: point.role,
+    locked: lockedIds.has(id),
+    ...nodeFootprint(id),
+  }));
+
+  const minGap = 22;
+  for (let iteration = 0; iteration < 120; iteration += 1) {
+    let moved = false;
+    for (let i = 0; i < nodes.length; i += 1) {
+      for (let j = i + 1; j < nodes.length; j += 1) {
+        const a = nodes[i];
+        const b = nodes[j];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const minX = (a.width + b.width) / 2 + minGap;
+        const minY = (a.height + b.height) / 2 + minGap;
+        if (Math.abs(dx) >= minX || Math.abs(dy) >= minY) {
+          continue;
+        }
+
+        const overlapX = minX - Math.abs(dx);
+        const overlapY = minY - Math.abs(dy);
+        const pushX = overlapX / 2 + 1;
+        const pushY = overlapY / 2 + 1;
+        const signX = dx === 0 ? (i % 2 === 0 ? -1 : 1) : Math.sign(dx);
+        const signY = dy === 0 ? (j % 2 === 0 ? -1 : 1) : Math.sign(dy);
+
+        if (!a.locked) {
+          a.x -= signX * pushX;
+          a.y -= signY * pushY;
+          moved = true;
+        }
+        if (!b.locked) {
+          b.x += signX * pushX;
+          b.y += signY * pushY;
+          moved = true;
+        }
+      }
+    }
+
+    if (!moved) {
+      break;
+    }
+  }
+
+  const resolved = new Map();
+  for (const node of nodes) {
+    resolved.set(node.id, {
+      x: node.x,
+      y: node.y,
+      role: node.role,
+    });
+  }
+  return resolved;
 }
 
 function layoutGraph(report) {
   const layout = new Map();
-  const selected = report.selected_path || [];
-  const hiddenNodes = new Set(["PlannerAI"]);
+  const centerX = 392;
+  const centerY = 266;
+  const goalY = 64;
+  const mcpY = 162;
+  const runtimeY = 266;
+  const resultY = 520;
 
   const supportNodes = [
-    ["goal", { x: 88, y: 78, role: "support-start" }],
-    ["mcp", { x: 222, y: 78, role: "support" }],
-    ["agent", { x: 382, y: 78, role: "support" }],
-    ["runtime", { x: 548, y: 78, role: "support" }],
+    ["goal", { x: centerX, y: goalY, role: "support-start" }],
+    ["mcp", { x: centerX, y: mcpY, role: "support" }],
+    ["runtime", { x: centerX, y: runtimeY, role: "support" }],
+    ["result", { x: centerX, y: resultY, role: "result" }],
   ];
 
   for (const [id, point] of supportNodes) {
     layout.set(id, point);
   }
 
-  const startX = 96;
-  const gap = selected.length >= 5 ? 128 : 142;
-  const flowY = 250;
-  selected.forEach((id, index) => {
-    layout.set(id, {
-      x: startX + index * gap,
-      y: flowY,
-      role: "workflow",
+  const serviceNodes = report.graph_nodes
+    .filter((item) => item.kind === "capability" && !isAICapabilityNode(item.id))
+    .map((item) => item.id);
+  const aiNodes = report.graph_nodes
+    .filter((item) => item.kind === "capability" && isAICapabilityNode(item.id))
+    .map((item) => item.id);
+
+  const serviceSlots = [
+    { x: centerX - 272, y: centerY - 132 },
+    { x: centerX - 272, y: centerY - 18 },
+    { x: centerX - 272, y: centerY + 96 },
+    { x: centerX - 272, y: centerY + 210 },
+    { x: centerX - 110, y: centerY + 244 },
+  ];
+  const aiSlots = [
+    { x: centerX + 232, y: centerY - 132 },
+    { x: centerX + 232, y: centerY + 24 },
+    { x: centerX + 232, y: centerY + 180 },
+  ];
+
+  for (const [index, nodeId] of serviceNodes.entries()) {
+    const point = serviceSlots[index] ?? {
+      x: centerX - 272,
+      y: centerY - 132 + index * 108,
+    };
+    layout.set(nodeId, {
+      x: point.x,
+      y: point.y,
+      role: "service-capability",
     });
-  });
+  }
 
-  const resultX = startX + selected.length * gap + 132;
-  layout.set("result", { x: resultX, y: flowY, role: "result" });
+  for (const [index, nodeId] of aiNodes.entries()) {
+    const point = aiSlots[index] ?? {
+      x: centerX + 232,
+      y: centerY - 132 + index * 132,
+    };
+    layout.set(nodeId, {
+      x: point.x,
+      y: point.y,
+      role: "ai-capability",
+    });
+  }
 
-  const secondary = report.graph_nodes.filter(
-    (node) =>
-      node.kind === "capability" &&
-      !selected.includes(node.id) &&
-      !hiddenNodes.has(node.id)
-  );
-
-  const secondaryStart = 214;
-  const secondaryGap = secondary.length > 1 ? 176 : 0;
-  secondary.forEach((node, index) => {
+  for (const node of report.graph_nodes.filter((item) => item.kind === "capability")) {
+    if (layout.has(node.id)) {
+      continue;
+    }
+    const point = { x: centerX - 272, y: centerY };
     layout.set(node.id, {
-      x: secondaryStart + index * secondaryGap,
-      y: 358,
-      role: "secondary",
+      x: point.x,
+      y: point.y,
+      role: "capability",
     });
-  });
+  }
 
-  return layout;
+  return resolveLayoutCollisions(layout, new Set(["goal", "mcp", "runtime", "result"]));
 }
 
 function ensureGraph() {
@@ -426,7 +663,7 @@ function ensureGraph() {
     edge: {
       style: {
         lineWidth: 2,
-        endArrow: false,
+        endArrow: true,
         strokeOpacity: 1,
       },
     },
@@ -455,15 +692,14 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
   const nodes = [];
   const currentProposalCapability = currentStep?.proposed_validation?.capability ?? null;
   const currentAgentProposal = currentStep?.agent_proposal ?? null;
-  const supportPath = ["goal", "mcp", ...(usesPlanner(currentStep) ? ["agent"] : []), "runtime"];
+  const supportPath = ["goal", "mcp", "runtime"];
   const activeSupportNode =
     phase === "mcp" ? "mcp" :
-    phase === "planner" ? "agent" :
     phase === "runtime" ? "runtime" :
     null;
   const activeSupportIndex = activeSupportNode ? supportPath.indexOf(activeSupportNode) : -1;
 
-  const supportNodeIds = ["goal", "mcp", "agent", "runtime"];
+  const supportNodeIds = ["goal", "mcp", "runtime"];
   for (const nodeId of supportNodeIds) {
     const source = report.graph_nodes.find((item) => item.id === nodeId);
     const point = layout.get(nodeId);
@@ -472,156 +708,121 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
     }
     const label =
       nodeId === "mcp"
-        ? "MCP"
-        : nodeId === "agent"
-          ? "Planner"
-          : nodeId === "runtime"
-            ? "Runtime"
-            : source.label;
+        ? "WASM MCP"
+        : nodeId === "runtime"
+            ? "UMA runtime"
+            : displayName(nodeId, source.label);
     const onPath = supportPath.includes(nodeId);
     const pathIndex = supportPath.indexOf(nodeId);
     const active = nodeId === activeSupportNode;
     const complete =
-      nodeId === "goal" ||
-      (phase === "capability" && onPath) ||
-      (phase === "result" && onPath) ||
-      (activeSupportIndex > -1 && onPath && pathIndex > -1 && pathIndex < activeSupportIndex);
+      phase !== "idle" &&
+      (
+        nodeId === "goal" ||
+        ((phase === "capability" || phase === "result") && onPath) ||
+        (activeSupportIndex > -1 && onPath && pathIndex > -1 && pathIndex < activeSupportIndex)
+      );
     nodes.push({
       id: nodeId,
-      type: "circle",
+      type: nodeId === "goal" ? "diamond" : nodeId === "result" ? "diamond" : "hexagon",
       data: { label },
       style: {
         x: point.x,
         y: point.y,
-        size: 64,
-        fill: nodeId === "agent"
-          ? active ? "#f3b44b" : complete ? "#7c5f18" : "#241d10"
-          : active ? "#8a6dff" : complete ? "#4734a7" : "#1a1d28",
-        stroke: nodeId === "agent"
-          ? active ? "#fff1c8" : complete ? "#f3d27c" : "rgba(243, 180, 75, 0.28)"
-          : active ? "#f2ecff" : complete ? "#cdbfff" : onPath ? "rgba(181, 185, 204, 0.34)" : "rgba(181, 185, 204, 0.22)",
-        shadowBlur: active ? 34 : complete ? 24 : 12,
-        shadowColor: nodeId === "agent"
-          ? active || complete ? "rgba(243, 180, 75, 0.34)" : "rgba(17, 19, 26, 0.22)"
-          : active || complete ? "rgba(124, 92, 255, 0.42)" : "rgba(17, 19, 26, 0.22)",
-        labelText: label,
-        labelPlacement: "bottom",
-        labelOffsetY: 8,
-        labelFill: active || complete ? "#ffffff" : "rgba(229, 231, 241, 0.78)",
-        labelFontSize: 11,
+        size: nodeId === "goal" ? 84 : 74,
+        fill: stateFillColor(active ? "running" : complete ? "complete" : "idle"),
+        stroke: stateStrokeColor(active ? "running" : complete ? "complete" : "idle"),
+        shadowBlur: active ? 28 : complete ? 18 : 8,
+        shadowColor: active ? RUNNING_GLOW : complete ? COMPLETE_GLOW : IDLE_GLOW,
+        labelText: nodeId === "goal" ? stackedNodeLabel("◎", label) : label,
+        labelPlacement: "center",
+        labelFill: active || complete ? "#151821" : "#151821",
+        labelFontSize: 10,
         labelFontWeight: active || complete ? 700 : 500,
+        labelLineHeight: 15,
       },
     });
   }
 
-  for (const nodeId of selected) {
-    const source = report.graph_nodes.find((item) => item.id === nodeId);
+  const visibleRingNodes = report.graph_nodes.filter((node) => node.kind === "capability");
+  const plannerUsedBeforeCurrentStep = report.steps.some((step) => step.index < focusedStepIndex && usesPlanner(step));
+
+  for (const source of visibleRingNodes) {
+    const nodeId = source.id;
     const point = layout.get(nodeId);
     if (!source || !point) {
       continue;
     }
     const state = nodeStates.get(nodeId) || "inactive";
-    const isCurrent = nodeId === currentStep?.selected_capability && phase === "capability";
-    const isComplete = state === "complete";
+    const isPlannerPhaseNode = phase === "planner" && nodeId === "PlannerAI";
+    const plannerCompleted = nodeId === "PlannerAI" && (plannerUsedBeforeCurrentStep || (currentStep && usesPlanner(currentStep) && (phase === "runtime" || phase === "capability" || phase === "result")));
+    const isCurrent = (nodeId === currentStep?.selected_capability && phase === "capability") || isPlannerPhaseNode;
+    const isComplete = phase !== "idle" && (state === "complete" || plannerCompleted);
+    const isAvailable = report.initial_context.availableCapabilities.includes(nodeId);
     const isAI = isAICapabilityNode(nodeId);
     nodes.push({
       id: nodeId,
-      type: "rect",
-      data: { label: source.label },
+      type: isAI ? "circle" : "rect",
+      data: { label: displayName(nodeId, source.label) },
       style: {
         x: point.x,
         y: point.y,
-        size: isAI ? [148, 56] : [136, 56],
-        radius: 18,
-        fill: isAI
-          ? isCurrent ? "#fff3d8" : isComplete ? "#f7e0a6" : "#2b2415"
-          : isCurrent ? "#f5f3ff" : isComplete ? "#ede8ff" : phase === "result" && nodeId === selected[selected.length - 1] ? "#f5f3ff" : "#ffffff",
-        stroke: isAI
-          ? isCurrent ? "#f3b44b" : isComplete ? "#e2b24b" : "rgba(243, 180, 75, 0.30)"
-          : isCurrent ? "#7c5cff" : isComplete ? "#9a82ff" : "rgba(181, 185, 204, 0.22)",
+        size: isAI ? 108 : [164, 64],
+        radius: isAI ? undefined : 18,
+        fill: stateFillColor(isCurrent ? "running" : isComplete ? "complete" : "idle"),
+        stroke: stateStrokeColor(isCurrent ? "running" : isComplete ? "complete" : "idle"),
         lineWidth: isCurrent ? 3 : isComplete ? 2.5 : 1.5,
-        shadowBlur: isCurrent ? 32 : isComplete ? 20 : 14,
-        shadowColor: isAI
-          ? isCurrent ? "rgba(243, 180, 75, 0.38)" : isComplete ? "rgba(243, 180, 75, 0.20)" : "rgba(17, 19, 26, 0.10)"
-          : isCurrent ? "rgba(124, 92, 255, 0.36)" : isComplete ? "rgba(124, 92, 255, 0.20)" : "rgba(17, 19, 26, 0.10)",
-        labelText: isAI ? `AI · ${source.label}` : source.label,
+        shadowBlur: isCurrent ? 28 : isComplete ? 18 : 8,
+        shadowColor: isCurrent ? RUNNING_GLOW : isComplete ? COMPLETE_GLOW : IDLE_GLOW,
+        labelText: isAI
+          ? stackedNodeLabel("✦", labelWithRoleIcon(nodeId, displayName(nodeId, source.label)))
+          : labelWithRoleIcon(nodeId, displayName(nodeId, source.label)),
         labelPlacement: "center",
-        labelFill: isAI ? "#241b07" : "#12131a",
-        labelFontSize: isAI ? 12 : 13,
+        labelFill: "#151821",
+        labelFontSize: isAI ? 11 : 12,
         labelFontWeight: isCurrent ? 700 : 600,
-      },
-    });
-  }
-
-  for (const node of report.graph_nodes) {
-    const point = layout.get(node.id);
-    if (!point || selected.includes(node.id) || ["goal", "mcp", "agent", "runtime", "result"].includes(node.id)) {
-      continue;
-    }
-    const showNode = node.id === currentProposalCapability || node.id === currentAgentProposal;
-    if (!showNode) {
-      continue;
-    }
-    const state = nodeStates.get(node.id) || "inactive";
-    const isAI = isAIAgentNode(node.id) || isAICapabilityNode(node.id);
-    nodes.push({
-      id: node.id,
-      type: isAI ? "rect" : "circle",
-      data: { label: node.label },
-      style: {
-        x: point.x,
-        y: point.y,
-        size: isAI ? [110, 38] : 38,
-        radius: isAI ? 12 : undefined,
-        fill: isAI ? "#241d10" : "#171922",
-        stroke: state === "rejected" ? "#ea6c6c" : isAI ? "rgba(243, 180, 75, 0.36)" : "rgba(181, 185, 204, 0.18)",
-        shadowBlur: 8,
-        shadowColor: isAI ? "rgba(243, 180, 75, 0.14)" : "rgba(17, 19, 26, 0.12)",
-        labelText: isAI ? `AI · ${node.label}` : node.label,
-        labelPlacement: isAI ? "center" : "bottom",
-        labelOffsetY: isAI ? 0 : 6,
-        labelFill: state === "rejected" ? "#f28e8e" : isAI ? "rgba(255, 223, 162, 0.72)" : "rgba(207, 210, 221, 0.52)",
-        labelFontSize: 10,
-        opacity: 0.58,
+        labelLineHeight: isAI ? 16 : undefined,
+        opacity: isAvailable ? 1 : 0.72,
       },
     });
   }
 
   const resultPoint = layout.get("result");
   if (resultPoint) {
-    const resultActive = phase === "result";
+    const resultComplete = phase === "result" && focusedStepIndex >= report.steps.length;
     nodes.push({
       id: "result",
-      type: "circle",
+      type: "diamond",
       data: { label: "Result" },
       style: {
         x: resultPoint.x,
         y: resultPoint.y,
-        size: 72,
-        fill: resultActive ? "#8a6dff" : "#1a1d28",
-        stroke: resultActive ? "#f2ecff" : "rgba(181, 185, 204, 0.22)",
-        shadowBlur: resultActive ? 34 : 12,
-        shadowColor: resultActive ? "rgba(124, 92, 255, 0.40)" : "rgba(17, 19, 26, 0.18)",
-        labelText: "Result",
-        labelPlacement: "bottom",
-        labelOffsetY: 10,
-        labelFill: resultActive ? "#ffffff" : "rgba(229, 231, 241, 0.78)",
-        labelFontSize: 12,
+        size: 84,
+        fill: stateFillColor(resultComplete ? "complete" : "idle"),
+        stroke: stateStrokeColor(resultComplete ? "complete" : "idle"),
+        shadowBlur: resultComplete ? 18 : 8,
+        shadowColor: resultComplete ? COMPLETE_GLOW : IDLE_GLOW,
+        labelText: stackedNodeLabel("✓", "Result"),
+        labelPlacement: "center",
+        labelFill: "#151821",
+        labelFontSize: 11,
         labelFontWeight: 700,
+        labelLineHeight: 16,
       },
     });
   }
 
   const edges = [];
-  for (const capabilityId of selected) {
+  for (const capabilityId of report.graph_nodes.filter((item) => item.kind === "capability").map((item) => item.id)) {
     edges.push({
       id: `runtime-capability-${capabilityId}`,
       source: "runtime",
       target: capabilityId,
       style: {
-        stroke: "rgba(255, 255, 255, 0.08)",
+        stroke: IDLE_COLOR,
         lineWidth: 1.5,
-        lineDash: [4, 6],
+        lineDash: [],
+        endArrow: false,
       },
     });
   }
@@ -632,7 +833,7 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
       source: "runtime",
       target: currentProposalCapability,
       style: {
-        stroke: "rgba(255, 255, 255, 0.08)",
+        stroke: IDLE_COLOR,
         lineWidth: 1.5,
         lineDash: [4, 6],
       },
@@ -645,81 +846,67 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
       source: "runtime",
       target: currentAgentProposal,
       style: {
-        stroke: "rgba(255, 255, 255, 0.08)",
+        stroke: IDLE_COLOR,
         lineWidth: 1.5,
         lineDash: [4, 6],
       },
     });
   }
 
-  for (let index = 0; index < supportPath.length - 1; index += 1) {
-    const source = supportPath[index];
-    const target = supportPath[index + 1];
+  const architectureEdges = [
+    ["goal", "mcp"],
+    ["mcp", "runtime"],
+  ];
+  for (const [source, target] of architectureEdges) {
     const sourceIndex = supportPath.indexOf(source);
     const targetIndex = supportPath.indexOf(target);
-    const active = activeSupportIndex > -1 && sourceIndex < activeSupportIndex && targetIndex === activeSupportIndex;
-    const complete = phase === "capability" || phase === "result" || (activeSupportIndex > -1 && targetIndex < activeSupportIndex);
+    const onPath = sourceIndex > -1 && targetIndex > -1;
+    const active = onPath && activeSupportIndex > -1 && sourceIndex < activeSupportIndex && targetIndex === activeSupportIndex;
+    const complete = phase !== "idle" && onPath && (phase === "capability" || phase === "result" || (activeSupportIndex > -1 && targetIndex < activeSupportIndex));
     edges.push({
       id: `support-${source}-${target}`,
       source,
       target,
       style: {
-        stroke: active ? "#d4c6ff" : complete ? "#9f8cff" : "rgba(124, 92, 255, 0.24)",
+        stroke: active ? RUNNING_COLOR : complete ? COMPLETE_COLOR : IDLE_COLOR,
         lineWidth: active ? 6 : complete ? 4 : 2,
         shadowBlur: active ? 18 : complete ? 10 : 0,
-        shadowColor: active ? "rgba(124, 92, 255, 0.38)" : "rgba(124, 92, 255, 0.18)",
-      },
-    });
-  }
-
-  if (selected.length > 0) {
-    edges.push({
-      id: "workflow-runtime-start",
-      source: "runtime",
-      target: selected[0],
-      style: {
-        stroke: phase === "capability" || phase === "result" ? "#d4c6ff" : "rgba(124, 92, 255, 0.14)",
-        lineWidth: phase === "capability" || phase === "result" ? 6 : 2,
-        shadowBlur: phase === "capability" || phase === "result" ? 24 : 0,
-        shadowColor: "rgba(124, 92, 255, 0.34)",
+        shadowColor: active ? RUNNING_GLOW : complete ? COMPLETE_GLOW : IDLE_GLOW,
+        endArrow: active || complete ? true : false,
       },
     });
   }
 
   selected.forEach((nodeId, index) => {
-    const next = selected[index + 1];
-    if (!next) {
-      return;
-    }
-    const currentEdgeStep = index + 2;
-    const complete = currentEdgeStep < focusedStepIndex || (currentEdgeStep === focusedStepIndex && (phase === "capability" || phase === "result"));
-    const active = currentEdgeStep === focusedStepIndex && phase === "capability";
+    const stepNumber = index + 1;
+    const complete = phase !== "idle" && stepNumber < focusedStepIndex;
+    const active = stepNumber === focusedStepIndex && phase === "capability";
     edges.push({
-      id: `workflow-${nodeId}-${next}`,
-      source: nodeId,
-      target: next,
+      id: `workflow-runtime-${nodeId}`,
+      source: "runtime",
+      target: nodeId,
       style: {
-        stroke: active ? "#d4c6ff" : complete ? "#7c5cff" : "rgba(124, 92, 255, 0.14)",
+        stroke: active ? RUNNING_COLOR : complete ? COMPLETE_COLOR : IDLE_COLOR,
         lineWidth: active ? 6 : complete ? 4 : 2,
         shadowBlur: active ? 24 : complete ? 10 : 0,
-        shadowColor: active ? "rgba(124, 92, 255, 0.34)" : "rgba(124, 92, 255, 0.18)",
+        shadowColor: active ? RUNNING_GLOW : complete ? COMPLETE_GLOW : "rgba(17, 19, 26, 0)",
+        endArrow: true,
       },
     });
   });
 
-  if (selected.length > 0) {
-    edges.push({
-      id: "workflow-result",
-      source: selected[selected.length - 1],
-      target: "result",
-      style: {
-        stroke: phase === "result" ? "#d4c6ff" : "rgba(124, 92, 255, 0.14)",
-        lineWidth: phase === "result" ? 6 : 2,
-        shadowBlur: phase === "result" ? 24 : 0,
-        shadowColor: "rgba(124, 92, 255, 0.34)",
-      },
-    });
-  }
+  edges.push({
+    id: "workflow-runtime-result",
+    source: "runtime",
+    target: "result",
+    style: {
+      stroke: phase === "result" && focusedStepIndex >= report.steps.length ? COMPLETE_COLOR : IDLE_COLOR,
+      lineWidth: phase === "result" && focusedStepIndex >= report.steps.length ? 4 : 2,
+      shadowBlur: phase === "result" && focusedStepIndex >= report.steps.length ? 10 : 0,
+      shadowColor: phase === "result" && focusedStepIndex >= report.steps.length ? COMPLETE_GLOW : "rgba(17, 19, 26, 0)",
+      endArrow: true,
+    },
+  });
 
   if (currentStep?.proposed_validation?.capability && layout.has(currentStep.proposed_validation.capability)) {
     edges.push({
@@ -727,11 +914,11 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
       source: "runtime",
       target: currentStep.proposed_validation.capability,
       style: {
-        stroke: "#ea6c6c",
+        stroke: IDLE_COLOR,
         lineWidth: 2,
         lineDash: [6, 4],
-        shadowBlur: 10,
-        shadowColor: "rgba(234, 108, 108, 0.16)",
+        shadowBlur: 0,
+        shadowColor: "rgba(17, 19, 26, 0)",
       },
     });
   }
@@ -788,13 +975,13 @@ async function renderScenario(id) {
     .join("");
   const focusedStepIndex = report.steps[0]?.index ?? 1;
   stepSelect.value = String(focusedStepIndex);
-  renderStep(report, focusedStepIndex, "capability");
+  renderStep(report, focusedStepIndex, "idle");
 }
 
 function renderStep(report, focusedStepIndex, phase = "capability") {
   currentPhase = phase;
   stepSelect.value = String(focusedStepIndex);
-  renderTransformations(report, focusedStepIndex);
+  renderTransformations(report, focusedStepIndex, phase);
   renderGraph(report, focusedStepIndex, phase);
   renderGraphInspector(report, focusedStepIndex, phase);
   renderOutput(report);
@@ -823,7 +1010,7 @@ function stopPlayback() {
     playbackTimer = null;
   }
   isPlaying = false;
-  currentPhase = "capability";
+  currentPhase = "idle";
   runButton.textContent = "Play scenario";
 }
 
@@ -902,7 +1089,7 @@ stepSelect.addEventListener("change", () => {
     return;
   }
   stopPlayback();
-  renderStep(currentReport, Number(stepSelect.value), "capability");
+  renderStep(currentReport, Number(stepSelect.value), "idle");
 });
 
 if (openCommandsButton) {

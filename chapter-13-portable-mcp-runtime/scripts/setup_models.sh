@@ -6,6 +6,7 @@ MODEL_DIR="$ROOT_DIR/models"
 MANIFESTS=(
   "$MODEL_DIR/manifest.json"
   "$MODEL_DIR/planner/manifest.json"
+  "$MODEL_DIR/translator/manifest.json"
 )
 
 if ! command -v python3 >/dev/null 2>&1; then

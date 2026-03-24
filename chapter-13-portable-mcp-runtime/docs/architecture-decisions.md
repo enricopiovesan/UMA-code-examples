@@ -18,7 +18,8 @@ TypeScript may be used only for the browser shell or integration glue. There is 
 
 - `PlannerAI` is modeled as a runtime-hosted AI capability with a stable provider boundary
 - `SummarizerAI` is modeled as a runtime-hosted AI capability with a stable contract
-- if either runtime-hosted AI provider is unavailable, fallback is allowed for continuity, but the fallback must be explicit in reports and UI
+- `TranslatorFr` is modeled as a runtime-hosted AI capability with a stable contract
+- if any runtime-hosted AI provider is unavailable, fallback is allowed for continuity, but the fallback must be explicit in reports and UI
 - the runtime remains authoritative for validation and execution
 
 ## UX decision

@@ -128,6 +128,7 @@ pub struct RuntimeState {
     pub structured_facts: Vec<String>,
     pub summary: Option<String>,
     pub translated_summary: Option<String>,
+    pub translated_facts: Vec<String>,
     pub report: Option<String>,
     pub degraded: bool,
 }
@@ -163,6 +164,9 @@ pub struct ExecutionReport {
     pub summarizer_ai_provider: String,
     pub summarizer_ai_mode: String,
     pub summarizer_ai_fallback_reason: Option<String>,
+    pub translator_ai_provider: String,
+    pub translator_ai_mode: String,
+    pub translator_ai_fallback_reason: Option<String>,
     pub selected_path: Vec<String>,
     pub rejected_capabilities: Vec<ValidationResult>,
     pub steps: Vec<ExecutionStep>,
@@ -300,11 +304,27 @@ struct CapabilityExecutionMode {
     mode: String,
     fallback_reason: Option<String>,
     hosted_summary: Option<String>,
+    hosted_translation: Option<String>,
+    hosted_translated_facts: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize)]
 struct RuntimeHostedSummarizerResult {
     summary: String,
+    provider: String,
+    mode: String,
+    #[serde(rename = "model_id")]
+    _model_id: String,
+    #[serde(rename = "model_revision")]
+    _model_revision: String,
+    #[serde(rename = "model_checksum")]
+    _model_checksum: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct RuntimeHostedTranslatorResult {
+    translated_text: String,
+    translated_facts: Vec<String>,
     provider: String,
     mode: String,
     #[serde(rename = "model_id")]
@@ -610,6 +630,14 @@ fn context_snapshot(state: &RuntimeState) -> BTreeMap<String, String> {
         state.translated_summary.clone().unwrap_or_else(|| "none".to_string()),
     );
     snapshot.insert(
+        "translatedFacts".to_string(),
+        if state.translated_facts.is_empty() {
+            "none".to_string()
+        } else {
+            state.translated_facts.join(" | ")
+        },
+    );
+    snapshot.insert(
         "report".to_string(),
         state.report.clone().unwrap_or_else(|| "none".to_string()),
     );
@@ -663,35 +691,56 @@ fn format_report_output(project: &str, state: &RuntimeState, language: &str) -> 
         .clone()
         .or_else(|| state.summary.clone())
         .unwrap_or_else(|| "No summary available".to_string());
-    let insights = if state.structured_facts.is_empty() {
+    let insights_source = if !state.translated_facts.is_empty() {
+        &state.translated_facts
+    } else {
+        &state.structured_facts
+    };
+    let insights = if insights_source.is_empty() {
         "No structured facts".to_string()
     } else {
-        state.structured_facts
+        insights_source
             .iter()
             .take(2)
             .cloned()
             .collect::<Vec<_>>()
             .join(" ")
     };
+    let (project_label, language_label, summary_label, highlights_label) = if language == "fr" {
+        ("Projet", "Langue", "Resume", "Points cles")
+    } else {
+        ("Project", "Language", "Summary", "Highlights")
+    };
     format!(
-        "Project: {project}\nLanguage: {language}\nSummary: {narrative}\nHighlights: {insights}"
+        "{project_label}: {project}\n{language_label}: {language}\n{summary_label}: {narrative}\n{highlights_label}: {insights}"
     )
 }
 
-fn execution_mode_for(root: &Path, contract: &CapabilityContract, project: &str, facts: &[String]) -> CapabilityExecutionMode {
+fn execution_mode_for(
+    root: &Path,
+    contract: &CapabilityContract,
+    project: &str,
+    facts: &[String],
+    summary: Option<&str>,
+) -> CapabilityExecutionMode {
     match contract.name.as_str() {
         "SummarizerAI" => runtime_hosted_summarizer_execution_mode(root, project, facts),
+        "TranslatorFr" => runtime_hosted_translator_execution_mode(root, summary.unwrap_or_default(), facts),
         "SummarizerBasic" => CapabilityExecutionMode {
             provider: "deterministic-local-summarizer".to_string(),
             mode: "deterministic".to_string(),
             fallback_reason: None,
             hosted_summary: None,
+            hosted_translation: None,
+            hosted_translated_facts: None,
         },
         _ => CapabilityExecutionMode {
             provider: contract.name.clone(),
             mode: "standard".to_string(),
             fallback_reason: None,
             hosted_summary: None,
+            hosted_translation: None,
+            hosted_translated_facts: None,
         },
     }
 }
@@ -707,12 +756,37 @@ fn runtime_hosted_summarizer_execution_mode(
             mode: result.mode,
             fallback_reason: None,
             hosted_summary: Some(result.summary),
+            hosted_translation: None,
+            hosted_translated_facts: None,
         },
         Err(reason) => CapabilityExecutionMode {
             provider: "deterministic-fallback-summarizer".to_string(),
             mode: "fallback".to_string(),
             fallback_reason: Some(reason),
             hosted_summary: None,
+            hosted_translation: None,
+            hosted_translated_facts: None,
+        },
+    }
+}
+
+fn runtime_hosted_translator_execution_mode(root: &Path, summary: &str, facts: &[String]) -> CapabilityExecutionMode {
+    match invoke_runtime_hosted_translator(root, summary, facts) {
+        Ok(result) => CapabilityExecutionMode {
+            provider: result.provider,
+            mode: result.mode,
+            fallback_reason: None,
+            hosted_summary: None,
+            hosted_translation: Some(result.translated_text),
+            hosted_translated_facts: Some(result.translated_facts),
+        },
+        Err(reason) => CapabilityExecutionMode {
+            provider: "deterministic-fallback-translator".to_string(),
+            mode: "fallback".to_string(),
+            fallback_reason: Some(reason),
+            hosted_summary: None,
+            hosted_translation: None,
+            hosted_translated_facts: None,
         },
     }
 }
@@ -788,6 +862,76 @@ fn invoke_runtime_hosted_summarizer(
         .map_err(|err| format!("failed to parse runtime-hosted SummarizerAI output: {err}"))
 }
 
+fn invoke_runtime_hosted_translator(
+    root: &Path,
+    summary: &str,
+    facts: &[String],
+) -> Result<RuntimeHostedTranslatorResult, String> {
+    let module_path = root.join(
+        "translator-ai-wasi/target/wasm32-wasip1/debug/chapter13_translator_ai_wasi.wasm",
+    );
+    if !module_path.exists() {
+        return Err("runtime-hosted TranslatorFr module is not built yet".to_string());
+    }
+
+    let models_dir = root.join("models/translator");
+    if !models_dir.join("model_quantized.onnx").exists() || !models_dir.join("manifest.json").exists() {
+        return Err("runtime-hosted TranslatorFr model artifacts are not installed".to_string());
+    }
+
+    let repo_root = root
+        .parent()
+        .ok_or_else(|| "missing repo root for Chapter 13 runtime".to_string())?;
+    let embedded_wasmtime = repo_root.join(".bin/wasmtime-v39.0.0-aarch64-macos/wasmtime");
+    let wasmtime = if embedded_wasmtime.exists() {
+        embedded_wasmtime
+    } else {
+        PathBuf::from("wasmtime")
+    };
+
+    let request = serde_json::json!({
+        "summary": summary,
+        "structured_facts": facts,
+        "model_dir": "/models"
+    });
+
+    let mut child = Command::new(wasmtime)
+        .arg("run")
+        .arg("--dir")
+        .arg(format!("{}::/models", models_dir.display()))
+        .arg(module_path)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|err| format!("failed to start runtime-hosted TranslatorFr: {err}"))?;
+
+    {
+        let mut stdin = child
+            .stdin
+            .take()
+            .ok_or_else(|| "failed to open runtime-hosted TranslatorFr stdin".to_string())?;
+        stdin
+            .write_all(request.to_string().as_bytes())
+            .map_err(|err| format!("failed to send runtime-hosted TranslatorFr request: {err}"))?;
+    }
+
+    let output = child
+        .wait_with_output()
+        .map_err(|err| format!("failed to wait for runtime-hosted TranslatorFr: {err}"))?;
+    if !output.status.success() {
+        let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
+        return Err(if stderr.is_empty() {
+            "runtime-hosted TranslatorFr returned a non-zero exit status".to_string()
+        } else {
+            format!("runtime-hosted TranslatorFr failed: {stderr}")
+        });
+    }
+
+    serde_json::from_slice::<RuntimeHostedTranslatorResult>(&output.stdout)
+        .map_err(|err| format!("failed to parse runtime-hosted TranslatorFr output: {err}"))
+}
+
 pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
     let scenario = load_scenario(root, id)?;
     let mut state = RuntimeState {
@@ -796,6 +940,7 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         structured_facts: Vec::new(),
         summary: None,
         translated_summary: None,
+        translated_facts: Vec::new(),
         report: None,
         degraded: false,
     };
@@ -868,7 +1013,13 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
             }
         })?;
         let validation = validation.expect("validation exists");
-        let execution_mode = execution_mode_for(root, &contract, &scenario.context.project_name, &state.structured_facts);
+        let execution_mode = execution_mode_for(
+            root,
+            &contract,
+            &scenario.context.project_name,
+            &state.structured_facts,
+            state.summary.as_deref(),
+        );
 
         let mut events = Vec::new();
         for candidate in &discovery.available {
@@ -983,13 +1134,37 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
                 state.summary.clone().unwrap()
             }
             "TranslatorFr" => {
-                let translated = translate_french(state.summary.as_deref().unwrap_or_default());
+                let translated = if execution_mode.mode == "runtime-hosted-translation" {
+                    execution_mode
+                        .hosted_translation
+                        .clone()
+                        .ok_or_else(|| {
+                            "runtime-hosted TranslatorFr was selected without a cached hosted translation"
+                                .to_string()
+                        })?
+                } else {
+                    translate_french(state.summary.as_deref().unwrap_or_default())
+                };
                 state.translated_summary = Some(translated.clone());
+                state.translated_facts = execution_mode
+                    .hosted_translated_facts
+                    .clone()
+                    .unwrap_or_else(|| {
+                        state
+                            .structured_facts
+                            .iter()
+                            .map(|fact| translate_french(fact))
+                            .collect()
+                    });
                 events.push(emit_event(
                     "CapabilityExecuted",
                     &contract.name,
-                    "success",
-                    None,
+                    if execution_mode.fallback_reason.is_some() {
+                        "fallback"
+                    } else {
+                        "success"
+                    },
+                    execution_mode.fallback_reason.clone(),
                     &state,
                 ));
                 translated
@@ -1069,6 +1244,15 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
     let planner_fallback_reason = steps
         .iter()
         .find_map(|step| step.agent_fallback_reason.clone());
+    let translator_ai_step = steps.iter().find(|step| step.selected_capability == "TranslatorFr");
+    let translator_ai_provider = translator_ai_step
+        .map(|step| step.execution_provider.clone())
+        .unwrap_or_else(|| "not-used".to_string());
+    let translator_ai_mode = translator_ai_step
+        .map(|step| step.execution_mode.clone())
+        .unwrap_or_else(|| "not-used".to_string());
+    let translator_ai_fallback_reason = translator_ai_step
+        .and_then(|step| step.fallback_reason.clone());
 
     let mut graph_nodes = vec![
         GraphNode { id: "goal".into(), label: "Goal".into(), kind: "goal".into(), state: "complete".into(), x: -280.0, y: -180.0, z: -80.0 },
@@ -1169,6 +1353,9 @@ pub fn run_scenario(root: &Path, id: &str) -> Result<ExecutionReport, String> {
         summarizer_ai_provider,
         summarizer_ai_mode,
         summarizer_ai_fallback_reason,
+        translator_ai_provider,
+        translator_ai_mode,
+        translator_ai_fallback_reason,
         selected_path,
         rejected_capabilities,
         steps,
@@ -1218,6 +1405,18 @@ pub fn format_report(report: &ExecutionReport) -> String {
         "- fallback reason: {}\n",
         report
             .summarizer_ai_fallback_reason
+            .as_deref()
+            .unwrap_or("none")
+    );
+
+    let _ = writeln!(out, "TranslatorFr:");
+    let _ = writeln!(out, "- provider: {}", report.translator_ai_provider);
+    let _ = writeln!(out, "- mode: {}", report.translator_ai_mode);
+    let _ = writeln!(
+        out,
+        "- fallback reason: {}\n",
+        report
+            .translator_ai_fallback_reason
             .as_deref()
             .unwrap_or("none")
     );
@@ -1373,7 +1572,11 @@ mod tests {
         let report = run_scenario(&project_root(), "use-case-3-french-report").unwrap();
         assert!(report.selected_path.iter().any(|item| item == "TranslatorFr"));
         assert_eq!(report.final_language, "fr");
-        assert!(report.final_output.contains("Language: fr"));
+        assert!(report.final_output.contains("Langue: fr"));
+        assert!(
+            report.translator_ai_mode == "runtime-hosted-translation"
+                || report.translator_ai_mode == "fallback"
+        );
     }
 
     #[test]
@@ -1438,6 +1641,12 @@ mod tests {
             .unwrap();
         assert_eq!(ai_step.agent_mode, report.planner_mode);
         assert_eq!(ai_step.execution_mode, report.summarizer_ai_mode);
+        let translator_step = report
+            .steps
+            .iter()
+            .find(|step| step.selected_capability == "TranslatorFr")
+            .unwrap();
+        assert_eq!(translator_step.execution_mode, report.translator_ai_mode);
         assert_eq!(report.final_language, "fr");
     }
 

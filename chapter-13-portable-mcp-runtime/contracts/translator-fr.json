@@ -2,8 +2,8 @@
   "name": "TranslatorFr",
   "version": "1.0.0",
   "intent": "translate-to-target-language",
-  "inputs": ["summary"],
-  "outputs": ["translated_summary"],
+  "inputs": ["summary", "structured_facts"],
+  "outputs": ["translated_summary", "translated_facts"],
   "constraints": {
     "runtime": ["browser-wasm", "edge-wasm", "cloud-wasm"],
     "requires": [],
@@ -11,7 +11,7 @@
   },
   "emitsEvents": ["CapabilityExecuted", "ContextUpdated"],
   "metadata": {
-    "description": "Translates the summary into French for the final report.",
-    "tags": ["translation", "french", "localization"]
+    "description": "Runtime-hosted AI translation capability that translates the summary and report highlights into French.",
+    "tags": ["translation", "french", "localization", "ai"]
   }
 }

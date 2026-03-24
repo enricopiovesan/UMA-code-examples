@@ -45,15 +45,17 @@ For the Chapter 13 AI path, two AI-facing capabilities are modeled explicitly:
 
 - `PlannerAI`
 - `SummarizerAI`
+- `TranslatorFr`
 
 `PlannerAI` proposes the next capability from the visible contract surface, goal, and current context.
 `SummarizerAI` generates a richer report summary when constraints allow it.
+`TranslatorFr` translates the summary and report highlights into French when the goal requires localized output.
 
-`PlannerAI` and `SummarizerAI` are defined as runtime-hosted AI capabilities.
+`PlannerAI`, `SummarizerAI`, and `TranslatorFr` are defined as runtime-hosted AI capabilities.
 That means the contracts stay stable even if the implementation path changes underneath them.
 In the validated Chapter 13 path today:
 
-- the runtime still resolves the `PlannerAI` and `SummarizerAI` contracts
+- the runtime still resolves the `PlannerAI`, `SummarizerAI`, and `TranslatorFr` contracts
 - execution remains visible and inspectable
 - if a runtime-hosted AI provider is not bound, the runtime falls back automatically
 - the fallback must be reported explicitly in both the machine-readable report and the UI step that executed it

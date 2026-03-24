@@ -4,3 +4,6 @@
 !planner/
 planner/*
 !planner/manifest.json
+!translator/
+translator/*
+!translator/manifest.json

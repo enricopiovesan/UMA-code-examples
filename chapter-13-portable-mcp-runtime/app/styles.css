@@ -483,6 +483,44 @@ button {
   margin-bottom: 8px;
 }
 
+.phase-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.phase-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  background: #f2f3f6;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.04em;
+}
+
+.phase-chip.is-running {
+  border-color: #d3a91d;
+  background: #f8e08a;
+  color: #151821;
+}
+
+.phase-chip.is-complete {
+  border-color: #6ecf78;
+  background: #c6f4ca;
+  color: #151821;
+}
+
+.phase-chip.is-skipped {
+  border-color: #c7ced9;
+  background: #eef1f5;
+  color: #8b92a1;
+  opacity: 0.78;
+}
+
 .transform-boxes {
   display: grid;
   grid-template-columns: 1fr auto 1fr;

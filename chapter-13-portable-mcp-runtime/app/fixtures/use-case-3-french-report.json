@@ -31,6 +31,9 @@
   "summarizer_ai_provider": "not-invoked",
   "summarizer_ai_mode": "not-invoked",
   "summarizer_ai_fallback_reason": null,
+  "translator_ai_provider": "chapter13-translator-ai-wasi",
+  "translator_ai_mode": "runtime-hosted-translation",
+  "translator_ai_fallback_reason": null,
   "selected_path": [
     "DataProviderLocal",
     "InsightEnricher",
@@ -118,6 +121,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -131,6 +135,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -144,6 +149,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -157,6 +163,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -170,6 +177,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -183,6 +191,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -196,6 +205,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -209,6 +219,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -222,6 +233,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -235,6 +247,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -248,6 +261,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -331,6 +345,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -344,6 +359,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -357,6 +373,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -370,6 +387,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -383,6 +401,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -396,6 +415,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -409,6 +429,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -422,6 +443,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -435,6 +457,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -448,6 +471,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -461,6 +485,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -544,6 +569,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -557,6 +583,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -570,6 +597,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -583,6 +611,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -596,6 +625,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -609,6 +639,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -622,6 +653,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -635,6 +667,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -648,6 +681,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -661,6 +695,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -674,6 +709,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -688,8 +724,8 @@
       "agent_proposal": "TranslatorFr",
       "proposed_validation": null,
       "selected_capability": "TranslatorFr",
-      "execution_provider": "TranslatorFr",
-      "execution_mode": "standard",
+      "execution_provider": "chapter13-translator-ai-wasi",
+      "execution_mode": "runtime-hosted-translation",
       "fallback_reason": null,
       "discovery": {
         "need": "translate-to-target-language",
@@ -745,7 +781,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).",
+      "output_preview": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -757,6 +793,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -770,6 +807,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -783,6 +821,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -796,6 +835,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -809,6 +849,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -822,6 +863,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -835,6 +877,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -848,6 +891,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -861,6 +905,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -874,6 +919,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -887,7 +933,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         }
       ]
@@ -958,7 +1005,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nHighlights: Fact: The browser shell holds recent customer feedback snippets. Fact: An edge cache exposes regional rollout data with low latency.",
+      "output_preview": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nPoints cles: Fait : le shell navigateur contient des extraits recents de retours clients. Fait : un cache edge expose les donnees de deploiement regional avec une faible latence.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -970,7 +1017,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -983,7 +1031,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -996,7 +1045,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1009,7 +1059,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1022,7 +1073,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1035,7 +1087,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1048,7 +1101,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1061,7 +1115,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1074,7 +1129,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1087,7 +1143,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         },
         {
@@ -1096,17 +1153,18 @@
           "status": "success",
           "reason": null,
           "contextSnapshot": {
-            "report": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nHighlights: Fact: The browser shell holds recent customer feedback snippets. Fact: An edge cache exposes regional rollout data with low latency.",
+            "report": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nPoints cles: Fait : le shell navigateur contient des extraits recents de retours clients. Fait : un cache edge expose les donnees de deploiement regional avec une faible latence.",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: The browser shell holds recent customer feedback snippets. | Fact: An edge cache exposes regional rollout data with low latency. | Fact: A cloud record confirms that contract validation reduced incident handoff time.",
             "summary": "UMA Runtime Atlas combines distributed browser, edge, and cloud evidence into a deterministic operational summary with 3 validated insight(s).",
-            "translatedSummary": "Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
+            "translatedFacts": "Fait : le shell navigateur contient des extraits recents de retours clients. | Fait : un cache edge expose les donnees de deploiement regional avec une faible latence. | Fait : un enregistrement cloud confirme que la validation de contrat a reduit le temps de transfert des incidents.",
+            "translatedSummary": "UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s)."
           }
         }
       ]
     }
   ],
-  "final_output": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nHighlights: Fact: The browser shell holds recent customer feedback snippets. Fact: An edge cache exposes regional rollout data with low latency.",
+  "final_output": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: UMA Runtime Atlas combine des preuves distribuees du navigateur, de l'edge et du cloud dans un resume operationnel deterministe avec 3 observation(s) validee(s).\nPoints cles: Fait : le shell navigateur contient des extraits recents de retours clients. Fait : un cache edge expose les donnees de deploiement regional avec une faible latence.",
   "final_language": "fr",
   "status": "complete",
   "graph_nodes": [

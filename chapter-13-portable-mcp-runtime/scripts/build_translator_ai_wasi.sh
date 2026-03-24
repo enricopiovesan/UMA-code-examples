@@ -6,7 +6,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cargo build \
   --locked \
   --offline \
-  --manifest-path "$ROOT_DIR/summarizer-ai-wasi/Cargo.toml" \
+  --manifest-path "$ROOT_DIR/translator-ai-wasi/Cargo.toml" \
   --target wasm32-wasip1
 
-echo "Built Chapter 13 SummarizerAI WASI module."
+echo "Built Chapter 13 TranslatorFr WASI module."

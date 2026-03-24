@@ -33,6 +33,9 @@
   "summarizer_ai_provider": "chapter13-summarizer-ai-wasi",
   "summarizer_ai_mode": "runtime-hosted-extractive",
   "summarizer_ai_fallback_reason": null,
+  "translator_ai_provider": "chapter13-translator-ai-wasi",
+  "translator_ai_mode": "runtime-hosted-translation",
+  "translator_ai_fallback_reason": null,
   "selected_path": [
     "DataProviderLocal",
     "InsightEnricher",
@@ -120,6 +123,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -133,6 +137,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -146,6 +151,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -159,6 +165,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -172,6 +179,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -185,6 +193,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -198,6 +207,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -211,6 +221,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -224,6 +235,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -237,6 +249,7 @@
             "sourceLoaded": "false",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -250,6 +263,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -333,6 +347,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -346,6 +361,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -359,6 +375,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -372,6 +389,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -385,6 +403,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -398,6 +417,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -411,6 +431,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -424,6 +445,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -437,6 +459,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -450,6 +473,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -463,6 +487,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -546,6 +571,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -559,6 +585,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -572,6 +599,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -585,6 +613,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -598,6 +627,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -611,6 +641,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -624,6 +655,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -637,6 +669,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -650,6 +683,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -663,6 +697,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "none",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -676,6 +711,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         }
@@ -690,8 +726,8 @@
       "agent_proposal": "TranslatorFr",
       "proposed_validation": null,
       "selected_capability": "TranslatorFr",
-      "execution_provider": "TranslatorFr",
-      "execution_mode": "standard",
+      "execution_provider": "chapter13-translator-ai-wasi",
+      "execution_mode": "runtime-hosted-translation",
       "fallback_reason": null,
       "discovery": {
         "need": "translate-to-target-language",
@@ -747,7 +783,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+      "output_preview": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -759,6 +795,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -772,6 +809,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -785,6 +823,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -798,6 +837,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -811,6 +851,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -824,6 +865,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -837,6 +879,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -850,6 +893,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -863,6 +907,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -876,6 +921,7 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
+            "translatedFacts": "none",
             "translatedSummary": "none"
           }
         },
@@ -889,7 +935,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         }
       ]
@@ -960,7 +1007,7 @@
         "status": "accepted",
         "reasons": []
       },
-      "output_preview": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+      "output_preview": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee.\nPoints cles: Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement.",
       "events": [
         {
           "type": "CapabilityDiscovered",
@@ -972,7 +1019,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -985,7 +1033,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -998,7 +1047,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1011,7 +1061,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1024,7 +1075,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1037,7 +1089,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1050,7 +1103,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1063,7 +1117,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1076,7 +1131,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1089,7 +1145,8 @@
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         },
         {
@@ -1098,17 +1155,18 @@
           "status": "success",
           "reason": null,
           "contextSnapshot": {
-            "report": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+            "report": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee.\nPoints cles: Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement.",
             "sourceLoaded": "true",
             "structuredFacts": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. | Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination. | Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
             "summary": "Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.",
-            "translatedSummary": "Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives."
+            "translatedFacts": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. | Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement. | Fait : l'analyse cloud indique que le resumeur IA est actuellement sain et produit des syntheses de direction plus riches.",
+            "translatedSummary": "Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee."
           }
         }
       ]
     }
   ],
-  "final_output": "Project: UMA Runtime Atlas\nLanguage: fr\nSummary: Rapport en francais: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Cloud analysis indicates that the AI summarizer is currently healthy and produces richer executive narratives.\nHighlights: Fact: Browser telemetry shows strong adoption in three customer regions with localized interface demand. Fact: Edge summaries report that French output improves stakeholder review time during rollout coordination.",
+  "final_output": "Projet: UMA Runtime Atlas\nLangue: fr\nResume: Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee.\nPoints cles: Fait : la telemetrie du navigateur montre une forte adoption dans trois regions clientes avec une demande pour une interface localisee. Fait : les syntheses edge indiquent que la sortie en francais ameliore le temps de revue des parties prenantes pendant la coordination du deploiement.",
   "final_language": "fr",
   "status": "complete",
   "graph_nodes": [

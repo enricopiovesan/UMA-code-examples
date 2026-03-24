@@ -14,7 +14,7 @@ The point of Chapter 13 is not to add another generic workflow demo. The point i
 - requests define intent, not a fixed workflow
 - MCP exposes capability descriptors and invocation surfaces through a real stdio server
 - the agent proposes a path, but the runtime validates it
-- `PlannerAI` and `SummarizerAI` are modeled as explicit AI capabilities
+- `PlannerAI`, `SummarizerAI`, and `TranslatorFr` are modeled as explicit AI capabilities
 - capabilities execute through contracts rather than hardwired service calls
 - events make the transformation between steps visible
 - WASM portability keeps execution behavior stable across runtimes
@@ -48,17 +48,19 @@ What is real in this chapter today:
 - the MCP server is a real stdio JSON-RPC server in Rust
 - `PlannerAI` can run as a real runtime-hosted WASI planning capability once its chapter-local model artifacts are installed and the module is built
 - `SummarizerAI` can run as a real runtime-hosted WASI summarization capability once its chapter-local model artifacts are installed and the module is built
+- `TranslatorFr` can run as a real runtime-hosted WASI translation capability once its chapter-local model artifacts are installed and the module is built
 
 What is not yet model-backed:
 
-- if either runtime-hosted AI provider is missing or unavailable, the runtime falls back to the deterministic implementation instead of failing the whole scenario
+- if any runtime-hosted AI provider is missing or unavailable, the runtime falls back to the deterministic implementation instead of failing the whole scenario
 - the fallback is reported explicitly in the machine-readable report and in the execution step that used it
 
 What is already pinned for the real model path:
 
 - `SummarizerAI` uses the chapter-local model manifest at `models/manifest.json`
 - `PlannerAI` uses the chapter-local model manifest at `models/planner/manifest.json`
-- both runtime-hosted model paths use pinned ONNX artifacts
+- `TranslatorFr` uses the chapter-local model manifest at `models/translator/manifest.json`
+- all runtime-hosted model paths use pinned ONNX artifacts
 - setup is handled by `./scripts/setup_models.sh` with checksum validation
 
 ## Validation status
@@ -75,6 +77,7 @@ cd chapter-13-portable-mcp-runtime
 ./scripts/setup_models.sh
 ./scripts/build_planner_ai_wasi.sh
 ./scripts/build_summarizer_ai_wasi.sh
+./scripts/build_translator_ai_wasi.sh
 ./scripts/list_labs.sh
 ./scripts/run_lab.sh use-case-1-basic-report
 ./scripts/run_lab.sh use-case-2-ai-report
@@ -87,8 +90,9 @@ cd chapter-13-portable-mcp-runtime
 
 The scripts also work from the repo root if you prefix them with `chapter-13-portable-mcp-runtime/`.
 
-`./scripts/setup_models.sh` downloads the pinned Chapter 13 ONNX summarizer artifacts into `models/`
-and planner artifacts into `models/planner/`, then verifies their SHA-256 checksums.
+`./scripts/setup_models.sh` downloads the pinned Chapter 13 ONNX summarizer artifacts into `models/`,
+planner artifacts into `models/planner/`, and translator artifacts into `models/translator/`,
+then verifies their SHA-256 checksums.
 The manifests are committed; the binary model files remain local.
 
 `./scripts/build_planner_ai_wasi.sh` compiles the separate `PlannerAI` WASI module that the
@@ -96,6 +100,9 @@ Rust Chapter 13 runtime can invoke when a model-backed planner is selected.
 
 `./scripts/build_summarizer_ai_wasi.sh` compiles the separate `SummarizerAI` WASI module that the
 Rust Chapter 13 runtime can invoke when `SummarizerAI` is selected.
+
+`./scripts/build_translator_ai_wasi.sh` compiles the separate `TranslatorFr` WASI module that the
+Rust Chapter 13 runtime can invoke when French translation is selected.
 
 If you want the machine-readable report for one scenario, use:
 

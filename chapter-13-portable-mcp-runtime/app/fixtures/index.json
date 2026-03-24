@@ -1,4 +1,14 @@
 [
-{"id": "use-case-2-ai-report", "title": "Use Case 2: AI-Preferred Report Generation", "summary": "The same distributed French report goal resolves through the AI summarizer when local-only constraints are lifted and higher-quality summarization is allowed.", "status": "complete"},
-{"id": "use-case-6-ai-executive-briefing", "title": "Use Case 6: AI Executive Briefing", "summary": "Generate an English executive briefing from distributed source fragments using the runtime-hosted PlannerAI and SummarizerAI capabilities without inserting translation.", "status": "complete"}
+  {
+    "id": "use-case-2-ai-report",
+    "title": "Use Case 2: AI-Preferred Report Generation",
+    "summary": "The same distributed French report goal resolves through the AI summarizer when local-only constraints are lifted and higher-quality summarization is allowed.",
+    "status": "complete"
+  },
+  {
+    "id": "use-case-6-ai-executive-briefing",
+    "title": "Use Case 6: AI Executive Briefing",
+    "summary": "Generate an English executive briefing from distributed source fragments using the runtime-hosted PlannerAI and SummarizerAI capabilities without inserting translation.",
+    "status": "complete"
+  }
 ]
