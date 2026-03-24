@@ -20,8 +20,6 @@
         </form>
       </header>
 
-      <section class="app-summary" id="summary-strip"></section>
-
       <aside class="commands-modal" id="commands-modal" hidden>
         <div class="commands-backdrop" data-close-commands></div>
         <div class="commands-dialog" role="dialog" aria-modal="true" aria-labelledby="commands-title">
@@ -62,18 +60,11 @@
           <div class="panel-head">
             <h2>Execution graph</h2>
             <p class="panel-copy">
-              The selected workflow path stays primary, while MCP, planner, and runtime remain visible as supporting context.
+              The graph shows the active execution centered on the UMA runtime, with services on one side and AI capabilities on the other.
             </p>
           </div>
           <div class="graph-stage">
             <div class="graph-scene" id="graph-scene"></div>
-          </div>
-          <div class="legend">
-            <span class="legend-item candidate">candidate</span>
-            <span class="legend-item active">active</span>
-            <span class="legend-item complete">complete</span>
-            <span class="legend-item rejected">rejected</span>
-            <span class="legend-item inactive">inactive</span>
           </div>
           <div class="graph-inspector" id="graph-inspector"></div>
         </section>
