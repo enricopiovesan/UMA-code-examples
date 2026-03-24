@@ -57,14 +57,14 @@ try:
         "params": {
             "name": "run_scenario",
             "arguments": {
-                "scenario": "use-case-5-agent-validation"
+                "scenario": "use-case-1-basic-report"
             }
         }
     })
     report = recv()
     structured = report["result"]["structuredContent"]
-    assert structured["scenario"] == "use-case-5-agent-validation"
-    assert structured["final_language"] == "fr"
+    assert structured["scenario"] == "use-case-1-basic-report"
+    assert structured["final_language"] == "en"
 finally:
     if proc.stdin:
         proc.stdin.close()
