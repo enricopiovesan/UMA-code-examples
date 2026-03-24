@@ -1,5 +1,10 @@
 # Universal Microservices Architecture (UMA) Code Examples
 
+[![Reader Smoke](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/reader-smoke.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/reader-smoke.yml)
+[![Book Site](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml)
+[![Live Reference App](https://img.shields.io/badge/live-reference%20app-0a7f5a)](https://www.universalmicroservices.com/reference-application/)
+[![Learn UMA](https://img.shields.io/badge/book-universalmicroservices.com-1f6feb)](https://www.universalmicroservices.com/)
+
 This repository is the hands-on code companion for **Universal Microservices Architecture (UMA)**.
 
 It is not a generic microservices sample pack. It is a guided progression showing how UMA moves from one portable service to runtime-governed systems, discoverable decisions, and a full reference application.

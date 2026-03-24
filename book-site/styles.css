@@ -46,14 +46,14 @@ a {
 }
 
 .page-shell {
-  width: min(100% - 28px, var(--content));
+  width: 100%;
   margin: 0 auto;
 }
 
 .topbar {
   position: sticky;
   top: 0;
-  width: min(100% - 28px, var(--content));
+  width: 100%;
   margin: 0 auto;
   z-index: 30;
   display: flex;
@@ -1361,7 +1361,7 @@ h3 {
   }
 
   .page-shell {
-    width: min(100% - 40px, var(--content));
+    width: 100%;
   }
 
   html,
@@ -1381,7 +1381,7 @@ h3 {
     position: fixed;
     top: 0;
     left: 50%;
-    width: min(100% - 40px, var(--content));
+    width: 100%;
     transform: translateX(-50%);
     flex-wrap: nowrap;
     align-items: center;

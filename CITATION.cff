@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use these UMA code examples in research, tutorials, or talks, please cite this repository and the UMA site."
+title: "Universal Microservices Architecture (UMA) Code Examples"
+type: software
+authors:
+  - family-names: "Piovesan"
+    given-names: "Enrico"
+repository-code: "https://github.com/enricopiovesan/UMA-code-examples"
+url: "https://www.universalmicroservices.com/"
+abstract: >-
+  Hands-on chapter labs and the Chapter 13 reference application for
+  Universal Microservices Architecture (UMA).
+keywords:
+  - UMA
+  - universal microservices
+  - webassembly
+  - wasi
+  - rust
+  - mcp
+license: "NOASSERTION"

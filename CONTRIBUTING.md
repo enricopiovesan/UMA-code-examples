@@ -2,6 +2,12 @@
 
 This repository is organized around reader-facing chapter labs. Changes should preserve the validated reader path, not just make the code compile.
 
+The bar for a good contribution here is simple:
+
+- keep the repo useful to a first-time reader
+- keep the validated chapter paths honest
+- make runtime, docs, and demos tell the same story
+
 ## Acceptance Bar
 
 Before opening or merging a change, run the checks that apply to your work:
@@ -24,6 +30,8 @@ When changing a chapter example:
 - update smoke scripts when the validated reader path changes
 - update tests when behavior, errors, or outputs change
 - prefer deterministic fixtures over live external dependencies
+- keep the live reference app aligned with what the runtime actually does
+- do not present illustrative scaffolding as validated behavior
 
 ## Documentation Standard
 
@@ -36,13 +44,12 @@ Validated chapter READMEs should keep these sections:
 
 At the repo root, keep:
 
-- `## New To UMA`
 - `## Start Here`
 - `## Reader Setup`
 - `## Reader Journey`
-- `## Learning Path`
-- `## Chapter Status`
-- `## Chapter Index`
+- `## Chapter 13 Call To Action`
+- `## How To Use The Repo`
+- `## Learn More`
 
 At the chapter level, keep:
 
@@ -55,6 +62,27 @@ At the chapter level, keep:
 - `## Layout`
 - `## Troubleshooting`
 - `## Value check`
+
+When the root README changes materially, update any contributor guidance that references its structure.
+
+## Public Repo Hygiene
+
+This repo is also a public landing page for UMA.
+
+When relevant, keep these elements current:
+
+- the root `README.md`
+- the Chapter 13 `README.md`
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [SECURITY.md](SECURITY.md)
+- [.github/CODEOWNERS](.github/CODEOWNERS)
+- [CITATION.cff](CITATION.cff)
+
+If a change affects the public story of the repo, also review:
+
+- the live reference app link
+- the social preview image used in the READMEs
+- GitHub Actions badges and links
 
 ## Coverage Gate
 
