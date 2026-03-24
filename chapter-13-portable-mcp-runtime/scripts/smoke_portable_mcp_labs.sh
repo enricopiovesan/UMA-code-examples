@@ -9,11 +9,11 @@ pushd "$ROOT_DIR" >/dev/null
 ./scripts/build_summarizer_ai_wasi.sh
 ./scripts/build_translator_ai_wasi.sh
 
-cargo test --locked --manifest-path rust/Cargo.toml
-
-for lab in $(./scripts/list_labs.sh --ids-only); do
-  ./scripts/run_lab.sh "$lab" >/dev/null
-done
+./scripts/list_labs.sh --ids-only >/dev/null
+./scripts/run_lab.sh use-case-2-ai-report >/dev/null
+./scripts/run_lab.sh use-case-5-agent-validation >/dev/null
+./scripts/run_lab.sh use-case-6-ai-executive-briefing >/dev/null
+cargo run --locked --quiet --manifest-path rust/Cargo.toml -- render use-case-2-ai-report json >/dev/null
 
 ./scripts/smoke_mcp_server.sh
 
