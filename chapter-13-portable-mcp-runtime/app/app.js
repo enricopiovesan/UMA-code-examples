@@ -448,21 +448,21 @@ function phaseDuration(phase) {
   }
 }
 
-const IDLE_COLOR = "#6f7b91";
-const IDLE_GLOW = "rgba(111, 123, 145, 0.22)";
-const RUNNING_COLOR = "#c88b00";
-const RUNNING_GLOW = "rgba(200, 139, 0, 0.34)";
-const COMPLETE_COLOR = "#1fa055";
-const COMPLETE_GLOW = "rgba(31, 160, 85, 0.30)";
+const IDLE_COLOR = "#4e6383";
+const IDLE_GLOW = "rgba(78, 99, 131, 0.24)";
+const RUNNING_COLOR = "#ff9f2a";
+const RUNNING_GLOW = "rgba(255, 159, 42, 0.28)";
+const COMPLETE_COLOR = "#45d483";
+const COMPLETE_GLOW = "rgba(69, 212, 131, 0.28)";
 
 function stateFillColor(state) {
   if (state === "running") {
-    return "#ffe7a3";
+    return "rgba(255, 159, 42, 0.18)";
   }
   if (state === "complete") {
-    return "#c8f4d6";
+    return "rgba(69, 212, 131, 0.16)";
   }
-  return "#e3e8ef";
+  return "#1d2a40";
 }
 
 function stateStrokeColor(state) {
@@ -473,6 +473,13 @@ function stateStrokeColor(state) {
     return COMPLETE_COLOR;
   }
   return IDLE_COLOR;
+}
+
+function stateLabelColor(state) {
+  if (state === "idle") {
+    return "#e7eefb";
+  }
+  return "#eef5ff";
 }
 
 function phaseExecutionSummary(step, phase) {
@@ -640,6 +647,22 @@ function labelWithRoleIcon(nodeId, label) {
   return label;
 }
 
+function graphNodeLabel(nodeId, label, isAI) {
+  if (nodeId === "goal") {
+    return stackedNodeLabel("◎", label);
+  }
+  if (nodeId === "result") {
+    return stackedNodeLabel("✓", label);
+  }
+  if (nodeId === "mcp" || nodeId === "runtime") {
+    return label;
+  }
+  if (isAI) {
+    return `${label}\nAGENT`;
+  }
+  return `${label}\nMICROSERVICE`;
+}
+
 function specialNodeIconFill({ active = false, complete = false, darkFill = false }) {
   if (active) {
     return "#08352a";
@@ -655,6 +678,38 @@ function specialNodeIconFill({ active = false, complete = false, darkFill = fals
 
 function stackedNodeLabel(icon, label) {
   return `${icon}\n${label}`;
+}
+
+function regularPolygonPoints(sides, radius) {
+  return Array.from({ length: sides }, (_, index) => {
+    const angle = (-Math.PI / 2) + (index * Math.PI * 2) / sides;
+    return [Math.cos(angle) * radius, Math.sin(angle) * radius];
+  });
+}
+
+function regularPolygonSvgPoints(sides, radius, center) {
+  return Array.from({ length: sides }, (_, index) => {
+    const angle = (-Math.PI / 2) + (index * Math.PI * 2) / sides;
+    const x = center + Math.cos(angle) * radius;
+    const y = center + Math.sin(angle) * radius;
+    return `${x},${y}`;
+  }).join(" ");
+}
+
+function mcpImageDataUri(visualState) {
+  const stroke = stateStrokeColor(visualState);
+  const fill = stateFillColor(visualState);
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+      <polygon
+        points="${regularPolygonSvgPoints(10, 40, 48)}"
+        fill="${fill}"
+        stroke="${stroke}"
+        stroke-width="3"
+      />
+    </svg>
+  `;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
 function nodeFootprint(nodeId) {
@@ -888,7 +943,9 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
   const { nodeStates } = graphStatesForStep(report, focusedStepIndex);
   const currentStep = report.steps.find((step) => step.index === focusedStepIndex) || null;
   const layout = layoutGraph(report);
-  const selected = report.selected_path || [];
+  const selected = (report.selected_path || []).filter(
+    (capabilityId) => layout.has(capabilityId) && !APP_HIDDEN_CAPABILITIES.has(capabilityId)
+  );
   const nodes = [];
   const currentProposalCapability = currentStep?.proposed_validation?.capability ?? null;
   const currentAgentProposal = currentStep?.agent_proposal ?? null;
@@ -922,24 +979,31 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
         ((phase === "capability" || phase === "result") && onPath) ||
         (activeSupportIndex > -1 && onPath && pathIndex > -1 && pathIndex < activeSupportIndex)
       );
+    const visualState = active ? "running" : complete ? "complete" : "idle";
+    const isMcpNode = nodeId === "mcp";
     nodes.push({
       id: nodeId,
-      type: nodeId === "goal" ? "diamond" : nodeId === "result" ? "diamond" : "hexagon",
+      type: nodeId === "goal" ? "diamond" : nodeId === "result" ? "diamond" : isMcpNode ? "image" : "hexagon",
       data: { label },
       style: {
         x: point.x,
         y: point.y,
-        size: nodeId === "goal" ? 84 : 74,
-        fill: stateFillColor(active ? "running" : complete ? "complete" : "idle"),
-        stroke: stateStrokeColor(active ? "running" : complete ? "complete" : "idle"),
+        ...(isMcpNode
+          ? {
+              size: [96, 96],
+              src: mcpImageDataUri(visualState),
+            }
+          : { size: nodeId === "goal" ? 84 : nodeId === "runtime" ? 124 : 74 }),
+        fill: stateFillColor(visualState),
+        stroke: stateStrokeColor(visualState),
         shadowBlur: active ? 28 : complete ? 18 : 8,
         shadowColor: active ? RUNNING_GLOW : complete ? COMPLETE_GLOW : IDLE_GLOW,
-        labelText: nodeId === "goal" ? stackedNodeLabel("◎", label) : label,
+        labelText: graphNodeLabel(nodeId, label, false),
         labelPlacement: "center",
-        labelFill: active || complete ? "#151821" : "#151821",
-        labelFontSize: 10,
+        labelFill: stateLabelColor(visualState),
+        labelFontSize: nodeId === "runtime" ? 13 : 10,
         labelFontWeight: active || complete ? 700 : 500,
-        labelLineHeight: 15,
+        labelLineHeight: nodeId === "runtime" ? 18 : 15,
       },
     });
   }
@@ -959,9 +1023,16 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
     const isPlannerPhaseNode = phase === "planner" && nodeId === "PlannerAI";
     const plannerCompleted = nodeId === "PlannerAI" && (plannerUsedBeforeCurrentStep || (currentStep && usesPlanner(currentStep) && (phase === "runtime" || phase === "capability" || phase === "result")));
     const isCurrent = (nodeId === currentStep?.selected_capability && phase === "capability") || isPlannerPhaseNode;
-    const isComplete = phase !== "idle" && (state === "complete" || plannerCompleted);
+    const isComplete =
+      phase !== "idle" &&
+      (
+        state === "complete" ||
+        plannerCompleted ||
+        (phase === "result" && nodeId === currentStep?.selected_capability)
+      );
     const isAvailable = report.initial_context.availableCapabilities.includes(nodeId);
     const isAI = isAICapabilityNode(nodeId);
+    const visualState = isCurrent ? "running" : isComplete ? "complete" : "idle";
     nodes.push({
       id: nodeId,
       type: isAI ? "circle" : "rect",
@@ -971,19 +1042,21 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
         y: point.y,
         size: isAI ? 108 : [164, 64],
         radius: isAI ? undefined : 18,
-        fill: stateFillColor(isCurrent ? "running" : isComplete ? "complete" : "idle"),
-        stroke: stateStrokeColor(isCurrent ? "running" : isComplete ? "complete" : "idle"),
+        fill: stateFillColor(visualState),
+        stroke: stateStrokeColor(visualState),
         lineWidth: isCurrent ? 3 : isComplete ? 2.5 : 1.5,
         shadowBlur: isCurrent ? 28 : isComplete ? 18 : 8,
         shadowColor: isCurrent ? RUNNING_GLOW : isComplete ? COMPLETE_GLOW : IDLE_GLOW,
-        labelText: isAI
-          ? stackedNodeLabel("✦", labelWithRoleIcon(nodeId, displayName(nodeId, source.label)))
-          : labelWithRoleIcon(nodeId, displayName(nodeId, source.label)),
+        labelText: graphNodeLabel(
+          nodeId,
+          labelWithRoleIcon(nodeId, displayName(nodeId, source.label)),
+          isAI
+        ),
         labelPlacement: "center",
-        labelFill: "#151821",
-        labelFontSize: isAI ? 11 : 12,
+        labelFill: stateLabelColor(visualState),
+        labelFontSize: isAI ? 12 : 12,
         labelFontWeight: isCurrent ? 700 : 600,
-        labelLineHeight: isAI ? 16 : undefined,
+        labelLineHeight: isAI ? 16 : 16,
         opacity: isAvailable ? 1 : 0.72,
       },
     });
@@ -992,6 +1065,7 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
   const resultPoint = layout.get("result");
   if (resultPoint) {
     const resultComplete = phase === "result" && focusedStepIndex >= report.steps.length;
+    const visualState = resultComplete ? "complete" : "idle";
     nodes.push({
       id: "result",
       type: "diamond",
@@ -1000,13 +1074,13 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
         x: resultPoint.x,
         y: resultPoint.y,
         size: 84,
-        fill: stateFillColor(resultComplete ? "complete" : "idle"),
-        stroke: stateStrokeColor(resultComplete ? "complete" : "idle"),
+        fill: stateFillColor(visualState),
+        stroke: stateStrokeColor(visualState),
         shadowBlur: resultComplete ? 18 : 8,
         shadowColor: resultComplete ? COMPLETE_GLOW : IDLE_GLOW,
-        labelText: stackedNodeLabel("✓", "Result"),
+        labelText: graphNodeLabel("result", "Result", false),
         labelPlacement: "center",
-        labelFill: "#151821",
+        labelFill: stateLabelColor(visualState),
         labelFontSize: 11,
         labelFontWeight: 700,
         labelLineHeight: 16,

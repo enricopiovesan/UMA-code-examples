@@ -382,7 +382,9 @@ button {
 }
 
 .pill.accepted {
-  color: var(--ok);
+  border-color: #1cb3ff;
+  background: rgba(28, 179, 255, 0.16);
+  color: #9bddff;
 }
 
 .pill.rejected {
@@ -509,9 +511,9 @@ button {
 }
 
 .phase-chip.is-complete {
-  border-color: #1cb3ff;
-  background: rgba(28, 179, 255, 0.16);
-  color: #9bddff;
+  border-color: #45d483;
+  background: rgba(69, 212, 131, 0.16);
+  color: #b7f4ce;
 }
 
 .phase-chip.is-skipped {
@@ -564,9 +566,9 @@ button {
 }
 
 .execution-log-status.is-completed {
-  border-color: #1cb3ff;
-  background: rgba(28, 179, 255, 0.16);
-  color: #9bddff;
+  border-color: #45d483;
+  background: rgba(69, 212, 131, 0.16);
+  color: #b7f4ce;
 }
 
 .execution-log-status.is-skipped {
@@ -715,9 +717,10 @@ button {
 }
 
 .graph-legend-swatch.is-complete {
-  border-color: #1cb3ff;
-  background: rgba(28, 179, 255, 0.16);
+  border-color: #45d483;
+  background: rgba(69, 212, 131, 0.16);
 }
+
 
 .graph-edge {
   position: absolute;
