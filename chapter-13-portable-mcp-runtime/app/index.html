@@ -13,8 +13,8 @@
         <h1>UMA Ref APP</h1>
         <form class="controls">
           <div class="scenario-picker">
-            <select id="scenario-select" name="scenario"></select>
-            <button id="run-scenario" type="button">Play</button>
+            <select id="scenario-select" name="workflow" aria-label="Select workflow"></select>
+            <button id="run-scenario" type="button">Play workflow</button>
             <button id="open-commands" class="icon-button" type="button" aria-label="Open workflow info">i</button>
           </div>
         </form>
@@ -32,18 +32,49 @@
         </div>
       </aside>
 
+      <aside class="commands-modal onboarding-modal" id="onboarding-modal" hidden>
+        <div class="commands-backdrop" data-close-onboarding></div>
+        <div class="commands-dialog onboarding-dialog" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+          <div class="commands-dialog-head">
+            <h2 id="onboarding-title">How To Read This App</h2>
+            <button class="commands-close" id="close-onboarding" type="button" aria-label="Close introduction">Close</button>
+          </div>
+          <div class="onboarding-copy">
+            <p><strong>What this app shows:</strong> how a workflow is composed from capabilities, not hardwired as a fixed pipeline.</p>
+            <p><strong>Start with:</strong> <code>Workflow: French AI Report</code>. It is the clearest first example.</p>
+            <p><strong>What to do:</strong></p>
+            <ol class="onboarding-list">
+              <li>Pick a workflow from the header.</li>
+              <li>Click <strong>Play workflow</strong>.</li>
+              <li>Watch the <strong>Execution narrative</strong> and <strong>Execution graph</strong> stay aligned on the same step.</li>
+            </ol>
+            <p><strong>What to look for:</strong></p>
+            <ul class="onboarding-list">
+              <li><strong>WASM MCP</strong> exposes available capabilities.</li>
+              <li><strong>Planner AI</strong> proposes or ranks capabilities when needed.</li>
+              <li><strong>UMA runtime</strong> validates what is allowed.</li>
+              <li>The selected <strong>capability</strong> executes and changes the state.</li>
+            </ul>
+            <p><strong>Why it matters:</strong> the app helps a first-time reader see how UMA chooses a workflow from capabilities under runtime control.</p>
+          </div>
+          <div class="onboarding-actions">
+            <button id="dismiss-onboarding" type="button">Start with the first workflow</button>
+          </div>
+        </div>
+      </aside>
+
       <section class="app-layout">
         <section class="panel transform-panel">
           <div class="panel-head">
             <h2>Execution narrative</h2>
             <p class="panel-copy">
-              A text representation of the same execution shown in the graph, including WASM MCP, Planner AI, UMA runtime, and capability phases.
+              A text view of the workflow execution, showing how capabilities are coordinated by WASM MCP, Planner AI, and the UMA runtime.
             </p>
             <div class="step-focus-row">
               <label for="step-select">Step focus</label>
               <select id="step-select" name="step"></select>
               <a id="open-report" class="control-link inline" href="./fixtures/use-case-2-ai-report.json" target="_blank" rel="noreferrer">
-                JSON report
+                Workflow JSON
               </a>
             </div>
           </div>
@@ -57,16 +88,24 @@
         </section>
 
         <section class="panel graph-panel">
-          <div class="panel-head">
-            <h2>Execution graph</h2>
-            <p class="panel-copy">
-              The graph shows the active execution centered on the UMA runtime, with services on one side and AI capabilities on the other.
-            </p>
-          </div>
           <div class="graph-stage">
+            <div class="graph-overlay graph-overlay-top-left">
+              <h2>Execution graph</h2>
+              <p class="panel-copy">
+                The graph shows the active execution centered on the UMA runtime, with services on one side and AI capabilities on the other.
+              </p>
+            </div>
+            <div class="graph-overlay graph-overlay-top-right graph-inspector" id="graph-inspector"></div>
             <div class="graph-scene" id="graph-scene"></div>
+            <div class="graph-overlay graph-overlay-bottom-right graph-legend" aria-label="Graph legend">
+              <div class="graph-legend-title">Legend</div>
+              <div class="graph-legend-items">
+                <span class="graph-legend-item"><span class="graph-legend-swatch is-idle"></span>Not used yet</span>
+                <span class="graph-legend-item"><span class="graph-legend-swatch is-running"></span>Running now</span>
+                <span class="graph-legend-item"><span class="graph-legend-swatch is-complete"></span>Completed</span>
+              </div>
+            </div>
           </div>
-          <div class="graph-inspector" id="graph-inspector"></div>
         </section>
       </section>
     </main>

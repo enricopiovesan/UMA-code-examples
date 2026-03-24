@@ -4,11 +4,15 @@ const runButton = document.getElementById("run-scenario");
 const openCommandsButton = document.getElementById("open-commands");
 const closeCommandsButton = document.getElementById("close-commands");
 const commandsModal = document.getElementById("commands-modal");
+const onboardingModal = document.getElementById("onboarding-modal");
+const closeOnboardingButton = document.getElementById("close-onboarding");
+const dismissOnboardingButton = document.getElementById("dismiss-onboarding");
 const commandStack = document.getElementById("command-stack");
 const scenarioFacts = document.getElementById("scenario-facts");
 const transformationFlow = document.getElementById("transformation-flow");
 const finalOutput = document.getElementById("final-output");
 const graphScene = document.getElementById("graph-scene");
+const graphStage = document.querySelector(".graph-stage");
 const graphInspector = document.getElementById("graph-inspector");
 const openReport = document.getElementById("open-report");
 let currentReport = null;
@@ -20,6 +24,7 @@ let currentPhase = "idle";
 let graphLibraryPromise = null;
 let graphRenderToken = 0;
 const APP_HIDDEN_CAPABILITIES = new Set(["SummarizerBasic"]);
+const ONBOARDING_STORAGE_KEY = "chapter13-ref-app-onboarding-dismissed";
 
 function escapeHtml(value) {
   return String(value)
@@ -28,6 +33,58 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function workflowTitle(title) {
+  const value = String(title);
+  if (value.startsWith("Workflow:")) {
+    return value;
+  }
+  return value.replace(/^Use Case\s+\d+:\s+/i, "Workflow: ");
+}
+
+function workflowTeachingMeta(report) {
+  const workflowCapabilities = (report.selected_path || []).map((capability) => displayName(capability, capability));
+
+  if (report.scenario === "use-case-2-ai-report") {
+    return {
+      startHere: true,
+      proves:
+        "How a workflow is composed from capabilities, with WASM MCP exposing options, Planner AI ranking them, UMA runtime validating them, and AI translation extending the path.",
+      readerQuestion:
+        "How does a reader get from a goal to a final French output without hardwiring the workflow?",
+      workflowCapabilities,
+    };
+  }
+
+  if (report.scenario === "use-case-5-agent-validation") {
+    return {
+      startHere: false,
+      proves:
+        "Planner AI is advisory, not authoritative. The UMA runtime can reject a proposed capability and still complete the workflow with a valid alternative.",
+      readerQuestion:
+        "What happens when the AI proposes a capability that violates the current constraints?",
+      workflowCapabilities,
+    };
+  }
+
+  if (report.scenario === "use-case-6-ai-executive-briefing") {
+    return {
+      startHere: false,
+      proves:
+        "The same capability system can produce a different output by composing a different workflow, without changing the runtime model.",
+      readerQuestion:
+        "How does the same runtime produce a different result when the goal changes?",
+      workflowCapabilities,
+    };
+  }
+
+  return {
+    startHere: false,
+    proves: "How the current workflow is composed from visible capabilities under runtime control.",
+    readerQuestion: "How did the runtime choose this workflow?",
+    workflowCapabilities,
+  };
 }
 
 async function loadIndex() {
@@ -68,15 +125,15 @@ function formatInitialState(report) {
 function commandRows(report) {
   return [
     {
-      label: "Run this scenario",
+      label: "Run this workflow",
       command: `./scripts/run_lab.sh ${report.scenario}`,
     },
     {
-      label: "Validate this scenario",
+      label: "Validate this workflow",
       command: `./scripts/validate_lab.sh ${report.scenario}`,
     },
     {
-      label: "Inspect JSON report",
+      label: "Inspect workflow JSON",
       command: `cargo run --manifest-path rust/Cargo.toml -- render ${report.scenario} json`,
     },
   ];
@@ -90,8 +147,15 @@ function updateReportLink(report) {
 }
 
 function renderCommands(report) {
+  const meta = workflowTeachingMeta(report);
   scenarioFacts.innerHTML = `
-    <p class="summary-text command-intro">Goal: ${escapeHtml(report.goal.target)} · ${escapeHtml(goalSummary(report))} · Sources: ${report.initial_context.sourceFragments.length}</p>
+    <p class="summary-text command-intro"><strong>${escapeHtml(workflowTitle(report.title))}</strong></p>
+    ${meta.startHere ? `<p class="summary-text command-intro"><strong>Start here.</strong> This is the clearest first workflow for understanding how the Chapter 13 system works.</p>` : ""}
+    <p class="summary-text command-intro">Workflow: a combination of capabilities for the current goal.</p>
+    <p class="summary-text command-intro"><strong>What this workflow proves:</strong> ${escapeHtml(meta.proves)}</p>
+    <p class="summary-text command-intro"><strong>Reader question:</strong> ${escapeHtml(meta.readerQuestion)}</p>
+    <p class="summary-text command-intro"><strong>Capabilities in this workflow:</strong> ${escapeHtml(meta.workflowCapabilities.join(" → "))}</p>
+    <p class="summary-text command-intro">Goal: ${escapeHtml(report.goal.target)} · ${escapeHtml(goalSummary(report))} · Capabilities: ${report.selected_path.length}</p>
   `;
 
   commandStack.innerHTML = commandRows(report)
@@ -107,7 +171,21 @@ function renderCommands(report) {
 }
 
 function renderTransformations(report, focusedStepIndex, phase = "idle") {
-  transformationFlow.innerHTML = report.steps
+  const meta = workflowTeachingMeta(report);
+  const introCard = `
+    <article class="transform-card workflow-overview">
+      <div class="timeline-meta">
+        <span class="pill">${meta.startHere ? "Start here" : "Workflow"}</span>
+        <span class="pill">${escapeHtml(report.selected_path.length)} capabilities</span>
+      </div>
+      <h3>${escapeHtml(workflowTitle(report.title))}</h3>
+      <p class="summary-text"><strong>What this workflow proves:</strong> ${escapeHtml(meta.proves)}</p>
+      <p class="summary-text"><strong>Why a reader should care:</strong> ${escapeHtml(meta.readerQuestion)}</p>
+      <p class="summary-text"><strong>Workflow path:</strong> ${escapeHtml(meta.workflowCapabilities.join(" → "))}</p>
+    </article>
+  `;
+
+  transformationFlow.innerHTML = introCard + report.steps
     .map((step) => {
       const isFocused = step.index === focusedStepIndex;
       const cardPhase = isFocused ? phase : "idle";
@@ -655,12 +733,16 @@ function resolveLayoutCollisions(layout, lockedIds) {
 
 function layoutGraph(report) {
   const layout = new Map();
-  const centerX = 392;
-  const centerY = 266;
-  const goalY = 64;
-  const mcpY = 162;
-  const runtimeY = 266;
-  const resultY = 520;
+  const stageWidth = graphStage?.clientWidth || graphScene.clientWidth || 760;
+  const stageHeight = graphStage?.clientHeight || graphScene.clientHeight || 760;
+  const centerX = Math.round(stageWidth / 2);
+  const centerY = Math.round(stageHeight / 2) + 12;
+  const goalY = 118;
+  const mcpY = Math.max(212, centerY - 132);
+  const runtimeY = centerY;
+  const resultY = stageHeight - 132;
+  const serviceX = centerX - Math.min(280, Math.round(stageWidth * 0.28));
+  const aiX = centerX + Math.min(230, Math.round(stageWidth * 0.22));
 
   const supportNodes = [
     ["goal", { x: centerX, y: goalY, role: "support-start" }],
@@ -691,16 +773,16 @@ function layoutGraph(report) {
     .map((item) => item.id);
 
   const serviceSlots = [
-    { x: centerX - 272, y: centerY - 132 },
-    { x: centerX - 272, y: centerY - 18 },
-    { x: centerX - 272, y: centerY + 96 },
-    { x: centerX - 272, y: centerY + 210 },
-    { x: centerX - 110, y: centerY + 244 },
+    { x: serviceX, y: centerY - 144 },
+    { x: serviceX, y: centerY - 24 },
+    { x: serviceX, y: centerY + 96 },
+    { x: serviceX, y: centerY + 216 },
+    { x: centerX - 108, y: centerY + 252 },
   ];
   const aiSlots = [
-    { x: centerX + 232, y: centerY - 132 },
-    { x: centerX + 232, y: centerY + 24 },
-    { x: centerX + 232, y: centerY + 180 },
+    { x: aiX, y: centerY - 140 },
+    { x: aiX, y: centerY + 12 },
+    { x: aiX, y: centerY + 164 },
   ];
 
   for (const [index, nodeId] of serviceNodes.entries()) {
@@ -710,7 +792,7 @@ function layoutGraph(report) {
     };
     layout.set(nodeId, {
       x: point.x,
-      y: point.y,
+      y: Math.min(point.y, stageHeight - 96),
       role: "service-capability",
     });
   }
@@ -722,7 +804,7 @@ function layoutGraph(report) {
     };
     layout.set(nodeId, {
       x: point.x,
-      y: point.y,
+      y: Math.min(point.y, stageHeight - 96),
       role: "ai-capability",
     });
   }
@@ -733,7 +815,7 @@ function layoutGraph(report) {
     if (layout.has(node.id)) {
       continue;
     }
-    const point = { x: centerX - 272, y: centerY };
+    const point = { x: serviceX, y: centerY };
     layout.set(node.id, {
       x: point.x,
       y: point.y,
@@ -1074,15 +1156,13 @@ function renderGraphInspector(report, focusedStepIndex, phase = currentPhase) {
             `<li><strong>${escapeHtml(item.capability)}</strong><span>${escapeHtml(item.reasons.join(", "))}</span></li>`
         )
         .join("")
-    : `<li><span>No runtime rejections in this scenario.</span></li>`;
+    : `<li><span>No runtime rejections in this workflow.</span></li>`;
 
   graphInspector.innerHTML = `
     <div class="inspector-block">
       <small>Current focus</small>
       <p class="summary-text"><strong>${escapeHtml(currentStep?.selected_capability ?? "Complete")}</strong>${currentStep ? ` · ${escapeHtml(currentStep.need)}` : ""}</p>
       <p class="summary-text"><strong>Phase:</strong> ${escapeHtml(phaseLabel(phase))}</p>
-    </div>
-    <div class="inspector-block">
       <small>Runtime verdict</small>
       <ul class="inspector-list">${rejected}</ul>
     </div>
@@ -1129,7 +1209,34 @@ function closeCommandsModal() {
     return;
   }
   commandsModal.hidden = true;
-  document.body.classList.remove("modal-open");
+  if (!onboardingModal || onboardingModal.hidden) {
+    document.body.classList.remove("modal-open");
+  }
+}
+
+function openOnboardingModal() {
+  if (!onboardingModal) {
+    return;
+  }
+  onboardingModal.hidden = false;
+  document.body.classList.add("modal-open");
+}
+
+function closeOnboardingModal({ persist = true } = {}) {
+  if (!onboardingModal) {
+    return;
+  }
+  onboardingModal.hidden = true;
+  if (!commandsModal || commandsModal.hidden) {
+    document.body.classList.remove("modal-open");
+  }
+  if (persist) {
+    window.localStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
+  }
+}
+
+function shouldShowOnboarding() {
+  return window.localStorage.getItem(ONBOARDING_STORAGE_KEY) !== "true";
 }
 
 function stopPlayback() {
@@ -1139,7 +1246,7 @@ function stopPlayback() {
   }
   isPlaying = false;
   currentPhase = "idle";
-  runButton.textContent = "Play scenario";
+  runButton.textContent = "Play workflow";
 }
 
 function schedulePlayback(report, stepIndex, phaseIndex = 0) {
@@ -1184,12 +1291,15 @@ async function init() {
     for (const item of items) {
       const option = document.createElement("option");
       option.value = item.id;
-      option.textContent = item.title;
+      option.textContent = workflowTitle(item.title);
       scenarioSelect.appendChild(option);
     }
     if (items[0]) {
       await renderScenario(items[0].id);
-      runButton.textContent = "Play scenario";
+      runButton.textContent = "Play workflow";
+      if (shouldShowOnboarding()) {
+        openOnboardingModal();
+      }
     }
   } catch (error) {
     transformationFlow.innerHTML = `<p class="summary-text">${escapeHtml(error.message)}</p>`;
@@ -1228,6 +1338,14 @@ if (closeCommandsButton) {
   closeCommandsButton.addEventListener("click", closeCommandsModal);
 }
 
+if (closeOnboardingButton) {
+  closeOnboardingButton.addEventListener("click", () => closeOnboardingModal());
+}
+
+if (dismissOnboardingButton) {
+  dismissOnboardingButton.addEventListener("click", () => closeOnboardingModal());
+}
+
 if (commandsModal) {
   commandsModal.addEventListener("click", (event) => {
     if (event.target.hasAttribute("data-close-commands")) {
@@ -1236,9 +1354,18 @@ if (commandsModal) {
   });
 }
 
+if (onboardingModal) {
+  onboardingModal.addEventListener("click", (event) => {
+    if (event.target.hasAttribute("data-close-onboarding")) {
+      closeOnboardingModal();
+    }
+  });
+}
+
 window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeCommandsModal();
+    closeOnboardingModal({ persist: false });
   }
 });
 

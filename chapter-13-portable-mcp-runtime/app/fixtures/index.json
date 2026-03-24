@@ -1,14 +1,20 @@
 [
   {
     "id": "use-case-2-ai-report",
-    "title": "Use Case 2: AI-Preferred Report Generation",
-    "summary": "The same distributed French report goal resolves through the AI summarizer when local-only constraints are lifted and higher-quality summarization is allowed.",
+    "title": "Workflow: French AI Report",
+    "summary": "Start here. A distributed report is discovered, summarized with AI, translated with AI, and formatted into a final French result.",
+    "status": "complete"
+  },
+  {
+    "id": "use-case-5-agent-validation",
+    "title": "Workflow: Runtime Overrides Planner AI",
+    "summary": "Planner AI proposes a path, but the UMA runtime rejects it and selects a valid capability instead.",
     "status": "complete"
   },
   {
     "id": "use-case-6-ai-executive-briefing",
-    "title": "Use Case 6: AI Executive Briefing",
-    "summary": "Generate an English executive briefing from distributed source fragments using the runtime-hosted PlannerAI and SummarizerAI capabilities without inserting translation.",
+    "title": "Workflow: AI Executive Briefing",
+    "summary": "The same capability model produces a different English output path without translation.",
     "status": "complete"
   }
 ]
