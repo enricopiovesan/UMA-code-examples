@@ -1,5 +1,3 @@
-import { Graph } from "@antv/g6";
-
 const scenarioSelect = document.getElementById("scenario-select");
 const stepSelect = document.getElementById("step-select");
 const runButton = document.getElementById("run-scenario");
@@ -11,7 +9,6 @@ const scenarioFacts = document.getElementById("scenario-facts");
 const transformationFlow = document.getElementById("transformation-flow");
 const finalOutput = document.getElementById("final-output");
 const graphScene = document.getElementById("graph-scene");
-const summaryStrip = document.getElementById("summary-strip");
 const graphInspector = document.getElementById("graph-inspector");
 const openReport = document.getElementById("open-report");
 let currentReport = null;
@@ -20,6 +17,9 @@ let isPlaying = false;
 let graph = null;
 let graphResizeObserver = null;
 let currentPhase = "idle";
+let graphLibraryPromise = null;
+let graphRenderToken = 0;
+const APP_HIDDEN_CAPABILITIES = new Set(["SummarizerBasic"]);
 
 function escapeHtml(value) {
   return String(value)
@@ -82,19 +82,11 @@ function commandRows(report) {
   ];
 }
 
-function renderSummary(report) {
+function updateReportLink(report) {
   const reportHref = `./fixtures/${report.scenario}.json`;
   if (openReport) {
     openReport.href = reportHref;
   }
-
-  summaryStrip.innerHTML = `
-    <div class="summary-inline">
-      <span>${escapeHtml(report.title)}</span>
-      <span>${escapeHtml(goalSummary(report))}</span>
-      <a href="${reportHref}" target="_blank" rel="noreferrer">JSON report</a>
-    </div>
-  `;
 }
 
 function renderCommands(report) {
@@ -129,6 +121,7 @@ function renderTransformations(report, focusedStepIndex, phase = "idle") {
       const rejected = step.discovery.rejected
         .filter(
           (item) =>
+            !APP_HIDDEN_CAPABILITIES.has(item.capability) &&
             item.status !== "hidden" &&
             item.reason !== "does not contribute to the current unmet need"
         )
@@ -149,6 +142,16 @@ function renderTransformations(report, focusedStepIndex, phase = "idle") {
       const fallbackNote = step.fallback_reason
         ? `<p class="summary-text proposal-reject"><strong>Fallback:</strong> ${escapeHtml(step.fallback_reason)}</p>`
         : "";
+      const executionLog = executionLogEntries(step, cardPhase)
+        .map(
+          (entry) => `
+            <li class="execution-log-item">
+              <span class="execution-log-status is-${escapeHtml(entry.status)}">${escapeHtml(entry.status)}</span>
+              <span><strong>${escapeHtml(entry.component)}</strong> ${escapeHtml(entry.text)}</span>
+            </li>
+          `
+        )
+        .join("");
 
       return `
         <article class="transform-card ${isFocused ? "is-focused" : ""}">
@@ -161,11 +164,15 @@ function renderTransformations(report, focusedStepIndex, phase = "idle") {
           <div class="phase-strip">${phaseStrip}</div>
           <p class="summary-text"><strong>Execution phase:</strong> ${escapeHtml(phaseLabel(cardPhase))}</p>
           <p class="summary-text"><strong>Control flow:</strong> ${escapeHtml(phaseExecutionSummary(step, cardPhase))}</p>
-          <p class="summary-text"><strong>Agent:</strong> ${escapeHtml(step.agent_provider)} · ${escapeHtml(step.agent_mode)}</p>
-          <p class="summary-text"><strong>Agent proposal:</strong> ${escapeHtml(step.agent_proposal ?? "none")}</p>
+          <p class="summary-text"><strong>Planner AI:</strong> ${escapeHtml(step.agent_provider)} · ${escapeHtml(step.agent_mode)}</p>
+          <p class="summary-text"><strong>Planner proposal:</strong> ${escapeHtml(step.agent_proposal ?? "none")}</p>
           ${agentNote}
           ${proposalStatus}
           ${fallbackNote}
+          <div class="timeline-section">
+            <small>Execution log</small>
+            <ul class="execution-log">${executionLog}</ul>
+          </div>
           <div class="transform-boxes">
             <div class="transform-box">
               <small>Input state</small>
@@ -224,6 +231,9 @@ function graphStatesForStep(report, focusedStepIndex) {
 
   const nodeStates = new Map();
   for (const node of report.graph_nodes) {
+    if (APP_HIDDEN_CAPABILITIES.has(node.id)) {
+      continue;
+    }
     let state = "inactive";
 
     if (node.id === "goal") {
@@ -360,31 +370,31 @@ function phaseDuration(phase) {
   }
 }
 
-const IDLE_COLOR = "#a6afbe";
-const IDLE_GLOW = "rgba(166, 175, 190, 0.14)";
-const RUNNING_COLOR = "#f0c94b";
-const RUNNING_GLOW = "rgba(240, 201, 75, 0.34)";
-const COMPLETE_COLOR = "#a8efae";
-const COMPLETE_GLOW = "rgba(168, 239, 174, 0.28)";
+const IDLE_COLOR = "#6f7b91";
+const IDLE_GLOW = "rgba(111, 123, 145, 0.22)";
+const RUNNING_COLOR = "#c88b00";
+const RUNNING_GLOW = "rgba(200, 139, 0, 0.34)";
+const COMPLETE_COLOR = "#1fa055";
+const COMPLETE_GLOW = "rgba(31, 160, 85, 0.30)";
 
 function stateFillColor(state) {
   if (state === "running") {
-    return "#f8e08a";
+    return "#ffe7a3";
   }
   if (state === "complete") {
-    return "#c6f4ca";
+    return "#c8f4d6";
   }
-  return "#c7ced9";
+  return "#e3e8ef";
 }
 
 function stateStrokeColor(state) {
   if (state === "running") {
-    return "#d3a91d";
+    return RUNNING_COLOR;
   }
   if (state === "complete") {
-    return "#6ecf78";
+    return COMPLETE_COLOR;
   }
-  return "#8d96a5";
+  return IDLE_COLOR;
 }
 
 function phaseExecutionSummary(step, phase) {
@@ -431,6 +441,10 @@ function phaseItemState(item, currentPhase) {
   const itemIndex = phaseOrder.indexOf(item.id);
   const currentIndex = phaseOrder.indexOf(currentPhase);
 
+  if (currentPhase === "result") {
+    return itemIndex > -1 && itemIndex <= currentIndex ? "complete" : "idle";
+  }
+
   if (item.id === currentPhase) {
     return "running";
   }
@@ -438,6 +452,89 @@ function phaseItemState(item, currentPhase) {
     return "complete";
   }
   return "idle";
+}
+
+function plainStatusLabel(step, itemId, phase) {
+  const state = phaseItemState(
+    { id: itemId, skipped: itemId === "planner" && !usesPlanner(step) },
+    phase
+  );
+  if (state === "running") {
+    return "running";
+  }
+  if (state === "complete") {
+    return "completed";
+  }
+  if (state === "skipped") {
+    return "skipped";
+  }
+  return "waiting";
+}
+
+function candidateList(step) {
+  return (
+    (step.discovery.available || [])
+      .map((item) => item.capability)
+      .filter((capability) => !APP_HIDDEN_CAPABILITIES.has(capability))
+      .join(", ") || "none"
+  );
+}
+
+function validationSummary(step) {
+  if (step.validation.status === "accepted") {
+    return "accepted";
+  }
+  return step.validation.reasons.join(", ") || step.validation.status;
+}
+
+function executionLogEntries(step, phase) {
+  const entries = [
+    {
+      component: "WASM MCP",
+      status: plainStatusLabel(step, "mcp", phase),
+      text: `inspected the unmet need "${step.need}" and exposed candidate capabilities: ${candidateList(step)}.`,
+    },
+  ];
+
+  if (usesPlanner(step)) {
+    entries.push({
+      component: "Planner AI",
+      status: plainStatusLabel(step, "planner", phase),
+      text: step.proposed_validation
+        ? `proposed ${step.agent_proposal ?? "none"}, but the runtime later rejected that proposal.`
+        : `ranked the visible candidates and proposed ${step.agent_proposal ?? step.selected_capability}.`,
+    });
+  } else {
+    entries.push({
+      component: "Planner AI",
+      status: "skipped",
+      text: "was not needed because the runtime had a direct valid selection.",
+    });
+  }
+
+  entries.push({
+    component: "UMA runtime",
+    status: plainStatusLabel(step, "runtime", phase),
+    text: `validated ${step.selected_capability} against the current contracts and constraints: ${validationSummary(step)}.`,
+  });
+
+  entries.push({
+    component: step.selected_capability,
+    status: plainStatusLabel(step, "capability", phase),
+    text: step.fallback_reason
+      ? `executed through ${step.execution_provider} in ${step.execution_mode} mode, with fallback: ${step.fallback_reason}.`
+      : `executed through ${step.execution_provider} in ${step.execution_mode} mode and produced the next state.`,
+  });
+
+  if (step.proposed_validation) {
+    entries.push({
+      component: "Runtime verdict",
+      status: "completed",
+      text: `rejected ${step.proposed_validation.capability} because ${step.proposed_validation.reasons.join(", ")}.`,
+    });
+  }
+
+  return entries;
 }
 
 function isAIAgentNode(nodeId) {
@@ -577,10 +674,20 @@ function layoutGraph(report) {
   }
 
   const serviceNodes = report.graph_nodes
-    .filter((item) => item.kind === "capability" && !isAICapabilityNode(item.id))
+    .filter(
+      (item) =>
+        item.kind === "capability" &&
+        !APP_HIDDEN_CAPABILITIES.has(item.id) &&
+        !isAICapabilityNode(item.id)
+    )
     .map((item) => item.id);
   const aiNodes = report.graph_nodes
-    .filter((item) => item.kind === "capability" && isAICapabilityNode(item.id))
+    .filter(
+      (item) =>
+        item.kind === "capability" &&
+        !APP_HIDDEN_CAPABILITIES.has(item.id) &&
+        isAICapabilityNode(item.id)
+    )
     .map((item) => item.id);
 
   const serviceSlots = [
@@ -620,7 +727,9 @@ function layoutGraph(report) {
     });
   }
 
-  for (const node of report.graph_nodes.filter((item) => item.kind === "capability")) {
+  for (const node of report.graph_nodes.filter(
+    (item) => item.kind === "capability" && !APP_HIDDEN_CAPABILITIES.has(item.id)
+  )) {
     if (layout.has(node.id)) {
       continue;
     }
@@ -635,10 +744,19 @@ function layoutGraph(report) {
   return resolveLayoutCollisions(layout, new Set(["goal", "mcp", "runtime", "result"]));
 }
 
-function ensureGraph() {
+async function loadGraphLibrary() {
+  if (!graphLibraryPromise) {
+    graphLibraryPromise = import("@antv/g6");
+  }
+  return graphLibraryPromise;
+}
+
+async function ensureGraph() {
   if (graph) {
     return graph;
   }
+
+  const { Graph } = await loadGraphLibrary();
 
   const width = graphScene.clientWidth || 760;
   const height = graphScene.clientHeight || 560;
@@ -744,7 +862,9 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
     });
   }
 
-  const visibleRingNodes = report.graph_nodes.filter((node) => node.kind === "capability");
+  const visibleRingNodes = report.graph_nodes.filter(
+    (node) => node.kind === "capability" && !APP_HIDDEN_CAPABILITIES.has(node.id)
+  );
   const plannerUsedBeforeCurrentStep = report.steps.some((step) => step.index < focusedStepIndex && usesPlanner(step));
 
   for (const source of visibleRingNodes) {
@@ -813,7 +933,9 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
   }
 
   const edges = [];
-  for (const capabilityId of report.graph_nodes.filter((item) => item.kind === "capability").map((item) => item.id)) {
+  for (const capabilityId of report.graph_nodes
+    .filter((item) => item.kind === "capability" && !APP_HIDDEN_CAPABILITIES.has(item.id))
+    .map((item) => item.id)) {
     edges.push({
       id: `runtime-capability-${capabilityId}`,
       source: "runtime",
@@ -926,8 +1048,12 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
   return { nodes, edges };
 }
 
-function renderGraph(report, focusedStepIndex, phase = currentPhase) {
-  const instance = ensureGraph();
+async function renderGraph(report, focusedStepIndex, phase = currentPhase) {
+  const token = ++graphRenderToken;
+  const instance = await ensureGraph();
+  if (token !== graphRenderToken) {
+    return;
+  }
   const data = buildGraphData(report, focusedStepIndex, phase);
   try {
     instance.setData(data);
@@ -939,8 +1065,10 @@ function renderGraph(report, focusedStepIndex, phase = currentPhase) {
 
 function renderGraphInspector(report, focusedStepIndex, phase = currentPhase) {
   const currentStep = report.steps.find((step) => step.index === focusedStepIndex) || null;
-  const rejected = report.rejected_capabilities.length
+  const rejected = report.rejected_capabilities
+    .filter((item) => !APP_HIDDEN_CAPABILITIES.has(item.capability)).length
     ? report.rejected_capabilities
+        .filter((item) => !APP_HIDDEN_CAPABILITIES.has(item.capability))
         .map(
           (item) =>
             `<li><strong>${escapeHtml(item.capability)}</strong><span>${escapeHtml(item.reasons.join(", "))}</span></li>`
@@ -968,7 +1096,7 @@ function renderOutput(report) {
 async function renderScenario(id) {
   const report = await loadScenarioReport(id);
   currentReport = report;
-  renderSummary(report);
+  updateReportLink(report);
   renderCommands(report);
   stepSelect.innerHTML = report.steps
     .map((step) => `<option value="${step.index}">Step ${step.index}: ${escapeHtml(step.selected_capability)}</option>`)
@@ -1064,7 +1192,7 @@ async function init() {
       runButton.textContent = "Play scenario";
     }
   } catch (error) {
-    summaryStrip.innerHTML = `<p class="summary-text">${escapeHtml(error.message)}</p>`;
+    transformationFlow.innerHTML = `<p class="summary-text">${escapeHtml(error.message)}</p>`;
   }
 }
 
