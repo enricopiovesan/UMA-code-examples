@@ -14,6 +14,14 @@ It shows how UMA composes a workflow from discoverable capabilities instead of h
 
 ![Chapter 13 reference app preview](../book-site/assets/ref-app.png)
 
+## Key concepts
+
+- `WASM MCP` as a real discovery and invocation surface
+- runtime-built workflows composed from capabilities
+- AI participation without AI authority
+- runtime-hosted WASI capability execution
+- one execution explained through CLI, JSON, and browser views
+
 ## What This Chapter Proves
 
 - MCP can be a real discovery and invocation surface, not just a diagram label
@@ -53,7 +61,14 @@ chapter-13-portable-mcp-runtime/
   translator-ai-wasi/
 ```
 
-## Reader Path
+## Validation status
+
+- validated Rust-first runtime path
+- validated Rust stdio MCP server
+- validated exported browser fixtures and reference app build
+- explicit fallback reporting when a model-backed provider is unavailable
+
+## Reader path
 
 If you want the fastest useful path:
 
@@ -98,7 +113,7 @@ The CLI still includes the other use cases for testing and comparison.
 - `npm`
 - `wasmtime` on your `PATH`
 
-## Quick Start
+## Quick start
 
 ```bash
 cd chapter-13-portable-mcp-runtime
@@ -209,7 +224,18 @@ By the end of this chapter, a reader should be able to explain:
 - If the app fails to load, run it through Vite with `npm run dev`
 - If you need the raw workflow ids again, run `./scripts/list_labs.sh`
 
-## Learning Path Position
+## Value check
+
+By the end of this chapter, a reader should be able to explain:
+
+- what a capability is
+- what a workflow is
+- what `WASM MCP` does
+- what `PlannerAI` does
+- why `UMA runtime` remains authoritative
+- how the final result was produced
+
+## Learning path position
 
 - Previous: [Chapter 12: Discoverable Decisions](../chapter-12-discoverable-decisions/README.md)
 - This chapter closes the repo’s validated learning path

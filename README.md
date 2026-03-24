@@ -4,6 +4,7 @@
 [![Book Site](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml)
 [![Live Reference App](https://img.shields.io/badge/live-reference%20app-0a7f5a)](https://www.universalmicroservices.com/reference-application/)
 [![Learn UMA](https://img.shields.io/badge/book-universalmicroservices.com-1f6feb)](https://www.universalmicroservices.com/)
+[![UMA Blog](https://img.shields.io/badge/blog-Medium-12100E)](https://medium.com/the-rise-of-device-independent-architecture)
 
 This repository is the hands-on code companion for **Universal Microservices Architecture (UMA)**.
 
@@ -79,16 +80,16 @@ Useful repo-level commands:
 
 | Chapter | Example | Why it matters | First command |
 | --- | --- | --- | --- |
-| 4 | **Feature Flag Evaluator** | Start with one portable UMA service and understand its contract and deterministic behavior. | `cd chapter-04-feature-flag-evaluator && ./scripts/run_lab.sh lab1-country-match` |
-| 5 | **Post Fetcher Runtime** | See what belongs in the runtime layer around a pure service. | `cd chapter-05-post-fetcher-runtime && ./scripts/run_lab.sh lab1-cloud-golden-path` |
-| 6 | **UMA Portability Lab** | Prove portability across native and WASI targets. | `cd chapter-06-portability-lab && ./scripts/run_lab.sh lab1-native-wasm-parity` |
-| 7 | **Metadata Orchestration and Validation** | Watch orchestration emerge from contracts and events. | `cd chapter-07-metadata-orchestration && ./scripts/run_lab.sh lab1-baseline-cloud-flow` |
-| 8 | **Service Graph Evolution with Git** | See a service graph emerge and evolve. | `cd chapter-08-service-graph && ./scripts/run_graph_demo.sh lab1-upload-only` |
-| 9 | **Trust Boundaries and Runtime Enforcement** | Add trust, provenance, and communication policy. | `cd chapter-09-trust-boundaries && ./scripts/run_trust_demo.sh lab1-trusted-service` |
-| 10 | **Architectural Tradeoffs and Runtime Coherence** | Compare coherent and degraded architecture choices. | `cd chapter-10-architectural-tradeoffs && ./scripts/run_arch_demo.sh lab1-baseline` |
-| 11 | **Evolution Without Fragmentation** | Follow system evolution without losing coherence. | `cd chapter-11-evolution-without-fragmentation && ./scripts/run_evolution_demo.sh lab1-contract-anchor` |
-| 12 | **Discoverable Decisions** | Make runtime decisions queryable and inspectable. | `cd chapter-12-discoverable-decisions && ./scripts/run_decision_demo.sh lab1-capability-projection` |
-| 13 | **Portable MCP Runtime** | See the full UMA reference application: MCP discovery, runtime validation, agent proposals, event-driven execution, and structured output. | `cd chapter-13-portable-mcp-runtime && ./scripts/run_lab.sh use-case-2-ai-report` |
+| 4 | [**Feature Flag Evaluator**](chapter-04-feature-flag-evaluator/README.md) | Start with one portable UMA service and understand its contract and deterministic behavior. | `cd chapter-04-feature-flag-evaluator && ./scripts/run_lab.sh lab1-country-match` |
+| 5 | [**Post Fetcher Runtime**](chapter-05-post-fetcher-runtime/README.md) | See what belongs in the runtime layer around a pure service. | `cd chapter-05-post-fetcher-runtime && ./scripts/run_lab.sh lab1-cloud-golden-path` |
+| 6 | [**UMA Portability Lab**](chapter-06-portability-lab/README.md) | Prove portability across native and WASI targets. | `cd chapter-06-portability-lab && ./scripts/run_lab.sh lab1-native-wasm-parity` |
+| 7 | [**Metadata Orchestration and Validation**](chapter-07-metadata-orchestration/README.md) | Watch orchestration emerge from contracts and events. | `cd chapter-07-metadata-orchestration && ./scripts/run_lab.sh lab1-baseline-cloud-flow` |
+| 8 | [**Service Graph Evolution with Git**](chapter-08-service-graph/README.md) | See a service graph emerge and evolve. | `cd chapter-08-service-graph && ./scripts/run_graph_demo.sh lab1-upload-only` |
+| 9 | [**Trust Boundaries and Runtime Enforcement**](chapter-09-trust-boundaries/README.md) | Add trust, provenance, and communication policy. | `cd chapter-09-trust-boundaries && ./scripts/run_trust_demo.sh lab1-trusted-service` |
+| 10 | [**Architectural Tradeoffs and Runtime Coherence**](chapter-10-architectural-tradeoffs/README.md) | Compare coherent and degraded architecture choices. | `cd chapter-10-architectural-tradeoffs && ./scripts/run_arch_demo.sh lab1-baseline` |
+| 11 | [**Evolution Without Fragmentation**](chapter-11-evolution-without-fragmentation/README.md) | Follow system evolution without losing coherence. | `cd chapter-11-evolution-without-fragmentation && ./scripts/run_evolution_demo.sh lab1-contract-anchor` |
+| 12 | [**Discoverable Decisions**](chapter-12-discoverable-decisions/README.md) | Make runtime decisions queryable and inspectable. | `cd chapter-12-discoverable-decisions && ./scripts/run_decision_demo.sh lab1-capability-projection` |
+| 13 | [**Portable MCP Runtime**](chapter-13-portable-mcp-runtime/README.md) | See the full UMA reference application: MCP discovery, runtime validation, agent proposals, event-driven execution, and structured output. | `cd chapter-13-portable-mcp-runtime && ./scripts/run_lab.sh use-case-2-ai-report` |
 
 Chapter 3 is intentionally not a full lab here. It is the conceptual bridge into Chapter 4, which is the first validated hands-on entry point.
 
