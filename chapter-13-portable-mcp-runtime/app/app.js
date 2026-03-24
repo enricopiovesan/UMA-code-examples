@@ -152,6 +152,7 @@ function renderCommands(report) {
     <p class="summary-text command-intro"><strong>${escapeHtml(workflowTitle(report.title))}</strong></p>
     ${meta.startHere ? `<p class="summary-text command-intro"><strong>Start here.</strong> This is the clearest first workflow for understanding how the Chapter 13 system works.</p>` : ""}
     <p class="summary-text command-intro">Workflow: a combination of capabilities for the current goal.</p>
+    <p class="summary-text command-intro">Capability: a reusable execution unit that the runtime can discover, validate, and invoke.</p>
     <p class="summary-text command-intro"><strong>What this workflow proves:</strong> ${escapeHtml(meta.proves)}</p>
     <p class="summary-text command-intro"><strong>Reader question:</strong> ${escapeHtml(meta.readerQuestion)}</p>
     <p class="summary-text command-intro"><strong>Capabilities in this workflow:</strong> ${escapeHtml(meta.workflowCapabilities.join(" → "))}</p>
@@ -244,6 +245,8 @@ function renderTransformations(report, focusedStepIndex, phase = "idle") {
           <p class="summary-text"><strong>Control flow:</strong> ${escapeHtml(phaseExecutionSummary(step, cardPhase))}</p>
           <p class="summary-text"><strong>Planner AI:</strong> ${escapeHtml(step.agent_provider)} · ${escapeHtml(step.agent_mode)}</p>
           <p class="summary-text"><strong>Planner proposal:</strong> ${escapeHtml(step.agent_proposal ?? "none")}</p>
+          <p class="summary-text"><strong>Why this capability:</strong> ${escapeHtml(selectionReason(step))}</p>
+          <p class="summary-text"><strong>State change:</strong> ${escapeHtml(stateChangeSummary(step))}</p>
           ${agentNote}
           ${proposalStatus}
           ${fallbackNote}
@@ -572,6 +575,20 @@ function validationSummary(step) {
   return step.validation.reasons.join(", ") || step.validation.status;
 }
 
+function selectionReason(step) {
+  if (step.proposed_validation) {
+    return `Planner AI proposed ${step.proposed_validation.capability}, but UMA runtime rejected it and selected ${step.selected_capability}.`;
+  }
+  if (usesPlanner(step)) {
+    return `Planner AI ranked the visible candidates and UMA runtime accepted ${step.selected_capability}.`;
+  }
+  return `WASM MCP exposed one valid capability for this need, so UMA runtime selected ${step.selected_capability} directly.`;
+}
+
+function stateChangeSummary(step) {
+  return step.output_preview || "The workflow state advanced.";
+}
+
 function executionLogEntries(step, phase) {
   const entries = [
     {
@@ -654,8 +671,11 @@ function graphNodeLabel(nodeId, label, isAI) {
   if (nodeId === "result") {
     return stackedNodeLabel("✓", label);
   }
-  if (nodeId === "mcp" || nodeId === "runtime") {
-    return label;
+  if (nodeId === "mcp") {
+    return "WASM\nMCP";
+  }
+  if (nodeId === "runtime") {
+    return "UMA\nRuntime";
   }
   if (isAI) {
     return `${label}\nAGENT`;
@@ -678,38 +698,6 @@ function specialNodeIconFill({ active = false, complete = false, darkFill = fals
 
 function stackedNodeLabel(icon, label) {
   return `${icon}\n${label}`;
-}
-
-function regularPolygonPoints(sides, radius) {
-  return Array.from({ length: sides }, (_, index) => {
-    const angle = (-Math.PI / 2) + (index * Math.PI * 2) / sides;
-    return [Math.cos(angle) * radius, Math.sin(angle) * radius];
-  });
-}
-
-function regularPolygonSvgPoints(sides, radius, center) {
-  return Array.from({ length: sides }, (_, index) => {
-    const angle = (-Math.PI / 2) + (index * Math.PI * 2) / sides;
-    const x = center + Math.cos(angle) * radius;
-    const y = center + Math.sin(angle) * radius;
-    return `${x},${y}`;
-  }).join(" ");
-}
-
-function mcpImageDataUri(visualState) {
-  const stroke = stateStrokeColor(visualState);
-  const fill = stateFillColor(visualState);
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
-      <polygon
-        points="${regularPolygonSvgPoints(10, 40, 48)}"
-        fill="${fill}"
-        stroke="${stroke}"
-        stroke-width="3"
-      />
-    </svg>
-  `;
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 }
 
 function nodeFootprint(nodeId) {
@@ -980,20 +968,15 @@ function buildGraphData(report, focusedStepIndex, phase = "capability") {
         (activeSupportIndex > -1 && onPath && pathIndex > -1 && pathIndex < activeSupportIndex)
       );
     const visualState = active ? "running" : complete ? "complete" : "idle";
-    const isMcpNode = nodeId === "mcp";
     nodes.push({
       id: nodeId,
-      type: nodeId === "goal" ? "diamond" : nodeId === "result" ? "diamond" : isMcpNode ? "image" : "hexagon",
+      type: nodeId === "goal" ? "diamond" : nodeId === "mcp" ? "rect" : nodeId === "result" ? "diamond" : "hexagon",
       data: { label },
       style: {
         x: point.x,
         y: point.y,
-        ...(isMcpNode
-          ? {
-              size: [96, 96],
-              src: mcpImageDataUri(visualState),
-            }
-          : { size: nodeId === "goal" ? 84 : nodeId === "runtime" ? 124 : 74 }),
+        size: nodeId === "goal" ? 84 : nodeId === "runtime" ? 124 : nodeId === "mcp" ? [90, 90] : 74,
+        radius: nodeId === "mcp" ? 12 : undefined,
         fill: stateFillColor(visualState),
         stroke: stateStrokeColor(visualState),
         shadowBlur: active ? 28 : complete ? 18 : 8,
@@ -1235,7 +1218,7 @@ function renderGraphInspector(report, focusedStepIndex, phase = currentPhase) {
   graphInspector.innerHTML = `
     <div class="inspector-block">
       <small>Current focus</small>
-      <p class="summary-text"><strong>${escapeHtml(currentStep?.selected_capability ?? "Complete")}</strong>${currentStep ? ` · ${escapeHtml(currentStep.need)}` : ""}</p>
+      <p class="summary-text"><strong>${escapeHtml(currentStep ? displayName(currentStep.selected_capability, currentStep.selected_capability) : "Complete")}</strong>${currentStep ? ` · ${escapeHtml(currentStep.need)}` : ""}</p>
       <p class="summary-text"><strong>Phase:</strong> ${escapeHtml(phaseLabel(phase))}</p>
       <small>Runtime verdict</small>
       <ul class="inspector-list">${rejected}</ul>

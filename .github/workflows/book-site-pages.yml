@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "book-site/**"
+      - "chapter-13-portable-mcp-runtime/app/**"
       - ".github/workflows/book-site-pages.yml"
   workflow_dispatch:
 
@@ -27,6 +28,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+
+      - name: Install reference app dependencies
+        run: npm ci --prefix chapter-13-portable-mcp-runtime/app
+
+      - name: Build reference app
+        run: npm --prefix chapter-13-portable-mcp-runtime/app run build
+
+      - name: Stage reference app for Pages
+        shell: bash
+        run: |
+          rm -rf book-site/reference-application
+          mkdir -p book-site/reference-application
+          cp -R chapter-13-portable-mcp-runtime/app/dist/. book-site/reference-application/
+          cp -R chapter-13-portable-mcp-runtime/app/fixtures book-site/reference-application/fixtures
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

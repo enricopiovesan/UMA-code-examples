@@ -42,6 +42,8 @@
           <div class="onboarding-copy">
             <p><strong>What this app shows:</strong> how a workflow is composed from capabilities, not hardwired as a fixed pipeline.</p>
             <p><strong>Start with:</strong> <code>Workflow: French AI Report</code>. It is the clearest first example.</p>
+            <p><strong>Workflow:</strong> a combination of capabilities chosen for the current goal.</p>
+            <p><strong>Capability:</strong> a reusable execution unit that the runtime can discover, validate, and invoke.</p>
             <p><strong>What to do:</strong></p>
             <ol class="onboarding-list">
               <li>Pick a workflow from the header.</li>
@@ -68,7 +70,7 @@
           <div class="panel-head">
             <h2>Execution narrative</h2>
             <p class="panel-copy">
-              A text view of the workflow execution, showing how capabilities are coordinated by WASM MCP, Planner AI, and the UMA runtime.
+              A text walkthrough of the same workflow shown in the graph, including why each capability was chosen and how the state changed.
             </p>
             <div class="step-focus-row">
               <label for="step-select">Step focus</label>
@@ -92,7 +94,7 @@
             <div class="graph-overlay graph-overlay-top-left">
               <h2>Execution graph</h2>
               <p class="panel-copy">
-                The graph shows the active execution centered on the UMA runtime, with services on one side and AI capabilities on the other.
+                The graph shows the active workflow centered on the UMA runtime, with universal microservices on one side and agents on the other.
               </p>
             </div>
             <div class="graph-overlay graph-overlay-top-right graph-inspector" id="graph-inspector"></div>
