@@ -86,6 +86,7 @@ const footerColumns = [
     {
       title: "Foundations",
       links: [
+        ["what problem does uma solve?", "what-problem-does-uma-solve/"],
         ["what is uma", "what-is-uma/"],
         ["from stack ownership to behavior ownership", "from-stack-ownership-to-behavior-ownership/"],
         ["uma vs traditional microservices", "uma-vs-traditional-microservices/"],

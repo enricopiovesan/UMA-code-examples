@@ -669,6 +669,67 @@ h3 {
   line-height: 1.24;
 }
 
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 34px;
+}
+
+.comparison-card {
+  padding: 28px 26px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.comparison-card h3 {
+  margin: 0 0 18px;
+  color: #fff;
+  font-size: 1.08rem;
+}
+
+.comparison-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #d7d2c9;
+  line-height: 1.6;
+}
+
+.comparison-card li + li {
+  margin-top: 8px;
+}
+
+.comparison-card-accent {
+  border-color: rgba(255, 197, 1, 0.42);
+  background: linear-gradient(180deg, rgba(255, 197, 1, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.comparison-note {
+  max-width: 980px;
+  margin-top: 26px;
+}
+
+.comparison-note p {
+  margin: 0;
+  color: #c7c2b9;
+  font-size: 0.98rem;
+  line-height: 1.46;
+}
+
+.subpage-inline-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  margin-top: 18px;
+}
+
+.subpage-inline-links a {
+  color: #ffc501;
+  font-size: 0.92rem;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
 .tutorial-hero {
   position: relative;
   min-height: 680px;
@@ -1250,6 +1311,7 @@ h3 {
   .section-heading,
   .section-label-row,
   .problem-grid,
+  .comparison-grid,
   .tutorial-columns,
   .labs-grid {
     grid-template-columns: 1fr;

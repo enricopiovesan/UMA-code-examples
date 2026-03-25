@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Problem Does UMA Solve? | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Understand the core problem Universal Microservices Architecture solves: keeping one business behavior coherent across browser, edge, cloud, workflows, and AI-assisted execution."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/what-problem-does-uma-solve/" />
+    <meta property="og:title" content="What Problem Does UMA Solve? | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="An original explanation of the architectural problem UMA addresses: behavior fragmentation across runtimes, hidden runtime authority, and systems that become harder to explain as they evolve."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/what-problem-does-uma-solve/" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Problem Does UMA Solve?",
+  "description": "An original explanation of the architectural problem Universal Microservices Architecture addresses: behavior fragmentation across runtimes, hidden runtime authority, and systems that become harder to explain as they evolve.",
+  "url": "https://www.universalmicroservices.com/what-problem-does-uma-solve/",
+  "author": {
+    "@type": "Person",
+    "name": "Enrico Piovesan"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Universal Microservices Architecture"
+  },
+  "mainEntityOfPage": "https://www.universalmicroservices.com/what-problem-does-uma-solve/"
+}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>What problem does UMA solve?</h1>
+          <p>
+            UMA exists because modern systems keep preserving deployment freedom while losing behavioral coherence. The same business rule
+            gets reintroduced in the browser, edge layer, backend, workflow engine, and now inside AI-assisted paths. Each move feels
+            locally justified. The system as a whole becomes harder to explain, govern, and change.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              UMA solves the problem of behavior fragmentation across runtimes. It gives teams a way to keep one business behavior
+              portable while still making runtime choices, policy, trust, capability discovery, and workflow approval explicit.
+            </p>
+            <p>
+              It is not mainly a deployment optimization. It is an architectural response to a system that keeps multiplying its execution
+              surfaces faster than its architectural model evolves.
+            </p>
+          </section>
+
+          <section>
+            <h2>What the pain looks like in real teams</h2>
+            <p>
+              A product rule starts in one place and then spreads. The frontend adds a local check for responsiveness. The backend repeats
+              it for authority. An edge adapter copies part of it for latency. A workflow or agent path recreates it because the original
+              service boundary is no longer visible enough to reuse directly. No single duplication looks outrageous. The total effect is
+              drift.
+            </p>
+            <p>
+              When that happens, the architecture is no longer governed by one stable model of behavior. It is governed by whichever
+              runtime happened to become responsible for the latest copy.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Repeated business rules</h3>
+              <p>The same logic is expressed several times because each runtime surface wants a local version of the rule.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Hidden runtime authority</h3>
+              <p>Placement, adapters, policy, trust, and orchestration start deciding outcomes without staying legible in the architecture.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Expensive change</h3>
+              <p>Simple rule updates require touching multiple stacks, increasing the chance of inconsistency and regression.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Weaker explanation</h3>
+              <p>The system can still work while becoming harder to audit, reason about, and evolve safely.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why common platform tooling does not fully solve it</h2>
+            <p>
+              Good platform tooling can deploy services, route traffic, scale workloads, and wrap them with observability or policy. Those
+              are necessary capabilities. They still do not guarantee that one business behavior remains coherent as execution spreads
+              across browser, edge, backend, background jobs, and AI-assisted workflows.
+            </p>
+            <p>
+              That is why UMA is not mainly competing with deployment platforms. It is trying to solve a different architectural gap: the
+              absence of a durable model for one behavior that can survive across many runtime surfaces without being silently reauthored by
+              each one.
+            </p>
+          </section>
+
+          <section>
+            <h2>What UMA changes</h2>
+            <p>
+              UMA changes the center of gravity. Instead of treating the deployable unit as the main architectural anchor, it treats
+              portable behavior as the durable unit and makes the runtime around it explicit. That runtime can then discover capabilities,
+              validate constraints, approve workflows, enforce trust, and preserve enough trace for the system to explain what happened.
+            </p>
+            <p>
+              In practical terms, UMA tries to keep three things true at once:
+            </p>
+            <ul>
+              <li>the service behavior stays recognizable across runtimes</li>
+              <li>runtime decisions stay governed instead of becoming hidden architecture</li>
+              <li>system evolution stays visible instead of collapsing into duplication and drift</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Why this matters more now</h2>
+            <p>
+              The problem is sharper today because more systems now include workflow engines, edge execution, local client logic, and
+              agent-assisted planning. If the architecture only models backend service ownership, it leaves too much of the real system
+              outside the durable design vocabulary.
+            </p>
+            <p>
+              UMA becomes relevant when a team realizes its hardest architectural problem is no longer just how to split services. It is
+              how to keep one business behavior coherent while several runtimes, policies, and decision surfaces participate in producing
+              the result.
+            </p>
+          </section>
+
+          <section>
+            <h2>A fast test for whether this is your problem</h2>
+            <p>
+              Ask one blunt question: if a core product rule changes tomorrow, how many runtime surfaces need to be inspected, rewritten,
+              or revalidated before you trust the result? If the answer is browser, backend, workflow, edge, and maybe an AI-generated
+              path, then your architecture is already paying the tax UMA is trying to reduce.
+            </p>
+          </section>
+
+          <section>
+            <h2>Where to go next</h2>
+            <p>
+              This page is the short version of the problem statement. The site covers the vocabulary needed to evaluate the model in more
+              concrete terms, and the examples repository shows how that model behaves when it is pushed into runnable systems. In the
+              book, I take this problem further and connect it to the full design sequence from one portable service to a governed runtime
+              reference application.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Continue from the problem into the model</strong>
+            <p>
+              Once the problem is clear, the next useful question is not “what tool should I use?” but “what durable unit should the
+              architecture preserve?” That is where the rest of the UMA concept cluster becomes useful.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-is-uma/">What is UMA?</a>
+              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

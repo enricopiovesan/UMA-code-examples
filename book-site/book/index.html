@@ -65,9 +65,9 @@
         <section class="subpage-hero">
           <h1>The Universal Microservices Architecture book</h1>
           <p>
-            This book explains how to design software that remains modular, portable, and architecturally legible as it crosses client,
-            edge, and cloud runtimes. It uses WebAssembly as an enabling execution boundary, but the real subject is broader: how to keep
-            software behavior coherent when modern systems are distributed across many environments and many teams.
+            This book is for architects and senior engineers who can already ship distributed systems, but are no longer satisfied with how
+            quickly those systems fragment across browser, edge, backend, workflow, and AI-assisted execution paths. It uses WebAssembly as
+            an enabling boundary, but the deeper subject is architectural coherence under runtime diversity.
           </p>
         </section>
 
@@ -75,11 +75,29 @@
           <section>
             <h2>What readers should expect</h2>
             <p>
-              The book is not a theoretical argument for portability in the abstract. It works from the smallest possible portable service
-              outward into runtime design, contracts, orchestration, service graph evolution, trust boundaries, and long-term system
-              change. The goal is to give architects and senior engineers a model that is understandable enough to teach, but concrete
-              enough to build with.
+              The book is not a vague argument that portability is good. It works from the smallest portable service boundary outward into
+              runtime design, contracts, orchestration, service graph evolution, trust boundaries, discoverable decisions, and long-term
+              system change. The goal is to give experienced builders a model they can both reason about and challenge with runnable proof.
             </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>What problem it tackles</h3>
+              <p>Why systems keep duplicating business behavior across runtimes even when the team already has good deployment tooling.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>What the reader gets</h3>
+              <p>A structured architectural model for portable services, governed runtime decisions, and explainable workflow execution.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>What keeps it honest</h3>
+              <p>A companion repository and live reference app that let readers inspect the model instead of taking the claims on faith.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Who it is for</h3>
+              <p>Architects, senior engineers, and platform teams trying to keep behavior coherent across client, edge, cloud, and AI surfaces.</p>
+            </article>
           </section>
 
           <section>
@@ -144,7 +162,8 @@
             <p>
               Many architecture books stay abstract. Many implementation books stay tied to one stack. This book sits between those two
               worlds. It introduces a concrete architectural model, but keeps the discussion close to runtime behavior, operational
-              pressure, and practical examples.
+              pressure, and practical examples. It is also deliberately opinionated about something many books only imply: deployment
+              tooling alone does not solve behavior fragmentation.
             </p>
           </section>
 
@@ -154,6 +173,13 @@
               The site acts as the authority hub for the book, while the repository acts as the practical companion. Together they turn the
               material into a connected experience: understand the idea, follow the learning path, inspect the code, and validate the
               architecture through runnable examples.
+            </p>
+            <p>
+              If you want to evaluate the model before buying, the best sequence is: read
+              <a href="../what-problem-does-uma-solve/">what problem UMA solves</a>, try the
+              <a href="https://www.universalmicroservices.com/reference-application/">live reference app</a>, and then inspect the
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">examples repository</a>. The book goes further by connecting
+              those pieces into one coherent design argument instead of leaving them as isolated artifacts.
             </p>
           </section>
 
@@ -167,12 +193,14 @@
           </section>
 
           <section class="subpage-callout">
-            <strong>Continue</strong>
+            <strong>Choose your next proof point</strong>
             <p>
-              Use the learning path if you want the chapter-by-chapter journey, or go directly to the examples if you want the runnable
-              companion to the book first.
+              If the framing here matches the kind of system pain you are dealing with, the next move depends on how you like to evaluate
+              ideas: concept first, runnable proof first, or the full book path.
             </p>
             <div class="subpage-inline-links">
+              <a href="../what-problem-does-uma-solve/">What problem does UMA solve?</a>
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
               <a href="../learning-path/">Learning Path</a>
               <a href="../examples/">Examples</a>
               <a href="../what-is-uma/">What is UMA?</a>
