@@ -36,7 +36,7 @@
   },
   {
     "title": "From Java to WebAssembly: The Long Road to True Portability",
-    "subtitle": "How UMA and WASM deliver what decades of “write once, run anywhere” promises couldn’t.",
+    "subtitle": "How UMA and WASM move portability beyond slogans toward running logic where it makes sense.",
     "image": "https://cdn-images-1.medium.com/max/1024/1*anIZRd4Y4KV44p9uMhYbLQ.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/from-java-to-webassembly-the-long-road-to-true-portability-d846ac953311",
     "alt": "From Java to WebAssembly: The Long Road to True Portability"

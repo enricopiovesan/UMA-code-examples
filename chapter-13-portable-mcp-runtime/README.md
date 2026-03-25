@@ -2,13 +2,15 @@
 
 Chapter 13 is the repo's reference application.
 
-It shows how UMA composes a workflow from discoverable capabilities instead of hardwiring a pipeline:
+It shows how UMA works as an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. In this chapter, that model composes a workflow from discoverable capabilities instead of hardwiring a pipeline:
 
 - `WASM MCP` exposes capabilities
 - `PlannerAI` proposes when ranking is needed
 - `UMA runtime` validates what is allowed
 - the selected capabilities execute step by step
 - the result is produced as a structured report
+
+This chapter is not claiming “write once, run everywhere.” It is showing the more useful promise: write once, run where it makes sense.
 
 [Try the live demo](https://www.universalmicroservices.com/reference-application/)
 

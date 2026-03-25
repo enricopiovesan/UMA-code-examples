@@ -242,6 +242,11 @@ if (blogCards) {
     });
 }
 
+document.querySelectorAll('a[href="https://www.universalmicroservices.com/reference-application/"], a[href="https://github.com/enricopiovesan/UMA-code-examples"]').forEach((link) => {
+  link.setAttribute("target", "_blank");
+  link.setAttribute("rel", "noreferrer noopener");
+});
+
 if (topbar) {
   const syncTopbar = () => {
     topbar.classList.toggle("is-at-top", window.scrollY <= 8);

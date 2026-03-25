@@ -13,7 +13,7 @@
 
 This repository is the runnable companion for **Universal Microservices Architecture (UMA)**.
 
-UMA is an architectural model for keeping one business behavior coherent across browser, edge, backend, workflow, and AI-assisted execution surfaces. The repo exists to prove that model with code, not just describe it.
+UMA is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. The repo exists to prove that model with code, not just describe it.
 
 [Buy the book and learn more about UMA](https://www.universalmicroservices.com/)
 
@@ -43,6 +43,10 @@ UMA is not trying to replace deployment platforms, service meshes, or WebAssembl
 It is trying to answer a different architectural question:
 
 > How do you keep one behavior portable, governed, and explainable as execution moves across many runtimes?
+
+The shortest honest UMA slogan is:
+
+> Write once, run where it makes sense.
 
 The repo demonstrates a few specific answers:
 
