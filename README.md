@@ -150,3 +150,10 @@ That is exactly why the site, the repo, and the book are kept connected. The sit
 - Live reference app: [https://www.universalmicroservices.com/reference-application/](https://www.universalmicroservices.com/reference-application/)
 - Medium blog: [https://medium.com/the-rise-of-device-independent-architecture](https://medium.com/the-rise-of-device-independent-architecture)
 - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## License
+
+This repository is available under either of these licenses, at your option:
+
+- [MIT](LICENSE-MIT)
+- [Apache-2.0](LICENSE-APACHE)
