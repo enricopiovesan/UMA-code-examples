@@ -32,7 +32,7 @@ UMA is a response to that fragmentation problem.
 
 If you want the shortest site explanation of that gap, start here:
 
-- [![What problem does UMA solve?](https://www.universalmicroservices.com/what-problem-does-uma-solve/)](https://www.universalmicroservices.com/reference-application/)
+- [What problem does UMA solve?](https://www.universalmicroservices.com/what-problem-does-uma-solve/)
 
 ## What Makes UMA Different
 
@@ -68,7 +68,7 @@ If you want the runnable repo path:
 2. Follow the examples chapter by chapter.
 3. End with Chapter 13, where the full reference application ties the model together.
 
-![UMA Reference APP preview](book-site/assets/ref-app.png)
+[![UMA Reference APP preview](book-site/assets/ref-app.png)](https://www.universalmicroservices.com/reference-application/)
 
 ## Start Here
 
