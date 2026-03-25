@@ -1,7 +1,6 @@
 use anyhow::{Context, Result};
 use serde::Serialize;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::fs;
 
 fn thresholds_from_contract(c: &contract::Contract) -> (f32, f32) {
     let mut dark = 0.4f32;
@@ -35,39 +34,35 @@ pub struct AnalysisResult {
 
 /// Parse a simple ASCII PGM (P2) and return pixel values
 pub(crate) fn load_pgm_ascii(path: &str) -> Result<(usize, usize, Vec<u16>, u16)> {
-    let f = File::open(path).with_context(|| format!("open {}", path))?;
-    let mut r = BufReader::new(f);
-    let mut line = String::new();
+    let contents = fs::read_to_string(path).with_context(|| format!("open {}", path))?;
+    let mut lines = contents.lines();
 
     // magic
-    r.read_line(&mut line)?;
+    let line = lines.next().unwrap_or_default();
     if !line.trim().starts_with("P2") {
         anyhow::bail!("Only P2 PGM is supported");
     }
 
     // skip comments
-    let mut dims_line = String::new();
-    loop {
-        dims_line.clear();
-        r.read_line(&mut dims_line)?;
-        if !dims_line.trim_start().starts_with('#') && !dims_line.trim().is_empty() {
-            break;
-        }
-    }
+    let dims_line = lines
+        .find(|line| !line.trim_start().starts_with('#') && !line.trim().is_empty())
+        .context("missing dimensions line")?;
     let dims: Vec<_> = dims_line.split_whitespace().collect();
-    let (w, h): (usize, usize) = (dims[0].parse()?, dims[1].parse()?);
+    anyhow::ensure!(dims.len() == 2, "invalid dimensions line");
+    let w: usize = dims[0].parse()?;
+    let h: usize = dims[1].parse()?;
 
     // maxval
-    let mut max_line = String::new();
-    r.read_line(&mut max_line)?;
+    let max_line = lines.next().context("missing max value line")?;
     let maxval: u16 = max_line.trim().parse()?;
 
     // pixels
     let mut pixels: Vec<u16> = Vec::with_capacity(w * h);
-    for line in r.lines() {
-        for tok in line?.split_whitespace() {
-            if let Ok(v) = tok.parse::<u16>() {
-                pixels.push(v);
+    for line in lines {
+        for tok in line.split_whitespace() {
+            match tok.parse::<u16>() {
+                Ok(v) => pixels.push(v),
+                Err(_) => continue,
             }
         }
     }
@@ -118,20 +113,12 @@ pub fn analyze_image_data(path: &str, contract: &contract::Contract) -> Result<A
 pub fn analyze_image(path: &str, service_name: &str, contract: &contract::Contract) -> Result<()> {
     let result = analyze_image_data(path, contract)?;
 
-    #[derive(Serialize)]
-    struct Payload<'a> {
-        service: &'a str,
-        path: &'a str,
-        tags: Vec<String>,
-        metrics: ImageMetrics,
-    }
-
-    let payload = Payload {
-        service: service_name,
-        path,
-        tags: result.tags,
-        metrics: result.metrics,
-    };
+    let payload = serde_json::json!({
+        "service": service_name,
+        "path": path,
+        "tags": result.tags,
+        "metrics": result.metrics,
+    });
     bus::publish_validated(contract, "image.analyzed", &payload)?;
     Ok(())
 }
@@ -197,5 +184,157 @@ mod tests {
 
         let result = analyze_image_data(path.to_str().unwrap(), &contract).unwrap();
         assert_eq!(result.tags, vec!["mostly_dark".to_string()]);
+    }
+
+    #[test]
+    fn thresholds_fall_back_without_tagging_config() {
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        assert_eq!(thresholds_from_contract(&contract), (0.4, 0.6));
+
+        let mut missing_tagging = contract.clone();
+        missing_tagging.parameters = serde_json::json!({});
+        assert_eq!(thresholds_from_contract(&missing_tagging), (0.4, 0.6));
+
+        let mut null_params = contract.clone();
+        null_params.parameters = serde_json::Value::Null;
+        assert_eq!(thresholds_from_contract(&null_params), (0.4, 0.6));
+    }
+
+    #[test]
+    fn thresholds_can_override_each_boundary_independently() {
+        let mut contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        contract.parameters = serde_json::json!({
+            "tagging": {
+                "avg_dark_threshold": 0.2
+            }
+        });
+        assert_eq!(thresholds_from_contract(&contract), (0.2, 0.6));
+
+        contract.parameters = serde_json::json!({
+            "tagging": {
+                "avg_bright_threshold": 0.8
+            }
+        });
+        assert_eq!(thresholds_from_contract(&contract), (0.4, 0.8));
+    }
+
+    #[test]
+    fn rejects_non_p2_images() {
+        let path = write_temp_pgm("P5\n2 2\n255\n0 255 255 0\n");
+        let err = load_pgm_ascii(path.to_str().unwrap()).unwrap_err();
+        assert!(err.to_string().contains("Only P2 PGM is supported"));
+    }
+
+    #[test]
+    fn missing_file_is_reported_with_path_context() {
+        let err = load_pgm_ascii("/definitely/missing/file.pgm").unwrap_err();
+        assert!(err.to_string().contains("open /definitely/missing/file.pgm"));
+    }
+
+    #[test]
+    fn rejects_pixel_count_mismatch() {
+        let path = write_temp_pgm("P2\n2 2\n255\n0 255 255\n");
+        let err = load_pgm_ascii(path.to_str().unwrap()).unwrap_err();
+        assert!(err.to_string().contains("pixel count mismatch"));
+    }
+
+    #[test]
+    fn rejects_invalid_dimensions_and_maxval() {
+        let bad_dims = write_temp_pgm("P2\nx 2\n255\n0 1\n");
+        let dims_err = load_pgm_ascii(bad_dims.to_str().unwrap()).unwrap_err();
+        assert!(!dims_err.to_string().is_empty());
+
+        let short_dims = write_temp_pgm("P2\n2\n255\n0 1\n");
+        let short_dims_err = load_pgm_ascii(short_dims.to_str().unwrap()).unwrap_err();
+        assert!(short_dims_err.to_string().contains("invalid dimensions line"));
+
+        let bad_second_dim = write_temp_pgm("P2\n2 x\n255\n0 1\n");
+        let second_dim_err = load_pgm_ascii(bad_second_dim.to_str().unwrap()).unwrap_err();
+        assert!(!second_dim_err.to_string().is_empty());
+
+        let bad_max = write_temp_pgm("P2\n1 1\nabc\n0\n");
+        let max_err = load_pgm_ascii(bad_max.to_str().unwrap()).unwrap_err();
+        assert!(!max_err.to_string().is_empty());
+    }
+
+    #[test]
+    fn invalid_pixel_tokens_are_ignored_until_count_mismatch() {
+        let path = write_temp_pgm("P2\n2 2\n255\n0 255 oops 0\n");
+        let err = load_pgm_ascii(path.to_str().unwrap()).unwrap_err();
+        assert!(err.to_string().contains("pixel count mismatch"));
+    }
+
+    #[test]
+    fn rejects_missing_dimensions_and_max_lines() {
+        let missing_dims = write_temp_pgm("P2\n# comment only\n");
+        let dims_err = load_pgm_ascii(missing_dims.to_str().unwrap()).unwrap_err();
+        assert!(dims_err.to_string().contains("missing dimensions line"));
+
+        let missing_max = write_temp_pgm("P2\n2 2\n");
+        let max_err = load_pgm_ascii(missing_max.to_str().unwrap()).unwrap_err();
+        assert!(max_err.to_string().contains("missing max value line"));
+    }
+
+    #[test]
+    fn zero_maxval_yields_zero_metrics_and_dark_tag() {
+        let pgm = "P2\n2 2\n0\n0 0 0 0\n";
+        let path = write_temp_pgm(pgm);
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        let result = analyze_image_data(path.to_str().unwrap(), &contract).unwrap();
+        assert_eq!(result.metrics.avg, 0.0);
+        assert_eq!(result.metrics.contrast, 0.0);
+        assert_eq!(result.tags, vec!["mostly_dark".to_string()]);
+    }
+
+    #[test]
+    fn bright_images_are_tagged_as_bright() {
+        let pgm = "P2\n2 2\n10\n9 9 9 9\n";
+        let path = write_temp_pgm(pgm);
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        let result = analyze_image_data(path.to_str().unwrap(), &contract).unwrap();
+        assert_eq!(result.tags, vec!["mostly_bright".to_string()]);
+    }
+
+    #[test]
+    fn analyze_image_data_propagates_missing_file_errors() {
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        let err = analyze_image_data("/definitely/missing/file.pgm", &contract).unwrap_err();
+        assert!(err.to_string().contains("open /definitely/missing/file.pgm"));
+    }
+
+    #[test]
+    fn neutral_images_are_tagged_when_no_other_rule_matches() {
+        let pgm = "P2\n2 2\n10\n5 5 5 5\n";
+        let path = write_temp_pgm(pgm);
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        let result = analyze_image_data(path.to_str().unwrap(), &contract).unwrap();
+        assert_eq!(result.tags, vec!["neutral".to_string()]);
+    }
+
+    #[test]
+    fn analyze_image_publishes_validated_event() {
+        let pgm = "P2\n2 2\n10\n0 10 10 0\n";
+        let path = write_temp_pgm(pgm);
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+
+        analyze_image(path.to_str().unwrap(), "core-service", &contract).unwrap();
+    }
+
+    #[test]
+    fn analyze_image_fails_when_contract_event_is_missing() {
+        let pgm = "P2\n2 2\n10\n0 10 10 0\n";
+        let path = write_temp_pgm(pgm);
+        let mut contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        contract.events.clear();
+
+        let err = analyze_image(path.to_str().unwrap(), "core-service", &contract).unwrap_err();
+        assert!(err.to_string().contains("schema not found"));
+    }
+
+    #[test]
+    fn analyze_image_propagates_analysis_errors() {
+        let contract = contract::Contract::load_from("../../../CONTRACT.json").unwrap();
+        let err = analyze_image("/definitely/missing/file.pgm", "core-service", &contract).unwrap_err();
+        assert!(err.to_string().contains("open /definitely/missing/file.pgm"));
     }
 }
