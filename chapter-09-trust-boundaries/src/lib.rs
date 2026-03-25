@@ -213,6 +213,10 @@ fn ensure_schema_exists(root_dir: &Path, schema: &str, label: &str) -> Result<()
     Ok(())
 }
 
+fn err_string<E: ToString>(err: E) -> String {
+    err.to_string()
+}
+
 fn validate_service(raw: RawContract, label: &str, root_dir: &Path) -> Result<ServiceContract, String> {
     ensure_non_empty(&raw.kind, "kind", label)?;
     ensure_non_empty(&raw.spec_version, "specVersion", label)?;
@@ -326,40 +330,42 @@ fn validate_service(raw: RawContract, label: &str, root_dir: &Path) -> Result<Se
     })
 }
 
+fn resolve_project_root(cwd: Option<PathBuf>, manifest_dir: PathBuf) -> PathBuf {
+    match cwd {
+        Some(cwd) if cwd.join("scenarios").exists() && cwd.join("contracts").exists() => cwd,
+        _ => manifest_dir,
+    }
+}
+
 pub fn project_root() -> PathBuf {
-    let cwd = std::env::current_dir().ok();
-    if let Some(cwd) = cwd {
-        if cwd.join("scenarios").exists() && cwd.join("contracts").exists() {
-            return cwd;
-        }
-    }
-
-    let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    if manifest_dir.join("scenarios").exists() && manifest_dir.join("contracts").exists() {
-        return manifest_dir;
-    }
-
-    manifest_dir
+    resolve_project_root(
+        std::env::current_dir().ok(),
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")),
+    )
 }
 
 pub fn list_scenarios(root_dir: &Path) -> Result<Vec<String>, String> {
-    let mut scenarios = Vec::new();
-    for entry in fs::read_dir(root_dir.join("scenarios")).map_err(|err| err.to_string())? {
-        let entry = entry.map_err(|err| err.to_string())?;
-        if entry.file_type().map_err(|err| err.to_string())?.is_dir() {
-            scenarios.push(entry.file_name().to_string_lossy().into_owned());
-        }
-    }
+    let entries = fs::read_dir(root_dir.join("scenarios")).map_err(err_string)?;
+    let mut scenarios = entries
+        .filter_map(Result::ok)
+        .filter(|entry| entry.path().is_dir())
+        .map(|entry| entry.file_name().to_string_lossy().into_owned())
+        .collect::<Vec<_>>();
     scenarios.sort();
     Ok(scenarios)
 }
 
 fn load_policy(root_dir: &Path) -> Result<Policy, String> {
-    let raw: RawPolicy = serde_json::from_str(
-        &fs::read_to_string(root_dir.join("contracts").join("policies").join("runtime-policy.json"))
-            .map_err(|err| err.to_string())?,
-    )
-    .map_err(|err| err.to_string())?;
+    let raw_contents = match fs::read_to_string(
+        root_dir.join("contracts").join("policies").join("runtime-policy.json"),
+    ) {
+        Ok(contents) => contents,
+        Err(err) => return Err(err_string(err)),
+    };
+    let raw: RawPolicy = match serde_json::from_str(&raw_contents) {
+        Ok(policy) => policy,
+        Err(err) => return Err(err_string(err)),
+    };
     if raw.kind != "uma.runtime-trust-policy" {
         return Err("runtime-policy.json: invalid policy kind".to_string());
     }
@@ -376,7 +382,14 @@ fn load_policy(root_dir: &Path) -> Result<Policy, String> {
 
 pub fn load_scenario(root_dir: &Path, scenario_name: &str) -> Result<Scenario, String> {
     let scenarios = list_scenarios(root_dir)?;
-    if !scenarios.iter().any(|name| name == scenario_name) {
+    let mut found = false;
+    for name in &scenarios {
+        if name == scenario_name {
+            found = true;
+            break;
+        }
+    }
+    if !found {
         return Err(format!(
             "unknown scenario \"{scenario_name}\". Available scenarios: {}",
             scenarios.join(", ")
@@ -384,31 +397,38 @@ pub fn load_scenario(root_dir: &Path, scenario_name: &str) -> Result<Scenario, S
     }
 
     let scenario_dir = root_dir.join("scenarios").join(scenario_name);
-    let plan: RawScenarioPlan = serde_json::from_str(
-        &fs::read_to_string(scenario_dir.join("runtime.json")).map_err(|err| err.to_string())?,
-    )
-    .map_err(|err| err.to_string())?;
+    let runtime_contents = match fs::read_to_string(scenario_dir.join("runtime.json")) {
+        Ok(contents) => contents,
+        Err(err) => return Err(err_string(err)),
+    };
+    let plan: RawScenarioPlan = match serde_json::from_str(&runtime_contents) {
+        Ok(plan) => plan,
+        Err(err) => return Err(err_string(err)),
+    };
     ensure_non_empty(&plan.placement, "placement", "runtime.json")?;
 
     let mut services = Vec::new();
     let mut seen_ids = BTreeSet::new();
-    for entry in fs::read_dir(scenario_dir.join("services")).map_err(|err| err.to_string())? {
-        let entry = entry.map_err(|err| err.to_string())?;
-        if !entry.file_type().map_err(|err| err.to_string())?.is_file() {
+    let entries = match fs::read_dir(scenario_dir.join("services")) {
+        Ok(entries) => entries,
+        Err(err) => return Err(err_string(err)),
+    };
+    for entry in entries.filter_map(Result::ok) {
+        if !entry.path().is_file() {
             continue;
         }
         if entry.path().extension().and_then(|ext| ext.to_str()) != Some("json") {
             continue;
         }
-        let relative = entry
-            .path()
-            .strip_prefix(&scenario_dir)
-            .map_err(|err| err.to_string())?
-            .display()
-            .to_string();
-        let raw: RawContract =
-            serde_json::from_str(&fs::read_to_string(entry.path()).map_err(|err| err.to_string())?)
-                .map_err(|err| format!("{relative}: {err}"))?;
+        let relative = format!("services/{}", entry.file_name().to_string_lossy());
+        let raw_contents = match fs::read_to_string(entry.path()) {
+            Ok(contents) => contents,
+            Err(err) => return Err(err_string(err)),
+        };
+        let raw: RawContract = match serde_json::from_str(&raw_contents) {
+            Ok(value) => value,
+            Err(err) => return Err(format!("{relative}: {err}")),
+        };
         let service = validate_service(raw, &relative, root_dir)?;
         if !seen_ids.insert(service.id.clone()) {
             return Err(format!(
@@ -682,6 +702,8 @@ pub fn format_trust_diff(diff: &TrustDiff) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde_json::json;
+    use std::os::unix::fs::PermissionsExt;
     use std::sync::atomic::{AtomicU64, Ordering};
     use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -700,10 +722,159 @@ mod tests {
     }
 
     fn write_file(path: &Path, contents: &str) {
-        if let Some(parent) = path.parent() {
-            fs::create_dir_all(parent).unwrap();
-        }
+        let parent = path.parent().expect("write_file paths should have a parent");
+        fs::create_dir_all(parent).unwrap();
         fs::write(path, contents).unwrap();
+    }
+
+    fn service_contract(id: &str) -> ServiceContract {
+        ServiceContract {
+            kind: "uma.trusted-service-contract".to_string(),
+            spec_version: "1.0".to_string(),
+            id: id.to_string(),
+            version: "1.0.0".to_string(),
+            summary: "demo".to_string(),
+            publisher: "uma.book.team".to_string(),
+            trust_tier: "internal".to_string(),
+            placements: vec!["cloud".to_string()],
+            permissions: vec!["events.publish".to_string()],
+            capabilities: vec![CapabilityVersion {
+                id: "events.publish".to_string(),
+                version: "1.0".to_string(),
+            }],
+            dependencies: vec![Dependency {
+                name: "dep".to_string(),
+                version: "1.0.0".to_string(),
+                provenance: "verified".to_string(),
+                checksum: "abc".to_string(),
+            }],
+            consumes: vec!["case.redacted".to_string()],
+            emits: vec!["case.redacted".to_string()],
+            event_schemas: EventSchemas {
+                consumes: vec![EventSchema {
+                    name: "case.redacted".to_string(),
+                    schema: "contracts/schemas/event.json".to_string(),
+                }],
+                emits: vec![EventSchema {
+                    name: "case.redacted".to_string(),
+                    schema: "contracts/schemas/event.json".to_string(),
+                }],
+            },
+            io: IoSchemas {
+                input_schema: "contracts/schemas/input.json".to_string(),
+                output_schema: "contracts/schemas/output.json".to_string(),
+            },
+        }
+    }
+
+    fn policy() -> Policy {
+        Policy {
+            trusted_publishers: vec!["uma.book.team".to_string()],
+            allowed_trust_tiers: vec!["internal".to_string()],
+            placement_rules: json!({
+                "cloud": {"allowedPermissions": ["events.publish"]}
+            }),
+            event_rules: json!({
+                "case.redacted": {"allowedConsumerTiers": ["internal"]}
+            }),
+        }
+    }
+
+    fn scenario_with_services(services: Vec<ServiceContract>) -> Scenario {
+        Scenario {
+            name: "test-scenario".to_string(),
+            placement: "cloud".to_string(),
+            executions: Vec::new(),
+            communications: Vec::new(),
+            services,
+            policy: policy(),
+        }
+    }
+
+    fn raw_contract() -> RawContract {
+        RawContract {
+            kind: "uma.trusted-service-contract".to_string(),
+            spec_version: "1.0".to_string(),
+            service: RawService {
+                id: "case-redactor".to_string(),
+                version: "1.0.0".to_string(),
+                summary: "demo".to_string(),
+                publisher: "uma.book.team".to_string(),
+                trust_tier: "internal".to_string(),
+                placements: vec!["cloud".to_string()],
+            },
+            capabilities: vec![RawCapability {
+                id: "events.publish".to_string(),
+                version: "1.0".to_string(),
+            }],
+            permissions: vec!["events.publish".to_string()],
+            dependencies: vec![Dependency {
+                name: "dep".to_string(),
+                version: "1.0.0".to_string(),
+                provenance: "verified".to_string(),
+                checksum: "abc".to_string(),
+            }],
+            events: RawEvents {
+                consumes: vec![RawEventContract {
+                    name: "case.received".to_string(),
+                    schema: "contracts/schemas/input.json".to_string(),
+                }],
+                emits: vec![RawEventContract {
+                    name: "case.redacted".to_string(),
+                    schema: "contracts/schemas/event.json".to_string(),
+                }],
+            },
+            io: RawIo {
+                input_schema: "contracts/schemas/input.json".to_string(),
+                output_schema: "contracts/schemas/output.json".to_string(),
+            },
+        }
+    }
+
+    fn write_valid_runtime_policy(root: &Path) {
+        write_file(
+            &root.join("contracts/policies/runtime-policy.json"),
+            r#"{
+  "kind": "uma.runtime-trust-policy",
+  "specVersion": "1.0",
+  "trustedPublishers": ["uma.book.team"],
+  "allowedTrustTiers": ["internal"],
+  "placementRules": {"cloud": {"allowedPermissions": ["events.publish"]}},
+  "eventRules": {"case.redacted": {"allowedConsumerTiers": ["internal"]}}
+}"#,
+        );
+    }
+
+    fn write_valid_schema_set(root: &Path) {
+        write_file(&root.join("contracts/schemas/input.json"), "{}");
+        write_file(&root.join("contracts/schemas/output.json"), "{}");
+        write_file(&root.join("contracts/schemas/event.json"), "{}");
+    }
+
+    fn valid_service_json() -> &'static str {
+        r#"{
+  "kind": "uma.trusted-service-contract",
+  "specVersion": "1.0",
+  "service": {
+    "id": "case-redactor",
+    "version": "1.0.0",
+    "summary": "demo",
+    "publisher": "uma.book.team",
+    "trustTier": "internal",
+    "placements": ["cloud"]
+  },
+  "capabilities": [{"id": "events.publish", "version": "1.0"}],
+  "permissions": ["events.publish"],
+  "dependencies": [{"name":"dep","version":"1.0.0","provenance":"verified","checksum":"abc"}],
+  "events": {
+    "consumes": [{"name": "case.received", "schema": "contracts/schemas/input.json"}],
+    "emits": [{"name": "case.redacted", "schema": "contracts/schemas/event.json"}]
+  },
+  "io": {
+    "inputSchema": "contracts/schemas/input.json",
+    "outputSchema": "contracts/schemas/output.json"
+  }
+}"#
     }
 
     #[test]
@@ -716,7 +887,8 @@ mod tests {
 
     #[test]
     fn lab4_to_lab5_diff_restores_communication() {
-        let from = evaluate_trust(&load_scenario(&project_root(), "lab4-forbidden-communication").unwrap());
+        let from =
+            evaluate_trust(&load_scenario(&project_root(), "lab4-forbidden-communication").unwrap());
         let to = evaluate_trust(&load_scenario(&project_root(), "lab5-restored-compliance").unwrap());
         let diff = diff_reports(&from, &to);
         assert_eq!(diff.from_outcome, "deny");
@@ -753,7 +925,8 @@ mod tests {
 
     #[test]
     fn forbidden_partner_communication_is_denied() {
-        let report = evaluate_trust(&load_scenario(&project_root(), "lab4-forbidden-communication").unwrap());
+        let report =
+            evaluate_trust(&load_scenario(&project_root(), "lab4-forbidden-communication").unwrap());
         assert!(report.audit_log.iter().any(|entry| {
             entry.kind == "communication"
                 && entry.subject == "upload-bridge->partner-audit-sink"
@@ -762,19 +935,40 @@ mod tests {
     }
 
     #[test]
+    fn project_root_prefers_current_directory_when_layout_matches() {
+        let root = std::env::temp_dir().join("chapter9-cwd-layout");
+        std::fs::create_dir_all(root.join("scenarios")).unwrap();
+        std::fs::create_dir_all(root.join("contracts")).unwrap();
+        assert_eq!(
+            resolve_project_root(
+                Some(root.clone()),
+                PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            )
+            .canonicalize()
+            .unwrap(),
+            root.canonicalize().unwrap()
+        );
+    }
+
+    #[test]
+    fn project_root_falls_back_to_manifest_directory() {
+        let root = std::env::temp_dir().join("chapter9-cwd-fallback");
+        std::fs::create_dir_all(&root).unwrap();
+        assert_eq!(
+            resolve_project_root(
+                Some(root),
+                PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            )
+            .canonicalize()
+            .unwrap(),
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).canonicalize().unwrap()
+        );
+    }
+
+    #[test]
     fn missing_schema_is_rejected_while_loading_service() {
         let root = temp_root();
-        write_file(
-            &root.join("contracts/policies/runtime-policy.json"),
-            r#"{
-  "kind": "uma.runtime-trust-policy",
-  "specVersion": "1.0",
-  "trustedPublishers": ["uma.book.team"],
-  "allowedTrustTiers": ["internal"],
-  "placementRules": {"cloud": {"allowedPermissions": ["events.publish"]}},
-  "eventRules": {}
-}"#,
-        );
+        write_valid_runtime_policy(&root);
         write_file(
             &root.join("scenarios/lab1/runtime.json"),
             r#"{"placement":"cloud","executions":[],"communications":[]}"#,
@@ -816,51 +1010,639 @@ mod tests {
     #[test]
     fn duplicate_service_ids_are_rejected() {
         let root = temp_root();
+        write_valid_runtime_policy(&root);
+        write_file(
+            &root.join("scenarios/lab1/runtime.json"),
+            r#"{"placement":"cloud","executions":[],"communications":[]}"#,
+        );
+        write_valid_schema_set(&root);
+        let service = valid_service_json();
+        write_file(&root.join("scenarios/lab1/services/one.json"), service);
+        write_file(&root.join("scenarios/lab1/services/two.json"), service);
+
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(err.contains("duplicate service id"));
+    }
+
+    #[test]
+    fn helper_validation_rejects_empty_values_and_missing_schema() {
+        let err = ensure_non_empty("   ", "kind", "service.json").unwrap_err();
+        assert!(err.contains("\"kind\" must be a non-empty string"));
+
+        let err = ensure_string_list(&["ok".to_string(), "".to_string()], "permissions", "service.json")
+            .unwrap_err();
+        assert!(err.contains("\"permissions\" must be a non-empty string"));
+
+        let root = temp_root();
+        let err = ensure_schema_exists(&root, "contracts/schemas/missing.json", "service.json").unwrap_err();
+        assert!(err.contains("schema points to missing file"));
+    }
+
+    #[test]
+    fn err_string_covers_supported_error_types() {
+        let io_err = std::io::Error::other("io failure");
+        assert!(err_string(io_err).contains("io failure"));
+
+        let json_err = serde_json::from_str::<serde_json::Value>("{").unwrap_err();
+        assert!(!err_string(json_err).is_empty());
+
+        let strip_err = Path::new("/tmp").strip_prefix("/other").unwrap_err();
+        assert!(!err_string(strip_err).is_empty());
+    }
+
+    #[test]
+    fn validate_service_rejects_invalid_shapes() {
+        let root = temp_root();
+        write_valid_schema_set(&root);
+
+        let mut wrong_kind = raw_contract();
+        wrong_kind.kind = "wrong.kind".to_string();
+        assert!(validate_service(wrong_kind, "service.json", &root)
+            .unwrap_err()
+            .contains("\"kind\" must be \"uma.trusted-service-contract\""));
+
+        let mut duplicate_capability = raw_contract();
+        duplicate_capability.capabilities.push(RawCapability {
+            id: "events.publish".to_string(),
+            version: "1.0".to_string(),
+        });
+        assert!(validate_service(duplicate_capability, "service.json", &root)
+            .unwrap_err()
+            .contains("duplicate capability"));
+
+        let mut duplicate_consume = raw_contract();
+        duplicate_consume.events.consumes.push(RawEventContract {
+            name: "case.received".to_string(),
+            schema: "contracts/schemas/input.json".to_string(),
+        });
+        assert!(validate_service(duplicate_consume, "service.json", &root)
+            .unwrap_err()
+            .contains("duplicate event"));
+
+        let mut duplicate_emit = raw_contract();
+        duplicate_emit.events.emits.push(RawEventContract {
+            name: "case.redacted".to_string(),
+            schema: "contracts/schemas/event.json".to_string(),
+        });
+        assert!(validate_service(duplicate_emit, "service.json", &root)
+            .unwrap_err()
+            .contains("duplicate event"));
+    }
+
+    #[test]
+    fn validate_service_rejects_remaining_required_blank_fields() {
+        let root = temp_root();
+        write_valid_schema_set(&root);
+
+        let service_cases: [(&str, fn(&mut RawContract), &str); 9] = [
+            ("kind", |raw| raw.kind = " ".to_string(), "\"kind\""),
+            (
+                "specVersion",
+                |raw| raw.spec_version = " ".to_string(),
+                "\"specVersion\"",
+            ),
+            (
+                "service.id",
+                |raw| raw.service.id = " ".to_string(),
+                "\"service.id\"",
+            ),
+            (
+                "service.version",
+                |raw| raw.service.version = " ".to_string(),
+                "\"service.version\"",
+            ),
+            (
+                "service.summary",
+                |raw| raw.service.summary = " ".to_string(),
+                "\"service.summary\"",
+            ),
+            (
+                "service.publisher",
+                |raw| raw.service.publisher = " ".to_string(),
+                "\"service.publisher\"",
+            ),
+            (
+                "service.trustTier",
+                |raw| raw.service.trust_tier = " ".to_string(),
+                "\"service.trustTier\"",
+            ),
+            (
+                "service.placements",
+                |raw| raw.service.placements[0] = " ".to_string(),
+                "\"service.placements\"",
+            ),
+            (
+                "permissions",
+                |raw| raw.permissions[0] = " ".to_string(),
+                "\"permissions\"",
+            ),
+        ];
+        for (label, mutate, expected) in service_cases {
+            let mut raw = raw_contract();
+            mutate(&mut raw);
+            let error = validate_service(raw, "service.json", &root).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let capability_cases: [(&str, fn(&mut RawContract), &str); 2] = [
+            (
+                "capabilities[].id",
+                |raw| raw.capabilities[0].id = " ".to_string(),
+                "\"capabilities[].id\"",
+            ),
+            (
+                "capabilities[].version",
+                |raw| raw.capabilities[0].version = " ".to_string(),
+                "\"capabilities[].version\"",
+            ),
+        ];
+        for (label, mutate, expected) in capability_cases {
+            let mut raw = raw_contract();
+            mutate(&mut raw);
+            let error = validate_service(raw, "service.json", &root).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let dependency_cases: [(&str, fn(&mut RawContract), &str); 4] = [
+            (
+                "dependencies[].name",
+                |raw| raw.dependencies[0].name = " ".to_string(),
+                "\"dependencies[].name\"",
+            ),
+            (
+                "dependencies[].version",
+                |raw| raw.dependencies[0].version = " ".to_string(),
+                "\"dependencies[].version\"",
+            ),
+            (
+                "dependencies[].provenance",
+                |raw| raw.dependencies[0].provenance = " ".to_string(),
+                "\"dependencies[].provenance\"",
+            ),
+            (
+                "dependencies[].checksum",
+                |raw| raw.dependencies[0].checksum = " ".to_string(),
+                "\"dependencies[].checksum\"",
+            ),
+        ];
+        for (label, mutate, expected) in dependency_cases {
+            let mut raw = raw_contract();
+            mutate(&mut raw);
+            let error = validate_service(raw, "service.json", &root).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let consume_cases: [(&str, fn(&mut RawContract), &str); 2] = [
+            (
+                "events.consumes[].name",
+                |raw| raw.events.consumes[0].name = " ".to_string(),
+                "\"events.consumes[].name\"",
+            ),
+            (
+                "events.consumes[].schema",
+                |raw| raw.events.consumes[0].schema = " ".to_string(),
+                "\"events.consumes[].schema\"",
+            ),
+        ];
+        for (label, mutate, expected) in consume_cases {
+            let mut raw = raw_contract();
+            mutate(&mut raw);
+            let error = validate_service(raw, "service.json", &root).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let emit_cases: [(&str, fn(&mut RawContract), &str); 2] = [
+            (
+                "events.emits[].name",
+                |raw| raw.events.emits[0].name = " ".to_string(),
+                "\"events.emits[].name\"",
+            ),
+            (
+                "events.emits[].schema",
+                |raw| raw.events.emits[0].schema = " ".to_string(),
+                "\"events.emits[].schema\"",
+            ),
+        ];
+        for (label, mutate, expected) in emit_cases {
+            let mut raw = raw_contract();
+            mutate(&mut raw);
+            let error = validate_service(raw, "service.json", &root).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let mut missing_consume_schema = raw_contract();
+        missing_consume_schema.events.consumes[0].schema =
+            "contracts/schemas/missing-consume.json".to_string();
+        let error = validate_service(missing_consume_schema, "service.json", &root).unwrap_err();
+        assert!(error.contains("missing file"));
+
+        let io_cases: [(&str, fn(&mut RawContract), &str); 2] = [
+            (
+                "io.inputSchema",
+                |raw| raw.io.input_schema = " ".to_string(),
+                "\"io.inputSchema\"",
+            ),
+            (
+                "io.outputSchema",
+                |raw| raw.io.output_schema = " ".to_string(),
+                "\"io.outputSchema\"",
+            ),
+        ];
+        for (label, mutate, expected) in io_cases {
+            let mut raw = raw_contract();
+            mutate(&mut raw);
+            let error = validate_service(raw, "service.json", &root).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let mut missing_input_schema = raw_contract();
+        missing_input_schema.io.input_schema = "contracts/schemas/missing-input.json".to_string();
+        let error = validate_service(missing_input_schema, "service.json", &root).unwrap_err();
+        assert!(error.contains("missing file"));
+
+        let mut missing_output_schema = raw_contract();
+        missing_output_schema.io.output_schema = "contracts/schemas/missing-output.json".to_string();
+        let error = validate_service(missing_output_schema, "service.json", &root).unwrap_err();
+        assert!(error.contains("missing file"));
+    }
+
+    #[test]
+    fn list_scenarios_ignores_files_and_unknown_scenario_is_reported() {
+        let root = temp_root();
+        fs::create_dir_all(root.join("scenarios/alpha")).unwrap();
+        fs::create_dir_all(root.join("scenarios/beta")).unwrap();
+        write_file(&root.join("scenarios/readme.txt"), "ignore");
+
+        let listed = list_scenarios(&root).unwrap();
+        assert_eq!(listed, vec!["alpha", "beta"]);
+
+        let err = load_scenario(&root, "missing").unwrap_err();
+        assert!(err.contains("unknown scenario"));
+        assert!(err.contains("alpha, beta"));
+    }
+
+    #[test]
+    fn load_policy_rejects_blank_lists_and_missing_file() {
+        let root = temp_root();
+        write_file(
+            &root.join("contracts/policies/runtime-policy.json"),
+            r#"{
+  "kind": "uma.runtime-trust-policy",
+  "specVersion": "1.0",
+  "trustedPublishers": [""],
+  "allowedTrustTiers": ["internal"],
+  "placementRules": {},
+  "eventRules": {}
+}"#,
+        );
+        let error = load_policy(&root).unwrap_err();
+        assert!(error.contains("\"trustedPublishers\""));
+
+        let root = temp_root();
         write_file(
             &root.join("contracts/policies/runtime-policy.json"),
             r#"{
   "kind": "uma.runtime-trust-policy",
   "specVersion": "1.0",
   "trustedPublishers": ["uma.book.team"],
-  "allowedTrustTiers": ["internal"],
-  "placementRules": {"cloud": {"allowedPermissions": ["events.publish"]}},
+  "allowedTrustTiers": [""],
+  "placementRules": {},
   "eventRules": {}
 }"#,
         );
+        let error = load_policy(&root).unwrap_err();
+        assert!(error.contains("\"allowedTrustTiers\""));
+
+        let missing_root = temp_root();
+        let error = load_policy(&missing_root).unwrap_err();
+        assert!(!error.is_empty());
+
+        let invalid_json_root = temp_root();
+        write_file(
+            &invalid_json_root.join("contracts/policies/runtime-policy.json"),
+            "{ invalid",
+        );
+        let error = load_policy(&invalid_json_root).unwrap_err();
+        assert!(!error.is_empty());
+    }
+
+    #[test]
+    fn load_scenario_ignores_service_directories_and_non_json_files() {
+        let root = temp_root();
+        write_valid_runtime_policy(&root);
+        write_valid_schema_set(&root);
         write_file(
             &root.join("scenarios/lab1/runtime.json"),
             r#"{"placement":"cloud","executions":[],"communications":[]}"#,
         );
-        write_file(&root.join("contracts/schemas/input.json"), "{}");
-        write_file(&root.join("contracts/schemas/output.json"), "{}");
-        write_file(&root.join("contracts/schemas/event.json"), "{}");
-        let service = r#"{
-  "kind": "uma.trusted-service-contract",
-  "specVersion": "1.0",
-  "service": {
-    "id": "case-redactor",
-    "version": "1.0.0",
-    "summary": "demo",
-    "publisher": "uma.book.team",
-    "trustTier": "internal",
-    "placements": ["cloud"]
-  },
-  "capabilities": [{"id": "events.publish", "version": "1.0"}],
-  "permissions": ["events.publish"],
-  "dependencies": [{"name":"dep","version":"1.0.0","provenance":"verified","checksum":"abc"}],
-  "events": {
-    "consumes": [],
-    "emits": [{"name": "case.redacted", "schema": "contracts/schemas/event.json"}]
-  },
-  "io": {
-    "inputSchema": "contracts/schemas/input.json",
-    "outputSchema": "contracts/schemas/output.json"
-  }
-}"#;
-        write_file(&root.join("scenarios/lab1/services/one.json"), service);
-        write_file(&root.join("scenarios/lab1/services/two.json"), service);
+        fs::create_dir_all(root.join("scenarios/lab1/services/archive")).unwrap();
+        write_file(&root.join("scenarios/lab1/services/readme.txt"), "ignore");
+        write_file(
+            &root.join("scenarios/lab1/services/service.json"),
+            valid_service_json(),
+        );
+
+        let scenario = load_scenario(&root, "lab1").unwrap();
+        assert_eq!(scenario.services.len(), 1);
+        assert_eq!(scenario.services[0].id, "case-redactor");
+    }
+
+    #[test]
+    fn load_scenario_reports_invalid_service_json_with_relative_path() {
+        let root = temp_root();
+        write_valid_runtime_policy(&root);
+        write_valid_schema_set(&root);
+        write_file(
+            &root.join("scenarios/lab1/runtime.json"),
+            r#"{"placement":"cloud","executions":[],"communications":[]}"#,
+        );
+        write_file(
+            &root.join("scenarios/lab1/services/broken.json"),
+            "{ invalid json",
+        );
 
         let err = load_scenario(&root, "lab1").unwrap_err();
-        assert!(err.contains("duplicate service id"));
+        assert!(err.contains("services/broken.json"));
+    }
+
+    #[test]
+    fn load_scenario_covers_runtime_and_policy_error_paths() {
+        let root = temp_root();
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(!err.is_empty());
+
+        let root = temp_root();
+        fs::create_dir_all(root.join("scenarios/lab1")).unwrap();
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(!err.is_empty());
+
+        let root = temp_root();
+        write_file(&root.join("scenarios/lab1/runtime.json"), "{ invalid");
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(!err.is_empty());
+
+        let root = temp_root();
+        write_file(
+            &root.join("scenarios/lab1/runtime.json"),
+            r#"{"placement":" ","executions":[],"communications":[]}"#,
+        );
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(err.contains("\"placement\""));
+
+        let root = temp_root();
+        write_file(
+            &root.join("scenarios/lab1/runtime.json"),
+            r#"{"placement":"cloud","executions":[],"communications":[]}"#,
+        );
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(!err.is_empty());
+
+        let root = temp_root();
+        write_valid_schema_set(&root);
+        write_file(
+            &root.join("scenarios/lab1/runtime.json"),
+            r#"{"placement":"cloud","executions":[],"communications":[]}"#,
+        );
+        write_file(
+            &root.join("scenarios/lab1/services/service.json"),
+            valid_service_json(),
+        );
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(!err.is_empty());
+    }
+
+    #[test]
+    fn load_scenario_errors_when_service_file_is_unreadable() {
+        let root = temp_root();
+        write_valid_runtime_policy(&root);
+        write_valid_schema_set(&root);
+        write_file(
+            &root.join("scenarios/lab1/runtime.json"),
+            r#"{"placement":"cloud","executions":[],"communications":[]}"#,
+        );
+        let service_path = root.join("scenarios/lab1/services/service.json");
+        write_file(&service_path, valid_service_json());
+
+        let mut permissions = fs::metadata(&service_path).unwrap().permissions();
+        permissions.set_mode(0o000);
+        fs::set_permissions(&service_path, permissions).unwrap();
+
+        let err = load_scenario(&root, "lab1").unwrap_err();
+        assert!(!err.is_empty());
+    }
+
+    #[test]
+    fn load_policy_rejects_invalid_kind() {
+        let root = temp_root();
+        write_file(
+            &root.join("contracts/policies/runtime-policy.json"),
+            r#"{
+  "kind": "wrong.kind",
+  "specVersion": "1.0",
+  "trustedPublishers": ["uma.book.team"],
+  "allowedTrustTiers": ["internal"],
+  "placementRules": {},
+  "eventRules": {}
+}"#,
+        );
+
+        let err = load_policy(&root).unwrap_err();
+        assert!(err.contains("invalid policy kind"));
+    }
+
+    #[test]
+    fn permission_and_tier_rules_default_to_false_when_missing() {
+        let policy = policy();
+        assert!(allow_permission(&policy, "cloud", "events.publish"));
+        assert!(!allow_permission(&policy, "edge", "events.publish"));
+        assert!(!allow_permission(&policy, "cloud", "db.write"));
+
+        assert!(allow_consumer_tier(&policy, "case.redacted", "internal"));
+        assert!(!allow_consumer_tier(&policy, "case.redacted", "partner"));
+        assert!(!allow_consumer_tier(&policy, "missing.event", "internal"));
+    }
+
+    #[test]
+    fn evaluate_execution_covers_all_denial_reasons() {
+        let request = ExecutionRequest {
+            service: "case-redactor".to_string(),
+            requested_permissions: vec!["events.publish".to_string()],
+        };
+
+        let mut wrong_placement = service_contract("case-redactor");
+        wrong_placement.placements = vec!["edge".to_string()];
+        assert_eq!(
+            evaluate_execution(&wrong_placement, &request, &scenario_with_services(vec![])).reason,
+            "placement.forbidden"
+        );
+
+        let mut untrusted_publisher = service_contract("case-redactor");
+        untrusted_publisher.publisher = "other.publisher".to_string();
+        assert_eq!(
+            evaluate_execution(&untrusted_publisher, &request, &scenario_with_services(vec![])).reason,
+            "publisher.untrusted"
+        );
+
+        let mut blocked_tier = service_contract("case-redactor");
+        blocked_tier.trust_tier = "partner".to_string();
+        assert_eq!(
+            evaluate_execution(&blocked_tier, &request, &scenario_with_services(vec![])).reason,
+            "trust_tier.blocked"
+        );
+
+        let mut bad_provenance = service_contract("case-redactor");
+        bad_provenance.dependencies[0].provenance = "unverified".to_string();
+        assert_eq!(
+            evaluate_execution(&bad_provenance, &request, &scenario_with_services(vec![])).reason,
+            "dependency.provenance.untrusted"
+        );
+
+        let mut missing_checksum = service_contract("case-redactor");
+        missing_checksum.dependencies[0].checksum = "   ".to_string();
+        assert_eq!(
+            evaluate_execution(&missing_checksum, &request, &scenario_with_services(vec![])).reason,
+            "dependency.checksum.missing"
+        );
+
+        let undeclared = ExecutionRequest {
+            service: "case-redactor".to_string(),
+            requested_permissions: vec!["db.write".to_string()],
+        };
+        assert_eq!(
+            evaluate_execution(&service_contract("case-redactor"), &undeclared, &scenario_with_services(vec![]))
+                .reason,
+            "permission.undeclared"
+        );
+
+        let forbidden = ExecutionRequest {
+            service: "case-redactor".to_string(),
+            requested_permissions: vec!["events.publish".to_string(), "db.write".to_string()],
+        };
+        let mut service = service_contract("case-redactor");
+        service.permissions.push("db.write".to_string());
+        assert_eq!(
+            evaluate_execution(&service, &forbidden, &scenario_with_services(vec![])).reason,
+            "permission.forbidden"
+        );
+
+        assert_eq!(
+            evaluate_execution(&service_contract("case-redactor"), &request, &scenario_with_services(vec![])).reason,
+            "execution.trusted"
+        );
+    }
+
+    #[test]
+    fn evaluate_communication_covers_all_denial_reasons() {
+        let request = CommunicationRequest {
+            from: "source".to_string(),
+            event: "case.redacted".to_string(),
+            to: "target".to_string(),
+        };
+        let mut source = service_contract("source");
+        let target = service_contract("target");
+
+        source.emits.clear();
+        assert_eq!(
+            evaluate_communication(&source, &target, &request, &[], &scenario_with_services(vec![])).reason,
+            "event.not_emitted"
+        );
+
+        let source = service_contract("source");
+        let mut target_not_consuming = service_contract("target");
+        target_not_consuming.consumes.clear();
+        assert_eq!(
+            evaluate_communication(&source, &target_not_consuming, &request, &[], &scenario_with_services(vec![]))
+                .reason,
+            "event.not_consumed"
+        );
+
+        let source = service_contract("source");
+        let target = service_contract("target");
+        let execution_log = vec![audit_entry("execution", "source", "allow", "execution.trusted")];
+        assert_eq!(
+            evaluate_communication(&source, &target, &request, &execution_log, &scenario_with_services(vec![])).reason,
+            "execution.not_trusted"
+        );
+
+        let source = service_contract("source");
+        let mut target_blocked = service_contract("target");
+        target_blocked.trust_tier = "partner".to_string();
+        let execution_log = vec![
+            audit_entry("execution", "source", "allow", "execution.trusted"),
+            audit_entry("execution", "target", "allow", "execution.trusted"),
+        ];
+        assert_eq!(
+            evaluate_communication(
+                &source,
+                &target_blocked,
+                &request,
+                &execution_log,
+                &scenario_with_services(vec![])
+            )
+            .reason,
+            "communication.forbidden"
+        );
+
+        let source = service_contract("source");
+        let target = service_contract("target");
+        assert_eq!(
+            evaluate_communication(&source, &target, &request, &execution_log, &scenario_with_services(vec![])).reason,
+            "communication.trusted"
+        );
+    }
+
+    #[test]
+    fn evaluate_trust_handles_missing_services_and_formats_reports() {
+        let scenario = Scenario {
+            name: "manual".to_string(),
+            placement: "cloud".to_string(),
+            executions: vec![ExecutionRequest {
+                service: "missing-service".to_string(),
+                requested_permissions: vec![],
+            }],
+            communications: vec![CommunicationRequest {
+                from: "missing-source".to_string(),
+                event: "case.redacted".to_string(),
+                to: "missing-target".to_string(),
+            }],
+            services: vec![service_contract("existing")],
+            policy: policy(),
+        };
+
+        let report = evaluate_trust(&scenario);
+        assert_eq!(report.outcome, "deny");
+        assert!(report.audit_log.iter().any(|entry| entry.reason == "service.not_found"));
+
+        let formatted = format_report(&report);
+        assert!(formatted.contains("Scenario: manual"));
+        assert!(formatted.contains("Audit Log"));
+        assert!(formatted.contains("publisher: uma.book.team"));
+    }
+
+    #[test]
+    fn format_trust_diff_covers_empty_and_non_empty_sections() {
+        let empty = TrustDiff {
+            from_scenario: "a".to_string(),
+            to_scenario: "b".to_string(),
+            from_outcome: "allow".to_string(),
+            to_outcome: "allow".to_string(),
+            added: Vec::new(),
+            removed: Vec::new(),
+        };
+        let empty_text = format_trust_diff(&empty);
+        assert!(empty_text.contains("Added trust decisions"));
+        assert!(empty_text.contains("- none"));
+
+        let populated = TrustDiff {
+            from_scenario: "a".to_string(),
+            to_scenario: "b".to_string(),
+            from_outcome: "deny".to_string(),
+            to_outcome: "allow".to_string(),
+            added: vec!["allow:execution:svc:execution.trusted".to_string()],
+            removed: vec!["deny:execution:svc:publisher.untrusted".to_string()],
+        };
+        let populated_text = format_trust_diff(&populated);
+        assert!(populated_text.contains("allow:execution:svc:execution.trusted"));
+        assert!(populated_text.contains("deny:execution:svc:publisher.untrusted"));
     }
 }
