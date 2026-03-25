@@ -463,4 +463,146 @@ mod tests {
         assert!(!res3.enabled);
         assert_eq!(res3.matched_rule, None);
     }
+
+    #[test]
+    fn test_malformed_rule_is_skipped() {
+        let flag = Flag {
+            key: "malformed_rule".to_string(),
+            rules: vec![
+                Rule { cond: "missingField".to_string(), then_value: true },
+                Rule { cond: "country == 'CA'".to_string(), then_value: true },
+            ],
+            default: false,
+        };
+        let ctx_map = ctx(&[("userId", "u8"), ("country", "CA")]);
+        let res = eval_flag(&flag, &ctx_map);
+        assert!(res.enabled);
+        assert_eq!(res.matched_rule, Some(1));
+    }
+
+    #[test]
+    fn test_double_quotes_and_boolean_literals() {
+        let flag = Flag {
+            key: "literal_test".to_string(),
+            rules: vec![
+                Rule { cond: "country == \"CA\"".to_string(), then_value: true },
+                Rule { cond: "true".to_string(), then_value: false },
+            ],
+            default: true,
+        };
+        let ctx_map = ctx(&[("userId", "u9"), ("country", "CA")]);
+        let res = eval_flag(&flag, &ctx_map);
+        assert!(res.enabled);
+        assert_eq!(res.matched_rule, Some(0));
+
+        let ctx_map2 = ctx(&[("userId", "u10"), ("country", "US")]);
+        let res2 = eval_flag(&flag, &ctx_map2);
+        assert!(!res2.enabled);
+        assert_eq!(res2.matched_rule, Some(1));
+    }
+
+    #[test]
+    fn test_false_literal_and_unknown_identifier_handling() {
+        let flag = Flag {
+            key: "bool_false_test".to_string(),
+            rules: vec![
+                Rule { cond: "false".to_string(), then_value: true },
+                Rule { cond: "unknownField".to_string(), then_value: true },
+            ],
+            default: false,
+        };
+        let ctx_map = ctx(&[("userId", "u11"), ("country", "US")]);
+        let res = eval_flag(&flag, &ctx_map);
+        assert!(!res.enabled);
+        assert_eq!(res.matched_rule, None);
+    }
+
+    #[test]
+    fn test_rollout_missing_user_id_and_invalid_rollout_expression() {
+        let flag = Flag {
+            key: "rollout_edges".to_string(),
+            rules: vec![
+                Rule { cond: "rollout(1.0)".to_string(), then_value: true },
+                Rule { cond: "rollout(bad)".to_string(), then_value: true },
+            ],
+            default: false,
+        };
+        let mut ctx_map: Context = Context::new();
+        ctx_map.insert("country".to_string(), Value::Str("US".to_string()));
+        let res = eval_flag(&flag, &ctx_map);
+        assert!(res.enabled);
+        assert_eq!(res.matched_rule, Some(0));
+
+        assert!(eval_rule_expr("rollout_edges", "rollout(bad)", &ctx_map).is_err());
+        assert!(eval_rule_expr("rollout_edges", "rollout(0.5", &ctx_map).is_err());
+    }
+
+    #[test]
+    fn test_string_and_boolean_comparison_edges() {
+        let mut ctx_map: Context = Context::new();
+        ctx_map.insert("userId".to_string(), Value::Str("u12".to_string()));
+        ctx_map.insert("country".to_string(), Value::Str("CA".to_string()));
+        ctx_map.insert("enabled".to_string(), Value::Bool(true));
+
+        assert_eq!(eval_rule_expr("cmp_edges", "country != 'US'", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("cmp_edges", "enabled == true", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("cmp_edges", "enabled != false", &ctx_map), Ok(true));
+    }
+
+    #[test]
+    fn test_numeric_bool_and_mismatched_comparison_edges() {
+        let mut ctx_map: Context = Context::new();
+        ctx_map.insert("userId".to_string(), Value::Str("u13".to_string()));
+        ctx_map.insert("ver".to_string(), Value::Num(2.0));
+        ctx_map.insert("enabled".to_string(), Value::Bool(true));
+
+        assert_eq!(eval_rule_expr("cmp_edges", "ver == 2", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("cmp_edges", "ver != 3", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("cmp_edges", "ver <= 2", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("cmp_edges", "ver > 1", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("cmp_edges", "ver ~~ 2", &ctx_map), Err(()));
+        assert_eq!(eval_rule_expr("cmp_edges", "ver == '2'", &ctx_map), Ok(false));
+        assert_eq!(eval_rule_expr("cmp_edges", "enabled >= true", &ctx_map), Err(()));
+    }
+
+    #[test]
+    fn test_in_operator_error_and_false_paths() {
+        let mut ctx_map: Context = Context::new();
+        ctx_map.insert("userId".to_string(), Value::Str("u14".to_string()));
+        ctx_map.insert("country".to_string(), Value::Str("CA".to_string()));
+        ctx_map.insert("ver".to_string(), Value::Num(2.0));
+
+        assert_eq!(eval_rule_expr("in_edges", "country in ('US','MX')", &ctx_map), Ok(false));
+        assert_eq!(eval_rule_expr("in_edges", "country in (\"CA\",\"US\")", &ctx_map), Ok(true));
+        assert_eq!(eval_rule_expr("in_edges", "country in 'CA'", &ctx_map), Err(()));
+        assert_eq!(eval_rule_expr("in_edges", "country in (CA,'US')", &ctx_map), Ok(false));
+        assert_eq!(eval_rule_expr("in_edges", "ver in ('1','2')", &ctx_map), Ok(false));
+    }
+
+    #[test]
+    fn test_internal_invalid_operators() {
+        assert_eq!(
+            eval_comparison(Value::Str("CA".to_string()), "<", Value::Str("US".to_string())),
+            Err(())
+        );
+        assert_eq!(eval_comparison(Value::Num(1.0), "contains", Value::Num(2.0)), Err(()));
+    }
+
+    #[test]
+    fn test_error_propagation_in_logical_and_comparison_expressions() {
+        let ctx_map = ctx(&[("userId", "u15"), ("country", "CA")]);
+
+        assert_eq!(eval_rule_expr("propagation", "rollout(bad) || true", &ctx_map), Err(()));
+        assert_eq!(eval_rule_expr("propagation", "false || rollout(bad)", &ctx_map), Err(()));
+        assert_eq!(eval_rule_expr("propagation", "rollout(bad) && true", &ctx_map), Err(()));
+        assert_eq!(eval_rule_expr("propagation", "true && rollout(bad)", &ctx_map), Err(()));
+        assert_eq!(
+            eval_rule_expr("propagation", "rollout(bad) == true", &ctx_map),
+            Err(())
+        );
+        assert_eq!(
+            eval_rule_expr("propagation", "true == rollout(bad)", &ctx_map),
+            Err(())
+        );
+    }
 }
