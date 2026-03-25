@@ -81,24 +81,86 @@ const mobileMenuClose = document.querySelector(".mobile-menu-close");
 const sharedFooter = document.querySelector("[data-shared-footer]");
 
 const siteRoot = new URL(".", import.meta.url);
-const footerPages = [
-  ["book", "book/"],
-  ["what is uma", "what-is-uma/"],
-  ["learning path", "learning-path/"],
-  ["examples", "examples/"],
-  ["webassembly architecture", "webassembly-architecture/"],
-  ["runtime-agnostic architecture", "runtime-agnostic-architecture/"],
-  ["portable business logic", "portable-business-logic/"],
-  ["trust boundaries", "trust-boundaries/"],
-  ["service graph evolution", "service-graph-evolution/"],
-  ["diagrams", "diagrams/"],
-  ["faq", "faq/"],
-  ["about enrico", "about-enrico/"],
+const footerColumns = [
+  [
+    {
+      title: "Foundations",
+      links: [
+        ["what is uma", "what-is-uma/"],
+        ["from stack ownership to behavior ownership", "from-stack-ownership-to-behavior-ownership/"],
+        ["uma vs traditional microservices", "uma-vs-traditional-microservices/"],
+      ],
+    },
+    {
+      title: "Runtime model",
+      links: [
+        ["what is a capability?", "what-is-a-capability/"],
+        ["what is a workflow?", "what-is-a-workflow/"],
+        ["what is a uma runtime?", "what-is-a-uma-runtime/"],
+        ["what belongs in the runtime layer?", "what-belongs-in-the-runtime-layer/"],
+        ["what makes a decision discoverable?", "what-makes-a-decision-discoverable/"],
+        ["what is wasm mcp?", "what-is-wasm-mcp/"],
+        ["agent vs runtime", "agent-vs-runtime/"],
+      ],
+    },
+  ],
+  [
+    {
+      title: "Architecture paths",
+      links: [
+        ["what makes a service portable?", "what-makes-a-service-portable/"],
+        ["how to prove portability", "how-to-prove-portability/"],
+        ["runtime-agnostic architecture", "runtime-agnostic-architecture/"],
+        ["portable business logic", "portable-business-logic/"],
+        ["webassembly architecture", "webassembly-architecture/"],
+      ],
+    },
+    {
+      title: "System evolution",
+      links: [
+        ["contract-driven orchestration", "contract-driven-orchestration/"],
+        ["service graph evolution", "service-graph-evolution/"],
+        ["how systems evolve without fragmentation", "how-systems-evolve-without-fragmentation/"],
+        ["what makes a system coherent?", "what-makes-a-system-coherent/"],
+        ["trust boundaries", "trust-boundaries/"],
+      ],
+    },
+    {
+      title: "Explore",
+      links: [
+        ["learning path", "learning-path/"],
+        ["examples", "examples/"],
+        ["diagrams", "diagrams/"],
+        ["faq", "faq/"],
+        ["book", "book/"],
+        ["about enrico", "about-enrico/"],
+      ],
+    },
+  ],
 ];
 
 if (sharedFooter) {
-  const footerLinks = footerPages
-    .map(([label, path]) => `<a href="${new URL(path, siteRoot)}">${label}</a>`)
+  const footerColumnsMarkup = footerColumns
+    .map(
+      (column, index) => `
+        <section class="footer-column" aria-label="Footer links column ${index + 1}">
+          ${column
+            .map(
+              (cluster) => `
+                <div class="footer-cluster">
+                  <h3>${cluster.title}</h3>
+                  <nav class="footer-links">
+                    ${cluster.links
+                      .map(([label, path]) => `<a href="${new URL(path, siteRoot)}">${label}</a>`)
+                      .join("")}
+                  </nav>
+                </div>
+              `,
+            )
+            .join("")}
+        </section>
+      `,
+    )
     .join("");
 
   sharedFooter.innerHTML = `
@@ -113,9 +175,21 @@ if (sharedFooter) {
         </nav>
       </div>
     </div>
-    <nav class="footer-links" aria-label="Site links">
-      ${footerLinks}
-    </nav>
+    <div class="footer-grid">
+      ${footerColumnsMarkup}
+      <section class="footer-column footer-book-cta" aria-label="Buy the book">
+        <h3>Get the book</h3>
+        <div class="footer-book-card">
+          <a class="footer-book-cover" href="https://www.universalmicroservices.com/">
+            <img src="${new URL("./assets/cover.png", siteRoot)}" alt="Universal Microservices Architecture book cover" />
+          </a>
+          <div class="footer-book-copy">
+            <p>Go deeper into UMA with the full book, examples, and architecture model.</p>
+            <a class="button button-dark footer-book-button" href="https://www.universalmicroservices.com/">Buy the book</a>
+          </div>
+        </div>
+      </section>
+    </div>
   `;
 }
 

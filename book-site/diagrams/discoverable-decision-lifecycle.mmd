@@ -1,0 +1,13 @@
+flowchart LR
+    A["Capability projection"] --> B["Proposal"]
+    B --> C["Authority validation"]
+    C --> D["Bounded revision"]
+    D --> E["Approved execution"]
+    E --> F["Queryable trace"]
+
+    classDef visible fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef authority fill:#151515,stroke:#4bd37b,color:#ffffff;
+    classDef support fill:#0d0d0d,stroke:#4a4a4a,color:#ffffff;
+
+    class A,B,D,F visible;
+    class C,E authority;

@@ -98,6 +98,10 @@
               come together around the service. The runtime is responsible for enforcing those decisions, but the architecture has to say
               clearly what the decisions are.
             </p>
+            <p>
+              This is why Chapter 9 matters so much in the learning path. It turns trust from a generic security concern into a concrete
+              runtime question: what metadata, permissions, dependencies, and communication paths are actually allowed to participate?
+            </p>
           </section>
 
           <section class="subpage-grid">
@@ -145,6 +149,44 @@
           </section>
 
           <section>
+            <h2>Why undeclared permissions should fail early</h2>
+            <p>
+              A portable service should not gain new powers just because it arrived in a more permissive environment. If the service needs
+              access to a capability, that need should be declared clearly enough that the runtime can validate it before execution begins.
+              Otherwise portability quietly becomes permission drift.
+            </p>
+            <p>
+              Early denial is the healthier architectural outcome. It keeps the boundary explicit and prevents the system from discovering
+              only after side effects occur that a service was relying on access it never declared honestly.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why dependency provenance is architectural</h2>
+            <p>
+              Dependency provenance is often treated as compliance paperwork or supply-chain hygiene outside the architecture itself. UMA
+              treats it differently. If the runtime cannot explain where a service or one of its critical dependencies came from, trust is
+              already incomplete.
+            </p>
+            <p>
+              That makes provenance part of the runtime decision, not an afterthought. A service can be syntactically valid and still be
+              denied because its dependency story is not trustworthy enough for the current boundary.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why compatibility is not the same as authorization</h2>
+            <p>
+              Two services can look compatible in shape and still be forbidden to communicate. Matching contracts do not automatically grant
+              trust. Communication also depends on policy, identity, placement, and the trust model of the system.
+            </p>
+            <p>
+              This is one of the most important ways trust boundaries correct a common architectural blind spot. Teams often stop once the
+              technical shapes line up. UMA says that compatible shape and authorized communication are related, but not identical.
+            </p>
+          </section>
+
+          <section>
             <h2>Why trust becomes harder in portable systems</h2>
             <p>
               The more places a service can run, the more important it becomes to define who it is, what it can do, and what evidence the
@@ -179,6 +221,11 @@
               This does not make the system rigid. It makes change safer. New services and new runtime contexts can still be introduced, but
               only through a model that can explain what was permitted and why.
             </p>
+            <p>
+              Good trust design also makes denial legible. When a service is blocked because of undeclared permissions, untrusted
+              provenance, or forbidden communication, the system should be able to point to the exact rule or metadata decision that caused
+              it. That is what turns enforcement into architecture instead of guesswork.
+            </p>
           </section>
 
           <section>
@@ -193,16 +240,24 @@
               The platform team can implement and operate enforcement, but the architecture still has to define what should be trusted, what
               is allowed, and which runtime inputs matter. Otherwise the platform only enforces an incomplete model.
             </p>
+            <h3>Can a service be valid and still be denied?</h3>
+            <p>
+              Yes. A service can match the expected shape and still be denied because it requested undeclared permissions, carries
+              untrusted provenance, or attempts communication the trust policy does not allow.
+            </p>
           </section>
 
           <section class="subpage-callout">
             <strong>Related topics</strong>
             <p>
               Trust boundaries connect directly to runtime-agnostic architecture and to service graph evolution, because safe composition is
-              impossible when the system cannot explain who is allowed to do what.
+              impossible when the system cannot explain who is allowed to do what. In the book, I push this further into the operational
+              consequences of deny decisions, metadata integrity, and communication policy without reducing the topic to generic security
+              advice.
             </p>
             <div class="subpage-inline-links">
               <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
               <a href="../service-graph-evolution/">Service graph evolution</a>
               <a href="../examples/">Examples</a>
               <a href="../diagrams/">Diagrams</a>

@@ -39,6 +39,22 @@
     },
     {
       "@type": "Question",
+      "name": "What is the difference between stack ownership and behavior ownership?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Stack ownership organizes systems around where code runs, while behavior ownership organizes them around the durable business meaning that must stay coherent across those runtime surfaces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does runtime-agnostic architecture actually mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Runtime-agnostic architecture means the business meaning of a service can remain stable while validation, transport, policy, trust, and placement stay explicit around it instead of redefining it in each runtime."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "Is UMA only about WebAssembly?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -71,6 +87,14 @@
     },
     {
       "@type": "Question",
+      "name": "Can a service be valid and still be denied in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A service can be syntactically valid and still be denied because it requests undeclared permissions, has untrusted dependency provenance, or attempts communication the trust policy does not allow."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "What is the difference between an agent and the runtime in UMA?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -87,10 +111,50 @@
     },
     {
       "@type": "Question",
+      "name": "What makes a service portable in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A service becomes portable when its behavior stays stable, its contract is explicit, its outputs remain comparable across runtimes, and runtime-specific concerns remain outside the portable core."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a workflow in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A workflow is the runtime-approved composition of capabilities used to satisfy a goal under the current constraints and rules."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is contract-driven orchestration?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Contract-driven orchestration means the runtime creates governed execution bindings from declared events, subscriptions, metadata, and policy instead of relying on hidden workflow glue."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "What is a UMA runtime?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "A UMA runtime is the governed layer that discovers capabilities, validates contracts and constraints, approves execution paths, and preserves enough evidence to explain what happened."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes a decision discoverable in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A decision becomes discoverable when proposal, validation, revision, approved execution, and trace remain inspectable as artifacts instead of collapsing into one opaque runtime result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What belongs in the runtime layer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The runtime layer should own validation, adapter binding, policy, trust, lifecycle evidence, and the governed conditions around execution, while the portable service keeps the core business behavior."
       }
     },
     {
@@ -107,6 +171,30 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Portability should be validated by running the same service behavior across more than one runtime target and comparing the observable result, contracts, and supporting evidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should happen when compatibility breaks in a UMA service graph?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The break should stay visible. Missing edges, waiting consumers, or failed compatibility checks are healthier than silent fallback because they make graph drift inspectable and repairable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can a UMA system work and still be architecturally incoherent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. A system can still produce the expected result while degrading through over-granular boundaries, hidden event coupling, runtime ambiguity, or orchestration that makes the architecture harder to explain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can a system evolve without fragmentation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A system evolves without fragmentation when contracts keep behavior legible, drift stays visible, coexistence rules are explicit, and the runtime governs which implementations or versions remain valid for which consumers."
       }
     },
     {
@@ -197,6 +285,21 @@
               creates drift, inconsistent outcomes, and hidden architecture. UMA addresses that by preserving one portable expression of the
               behavior and surrounding it with explicit runtime governance.
             </p>
+            <h3>What is the difference between stack ownership and behavior ownership?</h3>
+            <p>
+              Stack ownership organizes software around runtime or team boundaries. Behavior ownership organizes it around the durable rule
+              or domain meaning that must survive across those boundaries. UMA pushes toward the second view.
+            </p>
+            <h3>What does runtime-agnostic architecture actually mean?</h3>
+            <p>
+              It means the service behavior can stay semantically stable while the runtime around it changes. Validation, transport,
+              placement, identity, permissions, and trust still matter, but they stop being the place where the business meaning of the
+              service is quietly rewritten.
+            </p>
+            <p>
+              The dedicated <a href="../runtime-agnostic-architecture/">runtime-agnostic architecture</a> page goes deeper into that
+              distinction and why it matters for modern systems that span browser, edge, backend, and workflow execution surfaces.
+            </p>
             <h3>How is UMA different from traditional microservices?</h3>
             <p>
               Traditional microservices usually focus on deployable units, service ownership, and networked boundaries. UMA focuses on a
@@ -239,6 +342,36 @@
               outputs, and inspect the surrounding runtime behavior that shapes the result. The examples on this site are designed to make
               that proof visible instead of leaving it implicit.
             </p>
+            <p>
+              The <a href="../how-to-prove-portability/">how to prove portability</a> page turns that answer into a more concrete checklist
+              based on observable parity and explicit runtime differences.
+            </p>
+            <h3>What should happen when compatibility breaks in a UMA service graph?</h3>
+            <p>
+              The break should remain visible. Missing edges, waiting consumers, or failed compatibility checks are healthier than a system
+              that quietly hides the problem, because they make graph drift inspectable and easier to repair.
+            </p>
+            <p>
+              The <a href="../service-graph-evolution/">service graph evolution</a> page now covers that failure-and-recovery angle more
+              directly.
+            </p>
+            <h3>Can a UMA system work and still be architecturally incoherent?</h3>
+            <p>
+              Yes. A system can still produce the expected result while degrading through over-granular boundaries, vague event semantics,
+              runtime ambiguity, or orchestration that makes the architecture harder to explain than the output suggests.
+            </p>
+            <p>
+              The <a href="../what-makes-a-system-coherent/">what makes a system coherent?</a> page isolates that distinction directly.
+            </p>
+            <h3>How can a system evolve without fragmentation?</h3>
+            <p>
+              By keeping change anchored to explicit behavior, visible compatibility, and governed coexistence. Drift does not always mean
+              a rewrite is next, but it does mean the system needs a clear authority for deciding which behavior is still valid.
+            </p>
+            <p>
+              The <a href="../how-systems-evolve-without-fragmentation/">how systems evolve without fragmentation</a> page follows that
+              progression from contract anchor through drift, duplication, version sprawl, and runtime-governed recovery.
+            </p>
           </section>
 
           <section>
@@ -247,6 +380,15 @@
             <p>
               Trust boundaries live in the runtime and governance layer around the portable service. Identity resolution, permissions,
               provenance, policy evaluation, and audit evidence should stay visible there rather than being hidden inside business logic.
+            </p>
+            <h3>Can a service be valid and still be denied in UMA?</h3>
+            <p>
+              Yes. A service can be syntactically valid and still be denied because it requested undeclared permissions, carries untrusted
+              dependency provenance, or attempts communication the runtime trust policy does not allow.
+            </p>
+            <p>
+              The <a href="../trust-boundaries/">trust boundaries</a> page now covers that distinction more directly, including why
+              compatibility alone is not the same thing as authorization.
             </p>
             <h3>What is the difference between an agent and the runtime in UMA?</h3>
             <p>
@@ -259,10 +401,52 @@
               A capability is the unit the runtime can discover and reason about. It represents a named piece of behavior with a visible
               contract and enough meaning for the runtime to validate, select, reject, or compose into a workflow.
             </p>
+            <h3>What makes a service portable in UMA?</h3>
+            <p>
+              A service becomes portable when its business behavior stays stable, its contract remains explicit, its outputs stay
+              comparable across runtimes, and the runtime-specific concerns around it do not quietly redefine the rule itself.
+            </p>
+            <p>
+              The <a href="../what-makes-a-service-portable/">what makes a service portable?</a> page turns that into a practical design
+              test instead of leaving portability as a vague promise.
+            </p>
+            <h3>What is a workflow in UMA?</h3>
+            <p>
+              A workflow is the path the runtime approves from one or more capabilities in order to satisfy a goal. It is visible enough
+              for the system to explain why that path was chosen.
+            </p>
+            <h3>What is contract-driven orchestration?</h3>
+            <p>
+              Contract-driven orchestration means the runtime creates the execution path from declared events, subscriptions, metadata, and
+              policy instead of burying the flow inside handwritten workflow glue. That makes orchestration much easier to govern and audit.
+            </p>
+            <p>
+              The <a href="../contract-driven-orchestration/">contract-driven orchestration</a> page goes deeper into why that distinction
+              matters once systems start emitting events and binding subscribers dynamically.
+            </p>
             <h3>What is a UMA runtime?</h3>
             <p>
               A UMA runtime is the governed layer around portable behavior. It discovers capabilities, checks compatibility and
               constraints, approves the valid execution path, and keeps enough evidence for the result to remain explainable afterward.
+            </p>
+            <h3>What makes a decision discoverable in UMA?</h3>
+            <p>
+              A decision becomes discoverable when proposal, validation, revision, approved execution, and trace remain inspectable as
+              artifacts instead of collapsing into one opaque runtime result.
+            </p>
+            <p>
+              The <a href="../what-makes-a-decision-discoverable/">what makes a decision discoverable?</a> page turns that into a concrete
+              lifecycle.
+            </p>
+            <h3>What belongs in the runtime layer?</h3>
+            <p>
+              The runtime layer should own validation, adapter binding, policy, trust, lifecycle evidence, and the conditions around
+              execution that vary by environment. The service should keep the durable rule; the runtime should keep the governed execution
+              context around it.
+            </p>
+            <p>
+              The dedicated <a href="../what-belongs-in-the-runtime-layer/">what belongs in the runtime layer?</a> page turns that split
+              into a practical design question instead of leaving it as a slogan.
             </p>
             <h3>What is WASM MCP in UMA?</h3>
             <p>
@@ -315,9 +499,14 @@
             </p>
             <div class="subpage-inline-links">
               <a href="../what-is-uma/">What is UMA?</a>
+              <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
               <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
+              <a href="../contract-driven-orchestration/">Contract-driven orchestration</a>
               <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
               <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="../learning-path/">Learning Path</a>
               <a href="../examples/">Examples</a>

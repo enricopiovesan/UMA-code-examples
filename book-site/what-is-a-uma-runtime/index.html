@@ -128,6 +128,12 @@
               In a simpler system, some of those decisions may look trivial. In a richer system, they become the difference between a
               governed platform and a collection of plausible but unaccountable executions.
             </p>
+            <p>
+              One useful practical version of that question is simply:
+              <a href="../what-belongs-in-the-runtime-layer/">what belongs in the runtime layer?</a>
+              Validation, adapter binding, lifecycle evidence, and policy checks are not side details. They are part of how the runtime
+              keeps portable behavior governed instead of accidental.
+            </p>
           </section>
 
           <section class="subpage-grid">
@@ -211,6 +217,10 @@
               The live reference app is useful for exactly this reason. It makes the runtime visible as a decision layer instead of
               presenting the workflow as if it simply happened on its own.
             </p>
+            <p>
+              The next architectural step is making that decision layer queryable. Once proposals, approvals, and trace artifacts become
+              visible too, the runtime stops being understandable only in the moment and becomes understandable afterward as well.
+            </p>
           </section>
 
           <section>
@@ -240,7 +250,10 @@
             </p>
             <div class="subpage-inline-links">
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
+              <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
               <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>
               <a href="https://www.universalmicroservices.com/">Buy the book</a>

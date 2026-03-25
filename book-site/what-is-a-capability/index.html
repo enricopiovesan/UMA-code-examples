@@ -120,6 +120,11 @@
               runtime must decide whether to summarize, translate, enrich, format, reject, or adapt, it needs a unit more precise than “we
               have a service for that.” It needs something it can compare and govern. That is what a capability provides.
             </p>
+            <p>
+              This also works better when the underlying service is portable in a disciplined way. A runtime can govern a capability much
+              more cleanly when the service behavior is deterministic enough to remain stable across hosts and explicit enough to preserve
+              one visible contract.
+            </p>
           </section>
 
           <section>
@@ -259,7 +264,9 @@
               reference app makes that visible, and the book explains the larger architectural model behind it.
             </p>
             <div class="subpage-inline-links">
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
               <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
               <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>

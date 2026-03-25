@@ -13,6 +13,9 @@
     <loc>https://www.universalmicroservices.com/book/</loc>
   </url>
   <url>
+    <loc>https://www.universalmicroservices.com/contract-driven-orchestration/</loc>
+  </url>
+  <url>
     <loc>https://www.universalmicroservices.com/diagrams/</loc>
   </url>
   <url>
@@ -20,6 +23,15 @@
   </url>
   <url>
     <loc>https://www.universalmicroservices.com/faq/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/from-stack-ownership-to-behavior-ownership/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/how-to-prove-portability/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/</loc>
   </url>
   <url>
     <loc>https://www.universalmicroservices.com/learning-path/</loc>
@@ -52,7 +64,22 @@
     <loc>https://www.universalmicroservices.com/what-is-a-capability/</loc>
   </url>
   <url>
+    <loc>https://www.universalmicroservices.com/what-makes-a-service-portable/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-makes-a-system-coherent/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-makes-a-decision-discoverable/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-is-a-workflow/</loc>
+  </url>
+  <url>
     <loc>https://www.universalmicroservices.com/what-is-a-uma-runtime/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-belongs-in-the-runtime-layer/</loc>
   </url>
   <url>
     <loc>https://www.universalmicroservices.com/what-is-wasm-mcp/</loc>

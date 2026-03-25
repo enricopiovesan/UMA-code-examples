@@ -113,6 +113,12 @@
               becomes part of the graph, the architecture is already drifting. Growth should happen through visible relationships, not
               through increasingly fragile knowledge hidden inside a few coordinating components.
             </p>
+            <p>
+              This is also where
+              <a href="../contract-driven-orchestration/">contract-driven orchestration</a>
+              becomes a useful intermediate idea. Before a system looks like a graph, it often first becomes a governed set of bindings
+              between emitted events, subscribers, policy checks, and runtime evidence.
+            </p>
           </section>
 
           <section class="subpage-grid">
@@ -145,6 +151,32 @@
               This is also where service graph evolution connects directly to trust boundaries. A graph that grows without explicit runtime
               trust and policy tends to become ambiguous. A graph that grows with visible compatibility and governed selection remains much
               easier to reason about.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why compatibility should fail visibly</h2>
+            <p>
+              Healthy graph evolution is not only about adding new relationships. It is also about what happens when compatibility breaks.
+              A mature system should fail in a way that is legible. If an event shape changes, a version drifts, or a subscriber no longer
+              matches the declared contract, the graph should show that break clearly instead of silently degrading into partial behavior.
+            </p>
+            <p>
+              That kind of visible failure is a strength, not a weakness. It tells the team where the architecture has actually become
+              incompatible, and it prevents downstream services from pretending the graph is still intact when it is not.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why inspectable change matters</h2>
+            <p>
+              A graph becomes much more useful when change can be inspected at the level that created it. If a service joins the graph
+              because of a new event contract, a changed consumer declaration, or a repaired metadata relationship, teams should be able to
+              see that transition directly instead of inferring it from surprising runtime behavior.
+            </p>
+            <p>
+              This is one of the most practical ideas behind Chapter 8. Graph evolution should be readable as declared change, not only as
+              a final state. That keeps system growth reviewable in a way static diagrams alone cannot.
             </p>
           </section>
 
@@ -183,6 +215,15 @@
               That kind of growth is slower to design up front, but cheaper to sustain. It keeps change visible, which is exactly what a
               long-lived architecture needs.
             </p>
+            <p>
+              Just as important, healthy growth includes recovery. If a change breaks compatibility, the architecture should support a clear
+              repair path that restores the graph without forcing upstream services to be rewritten around the break. That is a much better
+              sign than a system that only looks stable because incompatibilities stay hidden.
+            </p>
+            <p>
+              That recovery path becomes even more important once graph growth turns into broader system evolution. Drift, duplication, and
+              unmanaged coexistence are all signs that graph change is no longer fully governed.
+            </p>
           </section>
 
           <section>
@@ -197,16 +238,25 @@
               No. Some systems remain small and should stay small. The point is not to maximize graph complexity. The point is to make
               system growth legible and governed when it does happen.
             </p>
+            <h3>What should happen when compatibility breaks?</h3>
+            <p>
+              The break should be visible. A waiting consumer, a missing edge, or a failed compatibility check is more honest and much more
+              useful than a system that quietly routes around the problem. Healthy graph evolution depends on visible breakage and visible
+              repair.
+            </p>
           </section>
 
           <section class="subpage-callout">
             <strong>Follow the practical path</strong>
             <p>
-              This idea becomes much clearer when paired with the examples, the learning path, and the diagrams page, where graph behavior
-              and compatibility can be inspected more directly.
+              This page gives the shape of graph evolution. In the book, I take that shape further into inspectable change, compatibility
+              failure, and recovery so the architectural consequences feel concrete instead of abstract. On the site, the best next move is
+              to pair this page with orchestration, trust, and the diagrams that make graph change visible.
             </p>
             <div class="subpage-inline-links">
+              <a href="../contract-driven-orchestration/">Contract-driven orchestration</a>
               <a href="../examples/">Examples</a>
+              <a href="../how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a>
               <a href="../learning-path/">Learning Path</a>
               <a href="../trust-boundaries/">Trust boundaries</a>
               <a href="../diagrams/">Diagrams</a>

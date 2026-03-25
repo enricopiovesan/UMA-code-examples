@@ -84,6 +84,11 @@
               same behavior in its own way. A portable service model is stricter than that. It requires the meaning of the service to stay
               stable while the runtime around it adapts.
             </p>
+            <p>
+              Another way to frame it is that portable business logic is one practical expression of
+              <a href="../from-stack-ownership-to-behavior-ownership/">behavior ownership</a>. The architecture stops treating each stack
+              as the natural owner of the rule and starts treating the rule itself as the thing that deserves a durable center.
+            </p>
           </section>
 
           <section>
@@ -190,10 +195,11 @@
           <section class="subpage-callout">
             <strong>Continue</strong>
             <p>
-              Portable business logic makes the most sense when paired with runtime-agnostic architecture and a clear execution boundary.
-              Those pages explain the next layer of the model.
+              Portable business logic becomes much clearer once you connect it to behavior ownership and the runtime model around it. The
+              book goes deeper into that progression by showing where the portable core stops and the governed system begins.
             </p>
             <div class="subpage-inline-links">
+              <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
               <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
               <a href="../webassembly-architecture/">WebAssembly architecture</a>

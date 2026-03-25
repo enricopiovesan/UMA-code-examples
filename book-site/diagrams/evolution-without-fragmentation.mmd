@@ -1,0 +1,14 @@
+flowchart LR
+    A["Contract anchor"] --> B["Behavioral drift"]
+    B --> C["Duplicate implementations"]
+    C --> D["Version sprawl"]
+    D --> E["Runtime-governed coexistence"]
+    E --> F["Hybrid adoption"]
+
+    classDef stable fill:#151515,stroke:#ffc501,color:#ffffff;
+    classDef risk fill:#151515,stroke:#ff8a3d,color:#ffffff;
+    classDef governed fill:#151515,stroke:#4bd37b,color:#ffffff;
+
+    class A stable;
+    class B,C,D risk;
+    class E,F governed;

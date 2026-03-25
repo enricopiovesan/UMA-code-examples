@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Runtime-agnostic Architecture | Universal Microservices Architecture</title>
+    <title>Runtime-agnostic Architecture | UMA and Portable Software Design</title>
     <meta
       name="description"
-      content="Understand runtime-agnostic architecture through the UMA lens: portable behavior, explicit runtime responsibilities, and coherent system evolution."
+      content="Understand runtime-agnostic architecture through the UMA lens: portable behavior, explicit runtime responsibilities, and more coherent software systems."
     />
     <link rel="canonical" href="https://www.universalmicroservices.com/runtime-agnostic-architecture/" />
-    <meta property="og:title" content="Runtime-agnostic Architecture | Universal Microservices Architecture" />
+    <meta property="og:title" content="Runtime-agnostic Architecture | UMA and Portable Software Design" />
     <meta
       property="og:description"
       content="An original guide to runtime-agnostic architecture, focused on what should stay portable and what must remain governed by the runtime."
@@ -84,6 +84,11 @@
               This makes runtime-agnostic architecture a discipline of separation rather than a vague portability claim. The goal is not to
               pretend every environment is the same. The goal is to stop every environment from quietly redefining what the service means.
             </p>
+            <p>
+              That is why runtime-agnostic architecture is not mainly about technical portability. It is about protecting semantic
+              continuity. If the same behavior changes meaning every time it crosses into a new runtime surface, the architecture is still
+              stack-shaped even if some code happens to be reusable.
+            </p>
           </section>
 
           <section>
@@ -97,6 +102,11 @@
               When this boundary is explicit, the same service behavior can move between client, edge, and cloud contexts without forcing a
               fresh rewrite of the underlying business model. The runtime can still adapt how the service is hosted and executed, but it no
               longer becomes the place where domain logic is silently reauthored.
+            </p>
+            <p>
+              In that sense, runtime-agnostic architecture depends on the same shift described in
+              <a href="../from-stack-ownership-to-behavior-ownership/">behavior ownership</a>. The thing being protected is not only code
+              reuse. It is the durability of one business behavior across several execution surfaces.
             </p>
           </section>
 
@@ -144,6 +154,19 @@
             <p>
               Runtime-agnostic architecture matters because it interrupts that pattern. It gives teams a more durable answer to the question
               of what should be preserved as shared service behavior and what should remain visible as runtime-specific execution policy.
+            </p>
+          </section>
+
+          <section>
+            <h2>A practical test for runtime-agnostic design</h2>
+            <p>
+              Ask whether one important behavior can be described once, validated once, and then adapted by several runtimes without
+              rewriting the rule itself. If the answer is no, the architecture is still runtime-dependent in the place that matters most.
+            </p>
+            <p>
+              A second test is organizational: when a business rule changes, does the system have one durable reference point for that
+              change, or does every runtime surface need its own reinterpretation? The more often the second pattern appears, the less
+              runtime-agnostic the architecture really is.
             </p>
           </section>
 
@@ -215,18 +238,20 @@
           </section>
 
           <section class="subpage-callout">
-            <strong>Related topics</strong>
+            <strong>Where to go next</strong>
             <p>
-              This topic connects directly to portable business logic, WebAssembly architecture, and trust boundaries, because runtime
-              neutrality only works when the runtime itself is still governed clearly.
+              This page gives the architectural shape of the idea. In the book, I explore the pressure behind that shape in more detail:
+              why teams drift back toward runtime-owned behavior, where that drift becomes expensive, and how a governed runtime model
+              changes the tradeoffs. On the site, the next useful move is to connect runtime-agnostic design to portable business logic and
+              the runtime itself.
             </p>
             <div class="subpage-inline-links">
+              <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
               <a href="../portable-business-logic/">Portable business logic</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
               <a href="../webassembly-architecture/">WebAssembly architecture</a>
               <a href="../trust-boundaries/">Trust boundaries</a>
-              <a href="../agent-vs-runtime/">Agent vs runtime</a>
-              <a href="../examples/">Examples</a>
             </div>
           </section>
         </div>

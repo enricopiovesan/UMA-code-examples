@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is a Workflow in UMA? | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Learn what a workflow means in Universal Microservices Architecture and how workflows differ from capabilities, agents, and the runtime."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/what-is-a-workflow/" />
+    <meta property="og:title" content="What Is a Workflow in UMA? | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="An original guide to workflows in UMA: runtime-approved compositions of capabilities built to satisfy a goal."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/what-is-a-workflow/" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Is a Workflow in UMA?",
+  "description": "An original explanation of what a workflow means in Universal Microservices Architecture and why workflows should remain visible, approved compositions of capabilities rather than hidden chains of calls.",
+  "url": "https://www.universalmicroservices.com/what-is-a-workflow/",
+  "author": {
+    "@type": "Person",
+    "name": "Enrico Piovesan"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Universal Microservices Architecture"
+  },
+  "mainEntityOfPage": "https://www.universalmicroservices.com/what-is-a-workflow/"
+}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>What is a workflow in UMA?</h1>
+          <p>
+            In Universal Microservices Architecture, a workflow is the approved path the runtime builds from capabilities to satisfy a
+            goal. It is not just a sequence of function calls. It is a visible composition of runtime-validated behavior.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              A workflow in UMA is the composition the runtime approves after considering the goal, the available capabilities, the active
+              constraints, and any planning help from agents. That makes a workflow more than an implementation detail. It becomes an
+              architectural object the system can explain.
+            </p>
+            <p>
+              This distinction matters because many systems have workflows without ever making them explicit. The behavior still chains
+              together, but the path is hidden inside glue code, local assumptions, or framework orchestration. UMA makes the workflow
+              visible so the system can justify why that path was valid.
+            </p>
+          </section>
+
+          <section>
+            <h2>Workflow versus capability</h2>
+            <p>
+              A capability is one unit of behavior. A workflow is a composition of capabilities used to reach an outcome. Confusing those
+              two ideas makes systems harder to reason about because the reusable units and the approved path stop being distinct.
+            </p>
+            <p>
+              UMA keeps them separate on purpose. Capabilities stay stable enough to be discovered and validated individually. Workflows
+              remain visible enough to be approved, rejected, adapted, and explained as full paths.
+            </p>
+          </section>
+
+          <section>
+            <h2>Workflow versus agent</h2>
+            <p>
+              An agent can help propose a workflow. It can interpret the goal, rank possible capabilities, and suggest a plausible route.
+              But the workflow itself does not become authoritative just because it was proposed. The runtime still has to approve it.
+            </p>
+            <p>
+              This is why workflows matter so much in the reference app. They show the difference between a suggested path and an approved
+              one. The workflow the user sees is the path the runtime accepted, not simply the first plan that sounded reasonable.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Goal-oriented</h3>
+              <p>A workflow exists to satisfy a goal, not just to reflect implementation structure.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Capability-based</h3>
+              <p>A workflow is built from capabilities that the runtime can inspect and govern.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime-approved</h3>
+              <p>The path becomes real only when the runtime validates it against the current rules and conditions.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Explainable</h3>
+              <p>A useful workflow is one the system can describe after execution, not just one that happened to succeed.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why workflows matter more in modern systems</h2>
+            <p>
+              The more dynamic a system becomes, the more important workflows become as a visible concept. Once there are multiple possible
+              paths to the same outcome, the architecture has to explain not only what capabilities exist, but how they were assembled into
+              a valid route.
+            </p>
+            <p>
+              That is true whether the variability comes from policy, placement, user context, available providers, or AI-assisted
+              planning. A hidden workflow quickly turns into hidden architecture. UMA prevents that by keeping workflows visible and
+              governed.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why the runtime owns the workflow outcome</h2>
+            <p>
+              A workflow is where many architectural concerns meet: compatibility, trust, policy, ordering, and execution authority. Those
+              are not concerns a capability should own alone, and they are not concerns an agent should own by itself either. The runtime
+              is the right place for them because it can evaluate the full path in context.
+            </p>
+            <p>
+              This is also why workflows are so useful in the browser reference app. They make runtime authority legible. You can see which
+              capability was chosen, what the planner proposed, and where the runtime accepted or rejected the path.
+            </p>
+            <p>
+              Once the path is no longer static, discoverability matters as much as approval. Readers and tools should be able to inspect
+              how the workflow moved from projection and proposal into authoritative execution.
+            </p>
+          </section>
+
+          <section>
+            <h2>What a workflow is not</h2>
+            <ul>
+              <li>It is not every internal call chain in the codebase.</li>
+              <li>It is not the same thing as a static pipeline definition.</li>
+              <li>It is not just a planner suggestion.</li>
+              <li>It is not a substitute for capability contracts.</li>
+              <li>It is not useful if the system cannot explain why it was approved.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A practical design test</h2>
+            <p>
+              If you want to know whether your system has a real workflow model, ask whether it can answer four simple questions after
+              execution: what was the goal, which capabilities were available, which path was approved, and why that path was valid. If the
+              system cannot answer those questions cleanly, the workflow still exists only implicitly.
+            </p>
+            <p>
+              Another useful test is whether the same workflow could be rerun or inspected without reading hidden implementation code. If
+              not, the workflow is still too entangled with the internals of one stack.
+            </p>
+          </section>
+
+          <section>
+            <h2>How the reference app makes workflows useful</h2>
+            <p>
+              The live reference app works because it treats the workflow as a first-class explanation layer. It does not just show the
+              result. It shows the path from discovery to planning to runtime approval to capability execution. That helps readers grasp
+              UMA much faster than a final output alone would.
+            </p>
+            <p>
+              This is one of the biggest teaching advantages of the Chapter 13 experience. It turns workflow composition from a hidden
+              implementation detail into something a reader can inspect step by step.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Does every UMA system need dynamic workflows?</h3>
+            <p>
+              No. A workflow can still be explicit and valuable in a more deterministic system. Dynamic selection simply makes the need for
+              visible workflows more obvious.
+            </p>
+            <h3>Can one goal map to more than one valid workflow?</h3>
+            <p>
+              Yes. That is one of the reasons the runtime matters. It may need to choose between multiple valid paths depending on policy,
+              constraints, trust, or current environment conditions.
+            </p>
+            <h3>Why not just call it orchestration?</h3>
+            <p>
+              Orchestration is part of the story, but workflow is the clearer reader-facing term for the approved path through capabilities
+              that satisfies a goal.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>See the workflow vocabulary together</strong>
+            <p>
+              A reader usually understands UMA faster once capability, runtime, workflow, and discovery surface are seen as one cluster.
+              The reference app and the pages around it are designed to make that cluster legible.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
+              <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

@@ -1143,14 +1143,8 @@ h3 {
 }
 
 .footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 10px 18px;
-  width: 100%;
-  margin-top: 34px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(7, 7, 7, 0.28);
+  display: grid;
+  gap: 10px;
 }
 
 .footer-links a {
@@ -1161,6 +1155,70 @@ h3 {
   font-size: 0.86rem;
   font-weight: 400;
   text-transform: lowercase;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(280px, 0.9fr);
+  gap: 34px;
+  max-width: min(100% - 56px, var(--content));
+  margin: 34px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(7, 7, 7, 0.28);
+}
+
+.footer-column h3 {
+  margin: 0 0 16px;
+  color: #070707;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-cluster + .footer-cluster {
+  margin-top: 24px;
+}
+
+.footer-book-cta {
+  display: grid;
+  align-content: start;
+}
+
+.footer-book-card {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.footer-book-cover {
+  display: block;
+  width: 104px;
+  text-decoration: none;
+}
+
+.footer-book-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(7, 7, 7, 0.22);
+}
+
+.footer-book-copy p {
+  margin: 0 0 16px;
+  color: rgba(7, 7, 7, 0.82);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.footer-book-button {
+  min-height: 36px;
+  padding: 0 16px;
+  border-color: rgba(7, 7, 7, 0.9);
+  color: #ffc501;
+  background: #070707;
 }
 
 .contacts-nav {
@@ -1753,6 +1811,32 @@ h3 {
 
   .footer-links a {
     font-size: 0.8rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    margin-top: 18px;
+    padding-top: 14px;
+  }
+
+  .footer-column h3 {
+    margin-bottom: 12px;
+    font-size: 0.78rem;
+  }
+
+  .footer-book-card {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .footer-book-cover {
+    width: 88px;
+  }
+
+  .footer-book-copy p {
+    margin-bottom: 12px;
+    font-size: 0.84rem;
   }
 
   .contacts-nav {

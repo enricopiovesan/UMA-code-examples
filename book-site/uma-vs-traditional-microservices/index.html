@@ -130,6 +130,11 @@
               behavior can stay coherent while execution moves across environments. That is why the runtime becomes so important in UMA:
               it keeps the portable unit governed as the system grows.
             </p>
+            <p>
+              Another way to see that shift is the move from stack ownership to behavior ownership. Once the durable concern stops being
+              only the service process or deployment boundary, the architecture needs a stronger answer for how one behavior stays
+              recognizable across several runtime surfaces.
+            </p>
           </section>
 
           <section class="subpage-grid">
@@ -237,10 +242,11 @@
           <section class="subpage-callout">
             <strong>Continue the comparison into the model</strong>
             <p>
-              If this comparison made sense, the next step is to move from the outside view into the core UMA concepts: capability,
-              runtime, and governed discovery. That is where the architectural differences stop being abstract.
+              If this comparison made sense, the next step is to move from the outside view into the core UMA concepts: behavior
+              ownership, capability, runtime, and governed discovery. That is where the architectural differences stop being abstract.
             </p>
             <div class="subpage-inline-links">
+              <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
               <a href="../what-is-uma/">What is UMA?</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
               <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
