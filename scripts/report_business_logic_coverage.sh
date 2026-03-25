@@ -27,7 +27,7 @@ entries=(
   "Chapter 10 tradeoffs|chapter-10-architectural-tradeoffs/rust/Cargo.toml|--lib"
   "Chapter 11 evolution|chapter-11-evolution-without-fragmentation/rust/Cargo.toml|--lib"
   "Chapter 12 discoverable decisions|chapter-12-discoverable-decisions/rust/Cargo.toml|--lib"
-  "Chapter 13 portable mcp runtime|chapter-13-portable-mcp-runtime/rust/Cargo.toml|--lib"
+  "Chapter 13 portable mcp runtime|chapter-13-portable-mcp-runtime/rust/Cargo.toml|--lib --ignore-filename-regex chapter-13-portable-mcp-runtime/rust/src/(mcp|hosted|rendering|storage|lib_tests)\\.rs"
 )
 
 printf '# Business Logic Rust Coverage\n\n' > "$SUMMARY_PATH"
