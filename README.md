@@ -1,14 +1,13 @@
 
 <img width="1419" height="868" alt="Screenshot 2026-03-25 at 11 39 52 AM" src="https://github.com/user-attachments/assets/793ea8d4-0d98-4dd9-b693-10ed2859c07a" />
+
+# Universal Microservices Architecture (UMA) Code Examples
+
 [![Reader Smoke](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/reader-smoke.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/reader-smoke.yml)
 [![Book Site](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml)
 [![Live Reference App](https://img.shields.io/badge/live-reference%20app-0a7f5a)](https://www.universalmicroservices.com/reference-application/)
 [![Learn UMA](https://img.shields.io/badge/book-universalmicroservices.com-1f6feb)](https://www.universalmicroservices.com/)
 [![UMA Blog](https://img.shields.io/badge/blog-Medium-12100E)](https://medium.com/the-rise-of-device-independent-architecture)
-# Universal Microservices Architecture (UMA) Code Examples
-
-![Universal Microservices Architecture reference app banner](book-site/assets/ref-app.png)
-
 
 This repository is the runnable companion for **Universal Microservices Architecture (UMA)**.
 
@@ -18,7 +17,6 @@ UMA is an architectural model for keeping one business behavior coherent across 
 
 [Try the live UMA Reference APP](https://www.universalmicroservices.com/reference-application/)
 
-![UMA Reference APP preview](book-site/assets/ref-app.png)
 
 ## Why This Repo Exists
 
@@ -69,6 +67,8 @@ If you want the runnable repo path:
 1. Start with Chapter 4.
 2. Follow the examples chapter by chapter.
 3. End with Chapter 13, where the full reference application ties the model together.
+
+![UMA Reference APP preview](book-site/assets/ref-app.png)
 
 ## Start Here
 
