@@ -28,4 +28,4 @@ jobs:
 
       - name: Enforce business logic coverage target
         shell: bash
-        run: ./scripts/check_business_logic_coverage.sh
+        run: bash ./scripts/check_business_logic_coverage.sh
