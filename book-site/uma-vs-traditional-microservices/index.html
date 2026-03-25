@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA vs Traditional Microservices | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Compare Universal Microservices Architecture with traditional microservices and learn where UMA changes the architectural center of gravity."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/uma-vs-traditional-microservices/" />
+    <meta property="og:title" content="UMA vs Traditional Microservices | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="An original comparison of UMA and traditional microservices, focused on portable behavior, runtime governance, and long-term architectural coherence."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/uma-vs-traditional-microservices/" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "UMA vs Traditional Microservices",
+  "description": "An original comparison of Universal Microservices Architecture and traditional microservices, focused on behavior portability, runtime visibility, and governed system evolution.",
+  "url": "https://www.universalmicroservices.com/uma-vs-traditional-microservices/",
+  "author": {
+    "@type": "Person",
+    "name": "Enrico Piovesan"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Universal Microservices Architecture"
+  },
+  "mainEntityOfPage": "https://www.universalmicroservices.com/uma-vs-traditional-microservices/"
+}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>UMA vs traditional microservices</h1>
+          <p>
+            Universal Microservices Architecture is not a rejection of microservices. It is a response to a different problem. Traditional
+            microservices explain deployable service boundaries well. UMA focuses on what happens when business behavior must remain
+            coherent across many runtimes, policy surfaces, trust boundaries, and evolving workflow paths.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              Traditional microservices usually center the architecture on deployable service ownership. UMA centers the architecture on
+              portable behavior plus governed runtime decisions. That shift matters because modern systems no longer live neatly inside one
+              backend service boundary. They stretch across browser, edge, server, background, and increasingly AI-assisted execution
+              contexts.
+            </p>
+            <p>
+              Microservices answer an important question: how should service responsibilities be separated? UMA answers a newer one: how do
+              you preserve service meaning when execution no longer belongs to one runtime surface?
+            </p>
+          </section>
+
+          <section>
+            <h2>What traditional microservices do well</h2>
+            <p>
+              Traditional microservices remain valuable because they make service ownership, deployment independence, and bounded
+              responsibility easier to reason about. They helped teams move away from monolithic stacks by making service boundaries more
+              visible and operationally independent.
+            </p>
+            <p>
+              That architectural move still matters. UMA is not trying to dismiss it. But many organizations now face a second layer of
+              fragmentation that classic microservice diagrams do not explain very well: the same behavior is being repeated across many
+              runtime surfaces that are not captured cleanly by one deployable backend service model.
+            </p>
+          </section>
+
+          <section>
+            <h2>Where the center of gravity changes</h2>
+            <p>
+              The main difference is what each model treats as the durable unit. Traditional microservices emphasize the deployable service.
+              UMA emphasizes the portable service behavior and the runtime layer around it. That means contracts, capability exposure,
+              validation, trust, and execution authority become much more explicit in the architecture.
+            </p>
+            <p>
+              In practical terms, UMA is less interested in whether a team owns one service and more interested in whether one business
+              behavior can stay coherent while execution moves across environments. That is why the runtime becomes so important in UMA:
+              it keeps the portable unit governed as the system grows.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Traditional microservices</h3>
+              <p>Strong at separating deployable backend units and clarifying ownership between services.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>UMA</h3>
+              <p>Strong at preserving one service meaning while runtime, policy, trust, and workflow surfaces evolve around it.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Traditional microservices</h3>
+              <p>Tend to assume the important runtime boundary is the service process or network endpoint.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>UMA</h3>
+              <p>Treats the portable service boundary and the governed runtime around it as the more durable architectural model.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why traditional microservices are no longer enough by themselves</h2>
+            <p>
+              A modern product rarely runs in only one place. Important behavior often appears in frontend validation, edge adaptation,
+              backend authority, workflow automation, and AI-assisted composition. Traditional microservices can still model the backend
+              estate, but they do not automatically solve the problem of duplicated business meaning across those newer execution surfaces.
+            </p>
+            <p>
+              That is the gap UMA tries to close. It preserves one portable expression of the behavior and makes the runtime-specific
+              decisions around it explicit rather than letting each environment quietly redefine the service.
+            </p>
+          </section>
+
+          <section>
+            <h2>What UMA adds to the conversation</h2>
+            <p>
+              UMA adds a stronger story for portability, governed execution, capability discovery, runtime authority, and long-term system
+              coherence. It makes room for workflows that are selected dynamically, capabilities that are surfaced explicitly, and runtime
+              decisions that remain inspectable instead of disappearing into hidden glue.
+            </p>
+            <p>
+              That does not make microservices obsolete. It means the architectural conversation has to evolve when the system itself is no
+              longer defined only by service-to-service backend interactions.
+            </p>
+          </section>
+
+          <section>
+            <h2>How to decide which lens you need</h2>
+            <p>
+              If your main problem is separating backend ownership and deployment responsibility, traditional microservices may be enough.
+              If your main problem is preserving one behavior across client, edge, server, background, and AI-assisted contexts, the
+              microservice lens alone is usually too narrow.
+            </p>
+            <p>
+              In that case, UMA becomes useful because it provides a stronger answer to questions about portability, capability
+              composition, runtime validation, and trust. It gives you a model for what happens after the service boundary is already
+              separated but the architecture is still drifting.
+            </p>
+          </section>
+
+          <section>
+            <h2>What UMA is not trying to do</h2>
+            <ul>
+              <li>It is not trying to erase service ownership or operational boundaries.</li>
+              <li>It is not claiming microservices were a mistake.</li>
+              <li>It is not replacing every architecture term with new branding.</li>
+              <li>It is not saying all services should run everywhere.</li>
+              <li>It is saying that modern systems need a stronger model for portable behavior and governed runtime decisions.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A practical comparison test</h2>
+            <p>
+              Ask one question: when the same business behavior appears in browser code, edge logic, backend authority, and a generated
+              workflow, what architectural model keeps that behavior coherent? If your answer is only “we have many small services,” you
+              still have an unmodeled problem.
+            </p>
+            <p>
+              UMA becomes relevant exactly there. It extends the conversation from deployable service boundaries to portable behavior,
+              explicit runtime authority, and capability-based composition.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Is UMA replacing microservices?</h3>
+            <p>
+              No. UMA is better understood as a later architectural response to problems that traditional microservices do not fully model,
+              especially portability across runtimes and visible runtime governance.
+            </p>
+            <h3>Can UMA and traditional microservices coexist?</h3>
+            <p>
+              Yes. Many organizations will still operate microservice-based systems while using UMA ideas to preserve portable behavior and
+              make runtime decisions more explicit.
+            </p>
+            <h3>Why is this distinction important for the book?</h3>
+            <p>
+              Because a reader should understand that UMA is not “microservices with WebAssembly.” It is a different architectural lens,
+              one designed for systems whose behavior must survive across more varied execution contexts.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Continue the comparison into the model</strong>
+            <p>
+              If this comparison made sense, the next step is to move from the outside view into the core UMA concepts: capability,
+              runtime, and governed discovery. That is where the architectural differences stop being abstract.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-is-uma/">What is UMA?</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

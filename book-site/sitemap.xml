@@ -4,6 +4,9 @@
     <loc>https://www.universalmicroservices.com/</loc>
   </url>
   <url>
+    <loc>https://www.universalmicroservices.com/agent-vs-runtime/</loc>
+  </url>
+  <url>
     <loc>https://www.universalmicroservices.com/about-enrico/</loc>
   </url>
   <url>
@@ -37,9 +40,21 @@
     <loc>https://www.universalmicroservices.com/trust-boundaries/</loc>
   </url>
   <url>
+    <loc>https://www.universalmicroservices.com/uma-vs-traditional-microservices/</loc>
+  </url>
+  <url>
     <loc>https://www.universalmicroservices.com/webassembly-architecture/</loc>
   </url>
   <url>
     <loc>https://www.universalmicroservices.com/what-is-uma/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-is-a-capability/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-is-a-uma-runtime/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/what-is-wasm-mcp/</loc>
   </url>
 </urlset>

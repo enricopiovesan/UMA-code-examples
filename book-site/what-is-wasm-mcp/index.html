@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is WASM MCP in UMA? | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Learn what WASM MCP means in Universal Microservices Architecture and why it matters as a discoverable capability surface instead of a hidden integration layer."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/what-is-wasm-mcp/" />
+    <meta property="og:title" content="What Is WASM MCP in UMA? | Universal Microservices Architecture" />
+    <meta
+      property="og:description"
+      content="An original guide to WASM MCP in UMA: a practical discovery and invocation surface for capabilities that the runtime can inspect and govern."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/what-is-wasm-mcp/" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "What Is WASM MCP in UMA?",
+  "description": "An original explanation of WASM MCP in Universal Microservices Architecture and why it matters as a discoverable capability surface the runtime can govern.",
+  "url": "https://www.universalmicroservices.com/what-is-wasm-mcp/",
+  "author": {
+    "@type": "Person",
+    "name": "Enrico Piovesan"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Universal Microservices Architecture"
+  },
+  "mainEntityOfPage": "https://www.universalmicroservices.com/what-is-wasm-mcp/"
+}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a>
+          <a href="../#book-arc">What</a>
+          <a href="../#learning-path">How</a>
+          <a href="../#hands-on">Hands-on</a>
+          <a href="../#team-value">Who</a>
+          <a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.universalmicroservices.com/">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a>
+            <a href="../#book-arc">What</a>
+            <a href="../#learning-path">How</a>
+            <a href="../#hands-on">Hands-on</a>
+            <a href="../#team-value">Who</a>
+            <a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="subpage-main">
+        <section class="subpage-hero">
+          <h1>What is WASM MCP in UMA?</h1>
+          <p>
+            In the UMA reference experience, <strong>WASM MCP</strong> is the discovery and invocation surface through which the runtime
+            learns what capabilities are available. It matters because it makes capability availability explicit instead of hiding it inside
+            custom integration code or one-off runtime assumptions.
+          </p>
+        </section>
+
+        <div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              WASM MCP is the capability-facing control surface in the Chapter 13 model. It exposes what capabilities exist, how they can
+              be described, and how the runtime can interact with them. That makes it easier for the runtime to discover, validate, and
+              compose work without hardwiring every path in advance.
+            </p>
+            <p>
+              The important point is not the acronym by itself. The important point is architectural: a modern system needs a visible,
+              inspectable way to surface capabilities if it wants runtime composition to stay governed instead of ad hoc.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why this layer exists</h2>
+            <p>
+              A runtime cannot compose workflows from capabilities it cannot see. In simpler systems, those capabilities are often hidden
+              behind internal calls, framework-specific bindings, or undocumented operational knowledge. That may work for a static path,
+              but it becomes weak as soon as discovery, ranking, or dynamic selection enters the picture.
+            </p>
+            <p>
+              WASM MCP exists in the UMA story to make that surface explicit. It tells the runtime what is available without forcing the
+              runtime to treat every capability as an opaque guess.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why it is not just another protocol page</h2>
+            <p>
+              This page is not trying to turn UMA into a protocol discussion. The key idea is not that one acronym is fashionable. The key
+              idea is that runtime discovery needs a real interface. If a system claims to compose work from capabilities dynamically, it
+              should be able to show how those capabilities are surfaced, described, and made available for runtime governance.
+            </p>
+            <p>
+              In that sense, WASM MCP is valuable because it keeps discovery visible. It gives the runtime a clear place to ask what is
+              available before the planner proposes or the runtime approves a path.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Discovery surface</h3>
+              <p>WASM MCP exposes capabilities so the runtime can inspect what exists before trying to build a workflow.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Invocation bridge</h3>
+              <p>It supports calling into capability providers through a visible, structured boundary instead of hidden glue code.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime support</h3>
+              <p>The runtime can pair capability discovery with compatibility checks, policy evaluation, and final approval.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Architectural evidence</h3>
+              <p>Readers can see where capability availability comes from instead of assuming the workflow path was magically known.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>How it fits with capability, planner, and runtime</h2>
+            <p>
+              The capability is the unit of behavior. The planner can help interpret the goal and rank possible paths. The runtime remains
+              authoritative over what is approved. WASM MCP sits earlier in that chain: it is the surface that makes available capabilities
+              visible to the rest of the system.
+            </p>
+            <p>
+              That is why it matters in the reference app. `WASM MCP` is not just a decorative box in the graph. It marks the point where
+              capability discovery becomes explicit and inspectable.
+            </p>
+          </section>
+
+          <section>
+            <h2>What problem it solves in practice</h2>
+            <p>
+              Without a discovery surface like this, teams often end up with dynamic behavior that is only dynamic inside implementation
+              code. The runtime “knows” about capabilities because somebody programmed a list, a registry, or a service map in one local
+              place. That makes the system harder to understand and harder to audit.
+            </p>
+            <p>
+              WASM MCP improves that by turning availability into something more explicit. The system can expose what exists, then let the
+              planner and runtime reason over that availability instead of operating on hidden assumptions.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why this matters for SEO and reader understanding too</h2>
+            <p>
+              Readers who see `WASM MCP` in the live app or Chapter 13 CLI output will naturally ask what it means. If the site does not
+              answer that, the reference experience feels more advanced than it really is. This page exists to close that gap: it explains
+              the term at the architectural level instead of forcing the reader to reverse-engineer it from the demo.
+            </p>
+            <p>
+              That also makes the book more valuable, not less. The page explains the concept clearly enough for orientation, while the
+              book can still provide the fuller model and broader implications.
+            </p>
+          </section>
+
+          <section>
+            <h2>What WASM MCP is not</h2>
+            <ul>
+              <li>It is not the runtime itself.</li>
+              <li>It is not the capability itself.</li>
+              <li>It is not the planner.</li>
+              <li>It is not a substitute for runtime validation or trust enforcement.</li>
+              <li>It is not valuable just because it exists; it matters because it makes discovery explicit.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A practical design test</h2>
+            <p>
+              If your system claims to support runtime composition, ask where the runtime learns what capabilities exist. If that answer is
+              hidden in internal code or tribal knowledge, the architecture still lacks a proper discovery story. A visible discovery
+              surface is one of the signals that the system is becoming more governable.
+            </p>
+            <p>
+              A second good question is whether a reader can point to the discovery layer separately from the planner and the runtime. If
+              those three roles blur together, the system becomes harder to explain.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Is WASM MCP required for UMA?</h3>
+            <p>
+              No. UMA as an architectural model is larger than one discovery surface. But Chapter 13 uses WASM MCP because it is a strong
+              way to make capability discovery and invocation visible in a runtime-centered workflow.
+            </p>
+            <h3>Why not let the runtime keep an internal registry instead?</h3>
+            <p>
+              It can, but an explicit discovery surface is easier to inspect, explain, and evolve. It keeps capability availability from
+              becoming a hidden implementation detail.
+            </p>
+            <h3>Does WASM MCP replace runtime authority?</h3>
+            <p>
+              No. It helps expose what exists. The runtime still decides what is valid and what can actually run.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>See the full chain</strong>
+            <p>
+              The easiest way to understand WASM MCP is to place it beside the other UMA roles: capability, planner, runtime, and final
+              workflow. The live reference app and the concept pages around it make that chain visible step by step.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../agent-vs-runtime/">Agent vs runtime</a>
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

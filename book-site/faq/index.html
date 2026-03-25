@@ -71,6 +71,38 @@
     },
     {
       "@type": "Question",
+      "name": "What is the difference between an agent and the runtime in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An agent can interpret goals and propose a capability path, but the runtime remains authoritative. The runtime validates contracts, enforces constraints, and decides what is actually allowed to execute."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a capability in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A capability is a discoverable, contract-shaped unit of behavior the runtime can validate, select, reject, and compose into a workflow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a UMA runtime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A UMA runtime is the governed layer that discovers capabilities, validates contracts and constraints, approves execution paths, and preserves enough evidence to explain what happened."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is WASM MCP in UMA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WASM MCP is the discovery and invocation surface through which the runtime can learn which capabilities are available and expose that availability explicitly instead of hiding it in custom integration code."
+      }
+    },
+    {
+      "@type": "Question",
       "name": "How do I prove portability instead of assuming it?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -171,6 +203,11 @@
               different question: can the same business behavior remain stable while the execution context changes? That leads to a stronger
               emphasis on portability, contracts, runtime visibility, and long-term system coherence.
             </p>
+            <p>
+              If you want the longer version of that comparison, the dedicated
+              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a> page goes deeper without flattening the
+              distinction into a slogan.
+            </p>
             <h3>Does UMA replace frontend and backend architecture?</h3>
             <p>
               No. UMA does not erase frontend, backend, edge, or cloud concerns. It gives teams a different way to place business behavior
@@ -210,6 +247,27 @@
             <p>
               Trust boundaries live in the runtime and governance layer around the portable service. Identity resolution, permissions,
               provenance, policy evaluation, and audit evidence should stay visible there rather than being hidden inside business logic.
+            </p>
+            <h3>What is the difference between an agent and the runtime in UMA?</h3>
+            <p>
+              The agent is the reasoning side of the system. It can interpret a goal, inspect available capabilities, and propose a path.
+              The runtime is the authority side of the system. It validates contracts, enforces constraints, and decides what is actually
+              allowed to execute.
+            </p>
+            <h3>What is a capability in UMA?</h3>
+            <p>
+              A capability is the unit the runtime can discover and reason about. It represents a named piece of behavior with a visible
+              contract and enough meaning for the runtime to validate, select, reject, or compose into a workflow.
+            </p>
+            <h3>What is a UMA runtime?</h3>
+            <p>
+              A UMA runtime is the governed layer around portable behavior. It discovers capabilities, checks compatibility and
+              constraints, approves the valid execution path, and keeps enough evidence for the result to remain explainable afterward.
+            </p>
+            <h3>What is WASM MCP in UMA?</h3>
+            <p>
+              WASM MCP is the discovery and invocation surface the runtime can use to understand which capabilities are available. It makes
+              capability availability more explicit instead of leaving it buried inside implementation code.
             </p>
             <h3>What does governed execution mean?</h3>
             <p>
@@ -257,8 +315,13 @@
             </p>
             <div class="subpage-inline-links">
               <a href="../what-is-uma/">What is UMA?</a>
+              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="../learning-path/">Learning Path</a>
               <a href="../examples/">Examples</a>
+              <a href="../agent-vs-runtime/">Agent vs runtime</a>
               <a href="../diagrams/">Diagrams</a>
             </div>
           </section>
