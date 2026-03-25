@@ -47,8 +47,11 @@ At the repo root, keep:
 - `## Start Here`
 - `## Reader Setup`
 - `## Reader Journey`
-- `## Chapter 13 Call To Action`
-- `## How To Use The Repo`
+- `## Why This Repo Exists`
+- `## What Makes UMA Different`
+- `## What You Can Try Today`
+- `## Repo Structure`
+- `## If You Want To Evaluate UMA Honestly`
 - `## Learn More`
 
 At the chapter level, keep:
@@ -92,6 +95,12 @@ Rust coverage is reported with:
 ./scripts/report_rust_coverage.sh
 ```
 
+Business-logic-focused Rust coverage is reported with:
+
+```bash
+./scripts/report_business_logic_coverage.sh
+```
+
 The current CI gate enforces a minimum floor for the validated reader chapters:
 
 - line coverage: `53%`
@@ -99,6 +108,20 @@ The current CI gate enforces a minimum floor for the validated reader chapters:
 - region coverage: `52%`
 
 Those numbers are a floor, not a target. Raise them when the measured baseline improves.
+
+For pure business-logic crates, the desired target is stricter:
+
+- line coverage: `100%`
+- function coverage: `100%`
+- region coverage: `100%`
+
+That target is tracked separately through:
+
+```bash
+./scripts/check_business_logic_coverage.sh
+```
+
+Do not force that standard onto CLI entrypoints, runtime shells, or host adapters. The target applies to deterministic domain logic where full branch coverage is realistic and valuable.
 
 ## Clean Checkout Validation
 

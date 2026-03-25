@@ -4,7 +4,7 @@ use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawScenario {
     title: String,
     summary: String,
@@ -16,7 +16,7 @@ struct RawScenario {
     runtime_decisions: Vec<String>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawService {
     id: String,
     capability: String,
@@ -27,14 +27,14 @@ struct RawService {
     consumers: Vec<String>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawInteraction {
     from: String,
     to: String,
     relation: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 struct RawChoices {
     contract_anchor: String,
     versioning: String,
@@ -535,6 +535,51 @@ pub fn validate_all(root_dir: &Path) -> Result<Vec<String>, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::time::{SystemTime, UNIX_EPOCH};
+
+    fn sample_choices() -> RawChoices {
+        RawChoices {
+            contract_anchor: "stable".into(),
+            versioning: "single-contract-line".into(),
+            runtime_governance: "runtime-enforced".into(),
+            duplication: "none".into(),
+            event_semantics: "stable".into(),
+            adoption_mode: "governed".into(),
+        }
+    }
+
+    fn sample_scenario() -> RawScenario {
+        RawScenario {
+            title: "Sample".into(),
+            summary: "Scenario summary".into(),
+            services: vec![RawService {
+                id: "cap-a".into(),
+                capability: "domain.capability".into(),
+                version: "1.0.0".into(),
+                summary: "Capability summary".into(),
+                placements: vec!["cloud".into(), "edge".into()],
+                consumers: vec!["consumer-a".into()],
+            }],
+            interactions: vec![RawInteraction {
+                from: "cap-a".into(),
+                to: "consumer-a".into(),
+                relation: "emits domain.event".into(),
+            }],
+            choices: sample_choices(),
+            expectations: vec!["One stable behavior should remain visible.".into()],
+            runtime_decisions: vec!["Validated one governed path.".into()],
+        }
+    }
+
+    fn temp_root() -> PathBuf {
+        let stamp = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let dir = std::env::temp_dir().join(format!("chapter11-tests-{stamp}"));
+        fs::create_dir_all(&dir).unwrap();
+        dir
+    }
 
     #[test]
     fn baseline_is_coherent() {
@@ -595,5 +640,197 @@ mod tests {
         let error = load_report(&project_root(), "does-not-exist").unwrap_err();
         assert!(error.contains("unknown lab"));
         assert!(error.contains("lab1-contract-anchor"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_empty_title() {
+        let mut raw = sample_scenario();
+        raw.title = "   ".into();
+        let error = validate_scenario(raw, "sample").unwrap_err();
+        assert!(error.contains("\"title\" must be a non-empty string"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_duplicate_service_ids() {
+        let mut raw = sample_scenario();
+        raw.services.push(RawService {
+            id: "cap-a".into(),
+            capability: "domain.other".into(),
+            version: "1.0.1".into(),
+            summary: "Duplicate".into(),
+            placements: vec!["cloud".into()],
+            consumers: Vec::new(),
+        });
+        let error = validate_scenario(raw, "sample").unwrap_err();
+        assert!(error.contains("duplicate service id"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_blank_list_entries() {
+        let mut raw = sample_scenario();
+        raw.expectations = vec!["".into()];
+        let error = validate_scenario(raw, "sample").unwrap_err();
+        assert!(error.contains("\"expectations\" must be a non-empty string"));
+    }
+
+    #[test]
+    fn assess_adds_hybrid_boundary_risk_when_not_runtime_enforced() {
+        let choices = Choices {
+            contract_anchor: "stable".into(),
+            versioning: "controlled-coexistence".into(),
+            runtime_governance: "manual-only".into(),
+            duplication: "none".into(),
+            event_semantics: "stable".into(),
+            adoption_mode: "hybrid".into(),
+        };
+        let assessment = assess(&choices);
+        assert_eq!(assessment.verdict, "at-risk");
+        assert!(assessment
+            .warnings
+            .iter()
+            .any(|warning| warning.code == "hybrid_boundary_risk"));
+        assert!(assessment
+            .warnings
+            .iter()
+            .any(|warning| warning.code == "manual_governance_limit"));
+    }
+
+    #[test]
+    fn assess_marks_runtime_governed_hybrid_as_governed() {
+        let choices = Choices {
+            contract_anchor: "stable".into(),
+            versioning: "single-contract-line".into(),
+            runtime_governance: "runtime-enforced".into(),
+            duplication: "none".into(),
+            event_semantics: "stable".into(),
+            adoption_mode: "hybrid".into(),
+        };
+        let assessment = assess(&choices);
+        assert_eq!(assessment.verdict, "governed");
+        assert!(assessment.warnings.is_empty());
+    }
+
+    #[test]
+    fn format_report_renders_optional_empty_sections() {
+        let report = ScenarioReport {
+            scenario: "sample".into(),
+            title: "No optional sections".into(),
+            summary: "summary".into(),
+            services: vec![Service {
+                id: "svc".into(),
+                capability: "cap".into(),
+                version: "1.0.0".into(),
+                summary: "summary".into(),
+                placements: vec!["cloud".into()],
+                consumers: Vec::new(),
+            }],
+            interactions: Vec::new(),
+            choices: Choices {
+                contract_anchor: "stable".into(),
+                versioning: "single-contract-line".into(),
+                runtime_governance: "runtime-enforced".into(),
+                duplication: "none".into(),
+                event_semantics: "stable".into(),
+                adoption_mode: "governed".into(),
+            },
+            expectations: vec!["expectation".into()],
+            runtime_decisions: Vec::new(),
+            assessment: Assessment {
+                verdict: "coherent".into(),
+                warnings: Vec::new(),
+            },
+        };
+        let rendered = format_report(&report);
+        assert!(rendered.contains("Interaction Surface\n- none"));
+        assert!(rendered.contains("Runtime Decisions\n- none"));
+        assert!(rendered.contains("Warnings\n- none"));
+        assert!(!rendered.contains("consumed by"));
+    }
+
+    #[test]
+    fn format_diff_renders_empty_sections() {
+        let diff = ScenarioDiff {
+            from: "a".into(),
+            to: "b".into(),
+            verdict_change: "coherent -> coherent".into(),
+            added_warnings: Vec::new(),
+            removed_warnings: Vec::new(),
+            changed_axes: Vec::new(),
+        };
+        let rendered = format_diff(&diff);
+        assert!(rendered.contains("Changed axes\n- none"));
+        assert!(rendered.contains("Added warnings\n- none"));
+        assert!(rendered.contains("Removed warnings\n- none"));
+    }
+
+    #[test]
+    fn list_labs_and_validate_all_work_from_temp_root() {
+        let root = temp_root();
+        let scenarios = root.join("scenarios");
+        fs::create_dir_all(scenarios.join("lab-b")).unwrap();
+        fs::create_dir_all(scenarios.join("lab-a")).unwrap();
+        fs::write(
+            scenarios.join("lab-a").join("scenario.json"),
+            serde_json::to_string_pretty(&sample_scenario()).unwrap(),
+        )
+        .unwrap();
+        fs::write(
+            scenarios.join("lab-b").join("scenario.json"),
+            serde_json::to_string_pretty(&sample_scenario()).unwrap(),
+        )
+        .unwrap();
+
+        let labs = list_labs(&root).unwrap();
+        assert_eq!(labs, vec!["lab-a".to_string(), "lab-b".to_string()]);
+
+        let summaries = validate_all(&root).unwrap();
+        assert_eq!(summaries.len(), 2);
+        assert!(summaries[0].contains("Validated lab-a"));
+        assert!(summaries[1].contains("Validated lab-b"));
+
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn project_root_resolves_repo_root_from_test_context() {
+        let root = project_root();
+        assert!(root.join("scenarios").exists());
+    }
+
+    #[test]
+    fn load_report_rejects_invalid_json() {
+        let root = temp_root();
+        let lab_dir = root.join("scenarios").join("lab-json");
+        fs::create_dir_all(&lab_dir).unwrap();
+        fs::write(lab_dir.join("scenario.json"), "{not valid json").unwrap();
+
+        let error = load_report(&root, "lab-json").unwrap_err();
+
+        fs::remove_dir_all(root).unwrap();
+        assert!(!error.is_empty());
+    }
+
+    #[test]
+    fn format_report_renders_full_sections() {
+        let report = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
+        let rendered = format_report(&report);
+        assert!(rendered.contains("Capabilities"));
+        assert!(rendered.contains("consumed by: legacy-sync"));
+        assert!(rendered.contains("Interaction Surface"));
+        assert!(rendered.contains("Runtime Decisions"));
+        assert!(rendered.contains("Selected v1 only for consumers"));
+        assert!(rendered.contains("Reader Value"));
+    }
+
+    #[test]
+    fn format_diff_renders_added_and_removed_warnings() {
+        let from = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
+        let to = load_report(&project_root(), "lab4-version-sprawl").unwrap();
+        let diff = diff_reports(&from, &to);
+        let rendered = format_diff(&diff);
+        assert!(rendered.contains("Added warnings"));
+        assert!(rendered.contains("version_fragmentation"));
+        assert!(rendered.contains("Changed axes"));
+        assert!(rendered.contains("contract anchor: stable -> drifting"));
     }
 }
