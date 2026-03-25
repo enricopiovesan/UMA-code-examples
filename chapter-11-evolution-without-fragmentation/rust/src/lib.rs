@@ -283,18 +283,19 @@ fn assess(choices: &Choices) -> Assessment {
 }
 
 pub fn project_root() -> PathBuf {
-    let cwd = std::env::current_dir().ok();
-    if let Some(cwd) = cwd {
-        if cwd.join("scenarios").exists() {
-            return cwd;
-        }
+    if let Some(cwd) = std::env::current_dir()
+        .ok()
+        .filter(|cwd| cwd.join("scenarios").exists())
+    {
+        return cwd;
     }
 
     let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    if let Some(parent) = manifest_dir.parent() {
-        if parent.join("scenarios").exists() {
-            return parent.to_path_buf();
-        }
+    if let Some(parent) = manifest_dir
+        .parent()
+        .filter(|parent| parent.join("scenarios").exists())
+    {
+        return parent.to_path_buf();
     }
 
     manifest_dir
@@ -302,9 +303,12 @@ pub fn project_root() -> PathBuf {
 
 pub fn list_labs(root_dir: &Path) -> Result<Vec<String>, String> {
     let mut names = Vec::new();
-    for entry in fs::read_dir(root_dir.join("scenarios")).map_err(|err| err.to_string())? {
-        let entry = entry.map_err(|err| err.to_string())?;
-        if entry.file_type().map_err(|err| err.to_string())?.is_dir() {
+    let entries = match fs::read_dir(root_dir.join("scenarios")) {
+        Ok(entries) => entries,
+        Err(err) => return Err(err.to_string()),
+    };
+    for entry in entries.flatten() {
+        if entry.path().is_dir() {
             names.push(entry.file_name().to_string_lossy().into_owned());
         }
     }
@@ -322,9 +326,11 @@ pub fn load_report(root_dir: &Path, lab: &str) -> Result<ScenarioReport, String>
     }
 
     let path = root_dir.join("scenarios").join(lab).join("scenario.json");
-    let raw: RawScenario =
-        serde_json::from_str(&fs::read_to_string(path).map_err(|err| err.to_string())?)
-            .map_err(|err| err.to_string())?;
+    let content = match fs::read_to_string(path) {
+        Ok(content) => content,
+        Err(err) => return Err(err.to_string()),
+    };
+    let raw: RawScenario = serde_json::from_str(&content).map_err(|err| err.to_string())?;
     validate_scenario(raw, lab)
 }
 
@@ -535,7 +541,20 @@ pub fn validate_all(root_dir: &Path) -> Result<Vec<String>, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::sync::{Mutex, OnceLock};
     use std::time::{SystemTime, UNIX_EPOCH};
+
+    fn cwd_guard() -> &'static Mutex<()> {
+        static GUARD: OnceLock<Mutex<()>> = OnceLock::new();
+        GUARD.get_or_init(|| Mutex::new(()))
+    }
+
+    fn lock_cwd() -> std::sync::MutexGuard<'static, ()> {
+        match cwd_guard().lock() {
+            Ok(guard) => guard,
+            Err(err) => err.into_inner(),
+        }
+    }
 
     fn sample_choices() -> RawChoices {
         RawChoices {
@@ -583,6 +602,7 @@ mod tests {
 
     #[test]
     fn baseline_is_coherent() {
+        let _guard = lock_cwd();
         let report = load_report(&project_root(), "lab1-contract-anchor").unwrap();
         assert_eq!(report.assessment.verdict, "coherent");
         assert!(report.assessment.warnings.is_empty());
@@ -590,6 +610,7 @@ mod tests {
 
     #[test]
     fn drift_lab_reports_behavioral_drift() {
+        let _guard = lock_cwd();
         let report = load_report(&project_root(), "lab2-behavioral-drift").unwrap();
         assert!(report
             .assessment
@@ -600,6 +621,7 @@ mod tests {
 
     #[test]
     fn version_sprawl_lab_is_fragmented() {
+        let _guard = lock_cwd();
         let report = load_report(&project_root(), "lab4-version-sprawl").unwrap();
         assert_eq!(report.assessment.verdict, "fragmented");
         assert!(report
@@ -611,17 +633,15 @@ mod tests {
 
     #[test]
     fn runtime_governed_lab_is_governed() {
+        let _guard = lock_cwd();
         let report = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
         assert_eq!(report.assessment.verdict, "governed");
-        assert!(!report
-            .assessment
-            .warnings
-            .iter()
-            .any(|warning| warning.code == "version_fragmentation"));
+        assert!(report.assessment.warnings.is_empty());
     }
 
     #[test]
     fn diff_reports_controlled_versioning_shift() {
+        let _guard = lock_cwd();
         let from = load_report(&project_root(), "lab4-version-sprawl").unwrap();
         let to = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
         let diff = diff_reports(&from, &to);
@@ -637,6 +657,7 @@ mod tests {
 
     #[test]
     fn unknown_lab_error_lists_available_options() {
+        let _guard = lock_cwd();
         let error = load_report(&project_root(), "does-not-exist").unwrap_err();
         assert!(error.contains("unknown lab"));
         assert!(error.contains("lab1-contract-anchor"));
@@ -671,6 +692,85 @@ mod tests {
         raw.expectations = vec!["".into()];
         let error = validate_scenario(raw, "sample").unwrap_err();
         assert!(error.contains("\"expectations\" must be a non-empty string"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_blank_runtime_governance() {
+        let mut raw = sample_scenario();
+        raw.choices.runtime_governance = "   ".into();
+        let error = validate_scenario(raw, "sample").unwrap_err();
+        assert!(error.contains("\"choices.runtime_governance\" must be a non-empty string"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_all_other_required_blank_fields() {
+        let cases: Vec<(&str, Box<dyn Fn(&mut RawScenario)>)> = vec![
+            ("summary", Box::new(|raw| raw.summary = " ".into())),
+            (
+                "choices.contract_anchor",
+                Box::new(|raw| raw.choices.contract_anchor = " ".into()),
+            ),
+            (
+                "choices.versioning",
+                Box::new(|raw| raw.choices.versioning = " ".into()),
+            ),
+            (
+                "choices.duplication",
+                Box::new(|raw| raw.choices.duplication = " ".into()),
+            ),
+            (
+                "choices.event_semantics",
+                Box::new(|raw| raw.choices.event_semantics = " ".into()),
+            ),
+            (
+                "choices.adoption_mode",
+                Box::new(|raw| raw.choices.adoption_mode = " ".into()),
+            ),
+            (
+                "runtime_decisions",
+                Box::new(|raw| raw.runtime_decisions = vec![" ".into()]),
+            ),
+            ("services[].id", Box::new(|raw| raw.services[0].id = " ".into())),
+            (
+                "services[].capability",
+                Box::new(|raw| raw.services[0].capability = " ".into()),
+            ),
+            (
+                "services[].version",
+                Box::new(|raw| raw.services[0].version = " ".into()),
+            ),
+            (
+                "services[].summary",
+                Box::new(|raw| raw.services[0].summary = " ".into()),
+            ),
+            (
+                "services[].placements",
+                Box::new(|raw| raw.services[0].placements = vec![" ".into()]),
+            ),
+            (
+                "services[].consumers",
+                Box::new(|raw| raw.services[0].consumers = vec![" ".into()]),
+            ),
+            (
+                "interactions[].from",
+                Box::new(|raw| raw.interactions[0].from = " ".into()),
+            ),
+            (
+                "interactions[].to",
+                Box::new(|raw| raw.interactions[0].to = " ".into()),
+            ),
+            (
+                "interactions[].relation",
+                Box::new(|raw| raw.interactions[0].relation = " ".into()),
+            ),
+        ];
+
+        for (field, mutate) in cases {
+            let mut raw = sample_scenario();
+            mutate(&mut raw);
+            let error = validate_scenario(raw, "sample").unwrap_err();
+            assert!(error.contains(field), "expected error for {field}, got {error}");
+        }
     }
 
     #[test]
@@ -792,13 +892,99 @@ mod tests {
     }
 
     #[test]
+    fn list_labs_and_validate_all_allow_empty_scenario_set() {
+        let root = temp_root();
+        fs::create_dir_all(root.join("scenarios")).unwrap();
+
+        let labs = list_labs(&root).unwrap();
+        let summaries = validate_all(&root).unwrap();
+
+        fs::remove_dir_all(root).unwrap();
+        assert!(labs.is_empty());
+        assert!(summaries.is_empty());
+    }
+
+    #[test]
+    fn validate_all_propagates_listing_and_loading_failures() {
+        let root = temp_root();
+        let list_error = validate_all(&root).unwrap_err();
+        assert!(!list_error.is_empty());
+
+        let scenarios = root.join("scenarios");
+        let lab_dir = scenarios.join("lab-bad");
+        fs::create_dir_all(&lab_dir).unwrap();
+        fs::write(lab_dir.join("scenario.json"), "{bad json").unwrap();
+        let load_error = validate_all(&root).unwrap_err();
+
+        fs::remove_dir_all(root).unwrap();
+        assert!(!load_error.is_empty());
+    }
+
+    #[test]
     fn project_root_resolves_repo_root_from_test_context() {
+        let _guard = lock_cwd();
         let root = project_root();
         assert!(root.join("scenarios").exists());
     }
 
     #[test]
+    fn project_root_prefers_current_directory_when_scenarios_exist() {
+        let _guard = lock_cwd();
+        let original = std::env::current_dir().unwrap();
+        let root = temp_root();
+        fs::create_dir_all(root.join("scenarios")).unwrap();
+        std::env::set_current_dir(&root).unwrap();
+
+        let resolved = project_root();
+        let expected = fs::canonicalize(&root).unwrap();
+        let actual = fs::canonicalize(&resolved).unwrap();
+
+        std::env::set_current_dir(&original).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(actual, expected);
+    }
+
+    #[test]
+    fn project_root_falls_back_to_manifest_parent_when_cwd_has_no_scenarios() {
+        let _guard = lock_cwd();
+        let original = std::env::current_dir().unwrap();
+        let root = temp_root();
+        std::env::set_current_dir(&root).unwrap();
+
+        let resolved = project_root();
+
+        std::env::set_current_dir(&original).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert!(resolved.join("scenarios").exists());
+        assert_ne!(resolved, root);
+    }
+
+    #[test]
+    fn project_root_falls_back_to_manifest_dir_when_no_runtime_root_is_available() {
+        let _guard = lock_cwd();
+        let original = std::env::current_dir().unwrap();
+        let root = temp_root();
+        let deleted = root.join("deleted-cwd");
+        let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        let scenario_dir = manifest_dir.parent().unwrap().join("scenarios");
+        let scenario_backup = manifest_dir.parent().unwrap().join("scenarios.coverage-backup");
+
+        fs::create_dir_all(&deleted).unwrap();
+        std::env::set_current_dir(&deleted).unwrap();
+        fs::remove_dir_all(&deleted).unwrap();
+        fs::rename(&scenario_dir, &scenario_backup).unwrap();
+
+        let resolved = project_root();
+
+        fs::rename(&scenario_backup, &scenario_dir).unwrap();
+        std::env::set_current_dir(&original).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(resolved, manifest_dir);
+    }
+
+    #[test]
     fn load_report_rejects_invalid_json() {
+        let _guard = lock_cwd();
         let root = temp_root();
         let lab_dir = root.join("scenarios").join("lab-json");
         fs::create_dir_all(&lab_dir).unwrap();
@@ -811,19 +997,61 @@ mod tests {
     }
 
     #[test]
+    fn list_labs_rejects_missing_scenarios_root() {
+        let root = temp_root();
+        let error = list_labs(&root).unwrap_err();
+        fs::remove_dir_all(root).unwrap();
+        assert!(!error.is_empty());
+    }
+
+    #[test]
+    fn list_labs_ignores_non_directory_entries() {
+        let root = temp_root();
+        let scenarios = root.join("scenarios");
+        fs::create_dir_all(scenarios.join("lab-a")).unwrap();
+        fs::write(scenarios.join("notes.txt"), "not a lab").unwrap();
+
+        let labs = list_labs(&root).unwrap();
+
+        fs::remove_dir_all(root).unwrap();
+        assert_eq!(labs, vec!["lab-a".to_string()]);
+    }
+
+    #[test]
+    fn load_report_rejects_missing_scenario_file() {
+        let root = temp_root();
+        let lab_dir = root.join("scenarios").join("lab-missing-file");
+        fs::create_dir_all(&lab_dir).unwrap();
+        let error = load_report(&root, "lab-missing-file").unwrap_err();
+        fs::remove_dir_all(root).unwrap();
+        assert!(!error.is_empty());
+    }
+
+    #[test]
+    fn load_report_propagates_lab_listing_failure() {
+        let root = temp_root();
+        let error = load_report(&root, "anything").unwrap_err();
+        fs::remove_dir_all(root).unwrap();
+        assert!(!error.is_empty());
+    }
+
+    #[test]
     fn format_report_renders_full_sections() {
-        let report = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
+        let _guard = lock_cwd();
+        let report = load_report(&project_root(), "lab4-version-sprawl").unwrap();
         let rendered = format_report(&report);
         assert!(rendered.contains("Capabilities"));
         assert!(rendered.contains("consumed by: legacy-sync"));
         assert!(rendered.contains("Interaction Surface"));
         assert!(rendered.contains("Runtime Decisions"));
-        assert!(rendered.contains("Selected v1 only for consumers"));
+        assert!(rendered.contains("Warnings"));
+        assert!(rendered.contains("version_fragmentation"));
         assert!(rendered.contains("Reader Value"));
     }
 
     #[test]
     fn format_diff_renders_added_and_removed_warnings() {
+        let _guard = lock_cwd();
         let from = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
         let to = load_report(&project_root(), "lab4-version-sprawl").unwrap();
         let diff = diff_reports(&from, &to);
@@ -832,5 +1060,35 @@ mod tests {
         assert!(rendered.contains("version_fragmentation"));
         assert!(rendered.contains("Changed axes"));
         assert!(rendered.contains("contract anchor: stable -> drifting"));
+    }
+
+    #[test]
+    fn format_diff_renders_removed_warnings_section() {
+        let _guard = lock_cwd();
+        let from = load_report(&project_root(), "lab4-version-sprawl").unwrap();
+        let to = load_report(&project_root(), "lab5-runtime-governed-coexistence").unwrap();
+        let diff = diff_reports(&from, &to);
+        let rendered = format_diff(&diff);
+        assert!(rendered.contains("Removed warnings"));
+        assert!(rendered.contains("version_fragmentation"));
+    }
+
+    #[test]
+    fn diff_reports_keeps_changed_axes_empty_when_inputs_match() {
+        let _guard = lock_cwd();
+        let report = load_report(&project_root(), "lab1-contract-anchor").unwrap();
+        let diff = diff_reports(&report, &report);
+        assert!(diff.changed_axes.is_empty());
+    }
+
+    #[test]
+    fn lock_cwd_recovers_from_poisoned_mutex() {
+        let handle = std::thread::spawn(|| {
+            let _guard = cwd_guard().lock().unwrap();
+            panic!("poison the cwd mutex for recovery coverage");
+        });
+        assert!(handle.join().is_err());
+
+        let _guard = lock_cwd();
     }
 }
