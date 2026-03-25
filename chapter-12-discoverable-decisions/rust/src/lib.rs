@@ -200,6 +200,18 @@ pub struct ScenarioDiff {
     pub changed_stages: Vec<String>,
 }
 
+fn err_string<E: ToString>(err: E) -> String {
+    err.to_string()
+}
+
+fn warning_codes(warnings: &[Warning]) -> BTreeSet<String> {
+    let mut codes = BTreeSet::new();
+    for warning in warnings {
+        codes.insert(warning.code.clone());
+    }
+    codes
+}
+
 fn ensure_non_empty(value: &str, field: &str, label: &str) -> Result<(), String> {
     if value.trim().is_empty() {
         return Err(format!("{label}: \"{field}\" must be a non-empty string"));
@@ -442,17 +454,15 @@ pub fn project_root() -> PathBuf {
 }
 
 pub fn list_labs(root: &Path) -> Result<Vec<String>, String> {
-    let mut labs = fs::read_dir(root.join("scenarios"))
-        .map_err(|err| err.to_string())?
-        .filter_map(|entry| {
-            let entry = entry.ok()?;
-            if entry.file_type().ok()?.is_dir() {
-                Some(entry.file_name().to_string_lossy().to_string())
-            } else {
-                None
-            }
-        })
-        .collect::<Vec<_>>();
+    let mut labs = Vec::new();
+    for entry in fs::read_dir(root.join("scenarios"))
+        .map_err(err_string)?
+        .flatten()
+    {
+        if entry.file_type().is_ok_and(|file_type| file_type.is_dir()) {
+            labs.push(entry.file_name().to_string_lossy().to_string());
+        }
+    }
     labs.sort();
     Ok(labs)
 }
@@ -475,38 +485,31 @@ pub fn load_report(root: &Path, lab: &str) -> Result<ScenarioReport, String> {
     }
 
     let path = root.join("scenarios").join(lab).join("scenario.json");
-    let raw = fs::read_to_string(&path).map_err(|err| err.to_string())?;
-    let scenario = serde_json::from_str::<RawScenario>(&raw).map_err(|err| err.to_string())?;
+    let raw = fs::read_to_string(&path).map_err(err_string)?;
+    let scenario = serde_json::from_str::<RawScenario>(&raw).map_err(err_string)?;
     validate_scenario(scenario, lab)
 }
 
 pub fn validate_all(root: &Path) -> Result<Vec<String>, String> {
-    let mut summaries = Vec::new();
-    for lab in list_labs(root)? {
-        let report = load_report(root, &lab)?;
+    let labs = list_labs(root)?;
+    let mut summaries = Vec::with_capacity(labs.len());
+    let mut index = 0usize;
+    while index < labs.len() {
+        let report = load_report(root, &labs[index])?;
         summaries.push(format!(
             "Validated {}: {} surfaces, verdict={}",
             report.scenario,
             report.surfaces.len(),
             report.assessment.verdict
         ));
+        index += 1;
     }
     Ok(summaries)
 }
 
 pub fn diff_reports(from: &ScenarioReport, to: &ScenarioReport) -> ScenarioDiff {
-    let left = from
-        .assessment
-        .warnings
-        .iter()
-        .map(|warning| warning.code.clone())
-        .collect::<BTreeSet<_>>();
-    let right = to
-        .assessment
-        .warnings
-        .iter()
-        .map(|warning| warning.code.clone())
-        .collect::<BTreeSet<_>>();
+    let left = warning_codes(&from.assessment.warnings);
+    let right = warning_codes(&to.assessment.warnings);
 
     let axes = [
         (
@@ -768,6 +771,96 @@ pub fn format_diff(diff: &ScenarioDiff) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::sync::atomic::{AtomicU64, Ordering};
+    use std::time::{SystemTime, UNIX_EPOCH};
+
+    static TEMP_COUNTER: AtomicU64 = AtomicU64::new(0);
+
+    fn temp_root() -> PathBuf {
+        let nanos = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let counter = TEMP_COUNTER.fetch_add(1, Ordering::Relaxed);
+        let pid = std::process::id();
+        let dir = std::env::temp_dir().join(format!("chapter12-tests-{pid}-{nanos}-{counter}"));
+        fs::create_dir_all(&dir).unwrap();
+        dir
+    }
+
+    fn write_file(path: &Path, contents: &str) {
+        let parent = path.parent().expect("write_file paths should have a parent");
+        fs::create_dir_all(parent).unwrap();
+        fs::write(path, contents).unwrap();
+    }
+
+    fn raw_scenario() -> RawScenario {
+        RawScenario {
+            title: "Traceable decision".into(),
+            summary: "A discoverable decision lifecycle.".into(),
+            decision_question: "Which capability should resolve the request?".into(),
+            surfaces: vec![
+                RawSurface {
+                    name: "Runtime view".into(),
+                    runtime: "uma-runtime".into(),
+                    scope: "global".into(),
+                    authority: "authoritative-validation".into(),
+                    visible_capabilities: vec!["planner".into(), "formatter".into()],
+                    hidden_constraints: vec!["policy".into()],
+                    queries: vec!["why was formatter selected?".into()],
+                },
+                RawSurface {
+                    name: "Planner view".into(),
+                    runtime: "planner".into(),
+                    scope: "local".into(),
+                    authority: "proposal".into(),
+                    visible_capabilities: vec!["formatter".into()],
+                    hidden_constraints: vec![],
+                    queries: vec!["what was unresolved?".into()],
+                },
+            ],
+            proposal: RawProposal {
+                status: "proposed".into(),
+                summary: "Planner proposes formatter.".into(),
+                assumptions: vec!["formatter is available".into()],
+                unresolved: vec!["none".into()],
+            },
+            validation: RawValidation {
+                status: "approved".into(),
+                summary: "Runtime approves the choice.".into(),
+                violations: vec![],
+                guidance: vec!["keep the trace".into()],
+                authority_notes: vec!["validated against policy".into()],
+            },
+            execution: RawExecution {
+                status: "resolved".into(),
+                summary: "Formatter executed.".into(),
+                selected_capabilities: vec!["formatter".into()],
+                placement: vec!["cloud".into()],
+            },
+            trace: RawTrace {
+                status: "captured".into(),
+                summary: "Trace is queryable.".into(),
+                artifacts: vec!["proposal".into(), "validation".into()],
+                queries: vec!["why formatter".into()],
+            },
+            functions: RawFunctions {
+                planning: "planner narrows options".into(),
+                validation: "runtime enforces policy".into(),
+                execution: "approved execution resolves".into(),
+            },
+            axes: RawAxes {
+                projection_scope: "runtime-wide".into(),
+                proposal_visibility: "queryable".into(),
+                authority_model: "authoritative-validation".into(),
+                revision_model: "single-revision".into(),
+                execution_model: "approved-resolution".into(),
+                traceability: "full-trace".into(),
+            },
+            expectations: vec!["Reader should see the decision path".into()],
+            runtime_decisions: vec!["Formatter selected after validation".into()],
+        }
+    }
 
     #[test]
     fn hidden_proposal_is_opaque() {
@@ -804,5 +897,440 @@ mod tests {
         let rendered = format_report(&report);
         assert!(rendered.contains("- artifacts: none"));
         assert!(rendered.contains("- queries: none"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_required_blank_fields_and_duplicates() {
+        let top_level_cases: [(&str, fn(&mut RawScenario), &str); 18] = [
+            ("title", |raw| raw.title = " ".into(), "\"title\""),
+            ("summary", |raw| raw.summary = " ".into(), "\"summary\""),
+            (
+                "decision_question",
+                |raw| raw.decision_question = " ".into(),
+                "\"decision_question\"",
+            ),
+            (
+                "proposal.status",
+                |raw| raw.proposal.status = " ".into(),
+                "\"proposal.status\"",
+            ),
+            (
+                "proposal.summary",
+                |raw| raw.proposal.summary = " ".into(),
+                "\"proposal.summary\"",
+            ),
+            (
+                "validation.status",
+                |raw| raw.validation.status = " ".into(),
+                "\"validation.status\"",
+            ),
+            (
+                "validation.summary",
+                |raw| raw.validation.summary = " ".into(),
+                "\"validation.summary\"",
+            ),
+            (
+                "execution.status",
+                |raw| raw.execution.status = " ".into(),
+                "\"execution.status\"",
+            ),
+            (
+                "execution.summary",
+                |raw| raw.execution.summary = " ".into(),
+                "\"execution.summary\"",
+            ),
+            ("trace.status", |raw| raw.trace.status = " ".into(), "\"trace.status\""),
+            ("trace.summary", |raw| raw.trace.summary = " ".into(), "\"trace.summary\""),
+            (
+                "functions.planning",
+                |raw| raw.functions.planning = " ".into(),
+                "\"functions.planning\"",
+            ),
+            (
+                "functions.validation",
+                |raw| raw.functions.validation = " ".into(),
+                "\"functions.validation\"",
+            ),
+            (
+                "functions.execution",
+                |raw| raw.functions.execution = " ".into(),
+                "\"functions.execution\"",
+            ),
+            (
+                "axes.projection_scope",
+                |raw| raw.axes.projection_scope = " ".into(),
+                "\"axes.projection_scope\"",
+            ),
+            (
+                "axes.proposal_visibility",
+                |raw| raw.axes.proposal_visibility = " ".into(),
+                "\"axes.proposal_visibility\"",
+            ),
+            (
+                "axes.authority_model",
+                |raw| raw.axes.authority_model = " ".into(),
+                "\"axes.authority_model\"",
+            ),
+            (
+                "axes.traceability",
+                |raw| raw.axes.traceability = " ".into(),
+                "\"axes.traceability\"",
+            ),
+        ];
+        for (label, mutate, expected) in top_level_cases {
+            let mut raw = raw_scenario();
+            mutate(&mut raw);
+            let error = validate_scenario(raw, label).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let list_cases: [(&str, fn(&mut RawScenario), &str); 10] = [
+            (
+                "expectations",
+                |raw| raw.expectations[0] = " ".into(),
+                "\"expectations\"",
+            ),
+            (
+                "runtime_decisions",
+                |raw| raw.runtime_decisions[0] = " ".into(),
+                "\"runtime_decisions\"",
+            ),
+            (
+                "proposal.assumptions",
+                |raw| raw.proposal.assumptions[0] = " ".into(),
+                "\"proposal.assumptions\"",
+            ),
+            (
+                "proposal.unresolved",
+                |raw| raw.proposal.unresolved[0] = " ".into(),
+                "\"proposal.unresolved\"",
+            ),
+            (
+                "validation.guidance",
+                |raw| raw.validation.guidance[0] = " ".into(),
+                "\"validation.guidance\"",
+            ),
+            (
+                "validation.authority_notes",
+                |raw| raw.validation.authority_notes[0] = " ".into(),
+                "\"validation.authority_notes\"",
+            ),
+            (
+                "execution.selected_capabilities",
+                |raw| raw.execution.selected_capabilities[0] = " ".into(),
+                "\"execution.selected_capabilities\"",
+            ),
+            (
+                "execution.placement",
+                |raw| raw.execution.placement[0] = " ".into(),
+                "\"execution.placement\"",
+            ),
+            (
+                "trace.artifacts",
+                |raw| raw.trace.artifacts[0] = " ".into(),
+                "\"trace.artifacts\"",
+            ),
+            (
+                "trace.queries",
+                |raw| raw.trace.queries[0] = " ".into(),
+                "\"trace.queries\"",
+            ),
+        ];
+        for (label, mutate, expected) in list_cases {
+            let mut raw = raw_scenario();
+            mutate(&mut raw);
+            let error = validate_scenario(raw, label).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+
+        let mut duplicate_surface = raw_scenario();
+        duplicate_surface.surfaces[1].name = duplicate_surface.surfaces[0].name.clone();
+        assert!(validate_scenario(duplicate_surface, "duplicate-surface")
+            .unwrap_err()
+            .contains("duplicate surface name"));
+    }
+
+    #[test]
+    fn validate_scenario_rejects_surface_blank_fields() {
+        let surface_cases: [(&str, fn(&mut RawScenario), &str); 7] = [
+            ("surfaces[].name", |raw| raw.surfaces[0].name = " ".into(), "\"surfaces[].name\""),
+            (
+                "surfaces[].runtime",
+                |raw| raw.surfaces[0].runtime = " ".into(),
+                "\"surfaces[].runtime\"",
+            ),
+            (
+                "surfaces[].scope",
+                |raw| raw.surfaces[0].scope = " ".into(),
+                "\"surfaces[].scope\"",
+            ),
+            (
+                "surfaces[].authority",
+                |raw| raw.surfaces[0].authority = " ".into(),
+                "\"surfaces[].authority\"",
+            ),
+            (
+                "surfaces[].visible_capabilities",
+                |raw| raw.surfaces[0].visible_capabilities[0] = " ".into(),
+                "\"surfaces[].visible_capabilities\"",
+            ),
+            (
+                "surfaces[].hidden_constraints",
+                |raw| raw.surfaces[0].hidden_constraints[0] = " ".into(),
+                "\"surfaces[].hidden_constraints\"",
+            ),
+            (
+                "surfaces[].queries",
+                |raw| raw.surfaces[0].queries[0] = " ".into(),
+                "\"surfaces[].queries\"",
+            ),
+        ];
+        for (label, mutate, expected) in surface_cases {
+            let mut raw = raw_scenario();
+            mutate(&mut raw);
+            let error = validate_scenario(raw, label).unwrap_err();
+            assert!(error.contains(expected), "{label}: {error}");
+        }
+    }
+
+    #[test]
+    fn validate_scenario_rejects_late_axis_and_validation_fields() {
+        let mut raw = raw_scenario();
+        raw.axes.revision_model = " ".into();
+        let error = validate_scenario(raw, "late-axis").unwrap_err();
+        assert!(error.contains("\"axes.revision_model\""), "{error}");
+
+        let mut raw = raw_scenario();
+        raw.axes.execution_model = " ".into();
+        let error = validate_scenario(raw, "late-axis").unwrap_err();
+        assert!(error.contains("\"axes.execution_model\""), "{error}");
+
+        let mut raw = raw_scenario();
+        raw.validation.violations = vec![" ".into()];
+        let error = validate_scenario(raw, "late-list").unwrap_err();
+        assert!(error.contains("\"validation.violations\""), "{error}");
+    }
+
+    #[test]
+    fn assess_covers_all_warning_and_verdict_paths() {
+        let mut raw = raw_scenario();
+        raw.axes.proposal_visibility = "hidden".into();
+        raw.axes.authority_model = "local-only".into();
+        raw.axes.revision_model = "unbounded".into();
+        raw.axes.execution_model = "implicit-replan".into();
+        raw.axes.traceability = "absent".into();
+        raw.validation.status = "violations".into();
+        raw.validation.guidance.clear();
+        let report = validate_scenario(raw, "unstable").unwrap();
+        let codes = report
+            .assessment
+            .warnings
+            .iter()
+            .map(|warning| warning.code.as_str())
+            .collect::<BTreeSet<_>>();
+        assert_eq!(report.assessment.verdict, "unstable");
+        assert!(codes.contains("proposal_hidden"));
+        assert!(codes.contains("authority_gap"));
+        assert!(codes.contains("validation_without_guidance"));
+        assert!(codes.contains("unbounded_revision"));
+        assert!(codes.contains("implicit_replanning"));
+        assert!(codes.contains("missing_trace"));
+
+        let mut raw = raw_scenario();
+        raw.axes.proposal_visibility = "hidden".into();
+        raw.axes.authority_model = "local-only".into();
+        let report = validate_scenario(raw, "opaque").unwrap();
+        assert_eq!(report.assessment.verdict, "opaque");
+
+        let mut raw = raw_scenario();
+        raw.axes.traceability = "proposal-only".into();
+        let report = validate_scenario(raw, "discoverable").unwrap();
+        assert_eq!(report.assessment.verdict, "discoverable");
+        assert!(report
+            .assessment
+            .warnings
+            .iter()
+            .any(|warning| warning.code == "partial_trace"));
+    }
+
+    #[test]
+    fn list_labs_load_report_validate_all_and_unknown_paths_are_covered() {
+        let root = temp_root();
+        let error = list_labs(&root).unwrap_err();
+        assert!(!error.is_empty());
+
+        let error = load_report(&root, "missing").unwrap_err();
+        assert!(!error.is_empty());
+
+        let error = validate_all(&root).unwrap_err();
+        assert!(!error.is_empty());
+
+        write_file(
+            &root.join("scenarios/b-lab/scenario.json"),
+            include_str!("../../scenarios/lab1-capability-projection/scenario.json"),
+        );
+        write_file(
+            &root.join("scenarios/a-lab/scenario.json"),
+            include_str!("../../scenarios/lab6-queryable-trace/scenario.json"),
+        );
+        write_file(&root.join("scenarios/readme.txt"), "ignore");
+        assert_eq!(list_labs(&root).unwrap(), vec!["a-lab", "b-lab"]);
+
+        let error = load_report(&root, "missing").unwrap_err();
+        assert!(error.contains("unknown lab"));
+
+        let invalid_root = temp_root();
+        write_file(&invalid_root.join("scenarios/lab1/scenario.json"), "{ invalid");
+        let error = load_report(&invalid_root, "lab1").unwrap_err();
+        assert!(!error.is_empty());
+
+        let invalid_root = temp_root();
+        write_file(
+            &invalid_root.join("scenarios/lab1/scenario.json"),
+            r#"{"title":"x"}"#,
+        );
+        let error = load_report(&invalid_root, "lab1").unwrap_err();
+        assert!(!error.is_empty());
+
+        let unreadable_root = temp_root();
+        std::fs::create_dir_all(unreadable_root.join("scenarios/lab1/scenario.json")).unwrap();
+        let error = load_report(&unreadable_root, "lab1").unwrap_err();
+        assert!(!error.is_empty());
+
+        let invalid_validate_all_root = temp_root();
+        write_file(
+            &invalid_validate_all_root.join("scenarios/lab1/scenario.json"),
+            r#"{"title":"x"}"#,
+        );
+        let error = validate_all(&invalid_validate_all_root).unwrap_err();
+        assert!(!error.is_empty());
+
+        let empty_root = temp_root();
+        std::fs::create_dir_all(empty_root.join("scenarios")).unwrap();
+        let summaries = validate_all(&empty_root).unwrap();
+        assert!(summaries.is_empty());
+
+        let summaries = validate_all(&root).unwrap();
+        assert_eq!(summaries.len(), 2);
+        assert!(summaries[0].contains("Validated a-lab"));
+        assert!(summaries[1].contains("Validated b-lab"));
+    }
+
+    #[test]
+    fn format_report_and_diff_cover_empty_and_full_sections() {
+        let governed = load_report(&project_root(), "lab6-queryable-trace").unwrap();
+        let rendered = format_report(&governed);
+        assert!(rendered.contains("Decision Axes:"));
+        assert!(rendered.contains("Discoverable Surfaces:"));
+        assert!(rendered.contains("Proposal:"));
+        assert!(rendered.contains("Validation:"));
+        assert!(rendered.contains("Execution:"));
+        assert!(rendered.contains("Trace:"));
+        assert!(rendered.contains("Runtime Decisions:"));
+        assert!(rendered.contains("Reader Value:"));
+
+        let hidden = load_report(&project_root(), "lab1-capability-projection").unwrap();
+        let diff = diff_reports(&hidden, &governed);
+        let rendered = format_diff(&diff);
+        assert!(rendered.contains("Changed Axes:"));
+        assert!(rendered.contains("Changed Stages:"));
+        assert!(rendered.contains("Added Warnings:"));
+        assert!(rendered.contains("Removed Warnings:"));
+
+        let empty = ScenarioDiff {
+            from: "a".into(),
+            to: "b".into(),
+            verdict_change: "governed -> governed".into(),
+            added_warnings: Vec::new(),
+            removed_warnings: Vec::new(),
+            changed_axes: Vec::new(),
+            changed_stages: Vec::new(),
+        };
+        let rendered = format_diff(&empty);
+        assert!(rendered.contains("Changed Axes: none"));
+        assert!(rendered.contains("Changed Stages: none"));
+        assert!(rendered.contains("Added Warnings: none"));
+        assert!(rendered.contains("Removed Warnings: none"));
+
+        let mut empty_report = governed.clone();
+        empty_report.assessment.warnings.clear();
+        empty_report.validation.violations.clear();
+        empty_report.validation.guidance.clear();
+        empty_report.validation.authority_notes.clear();
+        empty_report.execution.selected_capabilities.clear();
+        empty_report.execution.placement.clear();
+        empty_report.trace.artifacts.clear();
+        empty_report.trace.queries.clear();
+        let rendered = format_report(&empty_report);
+        assert!(rendered.contains("Warnings: none"));
+        assert!(rendered.contains("- violations: none"));
+        assert!(rendered.contains("- guidance: none"));
+        assert!(rendered.contains("- authority notes: none"));
+        assert!(rendered.contains("- selected capabilities: none"));
+        assert!(rendered.contains("- placement: none"));
+        assert!(rendered.contains("- artifacts: none"));
+        assert!(rendered.contains("- queries: none"));
+    }
+
+    #[test]
+    fn format_report_renders_non_empty_validation_lists() {
+        let mut report = load_report(&project_root(), "lab6-queryable-trace").unwrap();
+        report.validation.violations = vec![
+            "authority note missing".into(),
+            "trace contract incomplete".into(),
+        ];
+        report.validation.guidance = vec![
+            "add runtime authority notes".into(),
+            "persist the decision log".into(),
+        ];
+
+        let rendered = format_report(&report);
+        assert!(rendered.contains(
+            "- violations: authority note missing | trace contract incomplete"
+        ));
+        assert!(rendered.contains(
+            "- guidance: add runtime authority notes | persist the decision log"
+        ));
+    }
+
+    #[test]
+    fn format_diff_renders_added_warnings_branch() {
+        let diff = ScenarioDiff {
+            from: "proposal-only".into(),
+            to: "discoverable".into(),
+            verdict_change: "opaque -> discoverable".into(),
+            added_warnings: vec!["missing_decision_log".into()],
+            removed_warnings: vec!["hidden_capability_projection".into()],
+            changed_axes: vec!["traceability: proposal-only -> discoverable".into()],
+            changed_stages: vec!["approved_execution".into()],
+        };
+        let rendered = format_diff(&diff);
+
+        assert!(rendered.contains("Added Warnings: missing_decision_log"));
+        assert!(rendered.contains("Removed Warnings: hidden_capability_projection"));
+    }
+
+    #[test]
+    fn diff_reports_captures_changed_stage_transitions() {
+        let from = validate_scenario(raw_scenario(), "opaque").unwrap();
+        let mut to = from.clone();
+        to.proposal.status = "revised".into();
+        to.execution.status = "approved".into();
+        to.trace.status = "discoverable".into();
+
+        let diff = diff_reports(&from, &to);
+        assert!(!diff.changed_stages.is_empty());
+        assert!(diff
+            .changed_stages
+            .iter()
+            .any(|item| item.starts_with("proposal status: ")));
+        assert!(diff
+            .changed_stages
+            .iter()
+            .any(|item| item.starts_with("execution status: ")));
+        assert!(diff
+            .changed_stages
+            .iter()
+            .any(|item| item.starts_with("trace status: ")));
     }
 }
