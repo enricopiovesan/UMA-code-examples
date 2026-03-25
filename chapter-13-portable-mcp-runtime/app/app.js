@@ -189,7 +189,12 @@ function renderTransformations(report, focusedStepIndex, phase = "idle") {
   transformationFlow.innerHTML = introCard + report.steps
     .map((step) => {
       const isFocused = step.index === focusedStepIndex;
-      const cardPhase = isFocused ? phase : "idle";
+      let cardPhase = "idle";
+      if (step.index < focusedStepIndex) {
+        cardPhase = step.index === report.steps.length ? "result" : "capability";
+      } else if (isFocused) {
+        cardPhase = phase;
+      }
       const phaseStrip = phaseItemsForStep(step, report)
         .map((item) => {
           const state = phaseItemState(item, cardPhase);
@@ -386,7 +391,7 @@ function graphStatesForStep(report, focusedStepIndex) {
     workflowEdges.push({
       from: workflowNodes[workflowNodes.length - 1],
       to: "result",
-      state: focusedStepIndex >= report.steps.length ? "active" : "inactive",
+      state: focusedStepIndex >= report.steps.length ? "complete" : "inactive",
     });
   }
 
@@ -1307,7 +1312,6 @@ function stopPlayback() {
     playbackTimer = null;
   }
   isPlaying = false;
-  currentPhase = "idle";
   runButton.textContent = "Play workflow";
 }
 
