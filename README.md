@@ -32,7 +32,7 @@ UMA is a response to that fragmentation problem.
 
 If you want the shortest site explanation of that gap, start here:
 
-- [What problem does UMA solve?](https://www.universalmicroservices.com/what-problem-does-uma-solve/)
+- [![What problem does UMA solve?](https://www.universalmicroservices.com/what-problem-does-uma-solve/)](https://www.universalmicroservices.com/reference-application/)
 
 ## What Makes UMA Different
 
