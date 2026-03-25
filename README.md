@@ -1,4 +1,5 @@
-[<img width="1419" height="868" alt="Screenshot 2026-03-25 at 11 39 52 AM" src="[https://github.com/user-attachments/assets/793ea8d4-0d98-4dd9-b693-10ed2859c07a](https://github.com/user-attachments/assets/f89856ad-ddfc-4b5f-a9f9-82ca1494c073)" />](https://www.universalmicroservices.com/)
+[<img width="1409" height="890" alt="Screenshot 2026-03-25 at 3 29 08 PM" src="https://github.com/user-attachments/assets/38148876-1d1d-41a3-9c0e-83d587fd1761" />](https://www.universalmicroservices.com/)
+
 
 # Universal Microservices Architecture (UMA) Code Examples
 
