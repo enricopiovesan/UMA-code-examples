@@ -4,6 +4,8 @@
 # Universal Microservices Architecture (UMA) Code Examples
 
 [![Reader Smoke](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/reader-smoke.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/reader-smoke.yml)
+[![Business Logic CI](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/business-logic-coverage.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/business-logic-coverage.yml)
+[![Business Logic Coverage](https://img.shields.io/badge/business%20logic%20coverage-100%25-success)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/business-logic-coverage.yml)
 [![Book Site](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml)
 [![Live Reference App](https://img.shields.io/badge/live-reference%20app-0a7f5a)](https://www.universalmicroservices.com/reference-application/)
 [![Learn UMA](https://img.shields.io/badge/book-universalmicroservices.com-1f6feb)](https://www.universalmicroservices.com/)

@@ -1,0 +1,31 @@
+name: Business Logic Coverage
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  business-logic-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+
+      - name: Install coverage dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          cargo install cargo-llvm-cov --locked
+
+      - name: Enforce business logic coverage target
+        shell: bash
+        run: ./scripts/check_business_logic_coverage.sh
