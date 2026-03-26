@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Live UMA site
+    url: https://www.universalmicroservices.com/
+    about: Read the concept pages, learning path, and book information.
+  - name: Live reference app
+    url: https://www.universalmicroservices.com/reference-application/
+    about: Inspect the Chapter 13 runtime-centered workflow proof surface.

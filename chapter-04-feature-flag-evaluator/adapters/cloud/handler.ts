@@ -1,4 +1,7 @@
-// Cloud adapter for the feature flag evaluator.
+// Illustrative cloud adapter for the feature flag evaluator.
+//
+// This file shows one possible serverless-style host wrapper around the evaluator.
+// It is not part of the validated default reader path and should be treated as example host integration code.
 //
 // This handler is designed for Node.js serverless environments (for example
 // AWS Lambda).  It spawns the `wasmtime` binary installed on the system to

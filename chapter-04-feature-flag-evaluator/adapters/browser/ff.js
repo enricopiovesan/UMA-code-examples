@@ -1,4 +1,7 @@
-// Browser adapter for the feature flag evaluator.
+// Illustrative browser adapter for the feature flag evaluator.
+//
+// This file is a teaching example, not the validated default path.
+// The authoritative Chapter 4 path is the Rust core, the WASI CLI, and the parity tests.
 //
 // This module exports a single asynchronous function `evaluateFlag` that
 // accepts an object matching the evaluator’s input contract and returns

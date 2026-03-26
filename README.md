@@ -11,7 +11,7 @@
 [![Learn UMA](https://img.shields.io/badge/book-universalmicroservices.com-1f6feb)](https://www.universalmicroservices.com/)
 [![UMA Blog](https://img.shields.io/badge/blog-Medium-12100E)](https://medium.com/the-rise-of-device-independent-architecture)
 
-This repository is the runnable companion for **Universal Microservices Architecture (UMA)**.
+This repository is the runnable companion for **Universal Microservices Architecture (UMA)** and a reference implementation of its core patterns.
 
 UMA is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. The repo exists to prove that model with code, not just describe it.
 
@@ -56,9 +56,47 @@ The repo demonstrates a few specific answers:
 - workflows built from capabilities rather than hardcoded stack-shaped assumptions
 - agent participation without agent authority
 
+## Why This Exists Instead Of Simpler Alternatives
+
+| Approach | Useful for | What it usually leaves unresolved |
+| --- | --- | --- |
+| Shared library | Reusing logic inside one stack | Runtime governance, trust, and workflow visibility across surfaces |
+| Standard microservice | Deployable backend ownership | Behavioral drift across browser, edge, workflow, and AI-assisted paths |
+| Edge function | Low-latency local execution | Durable portability and runtime-visible approval across the full system |
+| OpenAPI-described API | Interface clarity between services | Capability discovery, governed workflow composition, and execution trace |
+| UMA | Portable behavior plus governed execution | Higher architectural discipline and stronger runtime modeling overhead |
+
 If you want the comparison page first:
 
 - [UMA vs traditional microservices](https://www.universalmicroservices.com/uma-vs-traditional-microservices/)
+
+## When UMA Fits
+
+UMA is a strong fit when:
+
+- the same business behavior is drifting across browser, edge, backend, workflow, or AI-assisted paths
+- you need runtime-visible approval, rejection, trust, or policy decisions
+- you want portable logic without hiding the execution model
+- you need a cleaner boundary between planning and runtime authority
+
+## When UMA Does Not Fit
+
+UMA is probably too much when:
+
+- one backend service already solves the problem cleanly
+- you do not need behavior portability across runtime surfaces
+- runtime-visible governance would add more ceremony than value
+- a simpler service or library boundary is enough for the system you actually have
+
+## Non-goals
+
+UMA is not trying to:
+
+- force every service into WebAssembly
+- replace every microservice pattern with a new label
+- eliminate native platform features or runtime-specific optimization
+- make every service run everywhere
+- pretend infrastructure, trust, and host constraints no longer matter
 
 ## What You Can Try Today
 
@@ -76,6 +114,28 @@ If you want the runnable repo path:
 
 [![UMA Reference APP preview](book-site/assets/ref-app.png)](https://www.universalmicroservices.com/reference-application/)
 
+## Architecture At A Glance
+
+```mermaid
+flowchart LR
+  Goal["Goal"] --> Runtime["UMA Runtime"]
+  Discovery["Capability Discovery"] --> Runtime
+  Planner["Planner / Agent"] --> Runtime
+  Runtime --> Workflow["Approved Capability Path"]
+  Workflow --> Result["Result"]
+  Runtime --> Policy["Policy / Trust / Constraints"]
+  Runtime --> Trace["Decision Trace / Evidence"]
+```
+
+The examples ladder through that model deliberately:
+
+- Chapter 4: smallest portable service boundary
+- Chapter 5: runtime layer around the service
+- Chapter 6: portability proof
+- Chapter 7: orchestration from contracts and metadata
+- Chapters 8-12: graph evolution, trust, coherence, and discoverable decisions
+- Chapter 13: full reference application and runtime-centered execution model
+
 ## Start Here
 
 ### Fastest conceptual path
@@ -92,6 +152,18 @@ If you want the runnable repo path:
 ```bash
 ./scripts/smoke_reader_paths.sh
 ```
+
+If you want a real 10-minute evaluation path:
+
+1. open the [live reference app](https://www.universalmicroservices.com/reference-application/)
+2. run `./scripts/smoke_reader_paths.sh`
+3. inspect [Chapter 4](chapter-04-feature-flag-evaluator/README.md) and [Chapter 13](chapter-13-portable-mcp-runtime/README.md)
+
+That gives you:
+
+- one minimal portable service
+- one full governed workflow
+- one fast way to judge whether UMA is useful for your context
 
 ### Best single demo
 
@@ -113,6 +185,20 @@ If you want the runnable repo path:
 | 12 | [**Discoverable Decisions**](chapter-12-discoverable-decisions/README.md) | How proposal, validation, approval, and trace become queryable system artifacts. | `cd chapter-12-discoverable-decisions && ./scripts/run_decision_demo.sh lab1-capability-projection` |
 | 13 | [**Portable MCP Runtime**](chapter-13-portable-mcp-runtime/README.md) | The full UMA reference application: capability discovery, runtime validation, agent proposals, event-driven execution, and structured output. | `cd chapter-13-portable-mcp-runtime && ./scripts/run_lab.sh use-case-2-ai-report` |
 
+## What Has Been Proven Here
+
+- deterministic business logic can stay portable across validated runtime paths
+- runtime concerns can stay outside the portable core and remain explicit
+- workflows can be built from capabilities instead of hardwired pipelines
+- trust, compatibility, and execution approval can remain visible system concerns
+- the Chapter 13 reference application can expose one workflow as graph, narrative, and execution evidence
+
+## Current Roadmap
+
+- keep the reference app and concept site aligned as the primary proof surface
+- continue improving validated reader paths and contributor ergonomics
+- publish clearer release milestones once the public baseline stabilizes
+
 ## Repo Structure
 
 - `chapter-04-*` through `chapter-13-*`
@@ -121,6 +207,8 @@ If you want the runnable repo path:
   - the public site and concept pages at [universalmicroservices.com](https://www.universalmicroservices.com/)
 - `scripts/`
   - reader smoke, coverage, and repo-quality helpers
+
+For the top-level helper scripts, see [scripts/README.md](scripts/README.md).
 
 ## Reader Setup
 

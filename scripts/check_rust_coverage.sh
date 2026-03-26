@@ -4,9 +4,9 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SUMMARY_PATH="${ROOT_DIR}/coverage/reader-rust-coverage.md"
 
-MIN_LINES="${MIN_LINES:-53}"
-MIN_FUNCTIONS="${MIN_FUNCTIONS:-50}"
-MIN_REGIONS="${MIN_REGIONS:-52}"
+MIN_LINES="${MIN_LINES:-56}"
+MIN_FUNCTIONS="${MIN_FUNCTIONS:-63}"
+MIN_REGIONS="${MIN_REGIONS:-56}"
 
 require_cmd() {
   if ! command -v "$1" >/dev/null 2>&1; then

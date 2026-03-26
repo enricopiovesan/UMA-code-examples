@@ -103,9 +103,9 @@ Business-logic-focused Rust coverage is reported with:
 
 The current CI gate enforces a minimum floor for the validated reader chapters:
 
-- line coverage: `53%`
-- function coverage: `50%`
-- region coverage: `52%`
+- line coverage: `56%`
+- function coverage: `63%`
+- region coverage: `56%`
 
 Those numbers are a floor, not a target. Raise them when the measured baseline improves.
 

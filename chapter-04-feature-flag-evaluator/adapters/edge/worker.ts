@@ -1,4 +1,7 @@
-// Edge adapter for the feature flag evaluator.
+// Illustrative edge adapter for the feature flag evaluator.
+//
+// This file demonstrates one possible worker-style host wrapper around the evaluator.
+// It is not part of the validated default reader path and should be treated as example host integration code.
 //
 // This implementation spawns the `wasmtime` binary installed on the system
 // to run the compiled WASI module.  It assumes that `wasmtime` is on

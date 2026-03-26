@@ -211,7 +211,7 @@ This example is split into two Rust crates: a core library (`ff_eval_core`) and 
 You will need a working Rust toolchain and (optionally) a Node.js runtime if you wish to run the provided adapters.  To execute the compiled WebAssembly module outside of Node you can install a dedicated WASI runtime such as Wasmtime or Wasmer.
 
 * **Rust toolchain:** Install Rust via [rustup](https://rustup.rs/).  On macOS, Linux and Windows this single installer sets up `cargo`, `rustc` and related tools.  After installation open a new shell and verify with `cargo --version`.
-* **Node.js (optional):** The edge and cloud adapters are written for Node.js and use Node’s built‑in [`wasi`](https://nodejs.org/api/wasi.html) module to execute the evaluator.  Install Node.js from [nodejs.org](https://nodejs.org/) or via your system’s package manager and verify installation with `node --version`.  Node 16 or later is recommended.
+* **Node.js (optional):** The edge and cloud adapters are written for Node.js and use Node’s built‑in [`wasi`](https://nodejs.org/api/wasi.html) module to execute the evaluator.  Install Node.js from [nodejs.org](https://nodejs.org/) or via your system’s package manager and verify installation with `node --version`.  Node.js 20 or newer is recommended.
 * **WASI runtime (optional):** To run the compiled WebAssembly module outside of Node—for example from a shell—you can install [Wasmtime](https://github.com/bytecodealliance/wasmtime) or [Wasmer](https://github.com/wasmerio/wasmer).  On macOS you can install Wasmtime via `brew install wasmtime`; on Linux download a release from the project’s GitHub page and extract it somewhere on your `PATH`; on Windows download the Wasmtime zip archive and add the extracted directory to your `PATH`.  Verify installation with `wasmtime --version`.
 
 ### Environment setup
@@ -360,16 +360,14 @@ After finishing the Chapter 4 labs, a reader should be able to explain:
 
 ## Extending the evaluator
 
-The provided implementation is intentionally small.  For a more complete feature set, you might consider adding:
+The provided implementation is intentionally small.  Useful next extensions would be:
 
-* Additional operators (`!=`, `<`, `>`, `in`, `&&`, `||`).
 * A hand‑written parser or combinator parser to build an AST rather than using ad‑hoc string matching.
 * Weighted variants and multiple buckets.
 * Time windows and scheduling of flags.
 * Segments loaded by the adapter rather than bundled into the flag.
 * Remote configuration fetched by the adapter.
 * Audit logging in the cloud adapter (never inside the WASM module).
+* Richer expressions such as nested parentheses, arrays in context values, or additional helper functions.
 
-These are left as exercises to the reader and future work.
-
-This repository now includes support for inequality and numeric comparison operators, the `in` operator and logical `&&` and `||` operators.  The implementation lives in `core/src/lib.rs`, and there are unit tests demonstrating how these operators work.  To extend the evaluator further—for example to support arrays in the context, nested parentheses or more complex operators—you can modify `eval_expr`, `parse_term_as_value` and the helper functions defined at the bottom of the core module.  Remember to add corresponding tests.
+The current evaluator already supports inequality and numeric comparison operators, the `in` operator, and logical `&&` and `||`.  Those semantics live in `core/src/lib.rs`, and the tests demonstrate how they behave.  If you extend the language further, update the tests at the same time so the portable behavior stays explicit.
