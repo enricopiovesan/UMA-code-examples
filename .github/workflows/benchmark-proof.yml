@@ -1,0 +1,40 @@
+name: Benchmark Proof
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  benchmark-proof:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+
+      - name: Install Wasmtime
+        shell: bash
+        run: |
+          mkdir -p .bin
+          curl -L -sS https://github.com/bytecodealliance/wasmtime/releases/download/v39.0.0/wasmtime-v39.0.0-x86_64-linux.tar.xz -o /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz
+          tar -xf /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz -C .bin
+
+      - name: Regenerate benchmark proof artifacts
+        shell: bash
+        run: python3 ./scripts/report_benchmark_proof.py
+
+      - name: Validate benchmark proof artifact shape
+        shell: bash
+        run: python3 ./scripts/check_benchmark_artifacts.py

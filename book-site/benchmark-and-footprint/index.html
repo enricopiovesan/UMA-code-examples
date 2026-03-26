@@ -122,6 +122,60 @@
           </section>
 
           <section>
+            <h2>At a glance</h2>
+            <p>
+              These comparisons are normalized inside each row so the slower or larger path sets the full scale. They are not trying to
+              imply global winners across workloads. They are here to make the local tradeoff legible quickly.
+            </p>
+            <div class="benchmark-compare">
+              <article class="benchmark-panel">
+                <h3>Chapter 4 repeated execution</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Rust WASI via Wasmtime</strong><span>28.01 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 30.48%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>TypeScript via Node</strong><span>91.89 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 6 artifact footprint</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native runner</strong><span>5.31 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI runner</strong><span>352.33 KiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 6.48%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 6 repeated execution</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native runner</strong><span>21.87 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 21.93%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI runner via Wasmtime</strong><span>99.74 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 13 reference runtime</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Release CLI binary</strong><span>947.95 KiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Render JSON path</strong><span>21.01 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section>
             <h2>Chapter 4: minimal portable evaluator</h2>
             <p>
               Chapter 4 is the right first footprint proof because it shows the smallest portable unit in the repo: one contract, one
@@ -213,6 +267,45 @@
               This is the tradeoff the page should make explicit. The native runner stays faster on this machine, while the WASI runner stays
               much smaller and preserves the same behavior under a portable execution target. That is exactly the kind of evidence UMA
               should publish instead of hiding behind vague portability language.
+            </p>
+          </section>
+
+          <section>
+            <h2>Chapter 13: reference runtime CLI</h2>
+            <p>
+              The earlier chapters prove compact portability. Chapter 13 adds a different kind of evidence: the reference runtime can
+              still expose a deterministic local path without dragging the benchmark through the model-backed AI setup. The measured slice
+              here is the release CLI rendering <code>use-case-1-basic-report</code> as JSON.
+            </p>
+            <ul>
+              <li>CLI binary size: <code>947.95 KiB</code></li>
+              <li>Input: <code>use-case-1-basic-report</code></li>
+            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Path</th>
+                  <th>Mean (ms)</th>
+                  <th>Median (ms)</th>
+                  <th>Min (ms)</th>
+                  <th>Max (ms)</th>
+                  <th>Runs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Render JSON via CLI</td>
+                  <td>21.01</td>
+                  <td>20.93</td>
+                  <td>10.93</td>
+                  <td>31.1</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              That does not measure the full AI-assisted workflow. It measures the deterministic runtime/report path that should stay
+              fast enough and legible enough to act as a real operational surface, not just a demo shell.
             </p>
           </section>
 

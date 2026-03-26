@@ -101,6 +101,8 @@ def gather() -> dict:
     chapter4 = ROOT / "chapter-04-feature-flag-evaluator"
     chapter6 = ROOT / "chapter-06-portability-lab"
     chapter6_runtime = chapter6 / "runtime"
+    chapter13 = ROOT / "chapter-13-portable-mcp-runtime"
+    chapter13_rust = chapter13 / "rust"
 
     # Build benchmark targets in release mode.
     run(
@@ -119,13 +121,20 @@ def gather() -> dict:
         cwd=ROOT,
         env=env,
     )
+    run(
+        ["cargo", "build", "--release", "--manifest-path", str(chapter13_rust / "Cargo.toml")],
+        cwd=ROOT,
+        env=env,
+    )
 
     c4_wasm = chapter4 / "target" / "wasm32-wasip1" / "release" / "ff_eval_wasi_app.wasm"
     c6_native = chapter6_runtime / "target" / "release" / "runner_native"
     c6_wasm = chapter6_runtime / "target" / "wasm32-wasip1" / "release" / "runner_wasm.wasm"
+    c13_native = chapter13_rust / "target" / "release" / "chapter13_portable_mcp_runtime"
 
     chapter4_rust_cmd = [wasmtime, str(c4_wasm)]
     chapter4_ts_cmd = ["node", str(chapter4 / "ts" / "src" / "main.mjs")]
+    chapter13_render_cmd = [str(c13_native), "render", "use-case-1-basic-report", "json"]
     chapter4_input = (chapter4 / "labs" / "inputs" / "lab2-rollout-match.json").read_text()
 
     def measure_stdin(cmd: list[str], cwd: Path, stdin_text: str, runs: int = 20, warmups: int = 2) -> dict[str, float]:
@@ -180,6 +189,16 @@ def gather() -> dict:
                     "wasi_runner_via_wasmtime": measure([wasmtime, "run", "--dir=..", str(c6_wasm), "../sample-data/sample.pgm"], chapter6_runtime, env),
                 },
             },
+            "chapter13": {
+                "input": "use-case-1-basic-report",
+                "artifacts": {
+                    "cli_binary_bytes": c13_native.stat().st_size,
+                    "cli_binary_human": human_size(c13_native.stat().st_size),
+                },
+                "timings": {
+                    "render_json_cli": measure(chapter13_render_cmd, chapter13, env),
+                },
+            },
         },
     }
 
@@ -189,6 +208,7 @@ def gather() -> dict:
 def write_markdown(data: dict) -> str:
     c4 = data["benchmarks"]["chapter4"]
     c6 = data["benchmarks"]["chapter6"]
+    c13 = data["benchmarks"]["chapter13"]
     lines = [
         "# Benchmark And Footprint Notes",
         "",
@@ -230,10 +250,20 @@ def write_markdown(data: dict) -> str:
     lines.extend(
         [
             "",
+            "## Chapter 13: Reference Runtime CLI",
+            "",
+            f"- CLI binary size: `{c13['artifacts']['cli_binary_human']}`",
+            f"- benchmark input: `{c13['input']}`",
+            "",
+            "| Path | Mean (ms) | Median (ms) | Min (ms) | Max (ms) | Runs |",
+            "| --- | ---: | ---: | ---: | ---: | ---: |",
+            f"| render_json_cli | {c13['timings']['render_json_cli']['mean_ms']} | {c13['timings']['render_json_cli']['median_ms']} | {c13['timings']['render_json_cli']['min_ms']} | {c13['timings']['render_json_cli']['max_ms']} | {c13['timings']['render_json_cli']['runs']} |",
+            "",
             "## Interpretation",
             "",
             "- Chapter 4 shows a very small portable evaluator module with comparable Rust/WASI and TypeScript invocation timings on the same contract-driven input.",
             "- Chapter 6 shows the expected tradeoff: the native runner stays faster, while the WASI runner remains compact and behaviorally aligned.",
+            f"- Chapter 13 shows the reference runtime can expose a deterministic report path from one release CLI binary (`{c13['artifacts']['cli_binary_human']}`) with a mean local render time of `{c13['timings']['render_json_cli']['mean_ms']} ms` for `use-case-1-basic-report`.",
             "- The important proof is not “fastest everywhere.” It is that portable behavior remains measurable, comparable, and explicit across runtime choices.",
         ]
     )

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T01:52:46Z",
+  "generated_at": "2026-03-26T02:12:16Z",
   "environment": {
     "os": "macOS-26.3-arm64-arm-64bit-Mach-O",
     "python": "3.13.2",
@@ -17,17 +17,17 @@
       "timings": {
         "rust_wasi_via_wasmtime": {
           "runs": 20,
-          "mean_ms": 32.48,
-          "median_ms": 30.54,
-          "min_ms": 21.18,
-          "max_ms": 62.39
+          "mean_ms": 28.01,
+          "median_ms": 28.58,
+          "min_ms": 21.23,
+          "max_ms": 39.42
         },
         "typescript_node": {
           "runs": 20,
-          "mean_ms": 110.37,
-          "median_ms": 103.75,
-          "min_ms": 67.12,
-          "max_ms": 193.22
+          "mean_ms": 91.89,
+          "median_ms": 84.26,
+          "min_ms": 70.0,
+          "max_ms": 174.95
         }
       }
     },
@@ -42,17 +42,33 @@
       "timings": {
         "native_runner": {
           "runs": 20,
-          "mean_ms": 23.98,
-          "median_ms": 24.96,
-          "min_ms": 14.29,
-          "max_ms": 32.93
+          "mean_ms": 21.87,
+          "median_ms": 21.4,
+          "min_ms": 13.15,
+          "max_ms": 38.64
         },
         "wasi_runner_via_wasmtime": {
           "runs": 20,
-          "mean_ms": 102.26,
-          "median_ms": 103.4,
-          "min_ms": 89.13,
-          "max_ms": 118.4
+          "mean_ms": 99.74,
+          "median_ms": 101.35,
+          "min_ms": 74.9,
+          "max_ms": 126.02
+        }
+      }
+    },
+    "chapter13": {
+      "input": "use-case-1-basic-report",
+      "artifacts": {
+        "cli_binary_bytes": 970704,
+        "cli_binary_human": "947.95 KiB"
+      },
+      "timings": {
+        "render_json_cli": {
+          "runs": 20,
+          "mean_ms": 21.01,
+          "median_ms": 20.93,
+          "min_ms": 10.93,
+          "max_ms": 31.1
         }
       }
     }

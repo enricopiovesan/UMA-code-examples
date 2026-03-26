@@ -8,6 +8,7 @@ The project is still evolving quickly, so early entries summarize the architectu
 
 - added reproducible benchmark-and-footprint reporting for selected UMA examples
 - published a benchmark-and-footprint page on the website and linked it from the repo and site navigation
+- added a dedicated benchmark-proof CI workflow and artifact-shape check
 
 ## 2026-03-25
 

@@ -31,6 +31,9 @@ This directory contains the top-level repo scripts used for reader validation, c
 - `report_benchmark_proof.py`
   - builds the benchmark targets, measures a small reproducible set of local timings, and writes the published benchmark artifacts in `benchmarks/`
 
+- `check_benchmark_artifacts.py`
+  - validates that the published benchmark JSON, markdown report, and website page still expose the expected proof surface in CI
+
 ## Reader documentation
 
 - `check_reader_docs.sh`
