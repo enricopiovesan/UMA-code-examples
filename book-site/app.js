@@ -131,6 +131,7 @@ const footerColumns = [
       links: [
         ["learning path", "learning-path/"],
         ["examples", "examples/"],
+        ["benchmark and footprint", "benchmark-and-footprint/"],
         ["diagrams", "diagrams/"],
         ["faq", "faq/"],
         ["book", "book/"],

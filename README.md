@@ -18,6 +18,7 @@ UMA is an execution model for distributed systems where compute can happen in ma
 [Buy the book and learn more about UMA](https://www.universalmicroservices.com/)
 
 [Try the live UMA Reference APP](https://www.universalmicroservices.com/reference-application/)
+[Read the benchmark and footprint notes](https://www.universalmicroservices.com/benchmark-and-footprint/)
 
 
 ## Why This Repo Exists
@@ -193,6 +194,16 @@ That gives you:
 - trust, compatibility, and execution approval can remain visible system concerns
 - the Chapter 13 reference application can expose one workflow as graph, narrative, and execution evidence
 
+## Benchmark And Footprint Proof
+
+The repo now publishes a small benchmark-and-footprint proof surface for selected early chapters:
+
+- [website summary page](https://www.universalmicroservices.com/benchmark-and-footprint/)
+- [generated benchmark report](benchmarks/benchmark-proof.md)
+- [benchmark generator script](scripts/report_benchmark_proof.py)
+
+The goal is not to claim that UMA is always the fastest path. The goal is to show that portable behavior can stay measurable, compact, and comparable while runtime choice remains explicit.
+
 ## Current Roadmap
 
 - keep the reference app and concept site aligned as the primary proof surface
@@ -205,6 +216,8 @@ That gives you:
   - validated labs and reference implementations aligned with the learning path
 - `book-site/`
   - the public site and concept pages at [universalmicroservices.com](https://www.universalmicroservices.com/)
+- `benchmarks/`
+  - generated proof artifacts for the published benchmark and footprint notes
 - `scripts/`
   - reader smoke, coverage, and repo-quality helpers
 

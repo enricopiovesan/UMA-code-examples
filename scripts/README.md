@@ -26,6 +26,11 @@ This directory contains the top-level repo scripts used for reader validation, c
 - `check_business_logic_coverage.sh`
   - enforces the `100%` business-logic coverage target used in CI
 
+## Benchmark proof
+
+- `report_benchmark_proof.py`
+  - builds the benchmark targets, measures a small reproducible set of local timings, and writes the published benchmark artifacts in `benchmarks/`
+
 ## Reader documentation
 
 - `check_reader_docs.sh`
@@ -43,4 +48,3 @@ If you changed core code or documentation, the most useful sequence is:
 ```
 
 You do not need to run every script for every change. Use the narrower checks when working on one chapter or one surface.
-

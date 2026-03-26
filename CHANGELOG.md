@@ -6,7 +6,8 @@ The project is still evolving quickly, so early entries summarize the architectu
 
 ## Unreleased
 
-- pending next tagged milestone
+- added reproducible benchmark-and-footprint reporting for selected UMA examples
+- published a benchmark-and-footprint page on the website and linked it from the repo and site navigation
 
 ## 2026-03-25
 
@@ -62,4 +63,3 @@ The project is still evolving quickly, so early entries summarize the architectu
 - added `.github/CODEOWNERS`
 - added `CITATION.cff`
 - added repository presentation improvements for a public audience
-

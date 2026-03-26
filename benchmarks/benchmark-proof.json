@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-03-26T01:52:46Z",
+  "environment": {
+    "os": "macOS-26.3-arm64-arm-64bit-Mach-O",
+    "python": "3.13.2",
+    "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+    "node": "v23.11.0",
+    "wasmtime": "wasmtime 39.0.0 (56b81c98a 2025-11-20)"
+  },
+  "benchmarks": {
+    "chapter4": {
+      "input": "lab2-rollout-match.json",
+      "artifacts": {
+        "wasi_module_bytes": 202748,
+        "wasi_module_human": "198.00 KiB"
+      },
+      "timings": {
+        "rust_wasi_via_wasmtime": {
+          "runs": 20,
+          "mean_ms": 32.48,
+          "median_ms": 30.54,
+          "min_ms": 21.18,
+          "max_ms": 62.39
+        },
+        "typescript_node": {
+          "runs": 20,
+          "mean_ms": 110.37,
+          "median_ms": 103.75,
+          "min_ms": 67.12,
+          "max_ms": 193.22
+        }
+      }
+    },
+    "chapter6": {
+      "input": "sample-data/sample.pgm",
+      "artifacts": {
+        "native_runner_bytes": 5567712,
+        "native_runner_human": "5.31 MiB",
+        "wasi_runner_bytes": 360786,
+        "wasi_runner_human": "352.33 KiB"
+      },
+      "timings": {
+        "native_runner": {
+          "runs": 20,
+          "mean_ms": 23.98,
+          "median_ms": 24.96,
+          "min_ms": 14.29,
+          "max_ms": 32.93
+        },
+        "wasi_runner_via_wasmtime": {
+          "runs": 20,
+          "mean_ms": 102.26,
+          "median_ms": 103.4,
+          "min_ms": 89.13,
+          "max_ms": 118.4
+        }
+      }
+    }
+  }
+}
