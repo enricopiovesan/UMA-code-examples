@@ -1,0 +1,71 @@
+name: Agent SDK Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  sdk-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "20"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-wasip1
+
+      - name: Install Wasmtime
+        shell: bash
+        run: |
+          mkdir -p .bin
+          curl -L -sS https://github.com/bytecodealliance/wasmtime/releases/download/v39.0.0/wasmtime-v39.0.0-x86_64-linux.tar.xz -o /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz
+          tar -xf /tmp/wasmtime-v39.0.0-x86_64-linux.tar.xz -C .bin
+          echo "$GITHUB_WORKSPACE/.bin/wasmtime-v39.0.0-x86_64-linux:$PATH" >> "$GITHUB_PATH"
+
+      - name: Run reader smoke baseline
+        shell: bash
+        run: ./scripts/smoke_reader_paths.sh
+
+      - name: Install Claude Agent SDK
+        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        shell: bash
+        run: npm install -g @anthropic-ai/claude-agent-sdk
+
+      - name: Run Agent SDK structured validation
+        if: ${{ secrets.ANTHROPIC_API_KEY != '' }}
+        shell: bash
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude -p "Run ./scripts/smoke_reader_paths.sh. If any chapter fails, read the relevant source files and explain the failure. Return JSON with fields: overall_pass, chapters_failed, explanations, suggested_fixes." \
+            --allowedTools "Bash,Read,Glob" \
+            --output-format json \
+            --bare > agent-report.json
+
+      - name: Write skipped report when no API key is configured
+        if: ${{ secrets.ANTHROPIC_API_KEY == '' }}
+        shell: bash
+        run: |
+          cat > agent-report.json <<'JSON'
+          {
+            "overall_pass": true,
+            "skipped": true,
+            "reason": "ANTHROPIC_API_KEY is not configured for this repository or PR source."
+          }
+          JSON
+
+      - name: Upload agent validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-validation-report
+          path: agent-report.json
+        if: always()
