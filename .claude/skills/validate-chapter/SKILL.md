@@ -16,6 +16,14 @@ find <chapter-dir>/scripts -maxdepth 1 -name 'smoke_*.sh'
 npm test --prefix ts
 ./scripts/compare_impls.sh
 ```
+   These parity checks assume `wasmtime` is available on `PATH`. In this repo the expected local pinned binary path is usually:
+```bash
+/Users/piovese/Documents/UMA-code-examples/.bin/wasmtime-v39.0.0-aarch64-macos/wasmtime
+```
+   Verify it with:
+```bash
+wasmtime --version
+```
 6. Run Rust tests for the chapter's validated manifest. Common patterns are:
 ```bash
 cargo test --locked --manifest-path <chapter>/Cargo.toml
