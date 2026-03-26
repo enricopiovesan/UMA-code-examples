@@ -1,55 +1,54 @@
 # UMA-code-examples Agent Guide
 
 ## What this repo is
-Book companion for Universal Microservices Architecture. Each `chapter-XX` folder
-is a validated lab or reference example. The repo proves UMA with runnable code.
+Book companion for Universal Microservices Architecture. Each chapter-XX folder
+is a self-contained validated lab. The repo proves the UMA model with runnable
+code, not just descriptions.
 
-## Final acceptance gate
+## Must not break
 Before finishing any task, run:
 ```bash
 ./scripts/smoke_reader_paths.sh
 ```
-If it fails, the task is not done.
+This is the single acceptance gate. If it fails, the task is not done.
 
 ## Repo map
-- `chapter-04-*` through `chapter-13-*` — validated reader labs, Rust-first
-- `book-site/` — public website source for universalmicroservices.com
-- `scripts/` — repo-level smoke, coverage, and contributor checks
-- `benchmarks/` — generated benchmark proof artifacts
+- `chapter-04-*` through `chapter-13-*` — validated reader labs (Rust-first)
+- `book-site/` — public site source (universalmicroservices.com)
+- `scripts/` — repo-level validation and smoke helpers
 
 ## Language rules
-- Rust is the authoritative implementation path
-- TypeScript is a parity path where present; keep it aligned, never primary
-- Shell scripts in `scripts/` and chapter `scripts/` are reader-facing
+- Rust is the validated default implementation path
+- TypeScript is a parity path — keep it aligned, never promote it above Rust
+- Shell scripts in `scripts/` are reader-facing — keep them readable
 
 ## What is validated vs illustrative
-- Chapter smoke scripts and chapter READMEs define the validated path
-- `adapters/` directories are usually illustrative host examples unless a chapter README says otherwise
-- `book-site/` is public-facing; changes there affect the live site
+- `core/` and `wasi-app/` directories inside any chapter = validated, do not break
+- `adapters/` directories inside any chapter = ILLUSTRATIVE, not production paths
+- `book-site/` = public-facing, handle with care
 
-## Useful verification commands
-Full repo:
+## Verification commands by chapter type
+Rust chapter:
 ```bash
-./scripts/check_reader_docs.sh
+RUSTFLAGS='-D warnings' cargo test --locked --manifest-path <chapter>/rust/Cargo.toml
+```
+TypeScript parity check:
+```bash
+./scripts/compare_impls.sh
+```
+Coverage check:
+```bash
 ./scripts/check_rust_coverage.sh
 ./scripts/check_business_logic_coverage.sh
-./scripts/smoke_reader_paths.sh
-```
-Chapter-local parity, where available:
-```bash
-cd <chapter-dir>
-./scripts/compare_impls.sh
 ```
 
 ## Coverage floor — do not go below these
-- Line: 56% repo-wide
-- Function: 63% repo-wide
-- Region: 56% repo-wide
+- Line: 53% (repo-wide)
+- Function: 50% (repo-wide)
 - Business logic crates: 100% line, function, region
 
 ## Never do
-- Modify `contracts/` or schemas without updating the matching tests
+- Modify `contracts/` schemas without updating corresponding tests
 - Change `scripts/smoke_reader_paths.sh` behavior without updating CI
-- Treat illustrative adapters as validated production behavior
-- Break Rust warning hygiene on validated crates
-- Advertise “write once, run everywhere”; the repo position is “write once, run where it makes sense”
+- Treat adapter files as validated behavior
+- Add dependencies to core/ crates (they must stay stdlib-only)

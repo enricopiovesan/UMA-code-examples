@@ -1,6 +1,5 @@
----
 name: validate-chapter
-description: Validate a specific chapter lab. Use when asked to check, fix, test, or verify any chapter directory. Runs the chapter smoke path, chapter tests, and parity checks where applicable.
+description: Validate a specific chapter lab. Use when asked to validate, check, fix, or test any chapter-XX directory. Runs the chapter smoke path, chapter tests, and parity checks where applicable.
 ---
 
 ## Steps
@@ -34,3 +33,4 @@ All chapter-local checks exit `0`. If the task changes repo behavior, the repo i
 - Do not invent a generic Cargo path without checking the chapter layout.
 - Do not mark illustrative adapter output as validated behavior.
 - Do not skip parity checks when a `ts/` path and `scripts/compare_impls.sh` both exist.
+- Do not mark anything fixed until `./scripts/smoke_reader_paths.sh` passes at the repo root.
