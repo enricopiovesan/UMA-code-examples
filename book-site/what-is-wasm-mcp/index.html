@@ -85,7 +85,8 @@
           <p>
             In the UMA reference experience, <strong>WASM MCP</strong> is the discovery and invocation surface through which the runtime
             learns what capabilities are available. It matters because it makes capability availability explicit instead of hiding it inside
-            custom integration code or one-off runtime assumptions.
+            custom integration code or one-off runtime assumptions when compute can happen in many places and the system needs a visible
+            way to decide where logic runs.
           </p>
         </section>
 
@@ -100,6 +101,10 @@
             <p>
               The important point is not the acronym by itself. The important point is architectural: a modern system needs a visible,
               inspectable way to surface capabilities if it wants runtime composition to stay governed instead of ad hoc.
+            </p>
+            <p>
+              This fits the same UMA summary as the rest of the site: not “write once, run everywhere,” but “write once, run where it
+              makes sense,” with discovery staying explicit instead of hidden.
             </p>
           </section>
 
@@ -175,6 +180,15 @@
           </section>
 
           <section>
+            <h2>A concrete proof point</h2>
+            <p>
+              In the reference app, the `WASM MCP` node matters because it shows where discovery begins. The runtime does not simply know
+              what to call. It sees available capabilities through an explicit surface, and that makes the rest of the workflow easier to
+              inspect and trust.
+            </p>
+          </section>
+
+          <section>
             <h2>Why this matters for SEO and reader understanding too</h2>
             <p>
               Readers who see `WASM MCP` in the live app or Chapter 13 CLI output will naturally ask what it means. If the site does not
@@ -233,7 +247,8 @@
             <strong>See the full chain</strong>
             <p>
               The easiest way to understand WASM MCP is to place it beside the other UMA roles: capability, planner, runtime, and final
-              workflow. The live reference app and the concept pages around it make that chain visible step by step.
+              workflow. The live reference app and the concept pages around it make that chain visible step by step, while the book takes
+              the same discovery surface into the broader execution model behind it.
             </p>
             <div class="subpage-inline-links">
               <a href="../what-is-a-capability/">What is a capability?</a>
@@ -241,6 +256,7 @@
               <a href="../what-is-a-workflow/">What is a workflow?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+              <a href="https://www.universalmicroservices.com/">Buy the book</a>
             </div>
           </section>
         </div>

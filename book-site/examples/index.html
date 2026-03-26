@@ -67,7 +67,8 @@
           <p>
             The examples are the practical proof layer of Universal Microservices Architecture. They let readers inspect how a portable
             service is defined, how a runtime wraps it, how orchestration emerges from metadata, and how system evolution and trust
-            decisions become visible rather than hidden inside operational glue.
+            decisions become visible rather than hidden inside operational glue. They are the fastest way to evaluate UMA as an execution
+            model instead of treating it as another architectural slogan.
           </p>
         </section>
 
@@ -78,6 +79,23 @@
               Architecture claims are easy to make and hard to validate. The examples exist to close that gap. They give the reader a way
               to compare intention against output, contracts against runtime decisions, and design coherence against the real drift that
               appears once a system grows.
+            </p>
+            <p>
+              The key thing to evaluate is not “can this code run somewhere else?” It is whether one behavior stays coherent while compute
+              can happen in many places and the runtime decides where logic runs.
+            </p>
+          </section>
+
+          <section>
+            <h2>A before-and-after way to read the repo</h2>
+            <p>
+              Before UMA, a team often ends up with the same business rule scattered across browser logic, edge handling, backend checks,
+              and workflow glue. After UMA, the question becomes whether one portable behavioral unit can stay intact while the runtime
+              takes responsibility for placement, validation, trust, and workflow approval.
+            </p>
+            <p>
+              That is the lens to use when reading the examples. Do not ask only whether the lab runs. Ask whether the architecture still
+              knows what the durable behavior is and why the runtime approved the path that produced the result.
             </p>
           </section>
 
@@ -171,6 +189,10 @@
               If you want one conceptual lens that makes the Chapter 13 behavior easier to read, focus on the distinction between planning
               and authority. The agent can help propose a workflow, but the runtime still governs what is approved and executed.
             </p>
+            <p>
+              That is also the cleanest demonstration of the UMA promise: not write once, run everywhere, but write once, run where it
+              makes sense under visible runtime authority.
+            </p>
           </section>
 
           <section>
@@ -186,7 +208,8 @@
             <strong>Repository entry point</strong>
             <p>
               The examples live in the public repository and follow the same story arc as the site and the book. That makes the repository
-              the right place to continue after this overview.
+              the right place to continue after this overview. If you want the full design reasoning behind that progression, the book takes
+              the same examples and connects them into one architectural sequence rather than a set of isolated labs.
             </p>
             <div class="subpage-inline-links">
               <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub repository</a>

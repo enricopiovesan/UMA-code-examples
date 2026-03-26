@@ -85,7 +85,8 @@
           <p>
             The UMA runtime is the governed layer around portable behavior. It is the part of the system that discovers capabilities,
             checks compatibility, enforces constraints, decides what is allowed to run, and records enough evidence for the execution to be
-            understandable afterward.
+            understandable afterward. In practical terms, it is the layer that decides where logic runs once compute can happen in many
+            places.
           </p>
         </section>
 
@@ -100,6 +101,10 @@
             <p>
               That is why the runtime matters so much in UMA. Portable logic alone is not enough. A system also needs a visible layer that
               owns selection, validation, policy, and evidence. Without that layer, portability becomes hard to trust.
+            </p>
+            <p>
+              This is also why UMA is not “write once, run everywhere.” It is “write once, run where it makes sense,” with the runtime
+              making that decision explicit and governable.
             </p>
           </section>
 
@@ -224,6 +229,15 @@
           </section>
 
           <section>
+            <h2>A concrete proof point</h2>
+            <p>
+              The simplest proof is not theoretical. Open the reference app and watch one workflow execute. The planner can propose, the
+              runtime can reject or approve, the capability path stays visible, and the result is explained afterward. That is much closer
+              to the real UMA claim than a generic portability slogan.
+            </p>
+          </section>
+
+          <section>
             <h2>Frequently asked questions</h2>
             <h3>Is the runtime the same thing as the host platform?</h3>
             <p>
@@ -246,7 +260,8 @@
             <strong>See the runtime as a real decision layer</strong>
             <p>
               If this page clarified the role of the runtime, the next step is to look at a workflow where the runtime accepts, rejects,
-              and composes capabilities visibly. The live reference app and the book take that concept further.
+              and composes capabilities visibly. The live reference app shows the surface; in the book, I go further into why that runtime
+              layer has to stay authoritative as systems grow more dynamic.
             </p>
             <div class="subpage-inline-links">
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>

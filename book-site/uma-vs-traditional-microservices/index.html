@@ -84,8 +84,8 @@
           <h1>UMA vs traditional microservices</h1>
           <p>
             Universal Microservices Architecture is not a rejection of microservices. It is a response to a different problem. Traditional
-            microservices explain deployable service boundaries well. UMA focuses on what happens when business behavior must remain
-            coherent across many runtimes, policy surfaces, trust boundaries, and evolving workflow paths.
+            microservices explain deployable service boundaries well. UMA is an execution model for distributed systems where compute can
+            happen in many places and the system decides where logic runs without losing behavioral coherence.
           </p>
         </section>
 
@@ -101,6 +101,23 @@
             <p>
               Microservices answer an important question: how should service responsibilities be separated? UMA answers a newer one: how do
               you preserve service meaning when execution no longer belongs to one runtime surface?
+            </p>
+            <p>
+              The portable summary is not “write once, run everywhere.” It is “write once, run where it makes sense.”
+            </p>
+          </section>
+
+          <section>
+            <h2>One concrete before-and-after test</h2>
+            <p>
+              Imagine one product rule that has to appear in a browser experience, a backend authority check, an edge optimization, and a
+              generated workflow. In a typical stack-first system, each surface ends up with its own version of the rule. The system still
+              works, but nobody can point to one durable behavioral source anymore.
+            </p>
+            <p>
+              UMA changes that center of gravity. The goal is to preserve one portable unit of behavior and let the runtime decide where it
+              should execute, what constraints apply, and which path is valid in the current context. That is the practical difference the
+              reference app and the later chapters are trying to prove.
             </p>
           </section>
 
@@ -243,7 +260,8 @@
             <strong>Continue the comparison into the model</strong>
             <p>
               If this comparison made sense, the next step is to move from the outside view into the core UMA concepts: behavior
-              ownership, capability, runtime, and governed discovery. That is where the architectural differences stop being abstract.
+              ownership, capability, runtime, and governed discovery. In the book, I take that shift further and show how those concepts
+              become a usable execution model instead of just a critique of older boundaries.
             </p>
             <div class="subpage-inline-links">
               <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>

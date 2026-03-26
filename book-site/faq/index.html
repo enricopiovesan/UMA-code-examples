@@ -26,7 +26,7 @@
       "name": "What is Universal Microservices Architecture?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Universal Microservices Architecture is a model for keeping business behavior portable across runtimes while making contracts, policy, trust, and execution boundaries explicit."
+        "text": "Universal Microservices Architecture is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs, while keeping business behavior portable and runtime decisions explicit."
       }
     },
     {
@@ -74,7 +74,7 @@
       "name": "How is UMA different from traditional microservices?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Traditional microservices usually emphasize deployable units and service ownership. UMA focuses on keeping service behavior portable while making contracts, runtime policy, trust, and execution boundaries visible."
+        "text": "Traditional microservices usually emphasize deployable units and service ownership. UMA focuses on keeping service behavior portable while making contracts, runtime policy, trust, and execution boundaries visible once execution can span many runtime surfaces."
       }
     },
     {
@@ -130,7 +130,7 @@
       "name": "What is a workflow in UMA?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A workflow is the runtime-approved composition of capabilities used to satisfy a goal under the current constraints and rules."
+        "text": "A workflow is the runtime-approved composition of capabilities used to satisfy a goal under the current constraints and rules, making the chosen execution path visible instead of hiding it in glue code."
       }
     },
     {
@@ -276,6 +276,10 @@
             This FAQ is meant to be maintained over time as the site, examples, and book evolve. It collects short, direct answers to the
             questions that come up most often when people first encounter UMA and want to understand how the model behaves in practice.
           </p>
+          <p>
+            The shortest framing to keep in mind is this: UMA is an execution model for distributed systems where compute can happen in
+            many places and the system decides where logic runs.
+          </p>
         </section>
 
         <div class="subpage-body">
@@ -283,9 +287,9 @@
             <h2>Foundations</h2>
             <h3>What is Universal Microservices Architecture?</h3>
             <p>
-              Universal Microservices Architecture is a model for keeping service behavior portable across runtimes while making contracts,
-              runtime policy, trust, and execution boundaries explicit. It focuses on preserving business meaning while the system moves
-              across client, edge, and cloud environments.
+              Universal Microservices Architecture is an execution model for distributed systems where compute can happen in many places
+              and the system decides where logic runs. It keeps service behavior portable while making contracts, runtime policy, trust,
+              and execution boundaries explicit.
             </p>
             <h3>Why does UMA exist?</h3>
             <p>
@@ -313,6 +317,9 @@
               It means the service behavior can stay semantically stable while the runtime around it changes. Validation, transport,
               placement, identity, permissions, and trust still matter, but they stop being the place where the business meaning of the
               service is quietly rewritten.
+            </p>
+            <p>
+              The useful shorthand is not “write once, run everywhere.” It is “write once, run where it makes sense.”
             </p>
             <p>
               The dedicated <a href="../runtime-agnostic-architecture/">runtime-agnostic architecture</a> page goes deeper into that

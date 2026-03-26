@@ -85,7 +85,7 @@
           <p>
             A capability is the unit the runtime can actually reason about. In Universal Microservices Architecture, a capability is not
             just code that exists somewhere. It is a named, discoverable, contract-shaped piece of behavior that the runtime can evaluate,
-            approve, reject, and compose into a workflow.
+            approve, reject, and compose into a workflow when compute can happen in many places and the system needs to decide where logic runs.
           </p>
         </section>
 
@@ -100,6 +100,10 @@
             <p>
               This is why capabilities matter so much once the system becomes dynamic. A runtime cannot compose a workflow out of loosely
               described code. It needs visible units with clear meaning. Capabilities are those units.
+            </p>
+            <p>
+              The portability goal here is not “write once, run everywhere.” It is “write once, run where it makes sense,” with
+              capabilities giving the runtime concrete units to evaluate.
             </p>
             <ul>
               <li><strong>Capability:</strong> a discoverable unit of behavior the runtime can reason about.</li>
@@ -200,6 +204,15 @@
           </section>
 
           <section>
+            <h2>A concrete proof point</h2>
+            <p>
+              The easiest proof is to watch one workflow in the reference app. You can see which capabilities are available, which one is
+              proposed or selected, and where the runtime keeps authority over the final path. That is much clearer than treating
+              capabilities as another naming convention for services.
+            </p>
+          </section>
+
+          <section>
             <h2>What a capability is not</h2>
             <ul>
               <li>It is not every function or class in the codebase.</li>
@@ -261,7 +274,8 @@
             <strong>See capabilities in action</strong>
             <p>
               If this page clarified the term, the next useful step is to see capabilities participate in a governed workflow. The live
-              reference app makes that visible, and the book explains the larger architectural model behind it.
+              reference app makes that visible, and in the book I go deeper into why capabilities become the durable unit once execution is
+              no longer tied to one stack.
             </p>
             <div class="subpage-inline-links">
               <a href="../what-makes-a-service-portable/">What makes a service portable?</a>

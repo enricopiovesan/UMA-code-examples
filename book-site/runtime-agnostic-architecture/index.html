@@ -67,7 +67,7 @@
           <p>
             Runtime-agnostic architecture does not mean that runtimes stop mattering. It means the business behavior of the system no
             longer depends on being permanently fused to a single runtime choice. UMA treats that separation as an architectural discipline,
-            not a marketing slogan.
+            not a marketing slogan, in a system where compute can happen in many places and the runtime decides where logic runs.
           </p>
         </section>
 
@@ -88,6 +88,22 @@
               That is why runtime-agnostic architecture is not mainly about technical portability. It is about protecting semantic
               continuity. If the same behavior changes meaning every time it crosses into a new runtime surface, the architecture is still
               stack-shaped even if some code happens to be reusable.
+            </p>
+            <p>
+              The more useful shorthand is not “write once, run everywhere.” It is “write once, run where it makes sense.”
+            </p>
+          </section>
+
+          <section>
+            <h2>What this looks like in practice</h2>
+            <p>
+              A runtime-agnostic system does not ask every environment to host the same logic in the same way. It asks the architecture to
+              preserve one behavioral meaning while letting the runtime decide whether that logic belongs closer to the user, deeper in a
+              governed backend, or inside a workflow or edge path.
+            </p>
+            <p>
+              That distinction matters because many systems already execute in several places. The hard part is not moving compute. The hard
+              part is moving it without letting each surface rewrite the rule for itself.
             </p>
           </section>
 
@@ -242,14 +258,15 @@
             <p>
               This page gives the architectural shape of the idea. In the book, I explore the pressure behind that shape in more detail:
               why teams drift back toward runtime-owned behavior, where that drift becomes expensive, and how a governed runtime model
-              changes the tradeoffs. On the site, the next useful move is to connect runtime-agnostic design to portable business logic and
-              the runtime itself.
+              changes the tradeoffs. On the site, the next useful move is to connect runtime-agnostic design to portable business logic,
+              runtime authority, and a concrete proof surface.
             </p>
             <div class="subpage-inline-links">
               <a href="../from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
               <a href="../portable-business-logic/">Portable business logic</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
               <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../examples/">Examples</a>
               <a href="../webassembly-architecture/">WebAssembly architecture</a>
               <a href="../trust-boundaries/">Trust boundaries</a>
             </div>
