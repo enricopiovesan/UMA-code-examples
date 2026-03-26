@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-26T02:12:16Z",
+  "generated_at": "2026-03-26T02:41:48Z",
   "environment": {
     "os": "macOS-26.3-arm64-arm-64bit-Mach-O",
     "python": "3.13.2",
@@ -14,20 +14,32 @@
         "wasi_module_bytes": 202748,
         "wasi_module_human": "198.00 KiB"
       },
+      "resources": {
+        "rust_wasi_via_wasmtime": {
+          "cold_start_ms": 51.63,
+          "peak_rss_bytes": 17924096,
+          "peak_rss_human": "17.09 MiB"
+        },
+        "typescript_node": {
+          "cold_start_ms": 96.45,
+          "peak_rss_bytes": 39796736,
+          "peak_rss_human": "37.95 MiB"
+        }
+      },
       "timings": {
         "rust_wasi_via_wasmtime": {
           "runs": 20,
-          "mean_ms": 28.01,
-          "median_ms": 28.58,
-          "min_ms": 21.23,
-          "max_ms": 39.42
+          "mean_ms": 33.42,
+          "median_ms": 31.93,
+          "min_ms": 22.7,
+          "max_ms": 57.89
         },
         "typescript_node": {
           "runs": 20,
-          "mean_ms": 91.89,
-          "median_ms": 84.26,
-          "min_ms": 70.0,
-          "max_ms": 174.95
+          "mean_ms": 271.17,
+          "median_ms": 125.61,
+          "min_ms": 82.44,
+          "max_ms": 1662.06
         }
       }
     },
@@ -39,20 +51,32 @@
         "wasi_runner_bytes": 360786,
         "wasi_runner_human": "352.33 KiB"
       },
+      "resources": {
+        "native_runner": {
+          "cold_start_ms": 336.64,
+          "peak_rss_bytes": 8175616,
+          "peak_rss_human": "7.80 MiB"
+        },
+        "wasi_runner_via_wasmtime": {
+          "cold_start_ms": 212.73,
+          "peak_rss_bytes": 48103424,
+          "peak_rss_human": "45.88 MiB"
+        }
+      },
       "timings": {
         "native_runner": {
           "runs": 20,
-          "mean_ms": 21.87,
-          "median_ms": 21.4,
-          "min_ms": 13.15,
-          "max_ms": 38.64
+          "mean_ms": 56.73,
+          "median_ms": 45.79,
+          "min_ms": 25.79,
+          "max_ms": 157.13
         },
         "wasi_runner_via_wasmtime": {
           "runs": 20,
-          "mean_ms": 99.74,
-          "median_ms": 101.35,
-          "min_ms": 74.9,
-          "max_ms": 126.02
+          "mean_ms": 379.63,
+          "median_ms": 290.29,
+          "min_ms": 152.34,
+          "max_ms": 1616.95
         }
       }
     },
@@ -62,13 +86,20 @@
         "cli_binary_bytes": 970704,
         "cli_binary_human": "947.95 KiB"
       },
+      "resources": {
+        "render_json_cli": {
+          "cold_start_ms": 964.64,
+          "peak_rss_bytes": 2293760,
+          "peak_rss_human": "2.19 MiB"
+        }
+      },
       "timings": {
         "render_json_cli": {
           "runs": 20,
-          "mean_ms": 21.01,
-          "median_ms": 20.93,
-          "min_ms": 10.93,
-          "max_ms": 31.1
+          "mean_ms": 512.36,
+          "median_ms": 312.45,
+          "min_ms": 48.06,
+          "max_ms": 2228.3
         }
       }
     }

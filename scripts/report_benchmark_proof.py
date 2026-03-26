@@ -6,7 +6,6 @@ from __future__ import annotations
 import json
 import os
 import platform
-import shlex
 import statistics
 import subprocess
 import sys
@@ -91,6 +90,58 @@ def human_size(size_bytes: int) -> str:
     return f"{size_bytes} B"
 
 
+def measure_cold_start_and_rss(
+    cmd: list[str],
+    cwd: Path,
+    env: dict[str, str],
+    stdin_text: str | None = None,
+) -> dict[str, float | int | str]:
+    wrapper = """
+import json, os, platform, resource, subprocess, sys, time
+cmd = json.loads(sys.argv[1])
+cwd = sys.argv[2]
+env = json.loads(sys.argv[3])
+stdin_text = sys.argv[4]
+if stdin_text == "__NO_STDIN__":
+    stdin_text = None
+start = time.perf_counter()
+subprocess.run(
+    cmd,
+    cwd=cwd,
+    env=env,
+    check=True,
+    input=stdin_text,
+    text=stdin_text is not None,
+    stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL,
+)
+elapsed_ms = (time.perf_counter() - start) * 1000.0
+rss = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+if platform.system() == "Linux":
+    rss_bytes = int(rss * 1024)
+else:
+    rss_bytes = int(rss)
+print(json.dumps({"cold_start_ms": round(elapsed_ms, 2), "peak_rss_bytes": rss_bytes}))
+""".strip()
+    output = run(
+        [
+            sys.executable,
+            "-c",
+            wrapper,
+            json.dumps(cmd),
+            str(cwd),
+            json.dumps(env),
+            stdin_text if stdin_text is not None else "__NO_STDIN__",
+        ],
+        cwd=ROOT,
+        env=env,
+        capture=True,
+    )
+    result = json.loads(output)
+    result["peak_rss_human"] = human_size(result["peak_rss_bytes"])
+    return result
+
+
 def gather() -> dict:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -171,6 +222,10 @@ def gather() -> dict:
                     "wasi_module_bytes": c4_wasm.stat().st_size,
                     "wasi_module_human": human_size(c4_wasm.stat().st_size),
                 },
+                "resources": {
+                    "rust_wasi_via_wasmtime": measure_cold_start_and_rss(chapter4_rust_cmd, chapter4, env, chapter4_input),
+                    "typescript_node": measure_cold_start_and_rss(chapter4_ts_cmd, chapter4, env, chapter4_input),
+                },
                 "timings": {
                     "rust_wasi_via_wasmtime": measure_stdin(chapter4_rust_cmd, chapter4, chapter4_input),
                     "typescript_node": measure_stdin(chapter4_ts_cmd, chapter4, chapter4_input),
@@ -184,6 +239,14 @@ def gather() -> dict:
                     "wasi_runner_bytes": c6_wasm.stat().st_size,
                     "wasi_runner_human": human_size(c6_wasm.stat().st_size),
                 },
+                "resources": {
+                    "native_runner": measure_cold_start_and_rss([str(c6_native), "../sample-data/sample.pgm"], chapter6_runtime, env),
+                    "wasi_runner_via_wasmtime": measure_cold_start_and_rss(
+                        [wasmtime, "run", "--dir=..", str(c6_wasm), "../sample-data/sample.pgm"],
+                        chapter6_runtime,
+                        env,
+                    ),
+                },
                 "timings": {
                     "native_runner": measure([str(c6_native), "../sample-data/sample.pgm"], chapter6_runtime, env),
                     "wasi_runner_via_wasmtime": measure([wasmtime, "run", "--dir=..", str(c6_wasm), "../sample-data/sample.pgm"], chapter6_runtime, env),
@@ -194,6 +257,9 @@ def gather() -> dict:
                 "artifacts": {
                     "cli_binary_bytes": c13_native.stat().st_size,
                     "cli_binary_human": human_size(c13_native.stat().st_size),
+                },
+                "resources": {
+                    "render_json_cli": measure_cold_start_and_rss(chapter13_render_cmd, chapter13, env),
                 },
                 "timings": {
                     "render_json_cli": measure(chapter13_render_cmd, chapter13, env),
@@ -224,6 +290,8 @@ def write_markdown(data: dict) -> str:
         "",
         f"- WASI module size: `{c4['artifacts']['wasi_module_human']}`",
         f"- benchmark input: `{c4['input']}`",
+        f"- first measured run: `{c4['resources']['rust_wasi_via_wasmtime']['cold_start_ms']} ms` (Rust/WASI), `{c4['resources']['typescript_node']['cold_start_ms']} ms` (TypeScript/Node)",
+        f"- peak RSS: `{c4['resources']['rust_wasi_via_wasmtime']['peak_rss_human']}` (Rust/WASI), `{c4['resources']['typescript_node']['peak_rss_human']}` (TypeScript/Node)",
         "",
         "| Path | Mean (ms) | Median (ms) | Min (ms) | Max (ms) | Runs |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
@@ -239,6 +307,8 @@ def write_markdown(data: dict) -> str:
             f"- native runner size: `{c6['artifacts']['native_runner_human']}`",
             f"- WASI runner size: `{c6['artifacts']['wasi_runner_human']}`",
             f"- benchmark input: `{c6['input']}`",
+            f"- first measured run: `{c6['resources']['native_runner']['cold_start_ms']} ms` (native), `{c6['resources']['wasi_runner_via_wasmtime']['cold_start_ms']} ms` (WASI via Wasmtime)",
+            f"- peak RSS: `{c6['resources']['native_runner']['peak_rss_human']}` (native), `{c6['resources']['wasi_runner_via_wasmtime']['peak_rss_human']}` (WASI via Wasmtime)",
             "",
             "| Path | Mean (ms) | Median (ms) | Min (ms) | Max (ms) | Runs |",
             "| --- | ---: | ---: | ---: | ---: | ---: |",
@@ -254,6 +324,8 @@ def write_markdown(data: dict) -> str:
             "",
             f"- CLI binary size: `{c13['artifacts']['cli_binary_human']}`",
             f"- benchmark input: `{c13['input']}`",
+            f"- first measured run: `{c13['resources']['render_json_cli']['cold_start_ms']} ms`",
+            f"- peak RSS: `{c13['resources']['render_json_cli']['peak_rss_human']}`",
             "",
             "| Path | Mean (ms) | Median (ms) | Min (ms) | Max (ms) | Runs |",
             "| --- | ---: | ---: | ---: | ---: | ---: |",

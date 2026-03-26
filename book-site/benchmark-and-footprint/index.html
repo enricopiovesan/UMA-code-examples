@@ -100,6 +100,11 @@
               The stronger claim UMA makes is not raw speed alone. It is that portable behavior remains measurable, comparable, and
               explicit across runtime choices.
             </p>
+            <p>
+              The startup and memory numbers are especially sensitive to local machine state, filesystem caches, and host runtime behavior.
+              That is why the page shows both repeated timings and one first measured run, rather than pretending there is only one number
+              worth publishing.
+            </p>
           </section>
 
           <section class="subpage-grid">
@@ -131,11 +136,30 @@
               <article class="benchmark-panel">
                 <h3>Chapter 4 repeated execution</h3>
                 <div class="benchmark-row">
-                  <div class="benchmark-label"><strong>Rust WASI via Wasmtime</strong><span>28.01 ms mean</span></div>
-                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 30.48%"></span></div>
+                  <div class="benchmark-label"><strong>Rust WASI via Wasmtime</strong><span>33.42 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 12.32%"></span></div>
                 </div>
                 <div class="benchmark-row">
-                  <div class="benchmark-label"><strong>TypeScript via Node</strong><span>91.89 ms mean</span></div>
+                  <div class="benchmark-label"><strong>TypeScript via Node</strong><span>271.17 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 4 first run and memory</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Rust WASI cold start</strong><span>51.63 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 53.53%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>TypeScript cold start</strong><span>96.45 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Rust WASI peak RSS</strong><span>17.09 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 45.03%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>TypeScript peak RSS</strong><span>37.95 MiB</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
                 </div>
               </article>
@@ -153,11 +177,30 @@
               <article class="benchmark-panel">
                 <h3>Chapter 6 repeated execution</h3>
                 <div class="benchmark-row">
-                  <div class="benchmark-label"><strong>Native runner</strong><span>21.87 ms mean</span></div>
-                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 21.93%"></span></div>
+                  <div class="benchmark-label"><strong>Native runner</strong><span>56.73 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 14.94%"></span></div>
                 </div>
                 <div class="benchmark-row">
-                  <div class="benchmark-label"><strong>WASI runner via Wasmtime</strong><span>99.74 ms mean</span></div>
+                  <div class="benchmark-label"><strong>WASI runner via Wasmtime</strong><span>379.63 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 6 first run and memory</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native cold start</strong><span>336.64 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI cold start</strong><span>212.73 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 63.19%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native peak RSS</strong><span>7.80 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 17.00%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI peak RSS</strong><span>45.88 MiB</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
                 </div>
               </article>
@@ -168,7 +211,15 @@
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
                 </div>
                 <div class="benchmark-row">
-                  <div class="benchmark-label"><strong>Render JSON path</strong><span>21.01 ms mean</span></div>
+                  <div class="benchmark-label"><strong>Render JSON path</strong><span>512.36 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>First measured run</strong><span>964.64 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Peak RSS</strong><span>2.19 MiB</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
                 </div>
               </article>
@@ -184,6 +235,8 @@
             <ul>
               <li>WASI module size: <code>198.00 KiB</code></li>
               <li>Input: <code>lab2-rollout-match.json</code></li>
+              <li>First measured run: <code>51.63 ms</code> (Rust/WASI), <code>96.45 ms</code> (TypeScript/Node)</li>
+              <li>Peak RSS: <code>17.09 MiB</code> (Rust/WASI), <code>37.95 MiB</code> (TypeScript/Node)</li>
             </ul>
             <table>
               <thead>
@@ -199,26 +252,28 @@
               <tbody>
                 <tr>
                   <td>Rust WASI via Wasmtime</td>
-                  <td>32.48</td>
-                  <td>30.54</td>
-                  <td>21.18</td>
-                  <td>62.39</td>
+                  <td>33.42</td>
+                  <td>31.93</td>
+                  <td>22.7</td>
+                  <td>57.89</td>
                   <td>20</td>
                 </tr>
                 <tr>
                   <td>TypeScript via Node</td>
-                  <td>110.37</td>
-                  <td>103.75</td>
-                  <td>67.12</td>
-                  <td>193.22</td>
+                  <td>271.17</td>
+                  <td>125.61</td>
+                  <td>82.44</td>
+                  <td>1662.06</td>
                   <td>20</td>
                 </tr>
               </tbody>
             </table>
             <p>
-              On this fixed input, the WASI evaluator stayed small and was materially faster than the TypeScript path under the same local
-              measurement method. The architectural point is not that Rust or WASI always wins. It is that one portable evaluator can stay
-              compact and measurable without being rewritten into a second implementation just to change the runtime surface.
+              On this fixed input, the WASI evaluator stayed dramatically smaller and lighter in memory than the TypeScript path under the
+              same local measurement method. The timing spread is visibly noisy on the Node side, which is exactly why this page now shows
+              repeated timings together with one first measured run. The architectural point is not that Rust or WASI always wins. It is
+              that one portable evaluator can stay compact and measurable without being rewritten into a second implementation just to
+              change the runtime surface.
             </p>
           </section>
 
@@ -232,6 +287,8 @@
               <li>Native runner size: <code>5.31 MiB</code></li>
               <li>WASI runner size: <code>352.33 KiB</code></li>
               <li>Input: <code>sample-data/sample.pgm</code></li>
+              <li>First measured run: <code>336.64 ms</code> (native), <code>212.73 ms</code> (WASI via Wasmtime)</li>
+              <li>Peak RSS: <code>7.80 MiB</code> (native), <code>45.88 MiB</code> (WASI via Wasmtime)</li>
             </ul>
             <table>
               <thead>
@@ -247,26 +304,27 @@
               <tbody>
                 <tr>
                   <td>Native runner</td>
-                  <td>23.98</td>
-                  <td>24.96</td>
-                  <td>14.29</td>
-                  <td>32.93</td>
+                  <td>56.73</td>
+                  <td>45.79</td>
+                  <td>25.79</td>
+                  <td>157.13</td>
                   <td>20</td>
                 </tr>
                 <tr>
                   <td>WASI runner via Wasmtime</td>
-                  <td>102.26</td>
-                  <td>103.4</td>
-                  <td>89.13</td>
-                  <td>118.4</td>
+                  <td>379.63</td>
+                  <td>290.29</td>
+                  <td>152.34</td>
+                  <td>1616.95</td>
                   <td>20</td>
                 </tr>
               </tbody>
             </table>
             <p>
-              This is the tradeoff the page should make explicit. The native runner stays faster on this machine, while the WASI runner stays
-              much smaller and preserves the same behavior under a portable execution target. That is exactly the kind of evidence UMA
-              should publish instead of hiding behind vague portability language.
+              This is the tradeoff the page should make explicit. The native runner stays lighter in memory and faster on repeated runs on
+              this machine, while the WASI runner stays much smaller as an artifact and preserves the same behavior under a portable
+              execution target. That is exactly the kind of evidence UMA should publish instead of hiding behind vague portability
+              language.
             </p>
           </section>
 
@@ -280,6 +338,8 @@
             <ul>
               <li>CLI binary size: <code>947.95 KiB</code></li>
               <li>Input: <code>use-case-1-basic-report</code></li>
+              <li>First measured run: <code>964.64 ms</code></li>
+              <li>Peak RSS: <code>2.19 MiB</code></li>
             </ul>
             <table>
               <thead>
@@ -295,17 +355,19 @@
               <tbody>
                 <tr>
                   <td>Render JSON via CLI</td>
-                  <td>21.01</td>
-                  <td>20.93</td>
-                  <td>10.93</td>
-                  <td>31.1</td>
+                  <td>512.36</td>
+                  <td>312.45</td>
+                  <td>48.06</td>
+                  <td>2228.3</td>
                   <td>20</td>
                 </tr>
               </tbody>
             </table>
             <p>
               That does not measure the full AI-assisted workflow. It measures the deterministic runtime/report path that should stay
-              fast enough and legible enough to act as a real operational surface, not just a demo shell.
+              fast enough and legible enough to act as a real operational surface, not just a demo shell. It also makes one useful point
+              visible: the Chapter 13 CLI is still a small binary with a modest memory footprint even though the repeated local timing of
+              the full JSON render path is not as tight as the earlier chapter slices.
             </p>
           </section>
 
