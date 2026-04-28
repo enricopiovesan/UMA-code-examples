@@ -38,6 +38,15 @@ This smoke path will:
 - execute the vector suite
 - compare Rust and TypeScript outputs across the guided labs
 
+Run individual labs in order:
+
+```bash
+./scripts/run_lab.sh lab1-country-match
+./scripts/run_lab.sh lab2-rollout-match
+./scripts/run_lab.sh lab3-default-fallback
+./scripts/run_lab.sh lab4-rule-language
+```
+
 List the available labs:
 
 ```bash
