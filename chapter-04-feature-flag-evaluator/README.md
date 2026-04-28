@@ -38,6 +38,15 @@ This smoke path will:
 - execute the vector suite
 - compare Rust and TypeScript outputs across the guided labs
 
+Run individual labs in order:
+
+```bash
+./scripts/run_lab.sh lab1-country-match
+./scripts/run_lab.sh lab2-rollout-match
+./scripts/run_lab.sh lab3-default-fallback
+./scripts/run_lab.sh lab4-rule-language
+```
+
 List the available labs:
 
 ```bash
@@ -371,3 +380,25 @@ The provided implementation is intentionally small.  Useful next extensions woul
 * Richer expressions such as nested parentheses, arrays in context values, or additional helper functions.
 
 The current evaluator already supports inequality and numeric comparison operators, the `in` operator, and logical `&&` and `||`.  Those semantics live in `core/src/lib.rs`, and the tests demonstrate how they behave.  If you extend the language further, update the tests at the same time so the portable behavior stays explicit.
+
+## Verified Lab Results
+
+Chapter 4 has been verified end-to-end. The documented lab flow, vector
+suite, parity check, and smoke gate all pass.
+
+| Check | Command | Result |
+|---|---|---|
+| Prerequisites | `rustc --version && cargo --version && rustup target list --installed \| rg wasm32-wasip1` | PASS |
+| Prerequisites | `node --version && npm --version` | PASS |
+| Prerequisites | `command -v wasmtime` | NOTE: use pinned repo copy at `.bin/` if wasmtime is not on global PATH |
+| Prerequisites | `command -v jq` | PASS |
+| Lab 1 | `./scripts/run_lab.sh lab1-country-match` | PASS |
+| Lab 2 | `./scripts/run_lab.sh lab2-rollout-match` | PASS |
+| Lab 3 | `./scripts/run_lab.sh lab3-default-fallback` | PASS |
+| Lab 4 | `./scripts/run_lab.sh lab4-rule-language` | PASS |
+| Vector suite | `./scripts/run_vectors.sh` | PASS |
+| Parity check | `./scripts/compare_impls.sh` | PASS |
+| Smoke gate | `./scripts/smoke_flag_labs.sh` | PASS |
+
+**Known mismatch:** `npm run test:vectors` is not defined in this repo.
+The correct determinism command is `./scripts/run_vectors.sh`.
