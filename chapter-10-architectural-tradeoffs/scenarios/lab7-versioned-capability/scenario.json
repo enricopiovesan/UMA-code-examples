@@ -1,0 +1,81 @@
+{
+  "title": "Versioned Capability",
+  "summary": "Two versions of incident triage coexist, and runtime selection favors the version that matches the consumer's placement constraints.",
+  "services": [
+    {
+      "id": "incident-reporter",
+      "capability": "incident.reporting",
+      "summary": "Collects field reports and emits incident.reported.",
+      "placements": ["mobile"],
+      "events": {
+        "consumes": [],
+        "emits": ["incident.reported"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "deviceProfile"],
+        "selection_rank": 10
+      }
+    },
+    {
+      "id": "triage-v1",
+      "capability": "incident.triage",
+      "summary": "Version 1.0 accepts location and condition and emits incident.triaged.",
+      "placements": ["mobile", "edge", "cloud"],
+      "events": {
+        "consumes": ["incident.reported"],
+        "emits": ["incident.triaged"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "location", "condition"],
+        "selection_rank": 20
+      }
+    },
+    {
+      "id": "triage-v2",
+      "capability": "incident.triage",
+      "summary": "Version 2.0 adds AI confidence scoring and requires edge-aware deployment.",
+      "placements": ["edge", "cloud"],
+      "events": {
+        "consumes": ["incident.reported"],
+        "emits": ["incident.triaged"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "location", "condition", "aiConfidenceScore", "edgeRuntimeRequired"],
+        "selection_rank": 25
+      }
+    },
+    {
+      "id": "incident-classifier",
+      "capability": "incident.classification",
+      "summary": "Consumes triaged incidents and emits incident.classified.",
+      "placements": ["edge", "cloud"],
+      "events": {
+        "consumes": ["incident.triaged"],
+        "emits": ["incident.classified"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "classificationPolicy"],
+        "selection_rank": 30
+      }
+    }
+  ],
+  "interactions": [
+    { "from": "incident-reporter", "event": "incident.reported", "to": "triage-v1" },
+    { "from": "incident-reporter", "event": "incident.reported", "to": "triage-v2" },
+    { "from": "triage-v1", "event": "incident.triaged", "to": "incident-classifier" },
+    { "from": "triage-v2", "event": "incident.triaged", "to": "incident-classifier" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Multiple versions of the same capability can coexist without forcing a coordinated migration.",
+    "Runtime selection should follow declared placement constraints and explicit rank, not hidden convention.",
+    "Consumers should continue to receive stable domain events even while implementation versions evolve."
+  ]
+}
