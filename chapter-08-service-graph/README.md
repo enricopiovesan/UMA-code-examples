@@ -15,6 +15,7 @@ The labs below let a reader inspect that evolution one commit at a time.
 ## Learning path position
 
 - Previous: [Chapter 7: Metadata Orchestration Example](../chapter-07-metadata-orchestration/README.md)
+Book companion URL: https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-08-service-graph
 - Next: [Chapter 9: Trust Boundaries and Runtime Enforcement](../chapter-09-trust-boundaries/README.md)
 
 ---
