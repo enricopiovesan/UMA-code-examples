@@ -1,0 +1,99 @@
+Running cloud host...
+    Finished `release` profile [optimized] target(s) in 0.98s
+Raw output: Building native runtime CLI...
+Running the service in cloud host via native CLI...
+{
+  "lifecycle": {
+    "bindings": {
+      "network.fetch": {
+        "host": "native",
+        "impl": "host-fetch"
+      }
+    },
+    "events": [
+      {
+        "data": {
+          "runId": "demo-001"
+        },
+        "t": "0",
+        "type": "start"
+      },
+      {
+        "data": {
+          "url": "uma-fixture://sample-post"
+        },
+        "t": "1",
+        "type": "fetch_request"
+      },
+      {
+        "data": {
+          "status": 200
+        },
+        "t": "2",
+        "type": "fetch_response"
+      },
+      {
+        "data": {
+          "id": 1
+        },
+        "t": "3",
+        "type": "normalized"
+      },
+      {
+        "data": {},
+        "t": "4",
+        "type": "end"
+      }
+    ],
+    "logicalClock": 5,
+    "policy_ref": "default.runtime.policy",
+    "service": "uma-post-fetcher.service",
+    "service_version": "1.0.0",
+    "state": "terminated"
+  },
+  "output": {
+    "events": [
+      {
+        "data": {
+          "runId": "demo-001"
+        },
+        "t": "0",
+        "type": "start"
+      },
+      {
+        "data": {
+          "url": "uma-fixture://sample-post"
+        },
+        "t": "1",
+        "type": "fetch_request"
+      },
+      {
+        "data": {
+          "status": 200
+        },
+        "t": "2",
+        "type": "fetch_response"
+      },
+      {
+        "data": {
+          "id": 1
+        },
+        "t": "3",
+        "type": "normalized"
+      },
+      {
+        "data": {},
+        "t": "4",
+        "type": "end"
+      }
+    ],
+    "normalizedPost": {
+      "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+      "id": 1,
+      "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "user_id": 1
+    }
+  }
+}
+Comparing actual output to golden fixture...
+Integration test passed: output matches golden fixture.

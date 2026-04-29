@@ -1,0 +1,3 @@
+Implementation parity verified for lab1-cloud-golden-path
+Implementation parity verified for lab2-header-validation-fail-fast
+Implementation parity verified for lab3-adapter-binding-and-wrappers
