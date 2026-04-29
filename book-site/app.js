@@ -182,12 +182,12 @@ if (sharedFooter) {
       <section class="footer-column footer-book-cta" aria-label="Buy the book">
         <h3>Get the book</h3>
         <div class="footer-book-card">
-          <a class="footer-book-cover" href="https://www.universalmicroservices.com/">
+          <a class="footer-book-cover" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">
             <img src="${new URL("./assets/cover.png", siteRoot)}" alt="Universal Microservices Architecture book cover" />
           </a>
           <div class="footer-book-copy">
             <p>Go deeper into UMA with the full book, examples, and architecture model.</p>
-            <a class="button button-dark footer-book-button" href="https://www.universalmicroservices.com/">Buy the book</a>
+            <a class="button button-dark footer-book-button" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
           </div>
         </div>
       </section>
@@ -243,7 +243,7 @@ if (blogCards) {
     });
 }
 
-document.querySelectorAll('a[href="https://www.universalmicroservices.com/reference-application/"], a[href="https://github.com/enricopiovesan/UMA-code-examples"]').forEach((link) => {
+document.querySelectorAll('a[href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4reference-application/"], a[href="https://github.com/enricopiovesan/UMA-code-examples"]').forEach((link) => {
   link.setAttribute("target", "_blank");
   link.setAttribute("rel", "noreferrer noopener");
 });
