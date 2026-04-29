@@ -36,6 +36,9 @@ chapter-10-architectural-tradeoffs/
     lab4-runtime-ambiguity/
     lab5-over-orchestrated/
     lab6-recovered-architecture/
+    lab7-versioned-capability/
+    lab8-backward-compatible-extension/
+    lab9-capability-coexistence/
   rust/
     Cargo.toml
     src/
@@ -66,6 +69,20 @@ No external services are required for the validated path.
 - Main implementation: Rust CLI under `rust/`
 - Secondary implementation: TypeScript reference implementation under `ts/`
 - Implementation parity check: `./scripts/compare_impls.sh <lab>`
+
+## Reader path table
+
+| Lab | Title | What it proves |
+|---|---|---|
+| `lab1-baseline` | Coherent Baseline | A coherent capability boundary needs only a few services and a short event chain. |
+| `lab2-over-granular` | Over Granular Decomposition | More services can raise coordination cost even if each step is individually valid. |
+| `lab3-hidden-event-coupling` | Hidden Event Coupling | Vague events create hidden coupling between consumers. |
+| `lab4-runtime-ambiguity` | Runtime Ambiguity | Overlapping capabilities need deterministic selection metadata. |
+| `lab5-over-orchestrated` | Over Orchestrated Workflow | Central orchestration can make the system fragile and metadata-heavy. |
+| `lab6-recovered-architecture` | Recovered Architecture | Clear boundaries, stable events, and explicit selection restore coherence. |
+| `lab7-versioned-capability` | Versioned Capability | How two versions of the same capability coexist and how the runtime selects between them based on consumer constraints. |
+| `lab8-backward-compatible-extension` | Backward Compatible Extension | How an optional field extension allows a capability to evolve without breaking existing consumers. |
+| `lab9-capability-coexistence` | Capability Coexistence | How basic and AI-enhanced implementations of the same capability coexist with deterministic runtime selection. |
 
 ## Quick start
 
@@ -103,9 +120,15 @@ Use this order if you are following Chapter 10 as a first-time reader:
 11. `./scripts/run_arch_demo.sh lab5-over-orchestrated`
 12. `./scripts/diff_architecture.sh lab5-over-orchestrated lab6-recovered-architecture`
 13. `./scripts/run_arch_demo.sh lab6-recovered-architecture`
+14. `./scripts/diff_architecture.sh lab6-recovered-architecture lab7-versioned-capability`
+15. `./scripts/run_arch_demo.sh lab7-versioned-capability`
+16. `./scripts/diff_architecture.sh lab7-versioned-capability lab8-backward-compatible-extension`
+17. `./scripts/run_arch_demo.sh lab8-backward-compatible-extension`
+18. `./scripts/diff_architecture.sh lab8-backward-compatible-extension lab9-capability-coexistence`
+19. `./scripts/run_arch_demo.sh lab9-capability-coexistence`
 
 Expected satisfaction point:
-- by the end of lab 6, you should be able to explain not just which scenario is better, but which metadata and runtime choices made it better
+- by the end of lab 9, you should be able to explain not just which scenario is better, but which metadata and runtime choices made it better
 
 ## Questions a reader might ask
 
@@ -192,6 +215,33 @@ This lab restores stable events, focused capability boundaries, and deterministi
 Expected value:
 - the warnings disappear
 - the verdict returns to `coherent`
+
+### Lab 10.7: Versioned capability
+
+This lab shows two versions of the same triage capability coexisting while the runtime selects based on consumer constraints.
+
+Expected value:
+- the verdict is `coherent`
+- the runtime can choose the right version without forcing a coordinated migration
+- consumers keep working against stable domain events while the capability evolves
+
+### Lab 10.8: Backward compatible extension
+
+This lab shows how an optional field extension allows classification to evolve without breaking dispatch consumers.
+
+Expected value:
+- the verdict is `coherent`
+- both dispatch consumers can coexist against the same event
+- compatibility comes from contract evolution, not from freezing the interface
+
+### Lab 10.9: Capability coexistence
+
+This lab shows basic and AI-enhanced response management implementations coexisting under deterministic runtime selection.
+
+Expected value:
+- the verdict is `coherent`
+- the runtime picks the implementation that fits the execution context
+- capability evolution does not require removing the existing implementation
 
 ## Troubleshooting
 

@@ -1,0 +1,81 @@
+{
+  "title": "Capability Coexistence",
+  "summary": "Basic and AI-enhanced response management implementations coexist, and the runtime selects between them using execution context and placement constraints.",
+  "services": [
+    {
+      "id": "incident-reporter",
+      "capability": "incident.reporting",
+      "summary": "Collects field reports and emits incident.reported.",
+      "placements": ["mobile"],
+      "events": {
+        "consumes": [],
+        "emits": ["incident.reported"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "deviceProfile"],
+        "selection_rank": 10
+      }
+    },
+    {
+      "id": "response-management-basic",
+      "capability": "response.management",
+      "summary": "Records response progress locally so older devices can continue operating in the field.",
+      "placements": ["mobile", "edge", "cloud"],
+      "events": {
+        "consumes": ["incident.reported"],
+        "emits": ["response.started"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "localStorageOnly"],
+        "selection_rank": 40
+      }
+    },
+    {
+      "id": "response-management-ai",
+      "capability": "response.management",
+      "summary": "Predicts response times and flags at-risk situations for dispatch coordinators.",
+      "placements": ["edge", "cloud"],
+      "events": {
+        "consumes": ["incident.reported"],
+        "emits": ["response.started"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "aiResponsePrediction", "edgeRuntimeRequired"],
+        "selection_rank": 45
+      }
+    },
+    {
+      "id": "incident-closure",
+      "capability": "incident.closure",
+      "summary": "Closes the incident after response has started and the field work is complete.",
+      "placements": ["cloud"],
+      "events": {
+        "consumes": ["response.started"],
+        "emits": ["incident.closed"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "closurePolicy"],
+        "selection_rank": 50
+      }
+    }
+  ],
+  "interactions": [
+    { "from": "incident-reporter", "event": "incident.reported", "to": "response-management-basic" },
+    { "from": "incident-reporter", "event": "incident.reported", "to": "response-management-ai" },
+    { "from": "response-management-basic", "event": "response.started", "to": "incident-closure" },
+    { "from": "response-management-ai", "event": "response.started", "to": "incident-closure" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Multiple implementations of the same capability can coexist without forcing the older one out.",
+    "Runtime selection should follow execution context and placement constraints so field teams and dispatch coordinators get the right implementation.",
+    "Capability evolution should add better behavior without requiring removal of the existing path."
+  ]
+}

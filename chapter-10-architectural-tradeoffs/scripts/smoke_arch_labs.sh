@@ -26,5 +26,14 @@ cargo test --locked --manifest-path rust/Cargo.toml
 ./scripts/diff_architecture.sh lab5-over-orchestrated lab6-recovered-architecture
 ./scripts/compare_impls.sh lab6-recovered-architecture
 ./scripts/run_arch_demo.sh lab6-recovered-architecture
+./scripts/diff_architecture.sh lab6-recovered-architecture lab7-versioned-capability
+./scripts/compare_impls.sh lab7-versioned-capability
+./scripts/run_arch_demo.sh lab7-versioned-capability
+./scripts/diff_architecture.sh lab7-versioned-capability lab8-backward-compatible-extension
+./scripts/compare_impls.sh lab8-backward-compatible-extension
+./scripts/run_arch_demo.sh lab8-backward-compatible-extension
+./scripts/diff_architecture.sh lab8-backward-compatible-extension lab9-capability-coexistence
+./scripts/compare_impls.sh lab9-capability-coexistence
+./scripts/run_arch_demo.sh lab9-capability-coexistence
 
 echo "Chapter 10 smoke run completed successfully."

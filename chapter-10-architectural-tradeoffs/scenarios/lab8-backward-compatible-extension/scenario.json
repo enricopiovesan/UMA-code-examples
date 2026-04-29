@@ -1,0 +1,80 @@
+{
+  "title": "Backward Compatible Extension",
+  "summary": "Incident classification adds an optional severity field while both the original and updated dispatch consumers continue to coexist.",
+  "services": [
+    {
+      "id": "incident-reporter",
+      "capability": "incident.reporting",
+      "summary": "Collects field reports and emits incident.reported.",
+      "placements": ["mobile"],
+      "events": {
+        "consumes": [],
+        "emits": ["incident.reported"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "deviceProfile"],
+        "selection_rank": 10
+      }
+    },
+    {
+      "id": "incident-classifier",
+      "capability": "incident.classification",
+      "summary": "Classifies the incident and adds optional severity when available.",
+      "placements": ["edge", "cloud"],
+      "events": {
+        "consumes": ["incident.reported"],
+        "emits": ["incident.classified"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "severityField"],
+        "selection_rank": 20
+      }
+    },
+    {
+      "id": "dispatch-coordination-v1",
+      "capability": "dispatch.coordination",
+      "summary": "Routes the incident without requiring severity data.",
+      "placements": ["cloud"],
+      "events": {
+        "consumes": ["incident.classified"],
+        "emits": ["patrol.assigned"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "assignmentRules"],
+        "selection_rank": 30
+      }
+    },
+    {
+      "id": "dispatch-coordination-v2",
+      "capability": "dispatch.coordination",
+      "summary": "Routes the incident and requires severity to make a better assignment decision.",
+      "placements": ["cloud"],
+      "events": {
+        "consumes": ["incident.classified"],
+        "emits": ["patrol.assigned"]
+      },
+      "metadata": {
+        "fields": ["capability", "placements", "assignmentRules", "requiresSeverity"],
+        "selection_rank": 35
+      }
+    }
+  ],
+  "interactions": [
+    { "from": "incident-reporter", "event": "incident.reported", "to": "incident-classifier" },
+    { "from": "incident-classifier", "event": "incident.classified", "to": "dispatch-coordination-v1" },
+    { "from": "incident-classifier", "event": "incident.classified", "to": "dispatch-coordination-v2" }
+  ],
+  "choices": {
+    "granularity": "capability-aligned",
+    "event_semantics": "stable-domain-facts",
+    "metadata_quality": "concise",
+    "orchestration": "distributed-event-progression",
+    "runtime_placement": "constraint-driven",
+    "state_model": "local-projections"
+  },
+  "expectations": [
+    "Optional fields let a capability evolve without breaking existing consumers.",
+    "Multiple consumers can coexist against the same event when their contract expectations differ.",
+    "Compatibility is expressed through contracts and constraints, not by freezing the interface forever."
+  ]
+}
