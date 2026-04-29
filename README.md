@@ -9,14 +9,14 @@
 [![Benchmark Proof](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/benchmark-proof.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/benchmark-proof.yml)
 [![Book Site](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml/badge.svg)](https://github.com/enricopiovesan/UMA-code-examples/actions/workflows/book-site-pages.yml)
 [![Live Reference App](https://img.shields.io/badge/live-reference%20app-0a7f5a)](https://www.universalmicroservices.com/reference-application/)
-[![Learn UMA](https://img.shields.io/badge/book-universalmicroservices.com-1f6feb)](https://www.universalmicroservices.com/)
+[![Learn UMA](https://img.shields.io/badge/book-amazon-1f6feb)](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4)
 [![UMA Blog](https://img.shields.io/badge/blog-Medium-12100E)](https://medium.com/the-rise-of-device-independent-architecture)
 
 This repository is the runnable companion for **Universal Microservices Architecture (UMA)** and a reference implementation of its core patterns.
 
 UMA is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. The repo exists to prove that model with code, not just describe it.
 
-[Buy the book and learn more about UMA](https://www.universalmicroservices.com/)
+[Buy the book and learn more about UMA](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4)
 
 [Try the live UMA Reference APP](https://www.universalmicroservices.com/reference-application/)
 [Read the benchmark and footprint notes](https://www.universalmicroservices.com/benchmark-and-footprint/)
@@ -258,7 +258,8 @@ That is exactly why the site, the repo, and the book are kept connected. The sit
 
 ## Learn More
 
-- Book and site: [https://www.universalmicroservices.com/](https://www.universalmicroservices.com/)
+- Book: [https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4)
+- Site: [https://www.universalmicroservices.com/](https://www.universalmicroservices.com/)
 - Live reference app: [https://www.universalmicroservices.com/reference-application/](https://www.universalmicroservices.com/reference-application/)
 - Medium blog: [https://medium.com/the-rise-of-device-independent-architecture](https://medium.com/the-rise-of-device-independent-architecture)
 - Contribution guide: [CONTRIBUTING.md](CONTRIBUTING.md)
