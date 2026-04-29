@@ -53,9 +53,9 @@ function writeEventEnvelope(evtType, data, serviceId, contractVersion) {
     time: new Date().toISOString(),
     datacontenttype: "application/json",
     data,
-    "uma.serviceId": serviceId,
-    "uma.contractVersion": contractVersion,
-    "uma.runtimeId": "cloud-runner",
+    "umaserviceid": serviceId,
+    "umacontractversion": contractVersion,
+    "umaruntimeid": "cloud-runner",
     "phase": "normal",
     "reasonCode": "OK"
   };

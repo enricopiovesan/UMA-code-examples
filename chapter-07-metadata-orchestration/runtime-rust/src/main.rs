@@ -383,12 +383,12 @@ fn write_event_envelope(
         Value::String("application/json".into()),
     );
     envelope.insert("data".into(), data.clone());
-    envelope.insert("uma.serviceId".into(), Value::String(service_id.to_string()));
+    envelope.insert("umaserviceid".into(), Value::String(service_id.to_string()));
     envelope.insert(
-        "uma.contractVersion".into(),
+        "umacontractversion".into(),
         Value::String(contract_version.to_string()),
     );
-    envelope.insert("uma.runtimeId".into(), Value::String("cloud-runner".into()));
+    envelope.insert("umaruntimeid".into(), Value::String("cloud-runner".into()));
     envelope.insert("phase".into(), Value::String("normal".into()));
     envelope.insert("reasonCode".into(), Value::String("OK".into()));
 
@@ -517,8 +517,8 @@ mod tests {
         std::env::set_current_dir(previous).unwrap();
 
         assert_eq!(written.get("type").and_then(Value::as_str), Some("image.analyzed.v1"));
-        assert_eq!(written.get("uma.serviceId").and_then(Value::as_str), Some("image.tagger"));
-        assert_eq!(written.get("uma.contractVersion").and_then(Value::as_str), Some("1.1.0"));
+        assert_eq!(written.get("umaserviceid").and_then(Value::as_str), Some("image.tagger"));
+        assert_eq!(written.get("umacontractversion").and_then(Value::as_str), Some("1.1.0"));
         assert_eq!(
             written.get("data").and_then(|v| v.get("id")).and_then(Value::as_str),
             Some("img-001")

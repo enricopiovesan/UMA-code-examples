@@ -9,9 +9,15 @@ outputs:
 constraints:
   latency_ms_p99: 50
   placement: [browser, edge, cloud]
+  resources:
+    cpu: 0.2
+    memory_mb: 64
 events:
   emits:
     - name: image.analyzed.v1
+      schema: contracts/schemas/image.analyzed.v1.json
+  subscribes:
+    - pattern: image.received.v1
       schema: contracts/schemas/image.analyzed.v1.json
 policies:
   requires:
