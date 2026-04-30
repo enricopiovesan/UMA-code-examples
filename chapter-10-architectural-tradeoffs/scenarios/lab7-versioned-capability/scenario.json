@@ -6,7 +6,11 @@
       "id": "incident-reporter",
       "capability": "incident.reporting",
       "summary": "Collects field reports and emits incident.reported.",
+<<<<<<< HEAD
+      "placements": ["client"],
+=======
       "placements": ["mobile"],
+>>>>>>> origin/main
       "events": {
         "consumes": [],
         "emits": ["incident.reported"]
@@ -20,7 +24,11 @@
       "id": "triage-v1",
       "capability": "incident.triage",
       "summary": "Version 1.0 accepts location and condition and emits incident.triaged.",
+<<<<<<< HEAD
+      "placements": ["client", "edge", "cloud"],
+=======
       "placements": ["mobile", "edge", "cloud"],
+>>>>>>> origin/main
       "events": {
         "consumes": ["incident.reported"],
         "emits": ["incident.triaged"]

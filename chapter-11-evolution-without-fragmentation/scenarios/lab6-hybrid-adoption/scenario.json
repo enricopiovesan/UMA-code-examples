@@ -16,7 +16,11 @@
       "version": "2.1.0",
       "summary": "Governed façade that isolates legacy behavior and exposes one explicit contract line.",
       "placements": ["cloud", "edge"],
-      "consumers": ["profile-indexer", "profile-audit", "profile-risk-score"]
+      "consumers": ["profile-indexer", "profile-audit", "profile-risk-score"],
+      "compatibility": {
+        "backward_compatible_from": "1.0.0",
+        "compatibility_mode": "contract-lineage"
+      }
     },
     {
       "id": "profile-risk-score",

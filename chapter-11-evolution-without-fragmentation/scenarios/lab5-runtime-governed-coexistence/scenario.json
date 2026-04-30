@@ -16,7 +16,11 @@
       "version": "2.0.0",
       "summary": "Primary governed version selected for newer consumers by runtime policy.",
       "placements": ["cloud", "edge"],
-      "consumers": ["profile-indexer", "profile-audit"]
+      "consumers": ["profile-indexer", "profile-audit"],
+      "compatibility": {
+        "backward_compatible_from": "1.0.0",
+        "compatibility_mode": "contract-lineage"
+      }
     },
     {
       "id": "legacy-sync",

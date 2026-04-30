@@ -1,0 +1,21 @@
+{
+  "capability": "route_selector.resolve",
+  "version": "1.0.0",
+  "description": "Resolves the final authoritative routing decision against trust policy and compliance metadata.",
+  "inputs": {
+    "tenant_id": { "type": "string", "required": true },
+    "route_hint": { "type": "string", "required": false },
+    "request_context": { "type": "object", "required": true }
+  },
+  "outputs": {
+    "selected_route": { "type": "string" },
+    "authorization_token": { "type": "string" },
+    "placement_decision": { "type": "string" }
+  },
+  "constraints": {
+    "authoritative": true,
+    "requires_trust_validation": false,
+    "max_latency_ms": 200,
+    "placements": ["cloud"]
+  }
+}
