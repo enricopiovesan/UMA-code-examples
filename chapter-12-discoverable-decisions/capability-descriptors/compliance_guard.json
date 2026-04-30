@@ -1,0 +1,21 @@
+{
+  "capability": "compliance.guard",
+  "version": "1.0.0",
+  "description": "Validates a proposed routing decision against tenant compliance policy and audit obligations.",
+  "inputs": {
+    "tenant_id": { "type": "string", "required": true },
+    "proposed_route": { "type": "string", "required": true },
+    "placement": { "type": "string", "required": true }
+  },
+  "outputs": {
+    "compliant": { "type": "boolean" },
+    "violations": { "type": "array" },
+    "guidance": { "type": "array" }
+  },
+  "constraints": {
+    "authoritative": true,
+    "requires_trust_validation": false,
+    "max_latency_ms": 100,
+    "placements": ["cloud"]
+  }
+}

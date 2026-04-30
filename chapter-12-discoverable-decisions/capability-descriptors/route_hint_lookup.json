@@ -1,0 +1,19 @@
+{
+  "capability": "route_hint.lookup",
+  "version": "1.0.0",
+  "description": "Computes a routing hint from locally visible inputs without requiring authoritative policy evaluation.",
+  "inputs": {
+    "tenant_id": { "type": "string", "required": true },
+    "request_context": { "type": "object", "required": true }
+  },
+  "outputs": {
+    "route_hint": { "type": "string" },
+    "confidence": { "type": "number" }
+  },
+  "constraints": {
+    "authoritative": false,
+    "requires_trust_validation": true,
+    "max_latency_ms": 50,
+    "placements": ["edge"]
+  }
+}
