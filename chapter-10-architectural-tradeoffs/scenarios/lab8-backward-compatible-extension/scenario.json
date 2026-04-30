@@ -6,7 +6,7 @@
       "id": "incident-reporter",
       "capability": "incident.reporting",
       "summary": "Collects field reports and emits incident.reported.",
-      "placements": ["mobile"],
+      "placements": ["client"],
       "events": {
         "consumes": [],
         "emits": ["incident.reported"]

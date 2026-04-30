@@ -6,7 +6,7 @@
       "id": "incident-reporter",
       "capability": "incident.reporting",
       "summary": "Collects field reports and emits incident.reported.",
-      "placements": ["mobile"],
+      "placements": ["client"],
       "events": {
         "consumes": [],
         "emits": ["incident.reported"]
@@ -20,7 +20,7 @@
       "id": "response-management-basic",
       "capability": "response.management",
       "summary": "Records response progress locally so older devices can continue operating in the field.",
-      "placements": ["mobile", "edge", "cloud"],
+      "placements": ["client", "edge", "cloud"],
       "events": {
         "consumes": ["incident.reported"],
         "emits": ["response.started"]
