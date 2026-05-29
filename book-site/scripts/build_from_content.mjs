@@ -482,8 +482,8 @@ ${intro}
 
 ${main}
       </main>
-      <section id="contacts" class="section contacts-band" data-shared-footer></section>
     </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="${prefix}app.js" type="module"></script>
   </body>
 </html>
