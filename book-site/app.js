@@ -80,6 +80,7 @@ const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuClose = document.querySelector(".mobile-menu-close");
 const sharedFooter = document.querySelector("[data-shared-footer]");
 const faviconHref = new URL("favicon.svg", import.meta.url).href;
+const blogHref = "https://medium.com/the-rise-of-device-independent-architecture";
 
 const siteRoot = new URL(".", import.meta.url);
 const footerColumns = [
@@ -207,6 +208,25 @@ function ensureFavicon() {
   document.head.appendChild(link);
 }
 
+function ensureHeaderBlogLink() {
+  const desktopNav = document.querySelector(".topnav");
+  const mobileNav = document.querySelector(".mobile-menu-nav");
+  const insertLink = (nav) => {
+    if (!nav || nav.querySelector(`a[href="${blogHref}"]`)) return;
+
+    const link = document.createElement("a");
+    link.href = blogHref;
+    link.textContent = "Blog";
+    link.target = "_blank";
+    link.rel = "noreferrer noopener";
+    link.className = "topnav-github";
+    nav.appendChild(link);
+  };
+
+  insertLink(desktopNav);
+  insertLink(mobileNav);
+}
+
 if (chapterCards) {
   for (const chapter of chapters) {
     const article = document.createElement("article");
@@ -324,6 +344,7 @@ if (coverFrame) {
 }
 
 ensureFavicon();
+ensureHeaderBlogLink();
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
