@@ -79,6 +79,7 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuClose = document.querySelector(".mobile-menu-close");
 const sharedFooter = document.querySelector("[data-shared-footer]");
+const faviconHref = new URL("favicon.svg", import.meta.url).href;
 
 const siteRoot = new URL(".", import.meta.url);
 const footerColumns = [
@@ -193,6 +194,16 @@ if (sharedFooter) {
       </section>
     </div>
   `;
+}
+
+function ensureFavicon() {
+  if (document.querySelector('link[rel="icon"]')) return;
+
+  const link = document.createElement("link");
+  link.rel = "icon";
+  link.type = "image/svg+xml";
+  link.href = faviconHref;
+  document.head.appendChild(link);
 }
 
 if (chapterCards) {
@@ -310,6 +321,8 @@ if (coverFrame) {
 
   window.addEventListener("pointermove", updateCoverShadow, { passive: true });
 }
+
+ensureFavicon();
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
