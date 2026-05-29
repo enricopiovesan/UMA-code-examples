@@ -4,8 +4,8 @@
 
 .page-shell.has-page-rail {
   display: grid;
-  grid-template-columns: minmax(238px, 288px) minmax(0, 1fr);
-  column-gap: 42px;
+  grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+  column-gap: 36px;
   align-items: start;
 }
 
@@ -17,20 +17,30 @@
 .page-shell.has-page-rail > .page-rail {
   grid-column: 1;
   position: sticky;
-  top: 96px;
-  max-height: calc(100vh - 128px);
-  padding: 28px 16px 28px 0;
+  top: 92px;
+  max-height: calc(100vh - 124px);
+  padding: 18px 16px 18px 18px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2);
   overflow: auto;
 }
 
 .page-shell.has-page-rail > .subpage-main {
   grid-column: 2;
   width: auto;
-  padding-top: 36px;
+  padding-top: 24px;
 }
 
 .page-breadcrumbs {
-  margin: 0 0 18px;
+  display: inline-flex;
+  margin: 0 0 22px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
 }
 
 .page-breadcrumbs ol {
@@ -70,12 +80,12 @@
 }
 
 .page-rail {
-  border-right: 1px solid var(--line);
+  border-right: 0;
 }
 
 .page-rail-block + .page-rail-block {
-  margin-top: 28px;
-  padding-top: 22px;
+  margin-top: 24px;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
 }
 
@@ -424,7 +434,9 @@
     position: static;
     max-height: none;
     padding: 18px 0 0;
-    border-right: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .page-shell.has-page-rail > .subpage-main {
@@ -465,6 +477,7 @@
 
   .page-breadcrumbs {
     margin-bottom: 14px;
+    padding: 8px 12px;
   }
 
   .page-breadcrumbs ol {

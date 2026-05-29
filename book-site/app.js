@@ -163,6 +163,19 @@ const footerColumns = [
       ],
     },
     {
+      title: "Hands-on",
+      links: [
+        internalLink("examples", "examples/"),
+        internalLink("end-to-end feature flag example", "end-to-end-feature-flag-example/"),
+        internalLink("learning path", "learning-path/"),
+        internalLink("chapter 4-6 tutorials", "examples/#foundations"),
+        internalLink("chapter 7-9 tutorials", "examples/#orchestration-and-trust"),
+        internalLink("chapter 10-13 tutorials", "examples/#evolution-and-discoverability"),
+      ],
+    },
+  ],
+  [
+    {
       title: "System evolution",
       links: [
         internalLink("contract-driven orchestration", "contract-driven-orchestration/"),
@@ -175,12 +188,11 @@ const footerColumns = [
       ],
     },
     {
-      title: "Examples and resources",
+      title: "Explore UMA",
       links: [
-        internalLink("examples", "examples/"),
-        internalLink("end-to-end feature flag example", "end-to-end-feature-flag-example/"),
         internalLink("diagrams", "diagrams/"),
         internalLink("faq", "faq/"),
+        internalLink("book", "book/"),
         internalLink("about enrico", "about-enrico/"),
         externalLink("blog", blogHref),
         externalLink("github", githubHref),
