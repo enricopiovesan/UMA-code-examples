@@ -4,7 +4,7 @@
 
 .page-shell.has-page-rail {
   display: grid;
-  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(260px, 320px);
   column-gap: 28px;
   align-items: start;
 }
@@ -15,17 +15,22 @@
 }
 
 .page-shell.has-page-rail > .page-rail {
-  grid-column: 1;
   position: sticky;
   top: 92px;
-  max-height: calc(100vh - 124px);
   padding: 14px 14px 16px 16px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
-  overflow: auto;
-  z-index: 4;
+  z-index: 2;
+}
+
+.page-shell.has-page-rail > .page-rail--related {
+  grid-column: 1;
+}
+
+.page-shell.has-page-rail > .page-rail--macro {
+  grid-column: 3;
 }
 
 .page-shell.has-page-rail > .subpage-main {
@@ -35,7 +40,6 @@
 }
 
 .page-shell.has-page-rail > .contacts-band {
-  grid-column: 1 / -1;
   margin-top: 88px;
   position: relative;
   z-index: 1;
@@ -97,6 +101,10 @@
   margin-top: 18px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
+}
+
+.page-rail-block--current h2 {
+  color: var(--text);
 }
 
 .page-rail-block h2 {
@@ -442,11 +450,15 @@
 
   .page-shell.has-page-rail > .page-rail {
     position: static;
-    max-height: none;
     padding: 18px 0 0;
     border: 0;
     background: transparent;
     box-shadow: none;
+  }
+
+  .page-shell.has-page-rail > .page-rail--related,
+  .page-shell.has-page-rail > .page-rail--macro {
+    grid-column: 1;
   }
 
   .page-shell.has-page-rail > .subpage-main {

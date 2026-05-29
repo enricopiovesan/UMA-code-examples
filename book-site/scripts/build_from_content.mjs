@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", ".."));
 const CONTENT_ROOT = path.join(ROOT, "content", "pages");
+const SITE_MAP_PATH = path.join(ROOT, "content", "site-map.md");
 const BOOK_SITE = path.join(ROOT, "book-site");
 
 const HOME_LINKS = [
@@ -90,6 +91,68 @@ function splitSections(source) {
   const intro = source.slice(introStart + introMarker.length, mainStart).trim();
   const main = source.slice(mainStart + mainMarker.length).trim();
   return { intro, main };
+}
+
+function slugToLabel(slug) {
+  return String(slug || "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function resolveSiteMapGroupSlug(label) {
+  const groupMap = {
+    "Why UMA": "why-uma",
+    "Core Model": "core-model",
+    "How UMA Works": "how-uma-works",
+    Proof: "proof",
+    "Learning Path": "learn-uma",
+    "Hands-On Examples": "examples",
+    "System Evolution": "evolve-uma",
+    "Discovery and References": "discoverability",
+    "Comparisons and Tradeoffs": "comparisons",
+  };
+
+  return groupMap[label] || slugify(label);
+}
+
+function parseSiteMap(source) {
+  const lines = source.split(/\r?\n/);
+  const groups = [];
+  let inMacroAreas = false;
+  let current = null;
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+
+    if (line === "## Macro Areas") {
+      inMacroAreas = true;
+      continue;
+    }
+
+    if (inMacroAreas && line.startsWith("## ")) {
+      break;
+    }
+
+    if (!inMacroAreas || !line) {
+      continue;
+    }
+
+    if (line.startsWith("### ")) {
+      current = {
+        label: line.slice(4).trim(),
+        slug: resolveSiteMapGroupSlug(line.slice(4).trim()),
+        slugs: [],
+      };
+      groups.push(current);
+      continue;
+    }
+
+    if (current && line.startsWith("- ")) {
+      current.slugs.push(line.slice(2).replace(/`/g, "").trim());
+    }
+  }
+
+  return groups;
 }
 
 async function listMarkdownFiles(dir) {
@@ -237,6 +300,129 @@ function renderBreadcrumbs(meta, prefix) {
         </nav>`;
 }
 
+function buildPageMaps(pages) {
+  const bySlug = new Map();
+  const byRef = new Map();
+
+  for (const page of pages) {
+    const outPath = pagePathFromMeta(page.meta);
+    const entry = { ...page, outPath };
+    bySlug.set(page.meta.slug, entry);
+    byRef.set(page.meta.ref, entry);
+  }
+
+  return { bySlug, byRef };
+}
+
+function relativeLink(currentOutPath, targetOutPath) {
+  const fromDir = path.dirname(currentOutPath);
+  const toDir = path.dirname(targetOutPath);
+  const relative = path.relative(fromDir, toDir).replace(/\\/g, "/");
+  return relative ? `${relative}/` : "./";
+}
+
+function resolvePageLink(slug, currentOutPath, pageBySlug) {
+  const specialLinks = {
+    blog: "https://medium.com/the-rise-of-device-independent-architecture",
+    "reference-application": "https://www.universalmicroservices.com/reference-application/",
+    "white-paper": "https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1",
+  };
+
+  if (specialLinks[slug]) {
+    return { href: specialLinks[slug], external: true };
+  }
+
+  const page = pageBySlug.get(slug);
+  if (page) {
+    return { href: relativeLink(currentOutPath, page.outPath), external: false };
+  }
+
+  return { href: "#", external: false };
+}
+
+function renderRelatedRail(meta, currentOutPath, pagesByRef, pagesBySlug) {
+  const relatedSlugs = Array.isArray(meta.related_refs) && meta.related_refs.length
+    ? meta.related_refs
+    : (pagesBySlug.get(meta.slug)
+        ? pagesBySlug.get(meta.slug)
+        : null);
+
+  const fallbackRelated = [];
+  if (!Array.isArray(meta.related_refs) || !meta.related_refs.length) {
+    const currentPage = pagesBySlug.get(meta.slug);
+    if (currentPage) {
+      const sameArea = [...pagesBySlug.values()]
+        .filter((entry) => entry.meta.macro_area === meta.macro_area && entry.meta.ref !== meta.ref)
+        .slice(0, 4)
+        .map((entry) => entry.meta.ref);
+      fallbackRelated.push(...sameArea);
+    }
+  }
+
+  const refs = (Array.isArray(meta.related_refs) && meta.related_refs.length ? meta.related_refs : fallbackRelated)
+    .filter(Boolean);
+
+  const items = refs
+    .map((ref) => {
+      const page = pagesByRef.get(ref) || pagesBySlug.get(ref);
+      if (!page) {
+        const special = resolvePageLink(ref, currentOutPath, pagesBySlug);
+        return `<li><a href="${escapeHtml(special.href)}"${special.external ? ' target="_blank" rel="noreferrer noopener"' : ""}>${escapeHtml(slugToLabel(ref))}</a></li>`;
+      }
+
+      const link = resolvePageLink(page.meta.slug, currentOutPath, pagesBySlug);
+      return `<li><a href="${escapeHtml(link.href)}"${link.external ? ' target="_blank" rel="noreferrer noopener"' : ""}>${escapeHtml(page.meta.title || slugToLabel(page.meta.slug))}</a></li>`;
+    })
+    .join("");
+
+  if (!items) {
+    return "";
+  }
+
+  return `
+      <aside class="page-rail page-rail--related" aria-label="Related content">
+        <nav class="page-rail-block">
+          <h2>Related</h2>
+          <ul class="page-rail-links">
+            ${items}
+          </ul>
+        </nav>
+      </aside>`;
+}
+
+function renderMacroRail(meta, currentOutPath, siteMapGroups, pagesBySlug) {
+  const currentPage = pagesBySlug.get(meta.slug);
+
+  const groupsMarkup = siteMapGroups
+    .map((group) => {
+      const isCurrentGroup = group.slug === meta.macro_area;
+      const items = group.slugs
+        .map((slug) => {
+          const page = pagesBySlug.get(slug);
+          const link = resolvePageLink(slug, currentOutPath, pagesBySlug);
+          const title = page?.meta.title || slugToLabel(slug);
+          const current = page?.meta.ref === meta.ref ? ' aria-current="page"' : "";
+          const external = link.external ? ' target="_blank" rel="noreferrer noopener"' : "";
+          return `<li><a href="${escapeHtml(link.href)}"${current}${external}>${escapeHtml(title)}</a></li>`;
+        })
+        .join("");
+
+      return `
+        <nav class="page-rail-block${isCurrentGroup ? " page-rail-block--current" : ""}">
+          <h2>${escapeHtml(group.label)}</h2>
+          <ul class="page-rail-links">
+            ${items}
+          </ul>
+        </nav>`;
+    })
+    .join("");
+
+  return `
+      <aside class="page-rail page-rail--macro" aria-label="Site map">
+        ${groupsMarkup}
+      </aside>`;
+}
+
 function renderOutlineList(items, ordered = true) {
   const tag = ordered ? "ol" : "ul";
   return `
@@ -361,66 +547,7 @@ function renderStructuredData(meta, rawMain) {
     .join("\n    ");
 }
 
-function renderPageRail(meta, outline, chapterEntries, prefix) {
-  const exploreLinks = [
-    ["home", "/"],
-    ["book", "book/"],
-    ["examples", "examples/"],
-    ["learning path", "learning-path/"],
-    ["faq", "faq/"],
-    ["blog", "https://medium.com/the-rise-of-device-independent-architecture", true],
-    ["reference application", "https://www.universalmicroservices.com/reference-application/", true],
-    ["github", "https://github.com/enricopiovesan/UMA-code-examples", true],
-  ];
-
-  const exploreMarkup = exploreLinks
-    .map(([label, href, external = false]) => {
-      const attrs = external ? ' target="_blank" rel="noreferrer noopener"' : "";
-      const linkHref = external ? href : href.startsWith("/") ? href : `${prefix}${href}`;
-      return `<li><a href="${linkHref}"${attrs}>${escapeHtml(label)}</a></li>`;
-    })
-    .join("");
-
-  const chapter = meta.chapter_ref ? chapterEntries.find((entry) => entry.meta.ref === meta.ref) : null;
-  const chapterMarkup = meta.chapter_ref
-    ? (() => {
-        const index = chapterEntries.findIndex((entry) => entry.meta.ref === meta.ref);
-        const links = [
-          `<li><a href="../">examples hub</a></li>`,
-          index > 0 ? `<li><a href="../${chapterEntries[index - 1].meta.slug}/">previous: ${escapeHtml(chapterEntries[index - 1].meta.chapter_ref)}</a></li>` : "",
-          index < chapterEntries.length - 1 ? `<li><a href="../${chapterEntries[index + 1].meta.slug}/">next: ${escapeHtml(chapterEntries[index + 1].meta.chapter_ref)}</a></li>` : "",
-          `<li><a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/${meta.slug}" target="_blank" rel="noreferrer noopener">source folder</a></li>`,
-        ]
-          .filter(Boolean)
-          .join("");
-
-        return `
-    <nav class="page-rail-block">
-      <h2>In the examples path</h2>
-      <ul class="page-rail-links">
-        ${links}
-      </ul>
-    </nav>`;
-      })()
-    : "";
-
-  return `
-      <aside class="page-rail" aria-label="Page navigation">
-    <nav class="page-rail-block">
-      <h2>On this page</h2>
-      ${renderOutlineList(outline, true)}
-    </nav>
-    <nav class="page-rail-block">
-      <h2>Explore UMA</h2>
-      <ul class="page-rail-links">
-        ${exploreMarkup}
-      </ul>
-    </nav>
-    ${chapterMarkup}
-      </aside>`;
-}
-
-function renderPage(meta, intro, main, outPath, outline, chapterEntries) {
+function renderPage(meta, intro, main, outPath, outline, chapterEntries, siteMapGroups, pagesBySlug, pagesByRef) {
   const prefix = relativePrefixFor(outPath);
   const title = escapeHtml(meta.title || "UMA Examples");
   const description = escapeHtml(meta.seo_description || meta.subtitle || "");
@@ -473,7 +600,7 @@ ${renderTopNav(prefix)}
       </header>
 ${renderMobileNav(prefix)}
 
-${renderPageRail(meta, outline, chapterEntries, prefix)}
+${renderRelatedRail(meta, outPath, pagesByRef, pagesBySlug)}
 
       <main class="subpage-main">
 ${renderBreadcrumbs(meta, prefix)}
@@ -482,6 +609,7 @@ ${intro}
 
 ${main}
       </main>
+${renderMacroRail(meta, outPath, siteMapGroups, pagesBySlug)}
     </div>
     <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="${prefix}app.js" type="module"></script>
@@ -504,6 +632,9 @@ async function main() {
     pages.push({ meta, intro, main: mainSection });
   }
 
+  const siteMapSource = await fs.readFile(SITE_MAP_PATH, "utf8");
+  const siteMapGroups = parseSiteMap(siteMapSource);
+  const { bySlug: pagesBySlug, byRef: pagesByRef } = buildPageMaps(pages);
   const chapterEntries = pages
     .filter((page) => page.meta.chapter_ref)
     .sort((a, b) => chapterNumber(a.meta.chapter_ref) - chapterNumber(b.meta.chapter_ref));
@@ -514,7 +645,7 @@ async function main() {
     const decorated = decorateHeadings(page.main);
     const renderedMain = stripSharedFooterMarker(decorated.html);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, chapterEntries)));
+    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, chapterEntries, siteMapGroups, pagesBySlug, pagesByRef)));
     count += 1;
   }
 
