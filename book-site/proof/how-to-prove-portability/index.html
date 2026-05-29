@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Prove Portability | Universal Microservices Architecture</title>
+    <meta name="description" content="Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/proof/how-to-prove-portability/" />
+    <meta property="og:title" content="How to Prove Portability" />
+    <meta property="og:description" content="Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/proof/how-to-prove-portability/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Proof","item":"https://www.universalmicroservices.com/proof/"},{"@type":"ListItem","position":3,"name":"How to Prove Portability","item":"https://www.universalmicroservices.com/proof/how-to-prove-portability/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"How to Prove Portability","description":"Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough.","url":"https://www.universalmicroservices.com/proof/how-to-prove-portability/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="../../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-short-answer">The short answer</a></li><li><a href="#why-shared-code-is-not-enough">Why shared code is not enough</a></li><li><a href="#what-to-compare-instead">What to compare instead</a>
+    <ul class="page-rail-links">
+      <li><a href="#compare-results">Compare results</a></li><li><a href="#keep-differences-visible">Keep differences visible</a></li><li><a href="#trust-emitted-evidence">Trust emitted evidence</a></li><li><a href="#let-the-contract-lead">Let the contract lead</a></li>
+    </ul></li><li><a href="#why-observable-parity-matters">Why observable parity matters</a></li><li><a href="#why-target-specific-behavior-should-stay-explicit">Why target-specific behavior should stay explicit</a></li><li><a href="#how-portability-usually-gets-overstated">How portability usually gets overstated</a></li><li><a href="#a-practical-portability-proof-checklist">A practical portability proof checklist</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#does-portability-require-byte-for-byte-identical-execution">Does portability require byte-for-byte identical execution?</a></li><li><a href="#why-compare-events-or-payloads-instead-of-internal-code-paths">Why compare events or payloads instead of internal code paths?</a></li><li><a href="#can-a-portability-check-fail-and-still-be-useful">Can a portability check fail and still be useful?</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/proof/">Proof</a></li><li><span aria-current="page">How to Prove Portability</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>How to prove portability</h1>
+          <p>
+            Portability is easy to claim and harder to prove. In UMA, portability becomes credible only when the same service behavior can
+            be observed across more than one runtime target without quietly changing its meaning.
+          </p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="the-short-answer">The short answer</h2>
+            <p>
+              You prove portability by comparing observable behavior, not by trusting shared source code or similar intent. If two runtime
+              targets emit the same governed result from the same contract and input, portability is becoming evidence instead of a slogan.
+            </p>
+            <p>
+              That comparison matters because many systems look portable in code review while still drifting in execution. The only honest
+              test is what the system actually does.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-shared-code-is-not-enough">Why shared code is not enough</h2>
+            <p>
+              Shared code can be a useful starting point, but it does not prove the behavior is stable once the code is compiled, hosted,
+              and run under different runtime constraints. Subtle host assumptions, missing capabilities, data-shape drift, and adapter
+              shortcuts can all change the outcome while leaving the codebase looking deceptively aligned.
+            </p>
+            <p>
+              That is why UMA treats portability as something to validate from outputs, events, and contract-governed results instead of
+              something to assume from a familiar repository structure.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="what-to-compare-instead">What to compare instead</h2>
+            <p>
+              The most useful comparison point is observable behavior. That can mean a shared result payload, an emitted event, a stable
+              output shape, or another contract-visible artifact that shows the service behaved the same way under two runtimes.
+            </p>
+            <p>
+              Once the comparison becomes observable, portability stops being an abstract architectural virtue. It becomes something a
+              reader, a reviewer, and a runtime test can all evaluate directly.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3 id="compare-results">Compare results</h3>
+              <p>Use the same contract and input, then compare the resulting behavior across runtimes.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="keep-differences-visible">Keep differences visible</h3>
+              <p>Target-specific capabilities should stay explicit instead of leaking into the portable path unnoticed.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="trust-emitted-evidence">Trust emitted evidence</h3>
+              <p>Event streams, payloads, and digests make parity easier to inspect than implementation claims alone.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="let-the-contract-lead">Let the contract lead</h3>
+              <p>Portability is more credible when the same contract governs both targets without hidden forks.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2 id="why-observable-parity-matters">Why observable parity matters</h2>
+            <p>
+              Observable parity is stronger than “both implementations look similar.” If two runtimes converge on the same contract-shaped
+              result, the architecture can point to something concrete. If they do not, the system has already learned something valuable:
+              where portability breaks and which boundary is not as durable as it seemed.
+            </p>
+            <p>
+              That is one reason Chapter 6 matters so much in the learning path. It turns portability from a design preference into a test
+              that can pass or fail in public.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-target-specific-behavior-should-stay-explicit">Why target-specific behavior should stay explicit</h2>
+            <p>
+              Proving portability does not mean pretending every runtime should behave identically in every respect. Some capabilities are
+              inherently target-specific. The important point is that those differences stay visible and do not contaminate the portable
+              behavior being compared.
+            </p>
+            <p>
+              A good portability test therefore has two layers: the shared behavior that should stay aligned, and the runtime-specific
+              behavior that should remain explicit as a governed difference rather than a hidden divergence.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="how-portability-usually-gets-overstated">How portability usually gets overstated</h2>
+            <p>
+              Teams often overstate portability when they stop at “the same logic compiles” or “the implementations are based on the same
+              design.” Those are encouraging signs, but they are not enough. Portability becomes trustworthy only when the system can show
+              that the actual behavior stayed aligned under real execution.
+            </p>
+            <p>
+              Another common mistake is to ignore the runtime-specific paths that do differ. That weakens the claim because it blurs the
+              line between portable behavior and host-only extensions. UMA is clearer when both are visible.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="a-practical-portability-proof-checklist">A practical portability proof checklist</h2>
+            <ul>
+              <li>Use one explicit contract across the runtime targets you are comparing.</li>
+              <li>Run the same service behavior with the same relevant input.</li>
+              <li>Compare observable outputs or events rather than source structure.</li>
+              <li>Make target-specific capabilities visible instead of hiding them.</li>
+              <li>Record enough evidence to explain why parity passed or failed.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="does-portability-require-byte-for-byte-identical-execution">Does portability require byte-for-byte identical execution?</h3>
+            <p>
+              No. What matters is that the portable behavior stays semantically aligned. Some runtime-specific details may differ, but the
+              business result being protected should remain stable.
+            </p>
+            <h3 id="why-compare-events-or-payloads-instead-of-internal-code-paths">Why compare events or payloads instead of internal code paths?</h3>
+            <p>
+              Because emitted results are what the architecture can actually prove. Internal similarity is informative, but it does not
+              settle whether the system behaved the same way in practice.
+            </p>
+            <h3 id="can-a-portability-check-fail-and-still-be-useful">Can a portability check fail and still be useful?</h3>
+            <p>
+              Yes. A failed portability check is still valuable because it shows exactly where the architecture is not yet as runtime-agnostic
+              or contract-disciplined as it claimed to be.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Turn portability into evidence</strong>
+            <p>
+              This page gives the test, not the whole runtime story around it. In the book, I go further into how portability checks
+              change the way teams reason about service boundaries, execution targets, and confidence. On the site, the best next step is
+              to connect this idea to portable services, the runtime layer, and the runnable examples.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../examples/">Examples</a>
+              <a href="../diagrams/">Diagrams</a>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <aside class="page-rail page-rail--macro" aria-label="Site map">
+
+        <nav class="page-rail-block">
+          <h2><a href="../../why-uma/">Why UMA</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../why-uma/what-problem-does-uma-solve/">What Problem Does UMA Solve?</a></li><li><a href="../../why-uma/what-is-uma/">What Is UMA?</a></li><li><a href="../../why-uma/why-universal-microservices-exist/">Why Universal Microservices Exist</a></li><li><a href="../../why-uma/what-is-a-universal-microservice/">What Is a Universal Microservice?</a></li><li><a href="../../why-uma/from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../core-model/">Core Model</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../core-model/what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../../core-model/what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../../core-model/what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../../core-model/what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../../core-model/active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../../core-model/late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../../core-model/what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../../core-model/what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../../core-model/agent-vs-runtime/">Agent vs Runtime in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../how-uma-works/">How UMA Works</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../how-uma-works/portable-business-logic/">Portable Business Logic</a></li><li><a href="../../how-uma-works/architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../../how-uma-works/webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../../how-uma-works/migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../../how-uma-works/incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../../how-uma-works/uma-production-readiness/">UMA Production Readiness</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block page-rail-block--current">
+          <h2><a href="../">Proof</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../what-makes-a-service-portable/">What Makes a Service Portable?</a></li><li><a href="./" aria-current="page">How to Prove Portability</a></li><li><a href="../benchmark-and-footprint/">UMA Benchmark And Footprint Notes</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../learn-uma/learning-path/">Learning Path</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../learn-uma/book/">Universal Microservices Architecture Book</a></li><li><a href="../../learn-uma/end-to-end-feature-flag-example/">End-to-End UMA Example: Feature Flag Service</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../examples/">Hands-On Examples</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../examples/chapter-04-feature-flag-evaluator/">Chapter 4 Feature Flag Evaluator Tutorial</a></li><li><a href="../../examples/chapter-05-post-fetcher-runtime/">Chapter 5 Post Fetcher Runtime Tutorial</a></li><li><a href="../../examples/chapter-06-portability-lab/">Chapter 6 UMA Portability Lab Tutorial</a></li><li><a href="../../examples/chapter-07-metadata-orchestration/">Chapter 7 Metadata Orchestration Tutorial</a></li><li><a href="../../examples/chapter-08-service-graph/">Chapter 8 Service Graph Evolution Tutorial</a></li><li><a href="../../examples/chapter-09-trust-boundaries/">Chapter 9 Trust Boundaries Tutorial</a></li><li><a href="../../examples/chapter-10-architectural-tradeoffs/">Chapter 10 Architectural Tradeoffs Tutorial</a></li><li><a href="../../examples/chapter-11-evolution-without-fragmentation/">Chapter 11 Evolution Without Fragmentation Tutorial</a></li><li><a href="../../examples/chapter-12-discoverable-decisions/">Chapter 12 Discoverable Decisions Tutorial</a></li><li><a href="../../examples/chapter-13-portable-mcp-runtime/">Chapter 13 Portable MCP Runtime Tutorial</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../evolve-uma/">System Evolution</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../evolve-uma/contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../../evolve-uma/service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../../evolve-uma/how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../../evolve-uma/what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../../evolve-uma/trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="../../evolve-uma/runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></li><li><a href="../../evolve-uma/ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../discoverability/">Discovery and References</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../discoverability/faq/">UMA FAQ</a></li><li><a href="../../discoverability/diagrams/">UMA Diagrams</a></li><li><a href="../../discoverability/about-enrico/">About Enrico Piovesan</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Reference Application</a></li><li><a href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">White Paper</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../comparisons/">Comparisons and Tradeoffs</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../comparisons/uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../../comparisons/uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../../comparisons/uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="../../comparisons/common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="#">Why Software Architecture Keeps Fragmenting</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

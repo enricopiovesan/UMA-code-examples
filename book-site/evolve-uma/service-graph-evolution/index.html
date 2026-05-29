@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Graph Evolution | Universal Microservices Architecture</title>
+    <meta name="description" content="Understand service graph evolution in Universal Microservices Architecture and why compatibility, contracts, and visibility matter more than hidden rewiring." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/evolve-uma/service-graph-evolution/" />
+    <meta property="og:title" content="Service Graph Evolution" />
+    <meta property="og:description" content="Understand service graph evolution in Universal Microservices Architecture and why compatibility, contracts, and visibility matter more than hidden rewiring." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/evolve-uma/service-graph-evolution/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"System Evolution","item":"https://www.universalmicroservices.com/evolve-uma/"},{"@type":"ListItem","position":3,"name":"Service Graph Evolution","item":"https://www.universalmicroservices.com/evolve-uma/service-graph-evolution/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Service Graph Evolution","description":"Understand service graph evolution in Universal Microservices Architecture and why compatibility, contracts, and visibility matter more than hidden rewiring.","url":"https://www.universalmicroservices.com/evolve-uma/service-graph-evolution/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="../../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#what-a-service-graph-really-shows">What a service graph really shows</a></li><li><a href="#why-graph-evolution-matters-more-than-static-structure">Why graph evolution matters more than static structure</a></li><li><a href="#how-graphs-evolve-in-a-healthy-system">How graphs evolve in a healthy system</a>
+    <ul class="page-rail-links">
+      <li><a href="#compatibility-matters-first">Compatibility matters first</a></li><li><a href="#discovery-must-stay-visible">Discovery must stay visible</a></li><li><a href="#evolution-is-where-drift-appears">Evolution is where drift appears</a></li><li><a href="#governance-keeps-growth-healthy">Governance keeps growth healthy</a></li>
+    </ul></li><li><a href="#what-makes-a-graph-governable">What makes a graph governable</a></li><li><a href="#why-compatibility-should-fail-visibly">Why compatibility should fail visibly</a></li><li><a href="#why-inspectable-change-matters">Why inspectable change matters</a></li><li><a href="#why-this-topic-matters">Why this topic matters</a></li><li><a href="#signals-of-unhealthy-evolution">Signals of unhealthy evolution</a></li><li><a href="#what-healthy-graph-growth-looks-like-in-practice">What healthy graph growth looks like in practice</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#is-a-service-graph-just-another-architecture-diagram">Is a service graph just another architecture diagram?</a></li><li><a href="#does-every-uma-system-need-a-large-service-graph">Does every UMA system need a large service graph?</a></li><li><a href="#what-should-happen-when-compatibility-breaks">What should happen when compatibility breaks?</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/evolve-uma/">System Evolution</a></li><li><span aria-current="page">Service Graph Evolution</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>Service graph evolution</h1>
+          <p>
+            One of the most useful ideas in Universal Microservices Architecture is that systems do not need to be hardwired into shape.
+            Services can evolve into a graph through compatibility, contracts, and runtime discovery. That changes how architects think
+            about system growth and how they reason about change over time.
+          </p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="what-a-service-graph-really-shows">What a service graph really shows</h2>
+            <p>
+              A service graph is more than a diagram. It is a visible expression of which services can emit, consume, and compose behavior
+              together at runtime. The more that graph depends on declared compatibility rather than hidden rewiring, the more durable the
+              architecture becomes.
+            </p>
+            <p>
+              In UMA, the graph matters because it reveals how the system actually evolves. It shows which capabilities can participate,
+              which relationships are supported by contracts and metadata, and where growth is happening through governed compatibility
+              rather than accidental coupling.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-graph-evolution-matters-more-than-static-structure">Why graph evolution matters more than static structure</h2>
+            <p>
+              Many architectures look coherent when drawn as a static picture. The harder question is whether they stay coherent as new
+              services, policies, and runtime environments are added. Service graph evolution is the point where the true quality of the
+              system becomes visible, because that is where hidden rewiring, duplicated orchestration, and ambiguous compatibility start to
+              accumulate.
+            </p>
+            <p>
+              A system that grows well is not just one that adds more nodes. It is one that remains interpretable while it changes. Teams
+              should be able to explain why a service participates in the graph, what relationships are allowed, and which runtime and trust
+              conditions shape that participation.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="how-graphs-evolve-in-a-healthy-system">How graphs evolve in a healthy system</h2>
+            <p>
+              A healthy service graph grows through explicit compatibility. Services can emit events, subscribe to behavior, and be selected
+              for runtime participation because the contracts and metadata support those relationships. That is very different from a system
+              that evolves through ad hoc rewiring or duplicated orchestration logic.
+            </p>
+            <p>
+              UMA treats the graph as something that should remain interpretable over time. If teams can no longer explain how a service
+              becomes part of the graph, the architecture is already drifting. Growth should happen through visible relationships, not
+              through increasingly fragile knowledge hidden inside a few coordinating components.
+            </p>
+            <p>
+              This is also where
+              <a href="../contract-driven-orchestration/">contract-driven orchestration</a>
+              becomes a useful intermediate idea. Before a system looks like a graph, it often first becomes a governed set of bindings
+              between emitted events, subscribers, policy checks, and runtime evidence.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3 id="compatibility-matters-first">Compatibility matters first</h3>
+              <p>Healthy growth depends on services being able to connect through declared contracts instead of incidental implementation details.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="discovery-must-stay-visible">Discovery must stay visible</h3>
+              <p>The system should be able to explain how compatible services become part of the same graph.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="evolution-is-where-drift-appears">Evolution is where drift appears</h3>
+              <p>Architectures rarely fail on day one; they fail when repeated changes make the graph harder to reason about.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="governance-keeps-growth-healthy">Governance keeps growth healthy</h3>
+              <p>Runtime policy, trust, and compatibility help distinguish healthy extension from architectural fragmentation.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2 id="what-makes-a-graph-governable">What makes a graph governable</h2>
+            <p>
+              A governable graph is one where compatibility is explicit, metadata is trustworthy, and runtime selection can be explained.
+              It should be possible to understand why a service is compatible, why it was selected, and what policies shape its role in the
+              broader system. Without that visibility, a graph becomes just another hidden layer of system behavior.
+            </p>
+            <p>
+              This is also where service graph evolution connects directly to trust boundaries. A graph that grows without explicit runtime
+              trust and policy tends to become ambiguous. A graph that grows with visible compatibility and governed selection remains much
+              easier to reason about.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-compatibility-should-fail-visibly">Why compatibility should fail visibly</h2>
+            <p>
+              Healthy graph evolution is not only about adding new relationships. It is also about what happens when compatibility breaks.
+              A mature system should fail in a way that is legible. If an event shape changes, a version drifts, or a subscriber no longer
+              matches the declared contract, the graph should show that break clearly instead of silently degrading into partial behavior.
+            </p>
+            <p>
+              That kind of visible failure is a strength, not a weakness. It tells the team where the architecture has actually become
+              incompatible, and it prevents downstream services from pretending the graph is still intact when it is not.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-inspectable-change-matters">Why inspectable change matters</h2>
+            <p>
+              A graph becomes much more useful when change can be inspected at the level that created it. If a service joins the graph
+              because of a new event contract, a changed consumer declaration, or a repaired metadata relationship, teams should be able to
+              see that transition directly instead of inferring it from surprising runtime behavior.
+            </p>
+            <p>
+              This is one of the most practical ideas behind Chapter 8. Graph evolution should be readable as declared change, not only as
+              a final state. That keeps system growth reviewable in a way static diagrams alone cannot.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-this-topic-matters">Why this topic matters</h2>
+            <p>
+              Service graph evolution is where the real architectural cost of change becomes visible. If the graph can grow through explicit
+              compatibility, the system remains teachable and governable. If growth depends on hidden rewiring, teams inherit fragility even
+              when each local change seemed reasonable.
+            </p>
+            <p>
+              That is why service graph evolution is a useful SEO and teaching topic for UMA. It exposes the difference between architecture
+              that merely scales in size and architecture that remains intelligible under change.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="signals-of-unhealthy-evolution">Signals of unhealthy evolution</h2>
+            <ul>
+              <li>New services only work after undocumented rewiring.</li>
+              <li>Compatibility is inferred from implementation detail instead of declared contracts.</li>
+              <li>Runtime placement and trust decisions stay hidden from the graph model.</li>
+              <li>Teams cannot explain why one service participates and another does not.</li>
+              <li>Policy and metadata drift faster than the system can document them.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 id="what-healthy-graph-growth-looks-like-in-practice">What healthy graph growth looks like in practice</h2>
+            <p>
+              Healthy graph growth usually starts small. One service becomes compatible with another through a contract or event boundary.
+              Metadata makes that compatibility visible. Runtime policy determines whether and where that relationship is allowed. Over time,
+              new services can join the graph without requiring the old ones to be rewritten around them.
+            </p>
+            <p>
+              That kind of growth is slower to design up front, but cheaper to sustain. It keeps change visible, which is exactly what a
+              long-lived architecture needs.
+            </p>
+            <p>
+              Just as important, healthy growth includes recovery. If a change breaks compatibility, the architecture should support a clear
+              repair path that restores the graph without forcing upstream services to be rewritten around the break. That is a much better
+              sign than a system that only looks stable because incompatibilities stay hidden.
+            </p>
+            <p>
+              That recovery path becomes even more important once graph growth turns into broader system evolution. Drift, duplication, and
+              unmanaged coexistence are all signs that graph change is no longer fully governed.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="is-a-service-graph-just-another-architecture-diagram">Is a service graph just another architecture diagram?</h3>
+            <p>
+              No. In UMA, the graph is valuable because it reflects runtime-visible compatibility and composition, not just a static drawing
+              made after the fact.
+            </p>
+            <h3 id="does-every-uma-system-need-a-large-service-graph">Does every UMA system need a large service graph?</h3>
+            <p>
+              No. Some systems remain small and should stay small. The point is not to maximize graph complexity. The point is to make
+              system growth legible and governed when it does happen.
+            </p>
+            <h3 id="what-should-happen-when-compatibility-breaks">What should happen when compatibility breaks?</h3>
+            <p>
+              The break should be visible. A waiting consumer, a missing edge, or a failed compatibility check is more honest and much more
+              useful than a system that quietly routes around the problem. Healthy graph evolution depends on visible breakage and visible
+              repair.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Follow the practical path</strong>
+            <p>
+              This page gives the shape of graph evolution. In the book, I take that shape further into inspectable change, compatibility
+              failure, and recovery so the architectural consequences feel concrete instead of abstract. On the site, the best next move is
+              to pair this page with orchestration, trust, and the diagrams that make graph change visible.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../contract-driven-orchestration/">Contract-driven orchestration</a>
+              <a href="../examples/">Examples</a>
+              <a href="../how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a>
+              <a href="../learning-path/">Learning Path</a>
+              <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../diagrams/">Diagrams</a>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <aside class="page-rail page-rail--macro" aria-label="Site map">
+
+        <nav class="page-rail-block">
+          <h2><a href="../../why-uma/">Why UMA</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../why-uma/what-problem-does-uma-solve/">What Problem Does UMA Solve?</a></li><li><a href="../../why-uma/what-is-uma/">What Is UMA?</a></li><li><a href="../../why-uma/why-universal-microservices-exist/">Why Universal Microservices Exist</a></li><li><a href="../../why-uma/what-is-a-universal-microservice/">What Is a Universal Microservice?</a></li><li><a href="../../why-uma/from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../core-model/">Core Model</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../core-model/what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../../core-model/what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../../core-model/what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../../core-model/what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../../core-model/active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../../core-model/late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../../core-model/what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../../core-model/what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../../core-model/agent-vs-runtime/">Agent vs Runtime in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../how-uma-works/">How UMA Works</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../how-uma-works/portable-business-logic/">Portable Business Logic</a></li><li><a href="../../how-uma-works/architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../../how-uma-works/webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../../how-uma-works/migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../../how-uma-works/incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../../how-uma-works/uma-production-readiness/">UMA Production Readiness</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../proof/">Proof</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../proof/what-makes-a-service-portable/">What Makes a Service Portable?</a></li><li><a href="../../proof/how-to-prove-portability/">How to Prove Portability</a></li><li><a href="../../proof/benchmark-and-footprint/">UMA Benchmark And Footprint Notes</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../learn-uma/learning-path/">Learning Path</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../learn-uma/book/">Universal Microservices Architecture Book</a></li><li><a href="../../learn-uma/end-to-end-feature-flag-example/">End-to-End UMA Example: Feature Flag Service</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../examples/">Hands-On Examples</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../examples/chapter-04-feature-flag-evaluator/">Chapter 4 Feature Flag Evaluator Tutorial</a></li><li><a href="../../examples/chapter-05-post-fetcher-runtime/">Chapter 5 Post Fetcher Runtime Tutorial</a></li><li><a href="../../examples/chapter-06-portability-lab/">Chapter 6 UMA Portability Lab Tutorial</a></li><li><a href="../../examples/chapter-07-metadata-orchestration/">Chapter 7 Metadata Orchestration Tutorial</a></li><li><a href="../../examples/chapter-08-service-graph/">Chapter 8 Service Graph Evolution Tutorial</a></li><li><a href="../../examples/chapter-09-trust-boundaries/">Chapter 9 Trust Boundaries Tutorial</a></li><li><a href="../../examples/chapter-10-architectural-tradeoffs/">Chapter 10 Architectural Tradeoffs Tutorial</a></li><li><a href="../../examples/chapter-11-evolution-without-fragmentation/">Chapter 11 Evolution Without Fragmentation Tutorial</a></li><li><a href="../../examples/chapter-12-discoverable-decisions/">Chapter 12 Discoverable Decisions Tutorial</a></li><li><a href="../../examples/chapter-13-portable-mcp-runtime/">Chapter 13 Portable MCP Runtime Tutorial</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block page-rail-block--current">
+          <h2><a href="../">System Evolution</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="./" aria-current="page">Service Graph Evolution</a></li><li><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="../runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></li><li><a href="../ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../discoverability/">Discovery and References</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../discoverability/faq/">UMA FAQ</a></li><li><a href="../../discoverability/diagrams/">UMA Diagrams</a></li><li><a href="../../discoverability/about-enrico/">About Enrico Piovesan</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Reference Application</a></li><li><a href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">White Paper</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../comparisons/">Comparisons and Tradeoffs</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../comparisons/uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../../comparisons/uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../../comparisons/uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="../../comparisons/common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="#">Why Software Architecture Keeps Fragmenting</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

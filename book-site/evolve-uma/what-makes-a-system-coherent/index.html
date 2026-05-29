@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Makes a System Coherent? | Universal Microservices Architecture</title>
+    <meta name="description" content="Learn what makes a UMA system coherent instead of merely functional, and how metadata, capability boundaries, event semantics, and runtime decisions shape that outcome." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/evolve-uma/what-makes-a-system-coherent/" />
+    <meta property="og:title" content="What Makes a System Coherent?" />
+    <meta property="og:description" content="Learn what makes a UMA system coherent instead of merely functional, and how metadata, capability boundaries, event semantics, and runtime decisions shape that outcome." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/evolve-uma/what-makes-a-system-coherent/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"System Evolution","item":"https://www.universalmicroservices.com/evolve-uma/"},{"@type":"ListItem","position":3,"name":"What Makes a System Coherent?","item":"https://www.universalmicroservices.com/evolve-uma/what-makes-a-system-coherent/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"What Makes a System Coherent?","description":"Learn what makes a UMA system coherent instead of merely functional, and how metadata, capability boundaries, event semantics, and runtime decisions shape that outcome.","url":"https://www.universalmicroservices.com/evolve-uma/what-makes-a-system-coherent/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="../../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-short-answer">The short answer</a></li><li><a href="#why-functionality-is-not-enough">Why functionality is not enough</a></li><li><a href="#where-coherence-becomes-visible">Where coherence becomes visible</a>
+    <ul class="page-rail-links">
+      <li><a href="#focused-capability-boundaries">Focused capability boundaries</a></li><li><a href="#stable-event-semantics">Stable event semantics</a></li><li><a href="#deterministic-runtime-choices">Deterministic runtime choices</a></li><li><a href="#metadata-with-purpose">Metadata with purpose</a></li>
+    </ul></li><li><a href="#what-makes-a-system-drift-away-from-coherence">What makes a system drift away from coherence</a></li><li><a href="#why-recovery-matters-as-much-as-diagnosis">Why recovery matters as much as diagnosis</a></li><li><a href="#a-practical-coherence-test">A practical coherence test</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#can-a-system-be-functional-but-not-coherent">Can a system be functional but not coherent?</a></li><li><a href="#does-coherence-mean-fewer-services">Does coherence mean fewer services?</a></li><li><a href="#why-is-this-a-runtime-question-and-not-only-a-design-question">Why is this a runtime question and not only a design question?</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/evolve-uma/">System Evolution</a></li><li><span aria-current="page">What Makes a System Coherent?</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>What makes a system coherent?</h1>
+          <p>
+            A UMA system is coherent when its runtime behavior still reflects the architectural model it claims to have. That is a higher
+            standard than simple functionality. A system can work and still be architecturally unclear, fragile, or misleading.
+          </p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="the-short-answer">The short answer</h2>
+            <p>
+              Coherence means the system’s boundaries, events, metadata, capability choices, and runtime decisions reinforce one another
+              instead of fighting each other. The architecture stays easier to explain because the runtime outcomes still match the declared
+              model.
+            </p>
+            <p>
+              That is why Chapter 10 matters. It pushes the conversation beyond “did the workflow finish?” and toward “what kind of system
+              did these decisions create?” In UMA, that difference is where architectural quality becomes visible.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-functionality-is-not-enough">Why functionality is not enough</h2>
+            <p>
+              A system can produce the expected output while still accumulating architectural damage. It may split behavior into too many
+              capability fragments, hide meaning inside vague events, let runtime selection become ambiguous, or pile orchestration logic
+              into metadata that no longer clarifies anything. None of those problems necessarily causes an immediate failure.
+            </p>
+            <p>
+              That is exactly why coherence matters as its own topic. It gives teams a way to talk about whether the architecture is
+              staying healthy, not only whether the current scenario happened to complete.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="where-coherence-becomes-visible">Where coherence becomes visible</h2>
+            <p>
+              In UMA, coherence becomes visible in runtime behavior. Which capability was selected? Why was it selected? Do the event
+              names still reflect stable domain meaning? Is metadata clarifying the flow or bloating it? Can the system explain the path in
+              a way that still matches the intended architecture?
+            </p>
+            <p>
+              Those questions matter because diagrams alone can hide degradation. The runtime outcome is often where the real architectural
+              tradeoff finally becomes obvious.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3 id="focused-capability-boundaries">Focused capability boundaries</h3>
+              <p>Capabilities should be meaningful enough to govern without being split into tiny steps that add more complexity than value.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="stable-event-semantics">Stable event semantics</h3>
+              <p>Events should describe durable domain facts, not vague workflow hints that only local code can interpret.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="deterministic-runtime-choices">Deterministic runtime choices</h3>
+              <p>When multiple paths exist, the system should still explain why one was chosen and under which declared conditions.</p>
+            </article>
+            <article class="subpage-card">
+              <h3 id="metadata-with-purpose">Metadata with purpose</h3>
+              <p>Metadata should clarify compatibility and governance, not become a dumping ground for hidden orchestration detail.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2 id="what-makes-a-system-drift-away-from-coherence">What makes a system drift away from coherence</h2>
+            <p>
+              Several patterns create drift quickly: over-granular capability splits, hidden event coupling, runtime ambiguity, and
+              over-orchestrated flows that try to control every step centrally. Each one can still look justified locally. Together they
+              make the architecture harder to reason about and harder to repair.
+            </p>
+            <p>
+              Coherence is often lost gradually. That is why runtime-visible tradeoffs are so useful. They show where the system stopped
+              matching its own architectural story before the damage becomes too expensive to reverse.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="why-recovery-matters-as-much-as-diagnosis">Why recovery matters as much as diagnosis</h2>
+            <p>
+              A good architecture page should not only help a reader spot what is wrong. It should also help them see what recovery looks
+              like. In UMA, recovery usually comes from clearer constraints, sharper capability boundaries, more stable event meaning, and
+              runtime rules that reduce ambiguity instead of layering on more complexity.
+            </p>
+            <p>
+              That is a healthier model than assuming every problem can be solved by adding more orchestration or more services. Sometimes
+              architectural repair is really about removing noise until the runtime can be authoritative again.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="a-practical-coherence-test">A practical coherence test</h2>
+            <p>
+              Ask whether the system can explain a runtime outcome in the same terms the architecture uses to describe itself. If the
+              runtime says one thing and the architecture slides say another, coherence is already weakening.
+            </p>
+            <p>
+              Another useful test is whether the recovery path becomes simpler or more complicated. If every fix adds more indirection,
+              more orchestration, and more metadata without restoring clarity, the system is probably becoming merely functional rather than
+              more coherent.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="can-a-system-be-functional-but-not-coherent">Can a system be functional but not coherent?</h3>
+            <p>
+              Yes. That is exactly the point of this concept. A system may still produce the right output while becoming harder to explain,
+              govern, and evolve safely.
+            </p>
+            <h3 id="does-coherence-mean-fewer-services">Does coherence mean fewer services?</h3>
+            <p>
+              Not automatically. The issue is not service count by itself. The issue is whether boundaries, events, metadata, and runtime
+              choices are still making the architecture clearer or only more fragmented.
+            </p>
+            <h3 id="why-is-this-a-runtime-question-and-not-only-a-design-question">Why is this a runtime question and not only a design question?</h3>
+            <p>
+              Because runtime outcomes expose tradeoffs that static structure can hide. Coherence becomes easiest to judge when the system
+              has to act, select, emit, and explain itself.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Use coherence as a design filter</strong>
+            <p>
+              This page gives the standard, not every tradeoff that can challenge it. In the book, I take the idea further through concrete
+              degraded and recovered designs so the difference between “working” and “coherent” becomes much more practical. On the site,
+              the next useful move is to connect coherence to orchestration, graph evolution, and runtime authority.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../contract-driven-orchestration/">Contract-driven orchestration</a>
+              <a href="../how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a>
+              <a href="../service-graph-evolution/">Service graph evolution</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../examples/">Examples</a>
+              <a href="../learning-path/">Learning Path</a>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <aside class="page-rail page-rail--macro" aria-label="Site map">
+
+        <nav class="page-rail-block">
+          <h2><a href="../../why-uma/">Why UMA</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../why-uma/what-problem-does-uma-solve/">What Problem Does UMA Solve?</a></li><li><a href="../../why-uma/what-is-uma/">What Is UMA?</a></li><li><a href="../../why-uma/why-universal-microservices-exist/">Why Universal Microservices Exist</a></li><li><a href="../../why-uma/what-is-a-universal-microservice/">What Is a Universal Microservice?</a></li><li><a href="../../why-uma/from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../core-model/">Core Model</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../core-model/what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../../core-model/what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../../core-model/what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../../core-model/what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../../core-model/active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../../core-model/late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../../core-model/what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../../core-model/what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../../core-model/agent-vs-runtime/">Agent vs Runtime in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../how-uma-works/">How UMA Works</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../how-uma-works/portable-business-logic/">Portable Business Logic</a></li><li><a href="../../how-uma-works/architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../../how-uma-works/webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../../how-uma-works/migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../../how-uma-works/incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../../how-uma-works/uma-production-readiness/">UMA Production Readiness</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../proof/">Proof</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../proof/what-makes-a-service-portable/">What Makes a Service Portable?</a></li><li><a href="../../proof/how-to-prove-portability/">How to Prove Portability</a></li><li><a href="../../proof/benchmark-and-footprint/">UMA Benchmark And Footprint Notes</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../learn-uma/learning-path/">Learning Path</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../learn-uma/book/">Universal Microservices Architecture Book</a></li><li><a href="../../learn-uma/end-to-end-feature-flag-example/">End-to-End UMA Example: Feature Flag Service</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../examples/">Hands-On Examples</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../examples/chapter-04-feature-flag-evaluator/">Chapter 4 Feature Flag Evaluator Tutorial</a></li><li><a href="../../examples/chapter-05-post-fetcher-runtime/">Chapter 5 Post Fetcher Runtime Tutorial</a></li><li><a href="../../examples/chapter-06-portability-lab/">Chapter 6 UMA Portability Lab Tutorial</a></li><li><a href="../../examples/chapter-07-metadata-orchestration/">Chapter 7 Metadata Orchestration Tutorial</a></li><li><a href="../../examples/chapter-08-service-graph/">Chapter 8 Service Graph Evolution Tutorial</a></li><li><a href="../../examples/chapter-09-trust-boundaries/">Chapter 9 Trust Boundaries Tutorial</a></li><li><a href="../../examples/chapter-10-architectural-tradeoffs/">Chapter 10 Architectural Tradeoffs Tutorial</a></li><li><a href="../../examples/chapter-11-evolution-without-fragmentation/">Chapter 11 Evolution Without Fragmentation Tutorial</a></li><li><a href="../../examples/chapter-12-discoverable-decisions/">Chapter 12 Discoverable Decisions Tutorial</a></li><li><a href="../../examples/chapter-13-portable-mcp-runtime/">Chapter 13 Portable MCP Runtime Tutorial</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block page-rail-block--current">
+          <h2><a href="../">System Evolution</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="./" aria-current="page">What Makes a System Coherent?</a></li><li><a href="../trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="../runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></li><li><a href="../ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../discoverability/">Discovery and References</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../discoverability/faq/">UMA FAQ</a></li><li><a href="../../discoverability/diagrams/">UMA Diagrams</a></li><li><a href="../../discoverability/about-enrico/">About Enrico Piovesan</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Reference Application</a></li><li><a href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">White Paper</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../comparisons/">Comparisons and Tradeoffs</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../comparisons/uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../../comparisons/uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../../comparisons/uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="../../comparisons/common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="#">Why Software Architecture Keeps Fragmenting</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

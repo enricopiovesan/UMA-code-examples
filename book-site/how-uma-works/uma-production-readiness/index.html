@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA Production Readiness | Universal Microservices Architecture</title>
+    <meta name="description" content="Understand what production readiness means in UMA across security, versioning, governance, observability, deployment, and runtime authority." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/how-uma-works/uma-production-readiness/" />
+    <meta property="og:title" content="UMA Production Readiness" />
+    <meta property="og:description" content="Understand what production readiness means in UMA across security, versioning, governance, observability, deployment, and runtime authority." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/how-uma-works/uma-production-readiness/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"How UMA Works","item":"https://www.universalmicroservices.com/how-uma-works/"},{"@type":"ListItem","position":3,"name":"UMA Production Readiness","item":"https://www.universalmicroservices.com/how-uma-works/uma-production-readiness/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UMA Production Readiness","description":"Understand what production readiness means in UMA across security, versioning, governance, observability, deployment, and runtime authority.","url":"https://www.universalmicroservices.com/how-uma-works/uma-production-readiness/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="../../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#security-and-trust">Security and trust</a></li><li><a href="#versioning-and-compatibility">Versioning and compatibility</a></li><li><a href="#governance">Governance</a></li><li><a href="#observability">Observability</a></li><li><a href="#deployment">Deployment</a>
+    <ul class="page-rail-links">
+      <li><a href="#security">Security</a></li><li><a href="#versioning">Versioning</a></li><li><a href="#governance-2">Governance</a></li><li><a href="#observability-2">Observability</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">UMA Production Readiness</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>UMA production readiness</h1>
+          <p>Production readiness in UMA is not just the question of whether portable code can run. The stronger question is whether the runtime can govern that code under real trust, versioning, observability, and deployment constraints.</p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="security-and-trust">Security and trust</h2>
+            <p>A portable service can create new security pressure because the same behavior may run in different contexts. UMA treats trust boundaries, permissions, provenance, and authority as part of the runtime model.</p>
+            <p>The runtime must know what is allowed before it executes.</p>
+          </section>
+
+          <section>
+            <h2 id="versioning-and-compatibility">Versioning and compatibility</h2>
+            <p>A production UMA system needs clear contracts, compatibility checks, and versioned evolution. Without that discipline, portability can turn into version sprawl.</p>
+            <p>The service graph should make change visible rather than leaving teams to discover drift through incidents.</p>
+          </section>
+
+          <section>
+            <h2 id="governance">Governance</h2>
+            <p>Governance means deciding who can expose a capability, who can call it, what evidence is required, and which runtime path is authoritative. UMA makes those questions architecture questions, not only operations questions.</p>
+            <p>This is especially important when AI-assisted workflows participate in discovery or proposal.</p>
+          </section>
+
+          <section>
+            <h2 id="observability">Observability</h2>
+            <p>Observability should show more than whether a process is alive. A UMA runtime should expose capability selection, validation decisions, approvals, rejections, execution paths, and relevant traces.</p>
+            <p>That evidence is what makes runtime decisions explainable.</p>
+          </section>
+
+          <section>
+            <h2 id="deployment">Deployment</h2>
+            <p>Deployment readiness depends on the hosts involved. Browser, edge, cloud, WASI, and workflow execution each introduce different constraints. UMA does not erase those differences. It gives teams a model for deciding where a capability should run and why.</p>
+          </section>
+          <section class="subpage-grid">
+            <article class="subpage-card"><h3 id="security">Security</h3><p>Trust, permissions, and provenance must travel with the runtime decision.</p></article>
+            <article class="subpage-card"><h3 id="versioning">Versioning</h3><p>Contracts and compatibility need to be visible as the system evolves.</p></article>
+            <article class="subpage-card"><h3 id="governance-2">Governance</h3><p>Capability exposure and execution authority need explicit ownership.</p></article>
+            <article class="subpage-card"><h3 id="observability-2">Observability</h3><p>The runtime should explain decisions, not only report activity.</p></article>
+          </section>
+          <section class="subpage-callout">
+            <strong>Want to go deeper?</strong>
+            <p>This page answers the production question at a conceptual level. The book goes further into governance, deployment patterns, runtime controls, and implementation guidance. The repository shows the proof artifacts that make those discussions concrete.</p>
+            <div class="subpage-inline-links">
+              <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../what-makes-a-system-coherent/">What makes a system coherent?</a>
+              <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
+              <a href="../examples/chapter-09-trust-boundaries/">Trust boundaries example</a>
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">Official GitHub examples repository</a>
+              <a href="../book/">Book page</a>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <aside class="page-rail page-rail--macro" aria-label="Site map">
+
+        <nav class="page-rail-block">
+          <h2><a href="../../why-uma/">Why UMA</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../why-uma/what-problem-does-uma-solve/">What Problem Does UMA Solve?</a></li><li><a href="../../why-uma/what-is-uma/">What Is UMA?</a></li><li><a href="../../why-uma/why-universal-microservices-exist/">Why Universal Microservices Exist</a></li><li><a href="../../why-uma/what-is-a-universal-microservice/">What Is a Universal Microservice?</a></li><li><a href="../../why-uma/from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../core-model/">Core Model</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../core-model/what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../../core-model/what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../../core-model/what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../../core-model/what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../../core-model/active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../../core-model/late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../../core-model/what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../../core-model/what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../../core-model/agent-vs-runtime/">Agent vs Runtime in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block page-rail-block--current">
+          <h2><a href="../">How UMA Works</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../portable-business-logic/">Portable Business Logic</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="./" aria-current="page">UMA Production Readiness</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../proof/">Proof</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../proof/what-makes-a-service-portable/">What Makes a Service Portable?</a></li><li><a href="../../proof/how-to-prove-portability/">How to Prove Portability</a></li><li><a href="../../proof/benchmark-and-footprint/">UMA Benchmark And Footprint Notes</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../learn-uma/learning-path/">Learning Path</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../learn-uma/book/">Universal Microservices Architecture Book</a></li><li><a href="../../learn-uma/end-to-end-feature-flag-example/">End-to-End UMA Example: Feature Flag Service</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../examples/">Hands-On Examples</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../examples/chapter-04-feature-flag-evaluator/">Chapter 4 Feature Flag Evaluator Tutorial</a></li><li><a href="../../examples/chapter-05-post-fetcher-runtime/">Chapter 5 Post Fetcher Runtime Tutorial</a></li><li><a href="../../examples/chapter-06-portability-lab/">Chapter 6 UMA Portability Lab Tutorial</a></li><li><a href="../../examples/chapter-07-metadata-orchestration/">Chapter 7 Metadata Orchestration Tutorial</a></li><li><a href="../../examples/chapter-08-service-graph/">Chapter 8 Service Graph Evolution Tutorial</a></li><li><a href="../../examples/chapter-09-trust-boundaries/">Chapter 9 Trust Boundaries Tutorial</a></li><li><a href="../../examples/chapter-10-architectural-tradeoffs/">Chapter 10 Architectural Tradeoffs Tutorial</a></li><li><a href="../../examples/chapter-11-evolution-without-fragmentation/">Chapter 11 Evolution Without Fragmentation Tutorial</a></li><li><a href="../../examples/chapter-12-discoverable-decisions/">Chapter 12 Discoverable Decisions Tutorial</a></li><li><a href="../../examples/chapter-13-portable-mcp-runtime/">Chapter 13 Portable MCP Runtime Tutorial</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../evolve-uma/">System Evolution</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../evolve-uma/contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../../evolve-uma/service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../../evolve-uma/how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../../evolve-uma/what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../../evolve-uma/trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="../../evolve-uma/runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></li><li><a href="../../evolve-uma/ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../discoverability/">Discovery and References</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../discoverability/faq/">UMA FAQ</a></li><li><a href="../../discoverability/diagrams/">UMA Diagrams</a></li><li><a href="../../discoverability/about-enrico/">About Enrico Piovesan</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Reference Application</a></li><li><a href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">White Paper</a></li>
+          </ul>
+        </nav>
+        <nav class="page-rail-block">
+          <h2><a href="../../comparisons/">Comparisons and Tradeoffs</a></h2>
+          <ul class="page-rail-links">
+            <li><a href="../../comparisons/uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../../comparisons/uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../../comparisons/uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="../../comparisons/common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="#">Why Software Architecture Keeps Fragmenting</a></li>
+          </ul>
+        </nav>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>
