@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 10 Architectural Tradeoffs Tutorial | UMA Examples</title>
+    <meta name="description" content="Use the Chapter 10 UMA architectural tradeoffs tutorial to compare coherent and degraded designs through runtime-visible warnings and decision axes." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/examples/chapter-10-architectural-tradeoffs/" />
+    <meta property="og:title" content="Chapter 10 Architectural Tradeoffs Tutorial" />
+    <meta property="og:description" content="Use the Chapter 10 UMA architectural tradeoffs tutorial to compare coherent and degraded designs through runtime-visible warnings and decision axes." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/examples/chapter-10-architectural-tradeoffs/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Chapter 10: Architectural Tradeoffs UMA tutorial","description":"Use the Chapter 10 UMA architectural tradeoffs tutorial to compare coherent and degraded designs through runtime-visible warnings and decision axes.","step":[{"@type":"HowToStep","position":1,"name":"Enter the example","text":"cd chapter-10-architectural-tradeoffs"},{"@type":"HowToStep","position":2,"name":"List the architecture labs","text":"./scripts/list_labs.sh"},{"@type":"HowToStep","position":3,"name":"Validate the baseline","text":"./scripts/validate_architecture.sh lab1-baseline"},{"@type":"HowToStep","position":4,"name":"Run the coherent baseline","text":"./scripts/run_arch_demo.sh lab1-baseline"},{"@type":"HowToStep","position":5,"name":"Compare over-granular decomposition","text":"./scripts/diff_architecture.sh lab1-baseline lab2-over-granular"},{"@type":"HowToStep","position":6,"name":"Run the runtime ambiguity lab","text":"./scripts/run_arch_demo.sh lab4-runtime-ambiguity"},{"@type":"HowToStep","position":7,"name":"Run the recovered architecture lab","text":"./scripts/run_arch_demo.sh lab6-recovered-architecture"},{"@type":"HowToStep","position":8,"name":"Run the full smoke path","text":"./scripts/smoke_arch_labs.sh"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Chapter 10: Architectural Tradeoffs","codeRepository":"https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-10-architectural-tradeoffs","programmingLanguage":["Rust","TypeScript"],"runtimePlatform":"Rust, WASI, Node.js","description":"Use the Chapter 10 UMA architectural tradeoffs tutorial to compare coherent and degraded designs through runtime-visible warnings and decision axes."}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="../../#top"><span class="brand-mark">UMA</span><span class="brand-copy"><strong>Universal Microservices Architecture</strong></span></a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a><a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden><div class="mobile-menu-panel"><button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button><nav class="mobile-menu-nav"><a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a><a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a></nav></div></aside>
+      <main class="subpage-main">
+        <section class="subpage-hero tutorial-hero">
+          <p class="tutorial-kicker">Chapter 10 UMA code example</p>
+          <h1>Architectural tradeoffs tutorial</h1>
+          <p>This tutorial shows architecture as runtime behavior. You will compare scenarios where service granularity, event semantics, placement rules, and orchestration choices either preserve or degrade coherence.</p>
+        </section>
+        <div class="subpage-body tutorial-body">
+          <section class="subpage-callout">
+            <strong>SEO strategy for this example</strong>
+            <p>This page gives Architectural Tradeoffs its own canonical URL, tutorial title, crawlable internal links, and HowTo structured data. That helps search engines index the repository as a set of runnable UMA tutorials instead of a single generic GitHub project.</p>
+          </section>
+          <section>
+            <h2>What you will learn</h2>
+            <ul><li>why more services are not automatically better architecture</li><li>how metadata works as a control plane</li><li>how clearer constraints recover coherence after ambiguity or over-orchestration</li></ul>
+          </section>
+          <section>
+            <h2>Prerequisites</h2>
+            <ul><li>Rust 1.76 or newer</li><li>Node.js 20 or newer</li><li>a checkout of the repository</li></ul>
+            
+          </section>
+          <section>
+            <h2>Full tutorial</h2>
+            <ol class="tutorial-steps"><li><strong>Enter the example</strong><pre class="tutorial-code"><code>cd chapter-10-architectural-tradeoffs</code></pre></li><li><strong>List the architecture labs</strong><pre class="tutorial-code"><code>./scripts/list_labs.sh</code></pre></li><li><strong>Validate the baseline</strong><pre class="tutorial-code"><code>./scripts/validate_architecture.sh lab1-baseline</code></pre></li><li><strong>Run the coherent baseline</strong><pre class="tutorial-code"><code>./scripts/run_arch_demo.sh lab1-baseline</code></pre></li><li><strong>Compare over-granular decomposition</strong><pre class="tutorial-code"><code>./scripts/diff_architecture.sh lab1-baseline lab2-over-granular</code></pre></li><li><strong>Run the runtime ambiguity lab</strong><pre class="tutorial-code"><code>./scripts/run_arch_demo.sh lab4-runtime-ambiguity</code></pre></li><li><strong>Run the recovered architecture lab</strong><pre class="tutorial-code"><code>./scripts/run_arch_demo.sh lab6-recovered-architecture</code></pre></li><li><strong>Run the full smoke path</strong><pre class="tutorial-code"><code>./scripts/smoke_arch_labs.sh</code></pre></li></ol>
+          </section>
+          <section>
+            <h2>What to inspect</h2>
+            <p>After each command, look for these proof points. They are the signals that connect the code example back to the UMA architecture claim.</p>
+            <ul><li>Verdict</li><li>architectural decision axes</li><li>over_granular</li><li>hidden_event_coupling</li><li>runtime_ambiguity</li><li>over_orchestrated</li></ul>
+          </section>
+          <section>
+            <h2>Acceptance check</h2>
+            <p>The chapter-level validation path is:</p>
+            <pre class="tutorial-code"><code>./scripts/smoke_arch_labs.sh</code></pre>
+            <p>Return to the repository root for the final acceptance gate:</p>
+            <pre class="tutorial-code"><code>cd ..
+./scripts/smoke_reader_paths.sh</code></pre>
+          </section>
+          <section>
+            <h2>Where to go next</h2>
+            <p>Chapter 11 focuses on evolution without fragmentation.</p>
+            <div class="subpage-inline-links">
+              <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-10-architectural-tradeoffs">Open source folder</a>
+              <a href="../">All UMA examples</a>
+              <a href="../chapter-09-trust-boundaries/">Previous: Trust Boundaries</a>
+              <a href="../chapter-11-evolution-without-fragmentation/">Next: Evolution Without Fragmentation</a>
+            </div>
+          </section>
+        </div>
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
+      </main>
+    </div>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

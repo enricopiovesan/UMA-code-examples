@@ -220,6 +220,52 @@
   text-underline-offset: 0.18em;
 }
 
+.tutorial-kicker {
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.tutorial-hero h1 {
+  max-width: 14ch;
+}
+
+.tutorial-body ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.tutorial-body li strong {
+  color: var(--text);
+}
+
+.tutorial-code {
+  overflow-x: auto;
+  margin: 10px 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0d0d0d;
+}
+
+.tutorial-code code {
+  color: #f1d56a;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+.tutorial-link-grid a {
+  color: var(--text);
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
 @media (max-width: 900px) {
   .subpage-grid {
     grid-template-columns: 1fr;
