@@ -188,6 +188,7 @@ if (sharedFooter) {
           </a>
           <div class="footer-book-copy">
             <p>Go deeper into UMA with the full book, examples, and architecture model.</p>
+            <a class="inline-link" href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">Read the white paper</a>
             <a class="button button-dark footer-book-button" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
           </div>
         </div>
