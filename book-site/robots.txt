@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Allow: /active-descriptors/
+Allow: /late-bound-policy-enforcement/
+Allow: /runtime-provenance-and-trust/
+Allow: /ai-native-runtime-governance/
+Allow: /incremental-uma-adoption/
+Allow: /architecture-drift-and-portable-business-logic/
+Allow: /examples/
+Allow: /assets/
 
 Sitemap: https://www.universalmicroservices.com/sitemap.xml

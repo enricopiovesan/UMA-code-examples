@@ -81,6 +81,20 @@
         </section>
 
         <div class="subpage-body">
+          <section class="subpage-callout">
+            <strong>How to navigate the examples</strong>
+            <p>
+              Start with Chapter 4 and move forward in order if you want the cleanest learning path. Each tutorial page keeps the source
+              folder, the examples index, and the sibling chapter links near the top so the navigation is part of the page instead of
+              hidden in the footer.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="chapter-04-feature-flag-evaluator/">Start with Chapter 4</a>
+              <a href="chapter-07-metadata-orchestration/">Jump to orchestration</a>
+              <a href="chapter-12-discoverable-decisions/">See discoverable decisions</a>
+            </div>
+          </section>
+
           <section>
             <h2>Why the examples matter</h2>
             <p>
@@ -143,10 +157,14 @@
           <section>
             <h2>Runnable tutorials for every code example</h2>
             <p>
-              Each chapter example now has a dedicated tutorial page with its own canonical URL, metadata, source link, validation command,
-              and repository-level acceptance check. This gives readers a clean entry point and gives search engines crawlable pages for
-              the concrete problems the repo solves.
+              Each chapter example now has a dedicated tutorial page with its own canonical URL, metadata, source link, validation
+              command, and repository-level acceptance check. The pages are grouped below so the learning path is easier to scan and
+              easier to follow.
             </p>
+          </section>
+
+          <section>
+            <h2>Foundations</h2>
             <div class="subpage-grid tutorial-link-grid">
               <article class="subpage-card">
                 <h3><a href="chapter-04-feature-flag-evaluator/">Chapter 4: Feature Flag Evaluator</a></h3>
@@ -160,6 +178,12 @@
                 <h3><a href="chapter-06-portability-lab/">Chapter 6: Portability Lab</a></h3>
                 <p>Compare native and WASI execution through the same emitted image analysis payload.</p>
               </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>Orchestration and trust</h2>
+            <div class="subpage-grid tutorial-link-grid">
               <article class="subpage-card">
                 <h3><a href="chapter-07-metadata-orchestration/">Chapter 7: Metadata Orchestration</a></h3>
                 <p>Run the contract-driven orchestration flow and inspect binding, policy, schema, and telemetry signals.</p>
@@ -172,6 +196,12 @@
                 <h3><a href="chapter-09-trust-boundaries/">Chapter 9: Trust Boundaries</a></h3>
                 <p>See trust metadata, permissions, dependency provenance, and communication policy produce runtime decisions.</p>
               </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>Evolution and discoverability</h2>
+            <div class="subpage-grid tutorial-link-grid">
               <article class="subpage-card">
                 <h3><a href="chapter-10-architectural-tradeoffs/">Chapter 10: Architectural Tradeoffs</a></h3>
                 <p>Compare coherent and degraded designs using runtime-visible warnings and architectural decision axes.</p>
@@ -189,6 +219,15 @@
                 <p>Build WASI AI capabilities, run the UMA workflow, inspect JSON reports, and smoke the MCP server.</p>
               </article>
             </div>
+          </section>
+
+          <section>
+            <h2>What each tutorial page includes</h2>
+            <p>
+              Every tutorial page now keeps the navigation close to the content: an in-page route block, the validation commands, the
+              source folder link, and the next step in the sequence. That makes the structure easier to scan without sending readers to
+              the footer first.
+            </p>
           </section>
 
           <section>
