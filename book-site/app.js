@@ -79,7 +79,7 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuClose = document.querySelector(".mobile-menu-close");
 const sharedFooter = document.querySelector("[data-shared-footer]");
-const faviconHref = new URL("favicon.svg", import.meta.url).href;
+const faviconHref = new URL("favicon.png", import.meta.url).href;
 const blogHref = "https://medium.com/the-rise-of-device-independent-architecture";
 
 const siteRoot = new URL(".", import.meta.url);
@@ -204,7 +204,7 @@ function ensureFavicon() {
 
   const link = document.createElement("link");
   link.rel = "icon";
-  link.type = "image/svg+xml";
+  link.type = "image/png";
   link.href = faviconHref;
   document.head.appendChild(link);
 }

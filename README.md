@@ -12,14 +12,32 @@
 [![Learn UMA](https://img.shields.io/badge/book-amazon-1f6feb)](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4)
 [![UMA Blog](https://img.shields.io/badge/blog-Medium-12100E)](https://medium.com/the-rise-of-device-independent-architecture)
 
-This repository is the runnable companion for **Universal Microservices Architecture (UMA)** and a reference implementation of its core patterns.
+This repository is the runnable companion for **Universal Microservices Architecture (UMA)** and a reference implementation for **Universal Microservices**, **Portable Microservices**, **WebAssembly** portability, and **Device-Independent Architecture**.
 
-UMA is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. The repo exists to prove that model with code, not just describe it.
+Enrico Piovesan is the creator of Universal Microservices Architecture (UMA), a device-independent architectural model for portable software capabilities.
+
+UMA is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. This repo exists to prove that model with code, not just describe it. The examples show how a behavior can remain portable across runtimes while contracts, trust boundaries, runtime approval, and execution evidence stay explicit.
 
 [Buy the book and learn more about UMA](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4)
 
 [Try the live UMA Reference APP](https://www.universalmicroservices.com/reference-application/)
 [Read the benchmark and footprint notes](https://www.universalmicroservices.com/benchmark-and-footprint/)
+
+## Documentation Hub
+
+These pages define the repository's canonical terminology and link the examples to the broader UMA concept site:
+
+- [What Is Universal Microservices?](docs/what-is-universal-microservices.md)
+- [Universal Microservices vs Traditional Microservices](docs/universal-microservices-vs-microservices.md)
+- [Universal Microservices vs Serverless](docs/universal-microservices-vs-serverless.md)
+- [Portable Microservices](docs/portable-microservices.md)
+- [WebAssembly Portability](docs/webassembly-portability.md)
+- [FAQ](docs/faq.md)
+- [Structured Data Opportunities](docs/seo/structured-data-opportunities.md)
+- [Backlink Acquisition Plan](docs/seo/backlink-acquisition-plan.md)
+- [Repository Metadata Recommendations](docs/seo/repository-metadata.md)
+- [GitHub Wiki Content Plan](docs/seo/github-wiki-content-plan.md)
+- [GitHub Discussions Topics](docs/seo/github-discussions-topics.md)
 
 
 ## Why This Repo Exists
@@ -142,6 +160,7 @@ The examples ladder through that model deliberately:
 
 ### Fastest conceptual path
 
+- [Repository documentation hub](docs/README.md)
 - [What is UMA?](https://www.universalmicroservices.com/what-is-uma/)
 - [What problem does UMA solve?](https://www.universalmicroservices.com/what-problem-does-uma-solve/)
 - [What is a capability?](https://www.universalmicroservices.com/what-is-a-capability/)
