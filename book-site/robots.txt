@@ -6,6 +6,14 @@ Allow: /runtime-provenance-and-trust/
 Allow: /ai-native-runtime-governance/
 Allow: /incremental-uma-adoption/
 Allow: /architecture-drift-and-portable-business-logic/
+Allow: /what-is-a-universal-microservice/
+Allow: /why-universal-microservices-exist/
+Allow: /migrating-to-uma-incrementally/
+Allow: /uma-production-readiness/
+Allow: /uma-vs-serverless/
+Allow: /uma-vs-modular-monolith/
+Allow: /common-criticisms-and-tradeoffs-of-uma/
+Allow: /end-to-end-feature-flag-example/
 Allow: /examples/
 Allow: /assets/
 

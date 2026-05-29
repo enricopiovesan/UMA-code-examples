@@ -14,7 +14,7 @@ trap 'rm -f "$rust_output" "$ts_output"' EXIT
 ./scripts/run_cloud.sh >"$rust_output" 2>&1
 ./scripts/run_cloud_ts.sh >"$ts_output" 2>&1
 
-node - "$rust_output" "$ts_output" <<'EOF'
+node --input-type=module - "$rust_output" "$ts_output" <<'EOF'
 import fs from "node:fs";
 import { summarizeRunnerOutput } from "./runtime/lib.mjs";
 
