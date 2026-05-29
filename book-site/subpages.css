@@ -172,6 +172,15 @@
   color: var(--accent);
 }
 
+.page-shell.has-page-rail > .page-rail--macro .page-rail-links a {
+  font-size: 0.82rem;
+  line-height: 1.38;
+}
+
+.page-shell.has-page-rail > .page-rail--macro .page-rail-block h2 {
+  font-size: 0.68rem;
+}
+
 .subpage-hero {
   padding: 18px 0 44px;
   border-bottom: 1px solid var(--line);
