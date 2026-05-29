@@ -1,0 +1,237 @@
+---
+ref: what-is-a-capability
+title: "What Is a Capability in UMA?"
+subtitle: "What is a capability in UMA? A capability is the unit the runtime can actually reason about. In Universal Microservices Architecture, a capability is not just code that exists somewhere. It is a named, discoverable, contract-shaped piece of behavior that the runtime can evaluate, approve, reject, and compose into a workflow when compute can happen in many places and the system needs to decide where logic runs."
+macro_area: core-model
+content_type: explainer
+slug: what-is-a-capability
+canonical_url: "https://www.universalmicroservices.com/what-is-a-capability/"
+left_nav_group: core-model
+chapter_ref: null
+seo_description: "Learn what a capability means in Universal Microservices Architecture, how it differs from a service or workflow, and why it matters for governed composition."
+breadcrumbs:
+  - "Home"
+  - "Core Model"
+  - "What Is a Capability in UMA?"
+related_refs:
+  - active-descriptors
+  - agent-vs-runtime
+  - late-bound-policy-enforcement
+  - what-belongs-in-the-runtime-layer
+---
+
+## intro
+
+<section class="subpage-hero">
+          <h1>What is a capability in UMA?</h1>
+          <p>
+            A capability is the unit the runtime can actually reason about. In Universal Microservices Architecture, a capability is not
+            just code that exists somewhere. It is a named, discoverable, contract-shaped piece of behavior that the runtime can evaluate,
+            approve, reject, and compose into a workflow when compute can happen in many places and the system needs to decide where logic runs.
+          </p>
+        </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              In UMA, a capability is the actionable shape of a service. It tells the runtime what this piece of the system can do, what
+              it expects, what it produces, and under which conditions it should be considered valid. That makes it more useful than a
+              vague service label and more durable than a one-off function call buried inside a stack-specific implementation.
+            </p>
+            <p>
+              This is why capabilities matter so much once the system becomes dynamic. A runtime cannot compose a workflow out of loosely
+              described code. It needs visible units with clear meaning. Capabilities are those units.
+            </p>
+            <p>
+              The portability goal here is not “write once, run everywhere.” It is “write once, run where it makes sense,” with
+              capabilities giving the runtime concrete units to evaluate.
+            </p>
+            <ul>
+              <li><strong>Capability:</strong> a discoverable unit of behavior the runtime can reason about.</li>
+              <li><strong>Workflow:</strong> a runtime-approved sequence of capabilities used to satisfy a goal.</li>
+              <li><strong>Runtime:</strong> the layer that validates which capabilities can actually participate.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Why UMA uses capabilities instead of only services</h2>
+            <p>
+              The word service is useful, but it can stay too broad. It often tells you that some behavior exists without telling you what
+              the runtime can do with it. A capability is more specific. It expresses the part of the service that is operationally
+              meaningful for discovery, selection, compatibility checking, and composition.
+            </p>
+            <p>
+              That distinction becomes important as soon as the system supports more than one possible path to the same outcome. If the
+              runtime must decide whether to summarize, translate, enrich, format, reject, or adapt, it needs a unit more precise than “we
+              have a service for that.” It needs something it can compare and govern. That is what a capability provides.
+            </p>
+            <p>
+              This also works better when the underlying service is portable in a disciplined way. A runtime can govern a capability much
+              more cleanly when the service behavior is deterministic enough to remain stable across hosts and explicit enough to preserve
+              one visible contract.
+            </p>
+          </section>
+
+          <section>
+            <h2>What makes something a capability</h2>
+            <p>
+              A capability is not defined only by where it runs or which team owns it. It is defined by whether the runtime can treat it
+              as a clear architectural unit. That usually means four things are visible: the behavior it offers, the input it expects, the
+              output it produces, and the conditions under which it is allowed to participate.
+            </p>
+            <p>
+              Without those elements, the runtime is left inferring too much. The system may still work, but it becomes harder to discover,
+              validate, or explain why one path was chosen over another. UMA uses capabilities to keep that ambiguity low.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Named behavior</h3>
+              <p>A capability should express a meaningful action such as enriching, summarizing, translating, validating, or formatting.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Visible contract</h3>
+              <p>The runtime should be able to inspect inputs, outputs, and compatibility expectations without guessing.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime relevance</h3>
+              <p>The capability should be selectable, rejectable, and composable as part of a governed workflow.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Architectural meaning</h3>
+              <p>The capability should explain what value it adds to the workflow, not just where a piece of code happens to live.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Capability versus workflow</h2>
+            <p>
+              A capability is not the same thing as a workflow. A capability is one participant. A workflow is the approved path the
+              runtime builds from one or more capabilities to satisfy a goal. Mixing those two ideas makes dynamic systems harder to
+              understand because the unit of behavior and the unit of orchestration stop being separate.
+            </p>
+            <p>
+              UMA keeps them distinct on purpose. The capability stays reusable and inspectable. The workflow stays explainable as a
+              composition of capabilities rather than a hidden chain of internal calls.
+            </p>
+          </section>
+
+          <section>
+            <h2>Capability versus agent</h2>
+            <p>
+              This is another useful distinction. An agent can help interpret the goal and propose which capabilities might fit. But the
+              capability is still the unit of work the runtime validates and selects. Agents help with reasoning. Capabilities are the
+              architectural units being reasoned about.
+            </p>
+            <p>
+              That is one reason the capability model matters even more in AI-assisted systems. If the planning layer is dynamic, the units
+              being planned must become clearer, not less clear. Otherwise the runtime ends up evaluating suggestions that are too vague to
+              govern properly.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why this matters for runtime authority</h2>
+            <p>
+              The runtime cannot remain authoritative if the units of work are fuzzy. It can only approve or reject what is visible enough
+              to inspect. Capabilities give the runtime something concrete to reason about: what behavior is being requested, what contract
+              it implies, what placement it requires, and whether the current environment should allow it.
+            </p>
+            <p>
+              This is the bridge between the conceptual pages on the site and the reference app. The app is not just showing boxes and
+              arrows. It is showing a runtime making decisions over capabilities rather than blindly following a hardwired script.
+            </p>
+          </section>
+
+          <section>
+            <h2>A concrete proof point</h2>
+            <p>
+              The easiest proof is to watch one workflow in the reference app. You can see which capabilities are available, which one is
+              proposed or selected, and where the runtime keeps authority over the final path. That is much clearer than treating
+              capabilities as another naming convention for services.
+            </p>
+          </section>
+
+          <section>
+            <h2>What a capability is not</h2>
+            <ul>
+              <li>It is not every function or class in the codebase.</li>
+              <li>It is not the same thing as a deployable service boundary.</li>
+              <li>It is not the workflow itself.</li>
+              <li>It is not a synonym for “tool” with no contract or runtime context.</li>
+              <li>It is not just an AI agent prompt with a nice name attached.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A practical design test</h2>
+            <p>
+              If you are unsure whether something in your system is a capability, ask two questions. First: can the runtime understand
+              what this unit does and when it is valid? Second: can it be selected or rejected as part of a larger workflow without reading
+              hidden implementation details? If both answers are yes, you are probably looking at a capability rather than just an internal
+              implementation detail.
+            </p>
+            <p>
+              If the answers are no, the unit may still be useful code, but it is not yet expressed clearly enough for governed runtime
+              composition.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why capabilities make the architecture easier to learn</h2>
+            <p>
+              Capabilities give the reader a stable mental unit. Instead of thinking in terms of full applications, hidden helpers, or
+              stack-specific modules, the reader can ask simpler questions: what capabilities exist, what goal is being satisfied, which
+              capability was chosen, and why did the runtime approve that path? That makes the system easier to understand without reducing
+              it to simplistic diagrams.
+            </p>
+            <p>
+              It also helps teams talk about architecture with more precision. “This workflow needs translation after summarization” is
+              clearer than “the app calls some translation code after it does the other thing.” The capability model creates that clarity.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Is a capability the same as a microservice?</h3>
+            <p>
+              Not necessarily. A microservice is often described as a deployable unit. A capability is the unit the runtime can discover,
+              validate, and compose. Sometimes those ideas overlap. Often they do not.
+            </p>
+            <h3>Can one service expose more than one capability?</h3>
+            <p>
+              Yes. One service boundary can expose multiple meaningful capabilities, especially if the runtime needs to distinguish between
+              different kinds of behavior that should be validated or composed separately.
+            </p>
+            <h3>Do capabilities only matter in dynamic or AI-driven systems?</h3>
+            <p>
+              No. They matter even in simpler systems because they make the service behavior more visible. Dynamic planning just makes the
+              need for them more obvious.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>See capabilities in action</strong>
+            <p>
+              If this page clarified the term, the next useful step is to see capabilities participate in a governed workflow. The live
+              reference app makes that visible, and in the book I go deeper into why capabilities become the durable unit once execution is
+              no longer tied to one stack.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
+              <a href="../agent-vs-runtime/">Agent vs runtime</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>

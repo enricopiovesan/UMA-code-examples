@@ -1220,12 +1220,16 @@ h3 {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(280px, 0.9fr);
-  gap: 34px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(280px, 0.95fr);
+  gap: 28px;
   max-width: min(100% - 56px, var(--content));
   margin: 34px auto 0;
   padding-top: 20px;
   border-top: 1px solid rgba(7, 7, 7, 0.28);
+}
+
+.footer-column {
+  min-width: 0;
 }
 
 .footer-column h3 {
@@ -1239,18 +1243,19 @@ h3 {
 }
 
 .footer-cluster + .footer-cluster {
-  margin-top: 24px;
+  margin-top: 22px;
 }
 
 .footer-book-cta {
   display: grid;
   align-content: start;
+  min-width: 0;
 }
 
 .footer-book-card {
   display: grid;
   grid-template-columns: 104px minmax(0, 1fr);
-  gap: 18px;
+  gap: 16px;
   align-items: start;
 }
 

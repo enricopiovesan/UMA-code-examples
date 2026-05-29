@@ -1,0 +1,186 @@
+---
+ref: what-makes-a-service-portable
+title: "What Makes a Service Portable?"
+subtitle: "What makes a service portable? A portable service is not just code that happens to compile in more than one place. In UMA, a service becomes portable when its business behavior stays stable while the runtime around it is allowed to vary openly."
+macro_area: proof
+content_type: proof
+slug: what-makes-a-service-portable
+canonical_url: "https://www.universalmicroservices.com/what-makes-a-service-portable/"
+left_nav_group: proof
+chapter_ref: null
+seo_description: "Learn what makes a service portable in UMA: deterministic behavior, explicit contracts, visible runtime boundaries, and stable output semantics."
+breadcrumbs:
+  - "Home"
+  - "Proof"
+  - "What Makes a Service Portable?"
+related_refs:
+  - benchmark-and-footprint
+  - how-to-prove-portability
+---
+
+## intro
+
+<section class="subpage-hero">
+          <h1>What makes a service portable?</h1>
+          <p>
+            A portable service is not just code that happens to compile in more than one place. In UMA, a service becomes portable when
+            its business behavior stays stable while the runtime around it is allowed to vary openly.
+          </p>
+        </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              A service is portable when four things stay true at the same time: its behavior remains semantically stable, its contract is
+              explicit, its output stays comparable across runtimes, and the runtime-specific concerns remain outside the portable core.
+            </p>
+            <p>
+              That is stricter than “shared logic.” Portability becomes real only when a team can preserve meaning, not just move code.
+              In UMA terms, the goal is not “write once, run everywhere.” It is “write once, run where it makes sense.”
+            </p>
+          </section>
+
+          <section>
+            <h2>Portability starts with deterministic behavior</h2>
+            <p>
+              The first thing a portable service needs is stable behavior. If the same input produces different decisions depending on the
+              host, the integration layer, or the deployment surface, the service is not really portable. It is only being re-expressed in
+              several places.
+            </p>
+            <p>
+              This is why deterministic behavior matters so much in early UMA examples. A small, portable service should be boring in the
+              best possible way: the same contract, the same rules, the same output shape, and the same result wherever the service is
+              validated correctly.
+            </p>
+          </section>
+
+          <section>
+            <h2>Contracts make portability governable</h2>
+            <p>
+              Portability becomes much easier to reason about when inputs and outputs are explicit. Without that, teams often mistake
+              “shared intention” for portable behavior. One implementation seems close enough to another, but the architecture still lacks
+              a stable reference point.
+            </p>
+            <p>
+              A contract gives the service a visible boundary. It tells the runtime, the tests, and the reader what the service expects and
+              what it is supposed to produce. That is what turns portability from a hope into something a system can validate.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Stable behavior</h3>
+              <p>The same input should lead to the same business decision across the runtimes you claim to support.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Visible contract</h3>
+              <p>Inputs, outputs, and expectations should be explicit enough to test, compare, and govern.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime separation</h3>
+              <p>Transport, hosting, trust, and adapters should surround the service instead of quietly redefining it.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Comparable output</h3>
+              <p>Portability is easier to prove when different implementations converge on the same observable result.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>What the runtime should not own</h2>
+            <p>
+              The runtime should own validation, policy, placement, capabilities, trust, and integration concerns around the service. It
+              should not own the business rule that gives the service its meaning. When the runtime starts smuggling business behavior into
+              adapters or environment-specific helpers, portability has already begun to erode.
+            </p>
+            <p>
+              That is why a portable service boundary is so useful early in the UMA learning path. It makes the split visible: the service
+              owns the rule; the runtime owns the conditions around execution.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why small services matter first</h2>
+            <p>
+              The easiest place to understand portability is a small service with clear rules and low ambiguity. If a team cannot keep one
+              small service deterministic and contract-shaped, it will struggle even more when orchestration, trust, workflow selection,
+              and dynamic capability discovery enter the picture.
+            </p>
+            <p>
+              That is why the UMA learning path starts small. Portability is easier to believe once it is observable in one compact service
+              boundary before it becomes part of a larger governed system.
+            </p>
+          </section>
+
+          <section>
+            <h2>How portability is usually lost</h2>
+            <p>
+              A service often stops being portable gradually. One runtime adds a convenience branch. Another adds a host-specific shortcut.
+              A third enriches the output shape because a local consumer needs more context. None of those changes looks dramatic by
+              itself, but together they move the real behavior out of the portable center and back into stack-owned code.
+            </p>
+            <p>
+              Once that happens, the architecture still looks portable from far away, but the durable behavior no longer lives in one
+              place. The service is shared in name more than in fact.
+            </p>
+          </section>
+
+          <section>
+            <h2>A practical portability test</h2>
+            <p>
+              Ask three questions. First: can the service be described through one explicit contract? Second: do the same inputs produce
+              the same business result across the runtimes you claim to support? Third: can runtime-specific code change without rewriting
+              the rule itself?
+            </p>
+            <p>
+              If those answers are yes, you probably have a portable service. If not, you may still have useful shared code, but you do
+              not yet have a service boundary the architecture can trust for long-term portability.
+            </p>
+            <p>
+              If you want the next step beyond this test, the practical follow-up is
+              <a href="../how-to-prove-portability/">how to prove portability</a> from observable outputs and events rather than relying on
+              shared implementation structure alone.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Is portability the same as code sharing?</h3>
+            <p>
+              No. Code can be shared while behavior still drifts. Portability is stronger: it means the behavior itself remains stable and
+              the runtime differences stay explicit around it.
+            </p>
+            <h3>Does a portable service have to run everywhere?</h3>
+            <p>
+              No. A service can be portable without being deployed in every environment. Portability is about preserving one durable
+              behavior, not forcing universal placement.
+            </p>
+            <h3>Why does deterministic behavior matter so much?</h3>
+            <p>
+              Because deterministic behavior makes portability testable. If the same service produces different decisions across runtimes,
+              the architecture no longer has one stable expression of the rule.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Follow the portable boundary into the system</strong>
+            <p>
+              This page explains the qualities of a portable service, not the whole system that grows around it. In the book, I take that
+              small boundary deeper into runtime design, orchestration, and trust so the broader consequences become concrete. On the site,
+              the next useful step is to connect portability to capability, runtime, and portable business logic.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../how-to-prove-portability/">How to prove portability</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../portable-business-logic/">Portable business logic</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../examples/">Examples</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>

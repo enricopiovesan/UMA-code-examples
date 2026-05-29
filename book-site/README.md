@@ -4,7 +4,15 @@ This folder contains the single-page GitHub Pages site for the *Universal Micros
 
 ## Local Preview
 
-Because the site is plain static HTML, CSS, and JavaScript, you can preview it with any static file server.
+The homepage is still a static HTML page, but the non-home pages are generated from the Markdown source in `content/pages/` at build time.
+
+To regenerate the generated subpages locally:
+
+```bash
+node book-site/scripts/build_from_content.mjs
+```
+
+Because the site is still plain static HTML, CSS, and JavaScript after generation, you can preview it with any static file server.
 
 Example:
 
@@ -14,6 +22,12 @@ python3 -m http.server 4173
 ```
 
 Then open `http://localhost:4173`.
+
+## Markdown Source of Truth
+
+- `content/site-map.md` defines the canonical page order and macro areas.
+- `content/pages/**.md` holds the page content and metadata.
+- `book-site/scripts/build_from_content.mjs` turns the Markdown source into the published subpages.
 
 ## Sync Blog Posts
 
@@ -36,7 +50,7 @@ The script tries the Medium publication feed first and falls back to scraping th
 ## Deployment
 
 GitHub Pages deployment is handled by [`.github/workflows/book-site-pages.yml`](../.github/workflows/book-site-pages.yml).
-The workflow publishes the contents of `book-site/` directly.
+The workflow builds the Markdown-backed subpages, stages the reference application, and then publishes the contents of `book-site/`.
 
 ## Page Outline
 

@@ -4,37 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UMA Examples | Universal Microservices Architecture</title>
-    <meta
-      name="description"
-      content="Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, portable MCP runtime composition, and runnable tutorials."
-    />
+    <meta name="description" content="Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, portable MCP runtime composition, and runnable tutorials." />
     <link rel="canonical" href="https://www.universalmicroservices.com/examples/" />
-    <meta property="og:title" content="UMA Examples | Universal Microservices Architecture" />
-    <meta
-      property="og:description"
-      content="A practical entry point into the chapter-aligned UMA examples, including validated learning flows and runnable repository material."
-    />
+    <meta property="og:title" content="UMA Examples" />
+    <meta property="og:description" content="Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, portable MCP runtime composition, and runnable tutorials." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.universalmicroservices.com/examples/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"UMA Examples","item":"https://www.universalmicroservices.com/examples/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UMA Examples","description":"Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, portable MCP runtime composition, and runnable tutorials.","url":"https://www.universalmicroservices.com/examples/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -42,35 +38,69 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#why-the-examples-matter">Why the examples matter</a></li><li><a href="#a-before-and-after-way-to-read-the-repo">A before-and-after way to read the repo</a></li><li><a href="#what-makes-these-examples-different">What makes these examples different</a>
+    <ul class="page-rail-links">
+      <li><a href="#chapter-aligned">Chapter-aligned</a></li><li><a href="#rust-first">Rust-first</a></li><li><a href="#typescript-parity">TypeScript parity</a></li><li><a href="#reader-tested-flows">Reader-tested flows</a></li>
+    </ul></li><li><a href="#runnable-tutorials-for-every-code-example">Runnable tutorials for every code example</a></li><li><a href="#foundations">Foundations</a>
+    <ul class="page-rail-links">
+      <li><a href="#chapter-4-feature-flag-evaluator">Chapter 4: Feature Flag Evaluator</a></li><li><a href="#chapter-5-post-fetcher-runtime">Chapter 5: Post Fetcher Runtime</a></li><li><a href="#chapter-6-portability-lab">Chapter 6: Portability Lab</a></li>
+    </ul></li><li><a href="#orchestration-and-trust">Orchestration and trust</a>
+    <ul class="page-rail-links">
+      <li><a href="#chapter-7-metadata-orchestration">Chapter 7: Metadata Orchestration</a></li><li><a href="#chapter-8-service-graph-evolution">Chapter 8: Service Graph Evolution</a></li><li><a href="#chapter-9-trust-boundaries">Chapter 9: Trust Boundaries</a></li>
+    </ul></li><li><a href="#evolution-and-discoverability">Evolution and discoverability</a>
+    <ul class="page-rail-links">
+      <li><a href="#chapter-10-architectural-tradeoffs">Chapter 10: Architectural Tradeoffs</a></li><li><a href="#chapter-11-evolution-without-fragmentation">Chapter 11: Evolution Without Fragmentation</a></li><li><a href="#chapter-12-discoverable-decisions">Chapter 12: Discoverable Decisions</a></li><li><a href="#chapter-13-portable-mcp-runtime">Chapter 13: Portable MCP Runtime</a></li>
+    </ul></li><li><a href="#what-each-tutorial-page-includes">What each tutorial page includes</a></li><li><a href="#what-you-can-do-with-them">What you can do with them</a></li><li><a href="#how-the-repository-is-organized">How the repository is organized</a></li><li><a href="#why-rust-first-matters-here">Why Rust-first matters here</a></li><li><a href="#what-the-closing-examples-prove">What the closing examples prove</a></li><li><a href="#frequently-asked-question">Frequently asked question</a>
+    <ul class="page-rail-links">
+      <li><a href="#do-i-need-to-run-every-example-to-understand-uma">Do I need to run every example to understand UMA?</a></li>
+    </ul></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">UMA Examples</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>UMA examples</h1>
           <p>
             The examples are the practical proof layer of Universal Microservices Architecture. They let readers inspect how a portable
@@ -80,7 +110,7 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section class="subpage-callout">
             <strong>How to navigate the examples</strong>
             <p>
@@ -95,8 +125,8 @@
             </div>
           </section>
 
-          <section>
-            <h2>Why the examples matter</h2>
+          <section id="why-the-examples-matter">
+            <h2 id="why-the-examples-matter">Why the examples matter</h2>
             <p>
               Architecture claims are easy to make and hard to validate. The examples exist to close that gap. They give the reader a way
               to compare intention against output, contracts against runtime decisions, and design coherence against the real drift that
@@ -108,8 +138,8 @@
             </p>
           </section>
 
-          <section>
-            <h2>A before-and-after way to read the repo</h2>
+          <section id="before-and-after-repo-reading">
+            <h2 id="a-before-and-after-way-to-read-the-repo">A before-and-after way to read the repo</h2>
             <p>
               Before UMA, a team often ends up with the same business rule scattered across browser logic, edge handling, backend checks,
               and workflow glue. After UMA, the question becomes whether one portable behavioral unit can stay intact while the runtime
@@ -121,8 +151,8 @@
             </p>
           </section>
 
-          <section>
-            <h2>What makes these examples different</h2>
+          <section id="what-makes-these-examples-different">
+            <h2 id="what-makes-these-examples-different">What makes these examples different</h2>
             <p>
               These examples are not generic demos attached to a book launch. Each one exists to make a specific architectural question
               visible. What does a portable service boundary look like? What belongs in the runtime layer? How does metadata shape
@@ -135,27 +165,27 @@
             </p>
           </section>
 
-          <section class="subpage-grid">
+          <section id="example-props" class="subpage-grid">
             <article class="subpage-card">
-              <h3>Chapter-aligned</h3>
+              <h3 id="chapter-aligned">Chapter-aligned</h3>
               <p>The examples map directly to the later chapters so the learning path continues from explanation into runnable material.</p>
             </article>
             <article class="subpage-card">
-              <h3>Rust-first</h3>
+              <h3 id="rust-first">Rust-first</h3>
               <p>The primary validated path uses Rust for the core runtime and architecture examples.</p>
             </article>
             <article class="subpage-card">
-              <h3>TypeScript parity</h3>
+              <h3 id="typescript-parity">TypeScript parity</h3>
               <p>Selected chapters include TypeScript parity paths to make comparison easier for readers coming from different stacks.</p>
             </article>
             <article class="subpage-card">
-              <h3>Reader-tested flows</h3>
+              <h3 id="reader-tested-flows">Reader-tested flows</h3>
               <p>Scripts, smoke checks, and learning-path validation make the examples easier to follow chapter by chapter.</p>
             </article>
           </section>
 
-          <section>
-            <h2>Runnable tutorials for every code example</h2>
+          <section id="tutorials">
+            <h2 id="runnable-tutorials-for-every-code-example">Runnable tutorials for every code example</h2>
             <p>
               Each chapter example now has a dedicated tutorial page with its own canonical URL, metadata, source link, validation
               command, and repository-level acceptance check. The pages are grouped below so the learning path is easier to scan and
@@ -163,66 +193,66 @@
             </p>
           </section>
 
-          <section>
-            <h2>Foundations</h2>
+          <section id="foundations">
+            <h2 id="foundations">Foundations</h2>
             <div class="subpage-grid tutorial-link-grid">
               <article class="subpage-card">
-                <h3><a href="chapter-04-feature-flag-evaluator/">Chapter 4: Feature Flag Evaluator</a></h3>
+                <h3 id="chapter-4-feature-flag-evaluator"><a href="chapter-04-feature-flag-evaluator/">Chapter 4: Feature Flag Evaluator</a></h3>
                 <p>Build and run the deterministic Rust-first evaluator, then prove TypeScript parity from output.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-05-post-fetcher-runtime/">Chapter 5: Post Fetcher Runtime</a></h3>
+                <h3 id="chapter-5-post-fetcher-runtime"><a href="chapter-05-post-fetcher-runtime/">Chapter 5: Post Fetcher Runtime</a></h3>
                 <p>Inspect validation, adapter binding, event ordering, and lifecycle evidence around a pure service.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-06-portability-lab/">Chapter 6: Portability Lab</a></h3>
+                <h3 id="chapter-6-portability-lab"><a href="chapter-06-portability-lab/">Chapter 6: Portability Lab</a></h3>
                 <p>Compare native and WASI execution through the same emitted image analysis payload.</p>
               </article>
             </div>
           </section>
 
-          <section>
-            <h2>Orchestration and trust</h2>
+          <section id="orchestration-and-trust">
+            <h2 id="orchestration-and-trust">Orchestration and trust</h2>
             <div class="subpage-grid tutorial-link-grid">
               <article class="subpage-card">
-                <h3><a href="chapter-07-metadata-orchestration/">Chapter 7: Metadata Orchestration</a></h3>
+                <h3 id="chapter-7-metadata-orchestration"><a href="chapter-07-metadata-orchestration/">Chapter 7: Metadata Orchestration</a></h3>
                 <p>Run the contract-driven orchestration flow and inspect binding, policy, schema, and telemetry signals.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-08-service-graph/">Chapter 8: Service Graph Evolution</a></h3>
+                <h3 id="chapter-8-service-graph-evolution"><a href="chapter-08-service-graph/">Chapter 8: Service Graph Evolution</a></h3>
                 <p>Use graph snapshots and diffs to watch compatible services join, break, and recover.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-09-trust-boundaries/">Chapter 9: Trust Boundaries</a></h3>
+                <h3 id="chapter-9-trust-boundaries"><a href="chapter-09-trust-boundaries/">Chapter 9: Trust Boundaries</a></h3>
                 <p>See trust metadata, permissions, dependency provenance, and communication policy produce runtime decisions.</p>
               </article>
             </div>
           </section>
 
-          <section>
-            <h2>Evolution and discoverability</h2>
+          <section id="evolution-and-discoverability">
+            <h2 id="evolution-and-discoverability">Evolution and discoverability</h2>
             <div class="subpage-grid tutorial-link-grid">
               <article class="subpage-card">
-                <h3><a href="chapter-10-architectural-tradeoffs/">Chapter 10: Architectural Tradeoffs</a></h3>
+                <h3 id="chapter-10-architectural-tradeoffs"><a href="chapter-10-architectural-tradeoffs/">Chapter 10: Architectural Tradeoffs</a></h3>
                 <p>Compare coherent and degraded designs using runtime-visible warnings and architectural decision axes.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-11-evolution-without-fragmentation/">Chapter 11: Evolution Without Fragmentation</a></h3>
+                <h3 id="chapter-11-evolution-without-fragmentation"><a href="chapter-11-evolution-without-fragmentation/">Chapter 11: Evolution Without Fragmentation</a></h3>
                 <p>Follow drift, duplication, version sprawl, coexistence, and hybrid adoption through runnable scenarios.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-12-discoverable-decisions/">Chapter 12: Discoverable Decisions</a></h3>
+                <h3 id="chapter-12-discoverable-decisions"><a href="chapter-12-discoverable-decisions/">Chapter 12: Discoverable Decisions</a></h3>
                 <p>Expose proposal, authority feedback, revision, execution, and trace artifacts as queryable proof.</p>
               </article>
               <article class="subpage-card">
-                <h3><a href="chapter-13-portable-mcp-runtime/">Chapter 13: Portable MCP Runtime</a></h3>
+                <h3 id="chapter-13-portable-mcp-runtime"><a href="chapter-13-portable-mcp-runtime/">Chapter 13: Portable MCP Runtime</a></h3>
                 <p>Build WASI AI capabilities, run the UMA workflow, inspect JSON reports, and smoke the MCP server.</p>
               </article>
             </div>
           </section>
 
-          <section>
-            <h2>What each tutorial page includes</h2>
+          <section id="what-each-tutorial-page-includes">
+            <h2 id="what-each-tutorial-page-includes">What each tutorial page includes</h2>
             <p>
               Every tutorial page now keeps the navigation close to the content: an in-page route block, the validation commands, the
               source folder link, and the next step in the sequence. That makes the structure easier to scan without sending readers to
@@ -230,8 +260,8 @@
             </p>
           </section>
 
-          <section>
-            <h2>What you can do with them</h2>
+          <section id="what-you-can-do">
+            <h2 id="what-you-can-do-with-them">What you can do with them</h2>
             <p>
               Use the examples to test the book’s architectural claims against concrete behavior. You can run a minimal service, trace a
               runtime wrapper, compare implementations, follow orchestration decisions, and see where trust and compatibility start to
@@ -248,8 +278,8 @@
             </p>
           </section>
 
-          <section>
-            <h2>How the repository is organized</h2>
+          <section id="how-the-repository-is-organized">
+            <h2 id="how-the-repository-is-organized">How the repository is organized</h2>
             <p>
               The repository follows the same broad progression as the learning path. Earlier chapters keep the system intentionally small.
               Later chapters introduce orchestration, service graphs, trust boundaries, and governed evolution. That organization helps the
@@ -267,8 +297,8 @@
             </p>
           </section>
 
-          <section>
-            <h2>Why Rust-first matters here</h2>
+          <section id="why-rust-first-matters">
+            <h2 id="why-rust-first-matters-here">Why Rust-first matters here</h2>
             <p>
               The validated default path uses Rust because it makes the portable runtime story concrete and rigorous. TypeScript parity is
               included where it adds value for comparison, but the repository stays centered on one primary validated path so the learning
@@ -276,8 +306,8 @@
             </p>
           </section>
 
-          <section>
-            <h2>What the closing examples prove</h2>
+          <section id="what-the-closing-examples-prove">
+            <h2 id="what-the-closing-examples-prove">What the closing examples prove</h2>
             <p>
               The Chapter 12 example matters because it demonstrates a final architectural shift: a system should not only execute correctly,
               it should expose why it acted. That lab makes decision stages queryable so readers can inspect capability projection, proposal
@@ -298,16 +328,16 @@
             </p>
           </section>
 
-          <section>
-            <h2>Frequently asked question</h2>
-            <h3>Do I need to run every example to understand UMA?</h3>
+          <section id="frequently-asked-question">
+            <h2 id="frequently-asked-question">Frequently asked question</h2>
+            <h3 id="do-i-need-to-run-every-example-to-understand-uma">Do I need to run every example to understand UMA?</h3>
             <p>
               No, but the examples are where the architectural claims become easiest to verify. Even running a few of the core chapters
               gives much more confidence in the model than reading about it alone.
             </p>
           </section>
 
-          <section class="subpage-callout">
+          <section id="repository-entry-point" class="subpage-callout">
             <strong>Repository entry point</strong>
             <p>
               The examples live in the public repository and follow the same story arc as the site and the book. That makes the repository
@@ -333,7 +363,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>

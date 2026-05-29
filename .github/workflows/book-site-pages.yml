@@ -5,6 +5,10 @@ on:
     branches:
       - main
     paths:
+      - "content/**"
+      - "docs/site/**"
+      - "docs/seo/**"
+      - "book-site/scripts/build_from_content.mjs"
       - "book-site/**"
       - "chapter-13-portable-mcp-runtime/app/**"
       - ".github/workflows/book-site-pages.yml"
@@ -39,6 +43,9 @@ jobs:
 
       - name: Build reference app
         run: npm --prefix chapter-13-portable-mcp-runtime/app run build
+
+      - name: Build UMA subpages from Markdown
+        run: node book-site/scripts/build_from_content.mjs
 
       - name: Stage reference app for Pages
         shell: bash

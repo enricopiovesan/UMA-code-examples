@@ -7,28 +7,93 @@
     <meta name="description" content="A conversion-focused preview of late-bound policy enforcement in UMA: how runtimes apply policy, placement, trust, and compliance rules around portable services." />
     <link rel="canonical" href="https://www.universalmicroservices.com/late-bound-policy-enforcement/" />
     <meta property="og:title" content="Late-Bound Policy Enforcement in UMA" />
-    <meta property="og:description" content="How UMA keeps policy close to execution while preserving portable service behavior." />
+    <meta property="og:description" content="A conversion-focused preview of late-bound policy enforcement in UMA: how runtimes apply policy, placement, trust, and compliance rules around portable services." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/late-bound-policy-enforcement/" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Late-Bound Policy Enforcement in UMA","author":{"@type":"Person","name":"Enrico Piovesan"},"publisher":{"@type":"Organization","name":"Universal Microservices Architecture"},"mainEntityOfPage":"https://www.universalmicroservices.com/late-bound-policy-enforcement/"}</script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Late-Bound Policy Enforcement in UMA","item":"https://www.universalmicroservices.com/late-bound-policy-enforcement/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Late-Bound Policy Enforcement in UMA","description":"A conversion-focused preview of late-bound policy enforcement in UMA: how runtimes apply policy, placement, trust, and compliance rules around portable services.","url":"https://www.universalmicroservices.com/late-bound-policy-enforcement/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-J5ZJHZ3D5E");</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
   </head>
   <body>
-    <div class="page-shell">
-      <header class="topbar"><a class="brand" href="../#top"><span class="brand-mark">UMA</span><span class="brand-copy"><strong>Universal Microservices Architecture</strong></span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button><nav class="topnav" aria-label="Primary"><a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a><a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a></nav><a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a></header>
-      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden><div class="mobile-menu-panel"><button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button><nav class="mobile-menu-nav"><a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a><a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a></nav></div></aside>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
+          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
+            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#why-late-bound-policy-matters">Why late-bound policy matters</a>
+    <ul class="page-rail-links">
+      <li><a href="#local-decision">Local decision</a></li><li><a href="#fail-fast">Fail fast</a></li><li><a href="#policy-evidence">Policy evidence</a></li><li><a href="#portable-core">Portable core</a></li>
+    </ul></li><li><a href="#what-this-page-does-not-replace">What this page does not replace</a></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero"><h1>Late-bound policy enforcement</h1><p>UMA treats policy as something evaluated near execution, not as a static diagram note. The runtime can apply placement, trust, compliance, and fail-fast rules without rewriting the portable service.</p></section>
-        <div class="subpage-body">
-          <section><h2>Why late-bound policy matters</h2><p>Distributed systems often hardwire policy into deployment scripts, gateway configuration, or application code. That makes the policy hard to audit and hard to move with the behavior it governs.</p><p>UMA keeps the portable behavior separate while letting runtime authority decide whether a specific execution path is allowed under current conditions.</p></section>
-          <section class="subpage-grid"><article class="subpage-card"><h3>Local decision</h3><p>The runtime evaluates the metadata it has, instead of relying on hidden centralized coordination for every choice.</p></article><article class="subpage-card"><h3>Fail fast</h3><p>Invalid or disallowed runs should stop before adapter execution and side effects begin.</p></article><article class="subpage-card"><h3>Policy evidence</h3><p>The run should show which policy shaped the outcome.</p></article><article class="subpage-card"><h3>Portable core</h3><p>The service logic remains stable while execution conditions change around it.</p></article></section>
-          <section><h2>What this page does not replace</h2><p>The full book goes deeper into how validation, adapter binding, policy, and lifecycle evidence fit together. This page is the orientation layer: it tells you why the idea matters and where to inspect it in code.</p></section>
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">Late-Bound Policy Enforcement in UMA</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero"><h1>Late-bound policy enforcement</h1><p>UMA treats policy as something evaluated near execution, not as a static diagram note. The runtime can apply placement, trust, compliance, and fail-fast rules without rewriting the portable service.</p></section>
+
+<div class="subpage-body">
+          <section><h2 id="why-late-bound-policy-matters">Why late-bound policy matters</h2><p>Distributed systems often hardwire policy into deployment scripts, gateway configuration, or application code. That makes the policy hard to audit and hard to move with the behavior it governs.</p><p>UMA keeps the portable behavior separate while letting runtime authority decide whether a specific execution path is allowed under current conditions.</p></section>
+          <section class="subpage-grid"><article class="subpage-card"><h3 id="local-decision">Local decision</h3><p>The runtime evaluates the metadata it has, instead of relying on hidden centralized coordination for every choice.</p></article><article class="subpage-card"><h3 id="fail-fast">Fail fast</h3><p>Invalid or disallowed runs should stop before adapter execution and side effects begin.</p></article><article class="subpage-card"><h3 id="policy-evidence">Policy evidence</h3><p>The run should show which policy shaped the outcome.</p></article><article class="subpage-card"><h3 id="portable-core">Portable core</h3><p>The service logic remains stable while execution conditions change around it.</p></article></section>
+          <section><h2 id="what-this-page-does-not-replace">What this page does not replace</h2><p>The full book goes deeper into how validation, adapter binding, policy, and lifecycle evidence fit together. This page is the orientation layer: it tells you why the idea matters and where to inspect it in code.</p></section>
           <section class="subpage-callout"><strong>Covered in the book</strong><p>Chapter 5 introduces the runtime layer, Chapter 7 applies policy in orchestration, and Chapter 9 turns trust into explicit enforcement.</p><div class="subpage-inline-links"><a href="../examples/chapter-05-post-fetcher-runtime/">Chapter 5 example</a><a href="../examples/chapter-07-metadata-orchestration/">Chapter 7 example</a><a href="../examples/chapter-09-trust-boundaries/">Chapter 9 example</a><a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a></div></section>
         </div>
         <section id="contacts" class="section contacts-band" data-shared-footer></section>

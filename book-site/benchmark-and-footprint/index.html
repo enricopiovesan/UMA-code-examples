@@ -4,55 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UMA Benchmark And Footprint Notes | Universal Microservices Architecture</title>
-    <meta
-      name="description"
-      content="Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs."
-    />
+    <meta name="description" content="Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs." />
     <link rel="canonical" href="https://www.universalmicroservices.com/benchmark-and-footprint/" />
-    <meta property="og:title" content="UMA Benchmark And Footprint Notes | Universal Microservices Architecture" />
-    <meta
-      property="og:description"
-      content="Reproducible local benchmark and footprint notes for the UMA examples, focused on artifact size, repeated execution timing, and honest tradeoff interpretation."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="UMA Benchmark And Footprint Notes" />
+    <meta property="og:description" content="Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs." />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/benchmark-and-footprint/" />
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "UMA Benchmark And Footprint Notes",
-  "description": "Initial reproducible local benchmark and footprint notes for the UMA examples.",
-  "url": "https://www.universalmicroservices.com/benchmark-and-footprint/",
-  "author": {
-    "@type": "Person",
-    "name": "Enrico Piovesan"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Universal Microservices Architecture"
-  },
-  "mainEntityOfPage": "https://www.universalmicroservices.com/benchmark-and-footprint/"
-}
-    </script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"UMA Benchmark And Footprint Notes","item":"https://www.universalmicroservices.com/benchmark-and-footprint/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UMA Benchmark And Footprint Notes","description":"Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs.","url":"https://www.universalmicroservices.com/benchmark-and-footprint/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -60,35 +38,60 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#how-to-read-this-page">How to read this page</a>
+    <ul class="page-rail-links">
+      <li><a href="#environment">Environment</a></li><li><a href="#method">Method</a></li><li><a href="#scope">Scope</a></li><li><a href="#what-not-to-infer">What not to infer</a></li>
+    </ul></li><li><a href="#at-a-glance">At a glance</a>
+    <ul class="page-rail-links">
+      <li><a href="#chapter-4-repeated-execution">Chapter 4 repeated execution</a></li><li><a href="#chapter-4-first-run-and-memory">Chapter 4 first run and memory</a></li><li><a href="#chapter-6-artifact-footprint">Chapter 6 artifact footprint</a></li><li><a href="#chapter-6-repeated-execution">Chapter 6 repeated execution</a></li><li><a href="#chapter-6-first-run-and-memory">Chapter 6 first run and memory</a></li><li><a href="#chapter-13-reference-runtime">Chapter 13 reference runtime</a></li>
+    </ul></li><li><a href="#chapter-4-minimal-portable-evaluator">Chapter 4: minimal portable evaluator</a></li><li><a href="#chapter-6-portability-proof-under-two-runtime-targets">Chapter 6: portability proof under two runtime targets</a></li><li><a href="#chapter-13-reference-runtime-cli">Chapter 13: reference runtime CLI</a></li><li><a href="#what-these-numbers-actually-prove">What these numbers actually prove</a></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">UMA Benchmark And Footprint Notes</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>UMA benchmark and footprint notes</h1>
           <p>
             These numbers are intended as honest proof points, not universal claims. They show that the UMA examples can publish measurable
@@ -97,9 +100,9 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section>
-            <h2>How to read this page</h2>
+            <h2 id="how-to-read-this-page">How to read this page</h2>
             <p>
               The measurements here come from reproducible local runs against fixed inputs. They are useful because they expose tradeoffs
               clearly. They are not meant to imply that one runtime always wins in every deployment environment.
@@ -117,32 +120,32 @@
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3>Environment</h3>
+              <h3 id="environment">Environment</h3>
               <p>macOS 26.3 on arm64, Rust 1.94.0, Node v23.11.0, local pinned Wasmtime v39.0.0.</p>
             </article>
             <article class="subpage-card">
-              <h3>Method</h3>
+              <h3 id="method">Method</h3>
               <p>Release builds, fixed inputs, warmup runs, then repeated local measurements with mean, median, min, and max timing.</p>
             </article>
             <article class="subpage-card">
-              <h3>Scope</h3>
+              <h3 id="scope">Scope</h3>
               <p>Chapter 4 for a minimal portable evaluator, and Chapter 6 for native-versus-WASI portability under one contract.</p>
             </article>
             <article class="subpage-card">
-              <h3>What not to infer</h3>
+              <h3 id="what-not-to-infer">What not to infer</h3>
               <p>These are not cloud benchmarks, distributed throughput tests, or cost comparisons across production-scale environments.</p>
             </article>
           </section>
 
           <section>
-            <h2>At a glance</h2>
+            <h2 id="at-a-glance">At a glance</h2>
             <p>
               These comparisons are normalized inside each row so the slower or larger path sets the full scale. They are not trying to
               imply global winners across workloads. They are here to make the local tradeoff legible quickly.
             </p>
             <div class="benchmark-compare">
               <article class="benchmark-panel">
-                <h3>Chapter 4 repeated execution</h3>
+                <h3 id="chapter-4-repeated-execution">Chapter 4 repeated execution</h3>
                 <div class="benchmark-row">
                   <div class="benchmark-label"><strong>Rust WASI via Wasmtime</strong><span>33.42 ms mean</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 12.32%"></span></div>
@@ -153,7 +156,7 @@
                 </div>
               </article>
               <article class="benchmark-panel">
-                <h3>Chapter 4 first run and memory</h3>
+                <h3 id="chapter-4-first-run-and-memory">Chapter 4 first run and memory</h3>
                 <div class="benchmark-row">
                   <div class="benchmark-label"><strong>Rust WASI cold start</strong><span>51.63 ms</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 53.53%"></span></div>
@@ -172,7 +175,7 @@
                 </div>
               </article>
               <article class="benchmark-panel">
-                <h3>Chapter 6 artifact footprint</h3>
+                <h3 id="chapter-6-artifact-footprint">Chapter 6 artifact footprint</h3>
                 <div class="benchmark-row">
                   <div class="benchmark-label"><strong>Native runner</strong><span>5.31 MiB</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
@@ -183,7 +186,7 @@
                 </div>
               </article>
               <article class="benchmark-panel">
-                <h3>Chapter 6 repeated execution</h3>
+                <h3 id="chapter-6-repeated-execution">Chapter 6 repeated execution</h3>
                 <div class="benchmark-row">
                   <div class="benchmark-label"><strong>Native runner</strong><span>56.73 ms mean</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 14.94%"></span></div>
@@ -194,7 +197,7 @@
                 </div>
               </article>
               <article class="benchmark-panel">
-                <h3>Chapter 6 first run and memory</h3>
+                <h3 id="chapter-6-first-run-and-memory">Chapter 6 first run and memory</h3>
                 <div class="benchmark-row">
                   <div class="benchmark-label"><strong>Native cold start</strong><span>336.64 ms</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
@@ -213,7 +216,7 @@
                 </div>
               </article>
               <article class="benchmark-panel">
-                <h3>Chapter 13 reference runtime</h3>
+                <h3 id="chapter-13-reference-runtime">Chapter 13 reference runtime</h3>
                 <div class="benchmark-row">
                   <div class="benchmark-label"><strong>Release CLI binary</strong><span>947.95 KiB</span></div>
                   <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
@@ -235,7 +238,7 @@
           </section>
 
           <section>
-            <h2>Chapter 4: minimal portable evaluator</h2>
+            <h2 id="chapter-4-minimal-portable-evaluator">Chapter 4: minimal portable evaluator</h2>
             <p>
               Chapter 4 is the right first footprint proof because it shows the smallest portable unit in the repo: one contract, one
               deterministic evaluator, and one WASI boundary.
@@ -286,7 +289,7 @@
           </section>
 
           <section>
-            <h2>Chapter 6: portability proof under two runtime targets</h2>
+            <h2 id="chapter-6-portability-proof-under-two-runtime-targets">Chapter 6: portability proof under two runtime targets</h2>
             <p>
               Chapter 6 is the more interesting benchmark because it keeps one contract and one shared service behavior while running it
               through both a native path and a WASI path.
@@ -337,7 +340,7 @@
           </section>
 
           <section>
-            <h2>Chapter 13: reference runtime CLI</h2>
+            <h2 id="chapter-13-reference-runtime-cli">Chapter 13: reference runtime CLI</h2>
             <p>
               The earlier chapters prove compact portability. Chapter 13 adds a different kind of evidence: the reference runtime can
               still expose a deterministic local path without dragging the benchmark through the model-backed AI setup. The measured slice
@@ -380,7 +383,7 @@
           </section>
 
           <section>
-            <h2>What these numbers actually prove</h2>
+            <h2 id="what-these-numbers-actually-prove">What these numbers actually prove</h2>
             <p>
               The important result is not that every portable path is the fastest. The important result is that the portable path remains
               compact, measurable, and behaviorally comparable. That gives teams a much cleaner basis for deciding where logic should run
@@ -417,7 +420,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>

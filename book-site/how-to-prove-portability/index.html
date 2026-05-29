@@ -4,55 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How to Prove Portability | Universal Microservices Architecture</title>
-    <meta
-      name="description"
-      content="Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough."
-    />
+    <meta name="description" content="Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough." />
     <link rel="canonical" href="https://www.universalmicroservices.com/how-to-prove-portability/" />
-    <meta property="og:title" content="How to Prove Portability | Universal Microservices Architecture" />
-    <meta
-      property="og:description"
-      content="An original guide to proving portability in UMA through observable parity, explicit contracts, and visible runtime differences."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Prove Portability" />
+    <meta property="og:description" content="Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough." />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/how-to-prove-portability/" />
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How to Prove Portability",
-  "description": "An original explanation of how to prove portability in Universal Microservices Architecture by comparing behavior across runtimes rather than trusting code structure alone.",
-  "url": "https://www.universalmicroservices.com/how-to-prove-portability/",
-  "author": {
-    "@type": "Person",
-    "name": "Enrico Piovesan"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Universal Microservices Architecture"
-  },
-  "mainEntityOfPage": "https://www.universalmicroservices.com/how-to-prove-portability/"
-}
-    </script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"How to Prove Portability","item":"https://www.universalmicroservices.com/how-to-prove-portability/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"How to Prove Portability","description":"Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough.","url":"https://www.universalmicroservices.com/how-to-prove-portability/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -60,35 +38,60 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-short-answer">The short answer</a></li><li><a href="#why-shared-code-is-not-enough">Why shared code is not enough</a></li><li><a href="#what-to-compare-instead">What to compare instead</a>
+    <ul class="page-rail-links">
+      <li><a href="#compare-results">Compare results</a></li><li><a href="#keep-differences-visible">Keep differences visible</a></li><li><a href="#trust-emitted-evidence">Trust emitted evidence</a></li><li><a href="#let-the-contract-lead">Let the contract lead</a></li>
+    </ul></li><li><a href="#why-observable-parity-matters">Why observable parity matters</a></li><li><a href="#why-target-specific-behavior-should-stay-explicit">Why target-specific behavior should stay explicit</a></li><li><a href="#how-portability-usually-gets-overstated">How portability usually gets overstated</a></li><li><a href="#a-practical-portability-proof-checklist">A practical portability proof checklist</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#does-portability-require-byte-for-byte-identical-execution">Does portability require byte-for-byte identical execution?</a></li><li><a href="#why-compare-events-or-payloads-instead-of-internal-code-paths">Why compare events or payloads instead of internal code paths?</a></li><li><a href="#can-a-portability-check-fail-and-still-be-useful">Can a portability check fail and still be useful?</a></li>
+    </ul></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">How to Prove Portability</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>How to prove portability</h1>
           <p>
             Portability is easy to claim and harder to prove. In UMA, portability becomes credible only when the same service behavior can
@@ -96,9 +99,9 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section>
-            <h2>The short answer</h2>
+            <h2 id="the-short-answer">The short answer</h2>
             <p>
               You prove portability by comparing observable behavior, not by trusting shared source code or similar intent. If two runtime
               targets emit the same governed result from the same contract and input, portability is becoming evidence instead of a slogan.
@@ -110,7 +113,7 @@
           </section>
 
           <section>
-            <h2>Why shared code is not enough</h2>
+            <h2 id="why-shared-code-is-not-enough">Why shared code is not enough</h2>
             <p>
               Shared code can be a useful starting point, but it does not prove the behavior is stable once the code is compiled, hosted,
               and run under different runtime constraints. Subtle host assumptions, missing capabilities, data-shape drift, and adapter
@@ -123,7 +126,7 @@
           </section>
 
           <section>
-            <h2>What to compare instead</h2>
+            <h2 id="what-to-compare-instead">What to compare instead</h2>
             <p>
               The most useful comparison point is observable behavior. That can mean a shared result payload, an emitted event, a stable
               output shape, or another contract-visible artifact that shows the service behaved the same way under two runtimes.
@@ -136,25 +139,25 @@
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3>Compare results</h3>
+              <h3 id="compare-results">Compare results</h3>
               <p>Use the same contract and input, then compare the resulting behavior across runtimes.</p>
             </article>
             <article class="subpage-card">
-              <h3>Keep differences visible</h3>
+              <h3 id="keep-differences-visible">Keep differences visible</h3>
               <p>Target-specific capabilities should stay explicit instead of leaking into the portable path unnoticed.</p>
             </article>
             <article class="subpage-card">
-              <h3>Trust emitted evidence</h3>
+              <h3 id="trust-emitted-evidence">Trust emitted evidence</h3>
               <p>Event streams, payloads, and digests make parity easier to inspect than implementation claims alone.</p>
             </article>
             <article class="subpage-card">
-              <h3>Let the contract lead</h3>
+              <h3 id="let-the-contract-lead">Let the contract lead</h3>
               <p>Portability is more credible when the same contract governs both targets without hidden forks.</p>
             </article>
           </section>
 
           <section>
-            <h2>Why observable parity matters</h2>
+            <h2 id="why-observable-parity-matters">Why observable parity matters</h2>
             <p>
               Observable parity is stronger than “both implementations look similar.” If two runtimes converge on the same contract-shaped
               result, the architecture can point to something concrete. If they do not, the system has already learned something valuable:
@@ -167,7 +170,7 @@
           </section>
 
           <section>
-            <h2>Why target-specific behavior should stay explicit</h2>
+            <h2 id="why-target-specific-behavior-should-stay-explicit">Why target-specific behavior should stay explicit</h2>
             <p>
               Proving portability does not mean pretending every runtime should behave identically in every respect. Some capabilities are
               inherently target-specific. The important point is that those differences stay visible and do not contaminate the portable
@@ -180,7 +183,7 @@
           </section>
 
           <section>
-            <h2>How portability usually gets overstated</h2>
+            <h2 id="how-portability-usually-gets-overstated">How portability usually gets overstated</h2>
             <p>
               Teams often overstate portability when they stop at “the same logic compiles” or “the implementations are based on the same
               design.” Those are encouraging signs, but they are not enough. Portability becomes trustworthy only when the system can show
@@ -193,7 +196,7 @@
           </section>
 
           <section>
-            <h2>A practical portability proof checklist</h2>
+            <h2 id="a-practical-portability-proof-checklist">A practical portability proof checklist</h2>
             <ul>
               <li>Use one explicit contract across the runtime targets you are comparing.</li>
               <li>Run the same service behavior with the same relevant input.</li>
@@ -204,18 +207,18 @@
           </section>
 
           <section>
-            <h2>Frequently asked questions</h2>
-            <h3>Does portability require byte-for-byte identical execution?</h3>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="does-portability-require-byte-for-byte-identical-execution">Does portability require byte-for-byte identical execution?</h3>
             <p>
               No. What matters is that the portable behavior stays semantically aligned. Some runtime-specific details may differ, but the
               business result being protected should remain stable.
             </p>
-            <h3>Why compare events or payloads instead of internal code paths?</h3>
+            <h3 id="why-compare-events-or-payloads-instead-of-internal-code-paths">Why compare events or payloads instead of internal code paths?</h3>
             <p>
               Because emitted results are what the architecture can actually prove. Internal similarity is informative, but it does not
               settle whether the system behaved the same way in practice.
             </p>
-            <h3>Can a portability check fail and still be useful?</h3>
+            <h3 id="can-a-portability-check-fail-and-still-be-useful">Can a portability check fail and still be useful?</h3>
             <p>
               Yes. A failed portability check is still valuable because it shows exactly where the architecture is not yet as runtime-agnostic
               or contract-disciplined as it claimed to be.
@@ -242,7 +245,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>

@@ -79,85 +79,125 @@ const menuToggle = document.querySelector(".menu-toggle");
 const mobileMenu = document.querySelector(".mobile-menu");
 const mobileMenuClose = document.querySelector(".mobile-menu-close");
 const sharedFooter = document.querySelector("[data-shared-footer]");
+const subpageMain = document.querySelector("main.subpage-main");
 const faviconHref = new URL("favicon.png", import.meta.url).href;
 const blogHref = "https://medium.com/the-rise-of-device-independent-architecture";
+const githubHref = "https://github.com/enricopiovesan/UMA-code-examples";
+const whitePaperHref = "https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1";
 
 const siteRoot = new URL(".", import.meta.url);
+const currentPath = window.location.pathname.replace(/index\.html$/, "").replace(/\/+$/, "/");
+
+function internalHref(path) {
+  return new URL(path, siteRoot).href;
+}
+
+function externalLink(label, href) {
+  return [label, href, true];
+}
+
+function internalLink(label, path) {
+  return [label, path, false];
+}
+
+function normalizePath(path) {
+  return path.replace(/index\.html$/, "").replace(/\/+$/, "/");
+}
+
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const chapterEntries = chapters.map((chapter) => ({
+  ...chapter,
+  path: normalizePath(chapter.href),
+}));
+const chapterByPath = new Map(chapterEntries.map((chapter) => [chapter.path, chapter]));
 const footerColumns = [
   [
     {
-      title: "Foundations",
+      title: "Start here",
       links: [
-        ["what problem does uma solve?", "what-problem-does-uma-solve/"],
-        ["what is uma", "what-is-uma/"],
-        ["what is a universal microservice?", "what-is-a-universal-microservice/"],
-        ["why universal microservices exist", "why-universal-microservices-exist/"],
-        ["from stack ownership to behavior ownership", "from-stack-ownership-to-behavior-ownership/"],
-        ["uma vs traditional microservices", "uma-vs-traditional-microservices/"],
+        internalLink("what problem does uma solve?", "what-problem-does-uma-solve/"),
+        internalLink("what is uma?", "what-is-uma/"),
+        internalLink("what is a universal microservice?", "what-is-a-universal-microservice/"),
+        internalLink("why universal microservices exist", "why-universal-microservices-exist/"),
+        internalLink("from stack ownership to behavior ownership", "from-stack-ownership-to-behavior-ownership/"),
+        internalLink("learning path", "learning-path/"),
+        internalLink("book", "book/"),
       ],
     },
     {
-      title: "Runtime model",
+      title: "Core concepts",
       links: [
-        ["what is a capability?", "what-is-a-capability/"],
-        ["what is a workflow?", "what-is-a-workflow/"],
-        ["what is a uma runtime?", "what-is-a-uma-runtime/"],
-        ["what belongs in the runtime layer?", "what-belongs-in-the-runtime-layer/"],
-        ["active descriptors", "active-descriptors/"],
-        ["late-bound policy enforcement", "late-bound-policy-enforcement/"],
-        ["what makes a decision discoverable?", "what-makes-a-decision-discoverable/"],
-        ["what is wasm mcp?", "what-is-wasm-mcp/"],
-        ["agent vs runtime", "agent-vs-runtime/"],
+        internalLink("what is a capability?", "what-is-a-capability/"),
+        internalLink("what is a workflow?", "what-is-a-workflow/"),
+        internalLink("what is a uma runtime?", "what-is-a-uma-runtime/"),
+        internalLink("what belongs in the runtime layer?", "what-belongs-in-the-runtime-layer/"),
+        internalLink("active descriptors", "active-descriptors/"),
+        internalLink("late-bound policy enforcement", "late-bound-policy-enforcement/"),
+        internalLink("what makes a decision discoverable?", "what-makes-a-decision-discoverable/"),
+        internalLink("what is wasm mcp?", "what-is-wasm-mcp/"),
+        internalLink("agent vs runtime", "agent-vs-runtime/"),
       ],
     },
   ],
   [
     {
-      title: "Architecture paths",
+      title: "Build and prove",
       links: [
-        ["what makes a service portable?", "what-makes-a-service-portable/"],
-        ["how to prove portability", "how-to-prove-portability/"],
-        ["runtime-agnostic architecture", "runtime-agnostic-architecture/"],
-        ["portable business logic", "portable-business-logic/"],
-        ["architecture drift and portable logic", "architecture-drift-and-portable-business-logic/"],
-        ["webassembly architecture", "webassembly-architecture/"],
-        ["migrating to uma incrementally", "migrating-to-uma-incrementally/"],
-        ["incremental uma adoption", "incremental-uma-adoption/"],
-        ["uma production readiness", "uma-production-readiness/"],
+        internalLink("what makes a service portable?", "what-makes-a-service-portable/"),
+        internalLink("how to prove portability", "how-to-prove-portability/"),
+        internalLink("runtime-agnostic architecture", "runtime-agnostic-architecture/"),
+        internalLink("portable business logic", "portable-business-logic/"),
+        internalLink("architecture drift and portable business logic", "architecture-drift-and-portable-business-logic/"),
+        internalLink("webassembly architecture", "webassembly-architecture/"),
+        internalLink("migrating to uma incrementally", "migrating-to-uma-incrementally/"),
+        internalLink("incremental uma adoption", "incremental-uma-adoption/"),
+        internalLink("uma production readiness", "uma-production-readiness/"),
+        internalLink("benchmark and footprint", "benchmark-and-footprint/"),
       ],
     },
+    {
+      title: "Hands-on",
+      links: [
+        internalLink("examples", "examples/"),
+        internalLink("end-to-end feature flag example", "end-to-end-feature-flag-example/"),
+        internalLink("learning path", "learning-path/"),
+        internalLink("chapter 4-6 tutorials", "examples/#foundations"),
+        internalLink("chapter 7-9 tutorials", "examples/#orchestration-and-trust"),
+        internalLink("chapter 10-13 tutorials", "examples/#evolution-and-discoverability"),
+      ],
+    },
+  ],
+  [
     {
       title: "System evolution",
       links: [
-        ["contract-driven orchestration", "contract-driven-orchestration/"],
-        ["service graph evolution", "service-graph-evolution/"],
-        ["how systems evolve without fragmentation", "how-systems-evolve-without-fragmentation/"],
-        ["what makes a system coherent?", "what-makes-a-system-coherent/"],
-        ["trust boundaries", "trust-boundaries/"],
-        ["runtime provenance and trust", "runtime-provenance-and-trust/"],
-        ["ai-native runtime governance", "ai-native-runtime-governance/"],
+        internalLink("contract-driven orchestration", "contract-driven-orchestration/"),
+        internalLink("service graph evolution", "service-graph-evolution/"),
+        internalLink("how systems evolve without fragmentation", "how-systems-evolve-without-fragmentation/"),
+        internalLink("what makes a system coherent?", "what-makes-a-system-coherent/"),
+        internalLink("trust boundaries", "trust-boundaries/"),
+        internalLink("runtime provenance and trust", "runtime-provenance-and-trust/"),
+        internalLink("ai-native runtime governance", "ai-native-runtime-governance/"),
       ],
     },
     {
-      title: "Comparisons and tradeoffs",
+      title: "Explore UMA",
       links: [
-        ["uma vs serverless", "uma-vs-serverless/"],
-        ["uma vs modular monolith", "uma-vs-modular-monolith/"],
-        ["common criticisms and tradeoffs", "common-criticisms-and-tradeoffs-of-uma/"],
-        ["benchmark and footprint", "benchmark-and-footprint/"],
-      ],
-    },
-    {
-      title: "Explore",
-      links: [
-        ["learning path", "learning-path/"],
-        ["examples", "examples/"],
-        ["end-to-end feature flag example", "end-to-end-feature-flag-example/"],
-        ["example tutorials", "examples/"],
-        ["diagrams", "diagrams/"],
-        ["faq", "faq/"],
-        ["book", "book/"],
-        ["about enrico", "about-enrico/"],
+        internalLink("diagrams", "diagrams/"),
+        internalLink("faq", "faq/"),
+        internalLink("book", "book/"),
+        internalLink("about enrico", "about-enrico/"),
+        externalLink("blog", blogHref),
+        externalLink("github", githubHref),
+        externalLink("reference application", "https://www.universalmicroservices.com/reference-application/"),
+        externalLink("read the white paper", whitePaperHref),
       ],
     },
   ],
@@ -175,7 +215,11 @@ if (sharedFooter) {
                   <h3>${cluster.title}</h3>
                   <nav class="footer-links">
                     ${cluster.links
-                      .map(([label, path]) => `<a href="${new URL(path, siteRoot)}">${label}</a>`)
+                      .map(([label, path, external = false]) => {
+                        const href = external ? path : new URL(path, siteRoot).href;
+                        const attrs = external ? ' target="_blank" rel="noreferrer noopener"' : "";
+                        return `<a href="${href}"${attrs}>${label}</a>`;
+                      })
                       .join("")}
                   </nav>
                 </div>
@@ -209,13 +253,210 @@ if (sharedFooter) {
           </a>
           <div class="footer-book-copy">
             <p>Go deeper into UMA with the full book, examples, and architecture model.</p>
-            <a class="inline-link" href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">Read the white paper</a>
+            <a class="inline-link" href="${whitePaperHref}" target="_blank" rel="noreferrer noopener">Read the white paper</a>
             <a class="button button-dark footer-book-button" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
           </div>
         </div>
       </section>
     </div>
   `;
+}
+
+function createLinkList(items, ordered = false, className = "") {
+  const list = document.createElement(ordered ? "ol" : "ul");
+  list.className = className;
+
+  for (const [label, path, external = false] of items) {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = external ? path : internalHref(path);
+    link.textContent = label;
+    if (external) {
+      link.target = "_blank";
+      link.rel = "noreferrer noopener";
+    }
+    item.appendChild(link);
+    list.appendChild(item);
+  }
+
+  return list;
+}
+
+function getCurrentChapter() {
+  const normalizedPath = normalizePath(currentPath);
+  const chapter = chapterEntries.find((entry) => normalizedPath.endsWith(entry.path));
+  if (chapter) {
+    return chapter;
+  }
+
+  const examplesMatch = normalizedPath.match(/\/examples\/(chapter-[^/]+)\//);
+  if (examplesMatch) {
+    return chapterByPath.get(normalizePath(`examples/${examplesMatch[1]}/`)) || null;
+  }
+
+  return null;
+}
+
+function getPageLabel() {
+  const heading = document.querySelector("main.subpage-main h1");
+  if (heading) {
+    return heading.textContent.replace(/\s+/g, " ").trim();
+  }
+
+  return document.title.split("|")[0].trim();
+}
+
+function buildBreadcrumbs() {
+  const breadcrumbs = document.createElement("nav");
+  breadcrumbs.className = "page-breadcrumbs";
+  breadcrumbs.setAttribute("aria-label", "Breadcrumb");
+
+  const list = document.createElement("ol");
+  const items = [{ label: "Home", href: internalHref("/") }];
+  const chapter = getCurrentChapter();
+
+  if (currentPath.includes("/examples/")) {
+    items.push({ label: "Examples", href: internalHref("examples/") });
+    if (chapter) {
+      items.push({ label: `${chapter.number}: ${chapter.title}`, href: internalHref(chapter.href) });
+    } else if (!currentPath.endsWith("/examples/")) {
+      items.push({ label: getPageLabel() });
+    }
+  } else if (currentPath !== "/") {
+    items.push({ label: getPageLabel() });
+  }
+
+  for (const [index, item] of items.entries()) {
+    const li = document.createElement("li");
+    if (index === items.length - 1 || !item.href) {
+      const current = document.createElement("span");
+      current.textContent = item.label;
+      current.setAttribute("aria-current", "page");
+      li.appendChild(current);
+    } else {
+      const link = document.createElement("a");
+      link.href = item.href;
+      link.textContent = item.label;
+      li.appendChild(link);
+    }
+    list.appendChild(li);
+  }
+
+  breadcrumbs.appendChild(list);
+  return breadcrumbs;
+}
+
+function buildHeadingOutline(main) {
+  const headings = [...main.querySelectorAll("h2, h3")].filter((heading) => !heading.closest(".contacts-band"));
+  const outline = [];
+  const ids = new Set([...document.querySelectorAll("[id]")].map((element) => element.id));
+  let currentSection = null;
+
+  for (const heading of headings) {
+    if (!heading.id) {
+      let base = slugify(heading.textContent);
+      let suffix = 2;
+      while (ids.has(base)) {
+        base = `${base}-${suffix++}`;
+      }
+      heading.id = base;
+      ids.add(base);
+    }
+
+    if (heading.tagName === "H2") {
+      currentSection = { label: heading.textContent.trim(), href: `#${heading.id}`, children: [] };
+      outline.push(currentSection);
+      continue;
+    }
+
+    if (currentSection) {
+      currentSection.children.push({ label: heading.textContent.trim(), href: `#${heading.id}` });
+    }
+  }
+
+  return outline;
+}
+
+function renderOutlineList(items, ordered = true) {
+  const list = document.createElement(ordered ? "ol" : "ul");
+  list.className = ordered ? "page-rail-outline" : "page-rail-links";
+
+  for (const item of items) {
+    const li = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = item.href;
+    link.textContent = item.label;
+    li.appendChild(link);
+
+    if (item.children?.length) {
+      li.appendChild(renderOutlineList(item.children, false));
+    }
+
+    list.appendChild(li);
+  }
+
+  return list;
+}
+
+function buildPageRail(main) {
+  const rail = document.createElement("aside");
+  rail.className = "page-rail";
+  rail.setAttribute("aria-label", "Page navigation");
+
+  const chapter = getCurrentChapter();
+  const outline = buildHeadingOutline(main);
+  const exploreLinks = [
+    ["home", "/"],
+    ["book", "book/"],
+    ["examples", "examples/"],
+    ["learning path", "learning-path/"],
+    ["faq", "faq/"],
+    ["blog", blogHref, true],
+    ["reference application", "https://www.universalmicroservices.com/reference-application/", true],
+    ["github", githubHref, true],
+  ];
+
+  rail.innerHTML = `
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+    </nav>
+  `;
+
+  const [outlineBlock, exploreBlock] = rail.querySelectorAll(".page-rail-block");
+  outlineBlock.appendChild(renderOutlineList(outline, true));
+  exploreBlock.appendChild(createLinkList(exploreLinks, false, "page-rail-links"));
+
+  if (chapter) {
+    const currentIndex = chapterEntries.findIndex((entry) => entry.path === chapter.path);
+    const chapterLinks = [
+      ["examples hub", "examples/"],
+      currentIndex > 0 ? [`previous: ${chapterEntries[currentIndex - 1].number}`, chapterEntries[currentIndex - 1].href] : null,
+      currentIndex < chapterEntries.length - 1 ? [`next: ${chapterEntries[currentIndex + 1].number}`, chapterEntries[currentIndex + 1].href] : null,
+      ["source folder", `https://github.com/enricopiovesan/UMA-code-examples/tree/main/${chapter.href}`, true],
+    ].filter(Boolean);
+
+    const chapterBlock = document.createElement("nav");
+    chapterBlock.className = "page-rail-block";
+    chapterBlock.innerHTML = "<h2>In the examples path</h2>";
+    chapterBlock.appendChild(createLinkList(chapterLinks, false, "page-rail-links"));
+    rail.appendChild(chapterBlock);
+  }
+
+  return rail;
+}
+
+function enhanceSubpageLayout() {
+  if (!subpageMain) return;
+
+  const pageShell = document.querySelector(".page-shell");
+  if (!pageShell || pageShell.classList.contains("has-page-rail")) return;
+
+  pageShell.classList.add("has-page-rail");
+  subpageMain.prepend(buildBreadcrumbs());
+  pageShell.insertBefore(buildPageRail(subpageMain), subpageMain);
 }
 
 function ensureFavicon() {
@@ -295,7 +536,7 @@ if (blogCards) {
     });
 }
 
-document.querySelectorAll('a[href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4reference-application/"], a[href="https://github.com/enricopiovesan/UMA-code-examples"]').forEach((link) => {
+document.querySelectorAll(`a[href="${githubHref}"], a[href="${blogHref}"]`).forEach((link) => {
   link.setAttribute("target", "_blank");
   link.setAttribute("rel", "noreferrer noopener");
 });
@@ -363,6 +604,7 @@ if (coverFrame) {
   window.addEventListener("pointermove", updateCoverShadow, { passive: true });
 }
 
+enhanceSubpageLayout();
 ensureFavicon();
 ensureHeaderBlogLink();
 

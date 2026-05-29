@@ -1,0 +1,223 @@
+---
+ref: what-is-a-uma-runtime
+title: "What Is a UMA Runtime?"
+subtitle: "What is a UMA runtime? The UMA runtime is the governed layer around portable behavior. It is the part of the system that discovers capabilities, checks compatibility, enforces constraints, decides what is allowed to run, and records enough evidence for the execution to be understandable afterward. In practical terms, it is the layer that decides where logic runs once compute can happen in many places."
+macro_area: core-model
+content_type: explainer
+slug: what-is-a-uma-runtime
+canonical_url: "https://www.universalmicroservices.com/what-is-a-uma-runtime/"
+left_nav_group: core-model
+chapter_ref: null
+seo_description: "Learn what the UMA runtime is, what it owns, and why runtime authority matters in Universal Microservices Architecture."
+breadcrumbs:
+  - "Home"
+  - "Core Model"
+  - "What Is a UMA Runtime?"
+related_refs:
+  - active-descriptors
+  - agent-vs-runtime
+  - late-bound-policy-enforcement
+  - what-belongs-in-the-runtime-layer
+---
+
+## intro
+
+<section class="subpage-hero">
+          <h1>What is a UMA runtime?</h1>
+          <p>
+            The UMA runtime is the governed layer around portable behavior. It is the part of the system that discovers capabilities,
+            checks compatibility, enforces constraints, decides what is allowed to run, and records enough evidence for the execution to be
+            understandable afterward. In practical terms, it is the layer that decides where logic runs once compute can happen in many
+            places.
+          </p>
+        </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              In Universal Microservices Architecture, the runtime is not just a host process. It is the architectural authority that turns
+              portable behavior into governed execution. It knows which capabilities exist, which ones match the active goal, which ones
+              fit the current environment, and which proposed paths must be rejected.
+            </p>
+            <p>
+              That is why the runtime matters so much in UMA. Portable logic alone is not enough. A system also needs a visible layer that
+              owns selection, validation, policy, and evidence. Without that layer, portability becomes hard to trust.
+            </p>
+            <p>
+              This is also why UMA is not “write once, run everywhere.” It is “write once, run where it makes sense,” with the runtime
+              making that decision explicit and governable.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why the runtime is not just infrastructure</h2>
+            <p>
+              Many systems treat the runtime as invisible plumbing. It launches code, moves data, and stays mostly out of the
+              architectural conversation. UMA uses the term differently. The runtime is where the architecture keeps its authority once the
+              system becomes dynamic.
+            </p>
+            <p>
+              That means the runtime is not just there to execute. It is there to decide whether a requested path is valid, compatible,
+              allowed, and safe enough to approve. This is one reason UMA can support dynamic workflows without becoming architecturally
+              vague.
+            </p>
+          </section>
+
+          <section>
+            <h2>What the runtime owns</h2>
+            <p>
+              The runtime owns the questions that should stay visible around the portable core: what is available, what matches the active
+              goal, what contracts are compatible, what policy applies, what trust boundary is in effect, and what final path is approved.
+              Those concerns are not distractions from the architecture. They are the parts that keep the system explainable.
+            </p>
+            <p>
+              In a simpler system, some of those decisions may look trivial. In a richer system, they become the difference between a
+              governed platform and a collection of plausible but unaccountable executions.
+            </p>
+            <p>
+              One useful practical version of that question is simply:
+              <a href="../what-belongs-in-the-runtime-layer/">what belongs in the runtime layer?</a>
+              Validation, adapter binding, lifecycle evidence, and policy checks are not side details. They are part of how the runtime
+              keeps portable behavior governed instead of accidental.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Discovery</h3>
+              <p>The runtime can see which capabilities exist and which of them are even candidates for the current goal.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Validation</h3>
+              <p>The runtime checks compatibility, constraints, policies, and trust rules before execution is approved.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Selection</h3>
+              <p>The runtime decides which valid capability or workflow path will actually run, even when planning is dynamic.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Evidence</h3>
+              <p>The runtime preserves enough state and explanation for a person or tool to understand what happened afterward.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Capability and runtime belong together</h2>
+            <p>
+              Capabilities are the units the runtime reasons about. Without capabilities, the runtime has nothing precise to discover or
+              validate. Without the runtime, capabilities remain descriptive rather than governed. That is why these two concepts work as a
+              pair in UMA.
+            </p>
+            <p>
+              This also explains why workflows are not hardcoded in the same way. A workflow is the approved composition the runtime builds
+              from capabilities for a given goal. The runtime is the place where that composition becomes authoritative rather than merely
+              suggested.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why this matters once agents appear</h2>
+            <p>
+              Agents make the need for a strong runtime easier to see. If an agent can interpret goals and propose a path, something still
+              has to decide whether that path should be trusted. In UMA, that answer is the runtime. The agent can help reason. The runtime
+              remains authoritative.
+            </p>
+            <p>
+              This is not anti-agent. It is what keeps an AI-assisted system from quietly turning into a prompt-shaped control plane. The
+              runtime gives the architecture a place where rules stay explicit even when planning becomes fluid.
+            </p>
+          </section>
+
+          <section>
+            <h2>What a UMA runtime is not</h2>
+            <ul>
+              <li>It is not just a process launcher.</li>
+              <li>It is not a synonym for one host, one server, or one deployment environment.</li>
+              <li>It is not the same thing as the service logic itself.</li>
+              <li>It is not a hidden orchestration layer that cannot explain its decisions.</li>
+              <li>It is not an excuse to let policies disappear into infrastructure defaults.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>A practical design test</h2>
+            <p>
+              If you want to know whether your system has a real runtime story, ask a simple question: when two capabilities could satisfy
+              the same goal, who decides which one is allowed to run? If the answer is “whichever one the code happened to call” or “the
+              planner probably chose the right thing,” the runtime layer is still too weak.
+            </p>
+            <p>
+              Another good question is whether the system can explain, after execution, why a path was accepted, rejected, or adapted. If
+              not, the runtime is still being treated as plumbing rather than as an architectural authority.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why the runtime improves learning, not just execution</h2>
+            <p>
+              The runtime also makes UMA easier to teach because it turns vague system behavior into visible steps. Readers can ask what
+              the runtime discovered, why it rejected one path, why it approved another, and what evidence it produced. That is much
+              easier to understand than a system that only exposes the final output.
+            </p>
+            <p>
+              The live reference app is useful for exactly this reason. It makes the runtime visible as a decision layer instead of
+              presenting the workflow as if it simply happened on its own.
+            </p>
+            <p>
+              The next architectural step is making that decision layer queryable. Once proposals, approvals, and trace artifacts become
+              visible too, the runtime stops being understandable only in the moment and becomes understandable afterward as well.
+            </p>
+          </section>
+
+          <section>
+            <h2>A concrete proof point</h2>
+            <p>
+              The simplest proof is not theoretical. Open the reference app and watch one workflow execute. The planner can propose, the
+              runtime can reject or approve, the capability path stays visible, and the result is explained afterward. That is much closer
+              to the real UMA claim than a generic portability slogan.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Is the runtime the same thing as the host platform?</h3>
+            <p>
+              No. The host platform matters, but the UMA runtime is the governed layer that sits around portable behavior and owns the
+              architectural decisions required for valid execution.
+            </p>
+            <h3>Can a UMA runtime exist without AI?</h3>
+            <p>
+              Yes. UMA does not require AI to make the runtime meaningful. The runtime still matters in deterministic systems because it
+              owns discovery, validation, policy, and execution authority.
+            </p>
+            <h3>Why not let the workflow decide itself?</h3>
+            <p>
+              Because workflows do not govern themselves. A system still needs a layer that can validate compatibility, enforce rules, and
+              explain why the approved path was valid in the current context.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>See the runtime as a real decision layer</strong>
+            <p>
+              If this page clarified the role of the runtime, the next step is to look at a workflow where the runtime accepts, rejects,
+              and composes capabilities visibly. The live reference app shows the surface; in the book, I go further into why that runtime
+              layer has to stay authoritative as systems grow more dynamic.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
+              <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
+              <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
+              <a href="../agent-vs-runtime/">Agent vs runtime</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
