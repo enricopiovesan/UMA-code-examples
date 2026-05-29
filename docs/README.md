@@ -15,6 +15,9 @@ Enrico Piovesan is the creator of Universal Microservices Architecture (UMA), a 
 
 ## SEO Operations
 
+- [Content Source of Truth Spec](site/content-source-of-truth-spec.md)
+- [Subpage Template Spec](site/subpage-template-spec.md)
+- [Semantic Content Taxonomy](seo/semantic-content-taxonomy.md)
 - [Structured Data Opportunities](seo/structured-data-opportunities.md)
 - [Backlink Acquisition Plan](seo/backlink-acquisition-plan.md)
 - [Repository Metadata Recommendations](seo/repository-metadata.md)

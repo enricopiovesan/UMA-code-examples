@@ -1,0 +1,351 @@
+---
+ref: benchmark-and-footprint
+title: "UMA Benchmark And Footprint Notes"
+subtitle: "UMA benchmark and footprint notes These numbers are intended as honest proof points, not universal claims. They show that the UMA examples can publish measurable artifact sizes and repeated execution timings while keeping the architectural claim grounded: write once, run where it makes sense."
+macro_area: proof
+content_type: proof
+slug: benchmark-and-footprint
+canonical_url: "https://www.universalmicroservices.com/benchmark-and-footprint/"
+left_nav_group: proof
+chapter_ref: null
+seo_description: "Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs."
+breadcrumbs:
+  - "Home"
+  - "Proof"
+  - "UMA Benchmark And Footprint Notes"
+related_refs:
+  - how-to-prove-portability
+  - what-makes-a-service-portable
+---
+
+## intro
+
+<section class="subpage-hero">
+          <h1>UMA benchmark and footprint notes</h1>
+          <p>
+            These numbers are intended as honest proof points, not universal claims. They show that the UMA examples can publish measurable
+            artifact sizes and repeated execution timings while keeping the architectural claim grounded: write once, run where it makes
+            sense.
+          </p>
+        </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>How to read this page</h2>
+            <p>
+              The measurements here come from reproducible local runs against fixed inputs. They are useful because they expose tradeoffs
+              clearly. They are not meant to imply that one runtime always wins in every deployment environment.
+            </p>
+            <p>
+              The stronger claim UMA makes is not raw speed alone. It is that portable behavior remains measurable, comparable, and
+              explicit across runtime choices.
+            </p>
+            <p>
+              The startup and memory numbers are especially sensitive to local machine state, filesystem caches, and host runtime behavior.
+              That is why the page shows both repeated timings and one first measured run, rather than pretending there is only one number
+              worth publishing.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Environment</h3>
+              <p>macOS 26.3 on arm64, Rust 1.94.0, Node v23.11.0, local pinned Wasmtime v39.0.0.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Method</h3>
+              <p>Release builds, fixed inputs, warmup runs, then repeated local measurements with mean, median, min, and max timing.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Scope</h3>
+              <p>Chapter 4 for a minimal portable evaluator, and Chapter 6 for native-versus-WASI portability under one contract.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>What not to infer</h3>
+              <p>These are not cloud benchmarks, distributed throughput tests, or cost comparisons across production-scale environments.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>At a glance</h2>
+            <p>
+              These comparisons are normalized inside each row so the slower or larger path sets the full scale. They are not trying to
+              imply global winners across workloads. They are here to make the local tradeoff legible quickly.
+            </p>
+            <div class="benchmark-compare">
+              <article class="benchmark-panel">
+                <h3>Chapter 4 repeated execution</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Rust WASI via Wasmtime</strong><span>33.42 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 12.32%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>TypeScript via Node</strong><span>271.17 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 4 first run and memory</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Rust WASI cold start</strong><span>51.63 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 53.53%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>TypeScript cold start</strong><span>96.45 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Rust WASI peak RSS</strong><span>17.09 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 45.03%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>TypeScript peak RSS</strong><span>37.95 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 6 artifact footprint</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native runner</strong><span>5.31 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI runner</strong><span>352.33 KiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 6.48%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 6 repeated execution</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native runner</strong><span>56.73 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 14.94%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI runner via Wasmtime</strong><span>379.63 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 6 first run and memory</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native cold start</strong><span>336.64 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI cold start</strong><span>212.73 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 63.19%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Native peak RSS</strong><span>7.80 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 17.00%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>WASI peak RSS</strong><span>45.88 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+              </article>
+              <article class="benchmark-panel">
+                <h3>Chapter 13 reference runtime</h3>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Release CLI binary</strong><span>947.95 KiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Render JSON path</strong><span>512.36 ms mean</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>First measured run</strong><span>964.64 ms</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-warm" style="width: 100%"></span></div>
+                </div>
+                <div class="benchmark-row">
+                  <div class="benchmark-label"><strong>Peak RSS</strong><span>2.19 MiB</span></div>
+                  <div class="benchmark-bar"><span class="benchmark-bar-fill benchmark-bar-fill-accent" style="width: 100%"></span></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section>
+            <h2>Chapter 4: minimal portable evaluator</h2>
+            <p>
+              Chapter 4 is the right first footprint proof because it shows the smallest portable unit in the repo: one contract, one
+              deterministic evaluator, and one WASI boundary.
+            </p>
+            <ul>
+              <li>WASI module size: <code>198.00 KiB</code></li>
+              <li>Input: <code>lab2-rollout-match.json</code></li>
+              <li>First measured run: <code>51.63 ms</code> (Rust/WASI), <code>96.45 ms</code> (TypeScript/Node)</li>
+              <li>Peak RSS: <code>17.09 MiB</code> (Rust/WASI), <code>37.95 MiB</code> (TypeScript/Node)</li>
+            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Path</th>
+                  <th>Mean (ms)</th>
+                  <th>Median (ms)</th>
+                  <th>Min (ms)</th>
+                  <th>Max (ms)</th>
+                  <th>Runs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Rust WASI via Wasmtime</td>
+                  <td>33.42</td>
+                  <td>31.93</td>
+                  <td>22.7</td>
+                  <td>57.89</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>TypeScript via Node</td>
+                  <td>271.17</td>
+                  <td>125.61</td>
+                  <td>82.44</td>
+                  <td>1662.06</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              On this fixed input, the WASI evaluator stayed dramatically smaller and lighter in memory than the TypeScript path under the
+              same local measurement method. The timing spread is visibly noisy on the Node side, which is exactly why this page now shows
+              repeated timings together with one first measured run. The architectural point is not that Rust or WASI always wins. It is
+              that one portable evaluator can stay compact and measurable without being rewritten into a second implementation just to
+              change the runtime surface.
+            </p>
+          </section>
+
+          <section>
+            <h2>Chapter 6: portability proof under two runtime targets</h2>
+            <p>
+              Chapter 6 is the more interesting benchmark because it keeps one contract and one shared service behavior while running it
+              through both a native path and a WASI path.
+            </p>
+            <ul>
+              <li>Native runner size: <code>5.31 MiB</code></li>
+              <li>WASI runner size: <code>352.33 KiB</code></li>
+              <li>Input: <code>sample-data/sample.pgm</code></li>
+              <li>First measured run: <code>336.64 ms</code> (native), <code>212.73 ms</code> (WASI via Wasmtime)</li>
+              <li>Peak RSS: <code>7.80 MiB</code> (native), <code>45.88 MiB</code> (WASI via Wasmtime)</li>
+            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Path</th>
+                  <th>Mean (ms)</th>
+                  <th>Median (ms)</th>
+                  <th>Min (ms)</th>
+                  <th>Max (ms)</th>
+                  <th>Runs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Native runner</td>
+                  <td>56.73</td>
+                  <td>45.79</td>
+                  <td>25.79</td>
+                  <td>157.13</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>WASI runner via Wasmtime</td>
+                  <td>379.63</td>
+                  <td>290.29</td>
+                  <td>152.34</td>
+                  <td>1616.95</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              This is the tradeoff the page should make explicit. The native runner stays lighter in memory and faster on repeated runs on
+              this machine, while the WASI runner stays much smaller as an artifact and preserves the same behavior under a portable
+              execution target. That is exactly the kind of evidence UMA should publish instead of hiding behind vague portability
+              language.
+            </p>
+          </section>
+
+          <section>
+            <h2>Chapter 13: reference runtime CLI</h2>
+            <p>
+              The earlier chapters prove compact portability. Chapter 13 adds a different kind of evidence: the reference runtime can
+              still expose a deterministic local path without dragging the benchmark through the model-backed AI setup. The measured slice
+              here is the release CLI rendering <code>use-case-1-basic-report</code> as JSON.
+            </p>
+            <ul>
+              <li>CLI binary size: <code>947.95 KiB</code></li>
+              <li>Input: <code>use-case-1-basic-report</code></li>
+              <li>First measured run: <code>964.64 ms</code></li>
+              <li>Peak RSS: <code>2.19 MiB</code></li>
+            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Path</th>
+                  <th>Mean (ms)</th>
+                  <th>Median (ms)</th>
+                  <th>Min (ms)</th>
+                  <th>Max (ms)</th>
+                  <th>Runs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Render JSON via CLI</td>
+                  <td>512.36</td>
+                  <td>312.45</td>
+                  <td>48.06</td>
+                  <td>2228.3</td>
+                  <td>20</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              That does not measure the full AI-assisted workflow. It measures the deterministic runtime/report path that should stay
+              fast enough and legible enough to act as a real operational surface, not just a demo shell. It also makes one useful point
+              visible: the Chapter 13 CLI is still a small binary with a modest memory footprint even though the repeated local timing of
+              the full JSON render path is not as tight as the earlier chapter slices.
+            </p>
+          </section>
+
+          <section>
+            <h2>What these numbers actually prove</h2>
+            <p>
+              The important result is not that every portable path is the fastest. The important result is that the portable path remains
+              compact, measurable, and behaviorally comparable. That gives teams a much cleaner basis for deciding where logic should run
+              instead of duplicating the behavior by default.
+            </p>
+            <p>
+              In the book, I use the architectural model behind these examples more broadly than this page can. Here, the goal is narrower:
+              give you honest proof data you can inspect instead of asking you to trust portability claims at face value.
+            </p>
+            <p>
+              If you want to reproduce these numbers locally, the repository includes the reporting script and the generated benchmark
+              artifacts so you can inspect both the method and the result rather than treating this page as a static marketing claim.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Continue from numbers into the model</strong>
+            <p>
+              If the benchmark notes make the tradeoff feel more concrete, the next useful move is to connect them back to portability,
+              runtime authority, and the reference app.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="https://github.com/enricopiovesan/UMA-code-examples/blob/main/benchmarks/benchmark-proof.md">Benchmark report</a>
+              <a href="https://github.com/enricopiovesan/UMA-code-examples/blob/main/scripts/report_benchmark_proof.py">Benchmark script</a>
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="../how-to-prove-portability/">How to prove portability</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../examples/">Examples</a>
+              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>

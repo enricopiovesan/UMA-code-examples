@@ -1,0 +1,176 @@
+---
+ref: how-to-prove-portability
+title: "How to Prove Portability"
+subtitle: "How to prove portability Portability is easy to claim and harder to prove. In UMA, portability becomes credible only when the same service behavior can be observed across more than one runtime target without quietly changing its meaning."
+macro_area: proof
+content_type: proof
+slug: how-to-prove-portability
+canonical_url: "https://www.universalmicroservices.com/how-to-prove-portability/"
+left_nav_group: proof
+chapter_ref: null
+seo_description: "Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough."
+breadcrumbs:
+  - "Home"
+  - "Proof"
+  - "How to Prove Portability"
+related_refs:
+  - benchmark-and-footprint
+  - what-makes-a-service-portable
+---
+
+## intro
+
+<section class="subpage-hero">
+          <h1>How to prove portability</h1>
+          <p>
+            Portability is easy to claim and harder to prove. In UMA, portability becomes credible only when the same service behavior can
+            be observed across more than one runtime target without quietly changing its meaning.
+          </p>
+        </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>The short answer</h2>
+            <p>
+              You prove portability by comparing observable behavior, not by trusting shared source code or similar intent. If two runtime
+              targets emit the same governed result from the same contract and input, portability is becoming evidence instead of a slogan.
+            </p>
+            <p>
+              That comparison matters because many systems look portable in code review while still drifting in execution. The only honest
+              test is what the system actually does.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why shared code is not enough</h2>
+            <p>
+              Shared code can be a useful starting point, but it does not prove the behavior is stable once the code is compiled, hosted,
+              and run under different runtime constraints. Subtle host assumptions, missing capabilities, data-shape drift, and adapter
+              shortcuts can all change the outcome while leaving the codebase looking deceptively aligned.
+            </p>
+            <p>
+              That is why UMA treats portability as something to validate from outputs, events, and contract-governed results instead of
+              something to assume from a familiar repository structure.
+            </p>
+          </section>
+
+          <section>
+            <h2>What to compare instead</h2>
+            <p>
+              The most useful comparison point is observable behavior. That can mean a shared result payload, an emitted event, a stable
+              output shape, or another contract-visible artifact that shows the service behaved the same way under two runtimes.
+            </p>
+            <p>
+              Once the comparison becomes observable, portability stops being an abstract architectural virtue. It becomes something a
+              reader, a reviewer, and a runtime test can all evaluate directly.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Compare results</h3>
+              <p>Use the same contract and input, then compare the resulting behavior across runtimes.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Keep differences visible</h3>
+              <p>Target-specific capabilities should stay explicit instead of leaking into the portable path unnoticed.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Trust emitted evidence</h3>
+              <p>Event streams, payloads, and digests make parity easier to inspect than implementation claims alone.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Let the contract lead</h3>
+              <p>Portability is more credible when the same contract governs both targets without hidden forks.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why observable parity matters</h2>
+            <p>
+              Observable parity is stronger than “both implementations look similar.” If two runtimes converge on the same contract-shaped
+              result, the architecture can point to something concrete. If they do not, the system has already learned something valuable:
+              where portability breaks and which boundary is not as durable as it seemed.
+            </p>
+            <p>
+              That is one reason Chapter 6 matters so much in the learning path. It turns portability from a design preference into a test
+              that can pass or fail in public.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why target-specific behavior should stay explicit</h2>
+            <p>
+              Proving portability does not mean pretending every runtime should behave identically in every respect. Some capabilities are
+              inherently target-specific. The important point is that those differences stay visible and do not contaminate the portable
+              behavior being compared.
+            </p>
+            <p>
+              A good portability test therefore has two layers: the shared behavior that should stay aligned, and the runtime-specific
+              behavior that should remain explicit as a governed difference rather than a hidden divergence.
+            </p>
+          </section>
+
+          <section>
+            <h2>How portability usually gets overstated</h2>
+            <p>
+              Teams often overstate portability when they stop at “the same logic compiles” or “the implementations are based on the same
+              design.” Those are encouraging signs, but they are not enough. Portability becomes trustworthy only when the system can show
+              that the actual behavior stayed aligned under real execution.
+            </p>
+            <p>
+              Another common mistake is to ignore the runtime-specific paths that do differ. That weakens the claim because it blurs the
+              line between portable behavior and host-only extensions. UMA is clearer when both are visible.
+            </p>
+          </section>
+
+          <section>
+            <h2>A practical portability proof checklist</h2>
+            <ul>
+              <li>Use one explicit contract across the runtime targets you are comparing.</li>
+              <li>Run the same service behavior with the same relevant input.</li>
+              <li>Compare observable outputs or events rather than source structure.</li>
+              <li>Make target-specific capabilities visible instead of hiding them.</li>
+              <li>Record enough evidence to explain why parity passed or failed.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Does portability require byte-for-byte identical execution?</h3>
+            <p>
+              No. What matters is that the portable behavior stays semantically aligned. Some runtime-specific details may differ, but the
+              business result being protected should remain stable.
+            </p>
+            <h3>Why compare events or payloads instead of internal code paths?</h3>
+            <p>
+              Because emitted results are what the architecture can actually prove. Internal similarity is informative, but it does not
+              settle whether the system behaved the same way in practice.
+            </p>
+            <h3>Can a portability check fail and still be useful?</h3>
+            <p>
+              Yes. A failed portability check is still valuable because it shows exactly where the architecture is not yet as runtime-agnostic
+              or contract-disciplined as it claimed to be.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Turn portability into evidence</strong>
+            <p>
+              This page gives the test, not the whole runtime story around it. In the book, I go further into how portability checks
+              change the way teams reason about service boundaries, execution targets, and confidence. On the site, the best next step is
+              to connect this idea to portable services, the runtime layer, and the runnable examples.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../examples/">Examples</a>
+              <a href="../diagrams/">Diagrams</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>

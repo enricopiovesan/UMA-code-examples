@@ -1,0 +1,172 @@
+---
+ref: what-is-uma
+title: "What Is UMA?"
+subtitle: "What is Universal Microservices Architecture? Universal Microservices Architecture, or UMA, is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. It keeps business behavior portable while still treating runtime policy, transport, trust, and execution boundaries as first-class architectural concerns."
+macro_area: why-uma
+content_type: overview
+slug: what-is-uma
+canonical_url: "https://www.universalmicroservices.com/what-is-uma/"
+left_nav_group: why-uma
+chapter_ref: null
+seo_description: "Learn what Universal Microservices Architecture is, why it matters, and how it keeps business behavior portable across client, edge, and cloud runtimes."
+breadcrumbs:
+  - "Home"
+  - "Why Uma"
+  - "What Is UMA?"
+related_refs:
+  - from-stack-ownership-to-behavior-ownership
+  - what-is-a-universal-microservice
+  - what-problem-does-uma-solve
+  - why-universal-microservices-exist
+---
+
+## intro
+
+<section class="subpage-hero">
+            <h1>What is Universal Microservices Architecture?</h1>
+            <p>
+              Universal Microservices Architecture, or UMA, is an execution model for distributed systems where compute can happen in many
+              places and the system decides where logic runs. It keeps business behavior portable while still treating runtime policy,
+              transport, trust, and execution boundaries as first-class architectural concerns.
+            </p>
+          </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>The problem UMA is trying to solve</h2>
+            <p>
+              Most software teams do not struggle because they cannot build services. They struggle because the same behavior keeps being
+              reimplemented in different places. A decision appears once in the browser, once in the backend, once in an edge worker, and
+              again inside an internal workflow. Over time the architecture drifts, the product experience diverges, and the system becomes
+              harder to reason about.
+            </p>
+            <p>
+              UMA starts from the idea that architecture should preserve behavior before it preserves deployment shape. Instead of using
+              “frontend,” “backend,” or “microservice” as the primary organizing principle, it treats the portable service boundary as the
+              durable unit and then makes runtime-specific responsibilities explicit around it.
+            </p>
+            <p>
+              That is why one of the most useful early distinctions in UMA is the move from
+              <a href="../from-stack-ownership-to-behavior-ownership/">stack ownership to behavior ownership</a>. Without that shift, the
+              rest of the model can sound like a runtime technique instead of an architectural correction.
+            </p>
+            <p>
+              If you want the direct cold-reader version of that gap before going deeper into the model, start with
+              <a href="../what-problem-does-uma-solve/">what problem UMA solves</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>A practical definition of UMA</h2>
+            <p>
+              UMA is a design model for software that must survive across many execution environments without losing its architectural
+              clarity. It treats the portable service boundary as the durable unit of the system, while treating validation, transport,
+              policy, permissions, and runtime placement as explicit surrounding concerns. That distinction is what keeps portability from
+              collapsing into duplication.
+            </p>
+            <p>
+              Another way to say it is this: UMA is not “write once, run everywhere.” It is “write once, run where it makes sense.” The
+              service remains recognizable, the runtime stays governed, and the system stays explainable for longer.
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Portable service behavior</h3>
+              <p>Rules, decisions, and business intent should survive across runtimes without being rewritten every time execution moves.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Explicit contracts</h3>
+              <p>Inputs, outputs, events, and capability expectations should be machine-readable instead of hidden in framework glue code.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Governed runtime decisions</h3>
+              <p>Placement, policy, trust, and orchestration are still important, but they become visible parts of the model.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Long-term coherence</h3>
+              <p>Versioning, change, compatibility, and system growth remain architectural topics instead of operational cleanup work.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>How UMA differs from conventional boundaries</h2>
+            <p>
+              Traditional architectural labels mostly describe where code runs or which team owns it. UMA is more interested in whether the
+              behavior itself can remain stable while the runtime context changes. That is why the model aligns naturally with WebAssembly:
+              WebAssembly provides a portable execution boundary, while UMA provides the architectural discipline required to keep that
+              boundary meaningful at system scale.
+            </p>
+            <p>
+              In that sense, UMA is not trying to replace every existing architectural style with a new label. It is trying to answer a
+              modern problem that older labels do not explain well enough: how to keep one business capability coherent when it must execute
+              across client, edge, server, background, and agent-like contexts.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why this matters in real systems</h2>
+            <p>
+              Organizations rarely plan to duplicate important business behavior. It happens because teams are rewarded for shipping inside
+              local boundaries. The browser team adds a rule for responsiveness. The backend team repeats it for safety. The edge layer
+              reintroduces it for latency reasons. A workflow adds it again because the event model does not expose the same logic. Each
+              step feels reasonable, but the result is drift.
+            </p>
+            <p>
+              UMA matters because it gives that organization a different architectural center of gravity. Instead of treating local runtime
+              ownership as the default, it starts from a portable behavior model and forces the runtime-specific decisions to stay visible.
+            </p>
+          </section>
+
+          <section>
+            <h2>What UMA is not</h2>
+            <ul>
+              <li>It is not a promise that every service should run everywhere.</li>
+              <li>It is not a claim that runtimes stop mattering once logic is portable.</li>
+              <li>It is not a framework feature or a deployment trick.</li>
+              <li>It is not an excuse to ignore trust, policy, or operational design.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Who should care about this model</h2>
+            <p>
+              UMA is useful for architects, platform engineers, senior developers, and technical leads who need a more stable way to think
+              about software that crosses runtime boundaries. It is especially useful when systems must preserve behavior across product
+              surfaces and when architectural drift is starting to show up as duplicated rules, inconsistent outcomes, or governance gaps.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked question</h2>
+            <h3>Is UMA only relevant if I use WebAssembly?</h3>
+            <p>
+              No. WebAssembly is a strong fit because it provides a practical execution boundary for portable behavior, but the architectural
+              model is larger than the compilation target. UMA is fundamentally about keeping service meaning stable and runtime decisions
+              explicit.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Continue the path</strong>
+            <p>
+              If you want the practical version of this idea, use the learning path and examples next. That is where UMA stops being a
+              definition and becomes something you can inspect, run, and evaluate.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../learning-path/">Learning Path</a>
+              <a href="../examples/">Examples</a>
+              <a href="../what-problem-does-uma-solve/">What problem does UMA solve?</a>
+              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
+              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../agent-vs-runtime/">Agent vs runtime</a>
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>

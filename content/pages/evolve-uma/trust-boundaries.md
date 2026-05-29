@@ -1,0 +1,230 @@
+---
+ref: trust-boundaries
+title: "Trust Boundaries in UMA"
+subtitle: "Trust boundaries in UMA Portability only works in production if trust remains explicit. Universal Microservices Architecture treats identity, permissions, provenance, and runtime policy as part of the architecture rather than as controls bolted on after the service has already spread across environments."
+macro_area: evolve-uma
+content_type: walkthrough
+slug: trust-boundaries
+canonical_url: "https://www.universalmicroservices.com/trust-boundaries/"
+left_nav_group: evolve-uma
+chapter_ref: null
+seo_description: "Learn why trust boundaries matter in Universal Microservices Architecture and how identity, permissions, provenance, and runtime policy shape safe execution."
+breadcrumbs:
+  - "Home"
+  - "Evolve Uma"
+  - "Trust Boundaries in UMA"
+related_refs:
+  - ai-native-runtime-governance
+  - contract-driven-orchestration
+  - how-systems-evolve-without-fragmentation
+  - runtime-provenance-and-trust
+---
+
+## intro
+
+<section class="subpage-hero">
+          <h1>Trust boundaries in UMA</h1>
+          <p>
+            Portability only works in production if trust remains explicit. Universal Microservices Architecture treats identity,
+            permissions, provenance, and runtime policy as part of the architecture rather than as controls bolted on after the service has
+            already spread across environments.
+          </p>
+        </section>
+
+## main
+
+<div class="subpage-body">
+          <section>
+            <h2>Why trust cannot be added later</h2>
+            <p>
+              When a service moves between hosts, runtimes, and execution contexts, the questions change quickly. What is allowed to run?
+              What is allowed to call what? Which capabilities can be used, and under which policy? If those answers do not live in the
+              architecture, portability becomes a liability instead of a strength.
+            </p>
+            <p>
+              Portable systems expand faster than many teams expect. A service that is safe in one environment can become risky in another
+              if the trust story is left implicit. That is why UMA treats trust boundaries as part of the design model rather than as a late
+              layer of operational hardening.
+            </p>
+          </section>
+
+          <section>
+            <h2>What a trust boundary means in UMA</h2>
+            <p>
+              A trust boundary is the point where the system decides what a portable service is allowed to do, what it is allowed to access,
+              and under which identity it is allowed to execute. In UMA, that boundary is not assumed from the deployment environment. It is
+              expressed as part of the runtime model so the architecture can explain it before production incidents do.
+            </p>
+            <p>
+              That makes the trust boundary a design surface. It is where identity, policy, capability access, provenance, and auditability
+              come together around the service. The runtime is responsible for enforcing those decisions, but the architecture has to say
+              clearly what the decisions are.
+            </p>
+            <p>
+              This is why Chapter 9 matters so much in the learning path. It turns trust from a generic security concern into a concrete
+              runtime question: what metadata, permissions, dependencies, and communication paths are actually allowed to participate?
+            </p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card">
+              <h3>Identity</h3>
+              <p>Each portable unit needs a stable identity so the system can reason about what is being executed.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Permissions</h3>
+              <p>Capabilities should be declared and enforced deliberately instead of being inherited from the host by accident.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Provenance</h3>
+              <p>The architecture needs a story for where the executable unit came from and why it is trusted.</p>
+            </article>
+            <article class="subpage-card">
+              <h3>Runtime enforcement</h3>
+              <p>Trust boundaries only matter when the runtime can explain, apply, and audit the policy consistently.</p>
+            </article>
+          </section>
+
+          <section>
+            <h2>Why this is architectural, not operational</h2>
+            <p>
+              Teams often treat trust as a platform concern that appears after the software already exists. UMA makes the opposite choice.
+              It treats trust as part of the design of the system itself, because portability without governance creates invisible risk.
+            </p>
+            <p>
+              That is what makes trust boundaries an architectural topic. They change how services can compose, what they can consume, and
+              which environments they can safely inhabit. Those are system design questions, not just platform configuration choices.
+            </p>
+          </section>
+
+          <section>
+            <h2>What governed execution means</h2>
+            <p>
+              Governed execution means the runtime can explain why a capability was allowed, denied, or adapted in a particular way. The
+              important part is not only that the policy exists, but that it remains visible and reviewable as part of the system model.
+            </p>
+            <p>
+              In a portable system, governed execution is what keeps the same service from turning into a different risk profile every time
+              it moves. Identity, provenance, and permissions have to travel with the service boundary strongly enough that the runtime can
+              make consistent decisions across environments.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why undeclared permissions should fail early</h2>
+            <p>
+              A portable service should not gain new powers just because it arrived in a more permissive environment. If the service needs
+              access to a capability, that need should be declared clearly enough that the runtime can validate it before execution begins.
+              Otherwise portability quietly becomes permission drift.
+            </p>
+            <p>
+              Early denial is the healthier architectural outcome. It keeps the boundary explicit and prevents the system from discovering
+              only after side effects occur that a service was relying on access it never declared honestly.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why dependency provenance is architectural</h2>
+            <p>
+              Dependency provenance is often treated as compliance paperwork or supply-chain hygiene outside the architecture itself. UMA
+              treats it differently. If the runtime cannot explain where a service or one of its critical dependencies came from, trust is
+              already incomplete.
+            </p>
+            <p>
+              That makes provenance part of the runtime decision, not an afterthought. A service can be syntactically valid and still be
+              denied because its dependency story is not trustworthy enough for the current boundary.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why compatibility is not the same as authorization</h2>
+            <p>
+              Two services can look compatible in shape and still be forbidden to communicate. Matching contracts do not automatically grant
+              trust. Communication also depends on policy, identity, placement, and the trust model of the system.
+            </p>
+            <p>
+              This is one of the most important ways trust boundaries correct a common architectural blind spot. Teams often stop once the
+              technical shapes line up. UMA says that compatible shape and authorized communication are related, but not identical.
+            </p>
+          </section>
+
+          <section>
+            <h2>Why trust becomes harder in portable systems</h2>
+            <p>
+              The more places a service can run, the more important it becomes to define who it is, what it can do, and what evidence the
+              runtime needs before it allows execution. Portability increases freedom, but it also increases the need for precise
+              governance. Without a clear trust model, a portable architecture can scale its blast radius faster than it scales confidence.
+            </p>
+            <p>
+              This is one reason trust boundaries connect so directly to service graph evolution. A graph of compatible services only remains
+              safe when the runtime can explain which relationships are permitted and why.
+            </p>
+          </section>
+
+          <section>
+            <h2>Where teams usually go wrong</h2>
+            <ul>
+              <li>They assume the host environment will imply the right permissions.</li>
+              <li>They treat provenance as an operational concern instead of a runtime input.</li>
+              <li>They let identity emerge from deployment shape instead of from the service model.</li>
+              <li>They add policy after portability has already expanded the blast radius.</li>
+              <li>They document trust informally instead of making it part of the runtime model.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>What good trust design looks like</h2>
+            <p>
+              Good trust design starts by naming the executable unit clearly, defining its contracts, and deciding which capabilities it is
+              allowed to use. The runtime then enforces those decisions consistently, with identity and provenance visible enough that the
+              system can audit what happened later.
+            </p>
+            <p>
+              This does not make the system rigid. It makes change safer. New services and new runtime contexts can still be introduced, but
+              only through a model that can explain what was permitted and why.
+            </p>
+            <p>
+              Good trust design also makes denial legible. When a service is blocked because of undeclared permissions, untrusted
+              provenance, or forbidden communication, the system should be able to point to the exact rule or metadata decision that caused
+              it. That is what turns enforcement into architecture instead of guesswork.
+            </p>
+          </section>
+
+          <section>
+            <h2>Frequently asked questions</h2>
+            <h3>Why are trust boundaries more important in portable systems?</h3>
+            <p>
+              Because portable systems cross more execution contexts. The more places a service can run, the more important it becomes to
+              define who it is, what it can do, and how the runtime enforces those decisions consistently.
+            </p>
+            <h3>Can trust be delegated entirely to the platform team?</h3>
+            <p>
+              The platform team can implement and operate enforcement, but the architecture still has to define what should be trusted, what
+              is allowed, and which runtime inputs matter. Otherwise the platform only enforces an incomplete model.
+            </p>
+            <h3>Can a service be valid and still be denied?</h3>
+            <p>
+              Yes. A service can match the expected shape and still be denied because it requested undeclared permissions, carries
+              untrusted provenance, or attempts communication the trust policy does not allow.
+            </p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Related topics</strong>
+            <p>
+              Trust boundaries connect directly to runtime-agnostic architecture and to service graph evolution, because safe composition is
+              impossible when the system cannot explain who is allowed to do what. In the book, I push this further into the operational
+              consequences of deny decisions, metadata integrity, and communication policy without reducing the topic to generic security
+              advice.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+              <a href="../service-graph-evolution/">Service graph evolution</a>
+              <a href="../examples/">Examples</a>
+              <a href="../diagrams/">Diagrams</a>
+            </div>
+          </section>
+        </div>
+
+        <section id="contacts" class="section contacts-band" data-shared-footer></section>
