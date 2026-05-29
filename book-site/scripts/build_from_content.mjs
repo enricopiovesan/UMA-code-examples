@@ -302,16 +302,14 @@ function renderBreadcrumbs(meta, prefix) {
 
 function buildPageMaps(pages) {
   const bySlug = new Map();
-  const byRef = new Map();
 
   for (const page of pages) {
     const outPath = pagePathFromMeta(page.meta);
     const entry = { ...page, outPath };
     bySlug.set(page.meta.slug, entry);
-    byRef.set(page.meta.ref, entry);
   }
 
-  return { bySlug, byRef };
+  return { bySlug };
 }
 
 function relativeLink(currentOutPath, targetOutPath) {
@@ -355,12 +353,13 @@ function renderRelatedRail(outline) {
 }
 
 function renderMacroRail(meta, currentOutPath, siteMapGroups, pagesBySlug) {
-  const currentPage = pagesBySlug.get(meta.slug);
-
   const groupsMarkup = siteMapGroups
     .map((group) => {
+      const hubSlug = group.slugs[0];
+      const hubLink = hubSlug ? resolvePageLink(hubSlug, currentOutPath, pagesBySlug) : { href: "#", external: false };
       const isCurrentGroup = group.slug === meta.macro_area;
       const items = group.slugs
+        .slice(1)
         .map((slug) => {
           const page = pagesBySlug.get(slug);
           const link = resolvePageLink(slug, currentOutPath, pagesBySlug);
@@ -373,7 +372,7 @@ function renderMacroRail(meta, currentOutPath, siteMapGroups, pagesBySlug) {
 
       return `
         <nav class="page-rail-block${isCurrentGroup ? " page-rail-block--current" : ""}">
-          <h2>${escapeHtml(group.label)}</h2>
+          <h2><a href="${escapeHtml(hubLink.href)}"${hubLink.external ? ' target="_blank" rel="noreferrer noopener"' : ""}>${escapeHtml(group.label)}</a></h2>
           <ul class="page-rail-links">
             ${items}
           </ul>
@@ -398,11 +397,6 @@ function renderOutlineList(items, ordered = true) {
         })
         .join("")}
     </${tag}>`;
-}
-
-function chapterNumber(ref) {
-  const match = String(ref || "").match(/(\d+)/);
-  return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
 }
 
 function makeAbsoluteUrl(pathname) {
@@ -511,7 +505,7 @@ function renderStructuredData(meta, rawMain) {
     .join("\n    ");
 }
 
-function renderPage(meta, intro, main, outPath, outline, chapterEntries, siteMapGroups, pagesBySlug, pagesByRef) {
+function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesBySlug) {
   const prefix = relativePrefixFor(outPath);
   const title = escapeHtml(meta.title || "UMA Examples");
   const description = escapeHtml(meta.seo_description || meta.subtitle || "");
@@ -598,10 +592,7 @@ async function main() {
 
   const siteMapSource = await fs.readFile(SITE_MAP_PATH, "utf8");
   const siteMapGroups = parseSiteMap(siteMapSource);
-  const { bySlug: pagesBySlug, byRef: pagesByRef } = buildPageMaps(pages);
-  const chapterEntries = pages
-    .filter((page) => page.meta.chapter_ref)
-    .sort((a, b) => chapterNumber(a.meta.chapter_ref) - chapterNumber(b.meta.chapter_ref));
+  const { bySlug: pagesBySlug } = buildPageMaps(pages);
 
   let count = 0;
   for (const page of pages) {
@@ -609,7 +600,7 @@ async function main() {
     const decorated = decorateHeadings(page.main);
     const renderedMain = stripSharedFooterMarker(decorated.html);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, chapterEntries, siteMapGroups, pagesBySlug, pagesByRef)));
+    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug)));
     count += 1;
   }
 
