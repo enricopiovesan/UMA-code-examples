@@ -33,6 +33,11 @@
   padding-top: 18px;
 }
 
+.page-shell.has-page-rail > .contacts-band {
+  grid-column: 1 / -1;
+  margin-top: 88px;
+}
+
 .page-breadcrumbs {
   display: inline-flex;
   margin: 0 0 16px;

@@ -207,6 +207,10 @@ function decorateHeadings(main) {
   return { html, outline };
 }
 
+function stripSharedFooterMarker(html) {
+  return html.replace(/\s*<section id="contacts" class="section contacts-band" data-shared-footer><\/section>\s*$/s, "");
+}
+
 function renderBreadcrumbs(meta, prefix) {
   const currentLabel = meta.title || "UMA";
   const items = [{ label: "Home", href: prefix }];
@@ -478,6 +482,7 @@ ${intro}
 
 ${main}
       </main>
+      <section id="contacts" class="section contacts-band" data-shared-footer></section>
     </div>
     <script src="${prefix}app.js" type="module"></script>
   </body>
@@ -507,8 +512,9 @@ async function main() {
   for (const page of pages) {
     const outPath = pagePathFromMeta(page.meta);
     const decorated = decorateHeadings(page.main);
+    const renderedMain = stripSharedFooterMarker(decorated.html);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, decorated.html, outPath, decorated.outline, chapterEntries)));
+    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, chapterEntries)));
     count += 1;
   }
 
