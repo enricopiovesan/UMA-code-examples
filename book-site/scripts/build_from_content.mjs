@@ -340,52 +340,16 @@ function resolvePageLink(slug, currentOutPath, pageBySlug) {
   return { href: "#", external: false };
 }
 
-function renderRelatedRail(meta, currentOutPath, pagesByRef, pagesBySlug) {
-  const relatedSlugs = Array.isArray(meta.related_refs) && meta.related_refs.length
-    ? meta.related_refs
-    : (pagesBySlug.get(meta.slug)
-        ? pagesBySlug.get(meta.slug)
-        : null);
-
-  const fallbackRelated = [];
-  if (!Array.isArray(meta.related_refs) || !meta.related_refs.length) {
-    const currentPage = pagesBySlug.get(meta.slug);
-    if (currentPage) {
-      const sameArea = [...pagesBySlug.values()]
-        .filter((entry) => entry.meta.macro_area === meta.macro_area && entry.meta.ref !== meta.ref)
-        .slice(0, 4)
-        .map((entry) => entry.meta.ref);
-      fallbackRelated.push(...sameArea);
-    }
-  }
-
-  const refs = (Array.isArray(meta.related_refs) && meta.related_refs.length ? meta.related_refs : fallbackRelated)
-    .filter(Boolean);
-
-  const items = refs
-    .map((ref) => {
-      const page = pagesByRef.get(ref) || pagesBySlug.get(ref);
-      if (!page) {
-        const special = resolvePageLink(ref, currentOutPath, pagesBySlug);
-        return `<li><a href="${escapeHtml(special.href)}"${special.external ? ' target="_blank" rel="noreferrer noopener"' : ""}>${escapeHtml(slugToLabel(ref))}</a></li>`;
-      }
-
-      const link = resolvePageLink(page.meta.slug, currentOutPath, pagesBySlug);
-      return `<li><a href="${escapeHtml(link.href)}"${link.external ? ' target="_blank" rel="noreferrer noopener"' : ""}>${escapeHtml(page.meta.title || slugToLabel(page.meta.slug))}</a></li>`;
-    })
-    .join("");
-
-  if (!items) {
+function renderRelatedRail(outline) {
+  if (!outline.length) {
     return "";
   }
 
   return `
-      <aside class="page-rail page-rail--related" aria-label="Related content">
+      <aside class="page-rail page-rail--related" aria-label="On this page">
         <nav class="page-rail-block">
-          <h2>Related</h2>
-          <ul class="page-rail-links">
-            ${items}
-          </ul>
+          <h2>On this page</h2>
+          ${renderOutlineList(outline, true)}
         </nav>
       </aside>`;
 }
@@ -600,7 +564,7 @@ ${renderTopNav(prefix)}
       </header>
 ${renderMobileNav(prefix)}
 
-${renderRelatedRail(meta, outPath, pagesByRef, pagesBySlug)}
+${renderRelatedRail(outline)}
 
       <main class="subpage-main">
 ${renderBreadcrumbs(meta, prefix)}
