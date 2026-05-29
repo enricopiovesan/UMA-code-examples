@@ -25,6 +25,36 @@
     <loc>https://www.universalmicroservices.com/examples/</loc>
   </url>
   <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-04-feature-flag-evaluator/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-05-post-fetcher-runtime/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-06-portability-lab/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-07-metadata-orchestration/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-08-service-graph/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-09-trust-boundaries/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-10-architectural-tradeoffs/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-11-evolution-without-fragmentation/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-12-discoverable-decisions/</loc>
+  </url>
+  <url>
+    <loc>https://www.universalmicroservices.com/examples/chapter-13-portable-mcp-runtime/</loc>
+  </url>
+  <url>
     <loc>https://www.universalmicroservices.com/faq/</loc>
   </url>
   <url>
