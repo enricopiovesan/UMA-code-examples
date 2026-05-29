@@ -90,6 +90,8 @@ const footerColumns = [
       links: [
         ["what problem does uma solve?", "what-problem-does-uma-solve/"],
         ["what is uma", "what-is-uma/"],
+        ["what is a universal microservice?", "what-is-a-universal-microservice/"],
+        ["why universal microservices exist", "why-universal-microservices-exist/"],
         ["from stack ownership to behavior ownership", "from-stack-ownership-to-behavior-ownership/"],
         ["uma vs traditional microservices", "uma-vs-traditional-microservices/"],
       ],
@@ -101,6 +103,8 @@ const footerColumns = [
         ["what is a workflow?", "what-is-a-workflow/"],
         ["what is a uma runtime?", "what-is-a-uma-runtime/"],
         ["what belongs in the runtime layer?", "what-belongs-in-the-runtime-layer/"],
+        ["active descriptors", "active-descriptors/"],
+        ["late-bound policy enforcement", "late-bound-policy-enforcement/"],
         ["what makes a decision discoverable?", "what-makes-a-decision-discoverable/"],
         ["what is wasm mcp?", "what-is-wasm-mcp/"],
         ["agent vs runtime", "agent-vs-runtime/"],
@@ -115,7 +119,11 @@ const footerColumns = [
         ["how to prove portability", "how-to-prove-portability/"],
         ["runtime-agnostic architecture", "runtime-agnostic-architecture/"],
         ["portable business logic", "portable-business-logic/"],
+        ["architecture drift and portable logic", "architecture-drift-and-portable-business-logic/"],
         ["webassembly architecture", "webassembly-architecture/"],
+        ["migrating to uma incrementally", "migrating-to-uma-incrementally/"],
+        ["incremental uma adoption", "incremental-uma-adoption/"],
+        ["uma production readiness", "uma-production-readiness/"],
       ],
     },
     {
@@ -126,6 +134,17 @@ const footerColumns = [
         ["how systems evolve without fragmentation", "how-systems-evolve-without-fragmentation/"],
         ["what makes a system coherent?", "what-makes-a-system-coherent/"],
         ["trust boundaries", "trust-boundaries/"],
+        ["runtime provenance and trust", "runtime-provenance-and-trust/"],
+        ["ai-native runtime governance", "ai-native-runtime-governance/"],
+      ],
+    },
+    {
+      title: "Comparisons and tradeoffs",
+      links: [
+        ["uma vs serverless", "uma-vs-serverless/"],
+        ["uma vs modular monolith", "uma-vs-modular-monolith/"],
+        ["common criticisms and tradeoffs", "common-criticisms-and-tradeoffs-of-uma/"],
+        ["benchmark and footprint", "benchmark-and-footprint/"],
       ],
     },
     {
@@ -133,8 +152,8 @@ const footerColumns = [
       links: [
         ["learning path", "learning-path/"],
         ["examples", "examples/"],
-        ["example tutorials", "examples/chapter-04-feature-flag-evaluator/"],
-        ["benchmark and footprint", "benchmark-and-footprint/"],
+        ["end-to-end feature flag example", "end-to-end-feature-flag-example/"],
+        ["example tutorials", "examples/"],
         ["diagrams", "diagrams/"],
         ["faq", "faq/"],
         ["book", "book/"],
