@@ -4,55 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contract-Driven Orchestration | Universal Microservices Architecture</title>
-    <meta
-      name="description"
-      content="Learn how contract-driven orchestration works in UMA, where events, policies, and metadata shape execution without hardcoded workflow glue."
-    />
+    <meta name="description" content="Learn how contract-driven orchestration works in UMA, where events, policies, and metadata shape execution without hardcoded workflow glue." />
     <link rel="canonical" href="https://www.universalmicroservices.com/contract-driven-orchestration/" />
-    <meta property="og:title" content="Contract-Driven Orchestration | Universal Microservices Architecture" />
-    <meta
-      property="og:description"
-      content="An original guide to contract-driven orchestration in UMA: events create governed bindings, policies shape execution, and telemetry keeps the flow auditable."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Contract-Driven Orchestration" />
+    <meta property="og:description" content="Learn how contract-driven orchestration works in UMA, where events, policies, and metadata shape execution without hardcoded workflow glue." />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/contract-driven-orchestration/" />
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Contract-Driven Orchestration",
-  "description": "An original explanation of contract-driven orchestration in Universal Microservices Architecture and why governed bindings, policy-aware execution, and telemetry make orchestration more visible than hardcoded process glue.",
-  "url": "https://www.universalmicroservices.com/contract-driven-orchestration/",
-  "author": {
-    "@type": "Person",
-    "name": "Enrico Piovesan"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Universal Microservices Architecture"
-  },
-  "mainEntityOfPage": "https://www.universalmicroservices.com/contract-driven-orchestration/"
-}
-    </script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Contract-Driven Orchestration","item":"https://www.universalmicroservices.com/contract-driven-orchestration/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Contract-Driven Orchestration","description":"Learn how contract-driven orchestration works in UMA, where events, policies, and metadata shape execution without hardcoded workflow glue.","url":"https://www.universalmicroservices.com/contract-driven-orchestration/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -60,35 +38,60 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-short-answer">The short answer</a></li><li><a href="#why-contracts-matter-more-than-glue-code">Why contracts matter more than glue code</a></li><li><a href="#how-events-and-subscriptions-create-the-path">How events and subscriptions create the path</a>
+    <ul class="page-rail-links">
+      <li><a href="#contracts-define-possibilities">Contracts define possibilities</a></li><li><a href="#policies-shape-execution">Policies shape execution</a></li><li><a href="#telemetry-proves-behavior">Telemetry proves behavior</a></li><li><a href="#determinism-still-matters">Determinism still matters</a></li>
+    </ul></li><li><a href="#why-policy-belongs-inside-the-orchestration-path">Why policy belongs inside the orchestration path</a></li><li><a href="#why-telemetry-matters-here">Why telemetry matters here</a></li><li><a href="#what-this-is-not">What this is not</a></li><li><a href="#a-practical-design-test">A practical design test</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#is-contract-driven-orchestration-the-same-as-event-driven-architecture">Is contract-driven orchestration the same as event-driven architecture?</a></li><li><a href="#does-this-remove-the-need-for-a-workflow-model">Does this remove the need for a workflow model?</a></li><li><a href="#why-is-telemetry-part-of-the-concept-instead-of-a-later-operational-topic">Why is telemetry part of the concept instead of a later operational topic?</a></li>
+    </ul></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">Contract-Driven Orchestration</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>Contract-driven orchestration</h1>
           <p>
             In UMA, orchestration becomes more durable when it emerges from contracts, events, metadata, and policy instead of being
@@ -96,9 +99,9 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section>
-            <h2>The short answer</h2>
+            <h2 id="the-short-answer">The short answer</h2>
             <p>
               Contract-driven orchestration means the runtime uses declared event and capability relationships to create the execution path,
               rather than relying on a hand-wired chain of process calls. The contracts describe what can emit, what can subscribe, and
@@ -112,7 +115,7 @@
           </section>
 
           <section>
-            <h2>Why contracts matter more than glue code</h2>
+            <h2 id="why-contracts-matter-more-than-glue-code">Why contracts matter more than glue code</h2>
             <p>
               A hardcoded workflow can still work, but it tends to make orchestration fragile and stack-bound. The orchestration logic
               becomes a private implementation detail rather than a visible architectural fact. Contracts change that. They make the
@@ -125,7 +128,7 @@
           </section>
 
           <section>
-            <h2>How events and subscriptions create the path</h2>
+            <h2 id="how-events-and-subscriptions-create-the-path">How events and subscriptions create the path</h2>
             <p>
               In a contract-driven model, emitted events are not just messages flying around the system. They are declared architectural
               signals that other capabilities can subscribe to under known conditions. That makes orchestration feel less like a hidden
@@ -139,25 +142,25 @@
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3>Contracts define possibilities</h3>
+              <h3 id="contracts-define-possibilities">Contracts define possibilities</h3>
               <p>The system can see what may emit, what may subscribe, and what compatibility rules shape the flow.</p>
             </article>
             <article class="subpage-card">
-              <h3>Policies shape execution</h3>
+              <h3 id="policies-shape-execution">Policies shape execution</h3>
               <p>Execution mode can change without rewriting the services themselves because policy stays in the runtime path.</p>
             </article>
             <article class="subpage-card">
-              <h3>Telemetry proves behavior</h3>
+              <h3 id="telemetry-proves-behavior">Telemetry proves behavior</h3>
               <p>Evidence about bindings, validation, and subscriber execution keeps orchestration auditable.</p>
             </article>
             <article class="subpage-card">
-              <h3>Determinism still matters</h3>
+              <h3 id="determinism-still-matters">Determinism still matters</h3>
               <p>A governed orchestration path should remain repeatable enough to inspect and verify under the same conditions.</p>
             </article>
           </section>
 
           <section>
-            <h2>Why policy belongs inside the orchestration path</h2>
+            <h2 id="why-policy-belongs-inside-the-orchestration-path">Why policy belongs inside the orchestration path</h2>
             <p>
               Policy is most useful when it shapes execution at the moment orchestration becomes real. If policy is only an external
               review step, the system can still drift toward undocumented local behavior. When policy stays in the path, the runtime can
@@ -170,7 +173,7 @@
           </section>
 
           <section>
-            <h2>Why telemetry matters here</h2>
+            <h2 id="why-telemetry-matters-here">Why telemetry matters here</h2>
             <p>
               Telemetry is often treated as a later operational concern. In contract-driven orchestration, it becomes architectural
               evidence. If the runtime creates a binding, validates an event, dispatches a subscriber, or changes behavior because of
@@ -183,7 +186,7 @@
           </section>
 
           <section>
-            <h2>What this is not</h2>
+            <h2 id="what-this-is-not">What this is not</h2>
             <ul>
               <li>It is not a claim that every workflow should be fully dynamic.</li>
               <li>It is not an argument against simple deterministic flows.</li>
@@ -194,7 +197,7 @@
           </section>
 
           <section>
-            <h2>A practical design test</h2>
+            <h2 id="a-practical-design-test">A practical design test</h2>
             <p>
               Ask whether your system can explain why a particular binding existed. Was it declared through contracts and metadata? Was it
               allowed by policy? Can the runtime show evidence that it validated and dispatched the path intentionally? If not, the system
@@ -207,18 +210,18 @@
           </section>
 
           <section>
-            <h2>Frequently asked questions</h2>
-            <h3>Is contract-driven orchestration the same as event-driven architecture?</h3>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="is-contract-driven-orchestration-the-same-as-event-driven-architecture">Is contract-driven orchestration the same as event-driven architecture?</h3>
             <p>
               Not exactly. Events are part of it, but the important UMA distinction is that contracts, policies, and runtime validation
               keep the event relationships governed instead of implicit.
             </p>
-            <h3>Does this remove the need for a workflow model?</h3>
+            <h3 id="does-this-remove-the-need-for-a-workflow-model">Does this remove the need for a workflow model?</h3>
             <p>
               No. It changes how the workflow becomes real. The path is no longer just a handwritten chain; it is something the runtime can
               justify from the declared relationships.
             </p>
-            <h3>Why is telemetry part of the concept instead of a later operational topic?</h3>
+            <h3 id="why-is-telemetry-part-of-the-concept-instead-of-a-later-operational-topic">Why is telemetry part of the concept instead of a later operational topic?</h3>
             <p>
               Because telemetry is what turns orchestration into evidence. Without it, teams are left trusting the flow rather than being
               able to inspect it.
@@ -245,7 +248,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>

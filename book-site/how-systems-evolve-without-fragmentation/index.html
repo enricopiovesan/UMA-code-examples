@@ -4,55 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>How Do Systems Evolve Without Fragmentation? | Universal Microservices Architecture</title>
-    <meta
-      name="description"
-      content="Learn how UMA keeps systems evolving without fragmentation by making drift, duplication, version coexistence, and runtime governance explicit."
-    />
+    <meta name="description" content="Learn how UMA keeps systems evolving without fragmentation by making drift, duplication, version coexistence, and runtime governance explicit." />
     <link rel="canonical" href="https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/" />
-    <meta property="og:title" content="How Do Systems Evolve Without Fragmentation? | Universal Microservices Architecture" />
-    <meta
-      property="og:description"
-      content="An original guide to keeping software evolution governed: from behavioral drift and duplication to version sprawl and runtime-governed coexistence."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Do Systems Evolve Without Fragmentation?" />
+    <meta property="og:description" content="Learn how UMA keeps systems evolving without fragmentation by making drift, duplication, version coexistence, and runtime governance explicit." />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/" />
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How Do Systems Evolve Without Fragmentation?",
-  "description": "An original explanation of how systems can keep changing without splitting apart, focused on drift, duplication, version sprawl, and runtime-governed coexistence.",
-  "url": "https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/",
-  "author": {
-    "@type": "Person",
-    "name": "Enrico Piovesan"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Universal Microservices Architecture"
-  },
-  "mainEntityOfPage": "https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/"
-}
-    </script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"How Do Systems Evolve Without Fragmentation?","item":"https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"How Do Systems Evolve Without Fragmentation?","description":"Learn how UMA keeps systems evolving without fragmentation by making drift, duplication, version coexistence, and runtime governance explicit.","url":"https://www.universalmicroservices.com/how-systems-evolve-without-fragmentation/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -60,35 +38,60 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-short-answer">The short answer</a></li><li><a href="#why-fragmentation-happens-gradually">Why fragmentation happens gradually</a>
+    <ul class="page-rail-links">
+      <li><a href="#drift-starts-with-meaning">Drift starts with meaning</a></li><li><a href="#duplication-multiplies-drift">Duplication multiplies drift</a></li><li><a href="#versioning-needs-rules">Versioning needs rules</a></li><li><a href="#recovery-should-be-governed">Recovery should be governed</a></li>
+    </ul></li><li><a href="#what-drift-looks-like-before-a-system-is-obviously-broken">What drift looks like before a system is obviously broken</a></li><li><a href="#why-contracts-matter-more-during-change-than-at-launch">Why contracts matter more during change than at launch</a></li><li><a href="#when-versioning-helps-and-when-it-makes-things-worse">When versioning helps and when it makes things worse</a></li><li><a href="#why-runtime-governed-coexistence-matters">Why runtime-governed coexistence matters</a></li><li><a href="#a-practical-progression-to-watch-for">A practical progression to watch for</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#does-evolving-without-fragmentation-mean-avoiding-change">Does evolving without fragmentation mean avoiding change?</a></li><li><a href="#is-duplication-always-wrong">Is duplication always wrong?</a></li><li><a href="#do-i-need-a-rewrite-to-recover-coherence">Do I need a rewrite to recover coherence?</a></li>
+    </ul></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">How Do Systems Evolve Without Fragmentation?</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>How do systems evolve without fragmentation?</h1>
           <p>
             Systems rarely fragment because one team chooses chaos on purpose. They fragment because small, locally sensible changes keep
@@ -97,9 +100,9 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section>
-            <h2>The short answer</h2>
+            <h2 id="the-short-answer">The short answer</h2>
             <p>
               A system evolves without fragmentation when change stays anchored to explicit behavior, visible compatibility, and governed
               coexistence. The architecture needs a way to absorb drift, versioning, and brownfield constraints without letting each local
@@ -112,7 +115,7 @@
           </section>
 
           <section>
-            <h2>Why fragmentation happens gradually</h2>
+            <h2 id="why-fragmentation-happens-gradually">Why fragmentation happens gradually</h2>
             <p>
               Most systems do not jump from coherence to fragmentation in one release. They slide there through a sequence that looks
               reasonable up close: one consumer interprets behavior differently, one team duplicates an implementation to move faster, one
@@ -127,25 +130,25 @@
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3>Drift starts with meaning</h3>
+              <h3 id="drift-starts-with-meaning">Drift starts with meaning</h3>
               <p>Two components can still look compatible in shape while quietly diverging in what they mean by the same behavior.</p>
             </article>
             <article class="subpage-card">
-              <h3>Duplication multiplies drift</h3>
+              <h3 id="duplication-multiplies-drift">Duplication multiplies drift</h3>
               <p>Copying behavior into parallel implementations often solves a short-term problem while creating two futures to govern.</p>
             </article>
             <article class="subpage-card">
-              <h3>Versioning needs rules</h3>
+              <h3 id="versioning-needs-rules">Versioning needs rules</h3>
               <p>Multiple versions can coexist safely only when the runtime can explain who may use what and under which conditions.</p>
             </article>
             <article class="subpage-card">
-              <h3>Recovery should be governed</h3>
+              <h3 id="recovery-should-be-governed">Recovery should be governed</h3>
               <p>Healthy recovery does not always mean a rewrite. It often means clearer contracts and stronger runtime approval.</p>
             </article>
           </section>
 
           <section>
-            <h2>What drift looks like before a system is obviously broken</h2>
+            <h2 id="what-drift-looks-like-before-a-system-is-obviously-broken">What drift looks like before a system is obviously broken</h2>
             <p>
               Drift usually appears before any full outage. A report still renders, but one region uses different semantics. A workflow
               still completes, but only because several compatibility assumptions remain tribal knowledge. A service still answers, but the
@@ -158,7 +161,7 @@
           </section>
 
           <section>
-            <h2>Why contracts matter more during change than at launch</h2>
+            <h2 id="why-contracts-matter-more-during-change-than-at-launch">Why contracts matter more during change than at launch</h2>
             <p>
               Contracts are often treated as launch-time artifacts. In practice, they become more valuable after the system has been in the
               wild for a while. They give the architecture a reference point for deciding whether behavior is still the same behavior, or
@@ -171,7 +174,7 @@
           </section>
 
           <section>
-            <h2>When versioning helps and when it makes things worse</h2>
+            <h2 id="when-versioning-helps-and-when-it-makes-things-worse">When versioning helps and when it makes things worse</h2>
             <p>
               Versioning is not the enemy. Ungoverned versioning is. Keeping two versions alive for a while can be entirely reasonable if
               the system knows which consumers are compatible, which policies apply, and how coexistence will eventually narrow back toward
@@ -184,7 +187,7 @@
           </section>
 
           <section>
-            <h2>Why runtime-governed coexistence matters</h2>
+            <h2 id="why-runtime-governed-coexistence-matters">Why runtime-governed coexistence matters</h2>
             <p>
               The strongest recovery pattern is often not “replace everything now.” It is “make coexistence explicit and govern it.” That
               means the runtime can resolve which implementation is valid for which consumer, which rules still hold, and what evidence
@@ -198,7 +201,7 @@
           </section>
 
           <section>
-            <h2>A practical progression to watch for</h2>
+            <h2 id="a-practical-progression-to-watch-for">A practical progression to watch for</h2>
             <ol>
               <li>One contract clearly anchors the behavior.</li>
               <li>Different consumers start stretching that meaning.</li>
@@ -214,18 +217,18 @@
           </section>
 
           <section>
-            <h2>Frequently asked questions</h2>
-            <h3>Does evolving without fragmentation mean avoiding change?</h3>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="does-evolving-without-fragmentation-mean-avoiding-change">Does evolving without fragmentation mean avoiding change?</h3>
             <p>
               No. It means avoiding change that multiplies hidden meanings faster than the architecture can govern them. Healthy evolution is
               still active change, not stasis.
             </p>
-            <h3>Is duplication always wrong?</h3>
+            <h3 id="is-duplication-always-wrong">Is duplication always wrong?</h3>
             <p>
               Not automatically. The issue is whether duplication is temporary, visible, and governed, or whether it becomes a quiet second
               source of truth that keeps drifting.
             </p>
-            <h3>Do I need a rewrite to recover coherence?</h3>
+            <h3 id="do-i-need-a-rewrite-to-recover-coherence">Do I need a rewrite to recover coherence?</h3>
             <p>
               Not always. Many systems recover by clarifying contracts, making coexistence explicit, and moving final authority into the
               runtime instead of leaving it in informal coordination.
@@ -252,7 +255,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>

@@ -3,38 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trust Boundaries in UMA</title>
-    <meta
-      name="description"
-      content="Learn why trust boundaries matter in Universal Microservices Architecture and how identity, permissions, provenance, and runtime policy shape safe execution."
-    />
+    <title>Trust Boundaries in UMA | Universal Microservices Architecture</title>
+    <meta name="description" content="Learn why trust boundaries matter in Universal Microservices Architecture and how identity, permissions, provenance, and runtime policy shape safe execution." />
     <link rel="canonical" href="https://www.universalmicroservices.com/trust-boundaries/" />
     <meta property="og:title" content="Trust Boundaries in UMA" />
-    <meta
-      property="og:description"
-      content="An original overview of trust boundaries in Universal Microservices Architecture, focused on identity, permissions, provenance, and runtime enforcement."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Learn why trust boundaries matter in Universal Microservices Architecture and how identity, permissions, provenance, and runtime policy shape safe execution." />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/trust-boundaries/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Trust Boundaries in UMA","item":"https://www.universalmicroservices.com/trust-boundaries/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Trust Boundaries in UMA","description":"Learn why trust boundaries matter in Universal Microservices Architecture and how identity, permissions, provenance, and runtime policy shape safe execution.","url":"https://www.universalmicroservices.com/trust-boundaries/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -42,35 +38,60 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#why-trust-cannot-be-added-later">Why trust cannot be added later</a></li><li><a href="#what-a-trust-boundary-means-in-uma">What a trust boundary means in UMA</a>
+    <ul class="page-rail-links">
+      <li><a href="#identity">Identity</a></li><li><a href="#permissions">Permissions</a></li><li><a href="#provenance">Provenance</a></li><li><a href="#runtime-enforcement">Runtime enforcement</a></li>
+    </ul></li><li><a href="#why-this-is-architectural-not-operational">Why this is architectural, not operational</a></li><li><a href="#what-governed-execution-means">What governed execution means</a></li><li><a href="#why-undeclared-permissions-should-fail-early">Why undeclared permissions should fail early</a></li><li><a href="#why-dependency-provenance-is-architectural">Why dependency provenance is architectural</a></li><li><a href="#why-compatibility-is-not-the-same-as-authorization">Why compatibility is not the same as authorization</a></li><li><a href="#why-trust-becomes-harder-in-portable-systems">Why trust becomes harder in portable systems</a></li><li><a href="#where-teams-usually-go-wrong">Where teams usually go wrong</a></li><li><a href="#what-good-trust-design-looks-like">What good trust design looks like</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#why-are-trust-boundaries-more-important-in-portable-systems">Why are trust boundaries more important in portable systems?</a></li><li><a href="#can-trust-be-delegated-entirely-to-the-platform-team">Can trust be delegated entirely to the platform team?</a></li><li><a href="#can-a-service-be-valid-and-still-be-denied">Can a service be valid and still be denied?</a></li>
+    </ul></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">Trust Boundaries in UMA</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>Trust boundaries in UMA</h1>
           <p>
             Portability only works in production if trust remains explicit. Universal Microservices Architecture treats identity,
@@ -79,9 +100,9 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section>
-            <h2>Why trust cannot be added later</h2>
+            <h2 id="why-trust-cannot-be-added-later">Why trust cannot be added later</h2>
             <p>
               When a service moves between hosts, runtimes, and execution contexts, the questions change quickly. What is allowed to run?
               What is allowed to call what? Which capabilities can be used, and under which policy? If those answers do not live in the
@@ -95,7 +116,7 @@
           </section>
 
           <section>
-            <h2>What a trust boundary means in UMA</h2>
+            <h2 id="what-a-trust-boundary-means-in-uma">What a trust boundary means in UMA</h2>
             <p>
               A trust boundary is the point where the system decides what a portable service is allowed to do, what it is allowed to access,
               and under which identity it is allowed to execute. In UMA, that boundary is not assumed from the deployment environment. It is
@@ -114,25 +135,25 @@
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3>Identity</h3>
+              <h3 id="identity">Identity</h3>
               <p>Each portable unit needs a stable identity so the system can reason about what is being executed.</p>
             </article>
             <article class="subpage-card">
-              <h3>Permissions</h3>
+              <h3 id="permissions">Permissions</h3>
               <p>Capabilities should be declared and enforced deliberately instead of being inherited from the host by accident.</p>
             </article>
             <article class="subpage-card">
-              <h3>Provenance</h3>
+              <h3 id="provenance">Provenance</h3>
               <p>The architecture needs a story for where the executable unit came from and why it is trusted.</p>
             </article>
             <article class="subpage-card">
-              <h3>Runtime enforcement</h3>
+              <h3 id="runtime-enforcement">Runtime enforcement</h3>
               <p>Trust boundaries only matter when the runtime can explain, apply, and audit the policy consistently.</p>
             </article>
           </section>
 
           <section>
-            <h2>Why this is architectural, not operational</h2>
+            <h2 id="why-this-is-architectural-not-operational">Why this is architectural, not operational</h2>
             <p>
               Teams often treat trust as a platform concern that appears after the software already exists. UMA makes the opposite choice.
               It treats trust as part of the design of the system itself, because portability without governance creates invisible risk.
@@ -144,7 +165,7 @@
           </section>
 
           <section>
-            <h2>What governed execution means</h2>
+            <h2 id="what-governed-execution-means">What governed execution means</h2>
             <p>
               Governed execution means the runtime can explain why a capability was allowed, denied, or adapted in a particular way. The
               important part is not only that the policy exists, but that it remains visible and reviewable as part of the system model.
@@ -157,7 +178,7 @@
           </section>
 
           <section>
-            <h2>Why undeclared permissions should fail early</h2>
+            <h2 id="why-undeclared-permissions-should-fail-early">Why undeclared permissions should fail early</h2>
             <p>
               A portable service should not gain new powers just because it arrived in a more permissive environment. If the service needs
               access to a capability, that need should be declared clearly enough that the runtime can validate it before execution begins.
@@ -170,7 +191,7 @@
           </section>
 
           <section>
-            <h2>Why dependency provenance is architectural</h2>
+            <h2 id="why-dependency-provenance-is-architectural">Why dependency provenance is architectural</h2>
             <p>
               Dependency provenance is often treated as compliance paperwork or supply-chain hygiene outside the architecture itself. UMA
               treats it differently. If the runtime cannot explain where a service or one of its critical dependencies came from, trust is
@@ -183,7 +204,7 @@
           </section>
 
           <section>
-            <h2>Why compatibility is not the same as authorization</h2>
+            <h2 id="why-compatibility-is-not-the-same-as-authorization">Why compatibility is not the same as authorization</h2>
             <p>
               Two services can look compatible in shape and still be forbidden to communicate. Matching contracts do not automatically grant
               trust. Communication also depends on policy, identity, placement, and the trust model of the system.
@@ -195,7 +216,7 @@
           </section>
 
           <section>
-            <h2>Why trust becomes harder in portable systems</h2>
+            <h2 id="why-trust-becomes-harder-in-portable-systems">Why trust becomes harder in portable systems</h2>
             <p>
               The more places a service can run, the more important it becomes to define who it is, what it can do, and what evidence the
               runtime needs before it allows execution. Portability increases freedom, but it also increases the need for precise
@@ -208,7 +229,7 @@
           </section>
 
           <section>
-            <h2>Where teams usually go wrong</h2>
+            <h2 id="where-teams-usually-go-wrong">Where teams usually go wrong</h2>
             <ul>
               <li>They assume the host environment will imply the right permissions.</li>
               <li>They treat provenance as an operational concern instead of a runtime input.</li>
@@ -219,7 +240,7 @@
           </section>
 
           <section>
-            <h2>What good trust design looks like</h2>
+            <h2 id="what-good-trust-design-looks-like">What good trust design looks like</h2>
             <p>
               Good trust design starts by naming the executable unit clearly, defining its contracts, and deciding which capabilities it is
               allowed to use. The runtime then enforces those decisions consistently, with identity and provenance visible enough that the
@@ -237,18 +258,18 @@
           </section>
 
           <section>
-            <h2>Frequently asked questions</h2>
-            <h3>Why are trust boundaries more important in portable systems?</h3>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="why-are-trust-boundaries-more-important-in-portable-systems">Why are trust boundaries more important in portable systems?</h3>
             <p>
               Because portable systems cross more execution contexts. The more places a service can run, the more important it becomes to
               define who it is, what it can do, and how the runtime enforces those decisions consistently.
             </p>
-            <h3>Can trust be delegated entirely to the platform team?</h3>
+            <h3 id="can-trust-be-delegated-entirely-to-the-platform-team">Can trust be delegated entirely to the platform team?</h3>
             <p>
               The platform team can implement and operate enforcement, but the architecture still has to define what should be trusted, what
               is allowed, and which runtime inputs matter. Otherwise the platform only enforces an incomplete model.
             </p>
-            <h3>Can a service be valid and still be denied?</h3>
+            <h3 id="can-a-service-be-valid-and-still-be-denied">Can a service be valid and still be denied?</h3>
             <p>
               Yes. A service can match the expected shape and still be denied because it requested undeclared permissions, carries
               untrusted provenance, or attempts communication the trust policy does not allow.
@@ -276,7 +297,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>

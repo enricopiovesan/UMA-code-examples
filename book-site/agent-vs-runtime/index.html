@@ -4,55 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agent vs Runtime in UMA | Universal Microservices Architecture</title>
-    <meta
-      name="description"
-      content="Understand the difference between agents and the runtime in Universal Microservices Architecture: agents propose, the runtime validates, and the system stays governed."
-    />
+    <meta name="description" content="Understand the difference between agents and the runtime in Universal Microservices Architecture: agents propose, the runtime validates, and the system stays governed." />
     <link rel="canonical" href="https://www.universalmicroservices.com/agent-vs-runtime/" />
-    <meta property="og:title" content="Agent vs Runtime in UMA | Universal Microservices Architecture" />
-    <meta
-      property="og:description"
-      content="An original guide to one of the most important UMA ideas: agents can help compose work, but the runtime must remain authoritative."
-    />
-    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Agent vs Runtime in UMA" />
+    <meta property="og:description" content="Understand the difference between agents and the runtime in Universal Microservices Architecture: agents propose, the runtime validates, and the system stays governed." />
+    <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/agent-vs-runtime/" />
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Agent vs Runtime in UMA",
-  "description": "An original explanation of why agents can propose capability paths in UMA while the runtime remains authoritative over validation and execution.",
-  "url": "https://www.universalmicroservices.com/agent-vs-runtime/",
-  "author": {
-    "@type": "Person",
-    "name": "Enrico Piovesan"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Universal Microservices Architecture"
-  },
-  "mainEntityOfPage": "https://www.universalmicroservices.com/agent-vs-runtime/"
-}
-    </script>
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Agent vs Runtime in UMA","item":"https://www.universalmicroservices.com/agent-vs-runtime/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Agent vs Runtime in UMA","description":"Understand the difference between agents and the runtime in Universal Microservices Architecture: agents propose, the runtime validates, and the system stays governed.","url":"https://www.universalmicroservices.com/agent-vs-runtime/","inLanguage":"en"}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
-    <div class="page-shell">
+    <div class="page-shell has-page-rail">
       <header class="topbar">
         <a class="brand" href="../#top">
           <span class="brand-mark">UMA</span>
@@ -60,35 +38,60 @@
             <strong>Universal Microservices Architecture</strong>
           </span>
         </a>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../#why-uma">Why</a>
-          <a href="../#book-arc">What</a>
-          <a href="../#learning-path">How</a>
-          <a href="../#hands-on">Hands-on</a>
-          <a href="../#team-value">Who</a>
-          <a href="../#contacts">Contacts</a>
+          <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
           <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
+
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../#why-uma">Why</a>
-            <a href="../#book-arc">What</a>
-            <a href="../#learning-path">How</a>
-            <a href="../#hands-on">Hands-on</a>
-            <a href="../#team-value">Who</a>
-            <a href="../#contacts">Contacts</a>
+            <a href="../#why-uma">Why</a><a href="../#book-arc">What</a><a href="../#learning-path">How</a><a href="../#hands-on">Hands-on</a><a href="../#team-value">Who</a><a href="../#contacts">Contacts</a>
             <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
           </nav>
         </div>
       </aside>
 
+
+      <aside class="page-rail" aria-label="Page navigation">
+    <nav class="page-rail-block">
+      <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-short-answer">The short answer</a></li><li><a href="#what-an-agent-is-for">What an agent is for</a></li><li><a href="#what-the-runtime-is-for">What the runtime is for</a>
+    <ul class="page-rail-links">
+      <li><a href="#agent-responsibility">Agent responsibility</a></li><li><a href="#runtime-responsibility">Runtime responsibility</a></li><li><a href="#agent-strength">Agent strength</a></li><li><a href="#runtime-strength">Runtime strength</a></li>
+    </ul></li><li><a href="#if-you-remember-one-rule">If you remember one rule</a></li><li><a href="#why-this-distinction-matters-more-with-ai">Why this distinction matters more with AI</a></li><li><a href="#what-goes-wrong-when-the-distinction-disappears">What goes wrong when the distinction disappears</a></li><li><a href="#how-chapter-13-makes-this-visible">How Chapter 13 makes this visible</a></li><li><a href="#a-useful-design-test">A useful design test</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a>
+    <ul class="page-rail-links">
+      <li><a href="#does-uma-require-an-agent">Does UMA require an agent?</a></li><li><a href="#can-an-agent-ever-be-authoritative">Can an agent ever be authoritative?</a></li><li><a href="#why-not-let-the-agent-decide-everything-if-it-performs-well">Why not let the agent decide everything if it performs well?</a></li>
+    </ul></li>
+    </ol>
+    </nav>
+    <nav class="page-rail-block">
+      <h2>Explore UMA</h2>
+      <ul class="page-rail-links">
+        <li><a href="/">home</a></li><li><a href="../book/">book</a></li><li><a href="../examples/">examples</a></li><li><a href="../learning-path/">learning path</a></li><li><a href="../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
+      </ul>
+    </nav>
+
+      </aside>
+
       <main class="subpage-main">
-        <section class="subpage-hero">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../">Home</a></li><li><span aria-current="page">Agent vs Runtime in UMA</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
           <h1>Agent vs runtime in UMA</h1>
           <p>
             One of the easiest ways to misunderstand Universal Microservices Architecture is to assume that once agents enter the picture,
@@ -97,9 +100,9 @@
           </p>
         </section>
 
-        <div class="subpage-body">
+<div class="subpage-body">
           <section>
-            <h2>The short answer</h2>
+            <h2 id="the-short-answer">The short answer</h2>
             <p>
               In UMA, an agent is a reasoning component. It interprets a goal, looks at available capabilities, and proposes a path. The
               runtime is the execution authority. It validates contracts, checks constraints, enforces trust and placement rules, and
@@ -118,7 +121,7 @@
           </section>
 
           <section>
-            <h2>What an agent is for</h2>
+            <h2 id="what-an-agent-is-for">What an agent is for</h2>
             <p>
               Agents are useful when a system has many capabilities and no single fixed workflow fits every situation. They can help
               interpret goals, identify candidate capabilities, rank plausible options, and suggest a sequence that might satisfy the
@@ -132,7 +135,7 @@
           </section>
 
           <section>
-            <h2>What the runtime is for</h2>
+            <h2 id="what-the-runtime-is-for">What the runtime is for</h2>
             <p>
               The runtime exists to turn a capability model into governed execution. It knows what is available, what is compatible, what
               is allowed in the current environment, and what must be rejected even if a proposal looks plausible. It can also explain what
@@ -147,25 +150,25 @@
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3>Agent responsibility</h3>
+              <h3 id="agent-responsibility">Agent responsibility</h3>
               <p>Interpret the goal, explore available capabilities, and propose a plausible path.</p>
             </article>
             <article class="subpage-card">
-              <h3>Runtime responsibility</h3>
+              <h3 id="runtime-responsibility">Runtime responsibility</h3>
               <p>Validate contracts, enforce constraints, and decide whether the proposal can actually run.</p>
             </article>
             <article class="subpage-card">
-              <h3>Agent strength</h3>
+              <h3 id="agent-strength">Agent strength</h3>
               <p>Adaptability, ranking, and dynamic composition when the exact path cannot be fully hardwired in advance.</p>
             </article>
             <article class="subpage-card">
-              <h3>Runtime strength</h3>
+              <h3 id="runtime-strength">Runtime strength</h3>
               <p>Authority, repeatability, evidence, and governance across environments and capability boundaries.</p>
             </article>
           </section>
 
           <section>
-            <h2>If you remember one rule</h2>
+            <h2 id="if-you-remember-one-rule">If you remember one rule</h2>
             <p>
               A good UMA system can benefit from an agent without becoming agent-governed. That is the practical test. If the planner goes
               away, the runtime should still be coherent. If the runtime goes away, the planner should not be trusted to define the system
@@ -179,7 +182,7 @@
           </section>
 
           <section>
-            <h2>Why this distinction matters more with AI</h2>
+            <h2 id="why-this-distinction-matters-more-with-ai">Why this distinction matters more with AI</h2>
             <p>
               AI systems make the agent side more powerful, but they also make the boundary more important. As soon as the planning layer is
               model-driven, it becomes even more dangerous to let the proposal layer silently become the control layer. A strong answer is
@@ -193,7 +196,7 @@
           </section>
 
           <section>
-            <h2>What goes wrong when the distinction disappears</h2>
+            <h2 id="what-goes-wrong-when-the-distinction-disappears">What goes wrong when the distinction disappears</h2>
             <p>
               When teams blur the line between agent and runtime, failures start to look intelligent instead of architectural. A proposal is
               accepted because it seems reasonable, not because it was validated. A capability is invoked because it looked relevant, not
@@ -211,7 +214,7 @@
           </section>
 
           <section>
-            <h2>How Chapter 13 makes this visible</h2>
+            <h2 id="how-chapter-13-makes-this-visible">How Chapter 13 makes this visible</h2>
             <p>
               The Chapter 13 reference experience is useful because it shows this boundary directly instead of leaving it implicit. The
               planner can rank capabilities. The runtime still validates the choice. If a proposed path violates the active rules, the
@@ -229,7 +232,7 @@
           </section>
 
           <section>
-            <h2>A useful design test</h2>
+            <h2 id="a-useful-design-test">A useful design test</h2>
             <p>
               If you want to know whether your system is treating agents and runtimes clearly, ask a simple question: if the planner proposes
               a valid-looking but disallowed path, what enforces the rejection? If the answer is unclear, the architecture probably needs a
@@ -243,18 +246,18 @@
           </section>
 
           <section>
-            <h2>Frequently asked questions</h2>
-            <h3>Does UMA require an agent?</h3>
+            <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+            <h3 id="does-uma-require-an-agent">Does UMA require an agent?</h3>
             <p>
               No. UMA does not require an agent in order to be coherent. A system can still use explicit workflows, fixed capability
               selection, and strong runtime governance. Agents become useful when the system needs dynamic selection or proposal behavior.
             </p>
-            <h3>Can an agent ever be authoritative?</h3>
+            <h3 id="can-an-agent-ever-be-authoritative">Can an agent ever be authoritative?</h3>
             <p>
               It can feel authoritative at the product layer, but in a governed UMA system it should still pass through runtime approval.
               Otherwise the system loses the architectural distinction that keeps dynamic planning from turning into hidden control.
             </p>
-            <h3>Why not let the agent decide everything if it performs well?</h3>
+            <h3 id="why-not-let-the-agent-decide-everything-if-it-performs-well">Why not let the agent decide everything if it performs well?</h3>
             <p>
               Because performance and authority are different concerns. A planner may often suggest a good path, but a governed system still
               needs explicit validation, trust enforcement, and reproducible approval. Those are runtime responsibilities, not prompt
@@ -284,7 +287,6 @@
         <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
-
     <script src="../app.js" type="module"></script>
   </body>
 </html>
