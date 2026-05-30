@@ -40,6 +40,8 @@ It defines semantic page groups, not HTML output.
 - `architecture-drift-and-portable-business-logic`
 - `webassembly-architecture`
 - `webassembly-microservices-architecture`
+- `wasm-microservices-tutorial-rust`
+- `wasm-microservices-tutorial-typescript`
 - `migrating-to-uma-incrementally`
 - `incremental-uma-adoption`
 - `uma-production-readiness`
