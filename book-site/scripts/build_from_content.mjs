@@ -509,6 +509,71 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     });
   }
 
+  // WebSite schema — on every page as the site identity anchor
+  scripts.push({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.universalmicroservices.com/#website",
+    "name": "Universal Microservices Architecture",
+    "url": "https://www.universalmicroservices.com/",
+    "description": "Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.",
+    "inLanguage": "en",
+    "publisher": {
+      "@type": "Person",
+      "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
+      "name": "Enrico Piovesan"
+    }
+  });
+
+  // Book schema — on the /learn-uma/book/ page
+  if (meta.ref === "book" || meta.slug === "book") {
+    scripts.push({
+      "@context": "https://schema.org",
+      "@type": "Book",
+      "@id": "https://www.universalmicroservices.com/learn-uma/book/#book",
+      "name": "Universal Microservices Architecture",
+      "url": "https://www.universalmicroservices.com/learn-uma/book/",
+      "description": "A practical guide for architects and senior engineers on building portable, coherent distributed systems using Universal Microservices Architecture with WebAssembly and MCP.",
+      "inLanguage": "en",
+      "bookFormat": "https://schema.org/EBook",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
+        "name": "Enrico Piovesan"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4",
+        "seller": { "@type": "Organization", "name": "Amazon" },
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "USD"
+      },
+      "about": [
+        { "@type": "Thing", "name": "Microservices Architecture" },
+        { "@type": "Thing", "name": "WebAssembly" },
+        { "@type": "Thing", "name": "Distributed Systems" }
+      ]
+    });
+  }
+
+  // Person schema — on the /discoverability/about-enrico/ page
+  if (meta.ref === "about-enrico" || meta.slug === "about-enrico") {
+    scripts.push({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
+      "name": "Enrico Piovesan",
+      "url": "https://www.universalmicroservices.com/discoverability/about-enrico/",
+      "jobTitle": "Platform Software Architect",
+      "description": "Platform software architect with more than two decades of experience building modular, cloud-native, and event-driven systems. Author of Universal Microservices Architecture.",
+      "knowsAbout": ["Microservices Architecture", "WebAssembly", "Distributed Systems", "Cloud-Native Architecture"],
+      "sameAs": [
+        "https://medium.com/@enrico.piovesan",
+        "https://github.com/enricopiovesan"
+      ]
+    });
+  }
+
   return scripts
     .map((script) => `<script type="application/ld+json">${JSON.stringify(script)}</script>`)
     .join("\n    ");
@@ -536,15 +601,19 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     <meta property="og:description" content="${description}" />
     <meta property="og:type" content="${ogType}" />
     <meta property="og:url" content="${ogUrl}" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
     ${structuredData}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="${prefix}styles.css" />
     <link rel="stylesheet" href="${prefix}subpages.css" />
-    <link rel="icon" href="${prefix}favicon.png" type="image/png" sizes="64x64" />
-    <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
     <script>

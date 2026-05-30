@@ -1,20 +1,25 @@
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 User-agent: *
 Allow: /
-Allow: /active-descriptors/
-Allow: /late-bound-policy-enforcement/
-Allow: /runtime-provenance-and-trust/
-Allow: /ai-native-runtime-governance/
-Allow: /incremental-uma-adoption/
-Allow: /architecture-drift-and-portable-business-logic/
-Allow: /what-is-a-universal-microservice/
-Allow: /why-universal-microservices-exist/
-Allow: /migrating-to-uma-incrementally/
-Allow: /uma-production-readiness/
-Allow: /uma-vs-serverless/
-Allow: /uma-vs-modular-monolith/
-Allow: /common-criticisms-and-tradeoffs-of-uma/
-Allow: /end-to-end-feature-flag-example/
-Allow: /examples/
-Allow: /assets/
 
 Sitemap: https://www.universalmicroservices.com/sitemap.xml

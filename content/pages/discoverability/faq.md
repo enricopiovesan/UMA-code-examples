@@ -107,12 +107,6 @@ related_refs:
               WebAssembly matters because it gives portable service behavior a compact, sandboxed execution target that is easier to move
               between environments. It does not define the whole model by itself, but it makes runtime portability more practical.
             </p>
-            <h3>What belongs in the runtime layer?</h3>
-            <p>
-              The runtime layer owns the concerns around the service rather than the core behavior inside it. Validation, policy decisions,
-              adapter binding, host capability access, transport, observability, and trust enforcement belong in the runtime because they
-              vary by environment.
-            </p>
             <h3>How do I prove portability instead of assuming it?</h3>
             <p>
               Portability should be validated with evidence. Run the same service behavior in more than one runtime target, compare the

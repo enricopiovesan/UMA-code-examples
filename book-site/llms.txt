@@ -1,0 +1,32 @@
+# Universal Microservices Architecture
+
+> Book and reference site on portable microservices, WebAssembly, MCP, and runtime-agnostic architecture. Author: Enrico Piovesan.
+
+Universal Microservices Architecture (UMA) is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. It keeps service behavior portable while making contracts, runtime policy, trust, and execution boundaries explicit.
+
+## Key pages
+
+- /discoverability/faq/: Full FAQ — definitions, comparisons, adoption guidance (28 Q&A pairs)
+- /core-model/: Core vocabulary — capabilities, workflows, runtimes, active descriptors
+- /why-uma/: Architectural motivation and problem framing
+- /how-uma-works/: How portability, runtime placement, and adoption work in practice
+- /proof/: Evidence-based portability proofs and benchmark data
+- /evolve-uma/: System evolution, contract-driven orchestration, trust boundaries
+- /comparisons/: UMA vs serverless, microservices, modular monolith
+- /learn-uma/book/: The book — available on Amazon
+- /discoverability/about-enrico/: About the author, Enrico Piovesan
+- /examples/: Chapter-aligned runnable code labs (chapters 4–13)
+
+## Key concepts
+
+- Universal Microservice: a service whose behavior is portable across runtimes
+- Capability: the unit the runtime can discover and reason about
+- Workflow: the runtime-approved execution path through one or more capabilities
+- Active Descriptor: the visible discovery surface exposing capabilities to the runtime
+- Late-Bound Policy Enforcement: runtime-enforced constraints evaluated at execution time, not at build time
+
+## External
+
+- Book on Amazon: https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4
+- Code examples on GitHub: https://github.com/enricopiovesan/UMA-code-examples
+- Blog on Medium: https://medium.com/the-rise-of-device-independent-architecture

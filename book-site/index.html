@@ -3,31 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Universal Microservices Architecture | Device-Independent Modeling for Modern Software Design with WASM</title>
-    <meta
-      name="description"
-      content="Universal Microservices Architecture: Device-Independent Modeling for Modern Software Design with WASM. A book and runnable learning path for portable, modular, runtime-agnostic software design."
-    />
+    <title>Universal Microservices Architecture — Portable, WASM-Native Design</title>
+    <meta name="description" content="The architecture book for portable, runtime-agnostic distributed systems with WASM and MCP. For senior software engineers and architects." />
     <link rel="canonical" href="https://www.universalmicroservices.com/" />
+    <meta property="og:title" content="Universal Microservices Architecture" />
+    <meta property="og:description" content="The architecture book for portable, runtime-agnostic distributed systems with WASM and MCP. For senior software engineers and architects." />
+    <meta property="og:type" content="book" />
     <meta property="og:url" content="https://www.universalmicroservices.com/" />
-    <link rel="icon" href="./favicon.png" type="image/png" sizes="64x64" />
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":"https://www.universalmicroservices.com/learn-uma/book/#book","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/learn-uma/book/","description":"A practical guide for architects and senior engineers on building portable, coherent distributed systems using Universal Microservices Architecture with WebAssembly and MCP.","inLanguage":"en","bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"},"offers":{"@type":"Offer","url":"https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4","seller":{"@type":"Organization","name":"Amazon"},"availability":"https://schema.org/InStock","priceCurrency":"USD"},"about":[{"@type":"Thing","name":"Microservices Architecture"},{"@type":"Thing","name":"WebAssembly"},{"@type":"Thing","name":"Distributed Systems"}]}</script>
+    <link rel="preload" as="image" href="./assets/cover.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-J5ZJHZ3D5E");
-  </script>
-</head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
   <body>
     <div class="page-shell">
       <header class="topbar">
@@ -79,7 +84,7 @@
       <main id="top">
         <section class="hero section">
           <div class="hero-copy">
-            <h1>Universal<br />Microservices<br />Architecture</h1>
+            <h1>Universal Microservices Architecture</h1>
             <p class="hero-subtitle">Device-Independent Modeling for Modern Software Design with WASM</p>
             <p class="lede">
               Modern systems now execute across browser, edge, backend, workflows, and AI-assisted flows. UMA is an execution model for
@@ -94,7 +99,7 @@
 
           <div class="hero-visual" aria-hidden="true">
             <div class="cover-frame">
-              <img src="./assets/cover.png" alt="Universal Microservices Architecture book cover" />
+              <img src="./assets/cover.png" alt="Universal Microservices Architecture book cover" width="400" height="560" fetchpriority="high" />
             </div>
             <div class="cta-row hero-cover-actions">
               <a class="button button-primary" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
@@ -108,7 +113,7 @@
             <div class="statement-copy">
               <h2 class="quote-display">Build <span class="quote-accent">portable</span>, runtime-agnostic systems without duplicating business logic across platforms.</h2>
               <div class="statement-image" aria-hidden="true">
-                <img src="./assets/home-quote-1.jpg" alt="" />
+                <img src="./assets/home-quote-1.jpg" alt="" width="800" height="500" loading="lazy" />
               </div>
             </div>
           </div>
@@ -348,7 +353,7 @@
           </div>
           <div class="tutorial-hero">
             <div class="tutorial-hero-image" aria-hidden="true">
-              <img src="./assets/home-quote-2.jpg" alt="" />
+              <img src="./assets/home-quote-2.jpg" alt="" width="800" height="500" loading="lazy" />
             </div>
             <h2 class="quote-display tutorial-quote">
               Follow the <span class="quote-accent">tutorials</span><br />
@@ -452,7 +457,7 @@
           </div>
           <div class="proof-hero">
             <div class="proof-quote-image" aria-hidden="true">
-              <img src="./assets/home-quote-3.jpg" alt="" />
+              <img src="./assets/home-quote-3.jpg" alt="" width="800" height="500" loading="lazy" />
             </div>
             <h2 class="quote-display proof-quote">
               From architecture to <span class="quote-accent">execution.</span>
