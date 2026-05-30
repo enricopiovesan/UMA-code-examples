@@ -14,16 +14,12 @@ const MACRO_NAV_LINKS = [
   ["How UMA Works", "how-uma-works/"],
   ["Learn UMA", "learn-uma/"],
   ["Proof", "proof/"],
-  ["Examples", "examples/"],
-  ["System Evolution", "evolve-uma/"],
-  ["Discoverability", "discoverability/"],
+  ["Evolution", "evolve-uma/"],
   ["Comparisons", "comparisons/"],
 ];
 
 const HEADER_UTILITY_LINKS = [
-  ["Ref App", "https://www.universalmicroservices.com/reference-application/"],
-  ["GitHub", "https://github.com/enricopiovesan/UMA-code-examples"],
-  ["Blog", "https://medium.com/the-rise-of-device-independent-architecture"],
+  ["Ref App", "reference-application/"],
 ];
 
 function escapeHtml(text) {
@@ -632,11 +628,9 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
   <body>
     <div class="page-shell has-page-rail">
       <header class="topbar">
-        <a class="brand" href="${prefix}#top">
+        <a class="brand" href="${prefix}">
           <span class="brand-mark">UMA</span>
-          <span class="brand-copy">
-            <strong>Universal Microservices Architecture</strong>
-          </span>
+          <span class="brand-name">Universal Microservices Architecture</span>
         </a>
 ${renderTopNav(prefix)}
       </header>

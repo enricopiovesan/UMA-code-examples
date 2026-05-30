@@ -109,27 +109,19 @@ a {
   letter-spacing: 0.12em;
 }
 
-.brand-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.brand-copy strong {
-  font-size: 0.96rem;
+.brand-name {
+  font-size: 0.88rem;
   font-weight: 500;
-}
-
-.brand-copy small {
-  color: var(--muted);
-  font-size: 0.74rem;
+  color: var(--text);
+  white-space: nowrap;
 }
 
 .topnav {
   display: inline-flex;
-  flex-wrap: wrap;
-  gap: 14px;
+  flex-wrap: nowrap;
+  gap: 10px;
   margin-left: auto;
+  align-items: center;
 }
 
 .topnav a {
@@ -1536,7 +1528,7 @@ h3 {
     order: 2;
   }
 
-  .brand-copy {
+  .brand-name {
     display: none;
   }
 
