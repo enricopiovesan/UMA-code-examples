@@ -4,7 +4,7 @@
 
 .page-shell.has-page-rail {
   display: grid;
-  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(300px, 400px);
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
   column-gap: 28px;
   align-items: start;
 }
@@ -23,14 +23,6 @@
   background: rgba(255, 255, 255, 0.02);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
   z-index: 2;
-}
-
-.page-shell.has-page-rail > .page-rail--related {
-  grid-column: 1;
-}
-
-.page-shell.has-page-rail > .page-rail--macro {
-  grid-column: 3;
 }
 
 .page-shell.has-page-rail > .subpage-main {
@@ -170,15 +162,6 @@
 .page-rail-outline a:hover,
 .page-rail-links a:hover {
   color: var(--accent);
-}
-
-.page-shell.has-page-rail > .page-rail--macro .page-rail-links a {
-  font-size: 0.82rem;
-  line-height: 1.38;
-}
-
-.page-shell.has-page-rail > .page-rail--macro .page-rail-block h2 {
-  font-size: 0.68rem;
 }
 
 .subpage-hero {
@@ -470,11 +453,6 @@
     border: 0;
     background: transparent;
     box-shadow: none;
-  }
-
-  .page-shell.has-page-rail > .page-rail--related,
-  .page-shell.has-page-rail > .page-rail--macro {
-    grid-column: 1;
   }
 
   .page-shell.has-page-rail > .subpage-main {

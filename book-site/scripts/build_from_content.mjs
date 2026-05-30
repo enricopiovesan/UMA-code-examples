@@ -7,13 +7,22 @@ const CONTENT_ROOT = path.join(ROOT, "content", "pages");
 const SITE_MAP_PATH = path.join(ROOT, "content", "site-map.md");
 const BOOK_SITE = path.join(ROOT, "book-site");
 
-const HOME_LINKS = [
-  ["Why", "why-uma"],
-  ["What", "book-arc"],
-  ["How", "learning-path"],
-  ["Hands-on", "hands-on"],
-  ["Who", "team-value"],
-  ["Contacts", "contacts"],
+const MACRO_NAV_LINKS = [
+  ["Why UMA", "why-uma/"],
+  ["Core Model", "core-model/"],
+  ["How UMA Works", "how-uma-works/"],
+  ["Learn UMA", "learn-uma/"],
+  ["Proof", "proof/"],
+  ["Examples", "examples/"],
+  ["System Evolution", "evolve-uma/"],
+  ["Discoverability", "discoverability/"],
+  ["Comparisons", "comparisons/"],
+];
+
+const HEADER_UTILITY_LINKS = [
+  ["Ref App", "https://www.universalmicroservices.com/reference-application/"],
+  ["GitHub", "https://github.com/enricopiovesan/UMA-code-examples"],
+  ["Blog", "https://medium.com/the-rise-of-device-independent-architecture"],
 ];
 
 function escapeHtml(text) {
@@ -227,27 +236,33 @@ function homeAnchor(prefix, anchor) {
 }
 
 function renderTopNav(prefix) {
-  const links = HOME_LINKS.map(([label, anchor]) => `<a href="${homeAnchor(prefix, anchor)}">${label}</a>`).join("");
+  const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
+  const utilityLinks = HEADER_UTILITY_LINKS.map(
+    ([label, href], index) => `<a class="${index === 0 ? "topnav-github" : "topnav-utility"}" href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+  ).join("");
   return `
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
           Menu
         </button>
         <nav class="topnav" aria-label="Primary">
-          ${links}
-          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          ${macroLinks}
+          ${utilityLinks}
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>`;
 }
 
 function renderMobileNav(prefix) {
-  const links = HOME_LINKS.map(([label, anchor]) => `<a href="${homeAnchor(prefix, anchor)}">${label}</a>`).join("");
+  const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
+  const utilityLinks = HEADER_UTILITY_LINKS.map(
+    ([label, href]) => `<a href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+  ).join("");
   return `
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            ${links}
-            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+            ${macroLinks}
+            ${utilityLinks}
           </nav>
         </div>
       </aside>`;
@@ -371,25 +386,6 @@ function relativeLink(currentOutPath, targetOutPath) {
   return relative ? `${relative}/` : "./";
 }
 
-function resolvePageLink(slug, currentOutPath, pageBySlug) {
-  const specialLinks = {
-    blog: "https://medium.com/the-rise-of-device-independent-architecture",
-    "reference-application": "https://www.universalmicroservices.com/reference-application/",
-    "white-paper": "https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1",
-  };
-
-  if (specialLinks[slug]) {
-    return { href: specialLinks[slug], external: true };
-  }
-
-  const page = pageBySlug.get(slug);
-  if (page) {
-    return { href: relativeLink(currentOutPath, page.outPath), external: false };
-  }
-
-  return { href: "#", external: false };
-}
-
 function renderRelatedRail(outline) {
   if (!outline.length) {
     return "";
@@ -401,40 +397,6 @@ function renderRelatedRail(outline) {
           <h2>On this page</h2>
           ${renderOutlineList(outline, true)}
         </nav>
-      </aside>`;
-}
-
-function renderMacroRail(meta, currentOutPath, siteMapGroups, pagesBySlug) {
-  const groupsMarkup = siteMapGroups
-    .map((group) => {
-      const hubSlug = group.slugs[0];
-      const hubLink = hubSlug ? resolvePageLink(hubSlug, currentOutPath, pagesBySlug) : { href: "#", external: false };
-      const isCurrentGroup = group.slug === meta.macro_area;
-      const items = group.slugs
-        .slice(1)
-        .map((slug) => {
-          const page = pagesBySlug.get(slug);
-          const link = resolvePageLink(slug, currentOutPath, pagesBySlug);
-          const title = page?.meta.title || slugToLabel(slug);
-          const current = page?.meta.ref === meta.ref ? ' aria-current="page"' : "";
-          const external = link.external ? ' target="_blank" rel="noreferrer noopener"' : "";
-          return `<li><a href="${escapeHtml(link.href)}"${current}${external}>${escapeHtml(title)}</a></li>`;
-        })
-        .join("");
-
-      return `
-        <nav class="page-rail-block${isCurrentGroup ? " page-rail-block--current" : ""}">
-          <h2><a href="${escapeHtml(hubLink.href)}"${hubLink.external ? ' target="_blank" rel="noreferrer noopener"' : ""}>${escapeHtml(group.label)}</a></h2>
-          <ul class="page-rail-links">
-            ${items}
-          </ul>
-        </nav>`;
-    })
-    .join("");
-
-  return `
-      <aside class="page-rail page-rail--macro" aria-label="Site map">
-        ${groupsMarkup}
       </aside>`;
 }
 
@@ -614,7 +576,6 @@ ${intro}
 
 ${main}
       </main>
-${renderMacroRail(meta, outPath, siteMapGroups, pagesBySlug)}
     </div>
     <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="${prefix}app.js" type="module"></script>
