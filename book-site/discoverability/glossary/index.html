@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA Glossary | Universal Microservices Architecture</title>
+    <meta name="description" content="Glossary of Universal Microservices Architecture terms: active descriptor, portable service, runtime layer, adapter, contract, capability, workflow, and more." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/discoverability/glossary/" />
+    <meta property="og:title" content="UMA Glossary" />
+    <meta property="og:description" content="Glossary of Universal Microservices Architecture terms: active descriptor, portable service, runtime layer, adapter, contract, capability, workflow, and more." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/discoverability/glossary/" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Discovery and References","item":"https://www.universalmicroservices.com/discoverability/"},{"@type":"ListItem","position":3,"name":"UMA Glossary","item":"https://www.universalmicroservices.com/discoverability/glossary/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UMA Glossary","description":"Glossary of Universal Microservices Architecture terms: active descriptor, portable service, runtime layer, adapter, contract, capability, workflow, and more.","url":"https://www.universalmicroservices.com/discoverability/glossary/","inLanguage":"en"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#a">A</a></li><li><a href="#b">B</a></li><li><a href="#c">C</a></li><li><a href="#e">E</a></li><li><a href="#f">F</a></li><li><a href="#g">G</a></li><li><a href="#h">H</a></li><li><a href="#p">P</a></li><li><a href="#r">R</a></li><li><a href="#s">S</a></li><li><a href="#u">U</a></li><li><a href="#w">W</a></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/discoverability/">Discovery and References</a></li><li><span aria-current="page">UMA Glossary</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>UMA Glossary</h1>
+          <p>
+            Definitions for core Universal Microservices Architecture terms. Each entry answers the definitional
+            question directly so architects and engineers have a shared vocabulary when reading the book, working
+            through the examples, or applying the model to their own systems.
+          </p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="a">A</h2>
+            <dl>
+              <dt>Active descriptor</dt>
+              <dd>
+                Structured metadata the runtime evaluates during an execution decision — not documentation beside
+                a service. A descriptor declares the input schema, output schema, events emitted and required,
+                allowed placement targets, version constraints, latency expectations, and evidence expectations
+                for a capability. The runtime reads it before approving a path; if any check fails, execution is
+                rejected with a specific reason. Because the descriptor constrains rather than informs, drift
+                from it is detectable before production rather than after an incident.
+              </dd>
+
+              <dt>Active runtime governance</dt>
+              <dd>
+                The ongoing, per-execution enforcement of policy, trust, and compatibility constraints by the
+                runtime layer. Governance is "active" because it applies at each invocation rather than being
+                a one-time deployment gate. It means the runtime can explain, for any specific run, why a
+                capability was allowed, denied, routed, or adapted — and that record exists as inspectable
+                evidence afterward.
+              </dd>
+
+              <dt>Adapter</dt>
+              <dd>
+                A runtime-provided binding that connects a portable service to a concrete host environment
+                without modifying the service's business logic. Adapters handle transport, protocol
+                translation, credential injection, and environment-specific plumbing. Because adapters live
+                in the runtime layer rather than inside the service, the same service can work across
+                different hosts by swapping adapters rather than by forking the implementation.
+              </dd>
+
+              <dt>Adapter binding</dt>
+              <dd>
+                The act of attaching an adapter to a portable service at runtime. Binding happens as part of
+                the execution decision rather than at build time, which is what allows one compiled service
+                artifact to participate in different execution environments. The active descriptor declares
+                what the service needs; the runtime resolves which adapter satisfies those needs in the
+                current context.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="b">B</h2>
+            <dl>
+              <dt>Behavioral coherence</dt>
+              <dd>
+                The property of a system in which the same business rule produces semantically equivalent
+                outcomes across all execution surfaces where it runs. A system that is behaviorally coherent
+                may have many different runtimes and deployment targets; what it does not have is multiple
+                diverging copies of the same rule producing subtly different results over time. UMA treats
+                behavioral coherence as an architectural goal, not an implicit assumption.
+              </dd>
+
+              <dt>Behavioral equivalence</dt>
+              <dd>
+                A narrower claim than behavioral coherence: given identical inputs, two executions of the
+                same portable service in different runtimes should produce identical outputs. Behavioral
+                equivalence is provable through parity proofs that run the service across environments and
+                compare results. It is the concrete, testable expression of what "portable behavior" means
+                in practice.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="c">C</h2>
+            <dl>
+              <dt>Capability</dt>
+              <dd>
+                The unit the runtime can discover, validate, and compose into a workflow. A capability
+                represents a named piece of behavior with a visible contract — input schema, output schema,
+                version, placement rules, and any events it emits or requires. It is the building block
+                of UMA orchestration: the runtime selects, rejects, or chains capabilities based on their
+                declared contracts rather than on implicit knowledge of their internals.
+              </dd>
+
+              <dt>Contract</dt>
+              <dd>
+                The explicit declaration of what a service expects as input, what it produces as output,
+                what events it emits or depends on, what permissions it requires, and what execution
+                evidence it should leave behind. In UMA, a contract is machine-readable and
+                runtime-evaluated — not a human-readable agreement between teams. Contracts are what
+                make portability verifiable rather than assumed.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="e">E</h2>
+            <dl>
+              <dt>Execution context</dt>
+              <dd>
+                The full set of runtime conditions under which a portable service runs in a specific
+                environment: host capabilities available, trust policy in effect, identity and permissions
+                granted, network and I/O surface provided, and placement constraints applied. Two
+                executions of the same service in different execution contexts may have different adapters,
+                different trust levels, and different latency profiles — but the same declared business
+                behavior inside the portable boundary.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="f">F</h2>
+            <dl>
+              <dt>Feature flag evaluator</dt>
+              <dd>
+                A concrete example of a portable service used throughout the UMA book and examples. A
+                feature flag evaluator takes a flag key and evaluation context as inputs and returns a
+                boolean or variant result. It is deterministic, stateless, and free of runtime-specific
+                dependencies — which makes it an ideal first portable service. Chapter 4 demonstrates it
+                as a WASM module with an active descriptor, running identically in native Rust and in a
+                WASM host without changing the compiled artifact.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="g">G</h2>
+            <dl>
+              <dt>Governance layer</dt>
+              <dd>
+                The part of the runtime responsible for policy, trust, versioning, and audit. The
+                governance layer sits between the external request and the portable service: it evaluates
+                active descriptors, enforces trust boundaries, records execution evidence, and rejects
+                paths that violate declared constraints. Separating governance from business logic is
+                what makes it possible to change policy without touching the service and to audit
+                decisions without relying on the service itself to report them.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="h">H</h2>
+            <dl>
+              <dt>Host environment</dt>
+              <dd>
+                The concrete runtime that executes a portable service: a browser, an edge worker, a
+                server process running wasmtime, a Kubernetes sidecar, or an AI-adjacent workflow
+                engine. The host environment supplies capabilities to the service through adapters and
+                WASI interfaces. UMA's portability goal is that the host can change without requiring
+                the service to change — as long as the host satisfies the service's declared contract.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="p">P</h2>
+            <dl>
+              <dt>Parity proof</dt>
+              <dd>
+                Evidence that a portable service produces behaviorally equivalent outputs across two or
+                more execution environments. A parity proof runs the same service with the same inputs
+                against different hosts — for example, native Rust and a WASM runtime — and compares
+                outputs, timing, and any observable side effects. Chapter 6 of the UMA examples is
+                structured as a parity proof. Portability that is not proved is an assumption.
+              </dd>
+
+              <dt>Portable behavior</dt>
+              <dd>
+                Business logic that is expressed once, carries an explicit contract, and can execute
+                in more than one host environment without being reimplemented or forked. The test of
+                portable behavior is not that the code compiles in multiple places — it is that the
+                same artifact produces equivalent outcomes across environments and that a parity proof
+                exists to confirm it.
+              </dd>
+
+              <dt>Portable service</dt>
+              <dd>
+                A service whose business behavior is stable across execution environments because it
+                carries an explicit contract, has no hidden runtime dependencies, and can be verified
+                through parity proofs. A portable service is not tied to a specific framework, queue,
+                database adapter, or host assumption. In UMA, portable services are the durable center
+                of the system; the runtime layer handles everything that varies by environment.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="r">R</h2>
+            <dl>
+              <dt>Runtime diversity</dt>
+              <dd>
+                The property of a system that can execute the same portable service across multiple,
+                structurally different host environments — browser, edge, server, workflow engine —
+                without fragmenting the business behavior into separate implementations. Runtime
+                diversity is an architectural goal under UMA: the system should be able to add or
+                change execution targets without triggering behavioral drift.
+              </dd>
+
+              <dt>Runtime layer</dt>
+              <dd>
+                The governed infrastructure around a portable service that handles validation, adapter
+                binding, placement decisions, trust enforcement, policy evaluation, and execution
+                evidence. The runtime layer owns everything that varies by environment; the service
+                owns the durable rule. This separation is what makes it possible to move a service
+                to a new host without rewriting the business logic and to audit execution decisions
+                without instrumenting the service itself.
+              </dd>
+
+              <dt>Runtime placement</dt>
+              <dd>
+                The runtime's decision about where a portable service should execute for a specific
+                request: browser, edge node, backend server, or workflow engine. Runtime placement
+                is a governed decision informed by the service's declared placement constraints, the
+                trust policy in effect, latency requirements, and the capabilities available in each
+                candidate environment. Moving placement decisions into the runtime layer rather than
+                hardcoding them in services is one of UMA's structural contributions.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="s">S</h2>
+            <dl>
+              <dt>Service boundary</dt>
+              <dd>
+                The declared edge of a portable service's responsibility — what it accepts as input,
+                what it produces as output, and what it explicitly does not own. In UMA, a service
+                boundary is expressed through the active descriptor rather than through implicit
+                code-level coupling. A well-drawn service boundary makes it possible for the runtime
+                to validate compatibility, compose services into workflows, and detect when one
+                service's change would break another.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="u">U</h2>
+            <dl>
+              <dt>Universal Microservices Architecture (UMA)</dt>
+              <dd>
+                An execution model for distributed systems where business behavior is kept portable
+                across multiple execution environments — browser, edge, cloud, workflow, and
+                AI-assisted paths — while runtime governance, contracts, trust, and placement remain
+                explicit. UMA is organized around two separations: the portable service owns the
+                durable business rule, and the runtime layer owns everything that varies by
+                environment. The goal is behavioral coherence across runtimes without duplicating
+                logic across surfaces.
+              </dd>
+            </dl>
+          </section>
+
+          <section>
+            <h2 id="w">W</h2>
+            <dl>
+              <dt>WASM component model</dt>
+              <dd>
+                A typed interface layer on top of core WebAssembly modules, stabilized alongside
+                WASI 0.2. Components define their imports and exports using WIT (WebAssembly
+                Interface Types), which supports records, variants, options, lists, and streams —
+                enough expressiveness to describe real service contracts. Two components that agree
+                on a WIT interface can be composed at the binary level without a serialization
+                boundary. For UMA, the component model means service contracts are machine-readable,
+                version-aware, and embedded in the compiled artifact itself.
+              </dd>
+
+              <dt>WASI (WebAssembly System Interface)</dt>
+              <dd>
+                A standardized, capability-gated interface that gives WASM modules access to host
+                resources — clocks, file descriptors, network sockets, environment variables, and
+                HTTP — without embedding host-specific code in the module. WASI 0.2, stable since
+                February 2024, introduced the Component Model and added <code>wasi:http</code>,
+                making server-side WASM practical for real service workloads. The host decides
+                which WASI capabilities to provide at startup; the module can only use what it
+                is explicitly granted.
+              </dd>
+
+              <dt>Workflow</dt>
+              <dd>
+                The execution path the runtime approves from one or more capabilities to satisfy
+                a goal. A workflow in UMA is not handwritten orchestration glue — it emerges from
+                declared events, subscriptions, capability contracts, and placement policy. The
+                result is visible enough for the system to explain why that particular path was
+                chosen, which capabilities participated, and what evidence the run produced.
+              </dd>
+            </dl>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>Want to go deeper?</strong>
+            <p>
+              This glossary captures the shared vocabulary. The pages below explain each concept
+              in its full architectural context, with runnable examples where the idea matters most.
+            </p>
+            <div class="subpage-inline-links">
+              <a href="../faq/">UMA FAQ</a>
+              <a href="../active-descriptors/">Active Descriptors</a>
+              <a href="../what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+              <a href="../what-is-a-capability/">What is a capability?</a>
+              <a href="../what-is-a-workflow/">What is a workflow?</a>
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="../how-to-prove-portability/">How to prove portability</a>
+              <a href="../webassembly-microservices-architecture/">WebAssembly microservices architecture</a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

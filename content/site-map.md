@@ -84,6 +84,7 @@ It defines semantic page groups, not HTML output.
 ### Discovery and References
 - `discoverability`
 - `faq`
+- `glossary`
 - `diagrams`
 - `about-enrico`
 - `blog`
@@ -98,6 +99,7 @@ It defines semantic page groups, not HTML output.
 - `common-criticisms-and-tradeoffs-of-uma`
 - `why-software-architecture-keeps-fragmenting`
 - `wasm-vs-docker-kubernetes`
+- `microservices-without-kubernetes`
 
 ## Ordering Notes
 
