@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Universal Microservices Architecture Book | Universal Microservices Architecture</title>
-    <meta name="description" content="A practical overview of the Universal Microservices Architecture book, including what it teaches, who it helps, and how it connects to the runnable examples." />
+    <meta name="description" content="Universal Microservices Architecture: the book for architects and senior engineers building portable, runtime-agnostic distributed systems with WebAssembly. Available on Amazon." />
     <link rel="canonical" href="https://www.universalmicroservices.com/learn-uma/book/" />
     <meta property="og:title" content="Universal Microservices Architecture Book" />
-    <meta property="og:description" content="A practical overview of the Universal Microservices Architecture book, including what it teaches, who it helps, and how it connects to the runnable examples." />
+    <meta property="og:description" content="Universal Microservices Architecture: the book for architects and senior engineers building portable, runtime-agnostic distributed systems with WebAssembly. Available on Amazon." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/learn-uma/book/" />
     <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
@@ -18,7 +18,7 @@
     <meta name="article:published_time" content="2026-03-19T12:56:57-06:00" />
     <meta name="article:modified_time" content="2026-05-29T14:12:26-06:00" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Learning Path","item":"https://www.universalmicroservices.com/learn-uma/learning-path/"},{"@type":"ListItem","position":3,"name":"Universal Microservices Architecture Book","item":"https://www.universalmicroservices.com/learn-uma/book/"}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Universal Microservices Architecture Book","description":"A practical overview of the Universal Microservices Architecture book, including what it teaches, who it helps, and how it connects to the runnable examples.","url":"https://www.universalmicroservices.com/learn-uma/book/","inLanguage":"en","datePublished":"2026-03-19T12:56:57-06:00","dateModified":"2026-05-29T14:12:26-06:00"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Universal Microservices Architecture Book","description":"Universal Microservices Architecture: the book for architects and senior engineers building portable, runtime-agnostic distributed systems with WebAssembly. Available on Amazon.","url":"https://www.universalmicroservices.com/learn-uma/book/","inLanguage":"en","datePublished":"2026-03-19T12:56:57-06:00","dateModified":"2026-05-29T14:12:26-06:00"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Book","@id":"https://www.universalmicroservices.com/learn-uma/book/#book","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/learn-uma/book/","description":"A practical guide for architects and senior engineers on building portable, coherent distributed systems using Universal Microservices Architecture with WebAssembly and MCP.","inLanguage":"en","bookFormat":"https://schema.org/EBook","author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"},"offers":{"@type":"Offer","url":"https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4","seller":{"@type":"Organization","name":"Amazon"},"availability":"https://schema.org/InStock","priceCurrency":"USD"},"about":[{"@type":"Thing","name":"Microservices Architecture"},{"@type":"Thing","name":"WebAssembly"},{"@type":"Thing","name":"Distributed Systems"}]}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,16 +73,10 @@
           <h2>On this page</h2>
 
     <ol class="page-rail-outline">
-      <li><a href="#what-readers-should-expect">What readers should expect</a>
+      <li><a href="#who-this-book-is-for">Who this book is for</a></li><li><a href="#what-the-book-covers">What the book covers</a></li><li><a href="#what-makes-it-different-from-other-architecture-books">What makes it different from other architecture books</a>
     <ul class="page-rail-links">
-      <li><a href="#what-problem-it-tackles">What problem it tackles</a></li><li><a href="#what-the-reader-gets">What the reader gets</a></li><li><a href="#what-keeps-it-honest">What keeps it honest</a></li><li><a href="#who-it-is-for">Who it is for</a></li>
-    </ul></li><li><a href="#how-the-book-is-organized">How the book is organized</a>
-    <ul class="page-rail-links">
-      <li><a href="#portable-service-design">Portable service design</a></li><li><a href="#runtime-architecture">Runtime architecture</a></li><li><a href="#system-composition">System composition</a></li><li><a href="#evolution-over-time">Evolution over time</a></li>
-    </ul></li><li><a href="#why-the-book-matters-now">Why the book matters now</a></li><li><a href="#who-should-read-it">Who should read it</a></li><li><a href="#what-makes-it-different">What makes it different</a></li><li><a href="#how-it-connects-to-the-site-and-examples">How it connects to the site and examples</a></li><li><a href="#frequently-asked-question">Frequently asked question</a>
-    <ul class="page-rail-links">
-      <li><a href="#do-i-need-to-adopt-uma-all-at-once">Do I need to adopt UMA all at once?</a></li>
-    </ul></li>
+      <li><a href="#what-youll-build">What you&#39;ll build</a></li><li><a href="#what-youll-understand">What you&#39;ll understand</a></li><li><a href="#what-youll-prove">What you&#39;ll prove</a></li><li><a href="#what-youll-skip">What you&#39;ll skip</a></li>
+    </ul></li><li><a href="#chapter-overview">Chapter overview</a></li><li><a href="#the-companion-repository">The companion repository</a></li><li><a href="#buy-the-book">Buy the book</a></li>
     </ol>
         </nav>
       </aside>
@@ -106,137 +100,178 @@
 
 <div class="subpage-body">
           <section>
-            <h2 id="what-readers-should-expect">What readers should expect</h2>
+            <h2 id="who-this-book-is-for">Who this book is for</h2>
             <p>
-              The book is not a vague argument that portability is good. It works from the smallest portable service boundary outward into
-              runtime design, contracts, orchestration, service graph evolution, trust boundaries, discoverable decisions, and long-term
-              system change. The goal is to give experienced builders a model they can both reason about and challenge with runnable proof.
+              This is not a microservices introduction. If you are still learning what a service boundary is, this book will move too fast.
             </p>
+            <p>
+              This microservices architecture book is written for engineers and architects who already ship distributed systems — and who are
+              frustrated by a specific pattern: the same business behavior keeps getting rewritten as execution surfaces multiply. You write
+              the pricing rule once for the backend, then again for the browser to keep the UI responsive, then again for the edge layer to
+              cut latency, then again for a workflow orchestrator, and now again for an AI-assisted path. The logic is never wrong in
+              isolation. The system is wrong in aggregate.
+            </p>
+            <p>
+              The reader this book is aimed at:
+            </p>
+            <ul>
+              <li>Architects and senior engineers responsible for how a distributed system holds together over time — not just how it deploys today</li>
+              <li>Platform and infrastructure teams adding edge, mobile offline, or AI-assisted execution paths to systems that were originally designed around one canonical backend</li>
+              <li>Technical leads who need a vocabulary and a structural model — not another framework — for making runtime decisions explicit and governable</li>
+              <li>Anyone who has hit the ceiling of "just deploy it everywhere" and needs a principled way to think about behavior portability, runtime trust, and service graph evolution</li>
+            </ul>
+            <p>
+              If you are evaluating whether portable microservices architecture or WASM microservices design applies to your context, the
+              honest test is this: does your system already have behavior in more than one execution environment that should be identical
+              but is not? If yes, this book is for you.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="what-the-book-covers">What the book covers</h2>
+            <p>
+              The book is a progression, not an encyclopedia. It starts with the smallest portable service boundary — what a Universal
+              Microservice actually is — and then deliberately adds the runtime concerns that real systems accumulate. The later topics only
+              become meaningful once the earlier service model is clear.
+            </p>
+            <p>
+              The arc moves through:
+            </p>
+            <ul>
+              <li><strong>The portable service boundary</strong> — what a Universal Microservice is, why it is defined differently from a standard microservice, and how the contract separates business logic from the host runtime</li>
+              <li><strong>Contracts and active descriptors</strong> — how services describe themselves in a way that lets the runtime make placement and validation decisions without hard-coding assumptions</li>
+              <li><strong>Runtime design</strong> — what belongs inside the runtime layer and what belongs outside it; how validation, transport, policy, and trust become explicit parts of the model rather than implicit framework behavior</li>
+              <li><strong>Adapter binding</strong> — how the same portable service connects to different host environments through thin translation layers without leaking runtime-specific logic into the core</li>
+              <li><strong>Orchestration from metadata</strong> — how workflows can emerge from contracts and capability metadata instead of being hardwired into pipelines</li>
+              <li><strong>Service graph evolution</strong> — how compatibility, versioning, and change stay visible as the system grows; how to avoid the drift and sprawl that make graphs unmaintainable</li>
+              <li><strong>Trust boundaries</strong> — how provenance, policy, and enforcement remain explicit around portable execution instead of being retrofitted after portability creates risk</li>
+              <li><strong>Discoverable decisions</strong> — how proposal, validation, approval, and execution trace become queryable system artifacts rather than invisible runtime behavior</li>
+              <li><strong>System change and coherence</strong> — how a system that can evolve without fragmenting is architecturally different from one that simply accumulates backward-compatible releases</li>
+            </ul>
+            <p>
+              The book has 13 chapters. Every major concept has a corresponding runnable example in the companion repository, so the
+              architecture is explained and then immediately exercised — not left as a purely conceptual framework.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="what-makes-it-different-from-other-architecture-books">What makes it different from other architecture books</h2>
+            <p>
+              Most architecture books stay abstract. Most implementation books tie every example to one stack. This book sits between those
+              two positions deliberately, and differs from the standard in four specific ways:
+            </p>
+            <ul>
+              <li>
+                <strong>Every claim has runnable proof.</strong> The companion repository covers 100% of business logic. If the book says
+                a portable service can run identically across runtimes, there is a lab that proves it with passing CI — not a diagram that
+                implies it.
+              </li>
+              <li>
+                <strong>CI verifies behavioral equivalence, not just unit tests.</strong> The Reader Smoke workflow validates that the
+                reader path — the actual sequence a reader follows through the examples — produces correct output end to end. The benchmark
+                proof workflow publishes measurable footprint data. These are not test suites for the sake of coverage; they exist to make
+                the book's core claims falsifiable.
+              </li>
+              <li>
+                <strong>WASM and WASI are treated as an execution boundary, not just a deployment format.</strong> Most WASM architecture
+                content focuses on how to compile and ship a module. This book focuses on what changes architecturally when WebAssembly
+                becomes the boundary between portable logic and the runtime host — and what that means for contracts, trust, adapter design,
+                and portability proof. This is the WASM microservices book that treats the execution model seriously.
+              </li>
+              <li>
+                <strong>Honest about tradeoffs and maturity.</strong> The book includes explicit discussion of when UMA is too much — when
+                a simpler service boundary or a shared library is the right answer. It does not pretend that portable microservices
+                architecture is universally appropriate. The companion repository's comparison pages make those tradeoffs queryable.
+              </li>
+            </ul>
           </section>
 
           <section class="subpage-grid">
             <article class="subpage-card">
-              <h3 id="what-problem-it-tackles">What problem it tackles</h3>
-              <p>Why systems keep duplicating business behavior across runtimes even when the team already has good deployment tooling.</p>
+              <h3 id="what-youll-build">What you'll build</h3>
+              <p>Portable services with explicit contracts, governed runtimes with visible approval traces, and orchestrated workflows built from capability metadata — not hardwired pipelines.</p>
             </article>
             <article class="subpage-card">
-              <h3 id="what-the-reader-gets">What the reader gets</h3>
-              <p>A structured architectural model for portable services, governed runtime decisions, and explainable workflow execution.</p>
+              <h3 id="what-youll-understand">What you'll understand</h3>
+              <p>Why behavior keeps fragmenting across runtimes, what a portable service boundary actually is, and how trust, versioning, and system change become first-class architectural concerns.</p>
             </article>
             <article class="subpage-card">
-              <h3 id="what-keeps-it-honest">What keeps it honest</h3>
-              <p>A companion repository and live reference app that let readers inspect the model instead of taking the claims on faith.</p>
+              <h3 id="what-youll-prove">What you'll prove</h3>
+              <p>That the same business logic can run across native, WASM, and AI-assisted paths with deterministic output — verified by CI, not implied by a diagram.</p>
             </article>
             <article class="subpage-card">
-              <h3 id="who-it-is-for">Who it is for</h3>
-              <p>Architects, senior engineers, and platform teams trying to keep behavior coherent across client, edge, cloud, and AI surfaces.</p>
+              <h3 id="what-youll-skip">What you'll skip</h3>
+              <p>Deployment platform tutorials, framework opinions, and vague portability promises. The book assumes you can already ship; it focuses on the architectural model that keeps what you ship coherent.</p>
             </article>
           </section>
 
           <section>
-            <h2 id="how-the-book-is-organized">How the book is organized</h2>
+            <h2 id="chapter-overview">Chapter overview</h2>
             <p>
-              The book is structured as a progression rather than as an encyclopedia. It begins with one portable service boundary and then
-              deliberately adds the runtime concerns that real systems accumulate: contracts, orchestration, metadata, compatibility,
-              trust, and evolution. This order matters because the later topics only become valuable when the earlier service model is
-              already clear.
+              Each chapter addresses one layer of the UMA model, in the order the complexity actually arrives when building a real system.
             </p>
-            <p>
-              That structure also helps the reader connect concept to execution. Every major idea has a place in the learning path and in
-              the accompanying examples, so the architecture is explained, then exercised, instead of being left as a purely conceptual
-              framework.
-            </p>
-          </section>
-
-          <section class="subpage-grid">
-            <article class="subpage-card">
-              <h3 id="portable-service-design">Portable service design</h3>
-              <p>Learn how to preserve business behavior without letting any one framework or host environment own the logic.</p>
-            </article>
-            <article class="subpage-card">
-              <h3 id="runtime-architecture">Runtime architecture</h3>
-              <p>See how validation, transport, adapters, policy, and trust become explicit parts of the system model.</p>
-            </article>
-            <article class="subpage-card">
-              <h3 id="system-composition">System composition</h3>
-              <p>Follow the path from a single service to event-driven orchestration, service graphs, and runtime-governed systems.</p>
-            </article>
-            <article class="subpage-card">
-              <h3 id="evolution-over-time">Evolution over time</h3>
-              <p>Understand how portability, governance, and compatibility interact as a system grows more complex.</p>
-            </article>
+            <ul>
+              <li><strong>Chapter 1 — The fragmentation problem</strong>: Why behavior duplication across runtimes is an architectural failure, not a team discipline failure, and what a coherent alternative looks like.</li>
+              <li><strong>Chapter 2 — What a Universal Microservice is</strong>: The definition of the portable service boundary — how it differs from a standard microservice and why the distinction matters for runtime governance.</li>
+              <li><strong>Chapter 3 — Contracts and active descriptors</strong>: How services describe their own capabilities, constraints, and placement preferences in a form the runtime can validate and act on.</li>
+              <li><strong>Chapter 4 — The smallest portable service</strong>: A minimal, runnable feature flag evaluator that demonstrates one contract, one deterministic behavior, and one portable WASM boundary. The companion lab is the entry point for all subsequent examples.</li>
+              <li><strong>Chapter 5 — Runtime design</strong>: What belongs inside the runtime layer around a pure service — validation, transport, adapter binding, approval — and what must stay outside it.</li>
+              <li><strong>Chapter 6 — Portability proof</strong>: How to prove behavioral equivalence across runtimes rather than assuming it; native-to-WASM parity as a testable claim, not a deployment promise.</li>
+              <li><strong>Chapter 7 — Orchestration from metadata</strong>: How workflows can emerge from contracts and event-driven metadata rather than being defined as hardcoded pipelines.</li>
+              <li><strong>Chapter 8 — Service graph evolution</strong>: How compatibility constraints, versioning decisions, and service-to-service relationships become a visible, queryable graph rather than tribal knowledge.</li>
+              <li><strong>Chapter 9 — Trust boundaries and runtime enforcement</strong>: How provenance, policy, and enforcement remain explicit around portable execution, and why retrofitting trust after portability is already in production creates structural risk.</li>
+              <li><strong>Chapter 10 — Architectural tradeoffs and runtime coherence</strong>: How a system can still function while becoming architecturally incoherent, and what signals make that drift detectable before it becomes debt.</li>
+              <li><strong>Chapter 11 — Evolution without fragmentation</strong>: How version coexistence, behavioral drift, and capability sprawl can stay governed instead of becoming chaos as the system scales.</li>
+              <li><strong>Chapter 12 — Discoverable decisions</strong>: How capability proposal, runtime validation, approval, and execution trace become queryable system artifacts — not invisible side effects of framework behavior.</li>
+              <li><strong>Chapter 13 — Portable MCP runtime</strong>: The full reference application: capability discovery, agent proposals, runtime validation, event-driven execution, and structured output — the complete UMA model in one runnable system.</li>
+            </ul>
           </section>
 
           <section>
-            <h2 id="why-the-book-matters-now">Why the book matters now</h2>
+            <h2 id="the-companion-repository">The companion repository</h2>
             <p>
-              Modern delivery models already assume software will move between many execution contexts. The real architectural challenge is
-              not simply shipping code to multiple runtimes. It is keeping the meaning of the system stable while those runtimes continue to
-              multiply. That is the problem this book is written to address.
+              The <a href="https://github.com/enricopiovesan/UMA-code-examples">UMA code examples repository</a> is the runnable half of
+              this microservices architecture book. It is not a set of illustrative snippets. It is a structured proof surface:
             </p>
+            <ul>
+              <li><strong>100% business logic coverage</strong> — every portable service in the companion examples has full coverage on its core logic, enforced by the Business Logic CI workflow</li>
+              <li><strong>Reader Smoke CI</strong> — a dedicated workflow validates that the reader path through the examples produces correct output end to end; if a chapter example regresses, the build fails</li>
+              <li><strong>Runnable labs for chapters 4–13</strong> — each chapter has a <code>./scripts/run_lab.sh</code> or equivalent entry point; readers can run the proof without setting up a custom environment</li>
+              <li><strong>Behavioral equivalence proofs</strong> — Chapter 6 includes a native-to-WASM parity test that makes the portability claim falsifiable; the benchmark proof workflow publishes footprint data for early chapters</li>
+              <li><strong>Chapter 13 reference application</strong> — the full portable MCP runtime, runnable as a complete system, is the culmination of every concept introduced in chapters 1–12</li>
+            </ul>
             <p>
-              That challenge matters more now because runtime diversity is normal. Systems increasingly depend on browser logic, edge
-              functions, background jobs, service platforms, and AI-assisted flows. A useful architectural model can no longer assume that
-              “backend” is the only durable home of business behavior.
+              If you want to evaluate the model before buying, the most honest path is: inspect
+              <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-04-feature-flag-evaluator">Chapter 4</a>
+              for the smallest portable boundary, then inspect
+              <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-13-portable-mcp-runtime">Chapter 13</a>
+              for the complete system. Those two chapters, plus the live reference app, give you the full range of what the book builds toward.
             </p>
           </section>
 
           <section>
-            <h2 id="who-should-read-it">Who should read it</h2>
+            <h2 id="buy-the-book">Buy the book</h2>
             <p>
-              This book is written for people who are responsible for architectural clarity over time. That includes software architects,
-              senior engineers, platform teams, and technical leads who need a better way to think about service behavior, runtime
-              governance, and long-term system coherence.
-            </p>
-          </section>
-
-          <section>
-            <h2 id="what-makes-it-different">What makes it different</h2>
-            <p>
-              Many architecture books stay abstract. Many implementation books stay tied to one stack. This book sits between those two
-              worlds. It introduces a concrete architectural model, but keeps the discussion close to runtime behavior, operational
-              pressure, and practical examples. It is also deliberately opinionated about something many books only imply: deployment
-              tooling alone does not solve behavior fragmentation.
-            </p>
-          </section>
-
-          <section>
-            <h2 id="how-it-connects-to-the-site-and-examples">How it connects to the site and examples</h2>
-            <p>
-              The site acts as the authority hub for the book, while the repository acts as the practical companion. Together they turn the
-              material into a connected experience: understand the idea, follow the learning path, inspect the code, and validate the
-              architecture through runnable examples.
+              <em>Universal Microservices Architecture</em> is available on Amazon as an eBook (ASIN: B0GTTTTQH4).
             </p>
             <p>
-              If you want to evaluate the model before buying, the best sequence is: read
-              <a href="../what-problem-does-uma-solve/">what problem UMA solves</a>, try the
-              <a href="https://www.universalmicroservices.com/reference-application/">live reference app</a>, and then inspect the
-              <a href="https://github.com/enricopiovesan/UMA-code-examples">examples repository</a>. The book goes further by connecting
-              those pieces into one coherent design argument instead of leaving them as isolated artifacts.
-            </p>
-          </section>
-
-          <section>
-            <h2 id="frequently-asked-question">Frequently asked question</h2>
-            <h3 id="do-i-need-to-adopt-uma-all-at-once">Do I need to adopt UMA all at once?</h3>
-            <p>
-              No. One of the practical strengths of the model is that it can begin with a single portable service and then expand as runtime
-              and governance complexity increase. The book is sequenced that way intentionally.
+              This is the portable microservices architecture book that treats WASM as an execution boundary, verifies its claims with CI,
+              and gives experienced engineers a model they can reason about, challenge, and extend — not just read and shelve.
             </p>
           </section>
 
           <section class="subpage-callout">
-            <strong>Choose your next proof point</strong>
+            <strong>Ready to read?</strong>
             <p>
-              If the framing here matches the kind of system pain you are dealing with, the next move depends on how you like to evaluate
-              ideas: concept first, runnable proof first, or the full book path.
+              Buy the book on Amazon or start with the companion repository. Both are designed to be evaluated independently before
+              committing to either.
             </p>
             <div class="subpage-inline-links">
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy on Amazon</a>
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub examples</a>
               <a href="../what-problem-does-uma-solve/">What problem does UMA solve?</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
               <a href="../learning-path/">Learning Path</a>
-              <a href="../examples/">Examples</a>
-              <a href="../what-is-uma/">What is UMA?</a>
             </div>
           </section>
         </div>
