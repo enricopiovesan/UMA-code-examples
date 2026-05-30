@@ -1084,6 +1084,20 @@ h3 {
   line-height: 1.28;
 }
 
+.review-stars {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: #f5a623;
+  letter-spacing: 2px;
+}
+
+.review-byline {
+  margin-top: 12px;
+  font-size: 0.82rem;
+  color: #a6a197;
+  font-style: italic;
+}
+
 .labs-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
