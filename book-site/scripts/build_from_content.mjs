@@ -9,10 +9,10 @@ const SITE_MAP_PATH = path.join(ROOT, "content", "site-map.md");
 const BOOK_SITE = path.join(ROOT, "book-site");
 
 const MACRO_NAV_LINKS = [
-  ["Why UMA", "why-uma/"],
-  ["Core Model", "core-model/"],
-  ["How UMA Works", "how-uma-works/"],
-  ["Learn UMA", "learn-uma/"],
+  ["Why", "why-uma/"],
+  ["Core", "core-model/"],
+  ["How it Works", "how-uma-works/"],
+  ["Learn", "learn-uma/"],
   ["Proof", "proof/"],
   ["Evolution", "evolve-uma/"],
   ["Comparisons", "comparisons/"],
