@@ -39,6 +39,7 @@ It defines semantic page groups, not HTML output.
 - `portable-business-logic`
 - `architecture-drift-and-portable-business-logic`
 - `webassembly-architecture`
+- `webassembly-microservices-architecture`
 - `migrating-to-uma-incrementally`
 - `incremental-uma-adoption`
 - `uma-production-readiness`
@@ -76,6 +77,7 @@ It defines semantic page groups, not HTML output.
 - `trust-boundaries`
 - `runtime-provenance-and-trust`
 - `ai-native-runtime-governance`
+- `mcp-wasm-ai-native-microservices`
 
 ### Discovery and References
 - `discoverability`
@@ -93,6 +95,7 @@ It defines semantic page groups, not HTML output.
 - `uma-vs-traditional-microservices`
 - `common-criticisms-and-tradeoffs-of-uma`
 - `why-software-architecture-keeps-fragmenting`
+- `wasm-vs-docker-kubernetes`
 
 ## Ordering Notes
 
