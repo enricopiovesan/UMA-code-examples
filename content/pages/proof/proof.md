@@ -37,6 +37,15 @@ related_refs:
       These pages show how UMA turns abstract claims into measurable outputs: what is portable, how portability is demonstrated, and
       what the performance and footprint tradeoffs look like in practice.
     </p>
+    <p>
+      Portability is a claim. This area is about how to make that claim inspectable instead of leaving it as an assumption. The three pages here cover different kinds of proof: what makes a service genuinely portable by design, how to verify that portability holds across runtime environments, and what benchmark and footprint data actually looks like for the UMA code examples.
+    </p>
+    <p>
+      The underlying principle is that proof should be observable. Not "we designed it to be portable" but "here is the same service producing the same output in two different runtimes with the specific differences in the surrounding runtime behavior made explicit." That is the standard the examples in this repository are held to.
+    </p>
+    <p>
+      Architecture claims that cannot be inspected tend to drift toward assumptions, and assumptions compound. The proof section exists so the UMA portability claim stays falsifiable — something you can run, compare, and verify before deciding whether the model applies to your system.
+    </p>
   </section>
 
   <section>

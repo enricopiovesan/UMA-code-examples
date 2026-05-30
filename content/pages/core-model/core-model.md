@@ -43,6 +43,15 @@ related_refs:
       These pages describe the vocabulary used to model capabilities, workflows, runtime responsibilities, and the active descriptors
       that let a system remain discoverable without turning the runtime into a black box.
     </p>
+    <p>
+      The UMA core model has four main concepts: capability, workflow, runtime, and active descriptor. Understanding them in relation to each other matters more than learning them in isolation. A capability is the unit of portable behavior the runtime can reason about. A workflow is the approved sequence of capabilities the runtime assembles to satisfy a goal. The runtime is the governed authority that validates, approves, and records execution. The active descriptor is the machine-readable contract that makes a capability discoverable and composable.
+    </p>
+    <p>
+      None of these concepts require a specific language, framework, or platform. They describe a discipline for how services declare themselves, how runtimes make decisions, and how systems stay explainable as they grow.
+    </p>
+    <p>
+      This area also covers two boundaries that teams often leave implicit: the agent-versus-runtime boundary (where AI proposal stops and runtime authority begins) and late-bound policy enforcement (how runtime decisions stay governed without hardwiring policy into service logic). Both are practical concerns that surface quickly once a system tries to do anything non-trivial with portable services.
+    </p>
   </section>
 
   <section>

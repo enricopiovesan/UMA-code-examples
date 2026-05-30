@@ -39,6 +39,15 @@ related_refs:
       These pages explain the architectural pressure UMA responds to, the difference between ownership of a platform and ownership of
       a capability, and why portable behavior is a better long-term boundary for distributed systems.
     </p>
+    <p>
+      Most distributed systems teams already know how to ship services. The harder question is what happens when the same business behavior needs to run in more than one place — and starts drifting. A feature flag evaluator copied from backend to browser. A discount rule reimplemented in an edge function. A validation step added silently to an AI-adjacent workflow. Each copy started for a good reason. None of them share a contract. None of them are guaranteed to stay in sync.
+    </p>
+    <p>
+      This area starts from that pressure. It does not assume the reader needs a new framework or a new deployment tool. It assumes the reader has seen a system grow more fragile as execution spread, and wants a model for why that happens and what a different architectural center of gravity looks like.
+    </p>
+    <p>
+      The central shift UMA proposes is from stack ownership to behavior ownership. Stack ownership is the default: a team owns a frontend, a backend, a data layer. Behavior ownership asks a harder question — who owns the rule, and can the rule survive when the stack changes? That reframing is where this section begins.
+    </p>
   </section>
 
   <section>

@@ -101,6 +101,15 @@
       These pages show the differences that matter when evaluating UMA: where it lines up with familiar approaches, where it diverges,
       and what criticisms are worth taking seriously.
     </p>
+    <p>
+      UMA is not trying to replace every architectural pattern. It is a response to a specific pressure: runtime diversity combined with behavioral portability requirements. Understanding where UMA fits — and where it does not — is more useful than treating it as universally applicable.
+    </p>
+    <p>
+      This area covers four comparison angles. Three compare UMA to adjacent architectural models: traditional microservices (which address team autonomy and independent deployment but not behavioral portability), serverless (which addresses operational burden but not cross-runtime coherence), and modular monolith (which is often the right choice when deployment simplicity dominates). The fourth covers common criticisms and honest tradeoffs — because any model that does not acknowledge its own costs should be treated with suspicion.
+    </p>
+    <p>
+      The comparisons are not designed to declare a winner. They are designed to make the decision legible. UMA earns its overhead when behavior must cross runtime boundaries and when that movement is growing. It is overhead without payoff when one runtime and one team is the dominant context.
+    </p>
   </section>
 
   <section>

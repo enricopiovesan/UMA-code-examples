@@ -41,6 +41,15 @@ related_refs:
       These pages show how UMA connects portability, runtime placement, adoption, and readiness into a single operating model for
       software that must keep working as it grows.
     </p>
+    <p>
+      Understanding the UMA model is one thing. Seeing how it works in a real system is another. This area covers the practical side: what runtime-agnostic architecture looks like in code, how portable business logic is structured so it can survive outside its original host, how WebAssembly provides a concrete execution boundary, and how teams start adopting UMA without rewriting everything at once.
+    </p>
+    <p>
+      The most common entry point is not a full adoption. It is one behavior that is duplicated across two runtimes. The practical first step is to extract that behavior behind an explicit contract and prove it produces identical outputs in both environments. That proof is the foundation for the rest. It makes portability an inspectable claim instead of an assumption.
+    </p>
+    <p>
+      This area also covers architecture drift — what happens when behavior duplication goes unmanaged — and what production readiness looks like when a UMA approach is being evaluated for a real system. These are not theoretical concerns. They are the questions teams ask before committing to any new architectural model.
+    </p>
   </section>
 
   <section>

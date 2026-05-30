@@ -30,32 +30,55 @@ related_refs:
 
 <div class="subpage-body">
           <section>
-            <h2>The learning curve is real</h2>
-            <p>UMA asks teams to separate behavior, contract, runtime, adapter, trust, and workflow concerns more deliberately than many stack-first systems do. That can feel heavier at first.</p>
-            <p>The tradeoff is clarity. A team pays some design cost upfront to reduce hidden duplication later.</p>
+            <h2>Criticism: UMA adds complexity without proven payoff</h2>
+            <p>This criticism is fair when applied to the wrong context. UMA does add explicit contracts, runtime layers, adapter code, and governance overhead. A team that adopts the model before they have a portability problem will spend real engineering time designing boundaries for behavior that was never going to move. That is not good engineering — it is premature complexity.</p>
+            <p>The model earns its cost when runtime diversity is real and behavior duplication is already a problem. When the same business rule has been rewritten for a second context, or is about to be, the overhead of a portable contract becomes cheaper than the ongoing cost of two diverging implementations. The question is whether that pressure exists yet — and the honest answer is that for many teams and many systems, it does not.</p>
+            <p>If you have one stable runtime and one team, start with a modular monolith. Keep the module boundaries clean. Watch for the duplication signal. When it appears, the UMA model gives you a path. Until it appears, the model is overhead you do not need to pay.</p>
           </section>
 
           <section>
-            <h2>Runtime complexity does not disappear</h2>
-            <p>A portable service still needs a runtime. Validation, transport, placement, events, observability, and policy all have to live somewhere.</p>
-            <p>UMA does not remove runtime complexity. It makes that complexity explicit so teams can reason about it.</p>
+            <h2>Criticism: WebAssembly is still immature for production</h2>
+            <p>WASM is the preferred execution boundary in UMA because it enables portable, sandboxed, language-agnostic behavior at near-native performance. The component model and WASI 0.2 have matured significantly — Wasmtime, Wasmer, and browser runtimes all support them in production-capable configurations for many workload types. The ecosystem is not complete, but it is not experimental for teams with mainstream stacks.</p>
+            <p>More importantly, UMA's architectural principles do not require WASM. The model is larger than the compilation target. A team can adopt the UMA discipline — explicit contracts, portable business logic, adapter-mediated runtime access, governed versioning — using conventional module boundaries, language-native interfaces, or shared libraries. The portability properties are reduced without WASM, but the governance and design discipline still produces value.</p>
+            <p>The practical advice: adopt the UMA model first, add WASM when the tooling is stable enough for your specific stack. The contract design and runtime layering you do without WASM will transfer directly when you add it. Do not let WASM maturity be a reason to skip the architectural discipline that makes WASM adoption sustainable.</p>
           </section>
 
           <section>
-            <h2>Governance becomes part of the architecture</h2>
-            <p>Portability without governance can make risk travel faster. A service that runs in more contexts needs clearer trust boundaries, versioning, and authority checks.</p>
-            <p>This is one reason the book treats governance as core methodology rather than as a late production appendix.</p>
+            <h2>Criticism: portable behavior is a solved problem — just use containers</h2>
+            <p>Containers solve deployment portability. A containerized service can run on any host that supports the container runtime, regardless of the underlying OS or hardware. That is a genuine and valuable form of portability — it is why containers became the dominant deployment unit for server-side workloads.</p>
+            <p>But containers solve the process boundary, not the behavioral boundary. A containerized service can still duplicate business rules across surfaces. The pricing logic in the container may diverge from the pricing logic in the mobile app. The validation rule in the edge worker may disagree with the validation rule in the backend container. Those divergences are not container problems — they are design problems, and containers do not address them.</p>
+            <p>UMA is about preserving the rule, not just the process. A portable container that contains a duplicated or inconsistent business rule is a container that ships a bug. The UMA model ensures the business logic is the single source of truth before asking where it runs — and that question is orthogonal to whether it runs in a container.</p>
           </section>
 
           <section>
-            <h2>Organizational readiness matters</h2>
-            <p>UMA works best when teams can agree on capability ownership and runtime responsibility. If every team optimizes only for its local stack, the model will be hard to sustain.</p>
-            <p>That does not mean the organization must transform all at once. It means adoption should begin where the ownership problem is visible.</p>
+            <h2>Criticism: the governance and runtime layer is overhead</h2>
+            <p>It is overhead — and intentional overhead. The governance layer exists so that validation, policy, trust checks, and version constraints stay visible rather than being absorbed into framework defaults, middleware configurations, or implicit platform behavior. When governance is implicit, it drifts. When it drifts, services that should behave consistently start to diverge in ways that are hard to diagnose and expensive to correct.</p>
+            <p>Teams that accept implicit governance find the cost later — in debugging production inconsistencies, in security audits that reveal undocumented trust assumptions, in migration efforts that discover the policy was embedded in code that was supposed to be business logic. The UMA governance layer makes those assumptions explicit and testable from the beginning.</p>
+            <p>The overhead is proportional to the system's complexity. A single-service system with one runtime does not need a formal governance model. A system with five capabilities deployed across three surfaces needs something — and "something" that was designed is less expensive than "something" that was discovered after the fact.</p>
           </section>
 
           <section>
-            <h2>When UMA may be too much</h2>
-            <p>If a service has one stable deployment surface, little duplicated behavior, and no meaningful runtime diversity, UMA may not repay the design cost. The point is to apply it where portability and governance are actually needed.</p>
+            <h2>Real tradeoffs — what UMA asks of a team</h2>
+            <p>The honest list: you need to design contracts and maintain them across versions. You need to build and operate a runtime layer that handles validation, transport, trust, and placement. You need to prove portability with evidence — automated tests that run the same behavior in multiple execution contexts — rather than assuming equivalence. You need to govern versions deliberately so consumers are not broken by silent changes.</p>
+            <p>That is not a small investment. For a small single-runtime system with one team and stable requirements, it is overhead that does not return value. The model is honest about this: UMA makes sense at scale and with runtime diversity. It is the wrong tool for a product that has not yet discovered its runtime pressures.</p>
+            <p>The teams for whom UMA is well-suited are the ones already managing behavior duplication across surfaces, already discovering that framework defaults are not consistent across runtimes, and already paying the cost of undocumented governance assumptions. Those teams are paying a complexity tax whether they adopt UMA or not — the model is a way to make that tax explicit, bounded, and manageable.</p>
+          </section>
+
+          <section>
+            <h2>What UMA does not solve</h2>
+            <p>UMA does not make deployment easier. A portable service still needs to be deployed to each runtime it targets, and deployment pipelines, environment configuration, and operational monitoring all still apply. The model governs behavior, not operations.</p>
+            <p>UMA does not replace observability tooling. A portable service running in three execution contexts still needs distributed tracing, structured logging, and metrics collection — and those needs are more complex across runtimes, not simpler. The UMA model does not provide those tools; it assumes teams bring them.</p>
+            <p>UMA does not eliminate the need for good test coverage, and it does not make runtime diversity disappear. It gives teams a model for managing runtime diversity deliberately — but the diversity itself is a real operational challenge that the model acknowledges rather than resolves. The portable boundary makes the problem visible and tractable; it does not make it small.</p>
+          </section>
+
+          <section>
+            <h2>Questions and answers</h2>
+            <dl>
+              <dt>Is UMA worth it for a small team?</dt>
+              <dd>Probably not immediately. The model earns its cost when behavior duplication across runtimes has become a real problem — when the same logic has been rewritten once and is about to be rewritten again, or when inconsistency between surfaces has caused visible production issues. A small team with one primary runtime should start simpler and adopt UMA discipline when the pressure appears. The model is not a prerequisite for good architecture; it is a response to a specific class of architectural pressure.</dd>
+              <dt>Is UMA production-ready?</dt>
+              <dd>The architectural model is. The runnable examples in the repository are validated end-to-end across multiple execution contexts. The WASM toolchain — Wasmtime, WASI 0.2, the component model — is production-capable for many workloads, with active investment from browser vendors, cloud providers, and the open-source community. As with any architectural pattern, readiness depends on the team's specific stack and risk tolerance. The model does not require WASM to be useful, and teams can adopt it incrementally against their existing toolchain.</dd>
+            </dl>
           </section>
           <section class="subpage-grid">
             <article class="subpage-card"><h3>Criticism</h3><p>It can feel more complex than a local service implementation.</p></article>
