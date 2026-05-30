@@ -385,17 +385,40 @@ function relativeLink(currentOutPath, targetOutPath) {
   return relative ? `${relative}/` : "./";
 }
 
-function renderRelatedRail(outline) {
+function renderSectionNav(meta, siteMapGroups, pagesBySlug, currentOutPath) {
+  const group = getMacroGroup(meta, siteMapGroups);
+  if (!group) return "";
+
+  const links = group.slugs
+    .map((slug) => {
+      const page = pagesBySlug.get(slug);
+      if (!page) return "";
+      const href = relativeLink(currentOutPath, page.outPath);
+      const isCurrent = page.meta.ref === meta.ref;
+      const label = page.meta.title || slug;
+      return `<li><a href="${href}" ${isCurrent ? 'class="section-nav-current" aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  if (!links) return "";
+
+  return `
+      <aside class="page-section-nav" aria-label="${escapeHtml(group.label)} navigation">
+        <div class="section-nav-label">${escapeHtml(group.label)}</div>
+        <ul class="section-nav-links">${links}</ul>
+      </aside>`;
+}
+
+function renderTocRail(outline) {
   if (!outline.length) {
     return "";
   }
 
   return `
-      <aside class="page-rail page-rail--related" aria-label="On this page">
-        <nav class="page-rail-block">
-          <h2>On this page</h2>
-          ${renderOutlineList(outline, true)}
-        </nav>
+      <aside class="page-toc-rail" aria-label="On this page">
+        <div class="section-nav-label">On this page</div>
+        ${renderOutlineList(outline, true)}
       </aside>`;
 }
 
@@ -638,7 +661,7 @@ ${renderTopNav(prefix)}
       </header>
 ${renderMobileNav(prefix)}
 
-${renderRelatedRail(outline)}
+${renderSectionNav(meta, siteMapGroups, pagesBySlug, outPath)}
 
       <main class="subpage-main">
 ${renderBreadcrumbs(meta, prefix, outPath, siteMapGroups, pagesBySlug)}
@@ -647,6 +670,8 @@ ${intro}
 
 ${main}
       </main>
+
+${renderTocRail(outline)}
     </div>
     <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="${prefix}app.js" type="module"></script>
