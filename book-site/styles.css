@@ -136,6 +136,11 @@ a {
   border-left: 1px solid var(--line);
 }
 
+.topnav-utility {
+  font-size: 0.74rem;
+  opacity: 0.6;
+}
+
 .topnav a:hover {
   color: var(--text);
 }

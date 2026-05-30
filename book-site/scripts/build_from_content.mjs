@@ -20,6 +20,8 @@ const MACRO_NAV_LINKS = [
 
 const HEADER_UTILITY_LINKS = [
   ["Ref App", "reference-application/"],
+  ["GitHub", "https://github.com/enricopiovesan/UMA-code-examples"],
+  ["Blog", "https://medium.com/the-rise-of-device-independent-architecture"],
 ];
 
 function escapeHtml(text) {
