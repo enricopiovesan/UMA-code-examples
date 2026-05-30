@@ -11,7 +11,7 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/examples/chapter-13-portable-mcp-runtime/" />
     <meta name="twitter:card" content="summary_large_image" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Examples","item":"https://www.universalmicroservices.com/examples/"},{"@type":"ListItem","position":3,"name":"Chapter 13 Portable MCP Runtime Tutorial","item":"https://www.universalmicroservices.com/examples/chapter-13-portable-mcp-runtime/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Hands-On Examples","item":"https://www.universalmicroservices.com/examples/"},{"@type":"ListItem","position":3,"name":"Chapter 13 Portable MCP Runtime Tutorial","item":"https://www.universalmicroservices.com/examples/chapter-13-portable-mcp-runtime/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Chapter 13 Portable MCP Runtime Tutorial","description":"Use the Chapter 13 portable MCP runtime tutorial to build WASI AI capabilities, run an UMA workflow, inspect JSON reports, and start the MCP server.","url":"https://www.universalmicroservices.com/examples/chapter-13-portable-mcp-runtime/","inLanguage":"en"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Chapter 13: Portable MCP Runtime UMA tutorial","description":"Use the Chapter 13 portable MCP runtime tutorial to build WASI AI capabilities, run an UMA workflow, inspect JSON reports, and start the MCP server.","step":[{"@type":"HowToStep","position":1,"name":"Enter the example","text":"cd chapter-13-portable-mcp-runtime"},{"@type":"HowToStep","position":2,"name":"Set up pinned model artifacts","text":"./scripts/setup_models.sh"},{"@type":"HowToStep","position":3,"name":"Build the PlannerAI WASI module","text":"./scripts/build_planner_ai_wasi.sh"},{"@type":"HowToStep","position":4,"name":"Build the SummarizerAI WASI module","text":"./scripts/build_summarizer_ai_wasi.sh"},{"@type":"HowToStep","position":5,"name":"Build the TranslatorFr WASI module","text":"./scripts/build_translator_ai_wasi.sh"},{"@type":"HowToStep","position":6,"name":"List workflows","text":"./scripts/list_labs.sh"},{"@type":"HowToStep","position":7,"name":"Run the French AI report workflow","text":"./scripts/run_lab.sh use-case-2-ai-report"},{"@type":"HowToStep","position":8,"name":"Render the workflow as JSON","text":"cargo run --manifest-path rust/Cargo.toml -- render use-case-2-ai-report json"},{"@type":"HowToStep","position":9,"name":"Run the MCP server smoke check","text":"./scripts/smoke_mcp_server.sh"},{"@type":"HowToStep","position":10,"name":"Run the full chapter smoke path","text":"./scripts/smoke_portable_mcp_labs.sh"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Chapter 13: Portable MCP Runtime","codeRepository":"https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-13-portable-mcp-runtime","programmingLanguage":["Rust","TypeScript"],"runtimePlatform":"Rust, WASI, Node.js","description":"Use the Chapter 13 portable MCP runtime tutorial to build WASI AI capabilities, run an UMA workflow, inspect JSON reports, and start the MCP server."}</script>
@@ -45,8 +45,8 @@
           Menu
         </button>
         <nav class="topnav" aria-label="Primary">
-          <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
-          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
       </header>
@@ -55,41 +55,28 @@
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../../#why-uma">Why</a><a href="../../#book-arc">What</a><a href="../../#learning-path">How</a><a href="../../#hands-on">Hands-on</a><a href="../../#team-value">Who</a><a href="../../#contacts">Contacts</a>
-            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+            <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
           </nav>
         </div>
       </aside>
 
 
-      <aside class="page-rail" aria-label="Page navigation">
-    <nav class="page-rail-block">
-      <h2>On this page</h2>
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
 
     <ol class="page-rail-outline">
       <li><a href="#what-you-will-learn">What you will learn</a></li><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#full-tutorial">Full tutorial</a></li><li><a href="#what-to-inspect">What to inspect</a></li><li><a href="#acceptance-check">Acceptance check</a></li><li><a href="#where-to-go-next">Where to go next</a></li>
     </ol>
-    </nav>
-    <nav class="page-rail-block">
-      <h2>Explore UMA</h2>
-      <ul class="page-rail-links">
-        <li><a href="/">home</a></li><li><a href="../../book/">book</a></li><li><a href="../../examples/">examples</a></li><li><a href="../../learning-path/">learning path</a></li><li><a href="../../faq/">faq</a></li><li><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">blog</a></li><li><a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">reference application</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">github</a></li>
-      </ul>
-    </nav>
-
-    <nav class="page-rail-block">
-      <h2>In the examples path</h2>
-      <ul class="page-rail-links">
-        <li><a href="../">examples hub</a></li><li><a href="../chapter-12-discoverable-decisions/">previous: Chapter 12</a></li><li><a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-13-portable-mcp-runtime" target="_blank" rel="noreferrer noopener">source folder</a></li>
-      </ul>
-    </nav>
+        </nav>
       </aside>
 
       <main class="subpage-main">
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="../../">Home</a></li><li><a href="../">Examples</a></li><li><span aria-current="page">Chapter 13 Portable MCP Runtime Tutorial</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/examples/">Hands-On Examples</a></li><li><span aria-current="page">Chapter 13 Portable MCP Runtime Tutorial</span></li>
           </ol>
         </nav>
 
@@ -147,9 +134,9 @@
             </div>
           </section>
         </div>
-        <section id="contacts" class="section contacts-band" data-shared-footer></section>
       </main>
     </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="../../app.js" type="module"></script>
   </body>
 </html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Migrating to UMA Incrementally | Universal Microservices Architecture</title>
+    <meta name="description" content="A practical conceptual guide to incremental UMA migration for greenfield and brownfield systems without requiring a full rewrite." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/how-uma-works/migrating-to-uma-incrementally/" />
+    <meta property="og:title" content="Migrating to UMA Incrementally" />
+    <meta property="og:description" content="A practical conceptual guide to incremental UMA migration for greenfield and brownfield systems without requiring a full rewrite." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/how-uma-works/migrating-to-uma-incrementally/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"How UMA Works","item":"https://www.universalmicroservices.com/how-uma-works/"},{"@type":"ListItem","position":3,"name":"Migrating to UMA Incrementally","item":"https://www.universalmicroservices.com/how-uma-works/migrating-to-uma-incrementally/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Migrating to UMA Incrementally","description":"A practical conceptual guide to incremental UMA migration for greenfield and brownfield systems without requiring a full rewrite.","url":"https://www.universalmicroservices.com/how-uma-works/migrating-to-uma-incrementally/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="../../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#start-with-one-capability">Start with one capability</a></li><li><a href="#greenfield-adoption">Greenfield adoption</a></li><li><a href="#brownfield-adoption">Brownfield adoption</a></li><li><a href="#use-a-strangler-path">Use a strangler path</a></li><li><a href="#incremental-rollout">Incremental rollout</a>
+    <ul class="page-rail-links">
+      <li><a href="#find-drift">Find drift</a></li><li><a href="#extract-capability">Extract capability</a></li><li><a href="#prove-parity">Prove parity</a></li><li><a href="#expand-carefully">Expand carefully</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">Migrating to UMA Incrementally</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>Migrating to UMA incrementally</h1>
+          <p>UMA does not require a full-platform rewrite. A practical migration begins with one behavior that is duplicated, hard to govern, or forced to run in more than one place. From there, the team extracts a capability, defines its contract, proves portability, and expands only when the result is useful.</p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="start-with-one-capability">Start with one capability</h2>
+            <p>The best first candidate is a rule or decision that already appears in multiple places. Feature flags, eligibility checks, routing decisions, and policy evaluations are common starting points.</p>
+            <p>The goal is not to universalize everything. The goal is to find one behavior where portability reduces drift.</p>
+          </section>
+
+          <section>
+            <h2 id="greenfield-adoption">Greenfield adoption</h2>
+            <p>In a greenfield system, UMA can start as a design discipline. Define the capability, contract, runtime expectations, and validation path before choosing all host-specific details.</p>
+            <p>That keeps the first service small enough to understand while still teaching the team the model.</p>
+          </section>
+
+          <section>
+            <h2 id="brownfield-adoption">Brownfield adoption</h2>
+            <p>In an existing system, begin beside the current implementation. Keep the old path alive, extract the behavior into a portable service, and compare outputs before moving traffic or workflow authority.</p>
+            <p>This makes migration observable rather than ideological.</p>
+          </section>
+
+          <section>
+            <h2 id="use-a-strangler-path">Use a strangler path</h2>
+            <p>A strangler path works well when one capability can be routed gradually to the UMA implementation. The surrounding system keeps operating while the runtime earns authority through tests, telemetry, and controlled rollout.</p>
+            <p>This approach also helps teams avoid creating a second architecture that nobody trusts.</p>
+          </section>
+
+          <section>
+            <h2 id="incremental-rollout">Incremental rollout</h2>
+            <p>Roll out by capability, not by layer. A team can adopt one portable service, one runtime wrapper, one validation flow, and one chapter-aligned proof point before expanding the approach to other parts of the system.</p>
+          </section>
+          <section class="subpage-grid">
+            <article class="subpage-card"><h3 id="find-drift">Find drift</h3><p>Look for behavior copied across client, edge, backend, and workflow paths.</p></article>
+            <article class="subpage-card"><h3 id="extract-capability">Extract capability</h3><p>Name the durable behavior before choosing the new runtime shape.</p></article>
+            <article class="subpage-card"><h3 id="prove-parity">Prove parity</h3><p>Compare outputs across the old path and the portable implementation.</p></article>
+            <article class="subpage-card"><h3 id="expand-carefully">Expand carefully</h3><p>Move the next behavior only after the runtime path is understandable and governed.</p></article>
+          </section>
+          <section class="subpage-callout">
+            <strong>Want to go deeper?</strong>
+            <p>This page keeps migration at a conceptual level. The migration material in the book goes deeper into sequencing, risk, governance, and production patterns. The repository gives concrete labs for proving one step at a time.</p>
+            <div class="subpage-inline-links">
+              <a href="../how-to-prove-portability/">How to prove portability</a>
+              <a href="../what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../examples/chapter-06-portability-lab/">Portability lab example</a>
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">Official GitHub examples repository</a>
+              <a href="../book/">Book page</a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

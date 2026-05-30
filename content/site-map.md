@@ -14,6 +14,7 @@ It defines semantic page groups, not HTML output.
 ## Macro Areas
 
 ### Why UMA
+- `why-uma`
 - `what-problem-does-uma-solve`
 - `what-is-uma`
 - `why-universal-microservices-exist`
@@ -21,6 +22,7 @@ It defines semantic page groups, not HTML output.
 - `from-stack-ownership-to-behavior-ownership`
 
 ### Core Model
+- `core-model`
 - `what-is-a-capability`
 - `what-is-a-workflow`
 - `what-is-a-uma-runtime`
@@ -32,6 +34,7 @@ It defines semantic page groups, not HTML output.
 - `agent-vs-runtime`
 
 ### How UMA Works
+- `how-uma-works`
 - `runtime-agnostic-architecture`
 - `portable-business-logic`
 - `architecture-drift-and-portable-business-logic`
@@ -41,6 +44,7 @@ It defines semantic page groups, not HTML output.
 - `uma-production-readiness`
 
 ### Proof
+- `proof`
 - `what-makes-a-service-portable`
 - `how-to-prove-portability`
 - `benchmark-and-footprint`
@@ -51,6 +55,7 @@ It defines semantic page groups, not HTML output.
 - `end-to-end-feature-flag-example`
 
 ### Hands-On Examples
+- `examples`
 - `chapter-04-feature-flag-evaluator`
 - `chapter-05-post-fetcher-runtime`
 - `chapter-06-portability-lab`
@@ -63,6 +68,7 @@ It defines semantic page groups, not HTML output.
 - `chapter-13-portable-mcp-runtime`
 
 ### System Evolution
+- `evolve-uma`
 - `contract-driven-orchestration`
 - `service-graph-evolution`
 - `how-systems-evolve-without-fragmentation`
@@ -72,6 +78,7 @@ It defines semantic page groups, not HTML output.
 - `ai-native-runtime-governance`
 
 ### Discovery and References
+- `discoverability`
 - `faq`
 - `diagrams`
 - `about-enrico`
@@ -80,6 +87,7 @@ It defines semantic page groups, not HTML output.
 - `white-paper`
 
 ### Comparisons and Tradeoffs
+- `comparisons`
 - `uma-vs-serverless`
 - `uma-vs-modular-monolith`
 - `uma-vs-traditional-microservices`

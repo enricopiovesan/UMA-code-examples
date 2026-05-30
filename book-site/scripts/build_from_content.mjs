@@ -4,15 +4,25 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", ".."));
 const CONTENT_ROOT = path.join(ROOT, "content", "pages");
+const SITE_MAP_PATH = path.join(ROOT, "content", "site-map.md");
 const BOOK_SITE = path.join(ROOT, "book-site");
 
-const HOME_LINKS = [
-  ["Why", "why-uma"],
-  ["What", "book-arc"],
-  ["How", "learning-path"],
-  ["Hands-on", "hands-on"],
-  ["Who", "team-value"],
-  ["Contacts", "contacts"],
+const MACRO_NAV_LINKS = [
+  ["Why UMA", "why-uma/"],
+  ["Core Model", "core-model/"],
+  ["How UMA Works", "how-uma-works/"],
+  ["Learn UMA", "learn-uma/"],
+  ["Proof", "proof/"],
+  ["Examples", "examples/"],
+  ["System Evolution", "evolve-uma/"],
+  ["Discoverability", "discoverability/"],
+  ["Comparisons", "comparisons/"],
+];
+
+const HEADER_UTILITY_LINKS = [
+  ["Ref App", "https://www.universalmicroservices.com/reference-application/"],
+  ["GitHub", "https://github.com/enricopiovesan/UMA-code-examples"],
+  ["Blog", "https://medium.com/the-rise-of-device-independent-architecture"],
 ];
 
 function escapeHtml(text) {
@@ -92,6 +102,68 @@ function splitSections(source) {
   return { intro, main };
 }
 
+function slugToLabel(slug) {
+  return String(slug || "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function resolveSiteMapGroupSlug(label) {
+  const groupMap = {
+    "Why UMA": "why-uma",
+    "Core Model": "core-model",
+    "How UMA Works": "how-uma-works",
+    Proof: "proof",
+    "Learning Path": "learn-uma",
+    "Hands-On Examples": "examples",
+    "System Evolution": "evolve-uma",
+    "Discovery and References": "discoverability",
+    "Comparisons and Tradeoffs": "comparisons",
+  };
+
+  return groupMap[label] || slugify(label);
+}
+
+function parseSiteMap(source) {
+  const lines = source.split(/\r?\n/);
+  const groups = [];
+  let inMacroAreas = false;
+  let current = null;
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+
+    if (line === "## Macro Areas") {
+      inMacroAreas = true;
+      continue;
+    }
+
+    if (inMacroAreas && line.startsWith("## ")) {
+      break;
+    }
+
+    if (!inMacroAreas || !line) {
+      continue;
+    }
+
+    if (line.startsWith("### ")) {
+      current = {
+        label: line.slice(4).trim(),
+        slug: resolveSiteMapGroupSlug(line.slice(4).trim()),
+        slugs: [],
+      };
+      groups.push(current);
+      continue;
+    }
+
+    if (current && line.startsWith("- ")) {
+      current.slugs.push(line.slice(2).replace(/`/g, "").trim());
+    }
+  }
+
+  return groups;
+}
+
 async function listMarkdownFiles(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const files = [];
@@ -120,7 +192,37 @@ function pagePathFromMeta(meta) {
     return path.join(BOOK_SITE, "examples", meta.slug, "index.html");
   }
 
+  if (meta.macro_area && meta.ref === meta.macro_area) {
+    return path.join(BOOK_SITE, meta.macro_area, "index.html");
+  }
+
+  if (meta.macro_area) {
+    return path.join(BOOK_SITE, meta.macro_area, meta.slug, "index.html");
+  }
+
   return path.join(BOOK_SITE, meta.slug, "index.html");
+}
+
+function legacyPagePathFromMeta(meta) {
+  if (meta.ref === "examples" || meta.macro_area === "examples") {
+    return pagePathFromMeta(meta);
+  }
+
+  if (meta.macro_area && meta.ref === meta.macro_area) {
+    return pagePathFromMeta(meta);
+  }
+
+  if (meta.macro_area) {
+    return path.join(BOOK_SITE, meta.slug, "index.html");
+  }
+
+  return pagePathFromMeta(meta);
+}
+
+function generatedCanonicalForOutPath(outPath) {
+  const relative = path.relative(BOOK_SITE, outPath).replace(/\\/g, "/");
+  const pathname = `/${relative.replace(/index\.html$/, "")}`;
+  return new URL(pathname.endsWith("/") ? pathname : `${pathname}/`, "https://www.universalmicroservices.com/").href;
 }
 
 function relativePrefixFor(outPath) {
@@ -134,27 +236,33 @@ function homeAnchor(prefix, anchor) {
 }
 
 function renderTopNav(prefix) {
-  const links = HOME_LINKS.map(([label, anchor]) => `<a href="${homeAnchor(prefix, anchor)}">${label}</a>`).join("");
+  const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
+  const utilityLinks = HEADER_UTILITY_LINKS.map(
+    ([label, href], index) => `<a class="${index === 0 ? "topnav-github" : "topnav-utility"}" href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+  ).join("");
   return `
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
           Menu
         </button>
         <nav class="topnav" aria-label="Primary">
-          ${links}
-          <a class="topnav-github" href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+          ${macroLinks}
+          ${utilityLinks}
         </nav>
         <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>`;
 }
 
 function renderMobileNav(prefix) {
-  const links = HOME_LINKS.map(([label, anchor]) => `<a href="${homeAnchor(prefix, anchor)}">${label}</a>`).join("");
+  const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
+  const utilityLinks = HEADER_UTILITY_LINKS.map(
+    ([label, href]) => `<a href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+  ).join("");
   return `
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            ${links}
-            <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub</a>
+            ${macroLinks}
+            ${utilityLinks}
           </nav>
         </div>
       </aside>`;
@@ -207,17 +315,43 @@ function decorateHeadings(main) {
   return { html, outline };
 }
 
-function renderBreadcrumbs(meta, prefix) {
-  const currentLabel = meta.title || "UMA";
-  const items = [{ label: "Home", href: prefix }];
+function stripSharedFooterMarker(html) {
+  return html.replace(/\s*<section id="contacts" class="section contacts-band" data-shared-footer><\/section>\s*$/s, "");
+}
 
-  if (meta.macro_area === "examples") {
-    if (meta.ref !== "examples") {
-      items.push({ label: "Examples", href: "../" });
+function getMacroGroup(meta, siteMapGroups) {
+  return siteMapGroups.find((group) => group.slug === meta.macro_area) || null;
+}
+
+function buildBreadcrumbTrail(meta, currentOutPath, siteMapGroups, pagesBySlug) {
+  const items = [];
+  const currentUrl = generatedCanonicalForOutPath(currentOutPath);
+  const homeUrl = makeAbsoluteUrl("/");
+  const group = getMacroGroup(meta, siteMapGroups);
+  const currentLabel = meta.title || "UMA";
+
+  items.push({ label: "Home", href: homeUrl, current: false });
+
+  if (group) {
+    const hubSlug = group.slugs[0];
+    const hubPage = hubSlug ? pagesBySlug.get(hubSlug) : null;
+    const hubUrl = hubPage ? generatedCanonicalForOutPath(hubPage.outPath) : makeAbsoluteUrl(`/${group.slug}/`);
+    const isHubPage = meta.ref === hubSlug;
+
+    if (isHubPage) {
+      items.push({ label: group.label, href: hubUrl, current: true });
+      return items;
     }
+
+    items.push({ label: group.label, href: hubUrl, current: false });
   }
 
-  items.push({ label: currentLabel, current: true });
+  items.push({ label: currentLabel, href: currentUrl, current: true });
+  return items;
+}
+
+function renderBreadcrumbs(meta, prefix, currentOutPath, siteMapGroups, pagesBySlug) {
+  const items = buildBreadcrumbTrail(meta, currentOutPath, siteMapGroups, pagesBySlug);
 
   return `
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
@@ -233,6 +367,39 @@ function renderBreadcrumbs(meta, prefix) {
         </nav>`;
 }
 
+function buildPageMaps(pages) {
+  const bySlug = new Map();
+
+  for (const page of pages) {
+    const outPath = pagePathFromMeta(page.meta);
+    const entry = { ...page, outPath };
+    bySlug.set(page.meta.slug, entry);
+  }
+
+  return { bySlug };
+}
+
+function relativeLink(currentOutPath, targetOutPath) {
+  const fromDir = path.dirname(currentOutPath);
+  const toDir = path.dirname(targetOutPath);
+  const relative = path.relative(fromDir, toDir).replace(/\\/g, "/");
+  return relative ? `${relative}/` : "./";
+}
+
+function renderRelatedRail(outline) {
+  if (!outline.length) {
+    return "";
+  }
+
+  return `
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+          ${renderOutlineList(outline, true)}
+        </nav>
+      </aside>`;
+}
+
 function renderOutlineList(items, ordered = true) {
   const tag = ordered ? "ol" : "ul";
   return `
@@ -244,11 +411,6 @@ function renderOutlineList(items, ordered = true) {
         })
         .join("")}
     </${tag}>`;
-}
-
-function chapterNumber(ref) {
-  const match = String(ref || "").match(/(\d+)/);
-  return match ? Number(match[1]) : Number.POSITIVE_INFINITY;
 }
 
 function makeAbsoluteUrl(pathname) {
@@ -268,18 +430,13 @@ function chapterDisplayName(meta) {
     .trim();
 }
 
-function renderStructuredData(meta, rawMain) {
+function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, pagesBySlug) {
   const scripts = [];
-  const canonical = meta.canonical_url || makeAbsoluteUrl("/");
-  const breadcrumbs = [{ name: "Home", item: makeAbsoluteUrl("/") }];
-
-  if (meta.macro_area === "examples") {
-    if (meta.ref !== "examples") {
-      breadcrumbs.push({ name: "Examples", item: makeAbsoluteUrl("/examples/") });
-    }
-  }
-
-  breadcrumbs.push({ name: meta.title || "UMA", item: canonical });
+  const canonical = generatedCanonicalForOutPath(currentOutPath);
+  const breadcrumbs = buildBreadcrumbTrail(meta, currentOutPath, siteMapGroups, pagesBySlug).map((item) => ({
+    name: item.label,
+    item: item.current ? canonical : item.href,
+  }));
 
   scripts.push({
     "@context": "https://schema.org",
@@ -357,74 +514,15 @@ function renderStructuredData(meta, rawMain) {
     .join("\n    ");
 }
 
-function renderPageRail(meta, outline, chapterEntries, prefix) {
-  const exploreLinks = [
-    ["home", "/"],
-    ["book", "book/"],
-    ["examples", "examples/"],
-    ["learning path", "learning-path/"],
-    ["faq", "faq/"],
-    ["blog", "https://medium.com/the-rise-of-device-independent-architecture", true],
-    ["reference application", "https://www.universalmicroservices.com/reference-application/", true],
-    ["github", "https://github.com/enricopiovesan/UMA-code-examples", true],
-  ];
-
-  const exploreMarkup = exploreLinks
-    .map(([label, href, external = false]) => {
-      const attrs = external ? ' target="_blank" rel="noreferrer noopener"' : "";
-      const linkHref = external ? href : href.startsWith("/") ? href : `${prefix}${href}`;
-      return `<li><a href="${linkHref}"${attrs}>${escapeHtml(label)}</a></li>`;
-    })
-    .join("");
-
-  const chapter = meta.chapter_ref ? chapterEntries.find((entry) => entry.meta.ref === meta.ref) : null;
-  const chapterMarkup = meta.chapter_ref
-    ? (() => {
-        const index = chapterEntries.findIndex((entry) => entry.meta.ref === meta.ref);
-        const links = [
-          `<li><a href="../">examples hub</a></li>`,
-          index > 0 ? `<li><a href="../${chapterEntries[index - 1].meta.slug}/">previous: ${escapeHtml(chapterEntries[index - 1].meta.chapter_ref)}</a></li>` : "",
-          index < chapterEntries.length - 1 ? `<li><a href="../${chapterEntries[index + 1].meta.slug}/">next: ${escapeHtml(chapterEntries[index + 1].meta.chapter_ref)}</a></li>` : "",
-          `<li><a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/${meta.slug}" target="_blank" rel="noreferrer noopener">source folder</a></li>`,
-        ]
-          .filter(Boolean)
-          .join("");
-
-        return `
-    <nav class="page-rail-block">
-      <h2>In the examples path</h2>
-      <ul class="page-rail-links">
-        ${links}
-      </ul>
-    </nav>`;
-      })()
-    : "";
-
-  return `
-      <aside class="page-rail" aria-label="Page navigation">
-    <nav class="page-rail-block">
-      <h2>On this page</h2>
-      ${renderOutlineList(outline, true)}
-    </nav>
-    <nav class="page-rail-block">
-      <h2>Explore UMA</h2>
-      <ul class="page-rail-links">
-        ${exploreMarkup}
-      </ul>
-    </nav>
-    ${chapterMarkup}
-      </aside>`;
-}
-
-function renderPage(meta, intro, main, outPath, outline, chapterEntries) {
+function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesBySlug) {
   const prefix = relativePrefixFor(outPath);
   const title = escapeHtml(meta.title || "UMA Examples");
   const description = escapeHtml(meta.seo_description || meta.subtitle || "");
-  const canonical = escapeHtml(meta.canonical_url || "https://www.universalmicroservices.com/");
+  const canonical = escapeHtml(generatedCanonicalForOutPath(outPath));
   const ogUrl = canonical;
   const ogType = meta.ref === "faq" || meta.content_type === "hub" ? "website" : "article";
   const pageTitle = `${title} | Universal Microservices Architecture`;
-  const structuredData = renderStructuredData(meta, main);
+  const structuredData = renderStructuredData(meta, main, outPath, siteMapGroups, pagesBySlug);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -469,16 +567,17 @@ ${renderTopNav(prefix)}
       </header>
 ${renderMobileNav(prefix)}
 
-${renderPageRail(meta, outline, chapterEntries, prefix)}
+${renderRelatedRail(outline)}
 
       <main class="subpage-main">
-${renderBreadcrumbs(meta, prefix)}
+${renderBreadcrumbs(meta, prefix, outPath, siteMapGroups, pagesBySlug)}
 
 ${intro}
 
 ${main}
       </main>
     </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="${prefix}app.js" type="module"></script>
   </body>
 </html>
@@ -499,16 +598,21 @@ async function main() {
     pages.push({ meta, intro, main: mainSection });
   }
 
-  const chapterEntries = pages
-    .filter((page) => page.meta.chapter_ref)
-    .sort((a, b) => chapterNumber(a.meta.chapter_ref) - chapterNumber(b.meta.chapter_ref));
+  const siteMapSource = await fs.readFile(SITE_MAP_PATH, "utf8");
+  const siteMapGroups = parseSiteMap(siteMapSource);
+  const { bySlug: pagesBySlug } = buildPageMaps(pages);
 
   let count = 0;
   for (const page of pages) {
     const outPath = pagePathFromMeta(page.meta);
+    const legacyOutPath = legacyPagePathFromMeta(page.meta);
     const decorated = decorateHeadings(page.main);
+    const renderedMain = stripSharedFooterMarker(decorated.html);
+    if (legacyOutPath !== outPath) {
+      await fs.rm(legacyOutPath, { force: true });
+    }
     await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, decorated.html, outPath, decorated.outline, chapterEntries)));
+    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug)));
     count += 1;
   }
 

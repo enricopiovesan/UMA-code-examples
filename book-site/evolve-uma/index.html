@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Evolution | Universal Microservices Architecture</title>
+    <meta name="description" content="Explore how UMA evolves through orchestration, trust boundaries, compatibility, and governance without losing coherence." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/evolve-uma/" />
+    <meta property="og:title" content="System Evolution" />
+    <meta property="og:description" content="Explore how UMA evolves through orchestration, trust boundaries, compatibility, and governance without losing coherence." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/evolve-uma/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"System Evolution","item":"https://www.universalmicroservices.com/evolve-uma/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"System Evolution","description":"Explore how UMA evolves through orchestration, trust boundaries, compatibility, and governance without losing coherence.","url":"https://www.universalmicroservices.com/evolve-uma/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../why-uma/">Why UMA</a><a href="../core-model/">Core Model</a><a href="../how-uma-works/">How UMA Works</a><a href="../learn-uma/">Learn UMA</a><a href="../proof/">Proof</a><a href="../examples/">Examples</a><a href="../evolve-uma/">System Evolution</a><a href="../discoverability/">Discoverability</a><a href="../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../why-uma/">Why UMA</a><a href="../core-model/">Core Model</a><a href="../how-uma-works/">How UMA Works</a><a href="../learn-uma/">Learn UMA</a><a href="../proof/">Proof</a><a href="../examples/">Examples</a><a href="../evolve-uma/">System Evolution</a><a href="../discoverability/">Discoverability</a><a href="../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#what-this-macro-area-covers">What this macro area covers</a></li><li><a href="#pages-in-this-area">Pages in this area</a>
+    <ul class="page-rail-links">
+      <li><a href="#contract-driven-orchestration">Contract-Driven Orchestration</a></li><li><a href="#service-graph-evolution">Service Graph Evolution</a></li><li><a href="#how-do-systems-evolve-without-fragmentation">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="#what-makes-a-system-coherent">What Makes a System Coherent?</a></li><li><a href="#trust-boundaries-in-uma">Trust Boundaries in UMA</a></li><li><a href="#runtime-provenance-and-trust-in-uma">Runtime Provenance and Trust in UMA</a></li><li><a href="#ai-native-runtime-governance-in-uma">AI-Native Runtime Governance in UMA</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><span aria-current="page">System Evolution</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+  <h1>System Evolution</h1>
+  <p>
+    UMA treats change as part of the architecture, not as accidental drift. This area shows how the model handles growth, compatibility,
+    and policy without forcing the system to fragment.
+  </p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="what-this-macro-area-covers">What this macro area covers</h2>
+    <p>
+      These pages explain how UMA keeps orchestration, trust, and governance explicit while systems evolve, so readers can inspect the
+      path from one compatible stage to the next.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="pages-in-this-area">Pages in this area</h2>
+    <div class="subpage-grid">
+      <article class="subpage-card"><h3 id="contract-driven-orchestration"><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></h3><p>How explicit contracts shape multi-service coordination.</p></article>
+      <article class="subpage-card"><h3 id="service-graph-evolution"><a href="../service-graph-evolution/">Service Graph Evolution</a></h3><p>How a service graph changes while preserving meaning and compatibility.</p></article>
+      <article class="subpage-card"><h3 id="how-do-systems-evolve-without-fragmentation"><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></h3><p>The architectural pattern behind incremental growth.</p></article>
+      <article class="subpage-card"><h3 id="what-makes-a-system-coherent"><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></h3><p>Why coherence is a design outcome, not an accident.</p></article>
+      <article class="subpage-card"><h3 id="trust-boundaries-in-uma"><a href="../trust-boundaries/">Trust Boundaries in UMA</a></h3><p>How trust affects placement, policy, and service interaction.</p></article>
+      <article class="subpage-card"><h3 id="runtime-provenance-and-trust-in-uma"><a href="../runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></h3><p>How provenance helps runtime decisions remain explainable.</p></article>
+      <article class="subpage-card"><h3 id="ai-native-runtime-governance-in-uma"><a href="../ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></h3><p>How governance changes when the runtime must supervise AI-influenced behavior.</p></article>
+    </div>
+  </section>
+</div>
+      </main>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

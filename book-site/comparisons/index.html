@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comparisons and Tradeoffs | Universal Microservices Architecture</title>
+    <meta name="description" content="Review UMA compared with serverless, modular monoliths, traditional microservices, and the criticisms that shape the tradeoff analysis." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/comparisons/" />
+    <meta property="og:title" content="Comparisons and Tradeoffs" />
+    <meta property="og:description" content="Review UMA compared with serverless, modular monoliths, traditional microservices, and the criticisms that shape the tradeoff analysis." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/comparisons/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Comparisons and Tradeoffs","item":"https://www.universalmicroservices.com/comparisons/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Comparisons and Tradeoffs","description":"Review UMA compared with serverless, modular monoliths, traditional microservices, and the criticisms that shape the tradeoff analysis.","url":"https://www.universalmicroservices.com/comparisons/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../why-uma/">Why UMA</a><a href="../core-model/">Core Model</a><a href="../how-uma-works/">How UMA Works</a><a href="../learn-uma/">Learn UMA</a><a href="../proof/">Proof</a><a href="../examples/">Examples</a><a href="../evolve-uma/">System Evolution</a><a href="../discoverability/">Discoverability</a><a href="../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../why-uma/">Why UMA</a><a href="../core-model/">Core Model</a><a href="../how-uma-works/">How UMA Works</a><a href="../learn-uma/">Learn UMA</a><a href="../proof/">Proof</a><a href="../examples/">Examples</a><a href="../evolve-uma/">System Evolution</a><a href="../discoverability/">Discoverability</a><a href="../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#what-this-macro-area-covers">What this macro area covers</a></li><li><a href="#pages-in-this-area">Pages in this area</a>
+    <ul class="page-rail-links">
+      <li><a href="#uma-vs-serverless">UMA vs Serverless</a></li><li><a href="#uma-vs-modular-monolith">UMA vs Modular Monolith</a></li><li><a href="#uma-vs-traditional-microservices">UMA vs Traditional Microservices</a></li><li><a href="#common-criticisms-and-tradeoffs-of-uma">Common Criticisms and Tradeoffs of UMA</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><span aria-current="page">Comparisons and Tradeoffs</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+  <h1>Comparisons and Tradeoffs</h1>
+  <p>
+    UMA only makes sense when placed in context. This area compares it with adjacent architectures and documents the tradeoffs that come
+    with its model.
+  </p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="what-this-macro-area-covers">What this macro area covers</h2>
+    <p>
+      These pages show the differences that matter when evaluating UMA: where it lines up with familiar approaches, where it diverges,
+      and what criticisms are worth taking seriously.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="pages-in-this-area">Pages in this area</h2>
+    <div class="subpage-grid">
+      <article class="subpage-card"><h3 id="uma-vs-serverless"><a href="../uma-vs-serverless/">UMA vs Serverless</a></h3><p>Why UMA is not just another serverless label.</p></article>
+      <article class="subpage-card"><h3 id="uma-vs-modular-monolith"><a href="../uma-vs-modular-monolith/">UMA vs Modular Monolith</a></h3><p>The places where UMA and modular monoliths overlap and diverge.</p></article>
+      <article class="subpage-card"><h3 id="uma-vs-traditional-microservices"><a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></h3><p>How UMA shifts the boundary between service and runtime.</p></article>
+      <article class="subpage-card"><h3 id="common-criticisms-and-tradeoffs-of-uma"><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></h3><p>The counterarguments and tradeoffs that deserve a direct answer.</p></article>
+    </div>
+  </section>
+</div>
+      </main>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

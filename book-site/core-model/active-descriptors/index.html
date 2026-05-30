@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Active Descriptors in UMA | Universal Microservices Architecture</title>
+    <meta name="description" content="Learn how UMA uses active descriptors as runtime-evaluated constraints for contracts, schemas, latency expectations, compatibility, and execution evidence." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/core-model/active-descriptors/" />
+    <meta property="og:title" content="Active Descriptors in UMA" />
+    <meta property="og:description" content="Learn how UMA uses active descriptors as runtime-evaluated constraints for contracts, schemas, latency expectations, compatibility, and execution evidence." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/core-model/active-descriptors/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Core Model","item":"https://www.universalmicroservices.com/core-model/"},{"@type":"ListItem","position":3,"name":"Active Descriptors in UMA","item":"https://www.universalmicroservices.com/core-model/active-descriptors/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Active Descriptors in UMA","description":"Learn how UMA uses active descriptors as runtime-evaluated constraints for contracts, schemas, latency expectations, compatibility, and execution evidence.","url":"https://www.universalmicroservices.com/core-model/active-descriptors/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="../../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why UMA</a><a href="../../core-model/">Core Model</a><a href="../../how-uma-works/">How UMA Works</a><a href="../../learn-uma/">Learn UMA</a><a href="../../proof/">Proof</a><a href="../../examples/">Examples</a><a href="../../evolve-uma/">System Evolution</a><a href="../../discoverability/">Discoverability</a><a href="../../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-useful-idea">The useful idea</a>
+    <ul class="page-rail-links">
+      <li><a href="#boundary">Boundary</a></li><li><a href="#compatibility">Compatibility</a></li><li><a href="#expectations">Expectations</a></li><li><a href="#authority">Authority</a></li>
+    </ul></li><li><a href="#concrete-proof">Concrete proof</a></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">Active Descriptors in UMA</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+          <h1>Active descriptors</h1>
+          <p>In UMA, a descriptor is not just documentation beside a service. It is metadata the runtime can evaluate to understand the service boundary, validate inputs and outputs, check compatibility, and record why execution was allowed.</p>
+        </section>
+
+<div class="subpage-body">
+          <section>
+            <h2 id="the-useful-idea">The useful idea</h2>
+            <p>An active descriptor describes a capability in terms the runtime can use: schemas, emitted events, required inputs, allowed placements, version constraints, and the evidence expected from a run. It is active because it participates in execution decisions.</p>
+            <p>This does not mean the contract replaces service logic. The contract is an executable constraint model around the logic, while the service still owns the durable behavior.</p>
+          </section>
+          <section class="subpage-grid">
+            <article class="subpage-card"><h3 id="boundary">Boundary</h3><p>Input and output schemas define the shape of the portable behavior.</p></article>
+            <article class="subpage-card"><h3 id="compatibility">Compatibility</h3><p>Version and event declarations help the runtime decide whether services can interact.</p></article>
+            <article class="subpage-card"><h3 id="expectations">Expectations</h3><p>Latency, error, and evidence expectations make execution easier to inspect.</p></article>
+            <article class="subpage-card"><h3 id="authority">Authority</h3><p>The runtime evaluates the descriptor before it treats a proposed path as approved.</p></article>
+          </section>
+          <section>
+            <h2 id="concrete-proof">Concrete proof</h2>
+            <p>The early examples prove the idea in small pieces: Chapter 4 uses a contract around deterministic flag evaluation, Chapter 6 uses a contract to compare native and WASI execution, and Chapter 7 lets contracts and events shape orchestration.</p>
+          </section>
+          <section class="subpage-callout">
+            <strong>Covered in the book</strong>
+            <p>This page gives the preview. Chapters 4, 6, and 7 explain how descriptors become practical runtime inputs without turning the website into the full book.</p>
+            <div class="subpage-inline-links">
+              <a href="../examples/chapter-04-feature-flag-evaluator/">Chapter 4 example</a>
+              <a href="../examples/chapter-06-portability-lab/">Chapter 6 example</a>
+              <a href="../examples/chapter-07-metadata-orchestration/">Chapter 7 example</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+  </body>
+</html>

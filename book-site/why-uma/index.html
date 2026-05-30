@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Why UMA | Universal Microservices Architecture</title>
+    <meta name="description" content="Start here to understand why UMA exists, what problem it solves, and how the model shifts architecture toward portable behavior." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/why-uma/" />
+    <meta property="og:title" content="Why UMA" />
+    <meta property="og:description" content="Start here to understand why UMA exists, what problem it solves, and how the model shifts architecture toward portable behavior." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/why-uma/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Why UMA","item":"https://www.universalmicroservices.com/why-uma/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Why UMA","description":"Start here to understand why UMA exists, what problem it solves, and how the model shifts architecture toward portable behavior.","url":"https://www.universalmicroservices.com/why-uma/","inLanguage":"en"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <a class="brand" href="../#top">
+          <span class="brand-mark">UMA</span>
+          <span class="brand-copy">
+            <strong>Universal Microservices Architecture</strong>
+          </span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+          Menu
+        </button>
+        <nav class="topnav" aria-label="Primary">
+          <a href="../why-uma/">Why UMA</a><a href="../core-model/">Core Model</a><a href="../how-uma-works/">How UMA Works</a><a href="../learn-uma/">Learn UMA</a><a href="../proof/">Proof</a><a href="../examples/">Examples</a><a href="../evolve-uma/">System Evolution</a><a href="../discoverability/">Discoverability</a><a href="../comparisons/">Comparisons</a>
+          <a class="topnav-github" href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+        </nav>
+        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../why-uma/">Why UMA</a><a href="../core-model/">Core Model</a><a href="../how-uma-works/">How UMA Works</a><a href="../learn-uma/">Learn UMA</a><a href="../proof/">Proof</a><a href="../examples/">Examples</a><a href="../evolve-uma/">System Evolution</a><a href="../discoverability/">Discoverability</a><a href="../comparisons/">Comparisons</a>
+            <a href="https://www.universalmicroservices.com/reference-application/" target="_blank" rel="noreferrer noopener">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-rail page-rail--related" aria-label="On this page">
+        <nav class="page-rail-block">
+          <h2>On this page</h2>
+
+    <ol class="page-rail-outline">
+      <li><a href="#what-this-macro-area-covers">What this macro area covers</a></li><li><a href="#pages-in-this-area">Pages in this area</a>
+    <ul class="page-rail-links">
+      <li><a href="#what-problem-does-uma-solve">What Problem Does UMA Solve?</a></li><li><a href="#what-is-uma">What Is UMA?</a></li><li><a href="#why-universal-microservices-exist">Why Universal Microservices Exist</a></li><li><a href="#what-is-a-universal-microservice">What Is a Universal Microservice?</a></li><li><a href="#from-stack-ownership-to-behavior-ownership">From Stack Ownership to Behavior Ownership</a></li>
+    </ul></li>
+    </ol>
+        </nav>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><span aria-current="page">Why UMA</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+  <h1>Why UMA</h1>
+  <p>
+    UMA starts with a simple claim: the durable unit of architecture is behavior, not the stack that happened to host it first.
+    This area explains why that shift matters and why it keeps systems coherent for longer.
+  </p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="what-this-macro-area-covers">What this macro area covers</h2>
+    <p>
+      These pages explain the architectural pressure UMA responds to, the difference between ownership of a platform and ownership of
+      a capability, and why portable behavior is a better long-term boundary for distributed systems.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="pages-in-this-area">Pages in this area</h2>
+    <div class="subpage-grid">
+      <article class="subpage-card"><h3 id="what-problem-does-uma-solve"><a href="../what-problem-does-uma-solve/">What Problem Does UMA Solve?</a></h3><p>Start with the architectural pain UMA is designed to relieve.</p></article>
+      <article class="subpage-card"><h3 id="what-is-uma"><a href="../what-is-uma/">What Is UMA?</a></h3><p>A concise definition of the model and its runtime-aware boundary.</p></article>
+      <article class="subpage-card"><h3 id="why-universal-microservices-exist"><a href="../why-universal-microservices-exist/">Why Universal Microservices Exist</a></h3><p>Why the model exists as a separate architecture instead of a slogan.</p></article>
+      <article class="subpage-card"><h3 id="what-is-a-universal-microservice"><a href="../what-is-a-universal-microservice/">What Is a Universal Microservice?</a></h3><p>The durable service unit UMA uses to preserve behavior over time.</p></article>
+      <article class="subpage-card"><h3 id="from-stack-ownership-to-behavior-ownership"><a href="../from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></h3><p>The shift that makes UMA readable as architecture instead of tooling.</p></article>
+    </div>
+  </section>
+</div>
+      </main>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../app.js" type="module"></script>
+  </body>
+</html>

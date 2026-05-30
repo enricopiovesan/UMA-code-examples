@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA Template Preview | Universal Microservices Architecture</title>
+    <meta
+      name="description"
+      content="Preview the reusable UMA subpage template across representative pages before updating the full site."
+    />
+    <link rel="canonical" href="https://www.universalmicroservices.com/template-preview/" />
+    <meta property="og:title" content="UMA Template Preview" />
+    <meta
+      property="og:description"
+      content="Preview the reusable UMA subpage template across representative pages before updating the full site."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/template-preview/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../subpages.css" />
+    <style>
+      body {
+        background: #fbf7ef;
+      }
+
+      .preview-shell {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 32px 24px 72px;
+      }
+
+      .preview-hero {
+        background: linear-gradient(135deg, rgba(255, 191, 31, 0.16), rgba(17, 17, 17, 0.03));
+        border: 1px solid rgba(17, 17, 17, 0.08);
+        border-radius: 24px;
+        padding: 28px;
+        margin-bottom: 28px;
+      }
+
+      .preview-hero h1 {
+        margin: 0 0 8px;
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        line-height: 1.05;
+      }
+
+      .preview-hero p {
+        max-width: 72ch;
+        margin: 0;
+        font-size: 1.05rem;
+      }
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 22px;
+        margin-bottom: 28px;
+      }
+
+      .preview-card {
+        background: #fff;
+        border: 1px solid rgba(17, 17, 17, 0.1);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 18px 48px rgba(17, 17, 17, 0.08);
+      }
+
+      .preview-card header {
+        padding: 16px 18px 12px;
+        border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+      }
+
+      .preview-card h2 {
+        margin: 0 0 6px;
+        font-size: 1.1rem;
+      }
+
+      .preview-card p {
+        margin: 0;
+        color: rgba(17, 17, 17, 0.72);
+        font-size: 0.95rem;
+      }
+
+      .preview-frame {
+        width: 100%;
+        height: 860px;
+        border: 0;
+        background: #fff;
+        display: block;
+      }
+
+      .preview-notes {
+        background: #111;
+        color: #f6f2e9;
+        border-radius: 20px;
+        padding: 24px 26px;
+      }
+
+      .preview-notes h2 {
+        margin-top: 0;
+      }
+
+      .preview-notes ul {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="preview-shell">
+      <section class="preview-hero">
+        <p class="tutorial-kicker">Template preview</p>
+        <h1>UMA subpage template preview</h1>
+        <p>
+          This page shows the reusable non-home template across representative content types so we can review breadcrumbs,
+          left rail, headings, footer structure, and page density before we continue scaling the Markdown-backed site.
+        </p>
+      </section>
+
+      <section class="preview-grid" aria-label="Template samples">
+        <article class="preview-card">
+          <header>
+            <h2>Examples hub</h2>
+            <p>Hub page, section navigation, grouped chapter links, shared footer.</p>
+          </header>
+          <iframe class="preview-frame" src="../examples/" title="UMA examples hub preview"></iframe>
+        </article>
+
+        <article class="preview-card">
+          <header>
+            <h2>FAQ</h2>
+            <p>Reference page, rich snippets, breadcrumb trail, rail outline.</p>
+          </header>
+          <iframe class="preview-frame" src="../faq/" title="UMA FAQ preview"></iframe>
+        </article>
+
+        <article class="preview-card">
+          <header>
+            <h2>Chapter 8 tutorial</h2>
+            <p>Tutorial page, example path rail, HowTo markup, source folder link.</p>
+          </header>
+          <iframe class="preview-frame" src="../examples/chapter-08-service-graph/" title="Chapter 8 preview"></iframe>
+        </article>
+      </section>
+
+      <section class="preview-grid" aria-label="More samples">
+        <article class="preview-card">
+          <header>
+            <h2>What is UMA</h2>
+            <p>Concept page, semantic sections, breadcrumb path, on-page outline.</p>
+          </header>
+          <iframe class="preview-frame" src="../what-is-uma/" title="What is UMA preview"></iframe>
+        </article>
+
+        <article class="preview-card">
+          <header>
+            <h2>Chapter 13 tutorial</h2>
+            <p>Long-form tutorial page with validation steps and reference-app links.</p>
+          </header>
+          <iframe class="preview-frame" src="../examples/chapter-13-portable-mcp-runtime/" title="Chapter 13 preview"></iframe>
+        </article>
+
+        <article class="preview-card">
+          <header>
+            <h2>Learning path</h2>
+            <p>Navigation-heavy page that should stay easy to scan and expand.</p>
+          </header>
+          <iframe class="preview-frame" src="../learning-path/" title="Learning path preview"></iframe>
+        </article>
+      </section>
+
+      <section class="preview-notes">
+        <h2>What we should review visually</h2>
+        <ul>
+          <li>Breadcrumb spacing and whether the current page label feels readable.</li>
+          <li>Left rail density on tutorial pages versus concept pages.</li>
+          <li>Whether the footer still feels organized enough to grow over time.</li>
+          <li>Whether the tutorial cards and headings feel balanced in the viewport.</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

@@ -120,84 +120,111 @@ const chapterByPath = new Map(chapterEntries.map((chapter) => [chapter.path, cha
 const footerColumns = [
   [
     {
-      title: "Start here",
+      title: "Why UMA",
       links: [
-        internalLink("what problem does uma solve?", "what-problem-does-uma-solve/"),
-        internalLink("what is uma?", "what-is-uma/"),
-        internalLink("what is a universal microservice?", "what-is-a-universal-microservice/"),
-        internalLink("why universal microservices exist", "why-universal-microservices-exist/"),
-        internalLink("from stack ownership to behavior ownership", "from-stack-ownership-to-behavior-ownership/"),
-        internalLink("learning path", "learning-path/"),
-        internalLink("book", "book/"),
+        internalLink("why UMA", "why-uma/"),
+        internalLink("what problem does UMA solve?", "why-uma/what-problem-does-uma-solve/"),
+        internalLink("what is UMA?", "why-uma/what-is-uma/"),
+        internalLink("why universal microservices exist", "why-uma/why-universal-microservices-exist/"),
+        internalLink("what is a universal microservice?", "why-uma/what-is-a-universal-microservice/"),
+        internalLink("from stack ownership to behavior ownership", "why-uma/from-stack-ownership-to-behavior-ownership/"),
       ],
     },
     {
-      title: "Core concepts",
+      title: "Core Model",
       links: [
-        internalLink("what is a capability?", "what-is-a-capability/"),
-        internalLink("what is a workflow?", "what-is-a-workflow/"),
-        internalLink("what is a uma runtime?", "what-is-a-uma-runtime/"),
-        internalLink("what belongs in the runtime layer?", "what-belongs-in-the-runtime-layer/"),
-        internalLink("active descriptors", "active-descriptors/"),
-        internalLink("late-bound policy enforcement", "late-bound-policy-enforcement/"),
-        internalLink("what makes a decision discoverable?", "what-makes-a-decision-discoverable/"),
-        internalLink("what is wasm mcp?", "what-is-wasm-mcp/"),
-        internalLink("agent vs runtime", "agent-vs-runtime/"),
+        internalLink("core model", "core-model/"),
+        internalLink("what is a capability?", "core-model/what-is-a-capability/"),
+        internalLink("what is a workflow?", "core-model/what-is-a-workflow/"),
+        internalLink("what is a uma runtime?", "core-model/what-is-a-uma-runtime/"),
+        internalLink("what belongs in the runtime layer?", "core-model/what-belongs-in-the-runtime-layer/"),
+        internalLink("active descriptors", "core-model/active-descriptors/"),
+        internalLink("late-bound policy enforcement", "core-model/late-bound-policy-enforcement/"),
+        internalLink("what makes a decision discoverable?", "core-model/what-makes-a-decision-discoverable/"),
+        internalLink("what is wasm mcp?", "core-model/what-is-wasm-mcp/"),
+        internalLink("agent vs runtime", "core-model/agent-vs-runtime/"),
       ],
     },
   ],
   [
     {
-      title: "Build and prove",
+      title: "How UMA Works",
       links: [
-        internalLink("what makes a service portable?", "what-makes-a-service-portable/"),
-        internalLink("how to prove portability", "how-to-prove-portability/"),
-        internalLink("runtime-agnostic architecture", "runtime-agnostic-architecture/"),
-        internalLink("portable business logic", "portable-business-logic/"),
-        internalLink("architecture drift and portable business logic", "architecture-drift-and-portable-business-logic/"),
-        internalLink("webassembly architecture", "webassembly-architecture/"),
-        internalLink("migrating to uma incrementally", "migrating-to-uma-incrementally/"),
-        internalLink("incremental uma adoption", "incremental-uma-adoption/"),
-        internalLink("uma production readiness", "uma-production-readiness/"),
-        internalLink("benchmark and footprint", "benchmark-and-footprint/"),
+        internalLink("how UMA works", "how-uma-works/"),
+        internalLink("runtime-agnostic architecture", "how-uma-works/runtime-agnostic-architecture/"),
+        internalLink("portable business logic", "how-uma-works/portable-business-logic/"),
+        internalLink("architecture drift and portable business logic", "how-uma-works/architecture-drift-and-portable-business-logic/"),
+        internalLink("webassembly architecture", "how-uma-works/webassembly-architecture/"),
+        internalLink("migrating to uma incrementally", "how-uma-works/migrating-to-uma-incrementally/"),
+        internalLink("incremental uma adoption", "how-uma-works/incremental-uma-adoption/"),
+        internalLink("uma production readiness", "how-uma-works/uma-production-readiness/"),
       ],
     },
     {
-      title: "Hands-on",
+      title: "Proof",
+      links: [
+        internalLink("proof", "proof/"),
+        internalLink("what makes a service portable?", "proof/what-makes-a-service-portable/"),
+        internalLink("how to prove portability", "proof/how-to-prove-portability/"),
+        internalLink("benchmark and footprint", "proof/benchmark-and-footprint/"),
+      ],
+    },
+  ],
+  [
+    {
+      title: "Learn UMA",
+      links: [
+        internalLink("learning path", "learn-uma/learning-path/"),
+        internalLink("book", "learn-uma/book/"),
+        internalLink("end-to-end feature flag example", "learn-uma/end-to-end-feature-flag-example/"),
+      ],
+    },
+    {
+      title: "Hands-on Examples",
       links: [
         internalLink("examples", "examples/"),
-        internalLink("end-to-end feature flag example", "end-to-end-feature-flag-example/"),
-        internalLink("learning path", "learning-path/"),
         internalLink("chapter 4-6 tutorials", "examples/#foundations"),
         internalLink("chapter 7-9 tutorials", "examples/#orchestration-and-trust"),
         internalLink("chapter 10-13 tutorials", "examples/#evolution-and-discoverability"),
+        externalLink("source repository", githubHref),
       ],
     },
   ],
   [
     {
-      title: "System evolution",
+      title: "System Evolution",
       links: [
-        internalLink("contract-driven orchestration", "contract-driven-orchestration/"),
-        internalLink("service graph evolution", "service-graph-evolution/"),
-        internalLink("how systems evolve without fragmentation", "how-systems-evolve-without-fragmentation/"),
-        internalLink("what makes a system coherent?", "what-makes-a-system-coherent/"),
-        internalLink("trust boundaries", "trust-boundaries/"),
-        internalLink("runtime provenance and trust", "runtime-provenance-and-trust/"),
-        internalLink("ai-native runtime governance", "ai-native-runtime-governance/"),
+        internalLink("evolve UMA", "evolve-uma/"),
+        internalLink("contract-driven orchestration", "evolve-uma/contract-driven-orchestration/"),
+        internalLink("service graph evolution", "evolve-uma/service-graph-evolution/"),
+        internalLink("how systems evolve without fragmentation", "evolve-uma/how-systems-evolve-without-fragmentation/"),
+        internalLink("what makes a system coherent?", "evolve-uma/what-makes-a-system-coherent/"),
+        internalLink("trust boundaries", "evolve-uma/trust-boundaries/"),
+        internalLink("runtime provenance and trust", "evolve-uma/runtime-provenance-and-trust/"),
+        internalLink("ai-native runtime governance", "evolve-uma/ai-native-runtime-governance/"),
       ],
     },
     {
-      title: "Explore UMA",
+      title: "Discoverability and References",
       links: [
-        internalLink("diagrams", "diagrams/"),
-        internalLink("faq", "faq/"),
-        internalLink("book", "book/"),
-        internalLink("about enrico", "about-enrico/"),
+        internalLink("discoverability", "discoverability/"),
+        internalLink("diagrams", "discoverability/diagrams/"),
+        internalLink("faq", "discoverability/faq/"),
+        internalLink("about enrico", "discoverability/about-enrico/"),
         externalLink("blog", blogHref),
         externalLink("github", githubHref),
         externalLink("reference application", "https://www.universalmicroservices.com/reference-application/"),
         externalLink("read the white paper", whitePaperHref),
+      ],
+    },
+    {
+      title: "Comparisons and Tradeoffs",
+      links: [
+        internalLink("comparisons", "comparisons/"),
+        internalLink("uma vs serverless", "comparisons/uma-vs-serverless/"),
+        internalLink("uma vs modular monolith", "comparisons/uma-vs-modular-monolith/"),
+        internalLink("uma vs traditional microservices", "comparisons/uma-vs-traditional-microservices/"),
+        internalLink("common criticisms and tradeoffs of uma", "comparisons/common-criticisms-and-tradeoffs-of-uma/"),
       ],
     },
   ],
@@ -346,6 +373,24 @@ function buildBreadcrumbs() {
   return breadcrumbs;
 }
 
+const headerMacroLinks = [
+  ["Why UMA", "why-uma/"],
+  ["Core Model", "core-model/"],
+  ["How UMA Works", "how-uma-works/"],
+  ["Learn UMA", "learn-uma/"],
+  ["Proof", "proof/"],
+  ["Examples", "examples/"],
+  ["System Evolution", "evolve-uma/"],
+  ["Discoverability", "discoverability/"],
+  ["Comparisons", "comparisons/"],
+];
+
+const headerUtilityLinks = [
+  ["Ref App", "https://www.universalmicroservices.com/reference-application/"],
+  ["GitHub", githubHref],
+  ["Blog", blogHref],
+];
+
 function buildHeadingOutline(main) {
   const headings = [...main.querySelectorAll("h2, h3")].filter((heading) => !heading.closest(".contacts-band"));
   const outline = [];
@@ -407,10 +452,10 @@ function buildPageRail(main) {
   const outline = buildHeadingOutline(main);
   const exploreLinks = [
     ["home", "/"],
-    ["book", "book/"],
+    ["book", "learn-uma/book/"],
     ["examples", "examples/"],
-    ["learning path", "learning-path/"],
-    ["faq", "faq/"],
+    ["learning path", "learn-uma/learning-path/"],
+    ["faq", "discoverability/faq/"],
     ["blog", blogHref, true],
     ["reference application", "https://www.universalmicroservices.com/reference-application/", true],
     ["github", githubHref, true],
@@ -469,23 +514,38 @@ function ensureFavicon() {
   document.head.appendChild(link);
 }
 
-function ensureHeaderBlogLink() {
+function ensureHeaderNavigation() {
   const desktopNav = document.querySelector(".topnav");
   const mobileNav = document.querySelector(".mobile-menu-nav");
-  const insertLink = (nav) => {
-    if (!nav || nav.querySelector(`a[href="${blogHref}"]`)) return;
+  const fillNav = (nav, mobile = false) => {
+    if (!nav) return;
 
-    const link = document.createElement("a");
-    link.href = blogHref;
-    link.textContent = "Blog";
-    link.target = "_blank";
-    link.rel = "noreferrer noopener";
-    link.className = "topnav-github";
-    nav.appendChild(link);
+    nav.innerHTML = "";
+
+    for (const [label, href] of headerMacroLinks) {
+      const link = document.createElement("a");
+      link.href = internalHref(href);
+      link.textContent = label;
+      nav.appendChild(link);
+    }
+
+    headerUtilityLinks.forEach(([label, href], index) => {
+      const link = document.createElement("a");
+      link.href = href;
+      link.textContent = label;
+      if (href.startsWith("http")) {
+        link.target = "_blank";
+        link.rel = "noreferrer noopener";
+      }
+      if (!mobile && index === 0) {
+        link.className = "topnav-github";
+      }
+      nav.appendChild(link);
+    });
   };
 
-  insertLink(desktopNav);
-  insertLink(mobileNav);
+  fillNav(desktopNav, false);
+  fillNav(mobileNav, true);
 }
 
 if (chapterCards) {
@@ -606,7 +666,7 @@ if (coverFrame) {
 
 enhanceSubpageLayout();
 ensureFavicon();
-ensureHeaderBlogLink();
+ensureHeaderNavigation();
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
