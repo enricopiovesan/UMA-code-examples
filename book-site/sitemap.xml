@@ -25,6 +25,9 @@
   <url><loc>https://www.universalmicroservices.com/how-uma-works/migrating-to-uma-incrementally/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/how-uma-works/uma-production-readiness/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/how-uma-works/architecture-drift-and-portable-business-logic/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/how-uma-works/webassembly-microservices-architecture/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-rust/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-typescript/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/learn-uma/book/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/learn-uma/learning-path/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/learn-uma/end-to-end-feature-flag-example/</loc><lastmod>2026-05-30</lastmod></url>
@@ -51,14 +54,18 @@
   <url><loc>https://www.universalmicroservices.com/evolve-uma/runtime-provenance-and-trust/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/evolve-uma/contract-driven-orchestration/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/evolve-uma/ai-native-runtime-governance/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/evolve-uma/mcp-wasm-ai-native-microservices/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/evolve-uma/what-makes-a-system-coherent/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/discoverability/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/discoverability/faq/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/discoverability/diagrams/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/discoverability/about-enrico/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/discoverability/glossary/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/uma-vs-traditional-microservices/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/uma-vs-serverless/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/uma-vs-modular-monolith/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/common-criticisms-and-tradeoffs-of-uma/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/comparisons/wasm-vs-docker-kubernetes/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/comparisons/microservices-without-kubernetes/</loc><lastmod>2026-05-30</lastmod></url>
 </urlset>
