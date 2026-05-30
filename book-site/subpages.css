@@ -449,6 +449,7 @@
 
   .page-shell.has-page-rail > .page-rail {
     position: static;
+    order: 2;
     padding: 18px 0 0;
     border: 0;
     background: transparent;
@@ -456,6 +457,7 @@
   }
 
   .page-shell.has-page-rail > .subpage-main {
+    order: 1;
     padding-top: 28px;
   }
 }
