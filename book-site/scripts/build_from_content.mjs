@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
 
 const ROOT = path.resolve(path.join(path.dirname(fileURLToPath(import.meta.url)), "..", ".."));
 const CONTENT_ROOT = path.join(ROOT, "content", "pages");
@@ -430,7 +431,7 @@ function chapterDisplayName(meta) {
     .trim();
 }
 
-function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, pagesBySlug) {
+function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, pagesBySlug, dates) {
   const scripts = [];
   const canonical = generatedCanonicalForOutPath(currentOutPath);
   const breadcrumbs = buildBreadcrumbTrail(meta, currentOutPath, siteMapGroups, pagesBySlug).map((item) => ({
@@ -449,14 +450,17 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     })),
   });
 
-  scripts.push({
+  const webPage = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: meta.title || "UMA",
     description: meta.seo_description || meta.subtitle || "",
     url: canonical,
     inLanguage: "en",
-  });
+  };
+  if (dates?.published) webPage.datePublished = dates.published;
+  if (dates?.modified) webPage.dateModified = dates.modified;
+  scripts.push(webPage);
 
   if (meta.ref === "faq") {
     const questions = [...rawMain.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3[^>]*>|<\/section>|<\/div>)/g)].map((match) => ({
@@ -579,7 +583,7 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     .join("\n    ");
 }
 
-function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesBySlug) {
+function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesBySlug, dates) {
   const prefix = relativePrefixFor(outPath);
   const title = escapeHtml(meta.title || "UMA Examples");
   const description = escapeHtml(meta.seo_description || meta.subtitle || "");
@@ -587,7 +591,7 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
   const ogUrl = canonical;
   const ogType = meta.ref === "faq" || meta.content_type === "hub" ? "website" : "article";
   const pageTitle = `${title} | Universal Microservices Architecture`;
-  const structuredData = renderStructuredData(meta, main, outPath, siteMapGroups, pagesBySlug);
+  const structuredData = renderStructuredData(meta, main, outPath, siteMapGroups, pagesBySlug, dates);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -606,6 +610,8 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    ${dates?.published ? `<meta name="article:published_time" content="${dates.published}" />` : ""}
+    ${dates?.modified ? `<meta name="article:modified_time" content="${dates.modified}" />` : ""}
     ${structuredData}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -664,7 +670,7 @@ async function main() {
     const source = await fs.readFile(file, "utf8");
     const meta = parseFrontmatter(source);
     const { intro, main: mainSection } = splitSections(source);
-    pages.push({ meta, intro, main: mainSection });
+    pages.push({ meta, intro, main: mainSection, file });
   }
 
   const siteMapSource = await fs.readFile(SITE_MAP_PATH, "utf8");
@@ -681,7 +687,12 @@ async function main() {
       await fs.rm(legacyOutPath, { force: true });
     }
     await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug)));
+    let dates;
+    try {
+      const log = execSync(`git log --follow --format="%aI" -- "${page.file}"`, { encoding: "utf8", cwd: ROOT }).trim().split("\n").filter(Boolean);
+      if (log.length > 0) dates = { published: log[log.length - 1], modified: log[0] };
+    } catch { /* git unavailable or file untracked — skip dates */ }
+    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug, dates)));
     count += 1;
   }
 
