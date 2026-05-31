@@ -231,60 +231,59 @@ const footerColumns = [
 ];
 
 if (sharedFooter) {
+  const amazonHref = "https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4";
+
+  function renderCluster(cluster) {
+    const links = cluster.links
+      .map(([label, path, external = false]) => {
+        const href = external ? path : new URL(path, siteRoot).href;
+        const attrs = external ? ' target="_blank" rel="noreferrer noopener"' : "";
+        return `<a href="${href}"${attrs}>${label}</a>`;
+      })
+      .join("");
+    return `<div class="footer-cluster"><h3>${cluster.title}</h3><nav class="footer-links">${links}</nav></div>`;
+  }
+
   const footerColumnsMarkup = footerColumns
-    .map(
-      (column, index) => `
-        <section class="footer-column" aria-label="Footer links column ${index + 1}">
-          ${column
-            .map(
-              (cluster) => `
-                <div class="footer-cluster">
-                  <h3>${cluster.title}</h3>
-                  <nav class="footer-links">
-                    ${cluster.links
-                      .map(([label, path, external = false]) => {
-                        const href = external ? path : new URL(path, siteRoot).href;
-                        const attrs = external ? ' target="_blank" rel="noreferrer noopener"' : "";
-                        return `<a href="${href}"${attrs}>${label}</a>`;
-                      })
-                      .join("")}
-                  </nav>
-                </div>
-              `,
-            )
-            .join("")}
-        </section>
-      `,
-    )
+    .map((column, index) => `
+      <section class="footer-column" aria-label="Footer links column ${index + 1}">
+        ${column.map(renderCluster).join("")}
+      </section>`)
     .join("");
 
   sharedFooter.innerHTML = `
-    <div class="contacts-heading">
-      <h2>contacts</h2>
-      <div class="contacts-meta">
-        <nav class="contacts-nav" aria-label="Contacts">
-          <a href="https://enricopiovesan.com">enricopiovesan.com</a>
-          <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
-          <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
-          <a href="https://x.com/enricopiovesan">x</a>
-        </nav>
-      </div>
-    </div>
-    <div class="footer-grid">
-      ${footerColumnsMarkup}
-      <section class="footer-column footer-book-cta" aria-label="Buy the book">
-        <h3>Get the book</h3>
-        <div class="footer-book-card">
-          <a class="footer-book-cover" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">
-            <img src="${new URL("./assets/cover.png", siteRoot)}" alt="Universal Microservices Architecture book cover" />
-          </a>
-          <div class="footer-book-copy">
-            <p>Go deeper into UMA with the full book, examples, and architecture model.</p>
-            <a class="inline-link" href="${whitePaperHref}" target="_blank" rel="noreferrer noopener">Read the white paper</a>
-            <a class="button button-dark footer-book-button" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+    <div class="footer-inner">
+      <div class="footer-book-featured">
+        <a class="footer-book-cover-large" href="${amazonHref}" aria-label="Buy Universal Microservices Architecture on Amazon">
+          <img src="${new URL("./assets/cover.png", siteRoot)}" alt="Universal Microservices Architecture book cover" />
+        </a>
+        <div class="footer-book-featured-copy">
+          <p class="footer-book-kicker">The book</p>
+          <h2 class="footer-book-title">Universal Microservices Architecture</h2>
+          <p class="footer-book-desc">The complete guide to portable, runtime-agnostic service design — with working examples and architecture diagrams.</p>
+          <div class="footer-book-actions">
+            <a class="button button-dark footer-book-button" href="${amazonHref}" target="_blank" rel="noreferrer noopener">Buy on Amazon</a>
+            <a class="footer-book-wp-link" href="${whitePaperHref}" target="_blank" rel="noreferrer noopener">Read the white paper →</a>
           </div>
         </div>
-      </section>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <div class="footer-grid">
+          ${footerColumnsMarkup}
+        </div>
+        <div class="footer-meta">
+          <h2 class="footer-contacts-heading">contacts</h2>
+          <nav class="contacts-nav" aria-label="Contacts">
+            <a href="https://enricopiovesan.com">enricopiovesan.com</a>
+            <a href="https://www.instagram.com/enricopiovesan/">instagram</a>
+            <a href="https://www.linkedin.com/in/enricopiovesan/">linkedin</a>
+            <a href="https://x.com/enricopiovesan">x</a>
+          </nav>
+        </div>
+      </div>
     </div>
   `;
 }
