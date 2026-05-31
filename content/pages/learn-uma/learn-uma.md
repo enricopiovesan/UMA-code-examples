@@ -41,6 +41,10 @@ related_refs:
     <p>
       If you are deciding where to start: the learning path is the map, the book is the full argument, and the examples are the proof. Most readers find it useful to read the learning path first, run one example to confirm the toolchain works, then buy the book to follow the full progression.
     </p>
+    <div class="subpage-inline-links">
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4" target="_blank" rel="noreferrer noopener">Buy the book on Amazon →</a>
+      <a href="../learning-path/">Start with the learning path →</a>
+    </div>
   </section>
 
   <section>

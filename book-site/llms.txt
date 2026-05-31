@@ -4,9 +4,20 @@
 
 Universal Microservices Architecture (UMA) is an execution model for distributed systems where compute can happen in many places and the system decides where logic runs. It keeps service behavior portable while making contracts, runtime policy, trust, and execution boundaries explicit.
 
+## Author
+
+Enrico Piovesan — principal platform architect at Autodesk with more than two decades of experience building modular, cloud-native, and event-driven distributed systems. Author of *Universal Microservices Architecture* (Amazon, 2025).
+
+## License
+
+Content on this site may be cited with attribution to Enrico Piovesan and universalmicroservices.com.
+
 ## Key pages
 
+- /discoverability/glossary/: Complete glossary of UMA terms — capability, workflow, runtime, active descriptor, behavioral coherence, adapter, and more
 - /discoverability/faq/: Full FAQ — definitions, comparisons, adoption guidance (28 Q&A pairs)
+- /why-uma/what-is-uma/: What is Universal Microservices Architecture? — core definition and motivation
+- /core-model/what-is-a-capability/: What is a capability in UMA? — the portable unit of business behavior
 - /core-model/: Core vocabulary — capabilities, workflows, runtimes, active descriptors
 - /why-uma/: Architectural motivation and problem framing
 - /how-uma-works/: How portability, runtime placement, and adoption work in practice
@@ -19,11 +30,15 @@ Universal Microservices Architecture (UMA) is an execution model for distributed
 
 ## Key concepts
 
-- Universal Microservice: a service whose behavior is portable across runtimes
-- Capability: the unit the runtime can discover and reason about
-- Workflow: the runtime-approved execution path through one or more capabilities
-- Active Descriptor: the visible discovery surface exposing capabilities to the runtime
-- Late-Bound Policy Enforcement: runtime-enforced constraints evaluated at execution time, not at build time
+- Universal Microservice: A small unit of business behavior that can remain recognizable across runtime contexts. It has an explicit contract, portable core logic compiled to WebAssembly, and a runtime boundary that makes validation, placement, trust, and execution visible. A Universal Microservice is the building block of portable microservices architecture — the same behavior runs identically whether invoked from a server, a mobile client, or an AI agent.
+
+- Capability: The unit the runtime can discover and reason about. A capability is not a function or an endpoint — it is a named, versioned behavioral contract that the runtime uses to decide when, where, and whether execution is permitted. Capabilities are the smallest granularity at which UMA enforces governance.
+
+- Workflow: The runtime-approved execution path through one or more capabilities. A workflow is not a script the developer controls directly — it is a sequence the runtime assembles and validates against policy before execution begins. Workflows are how UMA makes multi-step behavior auditable and governable.
+
+- Active Descriptor: The machine-readable discovery surface that exposes a capability to the runtime. An active descriptor declares what a service can do, under what conditions, with what trust requirements, and what observability it offers. It is what makes a capability discoverable and composable without hardwiring knowledge into the runtime.
+
+- Late-Bound Policy Enforcement: Runtime-enforced constraints evaluated at execution time, not at build time. Late binding means the same service binary can be governed differently in different runtime contexts — a constraint applied in production may not exist in a development runtime, without requiring a different service implementation.
 
 ## External
 

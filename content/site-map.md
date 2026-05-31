@@ -53,6 +53,7 @@ It defines semantic page groups, not HTML output.
 - `benchmark-and-footprint`
 
 ### Learning Path
+- `learn-uma`
 - `learning-path`
 - `book`
 - `end-to-end-feature-flag-example`

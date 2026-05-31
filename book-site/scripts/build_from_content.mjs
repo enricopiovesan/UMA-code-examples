@@ -562,7 +562,7 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     }
   });
 
-  // Book schema — on the /learn-uma/book/ page
+  // Book schema — on the /learn-uma/book/ page only
   if (meta.ref === "book" || meta.slug === "book") {
     scripts.push({
       "@context": "https://schema.org",
@@ -573,17 +573,24 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       "description": "A practical guide for architects and senior engineers on building portable, coherent distributed systems using Universal Microservices Architecture with WebAssembly and MCP.",
       "inLanguage": "en",
       "bookFormat": "https://schema.org/EBook",
+      "isbn": "979-8341457867",
       "author": {
         "@type": "Person",
         "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
         "name": "Enrico Piovesan"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Self-published"
       },
       "offers": {
         "@type": "Offer",
         "url": "https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4",
         "seller": { "@type": "Organization", "name": "Amazon" },
         "availability": "https://schema.org/InStock",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "price": "9.99",
+        "priceValidUntil": "2027-12-31"
       },
       "about": [
         { "@type": "Thing", "name": "Microservices Architecture" },
@@ -601,12 +608,18 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
       "name": "Enrico Piovesan",
       "url": "https://www.universalmicroservices.com/discoverability/about-enrico/",
-      "jobTitle": "Platform Software Architect",
+      "jobTitle": "Principal Platform Architect",
       "description": "Platform software architect with more than two decades of experience building modular, cloud-native, and event-driven systems. Author of Universal Microservices Architecture.",
       "knowsAbout": ["Microservices Architecture", "WebAssembly", "Distributed Systems", "Cloud-Native Architecture"],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Autodesk",
+        "url": "https://www.autodesk.com/"
+      },
       "sameAs": [
         "https://medium.com/@enrico.piovesan",
-        "https://github.com/enricopiovesan"
+        "https://github.com/enricopiovesan",
+        "https://www.linkedin.com/in/enricopiovesan/"
       ]
     });
   }

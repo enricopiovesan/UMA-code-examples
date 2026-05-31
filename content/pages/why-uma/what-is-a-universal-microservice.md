@@ -24,7 +24,7 @@ related_refs:
 
 <section class="subpage-hero">
           <h1>What is a Universal Microservice?</h1>
-          <p>A Universal Microservice is a small unit of business behavior that can remain recognizable across runtime contexts. It is not just a service that has been packaged differently. It is a capability with an explicit contract, portable core logic, and a runtime boundary that makes validation, placement, trust, and execution visible.</p>
+          <p>A Universal Microservice is the building block of portable microservices architecture — a small unit of business behavior that remains recognizable across runtime contexts. It is not just a service that has been packaged differently. It is a capability with an explicit contract, portable core logic, and a runtime boundary that makes validation, placement, trust, and execution visible.</p>
         </section>
 
 ## main
