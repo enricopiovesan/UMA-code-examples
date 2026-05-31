@@ -1,6 +1,6 @@
 ---
 ref: core-model
-title: "Core Model"
+title: "The UMA Core Model"
 subtitle: "The core UMA primitives: capability, workflow, runtime, descriptor, policy, and decision discoverability."
 macro_area: core-model
 content_type: hub

@@ -1,6 +1,6 @@
 ---
 ref: why-uma
-title: "Why UMA"
+title: "Why UMA Exists"
 subtitle: "Why UMA exists, which architectural problems it solves, and why behavior ownership matters more than stack ownership."
 macro_area: why-uma
 content_type: hub

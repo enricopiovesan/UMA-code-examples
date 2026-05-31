@@ -422,6 +422,32 @@ function renderSectionNav(meta, siteMapGroups, pagesBySlug, currentOutPath) {
       </aside>`;
 }
 
+function renderMobileSectionNav(meta, siteMapGroups, pagesBySlug, currentOutPath) {
+  const group = getMacroGroup(meta, siteMapGroups);
+  if (!group || group.slugs.length <= 1) return "";
+
+  const links = group.slugs
+    .slice(1)
+    .map((slug) => {
+      const page = pagesBySlug.get(slug);
+      if (!page) return "";
+      const href = relativeLink(currentOutPath, page.outPath);
+      const isCurrent = page.meta.ref === meta.ref;
+      const label = page.meta.title || slug;
+      return `<li><a href="${href}"${isCurrent ? ' class="section-nav-current" aria-current="page"' : ""}>${escapeHtml(label)}</a></li>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  if (!links) return "";
+
+  return `
+      <details class="mobile-section-nav">
+        <summary>In this section: ${escapeHtml(group.label)}</summary>
+        <ul>${links}</ul>
+      </details>`;
+}
+
 function renderTocRail(outline) {
   if (!outline.length) {
     return "";
@@ -770,6 +796,7 @@ ${renderSectionNav(meta, siteMapGroups, pagesBySlug, outPath)}
 
       <main class="subpage-main">
 ${renderBreadcrumbs(meta, prefix, outPath, siteMapGroups, pagesBySlug)}
+${renderMobileSectionNav(meta, siteMapGroups, pagesBySlug, outPath)}
 
 ${intro}
 

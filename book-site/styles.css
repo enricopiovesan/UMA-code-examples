@@ -1631,13 +1631,17 @@ h3 {
   .topbar {
     position: fixed;
     top: 0;
-    left: 50%;
-    width: min(100% - 40px, var(--content));
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    width: 100%;
+    transform: none;
     flex-wrap: nowrap;
     align-items: center;
     gap: 10px 14px;
-    padding: 12px 0;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(5, 5, 5, 0.92);
+    backdrop-filter: blur(12px);
   }
 
   .menu-toggle {
