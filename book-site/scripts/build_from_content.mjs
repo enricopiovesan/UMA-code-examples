@@ -546,6 +546,30 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     });
   }
 
+  // Chapter schema — for chapter landing pages under learn-uma
+  if (meta.macro_area === "learn-uma" && meta.ref && meta.ref.startsWith("chapter-")) {
+    const chapterNum = parseInt((meta.ref.match(/chapter-(\d+)/) || [])[1] || "0", 10);
+    scripts.push({
+      "@context": "https://schema.org",
+      "@type": "Chapter",
+      "@id": `${canonical}#chapter`,
+      "name": meta.title || "",
+      "description": meta.seo_description || "",
+      "url": canonical,
+      "position": chapterNum,
+      "isPartOf": {
+        "@type": "Book",
+        "@id": "https://www.universalmicroservices.com/learn-uma/book/#book",
+        "name": "Universal Microservices Architecture",
+        "author": {
+          "@type": "Person",
+          "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
+          "name": "Enrico Piovesan"
+        }
+      }
+    });
+  }
+
   // TechArticle schema — for concept, walkthrough, and comparison pages in key macro areas
   if (["why-uma","core-model","how-uma-works","proof","comparisons","evolve-uma"].includes(meta.macro_area) && meta.content_type !== "hub") {
     scripts.push({

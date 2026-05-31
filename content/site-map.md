@@ -57,6 +57,20 @@ It defines semantic page groups, not HTML output.
 - `learning-path`
 - `book`
 - `end-to-end-feature-flag-example`
+- `chapter-01-uma-introduction`
+- `chapter-02-device-independent-architecture`
+- `chapter-03-what-is-universal-microservices-architecture`
+- `chapter-04-from-soa-to-metadata-driven-services`
+- `chapter-05-building-portable-microservices`
+- `chapter-06-uma-runtime-layer`
+- `chapter-07-webassembly-portability-wasm-runtimes`
+- `chapter-08-service-contracts-events-orchestration`
+- `chapter-09-microservices-to-distributed-systems`
+- `chapter-10-security-trust-boundaries-microservices`
+- `chapter-11-microservices-architecture-patterns`
+- `chapter-12-evolving-distributed-systems`
+- `chapter-13-ai-agents-mcp-runtime`
+- `chapter-14-uma-reference-application`
 
 ### Hands-On Examples
 - `examples`

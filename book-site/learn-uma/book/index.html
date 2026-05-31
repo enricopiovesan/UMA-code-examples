@@ -78,7 +78,7 @@
 
       <aside class="page-section-nav" aria-label="Learning Path navigation">
         <a class="section-nav-label" href="../">Learning Path</a>
-        <ul class="section-nav-links"><li><a href="../learning-path/" >UMA Learning Path</a></li><li><a href="./" class="section-nav-current" aria-current="page">The Book — Pre-order</a></li><li><a href="../end-to-end-feature-flag-example/" >End-to-End UMA Example: Feature Flag Service</a></li></ul>
+        <ul class="section-nav-links"><li><a href="../learning-path/" >UMA Learning Path</a></li><li><a href="./" class="section-nav-current" aria-current="page">The Book — Pre-order</a></li><li><a href="../end-to-end-feature-flag-example/" >End-to-End UMA Example: Feature Flag Service</a></li><li><a href="../chapter-01-uma-introduction/" >Chapter 1: Introduction</a></li><li><a href="../chapter-02-device-independent-architecture/" >Chapter 2: Why Device Independence Matters</a></li><li><a href="../chapter-03-what-is-universal-microservices-architecture/" >Chapter 3: What Is Universal Microservices Architecture (UMA)?</a></li><li><a href="../chapter-04-from-soa-to-metadata-driven-services/" >Chapter 4: The Road to UMA: From SOA to Metadata</a></li><li><a href="../chapter-05-building-portable-microservices/" >Chapter 5: Building UMA Services</a></li><li><a href="../chapter-06-uma-runtime-layer/" >Chapter 6: The UMA Runtime Layer</a></li><li><a href="../chapter-07-webassembly-portability-wasm-runtimes/" >Chapter 7: Portability with WebAssembly and Native Runtimes</a></li><li><a href="../chapter-08-service-contracts-events-orchestration/" >Chapter 8: Contracts, Events, and Orchestration</a></li><li><a href="../chapter-09-microservices-to-distributed-systems/" >Chapter 9: From Services to Systems</a></li><li><a href="../chapter-10-security-trust-boundaries-microservices/" >Chapter 10: Security and Trust Boundaries in UMA</a></li><li><a href="../chapter-11-microservices-architecture-patterns/" >Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs</a></li><li><a href="../chapter-12-evolving-distributed-systems/" >Chapter 12: Evolving and Adapting UMA Systems</a></li><li><a href="../chapter-13-ai-agents-mcp-runtime/" >Chapter 13: Agents, MCP, and the Runtime of Reasoning</a></li><li><a href="../chapter-14-uma-reference-application/" >Chapter 14: The Reference Experience</a></li></ul>
       </aside>
 
       <main class="subpage-main">
@@ -149,7 +149,7 @@
               <li><strong>System change and coherence</strong> — how a system that can evolve without fragmenting is architecturally different from one that simply accumulates backward-compatible releases</li>
             </ul>
             <p>
-              The book has 13 chapters. Every major concept has a corresponding runnable example in the companion repository, so the
+              The book has 14 chapters. Every major concept has a corresponding runnable example in the companion repository, so the
               architecture is explained and then immediately exercised — not left as a purely conceptual framework.
             </p>
           </section>
@@ -209,22 +209,38 @@
             <h2 id="chapter-overview">Chapter overview</h2>
             <p>
               Each chapter addresses one layer of the UMA model, in the order the complexity actually arrives when building a real system.
+              Each chapter page gives you a preview of the architectural question it answers.
             </p>
-            <ul>
-              <li><strong>Chapter 1 — The fragmentation problem</strong>: Why behavior duplication across runtimes is an architectural failure, not a team discipline failure, and what a coherent alternative looks like.</li>
-              <li><strong>Chapter 2 — What a Universal Microservice is</strong>: The definition of the portable service boundary — how it differs from a standard microservice and why the distinction matters for runtime governance.</li>
-              <li><strong>Chapter 3 — Contracts and active descriptors</strong>: How services describe their own capabilities, constraints, and placement preferences in a form the runtime can validate and act on.</li>
-              <li><strong>Chapter 4 — The smallest portable service</strong>: A minimal, runnable feature flag evaluator that demonstrates one contract, one deterministic behavior, and one portable WASM boundary. The companion lab is the entry point for all subsequent examples.</li>
-              <li><strong>Chapter 5 — Runtime design</strong>: What belongs inside the runtime layer around a pure service — validation, transport, adapter binding, approval — and what must stay outside it.</li>
-              <li><strong>Chapter 6 — Portability proof</strong>: How to prove behavioral equivalence across runtimes rather than assuming it; native-to-WASM parity as a testable claim, not a deployment promise.</li>
-              <li><strong>Chapter 7 — Orchestration from metadata</strong>: How workflows can emerge from contracts and event-driven metadata rather than being defined as hardcoded pipelines.</li>
-              <li><strong>Chapter 8 — Service graph evolution</strong>: How compatibility constraints, versioning decisions, and service-to-service relationships become a visible, queryable graph rather than tribal knowledge.</li>
-              <li><strong>Chapter 9 — Trust boundaries and runtime enforcement</strong>: How provenance, policy, and enforcement remain explicit around portable execution, and why retrofitting trust after portability is already in production creates structural risk.</li>
-              <li><strong>Chapter 10 — Architectural tradeoffs and runtime coherence</strong>: How a system can still function while becoming architecturally incoherent, and what signals make that drift detectable before it becomes debt.</li>
-              <li><strong>Chapter 11 — Evolution without fragmentation</strong>: How version coexistence, behavioral drift, and capability sprawl can stay governed instead of becoming chaos as the system scales.</li>
-              <li><strong>Chapter 12 — Discoverable decisions</strong>: How capability proposal, runtime validation, approval, and execution trace become queryable system artifacts — not invisible side effects of framework behavior.</li>
-              <li><strong>Chapter 13 — Portable MCP runtime</strong>: The full reference application: capability discovery, agent proposals, runtime validation, event-driven execution, and structured output — the complete UMA model in one runnable system.</li>
-            </ul>
+            <dl>
+              <dt><a href="../chapter-01-uma-introduction/">Chapter 1 — Introduction</a></dt>
+              <dd>Why distributed systems need a new architectural model as execution surfaces multiply.</dd>
+              <dt><a href="../chapter-02-device-independent-architecture/">Chapter 2 — Why Device Independence Matters</a></dt>
+              <dd>What breaks when business logic is coupled to a single execution environment.</dd>
+              <dt><a href="../chapter-03-what-is-universal-microservices-architecture/">Chapter 3 — What Is UMA?</a></dt>
+              <dd>The precise definition of UMA: three durable separations that distinguish it from conventional microservices.</dd>
+              <dt><a href="../chapter-04-from-soa-to-metadata-driven-services/">Chapter 4 — The Road to UMA: From SOA to Metadata</a></dt>
+              <dd>How architectural thinking evolves from SOA through microservices to metadata-driven portable services.</dd>
+              <dt><a href="../chapter-05-building-portable-microservices/">Chapter 5 — Building UMA Services</a></dt>
+              <dd>Three requirements for genuine portability: no hidden dependencies, machine-readable contract, parity proof.</dd>
+              <dt><a href="../chapter-06-uma-runtime-layer/">Chapter 6 — The UMA Runtime Layer</a></dt>
+              <dd>What the runtime layer owns — validation, adapter binding, trust, placement, policy, evidence — and why it must be explicit.</dd>
+              <dt><a href="../chapter-07-webassembly-portability-wasm-runtimes/">Chapter 7 — Portability with WebAssembly and Native Runtimes</a></dt>
+              <dd>How WASM component model, WASI 0.2, and active descriptors make portability inspectable rather than assumed.</dd>
+              <dt><a href="../chapter-08-service-contracts-events-orchestration/">Chapter 8 — Contracts, Events, and Orchestration</a></dt>
+              <dd>How orchestration emerges from declared contracts and events instead of hardcoded wiring.</dd>
+              <dt><a href="../chapter-09-microservices-to-distributed-systems/">Chapter 9 — From Services to Systems</a></dt>
+              <dd>The three system-level properties that emerge when individual services are portable and well-governed.</dd>
+              <dt><a href="../chapter-10-security-trust-boundaries-microservices/">Chapter 10 — Security and Trust Boundaries</a></dt>
+              <dd>Trust as a per-execution runtime decision enforced by the runtime layer — not a deployment-time assumption.</dd>
+              <dt><a href="../chapter-11-microservices-architecture-patterns/">Chapter 11 — Decisions, Patterns, and Tradeoffs</a></dt>
+              <dd>The recurring architectural decisions in UMA and an honest account of the tradeoffs each one involves.</dd>
+              <dt><a href="../chapter-12-evolving-distributed-systems/">Chapter 12 — Evolving and Adapting UMA Systems</a></dt>
+              <dd>Contract-driven evolution: how to change a system over time without introducing behavioral drift.</dd>
+              <dt><a href="../chapter-13-ai-agents-mcp-runtime/">Chapter 13 — Agents, MCP, and the Runtime of Reasoning</a></dt>
+              <dd>UMA's runtime governance extended to AI-native execution paths via Model Context Protocol.</dd>
+              <dt><a href="../chapter-14-uma-reference-application/">Chapter 14 — The Reference Experience</a></dt>
+              <dd>The complete UMA system assembled and running — all pieces integrated and explained decision by decision.</dd>
+            </dl>
           </section>
 
           <section>
@@ -267,10 +283,10 @@
               committing to either.
             </p>
             <div class="subpage-inline-links">
-              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy on Amazon</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
               <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub examples</a>
-              <a href="../what-problem-does-uma-solve/">What problem does UMA solve?</a>
-              <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
+              <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve?</a>
+              <a href="../../reference-application/">Live reference app</a>
               <a href="../learning-path/">Learning Path</a>
             </div>
           </section>

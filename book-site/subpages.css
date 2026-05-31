@@ -319,6 +319,30 @@ a.section-nav-label:hover {
   margin-top: 6px;
 }
 
+.subpage-body dl {
+  margin: 0 0 16px;
+}
+
+.subpage-body dt {
+  color: var(--text);
+  font-size: 0.96rem;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.subpage-body dt:first-child {
+  margin-top: 0;
+}
+
+.subpage-body dd {
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.7;
+  margin: 4px 0 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--border);
+}
+
 /* About page author layout */
 .about-author-intro {
   display: flex;
