@@ -144,6 +144,8 @@ related_refs:
     <div class="subpage-inline-links">
       <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub: UMA Code Examples</a>
       <a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a>
+      <a href="../../proof/what-makes-a-service-portable/">What makes a service portable?</a>
+      <a href="../../learn-uma/chapter-07-webassembly-portability-wasm-runtimes/">Chapter 7: WebAssembly portability and WASM runtimes</a>
     </div>
   </section>
 </div>

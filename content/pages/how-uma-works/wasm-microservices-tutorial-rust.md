@@ -135,6 +135,9 @@ related_refs:
     <div class="subpage-inline-links">
       <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub: UMA Code Examples</a>
       <a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a>
+      <a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a>
+      <a href="../../proof/what-makes-a-service-portable/">What makes a service portable?</a>
+      <a href="../../learn-uma/chapter-05-building-portable-microservices/">Chapter 5: building portable microservices</a>
     </div>
   </section>
 </div>

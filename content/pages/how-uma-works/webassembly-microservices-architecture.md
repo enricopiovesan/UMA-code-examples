@@ -130,6 +130,10 @@ related_refs:
     <div class="subpage-inline-links">
       <a href="../how-uma-works/">How UMA Works</a>
       <a href="../../active-descriptors/">Active Descriptors</a>
+      <a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a>
+      <a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a>
+      <a href="../../proof/benchmark-and-footprint/">Benchmark and footprint</a>
+      <a href="../../learn-uma/chapter-07-webassembly-portability-wasm-runtimes/">Chapter 7: WebAssembly portability and WASM runtimes</a>
     </div>
   </section>
 </div>

@@ -87,6 +87,9 @@ related_refs:
               <a href="../examples/chapter-06-portability-lab/">Chapter 6 example</a>
               <a href="../examples/chapter-07-metadata-orchestration/">Chapter 7 example</a>
               <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+              <a href="../../how-uma-works/uma-mcp-runtime-governance/">MCP runtime governance</a>
+              <a href="../../learn-uma/chapter-06-uma-runtime-layer/">Chapter 6: UMA runtime layer</a>
+              <a href="../../proof/how-to-prove-portability/">How to prove portability</a>
             </div>
           </section>
         </div>
