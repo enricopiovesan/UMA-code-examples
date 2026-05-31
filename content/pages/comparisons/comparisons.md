@@ -89,10 +89,10 @@ related_refs:
   <section>
     <h2>Pages in this area</h2>
     <div class="subpage-grid">
-      <article class="subpage-card"><h3><a href="../uma-vs-serverless/">UMA vs Serverless</a></h3><p>Why UMA is not just another serverless label.</p></article>
-      <article class="subpage-card"><h3><a href="../uma-vs-modular-monolith/">UMA vs Modular Monolith</a></h3><p>The places where UMA and modular monoliths overlap and diverge.</p></article>
-      <article class="subpage-card"><h3><a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></h3><p>How UMA shifts the boundary between service and runtime.</p></article>
-      <article class="subpage-card"><h3><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></h3><p>The counterarguments and tradeoffs that deserve a direct answer.</p></article>
+      <article class="subpage-card"><h3><a href="uma-vs-serverless/">UMA vs Serverless</a></h3><p>Why UMA is not just another serverless label.</p></article>
+      <article class="subpage-card"><h3><a href="uma-vs-modular-monolith/">UMA vs Modular Monolith</a></h3><p>The places where UMA and modular monoliths overlap and diverge.</p></article>
+      <article class="subpage-card"><h3><a href="uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></h3><p>How UMA shifts the boundary between service and runtime.</p></article>
+      <article class="subpage-card"><h3><a href="common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></h3><p>The counterarguments and tradeoffs that deserve a direct answer.</p></article>
     </div>
   </section>
 </div>

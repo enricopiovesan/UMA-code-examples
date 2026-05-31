@@ -92,13 +92,13 @@ related_refs:
   <section>
     <h2>Pages in this area</h2>
     <div class="subpage-grid">
-      <article class="subpage-card"><h3><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></h3><p>The architectural stance that keeps behavior portable across runtimes.</p></article>
-      <article class="subpage-card"><h3><a href="../portable-business-logic/">Portable Business Logic</a></h3><p>What stays inside the capability boundary when the runtime changes.</p></article>
-      <article class="subpage-card"><h3><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></h3><p>Why portability matters when teams and runtimes change over time.</p></article>
-      <article class="subpage-card"><h3><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></h3><p>The place where UMA and WASM meet in the site narrative.</p></article>
-      <article class="subpage-card"><h3><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></h3><p>How to move toward UMA without a big-bang rewrite.</p></article>
-      <article class="subpage-card"><h3><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></h3><p>Adoption patterns that keep the transition measurable and reversible.</p></article>
-      <article class="subpage-card"><h3><a href="../uma-production-readiness/">UMA Production Readiness</a></h3><p>What needs to be true before the model is ready for production use.</p></article>
+      <article class="subpage-card"><h3><a href="runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></h3><p>The architectural stance that keeps behavior portable across runtimes.</p></article>
+      <article class="subpage-card"><h3><a href="portable-business-logic/">Portable Business Logic</a></h3><p>What stays inside the capability boundary when the runtime changes.</p></article>
+      <article class="subpage-card"><h3><a href="architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></h3><p>Why portability matters when teams and runtimes change over time.</p></article>
+      <article class="subpage-card"><h3><a href="webassembly-architecture/">WebAssembly Architecture and UMA</a></h3><p>The place where UMA and WASM meet in the site narrative.</p></article>
+      <article class="subpage-card"><h3><a href="migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></h3><p>How to move toward UMA without a big-bang rewrite.</p></article>
+      <article class="subpage-card"><h3><a href="incremental-uma-adoption/">Incremental UMA Adoption</a></h3><p>Adoption patterns that keep the transition measurable and reversible.</p></article>
+      <article class="subpage-card"><h3><a href="uma-production-readiness/">UMA Production Readiness</a></h3><p>What needs to be true before the model is ready for production use.</p></article>
     </div>
   </section>
 </div>

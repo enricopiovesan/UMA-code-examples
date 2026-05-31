@@ -89,13 +89,13 @@ related_refs:
   <section>
     <h2>Pages in this area</h2>
     <div class="subpage-grid">
-      <article class="subpage-card"><h3><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></h3><p>How explicit contracts shape multi-service coordination.</p></article>
-      <article class="subpage-card"><h3><a href="../service-graph-evolution/">Service Graph Evolution</a></h3><p>How a service graph changes while preserving meaning and compatibility.</p></article>
-      <article class="subpage-card"><h3><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></h3><p>The architectural pattern behind incremental growth.</p></article>
-      <article class="subpage-card"><h3><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></h3><p>Why coherence is a design outcome, not an accident.</p></article>
-      <article class="subpage-card"><h3><a href="../trust-boundaries/">Trust Boundaries in UMA</a></h3><p>How trust affects placement, policy, and service interaction.</p></article>
-      <article class="subpage-card"><h3><a href="../runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></h3><p>How provenance helps runtime decisions remain explainable.</p></article>
-      <article class="subpage-card"><h3><a href="../ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></h3><p>How governance changes when the runtime must supervise AI-influenced behavior.</p></article>
+      <article class="subpage-card"><h3><a href="contract-driven-orchestration/">Contract-Driven Orchestration</a></h3><p>How explicit contracts shape multi-service coordination.</p></article>
+      <article class="subpage-card"><h3><a href="service-graph-evolution/">Service Graph Evolution</a></h3><p>How a service graph changes while preserving meaning and compatibility.</p></article>
+      <article class="subpage-card"><h3><a href="how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></h3><p>The architectural pattern behind incremental growth.</p></article>
+      <article class="subpage-card"><h3><a href="what-makes-a-system-coherent/">What Makes a System Coherent?</a></h3><p>Why coherence is a design outcome, not an accident.</p></article>
+      <article class="subpage-card"><h3><a href="trust-boundaries/">Trust Boundaries in UMA</a></h3><p>How trust affects placement, policy, and service interaction.</p></article>
+      <article class="subpage-card"><h3><a href="runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></h3><p>How provenance helps runtime decisions remain explainable.</p></article>
+      <article class="subpage-card"><h3><a href="ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></h3><p>How governance changes when the runtime must supervise AI-influenced behavior.</p></article>
     </div>
   </section>
 </div>

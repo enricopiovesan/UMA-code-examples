@@ -85,9 +85,9 @@ related_refs:
   <section>
     <h2>Pages in this area</h2>
     <div class="subpage-grid">
-      <article class="subpage-card"><h3><a href="../what-makes-a-service-portable/">What Makes a Service Portable?</a></h3><p>The architectural qualities that make a service viable across runtimes.</p></article>
-      <article class="subpage-card"><h3><a href="../how-to-prove-portability/">How to Prove Portability</a></h3><p>The verification path used to make portability concrete.</p></article>
-      <article class="subpage-card"><h3><a href="../benchmark-and-footprint/">UMA Benchmark And Footprint Notes</a></h3><p>What the benchmark and footprint evidence tells us.</p></article>
+      <article class="subpage-card"><h3><a href="what-makes-a-service-portable/">What Makes a Service Portable?</a></h3><p>The architectural qualities that make a service viable across runtimes.</p></article>
+      <article class="subpage-card"><h3><a href="how-to-prove-portability/">How to Prove Portability</a></h3><p>The verification path used to make portability concrete.</p></article>
+      <article class="subpage-card"><h3><a href="benchmark-and-footprint/">UMA Benchmark And Footprint Notes</a></h3><p>What the benchmark and footprint evidence tells us.</p></article>
     </div>
   </section>
 </div>

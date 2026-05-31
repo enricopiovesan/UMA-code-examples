@@ -43,16 +43,16 @@ related_refs:
     </p>
     <div class="subpage-inline-links">
       <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4" target="_blank" rel="noreferrer noopener">Buy the book on Amazon →</a>
-      <a href="../learning-path/">Start with the learning path →</a>
+      <a href="learning-path/">Start with the learning path →</a>
     </div>
   </section>
 
   <section>
     <h2>Pages in this area</h2>
     <div class="subpage-grid">
-      <article class="subpage-card"><h3><a href="../book/">The Book</a></h3><p>Universal Microservices Architecture, available on Amazon. The full model from first portable service to runtime governance and AI-native execution.</p></article>
-      <article class="subpage-card"><h3><a href="../learning-path/">Learning Path</a></h3><p>A structured sequence through the UMA concepts and chapters, with decision points for different reader types.</p></article>
-      <article class="subpage-card"><h3><a href="../end-to-end-feature-flag-example/">End-to-End Example</a></h3><p>A complete walkthrough that connects the feature flag evaluator concept across the chapter progression.</p></article>
+      <article class="subpage-card"><h3><a href="book/">The Book</a></h3><p>Universal Microservices Architecture, available on Amazon. The full model from first portable service to runtime governance and AI-native execution.</p></article>
+      <article class="subpage-card"><h3><a href="learning-path/">Learning Path</a></h3><p>A structured sequence through the UMA concepts and chapters, with decision points for different reader types.</p></article>
+      <article class="subpage-card"><h3><a href="end-to-end-feature-flag-example/">End-to-End Example</a></h3><p>A complete walkthrough that connects the feature flag evaluator concept across the chapter progression.</p></article>
     </div>
   </section>
 </div>
