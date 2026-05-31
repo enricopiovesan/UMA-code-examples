@@ -56,7 +56,9 @@ a {
   z-index: 30;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* break out of constrained .page-shell */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   border-bottom: 1px solid var(--line);
 }
 
