@@ -66,3 +66,25 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify IndexNow
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d '{
+              "host": "www.universalmicroservices.com",
+              "key": "9884a0624b7846d0b0851db5bcafa602",
+              "keyLocation": "https://www.universalmicroservices.com/9884a0624b7846d0b0851db5bcafa602.txt",
+              "urlList": [
+                "https://www.universalmicroservices.com/",
+                "https://www.universalmicroservices.com/why-uma/",
+                "https://www.universalmicroservices.com/core-model/",
+                "https://www.universalmicroservices.com/how-uma-works/",
+                "https://www.universalmicroservices.com/proof/",
+                "https://www.universalmicroservices.com/comparisons/",
+                "https://www.universalmicroservices.com/evolve-uma/",
+                "https://www.universalmicroservices.com/learn-uma/",
+                "https://www.universalmicroservices.com/discoverability/"
+              ]
+            }' && echo " — IndexNow submitted"
