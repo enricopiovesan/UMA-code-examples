@@ -99,6 +99,10 @@ jobs:
                 "https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/",
                 "https://www.universalmicroservices.com/learn-uma/chapter-12-evolving-distributed-systems/",
                 "https://www.universalmicroservices.com/learn-uma/chapter-13-ai-agents-mcp-runtime/",
-                "https://www.universalmicroservices.com/learn-uma/chapter-14-uma-reference-application/"
+                "https://www.universalmicroservices.com/learn-uma/chapter-14-uma-reference-application/",
+                "https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/",
+                "https://www.universalmicroservices.com/comparisons/why-software-architecture-keeps-fragmenting/",
+                "https://www.universalmicroservices.com/discoverability/white-paper/",
+                "https://www.universalmicroservices.com/discoverability/blog/"
               ]
             }' && echo " — IndexNow submitted"

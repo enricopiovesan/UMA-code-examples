@@ -48,9 +48,10 @@ related_refs:
       <article class="subpage-card"><h3><a href="faq/">UMA FAQ</a></h3><p>Answers to the questions readers tend to ask first.</p></article>
       <article class="subpage-card"><h3><a href="diagrams/">UMA Diagrams</a></h3><p>Visual anchors for the architectural model.</p></article>
       <article class="subpage-card"><h3><a href="about-enrico/">About Enrico Piovesan</a></h3><p>Author context and background for the project.</p></article>
-      <article class="subpage-card"><h3><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a></h3><p>Articles and long-form notes that extend the book.</p></article>
+      <article class="subpage-card"><h3><a href="blog/">Blog</a></h3><p>Articles and long-form notes that extend the book.</p></article>
       <article class="subpage-card"><h3><a href="../reference-application/">Reference Application</a></h3><p>A live example of the UMA ideas in practice.</p></article>
-      <article class="subpage-card"><h3><a href="https://drive.google.com/file/d/1e8rvpXZ7Y89R5VxmAa1nihUDkKrG1TIj/view?pli=1" target="_blank" rel="noreferrer noopener">Read the White Paper</a></h3><p>The long-form paper that anchors the website narrative.</p></article>
+      <article class="subpage-card"><h3><a href="white-paper/">White Papers</a></h3><p>CSMA (2023), UMA (2024), and ECCA (2025) research papers.</p></article>
+      <article class="subpage-card"><h3><a href="glossary/">UMA Glossary</a></h3><p>Definitions for every core UMA term.</p></article>
     </div>
   </section>
 </div>

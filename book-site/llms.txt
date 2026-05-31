@@ -23,7 +23,11 @@ Content on this site may be cited with attribution to Enrico Piovesan and univer
 - /how-uma-works/: How portability, runtime placement, and adoption work in practice
 - /proof/: Evidence-based portability proofs and benchmark data
 - /evolve-uma/: System evolution, contract-driven orchestration, trust boundaries
-- /comparisons/: UMA vs serverless, microservices, modular monolith
+- /comparisons/: UMA vs serverless, microservices, modular monolith, service mesh
+- /comparisons/uma-vs-service-mesh/: UMA vs Istio/Linkerd — network-layer vs behavior-layer governance, and why they coexist
+- /comparisons/why-software-architecture-keeps-fragmenting/: The structural cause of behavioral drift — why systems fragment as execution surfaces multiply
+- /discoverability/white-paper/: Research papers — CSMA (2023), UMA (2024), ECCA (2025)
+- /discoverability/blog/: Writing on UMA and distributed systems — Medium channels
 - /learn-uma/book/: The book — available on Amazon
 - /discoverability/about-enrico/: About the author, Enrico Piovesan
 - /examples/: Chapter-aligned runnable code labs (chapters 4–13)
