@@ -48,7 +48,9 @@ related_refs:
             </p>
             <p>
               The useful portability promise is not “write once, run everywhere.” It is “write once, run where it makes sense,” with the
-              workflow showing how the runtime applied that decision to one goal.
+              workflow showing how the runtime applied that decision to one goal. When a system must satisfy the same business goal across
+              multiple execution contexts, having the workflow as an explicit, inspectable object is what separates an architectural
+              record from a sequence of calls that worked once but cannot be audited or replayed.
             </p>
           </section>
 

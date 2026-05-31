@@ -14,6 +14,8 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Proof" />
+    <meta name="twitter:description" content="Review the evidence surface for UMA with portability proof, benchmark notes, and service portability examples." />
     <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
     <meta name="article:published_time" content="2026-05-29T17:21:46-06:00" />
     <meta name="article:modified_time" content="2026-05-30T14:50:23-06:00" />
@@ -22,7 +24,9 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="../styles.css" />
     <link rel="stylesheet" href="../subpages.css" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -108,6 +112,40 @@
     <p>
       Architecture claims that cannot be inspected tend to drift toward assumptions, and assumptions compound. The proof section exists so the UMA portability claim stays falsifiable — something you can run, compare, and verify before deciding whether the model applies to your system.
     </p>
+    <div class="subpage-inline-links">
+      <a href="../../evolve-uma/">Continue to: System Evolution →</a>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="what-portable-means-as-a-testable-claim">What "portable" means as a testable claim</h2>
+    <p>
+      Portable is not a design goal in the UMA sense. It is a testable property of a specific artifact running in a specific set of environments. The test is not whether the code was written with portability in mind, or whether it avoids runtime-specific APIs, or whether the team intends to support multiple runtimes. The test is whether the same compiled binary, given the same inputs, produces the same outputs across each target runtime — with the runtime-introduced differences made explicit.
+    </p>
+    <p>
+      That last clause matters. "Same outputs" does not mean the runtime is invisible. It means the business logic output is stable while runtime metadata — execution timing, host context, instrumentation — may vary by design. A portable service is one where you can distinguish which differences come from the logic and which come from the runtime. When you cannot make that distinction, you do not have portability — you have a black box that happens to work in multiple environments.
+    </p>
+    <h2 id="what-the-benchmark-measures">What the benchmark measures</h2>
+    <p>
+      The benchmark used in this repository runs the same WASM binary across three runtimes: a server-side managed runtime, a local CLI host, and a browser-based execution context. Each run receives identical inputs. The outputs are compared structurally, not as raw bytes — the comparison accounts for runtime-injected fields and normalizes them before asserting equivalence of the business logic result.
+    </p>
+    <p>
+      What the benchmark is not measuring: raw throughput, latency percentiles, or operational efficiency. Those are runtime-dependent by definition and vary with infrastructure, not with the service logic. A benchmark that optimizes for those numbers is measuring the runtime, not the service. The UMA benchmark measures something different — whether the portable unit stays behaviorally stable as the execution context changes. The footprint data (binary size, memory at load, startup cost) is included because those numbers determine which runtimes the service is viable in, not just which runtimes it technically runs on.
+    </p>
+    <h2 id="portability-inspectable-vs-portability-assumed">Portability inspectable vs portability assumed</h2>
+    <p>
+      Most portability claims are architectural. The system was designed to be portable. The interfaces are abstract. The dependencies are injected. These are inputs to portability, not evidence of it. They tell you the team intended the service to be moveable, not that it actually moves.
+    </p>
+    <p>
+      Inspectable portability requires a different kind of artifact: a test harness that runs the same binary in multiple environments and records the comparison, a descriptor that declares the runtime requirements so mismatches surface before deployment, and a build process that produces deterministic output so the binary at test time is the binary at production time. The UMA code examples include all three. The portability claim is not inferred from the design — it is re-verified on every build.
+    </p>
+    <h2 id="runtime-agnostic-vs-cross-platform">Runtime-agnostic vs cross-platform</h2>
+    <p>
+      Runtime-agnostic and cross-platform are often used interchangeably, but they describe different properties. Cross-platform means the software can be compiled or interpreted for different operating systems or hardware architectures. The code is the same; the binary may differ. Runtime-agnostic means the service logic does not depend on any specific execution host — it can be loaded and run by any runtime that conforms to the required interface, without recompilation.
+    </p>
+    <p>
+      WASM is the mechanism that makes runtime-agnostic a concrete property rather than an aspirational one. A WASM binary compiled from a UMA service module does not change between runtimes. The runtime changes around it. The adapter layer — the code that connects the binary to the specific host API — is what varies, and that variation is bounded by the contract. This is what makes the portability claim inspectable: the binary is the constant, and the adapter is the explicit variable. You can read the adapter, test it independently, and verify that it only converts host-specific inputs into the contract interface — it does not change what the service does.
+    </p>
   </section>
 
   <section>
@@ -126,7 +164,7 @@
         <div class="section-nav-label">On this page</div>
 
     <ol class="page-rail-outline">
-      <li><a href="#what-this-macro-area-covers">What this macro area covers</a></li><li><a href="#pages-in-this-area">Pages in this area</a>
+      <li><a href="#what-this-macro-area-covers">What this macro area covers</a></li><li><a href="#what-portable-means-as-a-testable-claim">What &quot;portable&quot; means as a testable claim</a></li><li><a href="#what-the-benchmark-measures">What the benchmark measures</a></li><li><a href="#portability-inspectable-vs-portability-assumed">Portability inspectable vs portability assumed</a></li><li><a href="#runtime-agnostic-vs-cross-platform">Runtime-agnostic vs cross-platform</a></li><li><a href="#pages-in-this-area">Pages in this area</a>
     <ul class="page-rail-links">
       <li><a href="#what-makes-a-service-portable">What Makes a Service Portable?</a></li><li><a href="#how-to-prove-portability">How to Prove Portability</a></li><li><a href="#uma-benchmark-and-footprint-notes">UMA Benchmark And Footprint Notes</a></li>
     </ul></li>

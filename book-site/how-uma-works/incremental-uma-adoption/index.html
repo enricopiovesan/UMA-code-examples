@@ -14,15 +14,20 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Incremental UMA Adoption" />
+    <meta name="twitter:description" content="Learn how UMA can begin with one portable capability and coexist with legacy systems through adapters, governed boundaries, and gradual runtime adoption." />
     <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
     <meta name="article:published_time" content="2026-05-29T14:12:26-06:00" />
     <meta name="article:modified_time" content="2026-05-29T14:12:26-06:00" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"How UMA Works","item":"https://www.universalmicroservices.com/how-uma-works/"},{"@type":"ListItem","position":3,"name":"Incremental UMA Adoption","item":"https://www.universalmicroservices.com/how-uma-works/incremental-uma-adoption/"}]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Incremental UMA Adoption","description":"Learn how UMA can begin with one portable capability and coexist with legacy systems through adapters, governed boundaries, and gradual runtime adoption.","url":"https://www.universalmicroservices.com/how-uma-works/incremental-uma-adoption/","inLanguage":"en","datePublished":"2026-05-29T14:12:26-06:00","dateModified":"2026-05-29T14:12:26-06:00"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://www.universalmicroservices.com/how-uma-works/incremental-uma-adoption/#article","headline":"Incremental UMA Adoption","description":"Learn how UMA can begin with one portable capability and coexist with legacy systems through adapters, governed boundaries, and gradual runtime adoption.","url":"https://www.universalmicroservices.com/how-uma-works/incremental-uma-adoption/","inLanguage":"en","author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"},"publisher":{"@type":"Organization","name":"Apress","url":"https://www.apress.com/"},"isPartOf":{"@type":"WebSite","@id":"https://www.universalmicroservices.com/#website"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="../../styles.css" />
     <link rel="stylesheet" href="../../subpages.css" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -87,10 +92,49 @@
 <section class="subpage-hero"><h1>Incremental UMA adoption</h1><p>UMA does not require a rewrite. It can start with one portable behavior, one contract, or one runtime-governed boundary inside a system that still has legacy services and ordinary deployment infrastructure.</p></section>
 
 <div class="subpage-body">
-          <section><h2 id="start-with-the-boundary">Start with the boundary</h2><p>The practical first step is not replacing your platform. It is finding a duplicated behavior or fragile runtime decision and moving that behavior behind an explicit contract and runtime-evaluated boundary.</p><p>Adapters let existing hosts participate while the portable core stays visible.</p></section>
-          <section class="subpage-grid"><article class="subpage-card"><h3 id="one-behavior">One behavior</h3><p>Choose a rule or normalization path that is repeated across environments.</p></article><article class="subpage-card"><h3 id="one-contract">One contract</h3><p>Define what the behavior accepts, returns, emits, and depends on.</p></article><article class="subpage-card"><h3 id="one-runtime-wrapper">One runtime wrapper</h3><p>Add validation, adapter binding, and lifecycle evidence around it.</p></article><article class="subpage-card"><h3 id="one-migration-path">One migration path</h3><p>Keep legacy internals where needed while governing the boundary.</p></article></section>
-          <section><h2 id="where-the-book-goes-further">Where the book goes further</h2><p>The full adoption story is not only about starting. It is about avoiding fragmentation as more versions, consumers, and runtime surfaces appear. That is why Chapter 11 matters so much.</p></section>
-          <section class="subpage-callout"><strong>Covered in the book</strong><p>Chapters 5 and 6 show the first runtime and portability steps. Chapter 11 explains hybrid adoption without forcing a rewrite.</p><div class="subpage-inline-links"><a href="../examples/chapter-05-post-fetcher-runtime/">Chapter 5 example</a><a href="../examples/chapter-06-portability-lab/">Chapter 6 example</a><a href="../examples/chapter-11-evolution-without-fragmentation/">Chapter 11 example</a><a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a></div></section>
+          <section>
+            <h2 id="start-with-the-boundary">Start with the boundary</h2>
+            <p>The practical first step is not replacing your platform. It is finding a behavior that is duplicated across services, environments, or teams — a validation rule, a pricing calculation, a feature flag evaluator — and moving that behavior behind an explicit contract and a runtime-evaluated boundary.</p>
+            <p>The rest of the stack does not change. The legacy services still run. The existing deployment infrastructure still operates. The only thing that changes is that one behavior, previously embedded in the host, is now expressed as a portable service with a declared contract, wrapped by a runtime that validates, binds adapters, and records lifecycle evidence. Adapters let existing hosts participate without modification: the host that was previously calling an internal function now calls through an adapter that the runtime selects.</p>
+            <p>This is incremental adoption in the most literal sense: one boundary moves, the rest stays.</p>
+          </section>
+
+          <section class="subpage-grid">
+            <article class="subpage-card"><h3 id="one-behavior">One behavior</h3><p>Choose a rule or normalization path that is repeated across environments — a validation function called in three places, a pricing rule embedded in two services, a flag evaluator reimplemented for each deployment target.</p></article>
+            <article class="subpage-card"><h3 id="one-contract">One contract</h3><p>Define what the behavior accepts, returns, emits, and depends on. The contract is the source of truth for what the portable core does — not documentation, not convention, but a machine-readable descriptor that the runtime enforces.</p></article>
+            <article class="subpage-card"><h3 id="one-runtime-wrapper">One runtime wrapper</h3><p>Add validation, adapter binding, and lifecycle evidence around the portable core. The runtime selects the right adapter for the host, validates input before side effects happen, and records what ran and why.</p></article>
+            <article class="subpage-card"><h3 id="one-migration-path">One migration path</h3><p>Keep legacy internals where needed while governing the boundary. The first milestone is not eliminating legacy code — it is making one boundary explicit, which creates the proof that the pattern works in your context.</p></article>
+          </section>
+
+          <section>
+            <h2 id="three-common-entry-points">Three common entry points</h2>
+            <p>Most teams find one of three behaviors easiest to move first, because each is already isolated in intent even if not in implementation:</p>
+            <p><strong>A shared validation rule.</strong> Input validation logic that is duplicated across services, with slight variations that cause inconsistencies at the edges. The rule has clear inputs and outputs, no side effects, and its inconsistency is already causing bugs. Expressing it as a portable service with a single contract eliminates the drift immediately. The existing callers each get a thin adapter; the rule itself becomes testable in isolation against the contract.</p>
+            <p><strong>A pricing engine or rate calculator.</strong> Business logic that must produce the same result regardless of whether it runs on a server, in a browser, or at an edge node. This is the canonical UMA target: behavior that cannot afford inconsistency across contexts. Wrapping it as a portable service with a runtime-selected adapter for each deployment target makes the equivalence provable rather than assumed. The Chapter 6 portability lab demonstrates this pattern directly: one contract, two execution targets (native and WASI), parity checked from emitted events.</p>
+            <p><strong>A feature flag evaluator.</strong> Evaluation logic that determines which code paths run based on rules, user attributes, or rollout percentages. This is the entry point used in Chapter 4 of the book — deliberately chosen because it is small enough to implement completely, complex enough to have meaningful contract semantics (country matching, percentage rollout, default fallback), and important enough that inconsistency has visible consequences. The WASI CLI built in Chapter 4 can be called from any host with a one-line adapter without changing the evaluator.</p>
+          </section>
+
+          <section>
+            <h2 id="what-the-first-milestone-looks-like">What the first milestone looks like</h2>
+            <p>The first milestone in incremental UMA adoption is not a complete platform migration. It is a before-and-after proof: one behavior that was previously embedded in a host, now running as a portable service behind a contract, with a runtime that produces lifecycle evidence, and a parity check that confirms the output matches the previous implementation.</p>
+            <p>That proof serves two purposes. Technically, it validates that the adapter model works for your specific host and deployment context — that the runtime can select the right adapter, that the contract semantics match what the host needs, and that the portable core passes the same cases the legacy implementation handled. Organizationally, it demonstrates that the approach is not speculative. The smoke script runs, the CI passes, and the output is inspectable.</p>
+            <p>From that first milestone, adoption proceeds incrementally: each subsequent capability that crosses runtime boundaries is a candidate for the same treatment. The system does not need to commit to a full rewrite. It accumulates portable boundaries at the rate that makes sense for the team, while the legacy surfaces continue to function through adapters.</p>
+          </section>
+
+          <section>
+            <h2 id="avoiding-fragmentation-as-adoption-grows">Avoiding fragmentation as adoption grows</h2>
+            <p>Incremental adoption introduces a risk: if each team that adopts UMA independently develops its own contract conventions, its own adapter patterns, and its own runtime configuration, the result is a new form of fragmentation — not the fragmentation of duplicated logic, but the fragmentation of incompatible portable boundaries.</p>
+            <p>The antidote is shared contract definitions and a consistent runtime governance model. When capability descriptors are defined in a shared location and referenced by multiple services, the runtime can enforce compatibility across the system rather than just within each service. Chapter 11 in the book covers this directly: how to structure adoption so that each new portable boundary integrates with the existing governance model rather than creating a parallel one.</p>
+          </section>
+
+          <section class="subpage-callout">
+            <strong>See the entry points in running code</strong>
+            <p>Chapters 5 and 6 show the first runtime and portability steps — the smallest complete examples of an incremental boundary move. Chapter 11 addresses the governance model that prevents fragmentation as adoption grows.</p>
+            <div class="subpage-inline-links">
+              <a href="/how-uma-works/migrating-to-uma-incrementally/">Migrating to UMA incrementally</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Universal Microservices Architecture (book)</a>
+            </div>
+          </section>
         </div>
       </main>
 
@@ -102,7 +146,7 @@
       <li><a href="#start-with-the-boundary">Start with the boundary</a>
     <ul class="page-rail-links">
       <li><a href="#one-behavior">One behavior</a></li><li><a href="#one-contract">One contract</a></li><li><a href="#one-runtime-wrapper">One runtime wrapper</a></li><li><a href="#one-migration-path">One migration path</a></li>
-    </ul></li><li><a href="#where-the-book-goes-further">Where the book goes further</a></li>
+    </ul></li><li><a href="#three-common-entry-points">Three common entry points</a></li><li><a href="#what-the-first-milestone-looks-like">What the first milestone looks like</a></li><li><a href="#avoiding-fragmentation-as-adoption-grows">Avoiding fragmentation as adoption grows</a></li>
     </ol>
       </aside>
     </div>

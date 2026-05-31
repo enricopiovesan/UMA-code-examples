@@ -546,6 +546,53 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     });
   }
 
+  // TechArticle schema — for concept, walkthrough, and comparison pages in key macro areas
+  if (["why-uma","core-model","how-uma-works","proof","comparisons","evolve-uma"].includes(meta.macro_area) && meta.content_type !== "hub") {
+    scripts.push({
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "@id": `${canonical}#article`,
+      "headline": meta.title || "",
+      "description": meta.seo_description || meta.subtitle || "",
+      "url": canonical,
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
+        "name": "Enrico Piovesan"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Apress",
+        "url": "https://www.apress.com/"
+      },
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://www.universalmicroservices.com/#website"
+      }
+    });
+  }
+
+  // DefinedTermSet schema — for the glossary page
+  if (meta.ref === "glossary") {
+    const termMatches = [...rawMain.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)];
+    if (termMatches.length) {
+      scripts.push({
+        "@context": "https://schema.org",
+        "@type": "DefinedTermSet",
+        "@id": `${canonical}#glossary`,
+        "name": "Universal Microservices Architecture Glossary",
+        "url": canonical,
+        "hasDefinedTerm": termMatches.map(m => ({
+          "@type": "DefinedTerm",
+          "name": stripTags(m[1]),
+          "description": stripTags(m[2]),
+          "inDefinedTermSet": `${canonical}#glossary`
+        }))
+      });
+    }
+  }
+
   // WebSite schema — on every page as the site identity anchor
   scripts.push({
     "@context": "https://schema.org",
@@ -637,7 +684,7 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
   const description = escapeHtml(meta.seo_description || meta.subtitle || "");
   const canonical = escapeHtml(generatedCanonicalForOutPath(outPath));
   const ogUrl = canonical;
-  const ogType = meta.ref === "faq" || meta.content_type === "hub" ? "website" : "article";
+  const ogType = meta.content_type === "hub" ? "website" : "article";
   const pageTitle = `${title} | Universal Microservices Architecture`;
   const structuredData = renderStructuredData(meta, main, outPath, siteMapGroups, pagesBySlug, dates);
 
@@ -657,13 +704,17 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${title}" />
+    <meta name="twitter:description" content="${description}" />
     <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
     ${dates?.published ? `<meta name="article:published_time" content="${dates.published}" />` : ""}
     ${dates?.modified ? `<meta name="article:modified_time" content="${dates.modified}" />` : ""}
     ${structuredData}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
     <link rel="stylesheet" href="${prefix}styles.css" />
     <link rel="stylesheet" href="${prefix}subpages.css" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />

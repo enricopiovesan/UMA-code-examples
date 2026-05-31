@@ -39,7 +39,9 @@ related_refs:
             </p>
             <p>
               That is stricter than “shared logic.” Portability becomes real only when a team can preserve meaning, not just move code.
-              In UMA terms, the goal is not “write once, run everywhere.” It is “write once, run where it makes sense.”
+              In UMA terms, the goal is not “write once, run everywhere.” It is “write once, run where it makes sense.” The practical
+              implication is that portability is a design constraint enforced from the start — not a property you can retrofit once the
+              service has already absorbed transport assumptions, host-specific helpers, or environment-branching logic.
             </p>
           </section>
 

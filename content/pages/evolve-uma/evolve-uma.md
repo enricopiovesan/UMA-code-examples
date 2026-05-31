@@ -41,6 +41,49 @@ related_refs:
       These pages explain how UMA keeps orchestration, trust, and governance explicit while systems evolve, so readers can inspect the
       path from one compatible stage to the next.
     </p>
+    <div class="subpage-inline-links">
+      <a href="../../comparisons/">Continue to: Comparisons →</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>The problem systems develop after launch</h2>
+    <p>
+      Most systems are coherent at launch. The services are small, the team is small, the contracts are implicit but shared because everyone wrote them. Then the system grows. New services are added by people who did not write the originals. Interfaces are extended in ways that are backward-compatible in isolation but inconsistent in aggregate. Trust assumptions that were obvious when everything ran in one environment stop being obvious when parts move to different runtimes or owners.
+    </p>
+    <p>
+      The fragmentation that results is not usually caused by bad decisions. It is caused by good local decisions that lack a system-level enforcement point. Each team makes reasonable choices. The system accumulates drift because nothing is holding the shape of the graph constant while it grows.
+    </p>
+    <p>
+      This is the problem the System Evolution area addresses. Not how to design a system from scratch, but how to keep a system coherent as it changes — which is the harder and more common problem.
+    </p>
+    <h2>What coherent evolution means in UMA terms</h2>
+    <p>
+      In UMA, coherent evolution has a specific technical definition. A system evolves coherently when each change is expressed as a contract update, the runtime enforces compatibility at the boundary, and the service graph remains inspectable before and after the change.
+    </p>
+    <p>
+      The contract is the unit of change. Not the service implementation, not the deployment configuration, not the API version label in a URL path. The contract specifies what the service accepts, what it produces, and under what trust conditions it operates. A change to the contract is a first-class event that the rest of the graph can observe and verify against. A change to the implementation that stays within the existing contract is transparent to the graph.
+    </p>
+    <p>
+      This distinction matters because it separates two kinds of change that traditional microservice architectures conflate: internal refactoring (which should be invisible to consumers) and interface evolution (which affects every downstream service). When contracts are explicit and machine-readable, the runtime can enforce this separation automatically. When they are implicit — embedded in documentation, convention, or informal agreement — the separation depends entirely on discipline and coordination.
+    </p>
+    <h2>Trust as a graph property, not a service property</h2>
+    <p>
+      UMA treats trust as a property of the relationship between services, not as a property of any individual service. A service is not trusted or untrusted in isolation. It is trusted within a specific graph configuration, subject to specific runtime policies, given specific provenance claims.
+    </p>
+    <p>
+      This matters for evolution because the trust configuration of a graph can change without changing the services themselves. A service that was trusted to call a privileged endpoint under one deployment configuration may not be trusted under another. If trust is embedded in the service — encoded as credentials, hardwired endpoint permissions, or implicit in the network topology — then reconfiguring trust means modifying services. If trust is a graph-level property enforced by the runtime, then reconfiguring trust is a policy change that leaves the services untouched.
+    </p>
+    <p>
+      The practical consequence: when a service is moved to a new runtime environment, or when a new service is added to an existing graph, the trust implications are visible in the graph descriptor before the change is deployed. You can inspect what the new configuration allows before it runs.
+    </p>
+    <h2>The runtime as the enforcement point</h2>
+    <p>
+      Runtime enforcement is what converts the rest of these properties from design intentions into operational guarantees. Contracts that are not enforced at runtime are documentation. Trust boundaries that are not enforced at runtime are conventions. A service graph that is not validated at runtime is a diagram.
+    </p>
+    <p>
+      UMA's architecture places the runtime in the role of enforcer. When a service invokes another, the runtime checks the contract. When a service is deployed, the runtime validates its trust claims against the graph configuration. When provenance matters — who produced this service, under what build conditions, with what verification — the runtime holds and exposes that record. This is what makes the evolution of the system legible: the runtime is the source of truth for what the graph actually is at any point in time, not what it was designed to be.
+    </p>
   </section>
 
   <section>

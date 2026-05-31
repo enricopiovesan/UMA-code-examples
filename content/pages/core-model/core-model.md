@@ -52,6 +52,9 @@ related_refs:
     <p>
       This area also covers two boundaries that teams often leave implicit: the agent-versus-runtime boundary (where AI proposal stops and runtime authority begins) and late-bound policy enforcement (how runtime decisions stay governed without hardwiring policy into service logic). Both are practical concerns that surface quickly once a system tries to do anything non-trivial with portable services.
     </p>
+    <div class="subpage-inline-links">
+      <a href="../../how-uma-works/">Continue to: How UMA Works →</a>
+    </div>
   </section>
 
   <section>

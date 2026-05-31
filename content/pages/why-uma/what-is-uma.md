@@ -68,7 +68,9 @@ related_refs:
             </p>
             <p>
               Another way to say it is this: UMA is not “write once, run everywhere.” It is “write once, run where it makes sense.” The
-              service remains recognizable, the runtime stays governed, and the system stays explainable for longer.
+              service remains recognizable, the runtime stays governed, and the system stays explainable for longer. In practical terms,
+              this means the same discount rule, validation step, or feature flag evaluator can execute in a browser, an edge worker, and
+              a backend service without becoming three separate codepaths that diverge silently over time.
             </p>
           </section>
 

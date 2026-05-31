@@ -33,7 +33,7 @@ related_refs:
           <section>
             <h2>The short definition</h2>
             <p>A Universal Microservice is the primary object in UMA. It owns a specific behavior, exposes a clear contract, and can be executed through more than one runtime path without changing what the behavior means.</p>
-            <p>The portable summary is write once, run where it makes sense. That matters because the runtime may change while the service meaning should not.</p>
+            <p>The portable summary is write once, run where it makes sense. That matters because the runtime may change while the service meaning should not. In practice, this means a team can validate the same business rule — a discount calculation, a permission check, a feature flag decision — in a local test, an edge deployment, and a cloud backend, and confirm that all three produce identical outputs from the same input without any environment-specific rewrite.</p>
           </section>
 
           <section>

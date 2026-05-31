@@ -48,9 +48,13 @@ related_refs:
     <p>
       The central shift UMA proposes is from stack ownership to behavior ownership. Stack ownership is the default: a team owns a frontend, a backend, a data layer. Behavior ownership asks a harder question — who owns the rule, and can the rule survive when the stack changes? That reframing is where this section begins.
     </p>
+    <p>
+      The mechanics of how that separation works in practice are covered in <a href="../../how-uma-works/">How UMA Works</a>.
+    </p>
     <div class="subpage-inline-links">
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4" target="_blank" rel="noreferrer noopener">Buy the book on Amazon →</a>
+      <a href="../../core-model/">Continue to: Core Model →</a>
       <a href="../../how-uma-works/">See how UMA works in practice →</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4" target="_blank" rel="noreferrer noopener">Pre-order on Amazon →</a>
     </div>
   </section>
 

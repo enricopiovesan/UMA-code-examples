@@ -47,7 +47,9 @@ related_refs:
             </p>
             <p>
               The portability goal here is not “write once, run everywhere.” It is “write once, run where it makes sense,” with
-              capabilities giving the runtime concrete units to evaluate.
+              capabilities giving the runtime concrete units to evaluate. That precision matters when the same behavior must be
+              independently governed in a browser context, an edge deployment, and a server-side workflow without each environment
+              silently redefining what the capability means.
             </p>
             <ul>
               <li><strong>Capability:</strong> a discoverable unit of behavior the runtime can reason about.</li>
