@@ -20,6 +20,7 @@ related_refs:
   - migrating-to-uma-incrementally
   - incremental-uma-adoption
   - uma-production-readiness
+  - uma-mcp-runtime-governance
 ---
 
 ## intro
@@ -99,6 +100,7 @@ related_refs:
       <article class="subpage-card"><h3><a href="migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></h3><p>How to move toward UMA without a big-bang rewrite.</p></article>
       <article class="subpage-card"><h3><a href="incremental-uma-adoption/">Incremental UMA Adoption</a></h3><p>Adoption patterns that keep the transition measurable and reversible.</p></article>
       <article class="subpage-card"><h3><a href="uma-production-readiness/">UMA Production Readiness</a></h3><p>What needs to be true before the model is ready for production use.</p></article>
+      <article class="subpage-card"><h3><a href="uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></h3><p>How contract validation, trust enforcement, and execution evidence apply to AI agent tool calls.</p></article>
     </div>
   </section>
 </div>

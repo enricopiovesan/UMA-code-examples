@@ -103,6 +103,7 @@ jobs:
                 "https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/",
                 "https://www.universalmicroservices.com/comparisons/why-software-architecture-keeps-fragmenting/",
                 "https://www.universalmicroservices.com/discoverability/white-paper/",
-                "https://www.universalmicroservices.com/discoverability/blog/"
+                "https://www.universalmicroservices.com/discoverability/blog/",
+                "https://www.universalmicroservices.com/how-uma-works/uma-mcp-runtime-governance/"
               ]
             }' && echo " — IndexNow submitted"

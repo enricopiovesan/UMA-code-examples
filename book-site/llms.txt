@@ -24,6 +24,7 @@ Content on this site may be cited with attribution to Enrico Piovesan and univer
 - /proof/: Evidence-based portability proofs and benchmark data
 - /evolve-uma/: System evolution, contract-driven orchestration, trust boundaries
 - /comparisons/: UMA vs serverless, microservices, modular monolith, service mesh
+- /how-uma-works/uma-mcp-runtime-governance/: UMA runtime governance for MCP — contract validation, trust enforcement, and execution evidence for AI agent tool calls
 - /comparisons/uma-vs-service-mesh/: UMA vs Istio/Linkerd — network-layer vs behavior-layer governance, and why they coexist
 - /comparisons/why-software-architecture-keeps-fragmenting/: The structural cause of behavioral drift — why systems fragment as execution surfaces multiply
 - /discoverability/white-paper/: Research papers — CSMA (2023), UMA (2024), ECCA (2025)

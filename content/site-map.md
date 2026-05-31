@@ -45,6 +45,7 @@ It defines semantic page groups, not HTML output.
 - `migrating-to-uma-incrementally`
 - `incremental-uma-adoption`
 - `uma-production-readiness`
+- `uma-mcp-runtime-governance`
 
 ### Proof
 - `proof`
