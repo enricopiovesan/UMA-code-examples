@@ -13,7 +13,7 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
-User-agent: Googlebot-Extended
+User-agent: Google-Extended
 Allow: /
 
 User-agent: cohere-ai

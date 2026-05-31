@@ -512,10 +512,12 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
   const webPage = {
     "@context": "https://schema.org",
     "@type": "WebPage",
+    "@id": `${canonical}#webpage`,
     name: meta.title || "UMA",
     description: meta.seo_description || meta.subtitle || "",
     url: canonical,
     inLanguage: "en",
+    isPartOf: { "@id": "https://www.universalmicroservices.com/#website" },
   };
   if (dates?.published) webPage.datePublished = dates.published;
   if (dates?.modified) webPage.dateModified = dates.modified;
@@ -613,14 +615,19 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Apress",
-        "url": "https://www.apress.com/"
+        "@id": "https://www.universalmicroservices.com/#organization",
+        "name": "Universal Microservices Architecture",
+        "url": "https://www.universalmicroservices.com/"
       },
       "isPartOf": {
         "@type": "WebSite",
         "@id": "https://www.universalmicroservices.com/#website"
       }
     });
+    // Backfill dates onto TechArticle from the already-built webPage
+    const ta = scripts[scripts.length - 1];
+    if (dates?.published) ta.datePublished = dates.published;
+    if (dates?.modified) ta.dateModified = dates.modified;
   }
 
   // DefinedTermSet schema — for the glossary page
