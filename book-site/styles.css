@@ -53,16 +53,15 @@ a {
 .topbar {
   position: sticky;
   top: 0;
-  width: min(100% - 28px, var(--content));
+  width: min(100% - 32px, var(--content));
   margin: 0 auto;
   z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 14px 0 16px;
+  gap: 16px;
+  padding: 12px 0;
   border-bottom: 1px solid var(--line);
-  transition: border-color 180ms ease;
 }
 
 .topbar::before {
@@ -72,20 +71,14 @@ a {
   right: calc(50% - 50vw);
   z-index: -1;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(5, 5, 5, 0.92), rgba(5, 5, 5, 0.78));
-  backdrop-filter: blur(10px);
+  background: rgba(5, 5, 5, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   content: "";
-  transition: background 180ms ease, backdrop-filter 180ms ease, border-color 180ms ease;
 }
 
 .topbar.is-at-top {
-  border-bottom-color: transparent;
-}
-
-.topbar.is-at-top::before {
-  background: transparent;
-  backdrop-filter: none;
-  border-bottom-color: transparent;
+  border-bottom-color: var(--line);
 }
 
 .brand {
@@ -98,60 +91,72 @@ a {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--line-strong);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   color: #050505;
   background: var(--accent);
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.92rem;
+  font-size: 0.78rem;
   font-weight: 900;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
 }
 
 .brand-name {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--text);
   white-space: normal;
-  max-width: 9ch;
-  line-height: 1.2;
+  max-width: 10ch;
+  line-height: 1.25;
   letter-spacing: 0.01em;
 }
 
 .topnav {
   display: inline-flex;
   flex-wrap: nowrap;
-  gap: 10px;
+  gap: 4px;
   margin-left: auto;
   align-items: center;
 }
 
 .topnav a {
+  padding: 5px 8px;
+  border-radius: 6px;
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.8rem;
-}
-
-.topnav-github {
-  margin-left: 10px;
-  padding-left: 18px;
-  border-left: 1px solid var(--line);
-}
-
-.topnav-utility {
-  font-size: 0.74rem;
-  opacity: 0.6;
+  font-size: 0.82rem;
+  transition: color 120ms ease, background 120ms ease;
 }
 
 .topnav a:hover {
   color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.topnav-github {
+  margin-left: 8px;
+  padding-left: 16px;
+  border-left: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.topnav-github:hover {
+  background: transparent;
+}
+
+.topnav-utility {
+  font-size: 0.78rem;
+  opacity: 0.55;
 }
 
 .header-cta {
-  min-height: 30px;
-  padding: 0 12px;
-  font-size: 0.74rem;
+  margin-left: 8px;
+  min-height: 32px;
+  padding: 0 14px;
+  font-size: 0.78rem;
+  border-radius: 6px;
   white-space: nowrap;
 }
 

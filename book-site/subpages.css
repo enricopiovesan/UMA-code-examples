@@ -58,13 +58,15 @@
 
 /* Section nav (left) */
 .section-nav-label {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
+  padding: 0 8px;
   color: var(--muted);
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  opacity: 0.7;
 }
 
 .section-nav-links {
@@ -72,59 +74,55 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 2px;
+  gap: 1px;
 }
 
 .section-nav-links li a {
   display: block;
   padding: 5px 8px;
-  border-radius: 6px;
+  border-radius: 5px;
   color: var(--muted);
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   text-decoration: none;
-  line-height: 1.4;
-  transition: color 120ms ease, background 120ms ease;
+  line-height: 1.45;
+  transition: color 100ms ease, background 100ms ease;
 }
 
 .section-nav-links li a:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .section-nav-links li a.section-nav-current {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
   font-weight: 500;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 2px 0 0 var(--accent);
 }
 
 /* TOC rail (right) */
 .page-toc-rail {
   padding-top: 18px;
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
 }
 
 .page-breadcrumbs {
   display: inline-flex;
-  margin: 0 0 16px;
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(8px);
+  margin: 0 0 20px;
 }
 
 .page-breadcrumbs ol {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
   color: var(--muted);
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.69rem;
+  font-size: 0.78rem;
   line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .page-breadcrumbs li {
@@ -198,95 +196,116 @@
 
 .page-rail-outline > li > a,
 .page-rail-links a {
-  color: var(--text);
+  color: var(--muted);
   text-decoration: none;
-  text-underline-offset: 0.18em;
-  line-height: 1.4;
+  line-height: 1.45;
+  transition: color 100ms ease;
 }
 
 .page-rail-outline > li > a {
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .page-rail-outline ul {
   display: grid;
-  gap: 7px;
-  margin: 8px 0 0 12px;
-  padding: 8px 0 0 12px;
+  gap: 6px;
+  margin: 6px 0 0 10px;
+  padding: 6px 0 0 10px;
   border-left: 1px solid var(--line);
 }
 
 .page-rail-outline ul a {
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
+  opacity: 0.8;
 }
 
 .page-rail-outline a:hover,
 .page-rail-links a:hover {
+  color: var(--text);
+}
+
+.page-rail-outline a.is-active {
   color: var(--accent);
 }
 
 .subpage-hero {
-  padding: 18px 0 44px;
+  padding: 24px 0 36px;
   border-bottom: 1px solid var(--line);
 }
 
 .subpage-hero h1 {
-  max-width: 12ch;
-  margin: 0 0 18px;
-  font-size: clamp(2.7rem, 5.4vw, 4.3rem);
-  line-height: 0.96;
+  max-width: 20ch;
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
 }
 
 .subpage-hero p {
-  max-width: 62ch;
+  max-width: 64ch;
   margin: 0;
   color: var(--muted);
-  font-size: 1.08rem;
-  line-height: 1.66;
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
 .subpage-body {
-  width: min(100%, 860px);
-  padding: 38px 0 56px;
+  width: min(100%, 720px);
+  padding: 32px 0 56px;
 }
 
-.subpage-body section + section {
-  margin-top: 30px;
+.subpage-body section {
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.subpage-body section:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .subpage-body h2 {
   max-width: none;
-  margin: 0 0 14px;
-  font-size: clamp(1.55rem, 2.8vw, 2rem);
-  line-height: 1.08;
+  margin: 0 0 12px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .subpage-body h3 {
-  margin: 0 0 10px;
-  font-size: 1.08rem;
-  line-height: 1.15;
+  margin: 20px 0 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text);
 }
 
 .subpage-body p,
 .subpage-body li {
   color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.72;
+  font-size: 0.96rem;
+  line-height: 1.75;
 }
 
 .subpage-body p {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
 }
 
-.subpage-body ul {
-  margin: 0;
-  padding-left: 20px;
+.subpage-body p:last-child {
+  margin-bottom: 0;
+}
+
+.subpage-body ul,
+.subpage-body ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
 }
 
 .subpage-body li + li {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .diagram-caption {
