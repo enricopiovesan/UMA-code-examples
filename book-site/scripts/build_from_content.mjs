@@ -756,6 +756,10 @@ ${renderTocRail(outline)}
     </div>
     <section id="contacts" class="section contacts-band" data-shared-footer></section>
     <script src="${prefix}app.js" type="module"></script>
+${meta.ref === "diagrams" ? `    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "dark" });
+    </script>` : ""}
   </body>
 </html>
 `;
