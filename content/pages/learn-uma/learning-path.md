@@ -5,7 +5,7 @@ subtitle: "The UMA learning path The Universal Microservices Architecture learni
 macro_area: learn-uma
 content_type: onboarding
 slug: learning-path
-canonical_url: "https://www.universalmicroservices.com/learning-path/"
+canonical_url: "https://www.universalmicroservices.com/learn-uma/learning-path/"
 left_nav_group: learn-uma
 chapter_ref: null
 seo_description: "Follow a chapter-by-chapter Universal Microservices Architecture learning path, from portable services to trust boundaries, graph evolution, discoverable decisions, and portable MCP runtime composition."

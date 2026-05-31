@@ -85,6 +85,20 @@ jobs:
                 "https://www.universalmicroservices.com/comparisons/",
                 "https://www.universalmicroservices.com/evolve-uma/",
                 "https://www.universalmicroservices.com/learn-uma/",
-                "https://www.universalmicroservices.com/discoverability/"
+                "https://www.universalmicroservices.com/discoverability/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-01-uma-introduction/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-02-device-independent-architecture/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-03-what-is-universal-microservices-architecture/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-04-from-soa-to-metadata-driven-services/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-06-uma-runtime-layer/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-07-webassembly-portability-wasm-runtimes/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-08-service-contracts-events-orchestration/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-09-microservices-to-distributed-systems/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-10-security-trust-boundaries-microservices/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-12-evolving-distributed-systems/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-13-ai-agents-mcp-runtime/",
+                "https://www.universalmicroservices.com/learn-uma/chapter-14-uma-reference-application/"
               ]
             }' && echo " — IndexNow submitted"

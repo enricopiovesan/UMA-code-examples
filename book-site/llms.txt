@@ -6,7 +6,7 @@ Universal Microservices Architecture (UMA) is an execution model for distributed
 
 ## Author
 
-Enrico Piovesan — principal platform architect at Autodesk with more than two decades of experience building modular, cloud-native, and event-driven distributed systems. Author of *Universal Microservices Architecture* (Amazon, 2025).
+Enrico Piovesan — principal platform architect at Autodesk with more than two decades of experience building modular, cloud-native, and event-driven distributed systems. Author of *Universal Microservices Architecture* (Apress, August 2026).
 
 ## License
 
@@ -27,6 +27,21 @@ Content on this site may be cited with attribution to Enrico Piovesan and univer
 - /learn-uma/book/: The book — available on Amazon
 - /discoverability/about-enrico/: About the author, Enrico Piovesan
 - /examples/: Chapter-aligned runnable code labs (chapters 4–13)
+- /learn-uma/learning-path/: Sequenced reading guide through all 14 chapters
+- /learn-uma/chapter-01-uma-introduction/: Chapter 1 — why distributed systems need a new architectural model
+- /learn-uma/chapter-02-device-independent-architecture/: Chapter 2 — what breaks when logic is coupled to one execution environment
+- /learn-uma/chapter-03-what-is-universal-microservices-architecture/: Chapter 3 — precise definition of UMA vs conventional microservices
+- /learn-uma/chapter-04-from-soa-to-metadata-driven-services/: Chapter 4 — evolution from SOA to metadata-driven portable services
+- /learn-uma/chapter-05-building-portable-microservices/: Chapter 5 — building a genuinely portable service with contract and parity proof
+- /learn-uma/chapter-06-uma-runtime-layer/: Chapter 6 — what the runtime layer owns and why that ownership must be explicit
+- /learn-uma/chapter-07-webassembly-portability-wasm-runtimes/: Chapter 7 — WebAssembly portability and what UMA adds on top
+- /learn-uma/chapter-08-service-contracts-events-orchestration/: Chapter 8 — contract-driven orchestration emerging from declared events
+- /learn-uma/chapter-09-microservices-to-distributed-systems/: Chapter 9 — system-level coherence from portable, well-governed services
+- /learn-uma/chapter-10-security-trust-boundaries-microservices/: Chapter 10 — trust as a per-execution runtime decision across environments
+- /learn-uma/chapter-11-microservices-architecture-patterns/: Chapter 11 — recurring architectural decisions and tradeoffs in UMA
+- /learn-uma/chapter-12-evolving-distributed-systems/: Chapter 12 — contract-driven evolution without behavioral drift
+- /learn-uma/chapter-13-ai-agents-mcp-runtime/: Chapter 13 — UMA runtime governance extended to AI agent invocation via MCP
+- /learn-uma/chapter-14-uma-reference-application/: Chapter 14 — the complete UMA system assembled and running
 
 ## Key concepts
 
