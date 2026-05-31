@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs | Universal Microservices Architecture</title>
+    <meta name="description" content="UMA architecture decisions, patterns, and tradeoffs guide." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/" />
+    <meta property="og:title" content="Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs" />
+    <meta property="og:description" content="UMA architecture decisions, patterns, and tradeoffs guide." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs" />
+    <meta name="twitter:description" content="UMA architecture decisions, patterns, and tradeoffs guide." />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Learning Path","item":"https://www.universalmicroservices.com/learn-uma/"},{"@type":"ListItem","position":3,"name":"Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs","item":"https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs","description":"UMA architecture decisions, patterns, and tradeoffs guide.","url":"https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/","inLanguage":"en"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <div class="topbar-row">
+          <a class="brand" href="../../">
+            <span class="brand-mark">UMA</span>
+            <span class="brand-name">Universal Microservices Architecture</span>
+          </a>
+
+        <div class="topbar-utility">
+          <a class="topnav-utility" href="reference-application/">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Primary">
+        <div class="topbar-nav-inner">
+          <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+        </div>
+      </nav>
+      <div class="topbar-row-placeholder">
+        </div>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+            <a href="reference-application/">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-section-nav" aria-label="Learning Path navigation">
+        <a class="section-nav-label" href="../">Learning Path</a>
+        <ul class="section-nav-links"><li><a href="../learning-path/" >UMA Learning Path</a></li><li><a href="../book/" >The Book — Pre-order</a></li><li><a href="../end-to-end-feature-flag-example/" >End-to-End UMA Example: Feature Flag Service</a></li></ul>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/learn-uma/">Learning Path</a></li><li><span aria-current="page">Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+  <h1>Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs</h1>
+  <p>What are the recurring architectural decisions in UMA, and what tradeoffs do they involve?</p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="the-question-this-chapter-answers">The question this chapter answers</h2>
+    <p>Every UMA system forces a set of recurring decisions: how narrow a capability's responsibility should be, whether a contract should be active or implicit, whether runtime placement adds governance value or just operational overhead, and whether the model itself fits the problem. These decisions do not disappear because you adopted UMA. They become explicit. Chapter 11 is a decision guide — not a prescription — for the choices that recur across production UMA systems.</p>
+  </section>
+
+  <section>
+    <h2 id="the-core-concept">The core concept</h2>
+    <p>UMA does not eliminate architectural decisions — it makes them legible. The recurring decision points follow a consistent structure: a capability boundary question, a contract formulation question, a runtime placement question, and a governance fit question. Each has a tradeoff. Narrower capability responsibility means more upfront decomposition work and more descriptors to maintain, but also more reuse and more testable units. Active descriptors make contracts machine-readable and governable, but require discipline to keep synchronized with implementation. Runtime placement governance adds operational surface — health checks, placement logic, execution evidence — but gives you the observability that implicit invocation cannot.</p>
+    <p>The chapter catalogs these patterns with their associated costs. A team that has never needed to justify a capability boundary gets the framing. A team already running UMA in production gets the vocabulary to make existing decisions visible to new engineers. The goal is not to resolve every tradeoff in advance — it is to ensure every tradeoff is a conscious choice rather than an accidental default.</p>
+  </section>
+
+  <section>
+    <h2 id="how-it-connects">How it connects</h2>
+    <p>Chapter 10 established the security and trust boundary model that governs capability invocation. Chapter 11 applies that model to architectural decision-making, and Chapter 12 extends it to the problem of evolving those decisions over time without breaking compatibility.</p>
+    <div class="subpage-inline-links">
+      <a href="../chapter-10-security-trust-boundaries-microservices/">← Chapter 10: Security and Trust Boundaries</a>
+      <a href="../chapter-12-evolving-distributed-systems/">Chapter 12: Evolving and Adapting UMA Systems →</a>
+      <a href="../../comparisons/common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a>
+      <a href="../../how-uma-works/uma-production-readiness/">UMA Production Readiness</a>
+      <a href="../examples/chapter-10-architectural-tradeoffs/">Chapter 10 code examples</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Get the book on Amazon</a>
+    </div>
+  </section>
+</div>
+      </main>
+
+
+      <aside class="page-toc-rail" aria-label="On this page">
+        <div class="section-nav-label">On this page</div>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-question-this-chapter-answers">The question this chapter answers</a></li><li><a href="#the-core-concept">The core concept</a></li><li><a href="#how-it-connects">How it connects</a></li>
+    </ol>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+
+  </body>
+</html>

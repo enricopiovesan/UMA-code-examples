@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 5: Building UMA Services | Universal Microservices Architecture</title>
+    <meta name="description" content="Three requirements for genuine portability: no hidden deps, declared contract, parity proof." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/" />
+    <meta property="og:title" content="Chapter 5: Building UMA Services" />
+    <meta property="og:description" content="Three requirements for genuine portability: no hidden deps, declared contract, parity proof." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chapter 5: Building UMA Services" />
+    <meta name="twitter:description" content="Three requirements for genuine portability: no hidden deps, declared contract, parity proof." />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Learning Path","item":"https://www.universalmicroservices.com/learn-uma/"},{"@type":"ListItem","position":3,"name":"Chapter 5: Building UMA Services","item":"https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Chapter 5: Building UMA Services","description":"Three requirements for genuine portability: no hidden deps, declared contract, parity proof.","url":"https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/","inLanguage":"en"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <div class="topbar-row">
+          <a class="brand" href="../../">
+            <span class="brand-mark">UMA</span>
+            <span class="brand-name">Universal Microservices Architecture</span>
+          </a>
+
+        <div class="topbar-utility">
+          <a class="topnav-utility" href="reference-application/">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Primary">
+        <div class="topbar-nav-inner">
+          <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+        </div>
+      </nav>
+      <div class="topbar-row-placeholder">
+        </div>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+            <a href="reference-application/">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-section-nav" aria-label="Learning Path navigation">
+        <a class="section-nav-label" href="../">Learning Path</a>
+        <ul class="section-nav-links"><li><a href="../learning-path/" >UMA Learning Path</a></li><li><a href="../book/" >The Book — Pre-order</a></li><li><a href="../end-to-end-feature-flag-example/" >End-to-End UMA Example: Feature Flag Service</a></li></ul>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/learn-uma/">Learning Path</a></li><li><span aria-current="page">Chapter 5: Building UMA Services</span></li>
+          </ol>
+        </nav>
+
+<section class="subpage-hero">
+  <h1>Chapter 5: Building UMA Services</h1>
+  <p>Framework independence is not portability. A service is genuinely portable only when it has no hidden runtime dependencies, carries a machine-readable contract, and can be verified across at least two environments.</p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="what-genuine-portability-requires">What genuine portability requires</h2>
+    <p>Most services that claim to be portable are framework-independent — they don't lock to a specific web framework or cloud SDK. That's a necessary condition, not a sufficient one. A service can be framework-independent and still make implicit assumptions about the filesystem, the clock, the network, or the environment variables available at startup. Those assumptions are hidden runtime dependencies. They don't show up in the interface contract, but they break portability the moment the service runs somewhere those assumptions don't hold. Building a genuinely portable service requires making every dependency explicit, declaring the contract in a form the runtime can validate, and proving behavioral equivalence across environments rather than asserting it.</p>
+  </section>
+
+  <section>
+    <h2 id="three-requirements-for-a-portable-service">Three requirements for a portable service</h2>
+    <p>The chapter builds a concrete example — a feature flag evaluator — and uses it to demonstrate each requirement in turn.</p>
+    <p>The first requirement is <strong>no hidden runtime dependencies</strong> in the core logic. The portable service must be a pure function of its inputs: given the same input, it produces the same output regardless of where it runs. Any dependency on external state — environment variables, filesystem paths, ambient credentials — must be injected through the contract interface, not accessed directly. The chapter shows how to audit a service for hidden dependencies and what the refactoring pattern looks like when they're found.</p>
+    <p>The second requirement is a <strong>machine-readable descriptor</strong>. The contract has to be declared in a structured form the runtime can parse and act on. This means inputs and outputs are typed and named, not inferred from code. Placement constraints and trust requirements are explicit fields, not comments. The descriptor is what separates a portable service from a portable library — the runtime can reason about a service without executing it.</p>
+    <p>The third requirement is a <strong>parity proof across at least two environments</strong>. Portability is a testable claim. The chapter shows how to construct a behavioral equivalence test that runs the same inputs through the native implementation and the WASM-compiled version, compares outputs deterministically, and fails the build if they diverge. This is the proof that makes portability falsifiable rather than aspirational.</p>
+  </section>
+
+  <section>
+    <h2 id="how-it-connects">How it connects</h2>
+    <p>Chapter 4 establishes why metadata-driven contracts are the architectural unit that enables portable orchestration. Chapter 6 takes the portability proof further: how to verify behavioral equivalence across runtimes as a first-class CI artifact.</p>
+    <div class="subpage-inline-links">
+      <a href="../chapter-04-from-soa-to-metadata-driven-services/">Chapter 4: From SOA to Metadata</a>
+      <a href="/how-uma-works/portable-business-logic/">Portable business logic</a>
+      <a href="/proof/what-makes-a-service-portable/">What makes a service portable?</a>
+      <a href="/examples/chapter-04-feature-flag-evaluator/">Chapter 4 feature flag example</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book on Amazon</a>
+    </div>
+  </section>
+</div>
+      </main>
+
+
+      <aside class="page-toc-rail" aria-label="On this page">
+        <div class="section-nav-label">On this page</div>
+
+    <ol class="page-rail-outline">
+      <li><a href="#what-genuine-portability-requires">What genuine portability requires</a></li><li><a href="#three-requirements-for-a-portable-service">Three requirements for a portable service</a></li><li><a href="#how-it-connects">How it connects</a></li>
+    </ol>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+
+  </body>
+</html>
