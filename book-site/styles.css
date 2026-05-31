@@ -1608,7 +1608,7 @@ h3 {
 
 @media (max-width: 760px) {
   body {
-    padding-top: 64px;
+    padding-top: 112px;
   }
 
   .page-shell {
@@ -1750,7 +1750,7 @@ h3 {
   .hero {
     grid-template-columns: 1fr;
     gap: 12px;
-    padding-top: 26px;
+    padding-top: 8px;
   }
 
   .hero-visual,
