@@ -142,6 +142,40 @@ related_refs:
             </p>
           </section>
 
+          <section>
+            <h2>Chapter by chapter</h2>
+            <dl>
+              <dt><a href="../chapter-01-uma-introduction/">Chapter 1 — Introduction</a></dt>
+              <dd>Why distributed systems need a new architectural model as execution surfaces multiply.</dd>
+              <dt><a href="../chapter-02-device-independent-architecture/">Chapter 2 — Why Device Independence Matters</a></dt>
+              <dd>What breaks when business logic is coupled to a single execution environment.</dd>
+              <dt><a href="../chapter-03-what-is-universal-microservices-architecture/">Chapter 3 — What Is UMA?</a></dt>
+              <dd>The precise definition of UMA and what separates it from conventional microservices.</dd>
+              <dt><a href="../chapter-04-from-soa-to-metadata-driven-services/">Chapter 4 — From SOA to Metadata</a></dt>
+              <dd>How architectural thinking evolves from SOA through microservices to metadata-driven portable services.</dd>
+              <dt><a href="../chapter-05-building-portable-microservices/">Chapter 5 — Building UMA Services</a></dt>
+              <dd>What it takes to build a service that is genuinely portable rather than just framework-independent.</dd>
+              <dt><a href="../chapter-06-uma-runtime-layer/">Chapter 6 — The UMA Runtime Layer</a></dt>
+              <dd>What the runtime layer owns and why that ownership must be explicit.</dd>
+              <dt><a href="../chapter-07-webassembly-portability-wasm-runtimes/">Chapter 7 — Portability with WebAssembly</a></dt>
+              <dd>How WebAssembly provides a portable execution boundary and what UMA adds on top of it.</dd>
+              <dt><a href="../chapter-08-service-contracts-events-orchestration/">Chapter 8 — Contracts, Events, and Orchestration</a></dt>
+              <dd>How explicit contracts and declared events make orchestration emerge from the system.</dd>
+              <dt><a href="../chapter-09-microservices-to-distributed-systems/">Chapter 9 — From Services to Systems</a></dt>
+              <dd>What new properties the system gains when individual services are portable and well-governed.</dd>
+              <dt><a href="../chapter-10-security-trust-boundaries-microservices/">Chapter 10 — Security and Trust Boundaries</a></dt>
+              <dd>How to enforce trust in a system where the same service executes across multiple runtime environments.</dd>
+              <dt><a href="../chapter-11-microservices-architecture-patterns/">Chapter 11 — Decisions, Patterns, and Tradeoffs</a></dt>
+              <dd>The recurring architectural decisions in UMA and the tradeoffs each one involves.</dd>
+              <dt><a href="../chapter-12-evolving-distributed-systems/">Chapter 12 — Evolving UMA Systems</a></dt>
+              <dd>How to change a UMA system over time without introducing behavioral drift or breaking compatibility.</dd>
+              <dt><a href="../chapter-13-ai-agents-mcp-runtime/">Chapter 13 — Agents, MCP, and the Runtime of Reasoning</a></dt>
+              <dd>How UMA's runtime model extends to AI-native execution where an agent initiates service invocation.</dd>
+              <dt><a href="../chapter-14-uma-reference-application/">Chapter 14 — The Reference Experience</a></dt>
+              <dd>What a complete UMA system looks like when all pieces are assembled and running together.</dd>
+            </dl>
+          </section>
+
           <section class="subpage-callout">
             <strong>Use the runnable path too</strong>
             <p>
@@ -149,13 +183,12 @@ related_refs:
               through code, tests, and runtime output.
             </p>
             <div class="subpage-inline-links">
-              <a href="../examples/">Examples</a>
+              <a href="../../examples/">Examples</a>
               <a href="../book/">Book overview</a>
-              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
-              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
-              <a href="../how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a>
-              <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
-              <a href="../service-graph-evolution/">Service graph evolution</a>
+              <a href="../../comparisons/uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../../core-model/what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../../evolve-uma/how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a>
+              <a href="../../evolve-uma/service-graph-evolution/">Service graph evolution</a>
             </div>
           </section>
         </div>
