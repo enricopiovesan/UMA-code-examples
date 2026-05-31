@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UMA vs Service Mesh | Universal Microservices Architecture</title>
+    <meta name="description" content="UMA vs Istio, Linkerd, and other service meshes: how they differ, where they overlap, and why they are complementary rather than competing architectures." />
+    <link rel="canonical" href="https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/" />
+    <meta property="og:title" content="UMA vs Service Mesh" />
+    <meta property="og:description" content="UMA vs Istio, Linkerd, and other service meshes: how they differ, where they overlap, and why they are complementary rather than competing architectures." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="UMA vs Service Mesh" />
+    <meta name="twitter:description" content="UMA vs Istio, Linkerd, and other service meshes: how they differ, where they overlap, and why they are complementary rather than competing architectures." />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"Comparisons and Tradeoffs","item":"https://www.universalmicroservices.com/comparisons/"},{"@type":"ListItem","position":3,"name":"UMA vs Service Mesh","item":"https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"UMA vs Service Mesh","description":"UMA vs Istio, Linkerd, and other service meshes: how they differ, where they overlap, and why they are complementary rather than competing architectures.","url":"https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/","inLanguage":"en"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/#article","headline":"UMA vs Service Mesh","description":"UMA vs Istio, Linkerd, and other service meshes: how they differ, where they overlap, and why they are complementary rather than competing architectures.","url":"https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/","inLanguage":"en","author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"},"publisher":{"@type":"Organization","name":"Apress","url":"https://www.apress.com/"},"isPartOf":{"@type":"WebSite","@id":"https://www.universalmicroservices.com/#website"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <div class="topbar-row">
+          <a class="brand" href="../../">
+            <span class="brand-mark">UMA</span>
+            <span class="brand-name">Universal Microservices Architecture</span>
+          </a>
+
+        <div class="topbar-utility">
+          <a class="topnav-utility" href="reference-application/">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Primary">
+        <div class="topbar-nav-inner">
+          <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+        </div>
+      </nav>
+      <div class="topbar-row-placeholder">
+        </div>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+            <a href="reference-application/">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+      <aside class="page-section-nav" aria-label="Comparisons and Tradeoffs navigation">
+        <a class="section-nav-label" href="../">Comparisons and Tradeoffs</a>
+        <ul class="section-nav-links"><li><a href="../uma-vs-serverless/" >UMA vs Serverless</a></li><li><a href="../uma-vs-modular-monolith/" >UMA vs Modular Monolith</a></li><li><a href="../uma-vs-traditional-microservices/" >UMA vs Traditional Microservices</a></li><li><a href="./" class="section-nav-current" aria-current="page">UMA vs Service Mesh</a></li><li><a href="../common-criticisms-and-tradeoffs-of-uma/" >Common Criticisms and Tradeoffs of UMA</a></li><li><a href="../why-software-architecture-keeps-fragmenting/" >Why Software Architecture Keeps Fragmenting</a></li><li><a href="../wasm-vs-docker-kubernetes/" >WASM vs Docker and Kubernetes</a></li><li><a href="../microservices-without-kubernetes/" >Microservices without Kubernetes</a></li></ul>
+      </aside>
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/comparisons/">Comparisons and Tradeoffs</a></li><li><span aria-current="page">UMA vs Service Mesh</span></li>
+          </ol>
+        </nav>
+
+      <details class="mobile-section-nav">
+        <summary>In this section: Comparisons and Tradeoffs</summary>
+        <ul><li><a href="../uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="./" class="section-nav-current" aria-current="page">UMA vs Service Mesh</a></li><li><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="../why-software-architecture-keeps-fragmenting/">Why Software Architecture Keeps Fragmenting</a></li><li><a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="../microservices-without-kubernetes/">Microservices without Kubernetes</a></li></ul>
+      </details>
+
+<section class="subpage-hero">
+  <h1>UMA vs Service Mesh</h1>
+  <p>
+    Service meshes like Istio and Linkerd solve network-layer problems: mutual TLS, traffic routing, retries, circuit breaking,
+    and observability between services. UMA solves a behavior-layer problem: keeping business logic portable and governed
+    across structurally different execution environments. They are not competing approaches. They operate at different
+    layers and can coexist in the same system.
+  </p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="what-a-service-mesh-actually-does">What a service mesh actually does</h2>
+    <p>
+      A service mesh intercepts network traffic between services — usually via sidecar proxies (Envoy in Istio's case) —
+      and applies policy at the communication layer. The mesh handles:
+    </p>
+    <ul>
+      <li><strong>Mutual TLS</strong> — encrypts and authenticates service-to-service traffic without changing application code</li>
+      <li><strong>Traffic management</strong> — weighted routing, canary releases, A/B splits, retries, timeouts, and circuit breaking</li>
+      <li><strong>Observability</strong> — distributed tracing, service-to-service metrics, and request logging at the proxy layer</li>
+      <li><strong>Access policy</strong> — which services are allowed to call which other services, enforced at the network boundary</li>
+    </ul>
+    <p>
+      These are genuine infrastructure problems. Service meshes solve them well for systems where services communicate
+      over HTTP/gRPC on a shared network — typically Kubernetes-hosted backends.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="where-the-service-mesh-boundary-stops">Where the service mesh boundary stops</h2>
+    <p>
+      A service mesh does not know what a service does. It governs the channel, not the behavior. From the mesh's
+      perspective, a service is a network endpoint: a host, a port, and a set of allowed callers. The business logic
+      inside is opaque.
+    </p>
+    <p>
+      This means a service mesh cannot:
+    </p>
+    <ul>
+      <li>Verify that two services implementing the same rule produce equivalent outputs</li>
+      <li>Enforce that a service's contract has not drifted from its declared schema</li>
+      <li>Move a service to a browser, an edge node, or a mobile runtime — none of those environments have sidecar proxies</li>
+      <li>Detect when the same business logic has been reimplemented differently across execution surfaces</li>
+      <li>Produce execution evidence at the business-logic level — only at the network-call level</li>
+    </ul>
+    <p>
+      The mesh operates below the behavioral contract. It knows that service A called service B and the call succeeded
+      in 12ms. It does not know whether service B's business logic is the same version that service A's contract
+      expected, or whether the same logic exists in the browser path at all.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="what-uma-addresses-that-a-service-mesh-cannot">What UMA addresses that a service mesh cannot</h2>
+    <p>
+      UMA's concern is behavioral portability and contract-governed execution. The portable service — compiled as a
+      WASM module with an explicit contract — is the unit that UMA governs. That contract declares input schema,
+      output schema, emitted events, placement constraints, version, and trust expectations.
+    </p>
+    <p>
+      The UMA runtime layer reads that contract before execution. It validates compatibility, resolves adapters,
+      enforces placement policy, and records execution evidence at the business-logic level. This happens whether
+      the portable service is running in a Kubernetes pod, a browser, an edge worker, or an AI-adjacent workflow.
+    </p>
+    <p>
+      This is the layer a service mesh cannot reach: behavior inside the service boundary, execution across
+      non-network runtimes, and contract enforcement at the logic level rather than the call level.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="where-they-overlap">Where they overlap</h2>
+    <p>
+      Both UMA and a service mesh address trust and policy enforcement. A service mesh does this at the network
+      layer — controlling which services can communicate. UMA does this at the execution layer — controlling
+      which capabilities can run in a given context and under what trust policy.
+    </p>
+    <p>
+      For backend-to-backend calls on Kubernetes, a service mesh and UMA's runtime layer may both be enforcing
+      relevant constraints for the same request. The mesh validates the caller's identity at the network level.
+      The UMA runtime validates the contract and capability at the execution level. These are complementary
+      checks, not redundant ones.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="why-uma-services-can-run-on-top-of-a-service-mesh">Why UMA services can run on top of a service mesh</h2>
+    <p>
+      Nothing in UMA's model conflicts with a service mesh. A portable WASM service deployed inside a
+      Kubernetes pod still gets the mesh's mTLS, traffic policy, and observability. The UMA runtime layer
+      sits above the network — it makes execution decisions that the mesh's proxy never sees.
+    </p>
+    <p>
+      The practical architecture is: use a service mesh for network-layer concerns (authentication, encryption,
+      traffic shaping, retries) and use UMA for behavior-layer concerns (portability, contract enforcement,
+      cross-runtime governance, execution evidence). Each handles what it is designed for.
+    </p>
+    <p>
+      The distinction becomes visible when services need to run outside the mesh's reach: browser-side, edge
+      nodes, mobile clients, or AI-adjacent paths. There, the mesh offers nothing. UMA's portable service
+      and runtime layer govern those paths the same way they govern the backend path.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="when-to-use-which">When to use which</h2>
+    <p>
+      Use a service mesh when: you have multiple backend services on Kubernetes communicating over the network,
+      you need zero-trust networking between services, you want traffic shaping and observability without
+      changing application code, and your execution surfaces are all backend processes.
+    </p>
+    <p>
+      Use UMA when: the same business behavior must run in more than one execution environment — browser, edge,
+      server, workflow, or AI path — and those environments must produce equivalent outputs. UMA solves the
+      portability and coherence problem a service mesh does not address.
+    </p>
+    <p>
+      Use both when: your system has backend services that need network-layer governance (service mesh) and
+      portable business logic that must run across multiple execution surfaces (UMA). This is the common
+      case for mature distributed systems with growing runtime diversity.
+    </p>
+  </section>
+
+  <section class="subpage-callout">
+    <strong>Related reading</strong>
+    <div class="subpage-inline-links">
+      <a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a>
+      <a href="../../evolve-uma/trust-boundaries/">Trust boundaries in UMA</a>
+      <a href="../../core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+      <a href="../../proof/">Proof section</a>
+    </div>
+  </section>
+</div>
+      </main>
+
+
+      <aside class="page-toc-rail" aria-label="On this page">
+        <div class="section-nav-label">On this page</div>
+
+    <ol class="page-rail-outline">
+      <li><a href="#what-a-service-mesh-actually-does">What a service mesh actually does</a></li><li><a href="#where-the-service-mesh-boundary-stops">Where the service mesh boundary stops</a></li><li><a href="#what-uma-addresses-that-a-service-mesh-cannot">What UMA addresses that a service mesh cannot</a></li><li><a href="#where-they-overlap">Where they overlap</a></li><li><a href="#why-uma-services-can-run-on-top-of-a-service-mesh">Why UMA services can run on top of a service mesh</a></li><li><a href="#when-to-use-which">When to use which</a></li>
+    </ol>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+
+  </body>
+</html>

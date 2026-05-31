@@ -111,6 +111,7 @@ It defines semantic page groups, not HTML output.
 - `uma-vs-serverless`
 - `uma-vs-modular-monolith`
 - `uma-vs-traditional-microservices`
+- `uma-vs-service-mesh`
 - `common-criticisms-and-tradeoffs-of-uma`
 - `why-software-architecture-keeps-fragmenting`
 - `wasm-vs-docker-kubernetes`

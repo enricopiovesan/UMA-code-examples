@@ -77,7 +77,7 @@
 
       <aside class="page-section-nav" aria-label="Comparisons and Tradeoffs navigation">
         <a class="section-nav-label" href="./">Comparisons and Tradeoffs</a>
-        <ul class="section-nav-links"><li><a href="uma-vs-serverless/" >UMA vs Serverless</a></li><li><a href="uma-vs-modular-monolith/" >UMA vs Modular Monolith</a></li><li><a href="uma-vs-traditional-microservices/" >UMA vs Traditional Microservices</a></li><li><a href="common-criticisms-and-tradeoffs-of-uma/" >Common Criticisms and Tradeoffs of UMA</a></li><li><a href="wasm-vs-docker-kubernetes/" >WASM vs Docker and Kubernetes</a></li><li><a href="microservices-without-kubernetes/" >Microservices without Kubernetes</a></li></ul>
+        <ul class="section-nav-links"><li><a href="uma-vs-serverless/" >UMA vs Serverless</a></li><li><a href="uma-vs-modular-monolith/" >UMA vs Modular Monolith</a></li><li><a href="uma-vs-traditional-microservices/" >UMA vs Traditional Microservices</a></li><li><a href="uma-vs-service-mesh/" >UMA vs Service Mesh</a></li><li><a href="common-criticisms-and-tradeoffs-of-uma/" >Common Criticisms and Tradeoffs of UMA</a></li><li><a href="why-software-architecture-keeps-fragmenting/" >Why Software Architecture Keeps Fragmenting</a></li><li><a href="wasm-vs-docker-kubernetes/" >WASM vs Docker and Kubernetes</a></li><li><a href="microservices-without-kubernetes/" >Microservices without Kubernetes</a></li></ul>
       </aside>
 
       <main class="subpage-main">
@@ -90,7 +90,7 @@
 
       <details class="mobile-section-nav">
         <summary>In this section: Comparisons and Tradeoffs</summary>
-        <ul><li><a href="uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="microservices-without-kubernetes/">Microservices without Kubernetes</a></li></ul>
+        <ul><li><a href="uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="uma-vs-service-mesh/">UMA vs Service Mesh</a></li><li><a href="common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="why-software-architecture-keeps-fragmenting/">Why Software Architecture Keeps Fragmenting</a></li><li><a href="wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="microservices-without-kubernetes/">Microservices without Kubernetes</a></li></ul>
       </details>
 
 <section class="subpage-hero">
@@ -162,6 +162,8 @@
       <article class="subpage-card"><h3 id="uma-vs-serverless"><a href="uma-vs-serverless/">UMA vs Serverless</a></h3><p>Why UMA is not just another serverless label.</p></article>
       <article class="subpage-card"><h3 id="uma-vs-modular-monolith"><a href="uma-vs-modular-monolith/">UMA vs Modular Monolith</a></h3><p>The places where UMA and modular monoliths overlap and diverge.</p></article>
       <article class="subpage-card"><h3 id="uma-vs-traditional-microservices"><a href="uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></h3><p>How UMA shifts the boundary between service and runtime.</p></article>
+      <article class="subpage-card"><h3 id="uma-vs-service-mesh"><a href="uma-vs-service-mesh/">UMA vs Service Mesh</a></h3><p>What service meshes govern vs what UMA governs — and how they coexist.</p></article>
+      <article class="subpage-card"><h3 id="why-architecture-keeps-fragmenting"><a href="why-software-architecture-keeps-fragmenting/">Why Architecture Keeps Fragmenting</a></h3><p>The structural cause of behavioral drift across execution surfaces.</p></article>
       <article class="subpage-card"><h3 id="common-criticisms-and-tradeoffs-of-uma"><a href="common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></h3><p>The counterarguments and tradeoffs that deserve a direct answer.</p></article>
     </div>
   </section>
@@ -175,7 +177,7 @@
     <ol class="page-rail-outline">
       <li><a href="#what-this-macro-area-covers">What this macro area covers</a></li><li><a href="#what-a-meaningful-architectural-comparison-actually-tests">What a meaningful architectural comparison actually tests</a></li><li><a href="#uma-vs-serverless-what-each-gives-up">UMA vs serverless: what each gives up</a></li><li><a href="#uma-vs-microservices-where-the-boundary-sits">UMA vs microservices: where the boundary sits</a></li><li><a href="#uma-vs-modular-monolith-when-simpler-wins">UMA vs modular monolith: when simpler wins</a></li><li><a href="#pages-in-this-area">Pages in this area</a>
     <ul class="page-rail-links">
-      <li><a href="#uma-vs-serverless">UMA vs Serverless</a></li><li><a href="#uma-vs-modular-monolith">UMA vs Modular Monolith</a></li><li><a href="#uma-vs-traditional-microservices">UMA vs Traditional Microservices</a></li><li><a href="#common-criticisms-and-tradeoffs-of-uma">Common Criticisms and Tradeoffs of UMA</a></li>
+      <li><a href="#uma-vs-serverless">UMA vs Serverless</a></li><li><a href="#uma-vs-modular-monolith">UMA vs Modular Monolith</a></li><li><a href="#uma-vs-traditional-microservices">UMA vs Traditional Microservices</a></li><li><a href="#uma-vs-service-mesh">UMA vs Service Mesh</a></li><li><a href="#why-architecture-keeps-fragmenting">Why Architecture Keeps Fragmenting</a></li><li><a href="#common-criticisms-and-tradeoffs-of-uma">Common Criticisms and Tradeoffs of UMA</a></li>
     </ul></li>
     </ol>
       </aside>

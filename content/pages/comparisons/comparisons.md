@@ -16,6 +16,8 @@ related_refs:
   - uma-vs-serverless
   - uma-vs-modular-monolith
   - uma-vs-traditional-microservices
+  - uma-vs-service-mesh
+  - why-software-architecture-keeps-fragmenting
   - common-criticisms-and-tradeoffs-of-uma
 ---
 
@@ -92,6 +94,8 @@ related_refs:
       <article class="subpage-card"><h3><a href="uma-vs-serverless/">UMA vs Serverless</a></h3><p>Why UMA is not just another serverless label.</p></article>
       <article class="subpage-card"><h3><a href="uma-vs-modular-monolith/">UMA vs Modular Monolith</a></h3><p>The places where UMA and modular monoliths overlap and diverge.</p></article>
       <article class="subpage-card"><h3><a href="uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></h3><p>How UMA shifts the boundary between service and runtime.</p></article>
+      <article class="subpage-card"><h3><a href="uma-vs-service-mesh/">UMA vs Service Mesh</a></h3><p>What service meshes govern vs what UMA governs — and how they coexist.</p></article>
+      <article class="subpage-card"><h3><a href="why-software-architecture-keeps-fragmenting/">Why Architecture Keeps Fragmenting</a></h3><p>The structural cause of behavioral drift across execution surfaces.</p></article>
       <article class="subpage-card"><h3><a href="common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></h3><p>The counterarguments and tradeoffs that deserve a direct answer.</p></article>
     </div>
   </section>
