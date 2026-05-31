@@ -242,7 +242,7 @@ function renderTopNav(prefix) {
   return `
         <div class="topbar-utility">
           ${utilityLinks}
-          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order</a>
           <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
         </div>
       </div>
@@ -568,12 +568,13 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       "@context": "https://schema.org",
       "@type": "Book",
       "@id": "https://www.universalmicroservices.com/learn-uma/book/#book",
-      "name": "Universal Microservices Architecture",
+      "name": "Universal Microservices Architecture: Device-Independent Modeling for Distributed Systems Using WebAssembly",
       "url": "https://www.universalmicroservices.com/learn-uma/book/",
-      "description": "A practical guide for architects and senior engineers on building portable, coherent distributed systems using Universal Microservices Architecture with WebAssembly and MCP.",
+      "description": "A practical guide for architects and senior engineers on building portable, coherent distributed systems using Universal Microservices Architecture with WebAssembly and MCP. Published by Apress, August 2026.",
       "inLanguage": "en",
-      "bookFormat": "https://schema.org/EBook",
-      "isbn": "979-8341457867",
+      "bookFormat": "https://schema.org/Paperback",
+      "isbn": "979-8868827938",
+      "datePublished": "2026-08-21",
       "author": {
         "@type": "Person",
         "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
@@ -581,16 +582,17 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Self-published"
+        "name": "Apress",
+        "url": "https://www.apress.com/"
       },
       "offers": {
         "@type": "Offer",
         "url": "https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4",
         "seller": { "@type": "Organization", "name": "Amazon" },
-        "availability": "https://schema.org/InStock",
+        "availability": "https://schema.org/PreOrder",
         "priceCurrency": "USD",
-        "price": "9.99",
-        "priceValidUntil": "2027-12-31"
+        "price": "56.99",
+        "priceValidUntil": "2027-08-21"
       },
       "about": [
         { "@type": "Thing", "name": "Microservices Architecture" },

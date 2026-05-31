@@ -254,15 +254,15 @@ if (sharedFooter) {
   sharedFooter.innerHTML = `
     <div class="footer-inner">
       <div class="footer-book-featured">
-        <a class="footer-book-cover-large" href="${amazonHref}" aria-label="Buy Universal Microservices Architecture on Amazon">
+        <a class="footer-book-cover-large" href="${amazonHref}" aria-label="Pre-order Universal Microservices Architecture on Amazon">
           <img src="${new URL("./assets/cover.png", siteRoot)}" alt="Universal Microservices Architecture book cover" />
         </a>
         <div class="footer-book-featured-copy">
-          <p class="footer-book-kicker">The book</p>
+          <p class="footer-book-kicker">The book — Apress, August 2026</p>
           <h2 class="footer-book-title">Universal Microservices Architecture</h2>
-          <p class="footer-book-desc">The complete guide to portable, runtime-agnostic service design — with working examples and architecture diagrams.</p>
+          <p class="footer-book-desc">The complete guide to portable, runtime-agnostic service design — with working examples and architecture diagrams. Published by Apress.</p>
           <div class="footer-book-actions">
-            <a class="button button-dark footer-book-button" href="${amazonHref}" target="_blank" rel="noreferrer noopener">Buy on Amazon</a>
+            <a class="button button-dark footer-book-button" href="${amazonHref}" target="_blank" rel="noreferrer noopener">Pre-order on Amazon</a>
             <a class="footer-book-wp-link" href="${whitePaperHref}" target="_blank" rel="noreferrer noopener">Read the white paper →</a>
           </div>
         </div>
