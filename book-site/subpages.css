@@ -17,6 +17,7 @@
 
 .page-shell.has-page-rail > .topbar {
   grid-area: topbar;
+  width: 100%;
 }
 
 .page-shell.has-page-rail > .mobile-menu {

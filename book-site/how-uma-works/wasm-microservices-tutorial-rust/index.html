@@ -40,19 +40,25 @@
   <body>
     <div class="page-shell has-page-rail">
       <header class="topbar">
-        <a class="brand" href="../../">
-          <span class="brand-mark">UMA</span>
-          <span class="brand-name">Universal Microservices Architecture</span>
-        </a>
+        <div class="topbar-row">
+          <a class="brand" href="../../">
+            <span class="brand-mark">UMA</span>
+            <span class="brand-name">Universal Microservices Architecture</span>
+          </a>
 
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-          Menu
-        </button>
-        <nav class="topnav" aria-label="Primary">
+        <div class="topbar-utility">
+          <a class="topnav-utility" href="reference-application/">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Primary">
+        <div class="topbar-nav-inner">
           <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
-          <a class="topnav-github" href="reference-application/">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
-        </nav>
-        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+        </div>
+      </nav>
+      <div class="topbar-row-placeholder">
+        </div>
       </header>
 
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>

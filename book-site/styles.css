@@ -53,32 +53,98 @@ a {
 .topbar {
   position: sticky;
   top: 0;
-  width: min(100% - 32px, var(--content));
-  margin: 0 auto;
   z-index: 30;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 12px 0;
+  flex-direction: column;
+  width: 100%;
   border-bottom: 1px solid var(--line);
 }
 
 .topbar::before {
   position: absolute;
   inset: 0;
-  left: calc(50% - 50vw);
-  right: calc(50% - 50vw);
   z-index: -1;
-  border-bottom: 1px solid var(--line);
-  background: rgba(5, 5, 5, 0.88);
+  background: rgba(5, 5, 5, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   content: "";
 }
 
-.topbar.is-at-top {
-  border-bottom-color: var(--line);
+/* Top row: brand + utility */
+.topbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 32px, var(--content));
+  margin: 0 auto;
+  padding: 10px 0;
+  gap: 16px;
+}
+
+/* Bottom row: nav tabs */
+.topbar-nav {
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.topbar-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: min(100% - 32px, var(--content));
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.topbar-nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.topbar-nav-inner a {
+  padding: 9px 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.topbar-nav-inner a:hover {
+  color: var(--text);
+}
+
+.topbar-nav-inner a.active,
+.topbar-nav-inner a[aria-current="page"] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* Utility links (top row right) */
+.topbar-utility {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.topnav-utility {
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 120ms ease, background 120ms ease;
+}
+
+.topnav-utility:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.topbar-row-placeholder {
+  display: none;
 }
 
 .brand {
@@ -91,64 +157,25 @@ a {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
   color: #050505;
   background: var(--accent);
   font-family: "IBM Plex Mono", monospace;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 900;
   letter-spacing: 0.08em;
   flex-shrink: 0;
 }
 
 .brand-name {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 500;
-  color: var(--text);
-  white-space: normal;
-  max-width: 10ch;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
-}
-
-.topnav {
-  display: inline-flex;
-  flex-wrap: nowrap;
-  gap: 4px;
-  margin-left: auto;
-  align-items: center;
-}
-
-.topnav a {
-  padding: 5px 8px;
-  border-radius: 6px;
   color: var(--muted);
-  text-decoration: none;
-  font-size: 0.82rem;
-  transition: color 120ms ease, background 120ms ease;
-}
-
-.topnav a:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.topnav-github {
-  margin-left: 8px;
-  padding-left: 16px;
-  border-left: 1px solid var(--line);
-  border-radius: 0;
-}
-
-.topnav-github:hover {
-  background: transparent;
-}
-
-.topnav-utility {
-  font-size: 0.78rem;
-  opacity: 0.55;
+  white-space: nowrap;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
 }
 
 .header-cta {

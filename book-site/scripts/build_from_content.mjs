@@ -237,17 +237,21 @@ function homeAnchor(prefix, anchor) {
 function renderTopNav(prefix) {
   const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
   const utilityLinks = HEADER_UTILITY_LINKS.map(
-    ([label, href], index) => `<a class="${index === 0 ? "topnav-github" : "topnav-utility"}" href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+    ([label, href]) => `<a class="topnav-utility" href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
   ).join("");
   return `
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-          Menu
-        </button>
-        <nav class="topnav" aria-label="Primary">
-          ${macroLinks}
+        <div class="topbar-utility">
           ${utilityLinks}
-        </nav>
-        <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>`;
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Primary">
+        <div class="topbar-nav-inner">
+          ${macroLinks}
+        </div>
+      </nav>
+      <div class="topbar-row-placeholder">`;
 }
 
 function renderMobileNav(prefix) {
@@ -653,11 +657,13 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
   <body>
     <div class="page-shell has-page-rail">
       <header class="topbar">
-        <a class="brand" href="${prefix}">
-          <span class="brand-mark">UMA</span>
-          <span class="brand-name">Universal Microservices Architecture</span>
-        </a>
+        <div class="topbar-row">
+          <a class="brand" href="${prefix}">
+            <span class="brand-mark">UMA</span>
+            <span class="brand-name">Universal Microservices Architecture</span>
+          </a>
 ${renderTopNav(prefix)}
+        </div>
       </header>
 ${renderMobileNav(prefix)}
 
