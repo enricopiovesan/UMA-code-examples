@@ -657,6 +657,7 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan",
       "name": "Enrico Piovesan",
       "url": "https://www.universalmicroservices.com/discoverability/about-enrico/",
+      "image": "https://www.universalmicroservices.com/assets/enrico-piovesan.jpg",
       "jobTitle": "Principal Platform Architect",
       "description": "Platform software architect with more than two decades of experience building modular, cloud-native, and event-driven systems. Author of Universal Microservices Architecture.",
       "knowsAbout": ["Microservices Architecture", "WebAssembly", "Distributed Systems", "Cloud-Native Architecture"],

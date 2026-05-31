@@ -5,7 +5,7 @@ subtitle: "About Enrico Piovesan Enrico Piovesan is a platform software architec
 macro_area: discoverability
 content_type: resource
 slug: about-enrico
-canonical_url: "https://www.universalmicroservices.com/about-enrico/"
+canonical_url: "https://www.universalmicroservices.com/discoverability/about-enrico/"
 left_nav_group: discoverability
 chapter_ref: null
 seo_description: "About Enrico Piovesan, platform software architect, writer, and author of Universal Microservices Architecture."
@@ -32,8 +32,17 @@ related_refs:
 ## main
 
 <div class="subpage-body">
-          <section>
-            <h2>Architectural perspective</h2>
+          <section class="about-author-intro">
+            <img
+              src="../../assets/enrico-piovesan.jpg"
+              alt="Enrico Piovesan — principal platform architect and author of Universal Microservices Architecture"
+              class="about-author-photo"
+              width="260"
+              height="320"
+              loading="eager"
+            />
+            <div class="about-author-bio">
+              <h2>Architectural perspective</h2>
             <p>
               Universal Microservices Architecture comes from a practical concern: modern systems keep spreading across runtimes faster than
               their architecture evolves. The result is often duplication, hidden dependencies, and governance that arrives too late. Enrico
@@ -43,6 +52,7 @@ related_refs:
             <p>
               The ideas in this book grew out of a recurring observation: the same business behavior keeps being reimplemented in different places as systems spread across runtimes, and the architecture rarely catches up. UMA is an attempt to give that problem a model with inspectable answers instead of repeatable workarounds.
             </p>
+            </div>
           </section>
 
           <section>

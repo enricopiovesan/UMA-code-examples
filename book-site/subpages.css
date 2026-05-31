@@ -319,6 +319,41 @@ a.section-nav-label:hover {
   margin-top: 6px;
 }
 
+/* About page author layout */
+.about-author-intro {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.about-author-photo {
+  flex-shrink: 0;
+  width: 200px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.about-author-bio {
+  flex: 1;
+  min-width: 0;
+}
+
+.about-author-bio h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+  .about-author-intro {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-author-photo {
+    width: 160px;
+  }
+}
+
 .diagram-caption {
   margin-bottom: 12px;
   color: var(--text);
