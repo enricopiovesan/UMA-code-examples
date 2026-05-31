@@ -73,6 +73,7 @@ related_refs:
             <div class="subpage-inline-links">
               <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-09-trust-boundaries">Open source folder</a>
               <a href="../">All UMA examples</a>
+              <a href="../../learn-uma/chapter-10-security-trust-boundaries-microservices/">Read Chapter 10: Security and Trust →</a>
               <a href="../chapter-08-service-graph/">Previous: Service Graph Evolution</a>
               <a href="../chapter-10-architectural-tradeoffs/">Next: Architectural Tradeoffs</a>
             </div>

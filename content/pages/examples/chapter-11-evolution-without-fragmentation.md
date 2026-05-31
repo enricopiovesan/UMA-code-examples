@@ -73,6 +73,7 @@ related_refs:
             <div class="subpage-inline-links">
               <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-11-evolution-without-fragmentation">Open source folder</a>
               <a href="../">All UMA examples</a>
+              <a href="../../learn-uma/chapter-12-evolving-distributed-systems/">Read Chapter 12: Evolving Systems →</a>
               <a href="../chapter-10-architectural-tradeoffs/">Previous: Architectural Tradeoffs</a>
               <a href="../chapter-12-discoverable-decisions/">Next: Discoverable Decisions</a>
             </div>

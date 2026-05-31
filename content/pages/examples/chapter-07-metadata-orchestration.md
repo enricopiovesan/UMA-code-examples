@@ -73,6 +73,7 @@ related_refs:
             <div class="subpage-inline-links">
               <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-07-metadata-orchestration">Open source folder</a>
               <a href="../">All UMA examples</a>
+              <a href="../../learn-uma/chapter-08-service-contracts-events-orchestration/">Read Chapter 8: Contracts and Orchestration →</a>
               <a href="../chapter-06-portability-lab/">Previous: UMA Portability Lab</a>
               <a href="../chapter-08-service-graph/">Next: Service Graph Evolution</a>
             </div>

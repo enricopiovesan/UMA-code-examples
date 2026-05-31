@@ -73,6 +73,7 @@ related_refs:
             <div class="subpage-inline-links">
               <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-06-portability-lab">Open source folder</a>
               <a href="../">All UMA examples</a>
+              <a href="../../learn-uma/chapter-07-webassembly-portability-wasm-runtimes/">Read Chapter 7: WebAssembly Portability →</a>
               <a href="../chapter-05-post-fetcher-runtime/">Previous: Post Fetcher Runtime</a>
               <a href="../chapter-07-metadata-orchestration/">Next: Metadata Orchestration</a>
             </div>

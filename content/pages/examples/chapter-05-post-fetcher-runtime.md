@@ -73,6 +73,7 @@ related_refs:
             <div class="subpage-inline-links">
               <a href="https://github.com/enricopiovesan/UMA-code-examples/tree/main/chapter-05-post-fetcher-runtime">Open source folder</a>
               <a href="../">All UMA examples</a>
+              <a href="../../learn-uma/chapter-06-uma-runtime-layer/">Read Chapter 6: The Runtime Layer →</a>
               <a href="../chapter-04-feature-flag-evaluator/">Previous: Feature Flag Evaluator</a>
               <a href="../chapter-06-portability-lab/">Next: UMA Portability Lab</a>
             </div>
