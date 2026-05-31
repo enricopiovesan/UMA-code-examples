@@ -4,14 +4,18 @@
 
 /* 3-column layout: left section nav | content | right TOC */
 .page-shell.has-page-rail {
+  /* override the constrained page-shell — go full width */
+  width: 100%;
+  max-width: 100%;
   display: grid;
   grid-template-columns: minmax(180px, 220px) minmax(0, 1fr) minmax(160px, 200px);
+  grid-template-rows: auto auto 1fr auto;
   grid-template-areas:
-    "topbar topbar topbar"
-    "mobile mobile mobile"
+    "topbar  topbar  topbar"
+    "mobile  mobile  mobile"
     "sidenav content toc"
-    "footer footer footer";
-  column-gap: 32px;
+    "footer  footer  footer";
+  column-gap: 0;
   align-items: start;
 }
 
@@ -24,41 +28,45 @@
   grid-area: mobile;
 }
 
+/* inner content area padding instead of grid gap */
 .page-shell.has-page-rail > .page-section-nav {
   grid-area: sidenav;
   position: sticky;
-  top: 92px;
-  max-height: calc(100vh - 110px);
+  top: 108px;
+  max-height: calc(100vh - 120px);
   overflow-y: auto;
-  padding-right: 8px;
+  padding: 20px 16px 20px 24px;
+  border-right: 1px solid var(--line);
 }
 
 .page-shell.has-page-rail > .subpage-main {
   grid-area: content;
   width: auto;
-  padding-top: 18px;
+  padding: 18px 40px 56px;
   min-width: 0;
 }
 
 .page-shell.has-page-rail > .page-toc-rail {
   grid-area: toc;
   position: sticky;
-  top: 92px;
-  max-height: calc(100vh - 110px);
+  top: 108px;
+  max-height: calc(100vh - 120px);
   overflow-y: auto;
+  padding: 20px 24px 20px 16px;
+  border-left: 1px solid var(--line);
 }
 
 .page-shell.has-page-rail > .contacts-band {
   grid-area: footer;
-  margin-top: 88px;
+  margin-top: 0;
   position: relative;
   z-index: 1;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100%;
 }
 
 /* Section nav (left) */
 .section-nav-label {
+  display: block;
   margin: 0 0 8px;
   padding: 0 8px;
   color: var(--muted);
@@ -68,6 +76,12 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   opacity: 0.7;
+  text-decoration: none;
+}
+
+a.section-nav-label:hover {
+  opacity: 1;
+  color: var(--text);
 }
 
 .section-nav-links {
@@ -103,9 +117,7 @@
 
 /* TOC rail (right) */
 .page-toc-rail {
-  padding-top: 18px;
-  border-left: 1px solid var(--line);
-  padding-left: 20px;
+  /* border and padding handled by grid area rule above */
 }
 
 .page-breadcrumbs {

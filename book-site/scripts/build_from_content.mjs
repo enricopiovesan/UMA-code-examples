@@ -393,7 +393,13 @@ function renderSectionNav(meta, siteMapGroups, pagesBySlug, currentOutPath) {
   const group = getMacroGroup(meta, siteMapGroups);
   if (!group) return "";
 
+  const hubSlug = group.slugs[0];
+  const hubPage = hubSlug ? pagesBySlug.get(hubSlug) : null;
+  const hubHref = hubPage ? relativeLink(currentOutPath, hubPage.outPath) : null;
+
+  // skip the hub page from the link list — it's represented by the label
   const links = group.slugs
+    .slice(1)
     .map((slug) => {
       const page = pagesBySlug.get(slug);
       if (!page) return "";
@@ -405,12 +411,14 @@ function renderSectionNav(meta, siteMapGroups, pagesBySlug, currentOutPath) {
     .filter(Boolean)
     .join("");
 
-  if (!links) return "";
+  const labelHtml = hubHref
+    ? `<a class="section-nav-label" href="${hubHref}">${escapeHtml(group.label)}</a>`
+    : `<div class="section-nav-label">${escapeHtml(group.label)}</div>`;
 
   return `
       <aside class="page-section-nav" aria-label="${escapeHtml(group.label)} navigation">
-        <div class="section-nav-label">${escapeHtml(group.label)}</div>
-        <ul class="section-nav-links">${links}</ul>
+        ${labelHtml}
+        ${links ? `<ul class="section-nav-links">${links}</ul>` : ""}
       </aside>`;
 }
 
