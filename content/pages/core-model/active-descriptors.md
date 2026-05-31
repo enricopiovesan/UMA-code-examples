@@ -5,7 +5,7 @@ subtitle: "Active descriptors In UMA, a descriptor is not just documentation bes
 macro_area: core-model
 content_type: explainer
 slug: active-descriptors
-canonical_url: "https://www.universalmicroservices.com/active-descriptors/"
+canonical_url: "https://www.universalmicroservices.com/core-model/active-descriptors/"
 left_nav_group: core-model
 chapter_ref: null
 seo_description: "Learn how UMA uses active descriptors as runtime-evaluated constraints for contracts, schemas, latency expectations, compatibility, and execution evidence."

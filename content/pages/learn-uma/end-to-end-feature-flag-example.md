@@ -5,7 +5,7 @@ subtitle: "End-to-end UMA example: feature flag service A feature flag service i
 macro_area: learn-uma
 content_type: onboarding
 slug: end-to-end-feature-flag-example
-canonical_url: "https://www.universalmicroservices.com/end-to-end-feature-flag-example/"
+canonical_url: "https://www.universalmicroservices.com/learn-uma/end-to-end-feature-flag-example/"
 left_nav_group: learn-uma
 chapter_ref: null
 seo_description: "Follow an end-to-end UMA feature flag service from requirement to capability, contract, build, browser execution, cloud execution, and AI-assisted execution."

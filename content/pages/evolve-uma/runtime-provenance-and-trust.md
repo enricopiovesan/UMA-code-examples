@@ -66,6 +66,11 @@ related_refs:
             <p>Chapter 9 expands the trust-boundary sequence into a complete governance model: how policies are composed, how trust decisions are recorded in active descriptors, and how the execution graph supports compliance workflows that span multiple runtimes.</p>
             <div class="subpage-inline-links">
               <a href="../trust-boundaries/">Trust boundaries</a>
+              <a href="../ai-native-runtime-governance/">AI-native runtime governance</a>
+              <a href="../../core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
+              <a href="../../core-model/late-bound-policy-enforcement/">Late-bound policy enforcement</a>
+              <a href="../../how-uma-works/uma-mcp-runtime-governance/">UMA runtime governance for MCP</a>
+              <a href="../../learn-uma/chapter-10-security-trust-boundaries-microservices/">Chapter 10: Security and Trust</a>
               <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Universal Microservices Architecture (book)</a>
             </div>
           </section>
