@@ -5,7 +5,7 @@ subtitle: "UMA benchmark and footprint notes These numbers are intended as hones
 macro_area: proof
 content_type: proof
 slug: benchmark-and-footprint
-canonical_url: "https://www.universalmicroservices.com/benchmark-and-footprint/"
+canonical_url: "https://www.universalmicroservices.com/proof/benchmark-and-footprint/"
 left_nav_group: proof
 chapter_ref: null
 seo_description: "Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs."

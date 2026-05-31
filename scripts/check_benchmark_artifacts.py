@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 JSON_PATH = ROOT / "benchmarks" / "benchmark-proof.json"
 MD_PATH = ROOT / "benchmarks" / "benchmark-proof.md"
-PAGE_PATH = ROOT / "book-site" / "benchmark-and-footprint" / "index.html"
+PAGE_PATH = ROOT / "book-site" / "proof" / "benchmark-and-footprint" / "index.html"
 
 
 def require(condition: bool, message: str) -> None:
