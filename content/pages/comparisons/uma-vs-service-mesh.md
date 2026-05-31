@@ -148,6 +148,22 @@ related_refs:
     </p>
   </section>
 
+  <section class="faq-section" data-faq="true">
+    <h2>Frequently asked questions</h2>
+    <dl class="faq-list">
+      <dt>Do I need both UMA and a service mesh?</dt>
+      <dd>Not necessarily. A service mesh is valuable when you have multiple backend services on Kubernetes that need mTLS, traffic shaping, or observability between them. UMA is valuable when business behavior must run across structurally different execution environments — browser, edge, server, AI agent — and remain coherent. Many systems need one but not both. Mature systems with growing runtime diversity often need both, and they coexist without conflict.</dd>
+      <dt>Can UMA replace a service mesh?</dt>
+      <dd>No. UMA does not handle mutual TLS, network-level traffic shaping, circuit breaking, or service-to-service retry logic. Those are network-layer concerns that UMA's runtime layer doesn't address. If you need those capabilities, a service mesh is still the right tool. UMA governs what services do and whether behavior stays portable — not how services communicate at the network level.</dd>
+      <dt>Does UMA work on Kubernetes?</dt>
+      <dd>Yes. Portable WASM services deployed inside Kubernetes pods get the mesh's mTLS and observability at the network layer. The UMA runtime layer sits above the network — it makes execution decisions that the mesh's sidecar proxy never sees. You can run UMA services on top of Istio or Linkerd without modifying either.</dd>
+      <dt>What does a service mesh not govern that UMA does?</dt>
+      <dd>A service mesh governs the channel — which services can communicate, with what encryption, under what retry policy. It doesn't know what a service does, whether its contract has drifted, whether the same rule exists in the browser path, or what evidence a specific invocation produced at the business-logic level. Those are UMA's concerns.</dd>
+      <dt>Is UMA comparable to Istio or Linkerd?</dt>
+      <dd>No — they address different layers. Istio and Linkerd are infrastructure tools for network-level governance. UMA is an architectural model for behavioral portability and contract-governed execution. Comparing them is like comparing a load balancer to a service contract — both are necessary in a mature system, but they solve different problems at different layers.</dd>
+    </dl>
+  </section>
+
   <section class="subpage-callout">
     <strong>Related reading</strong>
     <div class="subpage-inline-links">

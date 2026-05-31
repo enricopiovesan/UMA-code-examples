@@ -41,6 +41,20 @@ related_refs:
   </section>
 
   <section>
+    <h2>Why hardwired orchestration is a liability</h2>
+    <p>When workflow steps are coded as explicit function calls or pipeline configuration, the workflow becomes a second artifact to maintain alongside the services. A change to the order of steps, the addition of a conditional branch, or the substitution of one service for another each requires a deployment — not just of the changed service, but of the orchestration layer that wires them together.</p>
+    <p>This liability compounds as execution surfaces multiply. The workflow that coordinates backend-to-backend calls does not translate directly to edge-to-workflow invocation or to an AI-agent-to-service path. Each new execution surface requires a rewrite of the orchestration logic, because the orchestration is coupled to the execution model, not derived from the capabilities themselves. Systems that start with two or three services and a simple pipeline accumulate orchestration debt that becomes visible only when the fourth or fifth surface is added and the pipeline cannot adapt without a significant rewrite.</p>
+    <p>The coupling is also often invisible. When service A calls service B at a specific endpoint with a specific schema, that dependency does not appear in either service's contract — it appears only in the orchestration code. Auditing the system for dependencies requires reading the orchestrator, not reading the services. This means that changes to service B can silently break the orchestration without any contract violation being reported.</p>
+  </section>
+
+  <section>
+    <h2>How contract-driven orchestration works</h2>
+    <p>In the UMA model, a capability declares the events it emits and the events it requires. These declarations are part of the active descriptor, not separate workflow configuration. The runtime reads those declarations and assembles valid execution paths from them — a workflow is not a script that a developer writes; it is a solution the runtime finds given the set of declared event contracts currently in the system.</p>
+    <p>This changes the operational model for workflow evolution. Adding a new capability to the system makes it automatically available for orchestration wherever its declared event requirements can be satisfied, without modifying any existing workflow definition. Removing a capability withdraws its event declarations; the runtime recomputes execution paths from what remains. A team can add, replace, or retire workflow steps by managing capability declarations rather than by editing orchestration code.</p>
+    <p>The runtime's role is to find valid execution paths that satisfy every declared event dependency, validate that those paths meet the trust and governance requirements of each participating capability, and record execution evidence for each invocation. This means orchestration validation happens before execution — the system knows whether a valid path exists before attempting to run it — rather than failing mid-execution when a hardcoded endpoint is unavailable or a schema assumption breaks.</p>
+  </section>
+
+  <section>
     <h2>How it connects</h2>
     <p>Chapter 7 established portable execution across environments; this chapter shows how multiple portable services compose into governed workflows. Chapter 9 extends that to system-level properties that emerge as service graphs grow.</p>
     <div class="subpage-inline-links">

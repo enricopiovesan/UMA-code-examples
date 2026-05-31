@@ -41,6 +41,20 @@ related_refs:
   </section>
 
   <section>
+    <h2>Why AI agents are a new class of runtime participant</h2>
+    <p>Classical service callers are deterministic. They call specific capabilities with specific inputs at specific times, and those decisions are encoded in code that was reviewed before deployment. When a caller misbehaves — sends invalid inputs, calls capabilities in wrong sequence, exceeds its declared authority — that behavior can be traced to a specific code path, reviewed, and corrected. The review happens before deployment, not after execution.</p>
+    <p>AI agents are non-deterministic in a structurally different way. The decision of what to call, with what inputs, at what time is made by a reasoning model at inference time. That decision depends on model state, prompt context, the results of prior tool calls, and inference-time variation that is not reproducible from inputs alone. The agent's behavior cannot be fully reviewed before deployment because its execution decisions do not exist until runtime. A governance model that relies on pre-deployment review of caller behavior cannot apply to AI agents in the same way it applies to deterministic callers.</p>
+    <p>This changes what "enforcement" means. For deterministic callers, enforcement can include pre-deployment review that catches bad decisions before they reach production. For AI agents, enforcement must happen at the runtime boundary — every time, for every invocation — because there is no pre-deployment review step that can substitute for it. The runtime is the only point in the system where every invocation decision, regardless of who made it, can be evaluated against a consistent set of declared requirements.</p>
+  </section>
+
+  <section>
+    <h2>How UMA's runtime governance extends to AI-native paths</h2>
+    <p>The runtime treats the AI agent as a caller like any other. Before a capability executes, the runtime evaluates the invocation against the capability's active descriptor: contract requirements, trust policy, input validation, data classification constraints. The caller being an AI agent rather than a deterministic process does not alter this evaluation. The descriptor does not have a carve-out for agent-initiated calls, and neither does the trust model.</p>
+    <p>An agent's use of MCP to discover and invoke capabilities does not bypass governance. MCP gives the agent a structured interface for capability discovery and invocation — it describes what capabilities are available, what they accept, and what they return. UMA gives those capabilities an active descriptor that the runtime enforces regardless of how the invocation arrived. The agent calls the capability through MCP; the runtime evaluates the descriptor before execution proceeds. The two layers are complementary, not redundant.</p>
+    <p>What this produces is a governance model that is uniform across execution paths. A capability invoked by a batch processing pipeline, a browser-side workflow, and an AI agent in a reasoning loop is governed by the same descriptor, evaluated by the same runtime, producing the same class of execution evidence. The evidence records for an agent-initiated invocation and a classical service invocation have the same structure. This uniformity is what makes Chapter 13's reference system different from a typical MCP server implementation: governance is not an add-on applied to classical paths and omitted from agent paths. It is a property of the execution model itself.</p>
+  </section>
+
+  <section>
     <h2>How it connects</h2>
     <p>Chapter 12 established how UMA systems evolve without drift. Chapter 13 applies that stability guarantee to a new class of execution environment — one where the caller is non-deterministic and behavioral drift pressure is higher. Chapter 14 assembles the full system: portable services, runtime governance, trust boundaries, and MCP-compatible endpoints running together as an integrated reference application.</p>
     <div class="subpage-inline-links">

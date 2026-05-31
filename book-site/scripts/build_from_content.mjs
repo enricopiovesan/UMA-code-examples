@@ -518,10 +518,23 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     url: canonical,
     inLanguage: "en",
     isPartOf: { "@id": "https://www.universalmicroservices.com/#website" },
+    author: { "@type": "Person", "@id": "https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan", "name": "Enrico Piovesan" },
   };
   if (dates?.published) webPage.datePublished = dates.published;
   if (dates?.modified) webPage.dateModified = dates.modified;
   scripts.push(webPage);
+
+  // FAQ schema from data-faq sections (dt/dd pairs)
+  if (rawMain.includes('data-faq="true"')) {
+    const dtddPairs = [...rawMain.matchAll(/<dt>([\s\S]*?)<\/dt>\s*<dd>([\s\S]*?)<\/dd>/g)].map((match) => ({
+      "@type": "Question",
+      name: stripTags(match[1]).trim(),
+      acceptedAnswer: { "@type": "Answer", text: stripTags(match[2]).trim() },
+    }));
+    if (dtddPairs.length) {
+      scripts.push({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: dtddPairs });
+    }
+  }
 
   if (meta.ref === "faq") {
     const questions = [...rawMain.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3[^>]*>|<\/section>|<\/div>)/g)].map((match) => ({
@@ -702,7 +715,26 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
         { "@type": "Thing", "name": "Microservices Architecture" },
         { "@type": "Thing", "name": "WebAssembly" },
         { "@type": "Thing", "name": "Distributed Systems" }
-      ]
+      ],
+      "hasPart": Array.from({length: 14}, (_, i) => {
+        const n = String(i + 1).padStart(2, "0");
+        return {
+          "@type": "Chapter",
+          "position": i + 1,
+          "@id": `https://www.universalmicroservices.com/learn-uma/chapter-${n}-*/#chapter`
+        };
+      }).map((c, i) => {
+        const slugMap = [
+          "chapter-01-uma-introduction","chapter-02-device-independent-architecture",
+          "chapter-03-what-is-universal-microservices-architecture","chapter-04-from-soa-to-metadata-driven-services",
+          "chapter-05-building-portable-microservices","chapter-06-uma-runtime-layer",
+          "chapter-07-webassembly-portability-wasm-runtimes","chapter-08-service-contracts-events-orchestration",
+          "chapter-09-microservices-to-distributed-systems","chapter-10-security-trust-boundaries-microservices",
+          "chapter-11-microservices-architecture-patterns","chapter-12-evolving-distributed-systems",
+          "chapter-13-ai-agents-mcp-runtime","chapter-14-uma-reference-application"
+        ];
+        return { "@type": "Chapter", "position": i + 1, "@id": `https://www.universalmicroservices.com/learn-uma/${slugMap[i]}/#chapter` };
+      })
     });
   }
 

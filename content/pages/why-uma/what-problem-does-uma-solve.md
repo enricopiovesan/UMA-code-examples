@@ -147,6 +147,22 @@ related_refs:
             </p>
           </section>
 
+          <section class="faq-section" data-faq="true">
+            <h2>Frequently asked questions</h2>
+            <dl class="faq-list">
+              <dt>What specific problem does UMA solve?</dt>
+              <dd>UMA solves behavioral fragmentation: the pattern where the same business rule gets reimplemented separately for browser, edge, backend, workflow, and AI-assisted execution paths because the service model wasn't designed for portability. Each reimplementation is a future divergence point. UMA replaces multiple copies with one portable service and a governed runtime.</dd>
+              <dt>Is this just a microservices problem?</dt>
+              <dd>No. Conventional microservices address team autonomy and independent deployment — they don't address behavioral portability. A microservice that runs on the backend cannot move to the edge or browser without being rewritten, because it's coupled to its host. UMA is a response to the specific pressure of execution surfaces multiplying faster than teams can maintain separate copies of the same logic.</dd>
+              <dt>How do I know if this problem applies to my system?</dt>
+              <dd>Ask: if a core business rule changes tomorrow, how many runtime surfaces need to be updated? If the answer is more than one — backend, browser, edge, workflow, AI path — your system is already paying the fragmentation cost. The more surfaces, the higher the coordination and incident risk every time the rule changes.</dd>
+              <dt>Does UMA require WebAssembly?</dt>
+              <dd>WebAssembly is UMA's recommended execution boundary because it's the only portable artifact format that runs identically across browser, edge, server, and workflow environments without recompilation. But the architectural model — separating behavior from runtime, expressing contracts as machine-readable descriptors, proving portability — applies regardless of the compilation target. WASM is what makes the portability claim verifiable rather than assumed.</dd>
+              <dt>What does UMA not solve?</dt>
+              <dd>UMA is not a general-purpose microservices framework. It doesn't address team autonomy, independent deployment pipelines, or database per service patterns. If your system has one runtime and one team, UMA's overhead produces no return. It's the answer to a specific problem: behavior that must cross structurally different execution boundaries and remain coherent.</dd>
+            </dl>
+          </section>
+
           <section class="subpage-callout">
             <strong>Continue from the problem into the model</strong>
             <p>

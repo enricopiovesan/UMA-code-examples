@@ -40,6 +40,20 @@ related_refs:
   </section>
 
   <section>
+    <h2>Why architectural decisions need to be documented as decisions, not just implemented</h2>
+    <p>A system that makes good architectural decisions implicitly is as fragile as one that makes bad decisions explicitly. The fragility is of a different kind: the system works correctly as long as the people who made the decisions remain available to explain them. When those engineers move to other teams or leave the organization, the decisions become invisible. Subsequent engineers see the outcomes — the capability boundaries, the contract granularity, the placement choices — but not the reasoning. Without that reasoning, they cannot distinguish a deliberate tradeoff from an accidental default, and they cannot update the decision when conditions change.</p>
+    <p>This matters more in UMA systems than in conventional microservice systems because UMA surfaces more decisions explicitly. The model does not make capability boundary choices for you; it makes those choices visible and asks you to justify them. A team that has made good choices intuitively but has not documented the reasoning is in a precarious position when the choices need to be revisited. Chapter 11's pattern library addresses this directly: each pattern documents not just what it does but what problem it solves, what it costs, and the conditions under which it should not be used.</p>
+    <p>The goal is not to impose a documentation burden. It is to ensure that architectural decisions exist as artifacts that can be reviewed, challenged, and updated — the same way code is reviewed, challenged, and updated. A decision that lives only in someone's memory is not governed. A decision that appears in a descriptor, a contract, or a documented architectural record is.</p>
+  </section>
+
+  <section>
+    <h2>The recurring decision points in UMA systems</h2>
+    <p>Capability boundary decisions recur at every phase of system growth. Too fine a boundary produces coordination overhead: capabilities that can only do useful work when composed with three others add latency, increase descriptor maintenance burden, and make the system harder to reason about for new engineers. Too coarse a boundary erodes portability: a capability that does too much becomes environment-specific, because different environments need different subsets of its behavior. The chapter maps the signals that indicate each direction and the tradeoff structure that governs the choice.</p>
+    <p>Late-bound policy versus build-time constraint is a second recurring decision. Some governance requirements belong in the runtime — they depend on execution context that is not known at build time, or they need to be updated without redeploying capabilities. Others belong at build time — they are properties of the capability itself that should not vary by execution context. Confusing the two produces either over-constrained capabilities (behavior that cannot adapt to legitimate context variation) or under-constrained runtimes (governance that can be bypassed by changing context rather than changing the capability). The chapter provides a decision heuristic for each case.</p>
+    <p>Contract versioning and placement governance round out the set. When a contract change is additive — a new optional output field — the versioning strategy differs from when it is breaking. When runtime placement decisions are governed — logged, validated, traceable — they justify the operational overhead. When the system is small enough that static deployment is sufficient, adding placement governance too early adds cost without adding value. Chapter 11 maps the threshold conditions for each of these decisions so that teams can apply the patterns deliberately rather than by default.</p>
+  </section>
+
+  <section>
     <h2>How it connects</h2>
     <p>Chapter 10 established the security and trust boundary model that governs capability invocation. Chapter 11 applies that model to architectural decision-making, and Chapter 12 extends it to the problem of evolving those decisions over time without breaking compatibility.</p>
     <div class="subpage-inline-links">

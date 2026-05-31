@@ -11,6 +11,7 @@ Enrico Piovesan — principal platform architect at Autodesk with more than two 
 ## License
 
 Content on this site may be cited with attribution to Enrico Piovesan and universalmicroservices.com.
+License: CC-BY-4.0
 
 ## Key pages
 
