@@ -37,8 +37,7 @@ related_refs:
               src="../../assets/enrico-piovesan.jpg"
               alt="Enrico Piovesan — principal platform architect and author of Universal Microservices Architecture"
               class="about-author-photo"
-              width="260"
-              height="320"
+              width="200"
               loading="eager"
             />
             <div class="about-author-bio">
