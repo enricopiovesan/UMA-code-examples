@@ -90,6 +90,10 @@ related_refs:
             <strong>Related comparisons</strong>
             <p>The WASM vs Docker/Kubernetes page goes deeper on container portability versus module portability. The UMA vs Serverless page covers the invocation model versus the architectural model distinction.</p>
             <div class="subpage-inline-links">
+              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
+              <a href="../../core-model/what-is-a-uma-runtime/">What is a UMA runtime</a>
+              <a href="../../proof/what-makes-a-service-portable/">What makes a service portable</a>
               <a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a>
               <a href="../uma-vs-serverless/">UMA vs Serverless</a>
             </div>

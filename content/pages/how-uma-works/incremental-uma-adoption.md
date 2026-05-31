@@ -66,7 +66,11 @@ related_refs:
             <strong>See the entry points in running code</strong>
             <p>Chapters 5 and 6 show the first runtime and portability steps — the smallest complete examples of an incremental boundary move. Chapter 11 addresses the governance model that prevents fragmentation as adoption grows.</p>
             <div class="subpage-inline-links">
-              <a href="/how-uma-works/migrating-to-uma-incrementally/">Migrating to UMA incrementally</a>
+              <a href="../../core-model/what-is-a-capability/">What is a capability</a>
+              <a href="../migrating-to-uma-incrementally/">Migrating to UMA incrementally</a>
+              <a href="../../learn-uma/chapter-05-building-portable-microservices/">Chapter 5: Building portable microservices</a>
+              <a href="../../proof/what-makes-a-service-portable/">What makes a service portable</a>
+              <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve</a>
               <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Universal Microservices Architecture (book)</a>
             </div>
           </section>
