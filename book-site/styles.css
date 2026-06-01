@@ -2081,3 +2081,62 @@ h3 {
   border-radius: 0;
   border: none;
 }
+
+/* ── UMA Flow Diagram ────────────────────────────────────────── */
+.diagram-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 4rem;
+}
+
+.diagram-section .section-kicker {
+  align-self: flex-start;
+}
+
+.uma-flow-diagram {
+  width: 100%;
+  max-width: 480px;
+}
+
+.uma-flow-diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* pulse on Runtime node rect */
+@keyframes uma-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+/* flowing dash along arrow paths */
+@keyframes uma-flow {
+  to { stroke-dashoffset: -24; }
+}
+
+.uma-pulse-ring {
+  animation: uma-pulse 2.4s ease-in-out infinite;
+}
+
+.uma-flow-arrow {
+  stroke-dasharray: 6 6;
+  animation: uma-flow 1.2s linear infinite;
+}
+
+.uma-flow-arrow-slow {
+  stroke-dasharray: 6 6;
+  animation: uma-flow 1.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uma-pulse-ring,
+  .uma-flow-arrow,
+  .uma-flow-arrow-slow {
+    animation: none;
+  }
+}
+/* ── end UMA Flow Diagram ───────────────────────────────────── */
