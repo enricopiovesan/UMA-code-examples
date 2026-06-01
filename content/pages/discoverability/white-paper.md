@@ -1,18 +1,18 @@
 ---
 ref: white-paper
-title: "UMA White Papers"
-subtitle: "Research papers behind the UMA model: CSMA (2023), UMA (2024), and ECCA (2025)."
+title: "Research Papers by Enrico Piovesan"
+subtitle: "Published research on distributed systems architecture — composable service models, portable microservices, and execution context coherence."
 macro_area: discoverability
 content_type: resource
 slug: white-paper
 canonical_url: "https://www.universalmicroservices.com/discoverability/white-paper/"
 left_nav_group: discoverability
 chapter_ref: null
-seo_description: "The research papers behind Universal Microservices Architecture: Composable Software Model Architecture (2023), UMA (2024), and Execution Context Coherence Architecture (2025)."
+seo_description: "Research papers by Enrico Piovesan on distributed systems architecture: CSMA (2023), Universal Microservices Architecture (2024), and ECCA (2025)."
 breadcrumbs:
   - "Home"
   - "Discoverability"
-  - "UMA White Papers"
+  - "Research Papers"
 related_refs:
   - about-enrico
   - core-model
@@ -22,11 +22,11 @@ related_refs:
 ## intro
 
 <section class="subpage-hero">
-  <h1>UMA White Papers</h1>
+  <h1>Research papers</h1>
   <p>
-    Three research papers document the thinking behind Universal Microservices Architecture — from the initial composable
-    service model through the full UMA specification to execution context coherence. Each paper is available to read online
-    and represents a point in the model's development.
+    Three published papers on distributed systems architecture by Enrico Piovesan. Each addresses a distinct problem:
+    how services fragment, how portable execution boundaries work, and how governance applies when AI agents enter the
+    execution path.
   </p>
 </section>
 
@@ -36,15 +36,14 @@ related_refs:
   <section>
     <h2>CSMA — Composable Software Model Architecture (June 2023)</h2>
     <p>
-      The first paper in the series. CSMA establishes the foundational argument: that distributed systems fragment because
-      service boundaries are defined at the deployment unit rather than at the behavioral contract. The paper introduces
-      the composable service model — a structured separation between durable business logic and the runtime that hosts it
-      — and proposes machine-readable contracts as the mechanism for making service composition inspectable and governable.
+      CSMA addresses a specific architectural failure mode: distributed systems that fragment because service boundaries
+      are defined at the deployment unit rather than at the behavioral contract. The paper introduces the composable
+      service model — a structured separation between durable business logic and the runtime that hosts it — and proposes
+      machine-readable contracts as the mechanism for making service composition inspectable and governable.
     </p>
     <p>
-      CSMA is the conceptual origin of what became UMA. It does not yet use WebAssembly as the execution boundary, but
-      the three structural separations it defines — behavior from runtime, contract from implementation, placement from
-      business logic — carry through unchanged into the full UMA model.
+      The three structural separations it defines — behavior from runtime, contract from implementation, placement from
+      business logic — are the conceptual foundation this line of research builds on.
     </p>
     <div class="subpage-inline-links">
       <a href="https://medium.com/@enricopiovesan" rel="noopener">Read on Medium →</a>
@@ -72,14 +71,15 @@ related_refs:
   <section>
     <h2>ECCA — Execution Context Coherence Architecture (August 2025)</h2>
     <p>
-      The third paper extends the UMA model to AI-native execution paths. ECCA addresses the governance question that
-      emerges when AI agents become execution participants: how do trust, contract validation, and behavioral evidence
-      apply when the caller is a reasoning model rather than a human-written service?
+      ECCA addresses the governance question that emerges when AI agents become execution participants: how do trust,
+      contract validation, and behavioral evidence apply when the caller is a reasoning model rather than a
+      human-written service?
     </p>
     <p>
-      ECCA introduces execution context coherence as the system-level property that UMA's runtime governance produces
-      across heterogeneous participants — classical services, WASM modules, and AI-assisted paths — and defines how
-      Model Context Protocol (MCP) fits into that governance model.
+      The paper introduces execution context coherence as a system-level property — the condition where heterogeneous
+      participants (classical services, WASM modules, AI-assisted paths) produce verifiable, governed output regardless
+      of which execution context initiated the call. It defines how Model Context Protocol fits into a governed
+      execution model.
     </p>
     <div class="subpage-inline-links">
       <a href="https://medium.com/@enricopiovesan" rel="noopener">Read on Medium →</a>
