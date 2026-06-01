@@ -800,11 +800,7 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     ${dates?.published ? `<meta name="article:published_time" content="${dates.published}" />` : ""}
     ${dates?.modified ? `<meta name="article:modified_time" content="${dates.modified}" />` : ""}
     ${structuredData}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="${prefix}assets/fonts/fonts.css" />
     <link rel="stylesheet" href="${prefix}styles.css" />
     <link rel="stylesheet" href="${prefix}subpages.css" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -878,6 +874,24 @@ function fixContentLinks(html, currentOutPath, pagesBySlug) {
   });
 }
 
+function gitLastmod(filePath) {
+  try {
+    const result = execSync(`git log --format="%aI" -1 -- "${filePath}"`, { encoding: "utf8", cwd: ROOT }).trim();
+    if (result) return result.slice(0, 10);
+  } catch { /* git unavailable */ }
+  return "2026-06-01";
+}
+
+async function updateSitemapLastmod(urlToLastmod) {
+  const SITEMAP_PATH = path.join(BOOK_SITE, "sitemap.xml");
+  let xml = await fs.readFile(SITEMAP_PATH, "utf8");
+  xml = xml.replace(/<url><loc>(https?:\/\/[^<]+)<\/loc>(?:<lastmod>[^<]*<\/lastmod>)?/g, (match, url) => {
+    const lastmod = urlToLastmod.get(url) ?? "2026-06-01";
+    return `<url><loc>${url}</loc><lastmod>${lastmod}</lastmod>`;
+  });
+  await fs.writeFile(SITEMAP_PATH, xml, "utf8");
+}
+
 async function main() {
   const files = await listMarkdownFiles(CONTENT_ROOT);
   const pages = [];
@@ -891,6 +905,9 @@ async function main() {
   const siteMapSource = await fs.readFile(SITE_MAP_PATH, "utf8");
   const siteMapGroups = parseSiteMap(siteMapSource);
   const { bySlug: pagesBySlug } = buildPageMaps(pages);
+
+  // Map from canonical URL → lastmod date (YYYY-MM-DD) for sitemap generation
+  const urlToLastmod = new Map();
 
   let count = 0;
   for (const page of pages) {
@@ -909,8 +926,27 @@ async function main() {
       if (log.length > 0) dates = { published: log[log.length - 1], modified: log[0] };
     } catch { /* git unavailable or file untracked — skip dates */ }
     await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug, dates)));
+
+    const canonical = generatedCanonicalForOutPath(outPath);
+    const lastmod = dates?.modified ? dates.modified.slice(0, 10) : "2026-06-01";
+    urlToLastmod.set(canonical, lastmod);
     count += 1;
   }
+
+  // Static pages not generated from MD: derive lastmod from their HTML files
+  const staticPages = [
+    { url: "https://www.universalmicroservices.com/", file: path.join(BOOK_SITE, "index.html") },
+    { url: "https://www.universalmicroservices.com/examples/", file: path.join(BOOK_SITE, "examples", "index.html") },
+    { url: "https://www.universalmicroservices.com/discoverability/diagrams/", file: path.join(BOOK_SITE, "discoverability", "diagrams", "index.html") },
+    { url: "https://www.universalmicroservices.com/reference-application/", file: path.join(BOOK_SITE, "reference-application", "index.html") },
+  ];
+  for (const { url, file } of staticPages) {
+    if (!urlToLastmod.has(url)) {
+      urlToLastmod.set(url, gitLastmod(file));
+    }
+  }
+
+  await updateSitemapLastmod(urlToLastmod);
 
   console.log(`Generated ${count} book-site HTML pages from Markdown content.`);
 }
