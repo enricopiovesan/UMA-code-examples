@@ -48,6 +48,7 @@ License: CC-BY-4.0
 - /learn-uma/chapter-12-evolving-distributed-systems/: Chapter 12 — contract-driven evolution without behavioral drift
 - /learn-uma/chapter-13-ai-agents-mcp-runtime/: Chapter 13 — UMA runtime governance extended to AI agent invocation via MCP
 - /learn-uma/chapter-14-uma-reference-application/: Chapter 14 — the complete UMA system assembled and running
+- /wasm-microservices/: WASM microservices hub — what WebAssembly microservices are, how they work, and why WASM is the right execution boundary for portable distributed systems. Practical guides for Rust and TypeScript.
 
 ## Key concepts
 
