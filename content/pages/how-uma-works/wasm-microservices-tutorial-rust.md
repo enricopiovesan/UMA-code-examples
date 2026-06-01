@@ -8,7 +8,7 @@ slug: wasm-microservices-tutorial-rust
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-rust/"
 left_nav_group: how-uma-works
 chapter_ref: chapter-04-feature-flag-evaluator
-seo_description: "Step-by-step tutorial: build a portable WASM microservice in Rust with WASI. Based on the UMA Feature Flag Evaluator from Chapter 4 of the UMA book."
+seo_description: "Build wasm microservices in Rust: a step-by-step tutorial using the UMA Feature Flag Evaluator. Covers wasm microservices rust toolchain setup, WASI compilation targets, wasmtime execution, and cross-language parity with TypeScript."
 breadcrumbs:
   - "Home"
   - "How UMA Works"
@@ -30,7 +30,7 @@ related_refs:
 <div class="subpage-body">
   <section>
     <h2>What you will build</h2>
-    <p>The Feature Flag Evaluator is a service that decides whether a named flag is enabled for a given user context. It reads a flag definition and a context object, evaluates rules in first-match-wins order, and returns a deterministic decision: which flag, whether it is enabled, and which rule matched.</p>
+    <p>This tutorial covers building wasm microservices in Rust from first principles. The Feature Flag Evaluator is a service that decides whether a named flag is enabled for a given user context. It reads a flag definition and a context object, evaluates rules in first-match-wins order, and returns a deterministic decision: which flag, whether it is enabled, and which rule matched.</p>
     <p>The evaluator core is written in pure Rust with no I/O dependencies. It compiles to a single <code>.wasm</code> binary. That binary runs via <code>wasmtime</code> on the command line, in a browser via a JavaScript WASI polyfill, and in a Node-based edge or cloud adapter — same binary, same output, across every host. The core never changes between deployments. Only the adapter changes.</p>
     <p>This is the UMA portability claim made concrete: business logic that is deterministic by construction, not by convention. The rollout hash, the rule language, and the default fallback all live inside the portable core. No adapter can deviate from them.</p>
   </section>

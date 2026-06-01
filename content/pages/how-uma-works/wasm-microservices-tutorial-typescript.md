@@ -8,7 +8,7 @@ slug: wasm-microservices-tutorial-typescript
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-typescript/"
 left_nav_group: how-uma-works
 chapter_ref: chapter-05-post-fetcher-runtime
-seo_description: "Step-by-step tutorial: build a portable microservice runtime in TypeScript with UMA. Based on the Post Fetcher Runtime from Chapter 5 of the UMA book."
+seo_description: "Build wasm microservices in TypeScript: a step-by-step tutorial using the UMA Post Fetcher Runtime. Covers wasm microservices typescript runtime design, contract enforcement, adapter binding, and behavioral parity with the Rust WASM implementation."
 breadcrumbs:
   - "Home"
   - "How UMA Works"
@@ -31,7 +31,7 @@ related_refs:
 <div class="subpage-body">
   <section>
     <h2>What you will build</h2>
-    <p>The Post Fetcher Runtime is a complete UMA example: a TypeScript runtime that hosts a pure service, enforces its contract, binds the <code>network.fetch</code> adapter, and records lifecycle metadata. It is Chapter 5 of the UMA book rendered as runnable code.</p>
+    <p>This tutorial covers building wasm microservices in TypeScript using the UMA runtime discipline. The Post Fetcher Runtime is a complete UMA example: a TypeScript runtime that hosts a pure service, enforces its contract, binds the <code>network.fetch</code> adapter, and records lifecycle metadata. It is Chapter 5 of the UMA book rendered as runnable code.</p>
     <p>By the end of this tutorial you will be able to:</p>
     <ul>
       <li>Explain what belongs in the service layer versus what belongs in the runtime layer</li>
@@ -115,6 +115,24 @@ related_refs:
     <p>A runtime does not have to be a WASM host to participate in the UMA model. The TypeScript runtime in <code>ts/</code> is a Node.js process. It hosts the same pure service logic, enforces the same contract, and produces the same observable behavior. The portable behavior lives in the service and the contract; the runtime is an adapter to a different host ecosystem.</p>
     <p>This has a practical implication: the UMA discipline applies at the architecture level, not at the WASM toolchain level. Teams working in TypeScript ecosystems can adopt the runtime model — contract enforcement, adapter binding, deterministic event ordering, lifecycle recording — without compiling anything to WASM. The WASM compilation step adds the strongest portability guarantee (run anywhere without recompilation), but the architecture discipline delivers value independently of that step.</p>
     <p>Same contract. Different host. Provably equivalent behavior. That is the point of <code>ts/</code>.</p>
+  </section>
+
+  <section>
+    <h2>Why TypeScript for WASM microservices</h2>
+    <p>Most WebAssembly tutorials default to Rust because Rust has the most complete WASM toolchain, the smallest output binaries, and the best WASI 0.2 support. But TypeScript teams do not need to switch languages to adopt the WASM microservices architecture discipline. The UMA model separates the portable service layer from the runtime adapter layer. That separation applies regardless of whether the service core compiles to a <code>.wasm</code> binary or runs as a Node.js module.</p>
+    <p>What the TypeScript path demonstrates is that the architecture discipline — not the WASM binary format — is the core value. A TypeScript microservice that enforces its contract at the boundary, records adapter decisions in a lifecycle log, and validates inputs before emitting side effects is architecturally equivalent to a Rust WASM module. The portable behavior lives in the service contract. The runtime is an implementation detail.</p>
+    <p>For teams that do need to cross runtime boundaries — running the same logic in a browser and on a server — the step from this TypeScript runtime to a compiled WASM binary is additive. The contract, the adapter model, and the event ordering discipline transfer directly. You are not rewriting; you are compiling the service core to a different target.</p>
+  </section>
+
+  <section>
+    <h2>Contract enforcement in practice</h2>
+    <p>The contract layer in <code>contracts/</code> is the most important output of this tutorial. Three files define the boundary:</p>
+    <ul>
+      <li><strong><code>adapter.network.contract.json</code></strong> — specifies what the <code>network.fetch</code> capability must accept and return. Any adapter implementation that satisfies this contract is interchangeable. The runtime does not care whether the adapter makes a real HTTP request, hits a fixture, or invokes a cache. It cares that the adapter returns a response that matches the schema.</li>
+      <li><strong><code>policy.runtime.json</code></strong> — declares which adapter implementations are allowed, what retry and cache wrappers are permitted, and what environment variables can change the binding. This is the governance layer. It makes the adapter selection rules explicit rather than implicit in application code.</li>
+      <li><strong><code>metadata.schema.json</code></strong> — defines the shape of the lifecycle record that every run produces. The record captures which adapter was selected, which wrappers were applied, and the event sequence. This is the audit surface.</li>
+    </ul>
+    <p>These contracts are not generated from code. They are the specification that both the Rust and TypeScript implementations must satisfy. The <code>compare_impls.sh</code> script verifies that they do. A drift between the two implementations shows up as a diff, not as a runtime surprise in production.</p>
   </section>
 
   <section>

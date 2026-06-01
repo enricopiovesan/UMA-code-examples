@@ -8,7 +8,7 @@ slug: webassembly-microservices-architecture
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/webassembly-microservices-architecture/"
 left_nav_group: how-uma-works
 chapter_ref: null
-seo_description: "WebAssembly microservices architecture explained: WASM execution model, WASI system interface, portability across runtimes, and how UMA uses WASM for portable business logic."
+seo_description: "WebAssembly microservices architecture: how WASM modules define portable, sandboxed service execution boundaries across browser, edge, and server. Covers the WASM execution model, WASI system interface, Component Model, and how to structure wasm microservices in production."
 breadcrumbs:
   - "Home"
   - "How UMA Works"

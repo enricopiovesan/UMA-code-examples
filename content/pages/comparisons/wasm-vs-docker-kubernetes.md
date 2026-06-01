@@ -8,7 +8,7 @@ slug: wasm-vs-docker-kubernetes
 canonical_url: "https://www.universalmicroservices.com/comparisons/wasm-vs-docker-kubernetes/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "Compare WebAssembly and Docker/Kubernetes across portability, isolation model, startup time, binary size, and architecture fit."
+seo_description: "WASM vs Docker and Kubernetes: a technical comparison covering isolation model, portability guarantees, startup time, binary size, and wasm containers in Kubernetes via runwasi. Includes guidance on when WebAssembly vs Kubernetes is the right architectural choice."
 breadcrumbs:
   - "Home"
   - "Comparisons"
@@ -33,7 +33,7 @@ related_refs:
 <div class="subpage-body">
           <section>
             <h2>The short answer</h2>
-            <p>Docker packages the environment a program needs to run — the OS libraries, filesystem layout, runtime dependencies. WebAssembly packages the program itself as a portable binary that can execute inside any compliant runtime, without those environmental dependencies. Both are useful. Neither replaces the other.</p>
+            <p>The WASM vs Docker question comes down to what you are trying to make portable. Docker packages the environment a program needs to run — the OS libraries, filesystem layout, runtime dependencies. WebAssembly packages the program itself as a portable binary that can execute inside any compliant runtime, without those environmental dependencies. Both are useful. Neither replaces the other.</p>
             <p>The confusion arises because both technologies are described as enabling portability. They do — at different abstraction levels. Docker makes a Linux application portable across Linux hosts. WASM makes a compiled binary portable across runtimes that may not be Linux at all: browsers, edge nodes, embedded devices, and servers. The portability guarantee is genuinely different in kind, not just degree.</p>
             <p>Most production systems that adopt WASM at scale still use containers alongside it. The two coexist in the same architecture, handling different responsibilities.</p>
           </section>
@@ -71,6 +71,21 @@ related_refs:
             <p>Docker and Kubernetes are the right choice for stateful services, databases, message brokers, services with complex OS dependencies, and any workload that requires a full Linux environment. The container ecosystem is mature, well-tooled, and understood. Most backend services belong here.</p>
             <p>WASM is the right choice when the requirement is portable behavior rather than a portable environment. Business logic that must run identically in a browser, at the edge, and on a server is a WASM candidate. Plugins, policy evaluation, and computation that needs strong isolation at fine granularity are WASM candidates. Environments without Linux — browsers, embedded systems, and certain edge platforms — require WASM because containers simply cannot run there.</p>
             <p>The architectural question is not which technology wins. It is whether a given capability needs to cross runtime boundaries that containers cannot reach. When it does, WASM becomes relevant. When it does not, containers remain the appropriate tool.</p>
+          </section>
+
+          <section>
+            <h2>WASM containers: running WebAssembly in Kubernetes</h2>
+            <p>The term "wasm containers" refers to WASM modules scheduled and managed by a container orchestrator — Kubernetes being the primary target. This is not a metaphor. The <a href="https://github.com/containerd/runwasi">runwasi</a> project implements WASM support as a containerd shim. From Kubernetes' perspective, a WASM workload looks like a container pod. The orchestration model is identical; the execution substrate is not.</p>
+            <p>Why run WASM modules in Kubernetes at all? Two reasons. First, most organizations already operate Kubernetes clusters and do not want to manage a separate scheduling layer for WASM workloads. Second, Kubernetes provides the operational infrastructure — health checks, rolling deploys, autoscaling, service discovery — that WASM runtimes do not supply on their own. WASM handles the execution boundary; Kubernetes handles the deployment lifecycle.</p>
+            <p>The practical limitation as of 2024–2025 is that wasm containers in Kubernetes are production-ready for a narrow class of workloads — stateless, HTTP-oriented services with limited WASI capability requirements — and still maturing for the general case. The runwasi shim stability, WASI 0.2 support across runtimes, and toolchain ergonomics are the current friction points. Teams evaluating this path should benchmark against their specific WASI capability requirements before committing to it in critical paths.</p>
+            <p>For teams not yet ready to run wasm containers in Kubernetes, the intermediate step is to run WASM modules in a sidecar container using wasmtime or WasmEdge as the host process. This gives you WASM's execution model — deterministic behavior, capability-based isolation, small binary footprint — inside an existing container infrastructure, without requiring the runwasi integration.</p>
+          </section>
+
+          <section>
+            <h2>WebAssembly vs Kubernetes: clarifying the comparison</h2>
+            <p>Comparing WebAssembly vs Kubernetes directly is a category error. WebAssembly is an execution environment for individual modules. Kubernetes is an orchestration platform for distributed workloads. They operate at different layers of the stack. A more useful framing is: what does Kubernetes need to change, if anything, to accommodate WASM workloads?</p>
+            <p>The answer is: not much, with the right shim. Kubernetes already abstracts over execution substrates. It does not care whether a scheduled workload is a Docker container, a VM, or a WASM module as long as the container runtime interface is satisfied. runwasi satisfies that interface for WASM. The Kubernetes control plane, etcd, the scheduler, and the service mesh all continue to work without modification.</p>
+            <p>What changes is the node configuration — nodes that run WASM workloads need wasmtime or WasmEdge installed as a containerd shim — and the workload constraints. WASM modules do not support arbitrary Linux system calls, do not bundle a full filesystem, and do not work for services with complex OS dependencies. Within those constraints, they are first-class Kubernetes citizens.</p>
           </section>
 
           <section>
