@@ -2088,10 +2088,16 @@ h3 {
 }
 
 .uma-flow-diagram {
-  max-width: 520px;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
 .uma-flow-diagram .mermaid {
   display: flex;
   justify-content: center;
+}
+
+.uma-flow-diagram svg {
+  max-width: 100%;
+  height: auto;
 }

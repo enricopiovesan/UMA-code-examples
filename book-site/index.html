@@ -119,7 +119,7 @@
           </div>
           <div class="uma-flow-diagram">
             <pre class="mermaid">
-flowchart TD
+flowchart LR
     A["WASM Module\nbusiness logic · portable · sandboxed"]
     B["Active Descriptor\ncontract · placement rules · metadata"]
     C["Runtime Layer\nvalidates · places · governs · observes"]
@@ -128,7 +128,10 @@ flowchart TD
     F["Cloud"]
     G["AI Agent"]
     A --> B --> C
-    C --> D & E & F & G
+    C --> D
+    C --> E
+    C --> F
+    C --> G
     style C stroke:#ffbf1f,stroke-width:2px,color:#ffbf1f
             </pre>
           </div>
