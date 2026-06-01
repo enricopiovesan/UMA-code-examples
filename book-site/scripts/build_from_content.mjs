@@ -663,6 +663,20 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     }
   }
 
+  // Organization schema — on every page as the entity anchor
+  scripts.push({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://www.universalmicroservices.com/#organization",
+    "name": "Universal Microservices Architecture",
+    "url": "https://www.universalmicroservices.com/",
+    "logo": "https://www.universalmicroservices.com/assets/og-cover.jpg",
+    "sameAs": [
+      "https://github.com/enricopiovesan/UMA-code-examples",
+      "https://medium.com/the-rise-of-device-independent-architecture"
+    ]
+  });
+
   // WebSite schema — on every page as the site identity anchor
   scripts.push({
     "@context": "https://schema.org",
@@ -785,6 +799,7 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${pageTitle}</title>
     <meta name="description" content="${description}" />
+    <meta name="author" content="Enrico Piovesan" />
     <link rel="canonical" href="${canonical}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
