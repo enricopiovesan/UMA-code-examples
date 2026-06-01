@@ -2029,3 +2029,55 @@ h3 {
     font-size: 0.84rem;
   }
 }
+
+/* ── Code tabs ─────────────────────────────────────────────── */
+.code-tabs {
+  margin: 1.5rem 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.code-tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--line-strong);
+  background: var(--bg-soft);
+}
+
+.code-tab {
+  padding: 8px 18px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+
+.code-tab:hover {
+  color: var(--text);
+}
+
+.code-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.code-tab-panel {
+  display: none;
+}
+
+.code-tab-panel.active {
+  display: block;
+}
+
+.code-tab-panel pre {
+  margin: 0;
+  border-radius: 0;
+  border: none;
+}

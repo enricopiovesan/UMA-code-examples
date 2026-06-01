@@ -84,10 +84,38 @@ related_refs:
     <p>Start by listing available labs:</p>
     <pre><code>./scripts/list_labs.sh</code></pre>
     <p>Then run each lab in order:</p>
-    <pre><code>./scripts/run_lab.sh lab1-cloud-golden-path
+    <div class="code-tabs">
+      <div class="code-tab-bar">
+        <button class="code-tab active" data-tab="ts">TypeScript</button>
+        <button class="code-tab" data-tab="rust">Rust</button>
+      </div>
+      <div class="code-tab-panel active" data-panel="ts">
+<pre><code># Install TypeScript runtime dependencies
+cd ts &amp;&amp; npm install &amp;&amp; cd ..
+
+# Run each lab (TypeScript reference runtime)
+./scripts/run_lab.sh lab1-cloud-golden-path
 ./scripts/run_lab.sh lab2-header-validation-fail-fast
 ./scripts/run_lab.sh lab3-adapter-binding-and-wrappers
-./scripts/run_lab.sh lab4-rust-ts-parity</code></pre>
+./scripts/run_lab.sh lab4-rust-ts-parity
+
+# Run TypeScript unit tests separately
+npm test --prefix ts</code></pre>
+      </div>
+      <div class="code-tab-panel" data-panel="rust">
+<pre><code># Build the Rust workspace (required for parity comparison)
+cargo build --release -p post_fetcher_runtime
+
+# Run the smoke path (builds Rust, installs TS deps, runs all labs)
+./scripts/smoke_runtime_labs.sh
+
+# Prove behavioral equivalence between Rust and TypeScript runtimes
+./scripts/compare_impls.sh
+
+# Run Rust unit tests
+cargo test --locked</code></pre>
+      </div>
+    </div>
     <p>What each lab exercises:</p>
     <ul>
       <li><strong>lab1-cloud-golden-path</strong> — runs the validated cloud host path and compares the output against the checked-in golden fixture. The expected log signal is <code>Integration test passed: output matches golden fixture.</code></li>

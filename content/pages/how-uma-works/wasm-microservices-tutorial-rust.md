@@ -69,13 +69,39 @@ related_refs:
   <section>
     <h2>Building and running</h2>
     <p>The validated Chapter 4 reader path is two commands:</p>
-    <pre><code>cargo test --locked -p ff_eval_core
-./scripts/smoke_flag_labs.sh</code></pre>
-    <p>The first command compiles the core library and runs its unit test suite. Tests cover equality comparisons, rollout bucketing, the <code>in</code> operator, numeric comparisons, logical operators, and the default fallback. All tests run on the native host — no WASM runtime required at this step.</p>
+    <div class="code-tabs">
+      <div class="code-tab-bar">
+        <button class="code-tab active" data-tab="rust">Rust</button>
+        <button class="code-tab" data-tab="ts">TypeScript</button>
+      </div>
+      <div class="code-tab-panel active" data-panel="rust">
+<pre><code># Run core unit tests (native host, no WASM runtime needed)
+cargo test --locked -p ff_eval_core
+
+# Full smoke path: build WASM, run Rust tests, run TS parity tests,
+# execute JSON vector suite, compare outputs across all four labs
+./scripts/smoke_flag_labs.sh
+
+# Build the WASM binary directly
+cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app
+# Output: target/wasm32-wasip1/release/ff_eval_wasi_app.wasm</code></pre>
+      </div>
+      <div class="code-tab-panel" data-panel="ts">
+<pre><code># Install dependencies for the TypeScript parity implementation
+cd ts &amp;&amp; npm install
+
+# Run the TypeScript unit tests
+npm test
+
+# Run a specific lab against the TypeScript implementation
+cd .. &amp;&amp; ./scripts/run_lab.sh --impl ts lab2-rollout-match
+
+# Prove behavioral equivalence across all labs
+./scripts/compare_impls.sh</code></pre>
+      </div>
+    </div>
+    <p>The first Rust command compiles the core library and runs its unit test suite. Tests cover equality comparisons, rollout bucketing, the <code>in</code> operator, numeric comparisons, logical operators, and the default fallback. All tests run on the native host — no WASM runtime required at this step.</p>
     <p>The smoke script is the full acceptance path. It builds the WASI evaluator (<code>cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app</code>), runs the Rust unit tests, installs the TypeScript parity implementation dependencies, runs the TypeScript parity tests, executes the JSON vector suite, and compares Rust and TypeScript outputs across all four guided labs. If the smoke gate passes, the chapter is verified end-to-end.</p>
-    <p>To build the WASM binary directly:</p>
-    <pre><code>cargo build --release --target wasm32-wasip1 -p ff_eval_wasi_app</code></pre>
-    <p>The compiled module is written to <code>target/wasm32-wasip1/release/ff_eval_wasi_app.wasm</code>.</p>
   </section>
 
   <section>

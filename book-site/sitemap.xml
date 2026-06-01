@@ -25,9 +25,9 @@
   <url><loc>https://www.universalmicroservices.com/how-uma-works/migrating-to-uma-incrementally/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/how-uma-works/uma-production-readiness/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/how-uma-works/architecture-drift-and-portable-business-logic/</loc><lastmod>2026-05-31</lastmod></url>
-  <url><loc>https://www.universalmicroservices.com/how-uma-works/webassembly-microservices-architecture/</loc><lastmod>2026-05-31</lastmod></url>
-  <url><loc>https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-rust/</loc><lastmod>2026-05-31</lastmod></url>
-  <url><loc>https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-typescript/</loc><lastmod>2026-05-31</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/how-uma-works/webassembly-microservices-architecture/</loc><lastmod>2026-06-01</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-rust/</loc><lastmod>2026-06-01</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-typescript/</loc><lastmod>2026-06-01</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/learn-uma/book/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/learn-uma/learning-path/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/learn-uma/end-to-end-feature-flag-example/</loc><lastmod>2026-05-31</lastmod></url>
@@ -69,7 +69,7 @@
   <url><loc>https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/why-software-architecture-keeps-fragmenting/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/common-criticisms-and-tradeoffs-of-uma/</loc><lastmod>2026-05-30</lastmod></url>
-  <url><loc>https://www.universalmicroservices.com/comparisons/wasm-vs-docker-kubernetes/</loc><lastmod>2026-05-30</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/comparisons/wasm-vs-docker-kubernetes/</loc><lastmod>2026-06-01</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/comparisons/microservices-without-kubernetes/</loc><lastmod>2026-05-31</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/discoverability/privacy/</loc><lastmod>2026-05-30</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/discoverability/white-paper/</loc><lastmod>2026-05-31</lastmod></url>

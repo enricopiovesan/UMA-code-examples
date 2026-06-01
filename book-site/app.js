@@ -688,3 +688,16 @@ const observer = new IntersectionObserver(
 for (const element of document.querySelectorAll(".reveal")) {
   observer.observe(element);
 }
+
+// ── Code tabs ──────────────────────────────────────────────────
+document.querySelectorAll(".code-tab-bar").forEach((bar) => {
+  bar.addEventListener("click", (event) => {
+    const tab = event.target.closest(".code-tab");
+    if (!tab) return;
+    const group = tab.closest(".code-tabs");
+    if (!group) return;
+    const target = tab.dataset.tab;
+    group.querySelectorAll(".code-tab").forEach((t) => t.classList.toggle("active", t === tab));
+    group.querySelectorAll(".code-tab-panel").forEach((p) => p.classList.toggle("active", p.dataset.panel === target));
+  });
+});
