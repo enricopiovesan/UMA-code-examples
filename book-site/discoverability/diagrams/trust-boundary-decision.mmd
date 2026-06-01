@@ -1,0 +1,6 @@
+flowchart TD
+    Request["Invocation request"] --> Identity["Resolve identity"]
+    Identity --> Policy["Evaluate policy"]
+    Policy -->|allowed| Capability["Protected capability"]
+    Policy -->|denied| Rejected["Denied decision"]
+    Capability --> Audit["Audit / evidence"]

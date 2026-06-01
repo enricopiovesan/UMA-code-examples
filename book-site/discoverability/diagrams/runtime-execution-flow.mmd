@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant Caller
+    participant Runtime
+    participant Service
+    participant Adapter
+    Caller->>Runtime: Invoke capability
+    Runtime->>Service: Validate contract
+    Service->>Adapter: Request host capability
+    Adapter-->>Service: Host response
+    Service-->>Caller: Deterministic result

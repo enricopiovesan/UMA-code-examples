@@ -172,7 +172,7 @@
             </p>
             <p>
               If you want the shortest explanation of the gap UMA addresses, start with
-              <a class="inline-link" href="./what-problem-does-uma-solve/">what problem UMA solves</a>. If you already agree with the gap,
+              <a class="inline-link" href="./why-uma/what-problem-does-uma-solve/">what problem UMA solves</a>. If you already agree with the gap,
               move straight into the reference app or the examples.
             </p>
           </div>
@@ -238,10 +238,10 @@
               architectural question: how do you keep one behavior coherent as it crosses many runtimes, policies, and workflow surfaces?
             </p>
             <div class="subpage-inline-links">
-              <a href="./what-problem-does-uma-solve/">What problem does UMA solve?</a>
-              <a href="./uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
-              <a href="./what-makes-a-service-portable/">What makes a service portable?</a>
-              <a href="./what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
+              <a href="./why-uma/what-problem-does-uma-solve/">What problem does UMA solve?</a>
+              <a href="./comparisons/uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="./proof/what-makes-a-service-portable/">What makes a service portable?</a>
+              <a href="./core-model/what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
             </div>
           </div>
         </section>
@@ -291,59 +291,59 @@
           </div>
           <div class="learn-pillars">
             <article class="learn-pillar">
-              <strong><a href="./from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a></strong>
+              <strong><a href="./why-uma/from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a></strong>
               <p>Why the durable unit of architecture can no longer be only the stack that runs the code.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-makes-a-service-portable/">What makes a service portable?</a></strong>
+              <strong><a href="./proof/what-makes-a-service-portable/">What makes a service portable?</a></strong>
               <p>The smallest useful UMA question: what has to stay stable before a service can really move across runtimes?</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./how-to-prove-portability/">How to prove portability</a></strong>
+              <strong><a href="./proof/how-to-prove-portability/">How to prove portability</a></strong>
               <p>Why portability should be demonstrated from observable parity, not assumed from shared code.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-is-a-capability/">What is a capability?</a></strong>
+              <strong><a href="./core-model/what-is-a-capability/">What is a capability?</a></strong>
               <p>The runtime’s unit of discoverable, contract-shaped behavior.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-is-a-workflow/">What is a workflow?</a></strong>
+              <strong><a href="./core-model/what-is-a-workflow/">What is a workflow?</a></strong>
               <p>The runtime-approved path built from capabilities to satisfy a goal.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-is-a-uma-runtime/">What is a UMA runtime?</a></strong>
+              <strong><a href="./core-model/what-is-a-uma-runtime/">What is a UMA runtime?</a></strong>
               <p>The governed layer that discovers, validates, approves, and explains execution.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-makes-a-decision-discoverable/">What makes a decision discoverable?</a></strong>
+              <strong><a href="./core-model/what-makes-a-decision-discoverable/">What makes a decision discoverable?</a></strong>
               <p>Why proposals, validation, approval, and trace need to stay queryable instead of disappearing into runtime internals.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a></strong>
+              <strong><a href="./core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a></strong>
               <p>The concrete split between pure service behavior and validation, adapter binding, and lifecycle evidence.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./contract-driven-orchestration/">Contract-driven orchestration</a></strong>
+              <strong><a href="./evolve-uma/contract-driven-orchestration/">Contract-driven orchestration</a></strong>
               <p>How events, policies, and metadata shape runtime flow without collapsing back into hidden workflow glue.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-makes-a-system-coherent/">What makes a system coherent?</a></strong>
+              <strong><a href="./evolve-uma/what-makes-a-system-coherent/">What makes a system coherent?</a></strong>
               <p>Why a system can still function while becoming architecturally unclear, fragile, or harder to recover.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a></strong>
+              <strong><a href="./evolve-uma/how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a></strong>
               <p>How drift, duplication, version sprawl, and governed coexistence fit into one evolution pattern.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./what-is-wasm-mcp/">What is WASM MCP?</a></strong>
+              <strong><a href="./core-model/what-is-wasm-mcp/">What is WASM MCP?</a></strong>
               <p>The visible discovery surface that exposes capabilities to the runtime.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./agent-vs-runtime/">Agent vs runtime</a></strong>
+              <strong><a href="./core-model/agent-vs-runtime/">Agent vs runtime</a></strong>
               <p>Why planning and architectural authority must remain separate.</p>
             </article>
             <article class="learn-pillar">
-              <strong><a href="./uma-vs-traditional-microservices/">UMA vs traditional microservices</a></strong>
+              <strong><a href="./comparisons/uma-vs-traditional-microservices/">UMA vs traditional microservices</a></strong>
               <p>Where UMA changes the architectural center of gravity.</p>
             </article>
           </div>
@@ -400,7 +400,7 @@
               </article>
               <article class="tutorial-item">
                 <span class="tutorial-number">Chapter 11</span>
-                <h3><a href="./how-systems-evolve-without-fragmentation/">Evolution Without Fragmentation</a></h3>
+                <h3><a href="./evolve-uma/how-systems-evolve-without-fragmentation/">Evolution Without Fragmentation</a></h3>
                 <strong class="tutorial-question">How does a system keep changing without splitting apart?</strong>
                 <p>Follow drift, duplication, version sprawl, and runtime-governed recovery.</p>
               </article>
@@ -408,7 +408,7 @@
             <div class="tutorial-column">
               <article class="tutorial-item">
                 <span class="tutorial-number">Chapter 2</span>
-                <h3><a href="./from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a></h3>
+                <h3><a href="./why-uma/from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a></h3>
                 <strong class="tutorial-question">What changes when architecture centers on behavior instead of tiers?</strong>
                 <p>Reframes design around portable behavior, contracts, and runtime responsibilities instead of fixed application boundaries.</p>
               </article>
@@ -417,7 +417,7 @@
                 <h3>Feature Flag Evaluator</h3>
                 <strong class="tutorial-question">What is the smallest portable UMA service?</strong>
                 <p>Start with one contract, one service, and deterministic rule evaluation.</p>
-                <p><a href="./what-makes-a-service-portable/">Concept page: what makes a service portable?</a></p>
+                <p><a href="./proof/what-makes-a-service-portable/">Concept page: what makes a service portable?</a></p>
               </article>
               <article class="tutorial-item">
                 <span class="tutorial-number">Chapter 6</span>
@@ -439,7 +439,7 @@
               </article>
               <article class="tutorial-item">
                 <span class="tutorial-number">Chapter 12</span>
-                <h3><a href="./what-makes-a-decision-discoverable/">Discoverable Decisions</a></h3>
+                <h3><a href="./core-model/what-makes-a-decision-discoverable/">Discoverable Decisions</a></h3>
                 <strong class="tutorial-question">How does a governed UMA system expose decisions as queryable artifacts?</strong>
                 <p>Close the journey by making projections, proposals, validation feedback, and trace artifacts visible end to end.</p>
               </article>

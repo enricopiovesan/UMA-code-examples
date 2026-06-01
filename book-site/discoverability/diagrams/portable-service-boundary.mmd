@@ -1,0 +1,6 @@
+flowchart LR
+    Client["Client / Caller"] --> Runtime["Runtime shell"]
+    Runtime --> Contract["Contract validation"]
+    Contract --> Service["Portable UMA service"]
+    Service --> Output["Deterministic result"]
+    Runtime --> Adapters["Adapters / host capabilities"]

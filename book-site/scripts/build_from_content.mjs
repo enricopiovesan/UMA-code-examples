@@ -237,7 +237,7 @@ function homeAnchor(prefix, anchor) {
 function renderTopNav(prefix) {
   const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
   const utilityLinks = HEADER_UTILITY_LINKS.map(
-    ([label, href]) => `<a class="topnav-utility" href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+    ([label, href]) => `<a class="topnav-utility" href="${href.startsWith("http") ? href : prefix + href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
   ).join("");
   return `
         <div class="topbar-utility">
@@ -257,7 +257,7 @@ function renderTopNav(prefix) {
 function renderMobileNav(prefix) {
   const macroLinks = MACRO_NAV_LINKS.map(([label, href]) => `<a href="${prefix}${href}">${label}</a>`).join("");
   const utilityLinks = HEADER_UTILITY_LINKS.map(
-    ([label, href]) => `<a href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
+    ([label, href]) => `<a href="${href.startsWith("http") ? href : prefix + href}"${href.startsWith("http") ? ' target="_blank" rel="noreferrer noopener"' : ""}>${label}</a>`,
   ).join("");
   return `
       <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
@@ -859,6 +859,25 @@ function normalizeHtml(html) {
   return html.replace(/[ \t]+$/gm, "");
 }
 
+/**
+ * Rewrite relative content links (e.g. href="../some-slug/") to the correct
+ * path using the slug→outPath map. This fixes cross-macro-area links that use
+ * wrong relative depths in the source MD files.
+ */
+function fixContentLinks(html, currentOutPath, pagesBySlug) {
+  return html.replace(/href="((?:\.\.\/|\.\/)+)([^"#?]+?)(?:\/)?"/g, (match, relPart, slugPath) => {
+    // Extract the final slug (last path segment) and also try the full slugPath
+    const parts = slugPath.replace(/\/$/, "").split("/").filter(Boolean);
+    const slug = parts[parts.length - 1];
+    const page = pagesBySlug.get(slug) || pagesBySlug.get(slugPath);
+    if (page) {
+      const rel = relativeLink(currentOutPath, page.outPath);
+      return `href="${rel}"`;
+    }
+    return match;
+  });
+}
+
 async function main() {
   const files = await listMarkdownFiles(CONTENT_ROOT);
   const pages = [];
@@ -878,7 +897,8 @@ async function main() {
     const outPath = pagePathFromMeta(page.meta);
     const legacyOutPath = legacyPagePathFromMeta(page.meta);
     const decorated = decorateHeadings(page.main);
-    const renderedMain = stripSharedFooterMarker(decorated.html);
+    const renderedMain = fixContentLinks(stripSharedFooterMarker(decorated.html), outPath, pagesBySlug);
+    page.intro = fixContentLinks(page.intro, outPath, pagesBySlug);
     if (legacyOutPath !== outPath) {
       await fs.rm(legacyOutPath, { force: true });
     }

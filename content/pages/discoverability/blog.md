@@ -59,7 +59,7 @@ related_refs:
       to execution context coherence for AI-assisted paths.
     </p>
     <div class="subpage-inline-links">
-      <a href="white-paper/">Read the white papers</a>
+      <a href="../white-paper/">Read the white papers</a>
       <a href="../about-enrico/">About the author</a>
       <a href="../../learn-uma/book/">The UMA book</a>
     </div>
