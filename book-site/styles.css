@@ -2109,3 +2109,30 @@ h3 {
   max-width: 100%;
   height: auto;
 }
+
+.about-strip {
+  padding-block: 1.2rem;
+}
+
+.about-strip-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.about-strip-inner a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about-strip-inner a:hover {
+  color: var(--text);
+}
+
+.about-strip-sep {
+  opacity: 0.35;
+}
