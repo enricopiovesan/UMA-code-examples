@@ -351,7 +351,7 @@ a.section-nav-label:hover {
 @media (max-width: 900px) {
   .mobile-section-nav {
     display: block;
-    margin: 12px 0 20px;
+    margin: 8px 0 12px;
     border: 1px solid var(--line);
     border-radius: 8px;
     overflow: hidden;
@@ -675,7 +675,7 @@ a.section-nav-label:hover {
   }
 
   .page-shell.has-page-rail > .subpage-main {
-    padding-top: 28px;
+    padding-top: 16px;
   }
 
   .page-shell.has-page-rail > .page-section-nav,
@@ -688,12 +688,22 @@ a.section-nav-label:hover {
 }
 
 @media (max-width: 760px) {
-  .subpage-main {
-    padding-top: 136px;
+  /* body { padding-top: 136px } in styles.css already clears the fixed topbar.
+     Zero out extra padding-top so content doesn't double-offset. */
+  .subpage-main,
+  .page-shell.has-page-rail > .subpage-main {
+    padding-top: 0;
+  }
+
+  /* Hide desktop sidebar rails on mobile — TOC and section nav are
+     replaced by the mobile-section-nav dropdown inside .subpage-main */
+  .page-toc-rail,
+  .page-section-nav {
+    display: none;
   }
 
   .subpage-hero {
-    padding: 8px 0 28px;
+    padding: 4px 0 20px;
   }
 
   .subpage-hero h1 {
