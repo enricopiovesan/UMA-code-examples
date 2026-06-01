@@ -2087,9 +2087,16 @@ h3 {
   padding-block: 3rem;
 }
 
+.diagram-section .section-label-row {
+  padding-bottom: 2rem;
+}
+
+.diagram-section .section-label-row::after {
+  display: none;
+}
+
 .uma-flow-diagram {
-  max-width: 860px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .uma-flow-diagram .mermaid {
@@ -2098,6 +2105,7 @@ h3 {
 }
 
 .uma-flow-diagram svg {
+  width: 100% !important;
   max-width: 100%;
   height: auto;
 }
