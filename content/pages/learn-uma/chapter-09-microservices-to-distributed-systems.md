@@ -1,6 +1,6 @@
 ---
 ref: chapter-09-microservices-to-distributed-systems
-title: "Chapter 9: From Services to Systems"
+title: "Ch.9: From Services to Systems"
 subtitle: "When individual services are portable and well-governed, what new properties does the system as a whole gain?"
 macro_area: learn-uma
 content_type: overview

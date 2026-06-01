@@ -57,7 +57,7 @@
       </div>
       <nav class="topbar-nav" aria-label="Primary">
         <div class="topbar-nav-inner">
-          <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+          <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a><a href="../../discoverability/">About</a>
         </div>
       </nav>
       <div class="topbar-row-placeholder">
@@ -68,7 +68,7 @@
         <div class="mobile-menu-panel">
           <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
           <nav class="mobile-menu-nav">
-            <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a>
+            <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a><a href="../../discoverability/">About</a>
             <a href="../../reference-application/">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
           </nav>
         </div>
@@ -77,7 +77,7 @@
 
       <aside class="page-section-nav" aria-label="Discovery and References navigation">
         <a class="section-nav-label" href="../">Discovery and References</a>
-        <ul class="section-nav-links"><li><a href="../faq/" >UMA FAQ</a></li><li><a href="../glossary/" >UMA Glossary</a></li><li><a href="../diagrams/" >UMA Diagrams</a></li><li><a href="./" class="section-nav-current" aria-current="page">About Enrico Piovesan</a></li><li><a href="../blog/" >UMA Blog</a></li><li><a href="../../reference-application/" >UMA Reference Application</a></li><li><a href="../white-paper/" >UMA White Papers</a></li></ul>
+        <ul class="section-nav-links"><li><a href="../../wasm-microservices/" >WASM Microservices</a></li><li><a href="../faq/" >UMA FAQ</a></li><li><a href="../glossary/" >UMA Glossary</a></li><li><a href="../diagrams/" >UMA Diagrams</a></li><li><a href="./" class="section-nav-current" aria-current="page">About Enrico Piovesan</a></li><li><a href="../blog/" >UMA Blog</a></li><li><a href="../../reference-application/" >UMA Reference Application</a></li><li><a href="../white-paper/" >Research Papers by Enrico Piovesan</a></li></ul>
       </aside>
 
       <main class="subpage-main">
@@ -90,7 +90,7 @@
 
       <details class="mobile-section-nav">
         <summary>In this section: Discovery and References</summary>
-        <ul><li><a href="../faq/">UMA FAQ</a></li><li><a href="../glossary/">UMA Glossary</a></li><li><a href="../diagrams/">UMA Diagrams</a></li><li><a href="./" class="section-nav-current" aria-current="page">About Enrico Piovesan</a></li><li><a href="../blog/">UMA Blog</a></li><li><a href="../../reference-application/">UMA Reference Application</a></li><li><a href="../white-paper/">UMA White Papers</a></li></ul>
+        <ul><li><a href="../../wasm-microservices/">WASM Microservices</a></li><li><a href="../faq/">UMA FAQ</a></li><li><a href="../glossary/">UMA Glossary</a></li><li><a href="../diagrams/">UMA Diagrams</a></li><li><a href="./" class="section-nav-current" aria-current="page">About Enrico Piovesan</a></li><li><a href="../blog/">UMA Blog</a></li><li><a href="../../reference-application/">UMA Reference Application</a></li><li><a href="../white-paper/">Research Papers by Enrico Piovesan</a></li></ul>
       </details>
 
 <section class="subpage-hero">
@@ -170,6 +170,58 @@
           </section>
 
           <section>
+            <h2 id="published-research">Published research</h2>
+            <p>
+              Three research papers trace the development of the ideas behind UMA, each available on this site:
+            </p>
+            <ul>
+              <li>
+                <strong>Client-Side Microservices Architecture (CSMA, 2023)</strong> — the first paper,
+                exploring modular service-oriented design applied to the frontend and establishing the
+                concept of runtime-portable behavior. CSMA introduced the question that UMA later answers:
+                why does behavior get reimplemented instead of moved?
+              </li>
+              <li>
+                <strong>Universal Microservices Architecture (UMA, 2024)</strong> — the architectural
+                white paper that became the book. It defines a portable, WebAssembly-first model for
+                distributed systems capable of executing across devices, cloud runtimes, and edge
+                environments without behavioral duplication.
+              </li>
+              <li>
+                <strong>Event Contract Catalog Architecture (ECCA, 2025)</strong> — a blueprint for
+                discoverable, governable, and secure event-driven systems at enterprise scale. ECCA
+                complements UMA by addressing the catalog and governance layer for asynchronous
+                communication between portable services.
+              </li>
+            </ul>
+            <p>
+              All three papers are linked from the <a href="../white-paper/">white papers page</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2 id="the-book">The book</h2>
+            <p>
+              <em>Universal Microservices Architecture</em> (Apress, August 2026) is the full book-length
+              development of the UMA model. It covers the architecture from the first portable service
+              through runtime governance, trust boundaries, and AI-native execution patterns — fourteen
+              chapters and a reference application that brings all the pieces together.
+            </p>
+            <p>
+              The book is aimed at senior engineers and architects who need a principled answer to a
+              practical problem: how do you keep distributed systems coherent as they spread across
+              execution surfaces? It is not a survey of microservices patterns; it is a specific,
+              testable model with companion code.
+            </p>
+            <p>
+              Details and the full chapter listing are on the <a href="../../learn-uma/book/">book page</a>.
+              Companion code examples are published in the
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">UMA-code-examples</a>
+              repository on GitHub.
+            </p>
+          </section>
+
+          <section>
             <h2 id="writing">Writing</h2>
             <p>
               Enrico publishes long-form technical writing on Medium on two channels:
@@ -202,7 +254,7 @@
         <div class="section-nav-label">On this page</div>
 
     <ol class="page-rail-outline">
-      <li><a href="#architectural-perspective">Architectural perspective</a></li><li><a href="#professional-background">Professional background</a></li><li><a href="#publications">Publications</a></li><li><a href="#writing">Writing</a></li>
+      <li><a href="#architectural-perspective">Architectural perspective</a></li><li><a href="#professional-background">Professional background</a></li><li><a href="#publications">Publications</a></li><li><a href="#published-research">Published research</a></li><li><a href="#the-book">The book</a></li><li><a href="#writing">Writing</a></li>
     </ol>
       </aside>
     </div>

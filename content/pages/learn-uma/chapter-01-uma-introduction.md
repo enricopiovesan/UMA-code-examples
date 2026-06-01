@@ -1,6 +1,6 @@
 ---
 ref: chapter-01-uma-introduction
-title: "Chapter 1: Introduction to Universal Microservices Architecture"
+title: "Ch.1: Introduction to UMA"
 subtitle: "Why multiplying execution surfaces demand a new architectural model — and what that model looks like."
 macro_area: learn-uma
 content_type: overview

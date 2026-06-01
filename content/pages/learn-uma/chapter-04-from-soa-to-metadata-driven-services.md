@@ -1,6 +1,6 @@
 ---
 ref: chapter-04-from-soa-to-metadata-driven-services
-title: "Chapter 4: The Road to UMA: From SOA to Metadata"
+title: "Ch.4: From SOA to Metadata"
 subtitle: "How architectural thinking evolves from SOA through microservices to metadata-driven portable services."
 macro_area: learn-uma
 content_type: overview

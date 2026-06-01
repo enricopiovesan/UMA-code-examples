@@ -16,6 +16,7 @@ const MACRO_NAV_LINKS = [
   ["Proof", "proof/"],
   ["Evolution", "evolve-uma/"],
   ["Comparisons", "comparisons/"],
+  ["About", "discoverability/"],
 ];
 
 const HEADER_UTILITY_LINKS = [
@@ -645,22 +646,37 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
 
   // DefinedTermSet schema — for the glossary page
   if (meta.ref === "glossary") {
-    const termMatches = [...rawMain.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)];
-    if (termMatches.length) {
+    const termsetId = `${canonical}#termset`;
+    const dtddPairs = [...rawMain.matchAll(/<dt>([\s\S]*?)<\/dt>\s*<dd>([\s\S]*?)<\/dd>/g)];
+    if (dtddPairs.length) {
       scripts.push({
         "@context": "https://schema.org",
         "@type": "DefinedTermSet",
-        "@id": `${canonical}#glossary`,
+        "@id": termsetId,
         "name": "Universal Microservices Architecture Glossary",
-        "url": canonical,
-        "hasDefinedTerm": termMatches.map(m => ({
+        "hasDefinedTerm": dtddPairs.map(m => ({
           "@type": "DefinedTerm",
-          "name": stripTags(m[1]),
-          "description": stripTags(m[2]),
-          "inDefinedTermSet": `${canonical}#glossary`
-        }))
+          "name": stripTags(m[1]).trim(),
+          "description": stripTags(m[2]).trim(),
+          "inDefinedTermSet": termsetId,
+        })),
       });
     }
+  }
+
+  // HowTo schema — for standalone tutorial pages (wasm-microservices tutorials)
+  if (meta.content_type === "tutorial" || meta.ref === "wasm-microservices-tutorial-rust" || meta.ref === "wasm-microservices-tutorial-typescript") {
+    scripts.push({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": meta.title || "",
+      "description": meta.seo_description || meta.subtitle || "",
+      "step": [
+        { "@type": "HowToStep", "name": "Set up the environment", "text": "Install Rust/Node.js and the wasm-pack or jco toolchain." },
+        { "@type": "HowToStep", "name": "Write the WASM module", "text": "Implement business logic as a portable WASM module with explicit capability declarations." },
+        { "@type": "HowToStep", "name": "Run the portability lab", "text": "Execute the smoke script to verify behavioral equivalence across execution contexts." }
+      ]
+    });
   }
 
   // Organization schema — on every page as the entity anchor

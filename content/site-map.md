@@ -99,6 +99,7 @@ It defines semantic page groups, not HTML output.
 
 ### Discovery and References
 - `discoverability`
+- `wasm-microservices`
 - `faq`
 - `glossary`
 - `diagrams`

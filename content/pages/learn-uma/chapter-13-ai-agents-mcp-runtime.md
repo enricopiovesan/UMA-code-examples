@@ -1,6 +1,6 @@
 ---
 ref: chapter-13-ai-agents-mcp-runtime
-title: "Chapter 13: Agents, MCP, and the Runtime of Reasoning"
+title: "Ch.13: Agents, MCP, and Reasoning"
 subtitle: "How does UMA's runtime model extend to AI-native execution, where an agent rather than a human initiates service invocation?"
 macro_area: learn-uma
 content_type: overview

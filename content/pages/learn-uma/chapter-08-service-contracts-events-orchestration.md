@@ -1,6 +1,6 @@
 ---
 ref: chapter-08-service-contracts-events-orchestration
-title: "Chapter 8: Contracts, Events, and Orchestration"
+title: "Ch.8: Contracts and Orchestration"
 subtitle: "How explicit contracts and declared events make orchestration emerge from the system rather than being hardcoded into it."
 macro_area: learn-uma
 content_type: overview

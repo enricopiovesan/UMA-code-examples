@@ -1,6 +1,6 @@
 ---
 ref: chapter-10-security-trust-boundaries-microservices
-title: "Chapter 10: Security and Trust Boundaries in UMA"
+title: "Ch.10: Security and Trust in UMA"
 subtitle: "How to enforce trust in a system where the same service executes in multiple, structurally different runtime environments."
 macro_area: learn-uma
 content_type: overview

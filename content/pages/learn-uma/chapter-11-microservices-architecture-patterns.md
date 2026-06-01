@@ -1,6 +1,6 @@
 ---
 ref: chapter-11-microservices-architecture-patterns
-title: "Chapter 11: Architecting with UMA — Decisions, Patterns, and Tradeoffs"
+title: "Ch.11: UMA Patterns and Tradeoffs"
 subtitle: "What are the recurring architectural decisions in UMA, and what tradeoffs do they involve?"
 macro_area: learn-uma
 content_type: overview

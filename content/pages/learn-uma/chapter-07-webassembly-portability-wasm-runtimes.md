@@ -1,6 +1,6 @@
 ---
 ref: chapter-07-webassembly-portability-wasm-runtimes
-title: "Chapter 7: Portability with WebAssembly and Native Runtimes"
+title: "Ch.7: WebAssembly and WASM Runtimes"
 subtitle: "How WebAssembly provides a portable execution boundary, and what UMA adds on top of it."
 macro_area: learn-uma
 content_type: overview

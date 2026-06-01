@@ -1,6 +1,6 @@
 ---
 ref: chapter-12-evolving-distributed-systems
-title: "Chapter 12: Evolving and Adapting UMA Systems"
+title: "Ch.12: Evolving UMA Systems"
 subtitle: "How do you change a UMA system over time without introducing behavioral drift or breaking compatibility?"
 macro_area: learn-uma
 content_type: overview

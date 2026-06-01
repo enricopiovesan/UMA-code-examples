@@ -99,6 +99,58 @@ related_refs:
           </section>
 
           <section>
+            <h2>Published research</h2>
+            <p>
+              Three research papers trace the development of the ideas behind UMA, each available on this site:
+            </p>
+            <ul>
+              <li>
+                <strong>Client-Side Microservices Architecture (CSMA, 2023)</strong> — the first paper,
+                exploring modular service-oriented design applied to the frontend and establishing the
+                concept of runtime-portable behavior. CSMA introduced the question that UMA later answers:
+                why does behavior get reimplemented instead of moved?
+              </li>
+              <li>
+                <strong>Universal Microservices Architecture (UMA, 2024)</strong> — the architectural
+                white paper that became the book. It defines a portable, WebAssembly-first model for
+                distributed systems capable of executing across devices, cloud runtimes, and edge
+                environments without behavioral duplication.
+              </li>
+              <li>
+                <strong>Event Contract Catalog Architecture (ECCA, 2025)</strong> — a blueprint for
+                discoverable, governable, and secure event-driven systems at enterprise scale. ECCA
+                complements UMA by addressing the catalog and governance layer for asynchronous
+                communication between portable services.
+              </li>
+            </ul>
+            <p>
+              All three papers are linked from the <a href="../../discoverability/white-paper/">white papers page</a>.
+            </p>
+          </section>
+
+          <section>
+            <h2>The book</h2>
+            <p>
+              <em>Universal Microservices Architecture</em> (Apress, August 2026) is the full book-length
+              development of the UMA model. It covers the architecture from the first portable service
+              through runtime governance, trust boundaries, and AI-native execution patterns — fourteen
+              chapters and a reference application that brings all the pieces together.
+            </p>
+            <p>
+              The book is aimed at senior engineers and architects who need a principled answer to a
+              practical problem: how do you keep distributed systems coherent as they spread across
+              execution surfaces? It is not a survey of microservices patterns; it is a specific,
+              testable model with companion code.
+            </p>
+            <p>
+              Details and the full chapter listing are on the <a href="../../learn-uma/book/">book page</a>.
+              Companion code examples are published in the
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">UMA-code-examples</a>
+              repository on GitHub.
+            </p>
+          </section>
+
+          <section>
             <h2>Writing</h2>
             <p>
               Enrico publishes long-form technical writing on Medium on two channels:

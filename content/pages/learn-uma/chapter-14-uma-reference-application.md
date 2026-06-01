@@ -1,6 +1,6 @@
 ---
 ref: chapter-14-uma-reference-application
-title: "Chapter 14: The Reference Experience"
+title: "Ch.14: The Reference Experience"
 subtitle: "What does a complete UMA system look like when all the pieces — portable services, runtime layer, contracts, trust, and AI-native execution — are assembled together?"
 macro_area: learn-uma
 content_type: overview

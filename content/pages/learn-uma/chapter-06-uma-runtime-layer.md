@@ -1,6 +1,6 @@
 ---
 ref: chapter-06-uma-runtime-layer
-title: "Chapter 6: The UMA Runtime Layer"
+title: "Ch.6: The UMA Runtime Layer"
 subtitle: "What the runtime layer owns, and why that ownership must be explicit."
 macro_area: learn-uma
 content_type: overview

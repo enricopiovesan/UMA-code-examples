@@ -1,6 +1,6 @@
 ---
 ref: chapter-05-building-portable-microservices
-title: "Chapter 5: Building UMA Services"
+title: "Ch.5: Building UMA Services"
 subtitle: "What it takes to build a service that is genuinely portable rather than just framework-independent."
 macro_area: learn-uma
 content_type: overview

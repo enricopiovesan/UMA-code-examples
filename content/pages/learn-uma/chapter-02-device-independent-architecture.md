@@ -1,6 +1,6 @@
 ---
 ref: chapter-02-device-independent-architecture
-title: "Chapter 2: Why Device Independence Matters"
+title: "Ch.2: Device Independence"
 subtitle: "What goes wrong when business logic is coupled to a single execution environment."
 macro_area: learn-uma
 content_type: overview

@@ -1,6 +1,6 @@
 ---
 ref: chapter-03-what-is-universal-microservices-architecture
-title: "Chapter 3: What Is Universal Microservices Architecture (UMA)?"
+title: "Ch.3: What Is UMA?"
 subtitle: "The precise definition of UMA and what separates it from conventional microservices."
 macro_area: learn-uma
 content_type: overview
