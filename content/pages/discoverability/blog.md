@@ -9,6 +9,7 @@ canonical_url: "https://www.universalmicroservices.com/discoverability/blog/"
 left_nav_group: discoverability
 chapter_ref: null
 seo_description: "Writing on Universal Microservices Architecture, WebAssembly, portable business logic, and distributed systems design. Published on Medium by Enrico Piovesan."
+robots: noindex
 breadcrumbs:
   - "Home"
   - "Discoverability"

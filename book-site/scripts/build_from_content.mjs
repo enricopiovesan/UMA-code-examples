@@ -800,6 +800,7 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     <title>${pageTitle}</title>
     <meta name="description" content="${description}" />
     <meta name="author" content="Enrico Piovesan" />
+    ${meta.robots ? `<meta name="robots" content="${escapeHtml(meta.robots)}" />` : ""}
     <link rel="canonical" href="${canonical}" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
