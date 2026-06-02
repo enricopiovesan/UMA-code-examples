@@ -32,13 +32,16 @@ related_refs:
 
 <div class="subpage-body">
           <section class="about-author-intro">
-            <img
-              src="../../assets/enrico-piovesan.jpg"
-              alt="Enrico Piovesan — principal platform architect and author of Universal Microservices Architecture"
-              class="about-author-photo"
-              width="200"
-              loading="eager"
-            />
+            <picture>
+              <source srcset="../../assets/enrico-piovesan.webp" type="image/webp" />
+              <img
+                src="../../assets/enrico-piovesan.jpg"
+                alt="Enrico Piovesan, principal platform architect and author of Universal Microservices Architecture"
+                class="about-author-photo"
+                width="200"
+                loading="eager"
+              />
+            </picture>
             <div class="about-author-bio">
               <h2>Architectural perspective</h2>
             <p>
