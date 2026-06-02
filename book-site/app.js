@@ -567,32 +567,39 @@ if (chapterCards) {
 }
 
 if (blogCards) {
-  fetch("./data/blog-posts.json")
-    .then((response) => response.json())
-    .then((posts) => {
-      for (const post of posts) {
-        const article = document.createElement("article");
-        article.className = "lab-card";
-        article.innerHTML = `
-          <a class="lab-image-link" href="${post.url}" target="_blank" rel="noreferrer">
-            <img class="lab-thumb" src="${post.image}" alt="${post.alt || post.title}" loading="lazy" />
-          </a>
-          <div class="lab-copy">
-            <div class="lab-title">
-              <strong>${post.title}</strong>
+  const loadBlog = () => {
+    fetch("./data/blog-posts.json")
+      .then((response) => response.json())
+      .then((posts) => {
+        for (const post of posts) {
+          const article = document.createElement("article");
+          article.className = "lab-card";
+          article.innerHTML = `
+            <a class="lab-image-link" href="${post.url}" target="_blank" rel="noreferrer">
+              <img class="lab-thumb" src="${post.image}" alt="${post.alt || post.title}" loading="lazy" />
+            </a>
+            <div class="lab-copy">
+              <div class="lab-title">
+                <strong>${post.title}</strong>
+              </div>
+              <div class="lab-meta">
+                <p>${post.subtitle}</p>
+              </div>
             </div>
-            <div class="lab-meta">
-              <p>${post.subtitle}</p>
-            </div>
-          </div>
-          <a class="plus-mark" href="${post.url}" target="_blank" rel="noreferrer" aria-label="Open ${post.title}">+</a>
-        `;
-        blogCards.appendChild(article);
-      }
-    })
-    .catch(() => {
-      blogCards.innerHTML = `<p class="blog-load-error">Blog posts will appear here once the manifest is available.</p>`;
-    });
+            <a class="plus-mark" href="${post.url}" target="_blank" rel="noreferrer" aria-label="Open ${post.title}">+</a>
+          `;
+          blogCards.appendChild(article);
+        }
+      })
+      .catch(() => {
+        blogCards.innerHTML = `<p class="blog-load-error">Blog posts will appear here once the manifest is available.</p>`;
+      });
+  };
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(loadBlog, { timeout: 3000 });
+  } else {
+    setTimeout(loadBlog, 2000);
+  }
 }
 
 document.querySelectorAll(`a[href="${githubHref}"], a[href="${blogHref}"]`).forEach((link) => {
