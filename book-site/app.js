@@ -575,7 +575,7 @@ if (blogCards) {
         article.className = "lab-card";
         article.innerHTML = `
           <a class="lab-image-link" href="${post.url}" target="_blank" rel="noreferrer">
-            <img class="lab-thumb" src="${post.image}" alt="${post.alt || post.title}" />
+            <img class="lab-thumb" src="${post.image}" alt="${post.alt || post.title}" loading="lazy" />
           </a>
           <div class="lab-copy">
             <div class="lab-title">

@@ -104,7 +104,11 @@
           <div class="hero-visual">
             <div class="cover-frame">
               <picture>
-                <source srcset="./assets/cover.webp" type="image/webp" />
+                <source
+                  type="image/webp"
+                  srcset="./assets/cover-small.webp 400w, ./assets/cover.webp 920w"
+                  sizes="(max-width: 480px) 207px, 400px"
+                />
                 <img src="./assets/cover.png" alt="Universal Microservices Architecture book cover" width="400" height="560" fetchpriority="high" />
               </picture>
             </div>
