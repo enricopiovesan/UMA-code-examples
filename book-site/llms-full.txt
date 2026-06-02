@@ -255,3 +255,11 @@ How to modernise a distributed system one service at a time without breaking wha
  The problem: modernisation paralysis Most teams reach a point where the cost of changing a service outweighs the cost of tolerating its problems. Not because the problems are small, but because change is expensive when the service is deeply coupled to everything around it. Callers depend on internal implementation details. The deployment pipeline is shared with things that cannot move. The team that owns it has been restructured twice since it was built. The result is a system that grows around its worst parts. New capabilities get bolted onto old foundations. The services that most need atte
 
 ---
+
+# Speaking
+URL: https://www.universalmicroservices.com/discoverability/speaking/
+Conference talks on portable systems, contract-driven AI development, and restructuring software for the age of AI agents.
+
+ Write Once, Run Where It Makes Sense Architecture and platform engineering The same business logic gets rewritten four or five times across browser, backend, edge, and AI pipelines. Most architectures assume the environment too early and teams pay that cost forever. This talk covers the architecture of portable business logic with WebAssembly and Universal Microservices Architecture, what it means to separate logic from execution, and why it matters more now than ever. Proof: Universal Microservices Architecture (Apress) Contract-Driven AI Development AI engineering and developer tooling AI c
+
+---
