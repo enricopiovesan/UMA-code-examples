@@ -177,6 +177,9 @@ related_refs:
               <a href="../../learn-uma/book/">The Book</a>
               <a href="../../discoverability/faq/">FAQ</a>
             </div>
+            <p>
+              Enrico is available for conference talks on architecture, WASM, and AI-native systems. See his <a href="../speaking/">speaking page</a> for current topics.
+            </p>
           </section>
         </div>
 

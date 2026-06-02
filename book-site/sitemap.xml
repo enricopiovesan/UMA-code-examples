@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.universalmicroservices.com/</loc><lastmod>2026-06-01</lastmod></url>
+  <url><loc>https://www.universalmicroservices.com/</loc><lastmod>2026-06-02</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/why-uma/</loc><lastmod>2026-06-01</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/why-uma/what-problem-does-uma-solve/</loc><lastmod>2026-06-01</lastmod></url>
   <url><loc>https://www.universalmicroservices.com/why-uma/what-is-uma/</loc><lastmod>2026-05-30</lastmod></url>
@@ -93,4 +93,5 @@
   <url><loc>https://www.universalmicroservices.com/use-cases/ai-agent-existing-services/</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.universalmicroservices.com/use-cases/portable-business-logic/</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.universalmicroservices.com/use-cases/migrate-microservices-without-rewriting/</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.universalmicroservices.com/discoverability/speaking/</loc><lastmod>2026-06-02</lastmod></url>
 </urlset>
