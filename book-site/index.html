@@ -121,53 +121,50 @@
 
         <!-- ── UMA Architecture Flow Diagram ── -->
         <section class="section diagram-section">
-          <div class="section-label-row">
+          <div class="diagram-header">
             <p class="section-kicker">HOW UMA WORKS</p>
+            <p class="diagram-caption">Each business capability is packaged as a portable WASM module with an active descriptor. The runtime layer validates, places, and governs execution — identically across browser, edge, cloud, or AI agent.</p>
           </div>
           <div class="uma-flow-diagram">
-            <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" aria-label="UMA architecture flowchart: WASM Module to Active Descriptor to Runtime Layer, which fans out to Browser, Edge, Cloud, and AI Agent" role="img">
+            <svg viewBox="0 0 860 260" xmlns="http://www.w3.org/2000/svg" aria-label="UMA architecture flowchart: WASM Module to Active Descriptor to Runtime Layer, which fans out to Browser, Edge, Cloud, and AI Agent" role="img">
               <defs>
                 <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
                   <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.3)" />
                 </marker>
               </defs>
               <!-- Box A: WASM Module -->
-              <rect x="10" y="95" width="168" height="70" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <text x="94" y="124" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">WASM Module</text>
-              <text x="94" y="141" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#aaa59b">business logic · portable · sandboxed</text>
+              <rect x="10" y="90" width="185" height="72" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <text x="102" y="120" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">WASM Module</text>
+              <text x="102" y="138" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="10.5" fill="#aaa59b">business logic · portable · sandboxed</text>
               <!-- Arrow A→B -->
-              <line x1="178" y1="130" x2="218" y2="130" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="195" y1="126" x2="228" y2="126" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
               <!-- Box B: Active Descriptor -->
-              <rect x="220" y="95" width="168" height="70" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <text x="304" y="124" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Active Descriptor</text>
-              <text x="304" y="141" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#aaa59b">contract · placement rules · metadata</text>
+              <rect x="230" y="90" width="185" height="72" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <text x="322" y="120" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Active Descriptor</text>
+              <text x="322" y="138" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="10.5" fill="#aaa59b">contract · placement rules · metadata</text>
               <!-- Arrow B→C -->
-              <line x1="388" y1="130" x2="428" y2="130" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="415" y1="126" x2="448" y2="126" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
               <!-- Box C: Runtime Layer (accent) -->
-              <rect x="430" y="95" width="168" height="70" rx="6" fill="#0c0c0c" stroke="#ffbf1f" stroke-width="1.5"/>
-              <text x="514" y="124" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#ffbf1f">Runtime Layer</text>
-              <text x="514" y="141" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#aaa59b">validates · places · governs · observes</text>
-              <!-- Arrows C→D,E,F,G — from right edge of C (x=598) fan to targets -->
-              <!-- D: Browser y=30 -->
-              <line x1="598" y1="120" x2="718" y2="33" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
-              <!-- E: Edge y=90 -->
-              <line x1="598" y1="125" x2="718" y2="93" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
-              <!-- F: Cloud y=155 -->
-              <line x1="598" y1="135" x2="718" y2="157" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
-              <!-- G: AI Agent y=220 -->
-              <line x1="598" y1="140" x2="718" y2="217" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <rect x="450" y="90" width="185" height="72" rx="6" fill="#0c0c0c" stroke="#ffbf1f" stroke-width="1.5"/>
+              <text x="542" y="120" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#ffbf1f">Runtime Layer</text>
+              <text x="542" y="138" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="10.5" fill="#aaa59b">validates · places · governs · observes</text>
+              <!-- Arrows C→D,E,F,G -->
+              <line x1="635" y1="116" x2="715" y2="33" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="635" y1="122" x2="715" y2="93" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="635" y1="132" x2="715" y2="158" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
+              <line x1="635" y1="138" x2="715" y2="218" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" marker-end="url(#arrow)"/>
               <!-- Box D: Browser -->
-              <rect x="720" y="8" width="110" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <text x="775" y="37" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Browser</text>
+              <rect x="717" y="8" width="130" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <text x="782" y="37" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Browser</text>
               <!-- Box E: Edge -->
-              <rect x="720" y="68" width="110" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <text x="775" y="97" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Edge</text>
+              <rect x="717" y="68" width="130" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <text x="782" y="97" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Edge</text>
               <!-- Box F: Cloud -->
-              <rect x="720" y="132" width="110" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <text x="775" y="161" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Cloud</text>
+              <rect x="717" y="132" width="130" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <text x="782" y="161" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">Cloud</text>
               <!-- Box G: AI Agent -->
-              <rect x="720" y="196" width="110" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-              <text x="775" y="225" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">AI Agent</text>
+              <rect x="717" y="196" width="130" height="48" rx="6" fill="#0c0c0c" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+              <text x="782" y="225" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#f5f2eb">AI Agent</text>
             </svg>
           </div>
         </section>

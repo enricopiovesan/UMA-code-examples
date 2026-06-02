@@ -2087,21 +2087,24 @@ h3 {
   padding-block: 3rem;
 }
 
-.diagram-section .section-label-row {
-  padding-bottom: 2rem;
+.diagram-header {
+  margin-bottom: 2rem;
+}
+
+.diagram-caption {
+  margin: 0.6rem 0 0;
+  max-width: 64ch;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .uma-flow-diagram {
   width: 100%;
 }
 
-.uma-flow-diagram .mermaid {
-  display: flex;
-  justify-content: center;
-}
-
 .uma-flow-diagram svg {
-  width: 100% !important;
+  width: 100%;
   max-width: 100%;
   height: auto;
 }
