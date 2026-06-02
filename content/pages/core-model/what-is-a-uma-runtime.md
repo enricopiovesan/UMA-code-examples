@@ -215,7 +215,7 @@ related_refs:
               <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
               <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>
-              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book</a>
             </div>
           </section>
         </div>

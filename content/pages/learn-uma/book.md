@@ -199,9 +199,9 @@ related_refs:
           </section>
 
           <section>
-            <h2>Buy the book</h2>
+            <h2>Pre-order the book</h2>
             <p>
-              <em>Universal Microservices Architecture</em> is available on Amazon as an eBook (ASIN: B0GTTTTQH4).
+              <em>Universal Microservices Architecture</em> is available for pre-order on Amazon (ASIN: B0GTTTTQH4, releasing August 2026).
             </p>
             <p>
               This is the portable microservices architecture book that treats WASM as an execution boundary, verifies its claims with CI,
@@ -212,7 +212,7 @@ related_refs:
           <section class="subpage-callout">
             <strong>Ready to read?</strong>
             <p>
-              Buy the book on Amazon or start with the companion repository. Both are designed to be evaluated independently before
+              Pre-order on Amazon or start with the companion repository. Both are designed to be evaluated independently before
               committing to either.
             </p>
             <div class="subpage-inline-links">

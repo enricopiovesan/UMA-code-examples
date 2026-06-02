@@ -210,7 +210,7 @@ related_refs:
               <a href="../what-is-a-capability/">What is a capability?</a>
               <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
               <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
-              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book</a>
               <a href="../runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
               <a href="../what-is-uma/">What is UMA?</a>
             </div>

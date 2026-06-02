@@ -63,7 +63,7 @@ related_refs:
       <a href="../../evolve-uma/">Evolving UMA Systems</a>
       <a href="../../evolve-uma/how-systems-evolve-without-fragmentation/">How Systems Evolve Without Fragmentation</a>
       <a href="../examples/chapter-11-evolution-without-fragmentation/">Chapter 11 code examples</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Get the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
     </div>
   </section>
 </div>

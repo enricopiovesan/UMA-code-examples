@@ -62,7 +62,7 @@ related_refs:
       <a href="../../comparisons/common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a>
       <a href="../../how-uma-works/uma-production-readiness/">UMA Production Readiness</a>
       <a href="../examples/chapter-10-architectural-tradeoffs/">Chapter 10 code examples</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Get the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
     </div>
   </section>
 </div>

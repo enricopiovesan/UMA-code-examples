@@ -200,7 +200,7 @@ related_refs:
               <a href="../what-is-a-workflow/">What is a workflow?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
-              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book</a>
             </div>
           </section>
         </div>
