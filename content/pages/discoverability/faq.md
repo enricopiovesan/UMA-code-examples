@@ -222,7 +222,7 @@ related_refs:
             <h3>What belongs in the runtime layer?</h3>
             <p>
               The runtime layer should own validation, adapter binding, policy, trust, lifecycle evidence, and the conditions around
-              execution that vary by environment. The service should keep the durable rule; the runtime should keep the governed execution
+              execution that vary by environment. The service should keep the durable rule. the runtime should keep the governed execution
               context around it.
             </p>
             <p>

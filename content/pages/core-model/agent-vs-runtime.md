@@ -151,7 +151,7 @@ related_refs:
             <p>
               The Chapter 13 reference experience is useful because it shows this boundary directly instead of leaving it implicit. The
               planner can rank capabilities. The runtime still validates the choice. If a proposed path violates the active rules, the
-              runtime can reject it. The resulting workflow is not whatever the planner imagined; it is what the runtime approved.
+              runtime can reject it. The resulting workflow is not whatever the planner imagined. It is what the runtime approved.
             </p>
             <p>
               That is the practical version of the architectural claim on this page. The live demo is not just an AI workflow viewer. It is

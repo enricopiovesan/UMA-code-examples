@@ -8,7 +8,7 @@ slug: about-enrico
 canonical_url: "https://www.universalmicroservices.com/discoverability/about-enrico/"
 left_nav_group: discoverability
 chapter_ref: null
-seo_description: "Enrico Piovesan — principal platform architect at Autodesk, author of Universal Microservices Architecture (Apress 2026), and writer on portable distributed systems and WebAssembly."
+seo_description: "Enrico Piovesan. principal platform architect at Autodesk, author of Universal Microservices Architecture (Apress 2026), and writer on portable distributed systems and WebAssembly."
 breadcrumbs:
   - "Home"
   - "Discoverability"
@@ -44,7 +44,7 @@ related_refs:
             <p>
               UMA comes from a practical concern: modern systems keep spreading across runtimes faster than their
               architecture evolves. The result is duplication, hidden dependencies, and governance that arrives too late.
-              Enrico writes from the perspective of someone dealing with this under real product pressure — not from a
+              Enrico writes from the perspective of someone dealing with this under real product pressure. not from a
               comfortable distance from implementation.
             </p>
             <p>
@@ -60,12 +60,12 @@ related_refs:
             <p>
               Enrico works as a principal platform architect at Autodesk, designing modular systems that must stay
               coherent across product boundaries, delivery teams, and evolving runtime environments. Before Autodesk,
-              he co-founded startups in travel, education, and payments — always focused on bridging architectural
+              he co-founded startups in travel, education, and payments. always focused on bridging architectural
               clarity with practical delivery under real constraints.
             </p>
             <p>
-              That background — systems that must survive scaling pressure and team boundaries, not architecture as a
-              theoretical exercise — is where Universal Microservices Architecture was developed and tested.
+              That background (systems that must survive scaling pressure and team boundaries, not architecture as a
+              theoretical exercise) is where Universal Microservices Architecture was developed and tested.
             </p>
           </section>
 
@@ -76,17 +76,17 @@ related_refs:
             </p>
             <ul>
               <li>
-                <strong>June 2023 — Client-Side Microservices Architecture (CSMA)</strong>:
-                A white paper on bringing modular, service-oriented design to the frontend — the starting point for
+                <strong>June 2023 (Client-Side Microservices Architecture (CSMA)</strong>:
+                A white paper on bringing modular, service-oriented design to the frontend) the starting point for
                 thinking about runtime-portable behavior.
               </li>
               <li>
-                <strong>August 2024 — Universal Microservices Architecture (UMA)</strong>:
+                <strong>August 2024. Universal Microservices Architecture (UMA)</strong>:
                 The architectural white paper that became this book. A portable, WebAssembly-first model for distributed
                 systems across devices, runtimes, and clouds.
               </li>
               <li>
-                <strong>August 2025 — Event Contract Catalog Architecture (ECCA)</strong>:
+                <strong>August 2025. Event Contract Catalog Architecture (ECCA)</strong>:
                 A blueprint for discoverable, governable, and secure event-driven systems at enterprise scale.
               </li>
             </ul>
@@ -105,19 +105,19 @@ related_refs:
             </p>
             <ul>
               <li>
-                <strong>Client-Side Microservices Architecture (CSMA, 2023)</strong> — the first paper,
+                <strong>Client-Side Microservices Architecture (CSMA, 2023)</strong>: the first paper,
                 exploring modular service-oriented design applied to the frontend and establishing the
                 concept of runtime-portable behavior. CSMA introduced the question that UMA later answers:
                 why does behavior get reimplemented instead of moved?
               </li>
               <li>
-                <strong>Universal Microservices Architecture (UMA, 2024)</strong> — the architectural
+                <strong>Universal Microservices Architecture (UMA, 2024)</strong>: the architectural
                 white paper that became the book. It defines a portable, WebAssembly-first model for
                 distributed systems capable of executing across devices, cloud runtimes, and edge
                 environments without behavioral duplication.
               </li>
               <li>
-                <strong>Event Contract Catalog Architecture (ECCA, 2025)</strong> — a blueprint for
+                <strong>Event Contract Catalog Architecture (ECCA, 2025)</strong>: a blueprint for
                 discoverable, governable, and secure event-driven systems at enterprise scale. ECCA
                 complements UMA by addressing the catalog and governance layer for asynchronous
                 communication between portable services.
@@ -133,13 +133,13 @@ related_refs:
             <p>
               <em>Universal Microservices Architecture</em> (Apress, August 2026) is the full book-length
               development of the UMA model. It covers the architecture from the first portable service
-              through runtime governance, trust boundaries, and AI-native execution patterns — fourteen
+              through runtime governance, trust boundaries, and AI-native execution patterns. fourteen
               chapters and a reference application that brings all the pieces together.
             </p>
             <p>
               The book is aimed at senior engineers and architects who need a principled answer to a
               practical problem: how do you keep distributed systems coherent as they spread across
-              execution surfaces? It is not a survey of microservices patterns; it is a specific,
+              execution surfaces? It is not a survey of microservices patterns. it is a specific,
               testable model with companion code.
             </p>
             <p>
@@ -160,7 +160,7 @@ related_refs:
               explores how AI changes the constraints that architecture must satisfy.
             </p>
             <p>
-              Medium is the discovery channel. This site is the authority hub — the place where the book, the learning
+              Medium is the discovery channel. This site is the authority hub: the place where the book, the learning
               path, the examples, and the core architectural pages connect in one place.
             </p>
           </section>

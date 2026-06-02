@@ -38,18 +38,18 @@ related_refs:
   <section>
     <h2>What a service mesh actually does</h2>
     <p>
-      A service mesh intercepts network traffic between services — usually via sidecar proxies (Envoy in Istio's case) —
+      A service mesh intercepts network traffic between services (usually via sidecar proxies (Envoy in Istio's case))
       and applies policy at the communication layer. The mesh handles:
     </p>
     <ul>
-      <li><strong>Mutual TLS</strong> — encrypts and authenticates service-to-service traffic without changing application code</li>
-      <li><strong>Traffic management</strong> — weighted routing, canary releases, A/B splits, retries, timeouts, and circuit breaking</li>
-      <li><strong>Observability</strong> — distributed tracing, service-to-service metrics, and request logging at the proxy layer</li>
-      <li><strong>Access policy</strong> — which services are allowed to call which other services, enforced at the network boundary</li>
+      <li><strong>Mutual TLS</strong>: encrypts and authenticates service-to-service traffic without changing application code</li>
+      <li><strong>Traffic management</strong>: weighted routing, canary releases, A/B splits, retries, timeouts, and circuit breaking</li>
+      <li><strong>Observability</strong>: distributed tracing, service-to-service metrics, and request logging at the proxy layer</li>
+      <li><strong>Access policy</strong>: which services are allowed to call which other services, enforced at the network boundary</li>
     </ul>
     <p>
       These are genuine infrastructure problems. Service meshes solve them well for systems where services communicate
-      over HTTP/gRPC on a shared network — typically Kubernetes-hosted backends.
+      over HTTP/gRPC on a shared network. typically Kubernetes-hosted backends.
     </p>
   </section>
 
@@ -66,9 +66,9 @@ related_refs:
     <ul>
       <li>Verify that two services implementing the same rule produce equivalent outputs</li>
       <li>Enforce that a service's contract has not drifted from its declared schema</li>
-      <li>Move a service to a browser, an edge node, or a mobile runtime — none of those environments have sidecar proxies</li>
+      <li>Move a service to a browser, an edge node, or a mobile runtime. none of those environments have sidecar proxies</li>
       <li>Detect when the same business logic has been reimplemented differently across execution surfaces</li>
-      <li>Produce execution evidence at the business-logic level — only at the network-call level</li>
+      <li>Produce execution evidence at the business-logic level. only at the network-call level</li>
     </ul>
     <p>
       The mesh operates below the behavioral contract. It knows that service A called service B and the call succeeded
@@ -80,8 +80,8 @@ related_refs:
   <section>
     <h2>What UMA addresses that a service mesh cannot</h2>
     <p>
-      UMA's concern is behavioral portability and contract-governed execution. The portable service — compiled as a
-      WASM module with an explicit contract — is the unit that UMA governs. That contract declares input schema,
+      UMA's concern is behavioral portability and contract-governed execution. The portable service (compiled as a
+      WASM module with an explicit contract) is the unit that UMA governs. That contract declares input schema,
       output schema, emitted events, placement constraints, version, and trust expectations.
     </p>
     <p>
@@ -99,7 +99,7 @@ related_refs:
     <h2>Where they overlap</h2>
     <p>
       Both UMA and a service mesh address trust and policy enforcement. A service mesh does this at the network
-      layer — controlling which services can communicate. UMA does this at the execution layer — controlling
+      layer (controlling which services can communicate. UMA does this at the execution layer) controlling
       which capabilities can run in a given context and under what trust policy.
     </p>
     <p>
@@ -115,7 +115,7 @@ related_refs:
     <p>
       Nothing in UMA's model conflicts with a service mesh. A portable WASM service deployed inside a
       Kubernetes pod still gets the mesh's mTLS, traffic policy, and observability. The UMA runtime layer
-      sits above the network — it makes execution decisions that the mesh's proxy never sees.
+      sits above the network: it makes execution decisions that the mesh's proxy never sees.
     </p>
     <p>
       The practical architecture is: use a service mesh for network-layer concerns (authentication, encryption,
@@ -137,8 +137,8 @@ related_refs:
       changing application code, and your execution surfaces are all backend processes.
     </p>
     <p>
-      Use UMA when: the same business behavior must run in more than one execution environment — browser, edge,
-      server, workflow, or AI path — and those environments must produce equivalent outputs. UMA solves the
+      Use UMA when: the same business behavior must run in more than one execution environment (browser, edge,
+      server, workflow, or AI path) and those environments must produce equivalent outputs. UMA solves the
       portability and coherence problem a service mesh does not address.
     </p>
     <p>
@@ -152,15 +152,15 @@ related_refs:
     <h2>Frequently asked questions</h2>
     <dl class="faq-list">
       <dt>Do I need both UMA and a service mesh?</dt>
-      <dd>Not necessarily. A service mesh is valuable when you have multiple backend services on Kubernetes that need mTLS, traffic shaping, or observability between them. UMA is valuable when business behavior must run across structurally different execution environments — browser, edge, server, AI agent — and remain coherent. Many systems need one but not both. Mature systems with growing runtime diversity often need both, and they coexist without conflict.</dd>
+      <dd>Not necessarily. A service mesh is valuable when you have multiple backend services on Kubernetes that need mTLS, traffic shaping, or observability between them. UMA is valuable when business behavior must run across structurally different execution environments (browser, edge, server, AI agent) and remain coherent. Many systems need one but not both. Mature systems with growing runtime diversity often need both, and they coexist without conflict.</dd>
       <dt>Can UMA replace a service mesh?</dt>
-      <dd>No. UMA does not handle mutual TLS, network-level traffic shaping, circuit breaking, or service-to-service retry logic. Those are network-layer concerns that UMA's runtime layer doesn't address. If you need those capabilities, a service mesh is still the right tool. UMA governs what services do and whether behavior stays portable — not how services communicate at the network level.</dd>
+      <dd>No. UMA does not handle mutual TLS, network-level traffic shaping, circuit breaking, or service-to-service retry logic. Those are network-layer concerns that UMA's runtime layer doesn't address. If you need those capabilities, a service mesh is still the right tool. UMA governs what services do and whether behavior stays portable (not how services communicate at the network level.</dd>
       <dt>Does UMA work on Kubernetes?</dt>
-      <dd>Yes. Portable WASM services deployed inside Kubernetes pods get the mesh's mTLS and observability at the network layer. The UMA runtime layer sits above the network — it makes execution decisions that the mesh's sidecar proxy never sees. You can run UMA services on top of Istio or Linkerd without modifying either.</dd>
+      <dd>Yes. Portable WASM services deployed inside Kubernetes pods get the mesh's mTLS and observability at the network layer. The UMA runtime layer sits above the network) it makes execution decisions that the mesh's sidecar proxy never sees. You can run UMA services on top of Istio or Linkerd without modifying either.</dd>
       <dt>What does a service mesh not govern that UMA does?</dt>
-      <dd>A service mesh governs the channel — which services can communicate, with what encryption, under what retry policy. It doesn't know what a service does, whether its contract has drifted, whether the same rule exists in the browser path, or what evidence a specific invocation produced at the business-logic level. Those are UMA's concerns.</dd>
+      <dd>A service mesh governs the channel, which services can communicate, with what encryption, under what retry policy. It doesn't know what a service does, whether its contract has drifted, whether the same rule exists in the browser path, or what evidence a specific invocation produced at the business-logic level. Those are UMA's concerns.</dd>
       <dt>Is UMA comparable to Istio or Linkerd?</dt>
-      <dd>No — they address different layers. Istio and Linkerd are infrastructure tools for network-level governance. UMA is an architectural model for behavioral portability and contract-governed execution. Comparing them is like comparing a load balancer to a service contract — both are necessary in a mature system, but they solve different problems at different layers.</dd>
+      <dd>No (they address different layers. Istio and Linkerd are infrastructure tools for network-level governance. UMA is an architectural model for behavioral portability and contract-governed execution. Comparing them is like comparing a load balancer to a service contract) both are necessary in a mature system, but they solve different problems at different layers.</dd>
     </dl>
   </section>
 

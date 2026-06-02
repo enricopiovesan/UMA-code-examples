@@ -37,20 +37,20 @@ related_refs:
           </section>
           <section>
             <h2>Why "active" matters</h2>
-            <p>A README beside a service is documentation for humans. An OpenAPI spec sitting in a repository is documentation for other developers. Neither of these is read by the runtime when it decides whether to approve an execution path. They exist to inform; they do not constrain.</p>
+            <p>A README beside a service is documentation for humans. An OpenAPI spec sitting in a repository is documentation for other developers. Neither of these is read by the runtime when it decides whether to approve an execution path. They exist to inform. They do not constrain.</p>
             <p>An active descriptor is different. The runtime reads it during a real execution decision. It is a constraint model the system evaluates before approving a path, not a reference artifact a developer consults after something breaks. The word "active" is load-bearing: it means the descriptor has operational effect, not just informational value.</p>
-            <p>This distinction matters in practice because documentation drifts and constraint models do not — or at least, when a constraint model drifts, the system knows about it. When a README drifts, the developer finds out at 2am during an incident.</p>
+            <p>This distinction matters in practice because documentation drifts and constraint models do not. Or at least: when a constraint model drifts, the system knows about it. When a README drifts, the developer finds out at 2am during an incident.</p>
           </section>
           <section>
             <h2>What an active descriptor contains</h2>
-            <p>The shape of a descriptor is specific enough for the runtime to reason with. A fully declared descriptor includes: an input schema, an output schema, the events the capability emits, the events it requires, a version declaration, allowed placement targets, latency expectations, error expectations, and evidence expectations — the record of what a valid run is expected to produce.</p>
+            <p>The shape of a descriptor is specific enough for the runtime to reason with. A fully declared descriptor includes an input schema, an output schema, the events the capability emits, the events it requires, a version declaration, allowed placement targets, latency expectations, error expectations, and evidence expectations: the record of what a valid run is expected to produce.</p>
             <p>Not every field is mandatory on every capability. A simple deterministic evaluator may have no event declarations. A capability that runs at the edge may have explicit latency expectations but relaxed evidence requirements. The descriptor is expressive enough to capture the full contract, and minimal enough that teams can adopt it incrementally.</p>
             <p>What the descriptor does not contain is implementation detail. It does not describe how the capability works internally. It describes what the runtime needs to know to decide whether the capability can participate in a given execution context.</p>
           </section>
           <section>
             <h2>How the runtime uses it</h2>
-            <p>When a capability arrives with a descriptor, the runtime follows a specific decision sequence. First, it checks input schema compatibility — does the data flowing into this capability match what the descriptor declares? Second, it checks version constraints against other capabilities already participating in the workflow. Third, it checks placement rules — is this capability allowed to run in this execution environment? Fourth, it validates declared permissions against the trust model.</p>
-            <p>If all checks pass, the execution path is approved. The descriptor's evidence expectations then shape what gets recorded after the run — what the system will use to confirm that the capability behaved as declared, not just that it returned a value.</p>
+            <p>When a capability arrives with a descriptor, the runtime follows a specific decision sequence. First, it checks input schema compatibility: does the data flowing into this capability match what the descriptor declares? Second, it checks version constraints against other capabilities already participating in the workflow. Third, it checks placement rules: is this capability allowed to run in this execution environment? Fourth, it validates declared permissions against the trust model.</p>
+            <p>If all checks pass, the execution path is approved. The descriptor's evidence expectations then shape what gets recorded after the run: what the system will use to confirm that the capability behaved as declared, not just that it returned a value.</p>
             <p>If any check fails, the path is rejected with a specific reason. The runtime does not proceed optimistically. It does not log a warning and continue. The descriptor is authoritative.</p>
           </section>
           <section>
@@ -68,15 +68,15 @@ related_refs:
           <section>
             <h2>Concrete proof</h2>
             <p>The early examples prove the idea in small pieces: Chapter 4 uses a contract around deterministic flag evaluation, Chapter 6 uses a contract to compare native and WASI execution, and Chapter 7 lets contracts and events shape orchestration.</p>
-            <p>Chapter 4 is the simplest entry point: one input schema, one output schema, no event dependencies. It shows the minimum viable descriptor for a capability that has predictable behavior. Chapter 6 builds on that by proving the contract holds across two execution environments — native Rust and WASM — without changing the descriptor. Chapter 7 shows descriptors operating as first-class inputs to orchestration, with events shaping the workflow rather than code.</p>
+            <p>Chapter 4 is the simplest entry point: one input schema, one output schema, no event dependencies. It shows the minimum viable descriptor for a capability that has predictable behavior. Chapter 6 builds on that by proving the contract holds across two execution environments (native Rust and WASM) without changing the descriptor. Chapter 7 shows descriptors operating as first-class inputs to orchestration, with events shaping the workflow rather than code.</p>
           </section>
           <section>
             <h2>Questions and answers</h2>
             <dl>
               <dt>Is an active descriptor the same as an OpenAPI schema?</dt>
-              <dd>It overlaps with schema definition but is broader. OpenAPI describes an HTTP interface. An active descriptor describes the full capability contract including events, placements, version rules, and expected execution evidence — independent of transport. You can have an OpenAPI spec and a UMA descriptor for the same capability; they serve different audiences.</dd>
+              <dd>It overlaps with schema definition but is broader. OpenAPI describes an HTTP interface. An active descriptor describes the full capability contract including events, placements, version rules, and expected execution evidence, independent of transport. You can have an OpenAPI spec and a UMA descriptor for the same capability. They serve different audiences.</dd>
               <dt>Does every UMA service need a descriptor?</dt>
-              <dd>Yes, by design. A capability without a descriptor is not discoverable by the runtime in the UMA model. The descriptor is what makes the capability composable — without it, the runtime has no basis for approving the capability's participation in a workflow. It is not optional configuration; it is the thing that makes a service a UMA capability.</dd>
+              <dd>Yes, by design. A capability without a descriptor is not discoverable by the runtime in the UMA model. The descriptor is what makes the capability composable. Without it, the runtime has no basis for approving the capability's participation in a workflow. It is not optional configuration. It is the thing that makes a service a UMA capability.</dd>
             </dl>
           </section>
           <section class="subpage-callout">

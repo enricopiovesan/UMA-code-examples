@@ -152,7 +152,7 @@ related_refs:
               <li>It is not the capability itself.</li>
               <li>It is not the planner.</li>
               <li>It is not a substitute for runtime validation or trust enforcement.</li>
-              <li>It is not valuable just because it exists; it matters because it makes discovery explicit.</li>
+              <li>It is not valuable just because it exists. It matters because it makes discovery explicit.</li>
             </ul>
           </section>
 

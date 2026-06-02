@@ -31,14 +31,14 @@ related_refs:
 <div class="subpage-body">
           <section>
             <h2>The short answer</h2>
-            <p>A modular monolith organizes code inside one deployable system, with clear internal boundaries between logical modules. UMA organizes portable behavior so it can remain coherent across multiple execution contexts — browser, edge, cloud, workflow, and beyond. These are different answers to different pressures.</p>
+            <p>A modular monolith organizes code inside one deployable system, with clear internal boundaries between logical modules. UMA organizes portable behavior so it can remain coherent across multiple execution contexts. browser, edge, cloud, workflow, and beyond. These are different answers to different pressures.</p>
             <p>The two ideas can coexist. A modular monolith may host UMA-style capabilities without abandoning its single deployment unit. UMA can also help identify which behaviors should leave the monolith first, giving teams a principled extraction path rather than a speculative decomposition.</p>
-            <p>The distinction matters most when a team is deciding whether the complexity of a portable boundary is warranted. A modular monolith is often the right answer — and the UMA model is explicit about when it is not needed.</p>
+            <p>The distinction matters most when a team is deciding whether the complexity of a portable boundary is warranted. A modular monolith is often the right answer. and the UMA model is explicit about when it is not needed.</p>
           </section>
 
           <section>
             <h2>Modularity</h2>
-            <p>Modular monoliths improve internal structure by making module boundaries explicit — enforcing that one part of the system does not reach into another's internals, that interfaces are intentional, and that dependencies flow in one direction. That discipline produces systems that are easier to reason about, test, and evolve within a single deployment.</p>
+            <p>Modular monoliths improve internal structure by making module boundaries explicit. enforcing that one part of the system does not reach into another's internals, that interfaces are intentional, and that dependencies flow in one direction. That discipline produces systems that are easier to reason about, test, and evolve within a single deployment.</p>
             <p>UMA adds a stronger question: can this behavior survive outside the original host without being rewritten? A module with clean internal boundaries may still rely on shared database access, a common ORM, framework middleware, or in-process event buses. Those assumptions are invisible inside the monolith but become obstacles when the capability needs to execute elsewhere.</p>
             <p>Internal modularity is not the same as runtime portability. A well-modularized system is easier to extract from, but the extraction still requires designing an explicit contract, removing host assumptions, and proving the behavior in a genuinely different execution context. UMA names that work and treats it as architecture.</p>
           </section>
@@ -46,42 +46,42 @@ related_refs:
           <section>
             <h2>Deployment boundaries</h2>
             <p>The modular monolith usually keeps deployment simple by shipping one unit. That is a genuine advantage: one build, one release, one set of operational concerns. For a team with a single stable runtime and no requirement for behavior to appear elsewhere, that simplicity is worth protecting.</p>
-            <p>UMA accepts that some behavior may need to execute in different places and makes the surrounding runtime decisions explicit. This is not a claim that distributed deployment is always better — distributing for its own sake introduces coordination overhead with no return. It is a claim that runtime diversity needs a model when it appears, and that model should be designed rather than improvised under pressure.</p>
+            <p>UMA accepts that some behavior may need to execute in different places and makes the surrounding runtime decisions explicit. This is not a claim that distributed deployment is always better. distributing for its own sake introduces coordination overhead with no return. It is a claim that runtime diversity needs a model when it appears, and that model should be designed rather than improvised under pressure.</p>
             <p>The question is not monolith versus services. The question is whether any behavior in the system has begun to appear in two different execution contexts. If the answer is no, the monolith should stay simple. If the answer is yes, UMA's boundary model gives that duplication a principled resolution.</p>
           </section>
 
           <section>
             <h2>Runtime boundaries</h2>
-            <p>A module inside a monolith often assumes the host process, shared memory, local libraries, a common framework, and database access through a shared connection pool. Those assumptions are efficient and appropriate inside one deployment. They become coupling when the behavior needs to execute somewhere else — and that coupling usually only becomes visible when the extraction is already urgent.</p>
+            <p>A module inside a monolith often assumes the host process, shared memory, local libraries, a common framework, and database access through a shared connection pool. Those assumptions are efficient and appropriate inside one deployment. They become coupling when the behavior needs to execute somewhere else. and that coupling usually only becomes visible when the extraction is already urgent.</p>
             <p>A Universal Microservice has to make more of its boundary explicit so the behavior can be governed elsewhere. The contract defines what it accepts and what it returns. The adapter translates between the contract and the host environment. The core logic is free of assumptions about where it is running.</p>
-            <p>That extra discipline is useful only when the behavior needs that freedom. A module that will never leave the monolith does not need a UMA-style contract — and designing one for it would be unnecessary overhead. The skill is knowing which behaviors have already begun to move, or soon will, and applying the model there first.</p>
+            <p>That extra discipline is useful only when the behavior needs that freedom. A module that will never leave the monolith does not need a UMA-style contract. and designing one for it would be unnecessary overhead. The skill is knowing which behaviors have already begun to move, or soon will, and applying the model there first.</p>
           </section>
 
           <section>
             <h2>Evolution paths</h2>
-            <p>A modular monolith can evolve into services when pressure justifies it — when a module needs to scale independently, when a team boundary demands clearer ownership, or when a capability is being duplicated into a second runtime. UMA gives teams a way to make that extraction deliberate rather than reactive.</p>
+            <p>A modular monolith can evolve into services when pressure justifies it. when a module needs to scale independently, when a team boundary demands clearer ownership, or when a capability is being duplicated into a second runtime. UMA gives teams a way to make that extraction deliberate rather than reactive.</p>
             <p>The evolution path is: identify the behavior that is already under pressure to appear in a second context, design an explicit contract for it, remove the host assumptions, and prove the behavior is equivalent in both environments. That proof is the UMA adoption entry point. The monolith can continue hosting everything else while the extracted capability validates the approach.</p>
-            <p>This means UMA adoption does not require decomposing the entire system. One extracted capability is a meaningful starting point — and the extraction evidence either confirms that the approach is worth scaling or reveals that the pressure was not as real as it seemed.</p>
+            <p>This means UMA adoption does not require decomposing the entire system. One extracted capability is a meaningful starting point. and the extraction evidence either confirms that the approach is worth scaling or reveals that the pressure was not as real as it seemed.</p>
           </section>
 
           <section>
             <h2>When a modular monolith is the right answer</h2>
             <p>A modular monolith is the right architecture when a single team owns the system, runtime diversity is low, deployment simplicity is a priority, and the product is still in early discovery. Those conditions describe a large number of healthy systems. Adding UMA complexity to a system that does not have a portability problem is waste, not engineering discipline.</p>
-            <p>An early-stage product that is still finding its domain model should not invest in runtime contracts. The module boundaries are not yet stable enough to extract. UMA assumes the business behavior is sufficiently understood that a contract can be designed and maintained — that understanding takes time to develop, and the monolith is often the right environment to develop it in.</p>
+            <p>An early-stage product that is still finding its domain model should not invest in runtime contracts. The module boundaries are not yet stable enough to extract. UMA assumes the business behavior is sufficiently understood that a contract can be designed and maintained, that understanding takes time to develop, and the monolith is often the right environment to develop it in.</p>
             <p>The honest advice: start with a modular monolith, keep the module boundaries clean, and watch for the signal that one capability is being requested in a second runtime. That signal is the UMA trigger, not a general preference for architectural sophistication.</p>
           </section>
 
           <section>
             <h2>When to extract a Universal Microservice from a monolith</h2>
-            <p>The extraction signal is behavioral duplication under runtime pressure. When the same business rule is being rewritten for a second execution context — a mobile app, an edge node, a partner integration — the duplication is not a development problem, it is an architectural one. Extracting that behavior behind an explicit contract stops the divergence before it compounds.</p>
-            <p>A module that is the most-changed part across releases is often a signal that its boundary is not stable — but also that it is the most important capability in the system. That importance is an argument for giving it a cleaner boundary and more deliberate governance, not for leaving it embedded in the monolith where its changes ripple into adjacent modules.</p>
-            <p>Extract when a capability needs to prove parity across environments, when a second team needs to consume it independently, or when the business cannot tolerate behavioral drift between surfaces. Those are concrete pressures with concrete costs — and the UMA extraction is a response to real pressure, not a preemptive architectural preference.</p>
+            <p>The extraction signal is behavioral duplication under runtime pressure. When the same business rule is being rewritten for a second execution context (a mobile app, an edge node, a partner integration) the duplication is not a development problem, it is an architectural one. Extracting that behavior behind an explicit contract stops the divergence before it compounds.</p>
+            <p>A module that is the most-changed part across releases is often a signal that its boundary is not stable. but also that it is the most important capability in the system. That importance is an argument for giving it a cleaner boundary and more deliberate governance, not for leaving it embedded in the monolith where its changes ripple into adjacent modules.</p>
+            <p>Extract when a capability needs to prove parity across environments, when a second team needs to consume it independently, or when the business cannot tolerate behavioral drift between surfaces. Those are concrete pressures with concrete costs. and the UMA extraction is a response to real pressure, not a preemptive architectural preference.</p>
           </section>
 
           <section>
             <h2>The migration path</h2>
             <p>The modular monolith can be the starting point for UMA adoption, not an obstacle to it. The existing module with the clearest boundary and the most external pressure is the extraction candidate. Identify it, design a contract for it, and prove it runs identically in both contexts. That is the migration entry point.</p>
-            <p>The extraction should be conservative: the contract should reflect what the behavior already does, not what someone hopes it could do. The adapter layer should handle the new runtime without touching the business logic. The proof should be automated and repeatable — a test suite that runs the same behavior in both the monolith context and the extracted context and asserts equivalence.</p>
+            <p>The extraction should be conservative: the contract should reflect what the behavior already does, not what someone hopes it could do. The adapter layer should handle the new runtime without touching the business logic. The proof should be automated and repeatable: a test suite that runs the same behavior in both the monolith context and the extracted context and asserts equivalence.</p>
             <p>Once the first extraction is proven, the team has a template. Subsequent extractions follow the same path. The monolith continues to host everything else while the UMA boundary earns its design cost through demonstrated portability. That is a migration, not a rewrite.</p>
           </section>
 
@@ -89,9 +89,9 @@ related_refs:
             <h2>Questions and answers</h2>
             <dl>
               <dt>Is a modular monolith worse than UMA?</dt>
-              <dd>Not necessarily. A modular monolith with clear module boundaries is a healthy architecture when deployment simplicity is the right tradeoff. UMA adds value when runtime diversity appears — when a capability is needed in more than one execution context. Before that pressure exists, the modular monolith is often the better choice, and the UMA model is explicit about that.</dd>
+              <dd>Not necessarily. A modular monolith with clear module boundaries is a healthy architecture when deployment simplicity is the right tradeoff. UMA adds value when runtime diversity appears. when a capability is needed in more than one execution context. Before that pressure exists, the modular monolith is often the better choice, and the UMA model is explicit about that.</dd>
               <dt>Does UMA require breaking apart a monolith?</dt>
-              <dd>No. UMA can coexist with a monolith. One extracted portable capability is a valid starting point — the monolith continues hosting everything else while the UMA boundary proves the extraction approach. The model does not demand full decomposition, and a team that forces it to does so by misreading the advice.</dd>
+              <dd>No. UMA can coexist with a monolith. One extracted portable capability is a valid starting point: the monolith continues hosting everything else while the UMA boundary proves the extraction approach. The model does not demand full decomposition, and a team that forces it to does so by misreading the advice.</dd>
             </dl>
           </section>
           <section class="subpage-grid">

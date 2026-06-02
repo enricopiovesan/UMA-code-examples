@@ -1,7 +1,7 @@
 ---
 ref: white-paper
 title: "Research Papers by Enrico Piovesan"
-subtitle: "Published research on distributed systems architecture — composable service models, portable microservices, and execution context coherence."
+subtitle: "Published research on distributed systems architecture. composable service models, portable microservices, and execution context coherence."
 macro_area: discoverability
 content_type: resource
 slug: white-paper
@@ -34,16 +34,16 @@ related_refs:
 
 <div class="subpage-body">
   <section>
-    <h2>CSMA — Composable Software Model Architecture (June 2023)</h2>
+    <h2>CSMA. Composable Software Model Architecture (June 2023)</h2>
     <p>
       CSMA addresses a specific architectural failure mode: distributed systems that fragment because service boundaries
       are defined at the deployment unit rather than at the behavioral contract. The paper introduces the composable
-      service model — a structured separation between durable business logic and the runtime that hosts it — and proposes
+      service model (a structured separation between durable business logic and the runtime that hosts it) and proposes
       machine-readable contracts as the mechanism for making service composition inspectable and governable.
     </p>
     <p>
-      The three structural separations it defines — behavior from runtime, contract from implementation, placement from
-      business logic — are the conceptual foundation this line of research builds on.
+      The three structural separations it defines (behavior from runtime, contract from implementation, placement from
+      business logic) are the conceptual foundation this line of research builds on.
     </p>
     <div class="subpage-inline-links">
       <a href="https://medium.com/@enricopiovesan" rel="noopener">Read on Medium →</a>
@@ -51,7 +51,7 @@ related_refs:
   </section>
 
   <section>
-    <h2>UMA — Universal Microservices Architecture (August 2024)</h2>
+    <h2>UMA. Universal Microservices Architecture (August 2024)</h2>
     <p>
       The paper that formalizes the model under its current name. The UMA white paper specifies the portable service
       as a WASM module with an active descriptor, defines the runtime layer's responsibilities (validation, adapter
@@ -60,7 +60,7 @@ related_refs:
     </p>
     <p>
       This paper is the architectural specification behind the book and the companion repository. The four structural
-      properties it defines — explicit contract, portable binary, governed runtime, parity proof — remain the
+      properties it defines (explicit contract, portable binary, governed runtime, parity proof) remain the
       definitional core of UMA.
     </p>
     <div class="subpage-inline-links">
@@ -69,14 +69,14 @@ related_refs:
   </section>
 
   <section>
-    <h2>ECCA — Execution Context Coherence Architecture (August 2025)</h2>
+    <h2>ECCA. Execution Context Coherence Architecture (August 2025)</h2>
     <p>
       ECCA addresses the governance question that emerges when AI agents become execution participants: how do trust,
       contract validation, and behavioral evidence apply when the caller is a reasoning model rather than a
       human-written service?
     </p>
     <p>
-      The paper introduces execution context coherence as a system-level property — the condition where heterogeneous
+      The paper introduces execution context coherence as a system-level property: the condition where heterogeneous
       participants (classical services, WASM modules, AI-assisted paths) produce verifiable, governed output regardless
       of which execution context initiated the call. It defines how Model Context Protocol fits into a governed
       execution model.

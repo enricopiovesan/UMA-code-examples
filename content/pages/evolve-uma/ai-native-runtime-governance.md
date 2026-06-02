@@ -30,20 +30,20 @@ related_refs:
           <section>
             <h2>The proposal-authority split</h2>
             <p>AI systems are increasingly capable at proposing: ranking options, assembling workflows, summarizing constraints, suggesting next steps. That capability is genuinely useful. What these systems should not do is become the authority for whether something is allowed.</p>
-            <p>UMA makes that split explicit and enforced at the runtime layer — not as a prompt instruction, not as a trust-but-verify policy, but as a structural boundary that the system upholds regardless of what the agent proposes. The agent can say anything. The runtime decides what runs.</p>
-            <p>That is the difference between an AI-assisted workflow and an AI-owned architecture. In an AI-assisted workflow, the agent is a capable participant with a specific role. In an AI-owned architecture, the agent's output becomes the implicit approval mechanism — and there is no governed boundary to recover from.</p>
+            <p>UMA makes that split explicit and enforced at the runtime layer: not as a prompt instruction, not as a trust-but-verify policy, but as a structural boundary that the system upholds regardless of what the agent proposes. The agent can say anything. The runtime decides what runs.</p>
+            <p>That is the difference between an AI-assisted workflow and an AI-owned architecture. In an AI-assisted workflow, the agent is a capable participant with a specific role. In an AI-owned architecture, the agent's output becomes the implicit approval mechanism. There is no governed boundary to recover from.</p>
           </section>
           <section>
             <h2>Why this matters now</h2>
             <p>Agentic systems are moving from single-turn responses to multi-step execution. An agent that runs one query and returns text is low-risk. An agent that assembles a multi-step workflow, triggers capability chains, and operates across trust boundaries is a different category of system.</p>
-            <p>The risk in that second category is not that the agent proposes the wrong thing. Proposals can be wrong and the system survives. The risk is that there is no governed boundary between proposal and execution. Without that boundary, the agent becomes the architecture — and the architecture's correctness depends entirely on the agent's judgment in every case, with no structural backstop.</p>
+            <p>The risk in that second category is not that the agent proposes the wrong thing. Proposals can be wrong and the system survives. The risk is that there is no governed boundary between proposal and execution. Without that boundary, the agent becomes the architecture. The architecture's correctness depends entirely on the agent's judgment in every case, with no structural backstop.</p>
             <p>MCP and similar agent coordination protocols are accelerating this shift in 2025 and 2026. The teams that will handle it well are the ones that establish runtime governance before the boundary question becomes urgent.</p>
           </section>
           <section>
             <h2>What UMA runtime governance looks like with AI</h2>
-            <p>A concrete description: an agent — an LLM-backed planner — receives a goal. It inspects available capabilities through their descriptors. It proposes a workflow: a sequence of capabilities, data flow between them, event emissions, and expected outcomes.</p>
+            <p>A concrete description: an agent (an LLM-backed planner) receives a goal. It inspects available capabilities through their descriptors. It proposes a workflow: a sequence of capabilities, data flow between them, event emissions, and expected outcomes.</p>
             <p>The UMA runtime receives that proposal and validates it against declared contracts. Are the capabilities compatible at the schema level? Do the declared permissions cover the requested access? Does the placement policy allow this capability to run in this environment? Does the trust model allow this agent to trigger this execution? Each check has a specific answer.</p>
-            <p>If all checks pass, execution is approved and proceeds. If any check fails, the proposal is rejected with a specific reason — not a generic error, but the precise constraint that was not satisfied. The agent can use that reason to revise the proposal. The revision loop is deliberate: it is how the system stays collaborative without becoming permissive.</p>
+            <p>If all checks pass, execution is approved and proceeds. If any check fails, the proposal is rejected with a specific reason: not a generic error, but the precise constraint that was not satisfied. The agent can use that reason to revise the proposal. The revision loop is deliberate: it is how the system stays collaborative without becoming permissive.</p>
           </section>
           <section>
             <h2>Trace as a governance artifact</h2>
@@ -53,15 +53,15 @@ related_refs:
           </section>
           <section>
             <h2>What this prevents</h2>
-            <p>Prompt injection reaching execution: when an agent's input can be manipulated to include instructions that alter its proposals, a runtime that validates proposals against declared contracts will reject the altered path — the injection changes the proposal but cannot change the constraints.</p>
+            <p>Prompt injection reaching execution: when an agent's input can be manipulated to include instructions that alter its proposals, a runtime that validates proposals against declared contracts will reject the altered path. The injection changes the proposal but cannot change the constraints.</p>
             <p>Capability escalation through chained proposals: an agent that proposes a sequence of individually-valid steps that collectively exceed its declared permissions will be stopped when the accumulated access is validated against the trust model.</p>
-            <p>Silent approval when constraints are ambiguous: the runtime does not proceed optimistically. Ambiguous constraints are resolved conservatively — the proposal is rejected and the agent is asked to clarify, not waved through with a warning.</p>
+            <p>Silent approval when constraints are ambiguous: the runtime does not proceed optimistically. Ambiguous constraints are resolved conservatively. The proposal is rejected and the agent is asked to clarify, not waved through with a warning.</p>
             <p>Agents as implicit authorities: the most important thing the governance layer prevents is the gradual drift toward treating agent output as approval. That drift is silent, incremental, and very hard to reverse once it becomes the operational norm.</p>
           </section>
           <section>
             <h2>The distinction from conventional AI safety</h2>
             <p>Conventional AI safety focuses on model output: whether the model produces harmful text, whether its reasoning is sound, whether its recommendations are accurate. These are real concerns worth addressing seriously.</p>
-            <p>UMA runtime governance focuses on a different layer: what the model's output can trigger. A model can produce a perfectly accurate, well-reasoned workflow proposal that nonetheless requests access to capabilities the agent was never authorized to use. The output is not harmful; the execution would be.</p>
+            <p>UMA runtime governance focuses on a different layer: what the model's output can trigger. A model can produce a perfectly accurate, well-reasoned workflow proposal that nonetheless requests access to capabilities the agent was never authorized to use. The output is not harmful. The execution would be.</p>
             <p>Both layers matter. They are complementary rather than competing. Model-level safety governs what the agent says. Runtime governance governs what the system does with it.</p>
           </section>
           <section class="subpage-grid"><article class="subpage-card"><h3>Proposal</h3><p>The agent can suggest a path or choose among candidates.</p></article><article class="subpage-card"><h3>Validation</h3><p>The runtime checks constraints, authority, placement, and capability compatibility.</p></article><article class="subpage-card"><h3>Execution</h3><p>Approved intent resolves into concrete runtime steps.</p></article><article class="subpage-card"><h3>Trace</h3><p>The final result should explain the path, not hide it.</p></article></section>
@@ -69,7 +69,7 @@ related_refs:
             <h2>Questions and answers</h2>
             <dl>
               <dt>Does UMA require a specific AI framework or model?</dt>
-              <dd>No. The runtime governance layer is independent of which model or framework produces the proposal. The runtime validates contracts and policies, not model outputs directly. You can use any LLM or agent framework on the proposal side; what changes is whether the execution side has a governed boundary.</dd>
+              <dd>No. The runtime governance layer is independent of which model or framework produces the proposal. The runtime validates contracts and policies, not model outputs directly. You can use any LLM or agent framework on the proposal side. What changes is whether the execution side has a governed boundary.</dd>
               <dt>Can an agent modify its own capabilities in UMA?</dt>
               <dd>No. Capabilities are declared in descriptors, not negotiated at runtime by the agent. The agent can propose workflows using declared capabilities. It cannot expand or redefine what those capabilities are. That constraint is what prevents the escalation pattern where an agent incrementally acquires access it was never granted.</dd>
             </dl>

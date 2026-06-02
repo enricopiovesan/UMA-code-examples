@@ -37,8 +37,8 @@ related_refs:
     <h2>Where the writing is published</h2>
     <p>
       Articles appear on two Medium channels: the primary UMA channel covers the architecture model, design decisions, and
-      worked examples. The software architecture channel covers broader distributed systems thinking that informs — but
-      is not specific to — UMA.
+      worked examples. The software architecture channel covers broader distributed systems thinking that informs UMA
+      but is not specific to it.
     </p>
     <div class="subpage-inline-links">
       <a href="https://medium.com/universalmicroservicesarchitecture" rel="noopener">UMA on Medium →</a>

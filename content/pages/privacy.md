@@ -6,7 +6,7 @@ macro_area: discoverability
 content_type: page
 slug: privacy
 canonical_url: "https://www.universalmicroservices.com/discoverability/privacy/"
-seo_description: "Privacy policy for universalmicroservices.com — what data is collected, how it is used, and your rights."
+seo_description: "Privacy policy for universalmicroservices.com: what data is collected, how it is used, and your rights."
 breadcrumbs:
   - "Home"
   - "Privacy"
@@ -25,7 +25,7 @@ breadcrumbs:
   <section>
     <h2>What is collected</h2>
     <p>
-      This site uses Google Analytics (GA4) to measure aggregate traffic — page views, session duration, and referral sources.
+      This site uses Google Analytics (GA4) to measure aggregate traffic: page views, session duration, and referral sources.
       No personally identifiable information is collected. IP addresses are anonymized. No advertising or retargeting data is used.
     </p>
     <p>
@@ -36,17 +36,17 @@ breadcrumbs:
   <section>
     <h2>Third-party services</h2>
     <p>
-      <strong>Google Analytics</strong> — aggregate usage metrics. Governed by
+      <strong>Google Analytics</strong> provides aggregate usage metrics. Governed by
       <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer noopener">Google's Privacy Policy</a>.
       You can opt out using the
       <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noreferrer noopener">Google Analytics Opt-out Browser Add-on</a>.
     </p>
     <p>
-      <strong>Google Fonts</strong> — typefaces loaded from Google's CDN. Google may log the request IP.
+      <strong>Google Fonts</strong> provides typefaces loaded from Google's CDN. Google may log the request IP.
       See <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noreferrer noopener">Google Fonts privacy FAQ</a>.
     </p>
     <p>
-      <strong>Amazon</strong> — the "Pre-order on Amazon" links go to amazon.com. Amazon's own privacy policy applies when you visit their site.
+      <strong>Amazon</strong>: the "Pre-order on Amazon" links go to amazon.com. Amazon's own privacy policy applies when you visit their site.
     </p>
   </section>
 
@@ -56,7 +56,7 @@ breadcrumbs:
       If you are in the EU or UK, you have rights under GDPR including the right to access, correct, or delete data held about you.
       Because this site collects no personal data directly, there is nothing to access or delete beyond what Google Analytics retains.
       For Google's data deletion tools, visit
-      <a href="https://myaccount.google.com/data-and-privacy" target="_blank" rel="noreferrer noopener">Google Account — Data &amp; Privacy</a>.
+      <a href="https://myaccount.google.com/data-and-privacy" target="_blank" rel="noreferrer noopener">Google Account: Data &amp; Privacy</a>.
     </p>
   </section>
 

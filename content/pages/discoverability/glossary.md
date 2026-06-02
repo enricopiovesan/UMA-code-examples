@@ -38,7 +38,7 @@ related_refs:
             <dl>
               <dt>Active descriptor</dt>
               <dd>
-                Structured metadata the runtime reads before making an execution decision — not documentation beside
+                Structured metadata the runtime reads before making an execution decision. not documentation beside
                 a service. A descriptor declares input schema, output schema, emitted events, placement targets,
                 version constraints, and evidence expectations. If any check fails, the runtime rejects the path
                 with a specific reason. Because the descriptor constrains rather than informs, drift is detectable
@@ -57,7 +57,7 @@ related_refs:
               <dd>
                 A runtime-provided binding that connects a portable service to a concrete host without changing
                 the service's business logic. Adapters handle transport, protocol translation, and credential
-                injection. Because adapters live in the runtime layer — not inside the service — the same
+                injection. Because adapters live in the runtime layer (not inside the service) the same
                 service works across different hosts by swapping adapters, not by forking the code.
               </dd>
 
@@ -100,14 +100,14 @@ related_refs:
                 The unit the runtime can discover, validate, and compose into a workflow. A capability is a
                 named piece of behavior with a visible contract: input schema, output schema, version, placement
                 rules, and events it emits or requires. The runtime selects, rejects, or chains capabilities
-                based on declared contracts — not implicit knowledge of their internals.
+                based on declared contracts. not implicit knowledge of their internals.
               </dd>
 
               <dt>Contract</dt>
               <dd>
                 The explicit declaration of what a service expects as input, produces as output, emits as
                 events, requires as permissions, and leaves as execution evidence. In UMA, a contract is
-                machine-readable and runtime-evaluated — not a human-readable agreement between teams.
+                machine-readable and runtime-evaluated. not a human-readable agreement between teams.
                 Contracts are what make portability verifiable rather than assumed.
               </dd>
             </dl>
@@ -121,7 +121,7 @@ related_refs:
                 The full set of runtime conditions for a single execution: host capabilities available,
                 trust policy in effect, identity and permissions granted, and placement constraints applied.
                 Two runs of the same service in different contexts may use different adapters, trust levels,
-                and latency profiles — but the business behavior inside the portable boundary stays the same.
+                and latency profiles. but the business behavior inside the portable boundary stays the same.
               </dd>
             </dl>
           </section>
@@ -133,7 +133,7 @@ related_refs:
               <dd>
                 A concrete portable service used throughout the UMA book and examples. It takes a flag key
                 and evaluation context as inputs and returns a boolean or variant result. It is deterministic,
-                stateless, and free of runtime-specific dependencies — which makes it an ideal first portable
+                stateless, and free of runtime-specific dependencies, which makes it an ideal first portable
                 service. Chapter 4 runs it as a WASM module with an active descriptor, identically in native
                 Rust and in a WASM host, without changing the compiled artifact.
               </dd>
@@ -162,7 +162,7 @@ related_refs:
                 The concrete runtime that executes a portable service: a browser, an edge worker, a server
                 running wasmtime, a Kubernetes sidecar, or an AI-adjacent workflow engine. The host supplies
                 capabilities through adapters and WASI interfaces. UMA's portability goal is that the host
-                can change without requiring the service to change — as long as the host satisfies the
+                can change without requiring the service to change. as long as the host satisfies the
                 service's declared contract.
               </dd>
             </dl>
@@ -175,7 +175,7 @@ related_refs:
               <dd>
                 Evidence that a portable service produces equivalent outputs across two or more execution
                 environments. A parity proof runs the same service with the same inputs against different
-                hosts — for example, native Rust and a WASM runtime — and compares outputs and observable
+                hosts (for example, native Rust and a WASM runtime) and compares outputs and observable
                 side effects. Chapter 6 of the UMA examples is structured as a parity proof. Portability
                 that is not proved is an assumption.
               </dd>
@@ -193,7 +193,7 @@ related_refs:
                 A service whose business behavior stays stable across execution environments. It carries
                 an explicit contract, has no hidden runtime dependencies, and can be verified through
                 parity proofs. A portable service is not tied to a specific framework, queue, or host
-                assumption. In UMA, portable services are the durable center of the system; the runtime
+                assumption. In UMA, portable services are the durable center of the system. the runtime
                 layer handles everything that varies by environment.
               </dd>
             </dl>
@@ -204,8 +204,8 @@ related_refs:
             <dl>
               <dt>Runtime diversity</dt>
               <dd>
-                The ability to run the same portable service across structurally different host environments —
-                browser, edge, server, workflow engine — without splitting business behavior into separate
+                The ability to run the same portable service across structurally different host environments  (
+                browser, edge, server, workflow engine) without splitting business behavior into separate
                 implementations. Runtime diversity is an architectural goal in UMA. The system should be able
                 to add or change execution targets without triggering behavioral drift.
               </dd>
@@ -214,7 +214,7 @@ related_refs:
               <dd>
                 The governed infrastructure around a portable service that handles validation, adapter binding,
                 placement decisions, trust enforcement, and execution evidence. The runtime layer owns
-                everything that varies by environment; the service owns the durable rule. That separation
+                everything that varies by environment. the service owns the durable rule. That separation
                 lets you move a service to a new host without rewriting the business logic and audit execution
                 decisions without instrumenting the service itself.
               </dd>
@@ -224,8 +224,8 @@ related_refs:
                 The runtime's decision about where a portable service should execute for a specific request:
                 browser, edge node, backend server, or workflow engine. The decision is governed by the
                 service's declared placement constraints, the trust policy in effect, latency requirements,
-                and host capabilities. Moving placement decisions into the runtime layer — rather than
-                hardcoding them in services — is one of UMA's structural contributions.
+                and host capabilities. Moving placement decisions into the runtime layer (rather than
+                hardcoding them in services) is one of UMA's structural contributions.
               </dd>
             </dl>
           </section>
@@ -237,7 +237,7 @@ related_refs:
               <dd>
                 The declared edge of a portable service's responsibility: what it accepts as input, what it
                 produces as output, and what it does not own. In UMA, a service boundary is expressed through
-                the active descriptor — not through implicit code-level coupling. A well-drawn boundary lets
+                the active descriptor. not through implicit code-level coupling. A well-drawn boundary lets
                 the runtime validate compatibility, compose services into workflows, and detect when one
                 service's change would break another.
               </dd>
@@ -250,7 +250,7 @@ related_refs:
               <dt>Universal Microservices Architecture (UMA)</dt>
               <dd>
                 An execution model for distributed systems that keeps business behavior portable across
-                multiple environments — browser, edge, cloud, workflow, and AI-assisted paths — while
+                multiple environments (browser, edge, cloud, workflow, and AI-assisted paths) while
                 runtime governance, contracts, trust, and placement stay explicit. UMA splits
                 responsibility in two: the portable service owns the durable business rule, and the
                 runtime layer owns everything that varies by environment. The goal is behavioral coherence
@@ -273,11 +273,11 @@ related_refs:
 
               <dt>WASI (WebAssembly System Interface)</dt>
               <dd>
-                A standardized, capability-gated interface that gives WASM modules access to host resources —
-                clocks, file descriptors, network sockets, and HTTP — without embedding host-specific code in
+                A standardized, capability-gated interface that gives WASM modules access to host resources  (
+                clocks, file descriptors, network sockets, and HTTP) without embedding host-specific code in
                 the module. WASI 0.2, stable since February 2024, introduced the Component Model and added
                 <code>wasi:http</code>, making server-side WASM practical for real workloads. The host decides
-                which WASI capabilities to grant at startup; the module can only use what it explicitly receives.
+                which WASI capabilities to grant at startup. the module can only use what it explicitly receives.
               </dd>
 
               <dt>Workflow</dt>

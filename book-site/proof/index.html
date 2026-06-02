@@ -114,7 +114,7 @@
       The underlying principle is that proof should be observable. Not "we designed it to be portable" but "here is the same service producing the same output in two different runtimes with the specific differences in the surrounding runtime behavior made explicit." That is the standard the examples in this repository are held to.
     </p>
     <p>
-      Architecture claims that cannot be inspected tend to drift toward assumptions, and assumptions compound. The proof section exists so the UMA portability claim stays falsifiable — something you can run, compare, and verify before deciding whether the model applies to your system.
+      Architecture claims that cannot be inspected tend to drift toward assumptions, and assumptions compound. The proof section exists so the UMA portability claim stays falsifiable: something you can run, compare, and verify before deciding whether the model applies to your system.
     </p>
     <div class="subpage-inline-links">
       <a href="../evolve-uma/">Continue to: System Evolution →</a>
@@ -124,31 +124,31 @@
   <section>
     <h2 id="what-portable-means-as-a-testable-claim">What "portable" means as a testable claim</h2>
     <p>
-      Portable is not a design goal in the UMA sense. It is a testable property of a specific artifact running in a specific set of environments. The test is not whether the code was written with portability in mind, or whether it avoids runtime-specific APIs, or whether the team intends to support multiple runtimes. The test is whether the same compiled binary, given the same inputs, produces the same outputs across each target runtime — with the runtime-introduced differences made explicit.
+      Portable is not a design goal in the UMA sense. It is a testable property of a specific artifact running in a specific set of environments. The test is not whether the code was written with portability in mind, or whether it avoids runtime-specific APIs, or whether the team intends to support multiple runtimes. The test is whether the same compiled binary, given the same inputs, produces the same outputs across each target runtime, with the runtime-introduced differences made explicit.
     </p>
     <p>
-      That last clause matters. "Same outputs" does not mean the runtime is invisible. It means the business logic output is stable while runtime metadata — execution timing, host context, instrumentation — may vary by design. A portable service is one where you can distinguish which differences come from the logic and which come from the runtime. When you cannot make that distinction, you do not have portability — you have a black box that happens to work in multiple environments.
+      That last clause matters. "Same outputs" does not mean the runtime is invisible. It means the business logic output is stable while runtime metadata (execution timing, host context, instrumentation) may vary by design. A portable service is one where you can distinguish which differences come from the logic and which come from the runtime. When you cannot make that distinction, you do not have portability. You have a black box that happens to work in multiple environments.
     </p>
     <h2 id="what-the-benchmark-measures">What the benchmark measures</h2>
     <p>
-      The benchmark used in this repository runs the same WASM binary across three runtimes: a server-side managed runtime, a local CLI host, and a browser-based execution context. Each run receives identical inputs. The outputs are compared structurally, not as raw bytes — the comparison accounts for runtime-injected fields and normalizes them before asserting equivalence of the business logic result.
+      The benchmark used in this repository runs the same WASM binary across three runtimes: a server-side managed runtime, a local CLI host, and a browser-based execution context. Each run receives identical inputs. The outputs are compared structurally, not as raw bytes. The comparison accounts for runtime-injected fields and normalizes them before asserting equivalence of the business logic result.
     </p>
     <p>
-      What the benchmark is not measuring: raw throughput, latency percentiles, or operational efficiency. Those are runtime-dependent by definition and vary with infrastructure, not with the service logic. A benchmark that optimizes for those numbers is measuring the runtime, not the service. The UMA benchmark measures something different — whether the portable unit stays behaviorally stable as the execution context changes. The footprint data (binary size, memory at load, startup cost) is included because those numbers determine which runtimes the service is viable in, not just which runtimes it technically runs on.
+      What the benchmark is not measuring: raw throughput, latency percentiles, or operational efficiency. Those are runtime-dependent by definition and vary with infrastructure, not with the service logic. A benchmark that optimizes for those numbers is measuring the runtime, not the service. The UMA benchmark measures whether the portable unit stays behaviorally stable as the execution context changes. The footprint data (binary size, memory at load, startup cost) is included because those numbers determine which runtimes the service is viable in, not just which runtimes it technically runs on.
     </p>
     <h2 id="portability-inspectable-vs-portability-assumed">Portability inspectable vs portability assumed</h2>
     <p>
       Most portability claims are architectural. The system was designed to be portable. The interfaces are abstract. The dependencies are injected. These are inputs to portability, not evidence of it. They tell you the team intended the service to be moveable, not that it actually moves.
     </p>
     <p>
-      Inspectable portability requires a different kind of artifact: a test harness that runs the same binary in multiple environments and records the comparison, a descriptor that declares the runtime requirements so mismatches surface before deployment, and a build process that produces deterministic output so the binary at test time is the binary at production time. The UMA code examples include all three. The portability claim is not inferred from the design — it is re-verified on every build.
+      Inspectable portability requires a different kind of artifact: a test harness that runs the same binary in multiple environments and records the comparison, a descriptor that declares the runtime requirements so mismatches surface before deployment, and a build process that produces deterministic output so the binary at test time is the binary at production time. The UMA code examples include all three. The portability claim is not inferred from the design. It is re-verified on every build.
     </p>
     <h2 id="runtime-agnostic-vs-cross-platform">Runtime-agnostic vs cross-platform</h2>
     <p>
-      Runtime-agnostic and cross-platform are often used interchangeably, but they describe different properties. Cross-platform means the software can be compiled or interpreted for different operating systems or hardware architectures. The code is the same; the binary may differ. Runtime-agnostic means the service logic does not depend on any specific execution host — it can be loaded and run by any runtime that conforms to the required interface, without recompilation.
+      Runtime-agnostic and cross-platform are often used interchangeably, but they describe different properties. Cross-platform means the software can be compiled or interpreted for different operating systems or hardware architectures. The code is the same. The binary may differ. Runtime-agnostic means the service logic does not depend on any specific execution host. It can be loaded and run by any runtime that conforms to the required interface, without recompilation.
     </p>
     <p>
-      WASM is the mechanism that makes runtime-agnostic a concrete property rather than an aspirational one. A WASM binary compiled from a UMA service module does not change between runtimes. The runtime changes around it. The adapter layer — the code that connects the binary to the specific host API — is what varies, and that variation is bounded by the contract. This is what makes the portability claim inspectable: the binary is the constant, and the adapter is the explicit variable. You can read the adapter, test it independently, and verify that it only converts host-specific inputs into the contract interface — it does not change what the service does.
+      WASM is the mechanism that makes runtime-agnostic a concrete property rather than an aspirational one. A WASM binary compiled from a UMA service module does not change between runtimes. The runtime changes around it. The adapter layer (the code that connects the binary to the specific host API) is what varies, and that variation is bounded by the contract. This is what makes the portability claim inspectable: the binary is the constant, and the adapter is the explicit variable. You can read the adapter, test it independently, and verify that it only converts host-specific inputs into the contract interface. It does not change what the service does.
     </p>
   </section>
 

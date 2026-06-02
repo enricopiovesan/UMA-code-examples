@@ -38,10 +38,10 @@ related_refs:
               be inspected, and CI checks that execute on every commit.
             </p>
             <p>
-              Specifically, the application demonstrates: portable service boundaries that stay coherent across execution contexts; explicit
-              contracts that define behavior without depending on any one runtime; adapter binding that keeps host capabilities outside the
-              portable core; runtime governance that validates, approves, and records execution decisions; and behavioral equivalence across
-              native, WASI, TypeScript, browser, edge, and cloud paths.
+              Specifically, the application demonstrates portable service boundaries that stay coherent across execution contexts,
+              explicit contracts that define behavior without depending on any one runtime, adapter binding that keeps host capabilities
+              outside the portable core, runtime governance that validates, approves, and records execution decisions, and behavioral
+              equivalence across native, WASI, TypeScript, browser, edge, and cloud paths.
             </p>
             <p>
               The examples repository is the companion to the UMA book. It is structured so that each chapter proves a distinct architectural
@@ -52,7 +52,7 @@ related_refs:
           <section class="subpage-grid">
             <article class="subpage-card">
               <h3>What it demonstrates</h3>
-              <p>Portable service boundaries, explicit contracts, adapter binding, runtime governance, and behavioral equivalence — each proven with runnable output, not just described.</p>
+              <p>Portable service boundaries, explicit contracts, adapter binding, runtime governance, and behavioral equivalence: each proven with runnable output, not just described.</p>
             </article>
             <article class="subpage-card">
               <h3>How to verify it</h3>
@@ -64,15 +64,15 @@ related_refs:
             <h2>What it proves</h2>
             <p>
               Each chapter example proves a specific UMA claim with runnable output. The claims are not described and left for the reader to
-              accept — they are verified by CI on every commit to the repository.
+              accept. They are verified by CI on every commit to the repository.
             </p>
             <p>
               The CI badges at the top of the repository reflect that state:
             </p>
             <ul>
-              <li><strong>Reader Smoke</strong> — validates the complete guided reader path end to end</li>
-              <li><strong>Business Logic Coverage</strong> — reports 100% coverage of the portable core, independently of any host</li>
-              <li><strong>Benchmark Proof</strong> — validates the published footprint numbers against the actual binaries</li>
+              <li><strong>Reader Smoke</strong>: validates the complete guided reader path end to end</li>
+              <li><strong>Business Logic Coverage</strong>: reports 100% coverage of the portable core, independently of any host</li>
+              <li><strong>Benchmark Proof</strong>: validates the published footprint numbers against the actual binaries</li>
             </ul>
             <p>
               These badges are live:
@@ -87,7 +87,7 @@ related_refs:
               The three foundational chapters each prove a distinct layer of the UMA model.
             </p>
 
-            <h3>Chapter 4 — Feature Flag Evaluator</h3>
+            <h3>Chapter 4: Feature Flag Evaluator</h3>
             <p>
               The smallest portable UMA service boundary. The core is written in Rust: a pure evaluator with one contract, deterministic rule
               semantics, and a WASI CLI. A TypeScript implementation runs the same contract in parallel so that parity can be checked from
@@ -96,19 +96,19 @@ related_refs:
               unit tests, runs the TypeScript parity tests, and compares outputs across every guided lab.
             </p>
 
-            <h3>Chapter 5 — Post Fetcher Runtime</h3>
+            <h3>Chapter 5: Post Fetcher Runtime</h3>
             <p>
               The runtime layer around a pure service. This chapter makes explicit what belongs in the runtime versus what belongs in the
               service: the runtime selects and records the <code>network.fetch</code> adapter binding, validates input before side effects
-              happen, and produces lifecycle metadata that makes execution auditable. The validated path is hermetic — it resolves a
+              happen, and produces lifecycle metadata that makes execution auditable. The validated path is hermetic. It resolves a
               checked-in fixture through the host adapter rather than opening a localhost server. A TypeScript reference runtime mirrors the
               same scenarios for cross-language comparison. The smoke script is <code>./scripts/smoke_runtime_labs.sh</code>.
             </p>
 
-            <h3>Chapter 6 — Portability Lab</h3>
+            <h3>Chapter 6: Portability Lab</h3>
             <p>
               Multi-runtime behavioral equivalence under one contract. One Rust crate and one contract drive both a native binary and a
-              WASI binary. Parity is asserted from emitted <code>image.analyzed</code> events — not by trusting that shared code implies
+              WASI binary. Parity is asserted from emitted <code>image.analyzed</code> events, not by trusting that shared code implies
               shared behavior. Contract parameters change behavior without code edits. Target-specific capabilities such as native telemetry
               stay explicit without contaminating the portable path. The lab parity script checks event digests across both targets.
             </p>
@@ -132,7 +132,7 @@ related_refs:
 ./scripts/smoke_runtime_labs.sh</code></pre>
             <p>
               Both scripts are the chapter acceptance paths used during repo-level validation. Browser, edge, and cloud adapter paths in
-              both chapters remain illustrative host examples — they demonstrate the adapter binding model but are not part of the validated
+              both chapters remain illustrative host examples. They demonstrate the adapter binding model but are not part of the validated
               smoke paths.
             </p>
           </section>
@@ -164,11 +164,11 @@ related_refs:
               The repository is organized to make each proof surface findable without navigating a large codebase:
             </p>
             <ul>
-              <li><code>capability-descriptors/</code> — shared contract definitions used across chapters</li>
-              <li><code>chapter-04-feature-flag-evaluator/</code> through <code>chapter-13-portable-mcp-runtime/</code> — the full learning path in chapter sequence</li>
-              <li><code>benchmarks/</code> — generated proof artifacts for the published benchmark and footprint notes</li>
-              <li><code>coverage/</code> — business logic coverage reports</li>
-              <li><code>scripts/</code> — reader smoke, coverage, and repo-quality helpers</li>
+              <li><code>capability-descriptors/</code>: shared contract definitions used across chapters</li>
+              <li><code>chapter-04-feature-flag-evaluator/</code> through <code>chapter-13-portable-mcp-runtime/</code>: the full learning path in chapter sequence</li>
+              <li><code>benchmarks/</code>: generated proof artifacts for the published benchmark and footprint notes</li>
+              <li><code>coverage/</code>: business logic coverage reports</li>
+              <li><code>scripts/</code>: reader smoke, coverage, and repo-quality helpers</li>
             </ul>
             <p>
               The full repository is at

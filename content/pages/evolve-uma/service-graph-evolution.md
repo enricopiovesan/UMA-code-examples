@@ -94,7 +94,7 @@ related_refs:
             </article>
             <article class="subpage-card">
               <h3>Evolution is where drift appears</h3>
-              <p>Architectures rarely fail on day one; they fail when repeated changes make the graph harder to reason about.</p>
+              <p>Architectures rarely fail on day one. They fail when repeated changes make the graph harder to reason about.</p>
             </article>
             <article class="subpage-card">
               <h3>Governance keeps growth healthy</h3>

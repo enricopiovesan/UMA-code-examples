@@ -204,7 +204,7 @@ related_refs:
             <strong>See the runtime as a real decision layer</strong>
             <p>
               If this page clarified the role of the runtime, the next step is to look at a workflow where the runtime accepts, rejects,
-              and composes capabilities visibly. The live reference app shows the surface; in the book, I go further into why that runtime
+              and composes capabilities visibly. The live reference app shows the surface. In the book, I go further into why that runtime
               layer has to stay authoritative as systems grow more dynamic.
             </p>
             <div class="subpage-inline-links">

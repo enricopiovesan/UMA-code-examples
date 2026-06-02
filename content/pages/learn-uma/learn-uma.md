@@ -33,7 +33,7 @@ related_refs:
   <section>
     <h2>What this area covers</h2>
     <p>
-      Understanding UMA as a model and being able to apply it to a real system are different things. This area bridges them. The book develops the full methodology — from the first portable service through runtime governance, trust, discoverability, and AI-native execution. The learning path structures that journey for readers who want a clear sequence before diving into the examples. The end-to-end example walks through a complete scenario that spans multiple chapters.
+      Understanding UMA as a model and being able to apply it to a real system are different things. This area bridges them. The book develops the full methodology. from the first portable service through runtime governance, trust, discoverability, and AI-native execution. The learning path structures that journey for readers who want a clear sequence before diving into the examples. The end-to-end example walks through a complete scenario that spans multiple chapters.
     </p>
     <p>
       The code examples that accompany the book are in the <a href="https://github.com/enricopiovesan/UMA-code-examples">UMA-code-examples</a> repository on GitHub. Each chapter example is also available through the examples section of this site with a tutorial page, prerequisite list, and step-by-step walkthrough. The learning path explains how those chapters connect.

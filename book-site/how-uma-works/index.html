@@ -114,7 +114,7 @@
       The most common entry point is not a full adoption. It is one behavior that is duplicated across two runtimes. The practical first step is to extract that behavior behind an explicit contract and prove it produces identical outputs in both environments. That proof is the foundation for the rest. It makes portability an inspectable claim instead of an assumption.
     </p>
     <p>
-      This area also covers architecture drift — what happens when behavior duplication goes unmanaged — and what production readiness looks like when a UMA approach is being evaluated for a real system. These are not theoretical concerns. They are the questions teams ask before committing to any new architectural model.
+      This area also covers architecture drift (what happens when behavior duplication goes unmanaged) and what production readiness looks like when a UMA approach is being evaluated for a real system. These are not theoretical concerns. They are the questions teams ask before committing to any new architectural model.
     </p>
     <div class="subpage-inline-links">
       <a href="../learn-uma/">Continue to: Learn UMA →</a>
@@ -124,24 +124,24 @@
   <section>
     <h2 id="from-source-to-execution-the-actual-mechanism">From source to execution: the actual mechanism</h2>
     <p>
-      A UMA service starts as source code in any language that compiles to WebAssembly. The developer writes business logic, not runtime integration code. There are no SDK calls to a specific host, no imports of runtime-specific libraries, no assumptions about how the function will be invoked. The service module defines its interface — what it accepts and what it returns — through a typed contract that is specified separately from the implementation.
+      A UMA service starts as source code in any language that compiles to WebAssembly. The developer writes business logic, not runtime integration code. There are no SDK calls to a specific host, no imports of runtime-specific libraries, no assumptions about how the function will be invoked. The service module defines its interface (what it accepts and what it returns) through a typed contract that is specified separately from the implementation.
     </p>
     <p>
-      Compilation produces a WASM binary. That binary is the portable artifact. It does not contain host bindings. It cannot call arbitrary system APIs. The execution environment it will run in is entirely outside its scope — which is the point. The binary is a sealed behavior unit. Given the same inputs, it will produce the same outputs regardless of what is running around it.
+      Compilation produces a WASM binary. That binary is the portable artifact. It does not contain host bindings. It cannot call arbitrary system APIs. The execution environment it will run in is entirely outside its scope, which is the point. The binary is a sealed behavior unit. Given the same inputs, it will produce the same outputs regardless of what is running around it.
     </p>
     <h2 id="the-descriptor-layer">The descriptor layer</h2>
     <p>
-      Alongside the binary, the build process produces a service descriptor. The descriptor is machine-readable metadata that specifies the contract: what types the service accepts, what it returns, what trust conditions it requires, what runtime capabilities it needs (memory bounds, execution time limits, I/O permissions). The descriptor is not documentation — it is the specification the runtime reads before loading the binary.
+      Alongside the binary, the build process produces a service descriptor. The descriptor is machine-readable metadata that specifies the contract: what types the service accepts, what it returns, what trust conditions it requires, what runtime capabilities it needs (memory bounds, execution time limits, I/O permissions). The descriptor is not documentation: it is the specification the runtime reads before loading the binary.
     </p>
     <p>
       This is the layer that most architectural descriptions of UMA skip over, and it is the load-bearing one. The descriptor is what allows the runtime to make deployment decisions without executing the service. It is what allows the service graph to be validated for compatibility before any service runs. It is what allows trust policies to be applied at load time rather than inferred from runtime behavior. Without the descriptor, WASM portability is just a compilation target. With it, portability becomes a governed property of a system.
     </p>
     <h2 id="the-adapter-controlled-surface-between-binary-and-host">The adapter: controlled surface between binary and host</h2>
     <p>
-      The runtime cannot call the WASM binary directly using arbitrary host conventions. The binary expects inputs in the contract's type format. The host has its own invocation model — HTTP request objects, message queue payloads, event structures — that does not match the contract type format. The adapter is the code that converts between them.
+      The runtime cannot call the WASM binary directly using arbitrary host conventions. The binary expects inputs in the contract's type format. The host has its own invocation model (HTTP request objects, message queue payloads, event structures) that does not match the contract type format. The adapter is the code that converts between them.
     </p>
     <p>
-      Adapters are runtime-specific and thin by design. A server-side HTTP adapter converts an incoming request into the input type the contract specifies, invokes the binary, and converts the output type back into an HTTP response. A browser adapter does the same for browser event inputs. The adapter does not contain business logic. It cannot — any business logic in the adapter is logic that the portable binary does not own, which means it is logic that will have to be duplicated or diverge when the service moves to a different runtime.
+      Adapters are runtime-specific and thin by design. A server-side HTTP adapter converts an incoming request into the input type the contract specifies, invokes the binary, and converts the output type back into an HTTP response. A browser adapter does the same for browser event inputs. The adapter does not contain business logic. It cannot: any business logic in the adapter is logic that the portable binary does not own, which means it is logic that will have to be duplicated or diverge when the service moves to a different runtime.
     </p>
     <p>
       The boundary between adapter and binary is the actual runtime boundary in UMA. Everything inside the binary is portable. Everything inside the adapter is host-specific. Making that boundary explicit and enforced is what distinguishes UMA from an architecture where "portable" is an intention rather than a constraint.
@@ -151,7 +151,7 @@
       The compile → descriptor → adapter → runtime chain is not an implementation detail. It is the reason the system's other properties hold. Portability holds because the binary has no host dependencies. Inspectability holds because the descriptor makes requirements explicit before execution. Governance holds because the runtime reads the descriptor and enforces the contract at load time, not at design time.
     </p>
     <p>
-      When teams adopt frameworks that blur this separation — embedding runtime-specific calls in business logic, encoding contract requirements as runtime configuration rather than service-level descriptors, letting adapters grow to include logic — they get a system that runs in multiple environments but is not actually portable. Moving the service requires changing the service. The test for whether the separation is real is simple: can you swap the adapter for a different runtime without touching the binary or the descriptor? If yes, the boundary is where UMA requires it to be. If no, the boundary has drifted into the logic.
+      When teams adopt frameworks that blur this separation (embedding runtime-specific calls in business logic, encoding contract requirements as runtime configuration rather than service-level descriptors, letting adapters grow to include logic) they get a system that runs in multiple environments but is not actually portable. Moving the service requires changing the service. The test for whether the separation is real is simple: can you swap the adapter for a different runtime without touching the binary or the descriptor? If yes, the boundary is where UMA requires it to be. If no, the boundary has drifted into the logic.
     </p>
   </section>
 

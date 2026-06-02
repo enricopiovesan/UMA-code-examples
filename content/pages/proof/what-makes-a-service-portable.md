@@ -40,7 +40,7 @@ related_refs:
             <p>
               That is stricter than “shared logic.” Portability becomes real only when a team can preserve meaning, not just move code.
               In UMA terms, the goal is not “write once, run everywhere.” It is “write once, run where it makes sense.” The practical
-              implication is that portability is a design constraint enforced from the start — not a property you can retrofit once the
+              implication is that portability is a design constraint enforced from the start, not a property you can retrofit once the
               service has already absorbed transport assumptions, host-specific helpers, or environment-branching logic.
             </p>
           </section>
@@ -100,7 +100,7 @@ related_refs:
             </p>
             <p>
               That is why a portable service boundary is so useful early in the UMA learning path. It makes the split visible: the service
-              owns the rule; the runtime owns the conditions around execution.
+              owns the rule. The runtime owns the conditions around execution.
             </p>
           </section>
 
