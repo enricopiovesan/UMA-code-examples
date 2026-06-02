@@ -832,7 +832,6 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
     ${dates?.published ? `<meta name="article:published_time" content="${dates.published}" />` : ""}
     ${dates?.modified ? `<meta name="article:modified_time" content="${dates.modified}" />` : ""}
     ${structuredData}
-    <link rel="stylesheet" href="${prefix}assets/fonts/fonts.css" />
     <link rel="stylesheet" href="${prefix}styles.css" />
     <link rel="stylesheet" href="${prefix}subpages.css" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
