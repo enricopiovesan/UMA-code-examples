@@ -2091,10 +2091,6 @@ h3 {
   padding-bottom: 2rem;
 }
 
-.diagram-section .section-label-row::after {
-  display: none;
-}
-
 .uma-flow-diagram {
   width: 100%;
 }
