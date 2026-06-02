@@ -16,6 +16,7 @@ const MACRO_NAV_LINKS = [
   ["Proof", "proof/"],
   ["Evolution", "evolve-uma/"],
   ["Comparisons", "comparisons/"],
+  ["Use Cases", "use-cases/"],
   ["About", "discoverability/"],
 ];
 
@@ -119,6 +120,7 @@ function resolveSiteMapGroupSlug(label) {
     "System Evolution": "evolve-uma",
     "Discovery and References": "discoverability",
     "Comparisons and Tradeoffs": "comparisons",
+    "Use Cases": "use-cases",
   };
 
   return groupMap[label] || slugify(label);

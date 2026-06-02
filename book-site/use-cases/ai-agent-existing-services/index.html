@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Agent Integration Without Rewriting Your Services | Universal Microservices Architecture</title>
+    <meta name="description" content="Let AI agents call existing microservices without wrappers or duplicated logic. How UMA runtime governance makes services AI-callable without rewriting them." />
+    <meta name="author" content="Enrico Piovesan" />
+
+    <link rel="canonical" href="https://www.universalmicroservices.com/use-cases/ai-agent-existing-services/" />
+    <meta property="og:title" content="AI Agent Integration Without Rewriting Your Services" />
+    <meta property="og:description" content="Let AI agents call existing microservices without wrappers or duplicated logic. How UMA runtime governance makes services AI-callable without rewriting them." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.universalmicroservices.com/use-cases/ai-agent-existing-services/" />
+    <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Agent Integration Without Rewriting Your Services" />
+    <meta name="twitter:description" content="Let AI agents call existing microservices without wrappers or duplicated logic. How UMA runtime governance makes services AI-callable without rewriting them." />
+    <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
+
+
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"AI Agent Integration Without Rewriting Your Services","item":"https://www.universalmicroservices.com/use-cases/ai-agent-existing-services/"}]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.universalmicroservices.com/use-cases/ai-agent-existing-services/#webpage","name":"AI Agent Integration Without Rewriting Your Services","description":"Let AI agents call existing microservices without wrappers or duplicated logic. How UMA runtime governance makes services AI-callable without rewriting them.","url":"https://www.universalmicroservices.com/use-cases/ai-agent-existing-services/","inLanguage":"en","isPartOf":{"@id":"https://www.universalmicroservices.com/#website"},"author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.universalmicroservices.com/#organization","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","logo":"https://www.universalmicroservices.com/assets/og-cover.jpg","sameAs":["https://github.com/enricopiovesan/UMA-code-examples","https://medium.com/the-rise-of-device-independent-architecture"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../subpages.css" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5ZJHZ3D5E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-J5ZJHZ3D5E");
+    </script>
+  </head>
+  <body>
+    <div class="page-shell has-page-rail">
+      <header class="topbar">
+        <div class="topbar-row">
+          <a class="brand" href="../../">
+            <span class="brand-mark">UMA</span>
+            <span class="brand-name">Universal Microservices Architecture</span>
+          </a>
+
+        <div class="topbar-utility">
+          <a class="topnav-utility" href="../../reference-application/">Ref App</a><a class="topnav-utility" href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a class="topnav-utility" href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order</a>
+          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+        </div>
+      </div>
+      <nav class="topbar-nav" aria-label="Primary">
+        <div class="topbar-nav-inner">
+          <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a><a href="../../use-cases/">Use Cases</a><a href="../../discoverability/">About</a>
+        </div>
+      </nav>
+      <div class="topbar-row-placeholder">
+        </div>
+      </header>
+
+      <aside class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+        <div class="mobile-menu-panel">
+          <button class="mobile-menu-close" type="button" aria-label="Close menu">Close</button>
+          <nav class="mobile-menu-nav">
+            <a href="../../why-uma/">Why</a><a href="../../core-model/">Core</a><a href="../../how-uma-works/">How it Works</a><a href="../../learn-uma/">Learn</a><a href="../../proof/">Proof</a><a href="../../evolve-uma/">Evolution</a><a href="../../comparisons/">Comparisons</a><a href="../../use-cases/">Use Cases</a><a href="../../discoverability/">About</a>
+            <a href="../../reference-application/">Ref App</a><a href="https://github.com/enricopiovesan/UMA-code-examples" target="_blank" rel="noreferrer noopener">GitHub</a><a href="https://medium.com/the-rise-of-device-independent-architecture" target="_blank" rel="noreferrer noopener">Blog</a>
+          </nav>
+        </div>
+      </aside>
+
+
+
+      <main class="subpage-main">
+
+        <nav class="page-breadcrumbs" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><span aria-current="page">AI Agent Integration Without Rewriting Your Services</span></li>
+          </ol>
+        </nav>
+
+
+<section class="subpage-hero">
+  <h1>AI Agent Integration Without Rewriting Your Services</h1>
+  <p>How to let AI agents call existing microservices without building separate adapters or duplicating business logic.</p>
+</section>
+
+<div class="subpage-body">
+  <section>
+    <h2 id="the-problem">The problem</h2>
+    <p>You have a pricing service. It has been in production for two years. It handles discount rules, tier logic, promotional overrides, and a handful of edge cases that were hard to get right the first time. It works. Your team trusts it.</p>
+    <p>Now you are building an AI agent that needs to quote a price during a conversation. The agent needs to call your pricing service. The service was not built for AI callers. It speaks REST. It expects an authenticated HTTP request with a specific payload shape. It returns a JSON blob that your front-end knows how to read but that an LLM context window does not.</p>
+    <p>So you face a choice: write a wrapper that translates between the agent and the service, or rewrite the service to expose a new interface. Neither option is good. The wrapper duplicates knowledge about what the service does. The rewrite risks the correctness you already have.</p>
+    <p>This problem is not unique to pricing services. It appears any time an AI agent needs to call business logic that was written for a different caller model. Authentication workflows, inventory checks, compliance validators, approval routing — the same mismatch appears across the stack.</p>
+  </section>
+
+  <section>
+    <h2 id="why-the-usual-approach-breaks">Why the usual approach breaks</h2>
+    <p>The instinctive fix is to wrap the service. Write a thin adapter that the agent calls. The adapter calls the real service. Problem solved, at least for now.</p>
+    <p>The wrapper approach accumulates hidden costs. Every wrapper is a new surface to maintain. When the underlying service changes its contract, the wrapper breaks silently or requires synchronized updates. When a second agent needs the same service, you write a second wrapper or share the first one and couple two agents together. When you need to audit what the agent did and why, the wrapper is a gap in the trace.</p>
+    <p>The deeper problem is that wrappers push logic in the wrong direction. The business rule that determines when a discount applies belongs in the pricing service. If the wrapper starts encoding conditions — "only call the service if the cart total is above X" — you now have business logic in the adapter layer, and the original service no longer describes its own behavior completely.</p>
+    <p>Rewriting the service for AI callers has the opposite problem. You add an MCP endpoint or a tool schema on top of existing logic, which sounds clean until the two interfaces drift. The REST API evolves for one set of callers. The MCP surface evolves for agents. They describe the same underlying behavior but through different contracts, and keeping them in sync becomes its own coordination overhead.</p>
+  </section>
+
+  <section>
+    <h2 id="how-uma-solves-it">How UMA solves it</h2>
+    <p>UMA separates service behavior from the caller model at the runtime layer, not the service layer. The pricing service does not need to know it is being called by an agent. The agent does not need to understand the service transport protocol. The UMA runtime sits between them and handles translation, policy enforcement, and traceability.</p>
+    <p>A UMA-governed service is described by a machine-readable descriptor: what it accepts, what it returns, what policies govern its execution, and what its contract version is. That descriptor is the stable surface. The service core — the business logic — does not change. What changes is which runtime is hosting the call.</p>
+    <p>When an agent needs to invoke the pricing service, it calls a tool that is backed by the UMA runtime. The runtime reads the service descriptor, validates the input, routes the call, enforces policy (rate limits, authorization, audit logging), and returns output in a shape the agent can use. The service itself is unchanged. The agent does not need a custom wrapper. The runtime provides the translation layer that both sides can trust.</p>
+    <p>This is runtime governance applied to AI integration. The behavior stays in the service. The governance lives in the runtime. The agent gets a stable, policy-enforced interface without anyone rewriting business logic to accommodate a new caller.</p>
+  </section>
+
+  <section>
+    <h2 id="what-this-looks-like-in-practice">What this looks like in practice</h2>
+    <p>Consider a pricing service packaged as a WASM module with an active descriptor. The descriptor declares the service input schema, output schema, allowed callers, and audit requirements. The module implements the pricing logic in a pure function: input in, output out, no side effects, no external calls.</p>
+    <p>An AI agent running inside a UMA-aware MCP host needs to quote a price. The host exposes the pricing service as an available tool based on the descriptor. The agent calls the tool. The runtime instantiates the WASM module, passes the validated input, and returns the output. The agent receives a structured price quote it can reason about.</p>
+    <p>From the agent perspective: a tool call returned a result. From the service perspective: a valid input arrived and a correct output was returned. From the runtime perspective: a governed call was logged, validated against policy, and executed against a versioned artifact. No wrappers were written. No logic was duplicated. The audit trail is complete.</p>
+    <p>This pattern extends to services that are not yet packaged as WASM. The UMA runtime can wrap an existing REST service in a governed adapter defined by a descriptor, without touching the service code. The descriptor becomes the contract. The runtime enforces it. The AI caller gets the same trust guarantees regardless of what is underneath.</p>
+  </section>
+
+  <section>
+    <h2 id="where-to-go-next">Where to go next</h2>
+    <p>The core model page describes how descriptors, capabilities, and runtime governance fit together. The MCP and WASM page shows how UMA integrates with the Model Context Protocol to make services agent-callable by construction. The book covers this integration in depth, including how to structure descriptors for AI callers and how the runtime handles policy enforcement across agent-driven workflows.</p>
+  </section>
+
+  <section class="subpage-callout">
+    <strong>Learn more</strong>
+    <div class="subpage-inline-links">
+      <a href="../../core-model/">Core Model: capabilities, descriptors, and runtime governance</a>
+      <a href="../../core-model/what-is-wasm-mcp/">MCP and WASM: making services agent-callable</a>
+      <a href="../../learn-uma/book/">Pre-order on Amazon</a>
+    </div>
+  </section>
+</div>
+      </main>
+
+
+      <aside class="page-toc-rail" aria-label="On this page">
+        <div class="section-nav-label">On this page</div>
+
+    <ol class="page-rail-outline">
+      <li><a href="#the-problem">The problem</a></li><li><a href="#why-the-usual-approach-breaks">Why the usual approach breaks</a></li><li><a href="#how-uma-solves-it">How UMA solves it</a></li><li><a href="#what-this-looks-like-in-practice">What this looks like in practice</a></li><li><a href="#where-to-go-next">Where to go next</a></li>
+    </ol>
+      </aside>
+    </div>
+    <section id="contacts" class="section contacts-band" data-shared-footer></section>
+    <script src="../../app.js" type="module"></script>
+
+  </body>
+</html>
