@@ -23,7 +23,7 @@
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.universalmicroservices.com/#organization","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","logo":"https://www.universalmicroservices.com/assets/og-cover.jpg","sameAs":["https://github.com/enricopiovesan/UMA-code-examples","https://medium.com/the-rise-of-device-independent-architecture"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.universalmicroservices.com/#webpage","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","inLanguage":"en","isPartOf":{"@id":"https://www.universalmicroservices.com/#website"},"datePublished":"2026-03-01","dateModified":"2026-05-31","about":{"@type":"Book","@id":"https://www.universalmicroservices.com/learn-uma/book/#book"}}</script>
-    <link rel="preload" as="image" href="./assets/cover.png" />
+    <link rel="preload" as="image" href="./assets/cover.webp" type="image/webp" />
     <link rel="stylesheet" href="./assets/fonts/fonts.css" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
@@ -103,7 +103,10 @@
 
           <div class="hero-visual">
             <div class="cover-frame">
-              <img src="./assets/cover.png" alt="Universal Microservices Architecture book cover" width="400" height="560" fetchpriority="high" />
+              <picture>
+                <source srcset="./assets/cover.webp" type="image/webp" />
+                <img src="./assets/cover.png" alt="Universal Microservices Architecture book cover" width="400" height="560" fetchpriority="high" />
+              </picture>
             </div>
             <div class="cta-row hero-cover-actions">
               <a class="button button-primary" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
@@ -171,7 +174,10 @@
             <div class="statement-copy">
               <h2 class="quote-display">Build <span class="quote-accent">portable</span>, runtime-agnostic systems without duplicating business logic across platforms.</h2>
               <div class="statement-image" aria-hidden="true">
-                <img src="./assets/home-quote-1.jpg" alt="" width="800" height="500" loading="lazy" />
+                <picture>
+                  <source srcset="./assets/home-quote-1.webp" type="image/webp" />
+                  <img src="./assets/home-quote-1.jpg" alt="" width="800" height="500" loading="lazy" />
+                </picture>
               </div>
             </div>
           </div>
@@ -411,7 +417,10 @@
           </div>
           <div class="tutorial-hero">
             <div class="tutorial-hero-image" aria-hidden="true">
-              <img src="./assets/home-quote-2.jpg" alt="" width="800" height="500" loading="lazy" />
+              <picture>
+                <source srcset="./assets/home-quote-2.webp" type="image/webp" />
+                <img src="./assets/home-quote-2.jpg" alt="" width="800" height="500" loading="lazy" />
+              </picture>
             </div>
             <h2 class="quote-display tutorial-quote">
               Follow the <span class="quote-accent">tutorials</span><br />
@@ -515,7 +524,10 @@
           </div>
           <div class="proof-hero">
             <div class="proof-quote-image" aria-hidden="true">
-              <img src="./assets/home-quote-3.jpg" alt="" width="800" height="500" loading="lazy" />
+              <picture>
+                <source srcset="./assets/home-quote-3.webp" type="image/webp" />
+                <img src="./assets/home-quote-3.jpg" alt="" width="800" height="500" loading="lazy" />
+              </picture>
             </div>
             <h2 class="quote-display proof-quote">
               From architecture to <span class="quote-accent">execution.</span>
