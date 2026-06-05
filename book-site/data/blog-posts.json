@@ -1,5 +1,19 @@
 [
   {
+    "title": "Your deployment decision is already too late",
+    "subtitle": "The service declares what it needs. The runtime decides where it runs, at execution time, against the host it actually finds.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*eihtk7fC_vyBE-mBb57lHQ.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/your-deployment-decision-is-already-too-late-d0c7988438df",
+    "alt": "Your deployment decision is already too late"
+  },
+  {
+    "title": "The 40ms Your System Can't Explain",
+    "subtitle": "What actually happens in the 40ms between request and response.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*hpEktwyu7ylQ85l_RPMH0A.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-40ms-your-system-cant-explain-3d5bb80298a8",
+    "alt": "The 40ms Your System Can't Explain"
+  },
+  {
     "title": "Why Agents Make Bad Decisions in Distributed Systems",
     "subtitle": "Universal Microservices Architecture fixes inconsistent discovery and unclear boundaries",
     "image": "https://cdn-images-1.medium.com/max/1024/1*YuNV75dP0XnjsrEhWVKnPw.png",
@@ -28,11 +42,11 @@
     "alt": "The End of Control: Building Software That Thinks Together"
   },
   {
-    "title": "The Runtime That Knows It’s Alive",
-    "subtitle": "Inside UMA’s new Runtime API, where every service, policy, and capability can describe itself in real time.",
+    "title": "The Runtime That Knows It\u2019s Alive",
+    "subtitle": "Inside UMA\u2019s new Runtime API, where every service, policy, and capability can describe itself in real time.",
     "image": "https://cdn-images-1.medium.com/max/1024/1*ld6yISpBGKEclvuJSQ2sdg.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/the-runtime-that-knows-its-alive-9ac65f09dc92",
-    "alt": "The Runtime That Knows It’s Alive"
+    "alt": "The Runtime That Knows It\u2019s Alive"
   },
   {
     "title": "From Java to WebAssembly: The Long Road to True Portability",
@@ -49,24 +63,10 @@
     "alt": "How to Keep Going When the Connection Breaks"
   },
   {
-    "title": "Invisible Safety: How We Learn to Trust What We Don’t See",
-    "subtitle": "From the world’s first mountain cable car to modern runtime, the secret to progress lies in hidden reliability.",
+    "title": "Invisible Safety: How We Learn to Trust What We Don\u2019t See",
+    "subtitle": "From the world\u2019s first mountain cable car to modern runtime, the secret to progress lies in hidden reliability.",
     "image": "https://cdn-images-1.medium.com/max/1024/1*pYuNhJRnoHg6SQ9gHUm3wA.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/invisible-safety-how-we-learn-to-trust-what-we-dont-see-5851fa8d14bd",
-    "alt": "Invisible Safety: How We Learn to Trust What We Don’t See"
-  },
-  {
-    "title": "Why Trust, Not Speed, Decides If Software Survives",
-    "subtitle": "Portable code only matters if every runtime can prove it’s safe.",
-    "image": "https://cdn-images-1.medium.com/max/1024/1*VB9ZrOfkMDdNinDW5HMx-g.png",
-    "url": "https://medium.com/the-rise-of-device-independent-architecture/why-trust-not-speed-decides-if-software-survives-1b623b81a003",
-    "alt": "Why Trust, Not Speed, Decides If Software Survives"
-  },
-  {
-    "title": "The Benchmark Bake-Off: Which Runtime Actually Wins in 2025?",
-    "subtitle": "Cold starts, memory, cost curves: how UMA tests reveal the trade-offs behind every runtime.",
-    "image": "https://cdn-images-1.medium.com/max/1024/1*9nf6R3mrzSI2evyJxJnWJg.png",
-    "url": "https://medium.com/the-rise-of-device-independent-architecture/the-benchmark-bake-off-which-runtime-actually-wins-in-2025-ebf69ec5a080",
-    "alt": "The Benchmark Bake-Off: Which Runtime Actually Wins in 2025?"
+    "alt": "Invisible Safety: How We Learn to Trust What We Don\u2019t See"
   }
 ]
