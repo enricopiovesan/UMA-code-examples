@@ -211,6 +211,8 @@ const footerColumns = [
         internalLink("diagrams", "discoverability/diagrams/"),
         internalLink("faq", "discoverability/faq/"),
         internalLink("about enrico", "discoverability/about-enrico/"),
+        internalLink("speaking", "discoverability/speaking/"),
+        externalLink("enricopiovesan.com", "https://www.enricopiovesan.com"),
         externalLink("blog", blogHref),
         externalLink("github", githubHref),
         externalLink("reference application", "https://www.universalmicroservices.com/reference-application/"),

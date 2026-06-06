@@ -171,6 +171,7 @@ related_refs:
           <section class="subpage-callout">
             <strong>Follow Enrico</strong>
             <div class="subpage-inline-links">
+              <a href="https://www.enricopiovesan.com" target="_blank" rel="noreferrer noopener">enricopiovesan.com</a>
               <a href="https://www.linkedin.com/in/enricopiovesan" target="_blank" rel="noreferrer noopener">LinkedIn</a>
               <a href="https://medium.com/@enrico.piovesan" target="_blank" rel="noreferrer noopener">Medium</a>
               <a href="https://github.com/enricopiovesan" target="_blank" rel="noreferrer noopener">GitHub</a>
