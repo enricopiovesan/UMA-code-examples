@@ -83,20 +83,20 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">Runtime-agnostic Architecture</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page">Runtime-agnostic Architecture</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="./" class="section-nav-current" aria-current="page">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../uma-production-readiness/">UMA Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="./" class="section-nav-current" aria-current="page">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="../uma-production-readiness/"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
 <section class="subpage-hero">
           <h1>Runtime-agnostic architecture</h1>
           <p>
             Runtime-agnostic architecture does not mean that runtimes stop mattering. It means the business behavior of the system no
-            longer depends on being permanently fused to a single runtime choice. UMA treats that separation as an architectural discipline,
+            longer depends on being permanently fused to a single runtime choice. <abbr title="Universal Microservices Architecture">UMA</abbr> treats that separation as an architectural discipline,
             not a marketing slogan, in a system where compute can happen in many places and the runtime decides where logic runs.
           </p>
         </section>
@@ -107,7 +107,7 @@
             <p>
               Runtime-agnostic architecture is often described too loosely, as if it only means code that can execute in more than one
               place. That is not enough. The harder and more useful question is whether the business meaning of a service can stay stable
-              while the runtime around it changes. In UMA, the portable unit is the service behavior itself, while validation, transport,
+              while the runtime around it changes. In <abbr title="Universal Microservices Architecture">UMA</abbr>, the portable unit is the service behavior itself, while validation, transport,
               policy, trust, placement, and host capability access stay visible around it.
             </p>
             <p>
@@ -229,9 +229,9 @@
           </section>
 
           <section>
-            <h2 id="how-uma-frames-the-problem-differently">How UMA frames the problem differently</h2>
+            <h2 id="how-uma-frames-the-problem-differently">How <abbr title="Universal Microservices Architecture">UMA</abbr> frames the problem differently</h2>
             <p>
-              UMA treats runtime-agnostic architecture as a boundary problem. It asks which part of the system should remain stable enough to
+              <abbr title="Universal Microservices Architecture">UMA</abbr> treats runtime-agnostic architecture as a boundary problem. It asks which part of the system should remain stable enough to
               survive movement, and which part must remain explicit because it changes with the environment. That is different from a
               conventional framework conversation, which often begins by asking which stack or deployment model should own the logic.
             </p>
@@ -245,7 +245,7 @@
             <h2 id="common-misunderstandings">Common misunderstandings</h2>
             <p>
               Runtime-agnostic does not mean runtime-neutral in the sense of treating all environments as interchangeable. Some services
-              belong closer to users. Some belong in controlled backend environments. Some require more policy or trust than others. UMA is
+              belong closer to users. Some belong in controlled backend environments. Some require more policy or trust than others. <abbr title="Universal Microservices Architecture">UMA</abbr> is
               not trying to erase those differences. It is trying to stop them from owning the business model.
             </p>
             <p>
@@ -295,7 +295,7 @@
               <a href="../../why-uma/from-stack-ownership-to-behavior-ownership/">From stack ownership to behavior ownership</a>
               <a href="../../use-cases/portable-business-logic/">Portable business logic</a>
               <a href="../../core-model/what-is-a-capability/">What is a capability?</a>
-              <a href="../../core-model/what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../../core-model/what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</a>
               <a href="../../examples/">Examples</a>
               <a href="../webassembly-architecture/">WebAssembly architecture</a>
               <a href="../../evolve-uma/trust-boundaries/">Trust boundaries</a>

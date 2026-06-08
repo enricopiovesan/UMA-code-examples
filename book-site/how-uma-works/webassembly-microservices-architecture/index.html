@@ -83,13 +83,13 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">WebAssembly Microservices Architecture</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page">WebAssembly Microservices Architecture</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="./" class="section-nav-current" aria-current="page">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../uma-production-readiness/">UMA Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="./" class="section-nav-current" aria-current="page">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="../uma-production-readiness/"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
 <section class="subpage-hero">
@@ -134,15 +134,15 @@
   </section>
 
   <section>
-    <h2 id="how-uma-uses-webassembly">How UMA uses WebAssembly</h2>
-    <p>UMA packages portable business logic as WASM modules. The module contains the durable behavior: the logic that must produce identical results regardless of where it runs. The runtime layer decides where that module executes and supplies the capabilities the module needs.</p>
+    <h2 id="how-uma-uses-webassembly">How <abbr title="Universal Microservices Architecture">UMA</abbr> uses WebAssembly</h2>
+    <p><abbr title="Universal Microservices Architecture">UMA</abbr> packages portable business logic as WASM modules. The module contains the durable behavior: the logic that must produce identical results regardless of where it runs. The runtime layer decides where that module executes and supplies the capabilities the module needs.</p>
     <p>The same compiled module runs without recompilation in three contexts:</p>
     <ul>
       <li><strong>Browser</strong>: via the browser's native WASM API. The host is the JavaScript engine. WASI capabilities are polyfilled or omitted depending on what the browser surface supports.</li>
       <li><strong>Edge</strong>: via Cloudflare Workers or Fastly Compute. These runtimes implement a subset of WASI 0.2 including <code>wasi:http</code>. Cold starts are sub-millisecond because WASM modules are pre-compiled to V8 snapshots or equivalent.</li>
       <li><strong>Server</strong>: via wasmtime or WasmEdge running inside a container or directly on a host. Full WASI 0.2 support including file I/O and network access.</li>
     </ul>
-    <p>What UMA adds on top of WASM is the contract layer. A WASM module is an execution boundary. UMA's active descriptors make that boundary explicit in terms the runtime can evaluate: input schema, output schema, allowed placements, version constraints, and evidence expectations. The module provides the portability. the descriptor provides the governance.</p>
+    <p>What <abbr title="Universal Microservices Architecture">UMA</abbr> adds on top of WASM is the contract layer. A WASM module is an execution boundary. <abbr title="Universal Microservices Architecture">UMA</abbr>'s active descriptors make that boundary explicit in terms the runtime can evaluate: input schema, output schema, allowed placements, version constraints, and evidence expectations. The module provides the portability. the descriptor provides the governance.</p>
   </section>
 
   <section>
@@ -154,7 +154,7 @@
       <li><strong>Runtime placement decisions.</strong> Nothing in the WASM or WASI specification tells a runtime where a module should execute. That decision requires knowledge of the execution environment, the service's requirements, and the policy in force at deployment time.</li>
       <li><strong>Governance.</strong> WASM's sandbox prevents unauthorized resource access inside the module. It does not enforce who can deploy the module, which versions are compatible, or what the audit record for a run should look like.</li>
     </ul>
-    <p>These are exactly the concerns UMA's runtime layer and active descriptors address. WASM is the mechanism that makes the execution boundary cheap and portable. UMA is the model that makes the boundary meaningful in the context of a real system.</p>
+    <p>These are exactly the concerns <abbr title="Universal Microservices Architecture">UMA</abbr>'s runtime layer and active descriptors address. WASM is the mechanism that makes the execution boundary cheap and portable. <abbr title="Universal Microservices Architecture">UMA</abbr> is the model that makes the boundary meaningful in the context of a real system.</p>
   </section>
 
   <section>
@@ -194,10 +194,10 @@
   </section>
 
   <section class="subpage-callout">
-    <strong>Where this fits in UMA</strong>
-    <p>WASM provides the execution boundary. UMA's active descriptors and runtime layer provide the contract, governance, and placement logic that turn that boundary into a managed service. The two are complementary, not redundant.</p>
+    <strong>Where this fits in <abbr title="Universal Microservices Architecture">UMA</abbr></strong>
+    <p>WASM provides the execution boundary. <abbr title="Universal Microservices Architecture">UMA</abbr>'s active descriptors and runtime layer provide the contract, governance, and placement logic that turn that boundary into a managed service. The two are complementary, not redundant.</p>
     <div class="subpage-inline-links">
-      <a href="../">How UMA Works</a>
+      <a href="../">How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</a>
       <a href="../../core-model/active-descriptors/">Active Descriptors</a>
       <a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a>
       <a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a>

@@ -89,7 +89,7 @@
 
       <details class="mobile-section-nav">
         <summary>In this section: Comparisons and Tradeoffs</summary>
-        <ul><li><a href="../uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="../uma-vs-service-mesh/">UMA vs Service Mesh</a></li><li><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="../why-software-architecture-keeps-fragmenting/">Why Software Architecture Keeps Fragmenting</a></li><li><a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="./" class="section-nav-current" aria-current="page">Microservices without Kubernetes</a></li></ul>
+        <ul><li><a href="../uma-vs-serverless/">Universal Microservices Architecture (UMA) vs Serverless</a></li><li><a href="../uma-vs-modular-monolith/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Modular Monolith</a></li><li><a href="../uma-vs-traditional-microservices/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Traditional Microservices</a></li><li><a href="../uma-vs-service-mesh/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Service Mesh</a></li><li><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../why-software-architecture-keeps-fragmenting/">Why Software Architecture Keeps Fragmenting</a></li><li><a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="./" class="section-nav-current" aria-current="page">Microservices without Kubernetes</a></li></ul>
       </details>
 
 <section class="subpage-hero">
@@ -128,9 +128,9 @@
           </section>
 
           <section>
-            <h2 id="umas-position">UMA's position</h2>
-            <p>UMA is not anti-Kubernetes. A UMA service can run on K8s: the orchestrator is one possible host, and it is a reasonable choice for teams that already operate Kubernetes infrastructure. The adapter layer in UMA translates between the portable service boundary and whatever host environment receives the invocation.</p>
-            <p>What UMA defines is the portable service boundary independently of the orchestrator. A UMA capability has a stable contract, explicit runtime placement logic, and a design that keeps business behavior coherent whether the host is a K8s pod, a Cloudflare Worker, a WASM module in a browser, or a function in a workflow engine. The architecture does not require K8s to be coherent. and that independence is intentional.</p>
+            <h2 id="umas-position"><abbr title="Universal Microservices Architecture">UMA</abbr>'s position</h2>
+            <p><abbr title="Universal Microservices Architecture">UMA</abbr> is not anti-Kubernetes. A <abbr title="Universal Microservices Architecture">UMA</abbr> service can run on K8s: the orchestrator is one possible host, and it is a reasonable choice for teams that already operate Kubernetes infrastructure. The adapter layer in <abbr title="Universal Microservices Architecture">UMA</abbr> translates between the portable service boundary and whatever host environment receives the invocation.</p>
+            <p>What <abbr title="Universal Microservices Architecture">UMA</abbr> defines is the portable service boundary independently of the orchestrator. A <abbr title="Universal Microservices Architecture">UMA</abbr> capability has a stable contract, explicit runtime placement logic, and a design that keeps business behavior coherent whether the host is a K8s pod, a Cloudflare Worker, a WASM module in a browser, or a function in a workflow engine. The architecture does not require K8s to be coherent. and that independence is intentional.</p>
             <p>The argument is not about replacing Kubernetes. It is about not letting the operational model define the architectural model. Those are separate decisions, and the one that is harder to change later is the one that lives inside the service, not the one that manages its containers.</p>
           </section>
 
@@ -144,8 +144,8 @@
           <section>
             <h2 id="questions-and-answers">Questions and answers</h2>
             <dl>
-              <dt>Can UMA services run on Kubernetes?</dt>
-              <dd>Yes, fully compatible. UMA defines the portable service boundary. Kubernetes can be the runtime host. A UMA-designed capability deployed as a K8s pod works exactly as it would on Cloud Run or any other container host: the adapter layer handles the translation between the service contract and the host invocation model.</dd>
+              <dt>Can <abbr title="Universal Microservices Architecture">UMA</abbr> services run on Kubernetes?</dt>
+              <dd>Yes, fully compatible. <abbr title="Universal Microservices Architecture">UMA</abbr> defines the portable service boundary. Kubernetes can be the runtime host. A <abbr title="Universal Microservices Architecture">UMA</abbr>-designed capability deployed as a K8s pod works exactly as it would on Cloud Run or any other container host: the adapter layer handles the translation between the service contract and the host invocation model.</dd>
               <dt>What should a small team use instead of Kubernetes?</dt>
               <dd>Honestly: Cloud Run or Fly.io if you want containers without cluster ops. serverless (Lambda, Cloudflare Workers) if the workload is event-driven and bursty. Railway if you want maximum simplicity. The right answer depends on the workload shape. A team that does not yet have a K8s operator on staff is almost always better served by a managed platform than by a self-managed cluster.</dd>
             </dl>
@@ -158,14 +158,14 @@
 
           <section class="subpage-callout">
             <strong>Related comparisons</strong>
-            <p>The WASM vs Docker/Kubernetes page goes deeper on container portability versus module portability. The UMA vs Serverless page covers the invocation model versus the architectural model distinction.</p>
+            <p>The WASM vs Docker/Kubernetes page goes deeper on container portability versus module portability. The <abbr title="Universal Microservices Architecture">UMA</abbr> vs Serverless page covers the invocation model versus the architectural model distinction.</p>
             <div class="subpage-inline-links">
-              <a href="../uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../uma-vs-traditional-microservices/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs traditional microservices</a>
               <a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
-              <a href="../../core-model/what-is-a-uma-runtime/">What is a UMA runtime</a>
+              <a href="../../core-model/what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime</a>
               <a href="../../proof/what-makes-a-service-portable/">What makes a service portable</a>
               <a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a>
-              <a href="../uma-vs-serverless/">UMA vs Serverless</a>
+              <a href="../uma-vs-serverless/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Serverless</a>
             </div>
           </section>
         </div>

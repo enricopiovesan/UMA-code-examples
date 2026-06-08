@@ -82,17 +82,17 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/discoverability/">Discovery and References</a></li><li><span aria-current="page">UMA Diagrams</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/discoverability/">Discovery and References</a></li><li><span aria-current="page">Universal Microservices Architecture (UMA) Diagrams</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Discovery and References</summary>
-        <ul><li><a href="../../wasm-microservices/">WASM Microservices</a></li><li><a href="../faq/">UMA FAQ</a></li><li><a href="../glossary/">UMA Glossary</a></li><li><a href="./" class="section-nav-current" aria-current="page">UMA Diagrams</a></li><li><a href="../about-enrico/">About Enrico Piovesan</a></li><li><a href="../blog/">UMA Blog</a></li><li><a href="../../reference-application/">UMA Reference Application</a></li><li><a href="../white-paper/">Research Papers by Enrico Piovesan</a></li></ul>
+        <ul><li><a href="../../wasm-microservices/">WASM Microservices</a></li><li><a href="../faq/"><abbr title="Universal Microservices Architecture">UMA</abbr> FAQ</a></li><li><a href="../glossary/"><abbr title="Universal Microservices Architecture">UMA</abbr> Glossary</a></li><li><a href="./" class="section-nav-current" aria-current="page"><abbr title="Universal Microservices Architecture">UMA</abbr> Diagrams</a></li><li><a href="../about-enrico/">About Enrico Piovesan</a></li><li><a href="../blog/"><abbr title="Universal Microservices Architecture">UMA</abbr> Blog</a></li><li><a href="../../reference-application/"><abbr title="Universal Microservices Architecture">UMA</abbr> Reference Application</a></li><li><a href="../white-paper/">Research Papers by Enrico Piovesan</a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>UMA diagrams</h1>
+          <h1><abbr title="Universal Microservices Architecture">UMA</abbr> diagrams</h1>
           <p>
             This page collects reusable diagrams for Universal Microservices Architecture. Each section explains what the diagram is trying
             to make visible, when to use it, and how to adapt the underlying source for documentation, architecture reviews, and
@@ -104,12 +104,12 @@
           <section>
             <h2 id="why-diagram-curation-matters">Why diagram curation matters</h2>
             <p>
-              UMA depends on architectural visibility. The more clearly a team can show service boundaries, runtime transitions, trust
+              <abbr title="Universal Microservices Architecture">UMA</abbr> depends on architectural visibility. The more clearly a team can show service boundaries, runtime transitions, trust
               decisions, and compatibility relationships, the easier the model is to teach, review, and evolve. These diagrams are designed
               to clarify one important boundary at a time instead of collapsing the whole architecture into one poster.
             </p>
             <p>
-              A useful UMA diagram should answer one concrete question. What is portable and what is runtime-owned? Where is a trust
+              A useful <abbr title="Universal Microservices Architecture">UMA</abbr> diagram should answer one concrete question. What is portable and what is runtime-owned? Where is a trust
               boundary enforced? How does a graph of compatible services emerge over time? When the question is specific, the diagram stays
               readable and reusable.
             </p>
@@ -134,7 +134,7 @@
           <section>
             <h2 id="diagram-1-portable-service-boundary">Diagram 1: Portable service boundary</h2>
             <p>
-              This diagram shows the core UMA split between pure service behavior and the runtime shell that validates input, binds adapters,
+              This diagram shows the core <abbr title="Universal Microservices Architecture">UMA</abbr> split between pure service behavior and the runtime shell that validates input, binds adapters,
               and decides where execution happens. The point is to make the portable unit of behavior explicit instead of burying it inside a
               stack-specific application boundary.
             </p>
@@ -157,7 +157,7 @@
     class Runtime,Contract,Adapters runtime;</pre>
             </div>
             <p>
-              Use this diagram when a reader needs to understand the most important UMA boundary first: what belongs inside the portable
+              Use this diagram when a reader needs to understand the most important <abbr title="Universal Microservices Architecture">UMA</abbr> boundary first: what belongs inside the portable
               service and what belongs in the runtime shell around it. It works well on introductory pages, capability documentation, and
               design reviews where teams are still separating business behavior from environment-specific concerns.
             </p>
@@ -183,7 +183,7 @@
           <section>
             <h2 id="diagram-2-runtime-execution-flow">Diagram 2: Runtime execution flow</h2>
             <p>
-              UMA is not only about where behavior lives. It is also about how the runtime executes that behavior predictably. This sequence
+              <abbr title="Universal Microservices Architecture">UMA</abbr> is not only about where behavior lives. It is also about how the runtime executes that behavior predictably. This sequence
               shows the flow from request to validation, service execution, adapter access, and final response without hiding the runtime
               decisions that shape the outcome.
             </p>
@@ -206,7 +206,7 @@
     Runtime-->>Caller: Return validated response</pre>
             </div>
             <p>
-              Use this diagram when the architectural question is about execution rather than boundaries. It shows that a UMA runtime is not
+              Use this diagram when the architectural question is about execution rather than boundaries. It shows that a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime is not
               a black box around the service. Validation, adapter access, and response shaping are visible stages that determine whether the
               system behaves predictably across environments.
             </p>
@@ -232,7 +232,7 @@
           <section>
             <h2 id="diagram-3-trust-boundary-decision">Diagram 3: Trust boundary decision</h2>
             <p>
-              Trust decisions in UMA should not be implicit. This diagram shows a simplified runtime trust flow where identity, policy, and
+              Trust decisions in <abbr title="Universal Microservices Architecture">UMA</abbr> should not be implicit. This diagram shows a simplified runtime trust flow where identity, policy, and
               capability intent are evaluated before the runtime allows a protected service to execute. It is a useful pattern for pages that
               explain trust boundaries and governed execution.
             </p>
@@ -254,7 +254,7 @@
     class Rejected deny;</pre>
             </div>
             <p>
-              Use this diagram when readers need to see where governance happens. UMA is stronger when trust, identity, permissions, and
+              Use this diagram when readers need to see where governance happens. <abbr title="Universal Microservices Architecture">UMA</abbr> is stronger when trust, identity, permissions, and
               audit evidence stay visible. This pattern works well for security-oriented pages, policy discussions, and runtime trust
               documentation where the system must explain why a protected capability was allowed or denied.
             </p>
@@ -386,7 +386,7 @@
           <section>
             <h2 id="diagram-6-discoverable-decision-lifecycle">Diagram 6: Discoverable decision lifecycle</h2>
             <p>
-              This diagram shows the decision ladder that becomes a first-class architectural topic in the later UMA examples.
+              This diagram shows the decision ladder that becomes a first-class architectural topic in the later <abbr title="Universal Microservices Architecture">UMA</abbr> examples.
               Discoverability is not only about surfacing which capabilities exist. It is about surfacing how a projected path became a
               proposal, how authority validated it, where revision was allowed, and what trace remained afterward.
             </p>

@@ -83,19 +83,19 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is a UMA Runtime?</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is a Universal Microservices Architecture (UMA) Runtime?</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Core Model</summary>
-        <ul><li><a href="../what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is a UMA Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in UMA</a></li></ul>
+        <ul><li><a href="../what-is-a-capability/">What Is a Capability in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is a <abbr title="Universal Microservices Architecture">UMA</abbr> Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>What is a UMA runtime?</h1>
+          <h1>What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</h1>
           <p>
-            The UMA runtime is the governed layer around portable behavior. It is the part of the system that discovers capabilities,
+            The <abbr title="Universal Microservices Architecture">UMA</abbr> runtime is the governed layer around portable behavior. It is the part of the system that discovers capabilities,
             checks compatibility, enforces constraints, decides what is allowed to run, and records enough evidence for the execution to be
             understandable afterward. In practical terms, it is the layer that decides where logic runs once compute can happen in many
             places.
@@ -111,11 +111,11 @@
               fit the current environment, and which proposed paths must be rejected.
             </p>
             <p>
-              That is why the runtime matters so much in UMA. Portable logic alone is not enough. A system also needs a visible layer that
+              That is why the runtime matters so much in <abbr title="Universal Microservices Architecture">UMA</abbr>. Portable logic alone is not enough. A system also needs a visible layer that
               owns selection, validation, policy, and evidence. Without that layer, portability becomes hard to trust.
             </p>
             <p>
-              This is also why UMA is not “write once, run everywhere.” It is “write once, run where it makes sense,” with the runtime
+              This is also why <abbr title="Universal Microservices Architecture">UMA</abbr> is not “write once, run everywhere.” It is “write once, run where it makes sense,” with the runtime
               making that decision explicit and governable.
             </p>
           </section>
@@ -124,12 +124,12 @@
             <h2 id="why-the-runtime-is-not-just-infrastructure">Why the runtime is not just infrastructure</h2>
             <p>
               Many systems treat the runtime as invisible plumbing. It launches code, moves data, and stays mostly out of the
-              architectural conversation. UMA uses the term differently. The runtime is where the architecture keeps its authority once the
+              architectural conversation. <abbr title="Universal Microservices Architecture">UMA</abbr> uses the term differently. The runtime is where the architecture keeps its authority once the
               system becomes dynamic.
             </p>
             <p>
               That means the runtime is not just there to execute. It is there to decide whether a requested path is valid, compatible,
-              allowed, and safe enough to approve. This is one reason UMA can support dynamic workflows without becoming architecturally
+              allowed, and safe enough to approve. This is one reason <abbr title="Universal Microservices Architecture">UMA</abbr> can support dynamic workflows without becoming architecturally
               vague.
             </p>
           </section>
@@ -177,7 +177,7 @@
             <p>
               Capabilities are the units the runtime reasons about. Without capabilities, the runtime has nothing precise to discover or
               validate. Without the runtime, capabilities remain descriptive rather than governed. That is why these two concepts work as a
-              pair in UMA.
+              pair in <abbr title="Universal Microservices Architecture">UMA</abbr>.
             </p>
             <p>
               This also explains why workflows are not hardcoded in the same way. A workflow is the approved composition the runtime builds
@@ -190,7 +190,7 @@
             <h2 id="why-this-matters-once-agents-appear">Why this matters once agents appear</h2>
             <p>
               Agents make the need for a strong runtime easier to see. If an agent can interpret goals and propose a path, something still
-              has to decide whether that path should be trusted. In UMA, that answer is the runtime. The agent can help reason. The runtime
+              has to decide whether that path should be trusted. In <abbr title="Universal Microservices Architecture">UMA</abbr>, that answer is the runtime. The agent can help reason. The runtime
               remains authoritative.
             </p>
             <p>
@@ -200,7 +200,7 @@
           </section>
 
           <section>
-            <h2 id="what-a-uma-runtime-is-not">What a UMA runtime is not</h2>
+            <h2 id="what-a-uma-runtime-is-not">What a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime is not</h2>
             <ul>
               <li>It is not just a process launcher.</li>
               <li>It is not a synonym for one host, one server, or one deployment environment.</li>
@@ -226,7 +226,7 @@
           <section>
             <h2 id="why-the-runtime-improves-learning-not-just-execution">Why the runtime improves learning, not just execution</h2>
             <p>
-              The runtime also makes UMA easier to teach because it turns vague system behavior into visible steps. Readers can ask what
+              The runtime also makes <abbr title="Universal Microservices Architecture">UMA</abbr> easier to teach because it turns vague system behavior into visible steps. Readers can ask what
               the runtime discovered, why it rejected one path, why it approved another, and what evidence it produced. That is much
               easier to understand than a system that only exposes the final output.
             </p>
@@ -245,7 +245,7 @@
             <p>
               The simplest proof is not theoretical. Open the reference app and watch one workflow execute. The planner can propose, the
               runtime can reject or approve, the capability path stays visible, and the result is explained afterward. That is much closer
-              to the real UMA claim than a generic portability slogan.
+              to the real <abbr title="Universal Microservices Architecture">UMA</abbr> claim than a generic portability slogan.
             </p>
           </section>
 
@@ -253,12 +253,12 @@
             <h2 id="frequently-asked-questions">Frequently asked questions</h2>
             <h3 id="is-the-runtime-the-same-thing-as-the-host-platform">Is the runtime the same thing as the host platform?</h3>
             <p>
-              No. The host platform matters, but the UMA runtime is the governed layer that sits around portable behavior and owns the
+              No. The host platform matters, but the <abbr title="Universal Microservices Architecture">UMA</abbr> runtime is the governed layer that sits around portable behavior and owns the
               architectural decisions required for valid execution.
             </p>
-            <h3 id="can-a-uma-runtime-exist-without-ai">Can a UMA runtime exist without AI?</h3>
+            <h3 id="can-a-uma-runtime-exist-without-ai">Can a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime exist without AI?</h3>
             <p>
-              Yes. UMA does not require AI to make the runtime meaningful. The runtime still matters in deterministic systems because it
+              Yes. <abbr title="Universal Microservices Architecture">UMA</abbr> does not require AI to make the runtime meaningful. The runtime still matters in deterministic systems because it
               owns discovery, validation, policy, and execution authority.
             </p>
             <h3 id="why-not-let-the-workflow-decide-itself">Why not let the workflow decide itself?</h3>

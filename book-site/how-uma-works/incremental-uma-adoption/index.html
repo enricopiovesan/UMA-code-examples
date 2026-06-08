@@ -83,16 +83,16 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">Incremental UMA Adoption</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="./" class="section-nav-current" aria-current="page">Incremental UMA Adoption</a></li><li><a href="../uma-production-readiness/">UMA Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="./" class="section-nav-current" aria-current="page">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="../uma-production-readiness/"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
-<section class="subpage-hero"><h1>Incremental UMA adoption</h1><p>UMA does not require a rewrite. It can start with one portable behavior, one contract, or one runtime-governed boundary inside a system that still has legacy services and ordinary deployment infrastructure.</p></section>
+<section class="subpage-hero"><h1>Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> adoption</h1><p><abbr title="Universal Microservices Architecture">UMA</abbr> does not require a rewrite. It can start with one portable behavior, one contract, or one runtime-governed boundary inside a system that still has legacy services and ordinary deployment infrastructure.</p></section>
 
 <div class="subpage-body">
           <section>
@@ -113,20 +113,20 @@
             <h2 id="three-common-entry-points">Three common entry points</h2>
             <p>Most teams find one of three behaviors easiest to move first, because each is already isolated in intent even if not in implementation:</p>
             <p><strong>A shared validation rule.</strong> Input validation logic that is duplicated across services, with slight variations that cause inconsistencies at the edges. The rule has clear inputs and outputs, no side effects, and its inconsistency is already causing bugs. Expressing it as a portable service with a single contract eliminates the drift immediately. The existing callers each get a thin adapter. the rule itself becomes testable in isolation against the contract.</p>
-            <p><strong>A pricing engine or rate calculator.</strong> Business logic that must produce the same result regardless of whether it runs on a server, in a browser, or at an edge node. This is the canonical UMA target: behavior that cannot afford inconsistency across contexts. Wrapping it as a portable service with a runtime-selected adapter for each deployment target makes the equivalence provable rather than assumed. The Chapter 6 portability lab demonstrates this pattern directly: one contract, two execution targets (native and WASI), parity checked from emitted events.</p>
+            <p><strong>A pricing engine or rate calculator.</strong> Business logic that must produce the same result regardless of whether it runs on a server, in a browser, or at an edge node. This is the canonical <abbr title="Universal Microservices Architecture">UMA</abbr> target: behavior that cannot afford inconsistency across contexts. Wrapping it as a portable service with a runtime-selected adapter for each deployment target makes the equivalence provable rather than assumed. The Chapter 6 portability lab demonstrates this pattern directly: one contract, two execution targets (native and WASI), parity checked from emitted events.</p>
             <p><strong>A feature flag evaluator.</strong> Evaluation logic that determines which code paths run based on rules, user attributes, or rollout percentages. This is the entry point used in Chapter 4 of the book. deliberately chosen because it is small enough to implement completely, complex enough to have meaningful contract semantics (country matching, percentage rollout, default fallback), and important enough that inconsistency has visible consequences. The WASI CLI built in Chapter 4 can be called from any host with a one-line adapter without changing the evaluator.</p>
           </section>
 
           <section>
             <h2 id="what-the-first-milestone-looks-like">What the first milestone looks like</h2>
-            <p>The first milestone in incremental UMA adoption is not a complete platform migration. It is a before-and-after proof: one behavior that was previously embedded in a host, now running as a portable service behind a contract, with a runtime that produces lifecycle evidence, and a parity check that confirms the output matches the previous implementation.</p>
+            <p>The first milestone in incremental <abbr title="Universal Microservices Architecture">UMA</abbr> adoption is not a complete platform migration. It is a before-and-after proof: one behavior that was previously embedded in a host, now running as a portable service behind a contract, with a runtime that produces lifecycle evidence, and a parity check that confirms the output matches the previous implementation.</p>
             <p>That proof serves two purposes. Technically, it validates that the adapter model works for your specific host and deployment context, that the runtime can select the right adapter, that the contract semantics match what the host needs, and that the portable core passes the same cases the legacy implementation handled. Organizationally, it demonstrates that the approach is not speculative. The smoke script runs, the CI passes, and the output is inspectable.</p>
             <p>From that first milestone, adoption proceeds incrementally: each subsequent capability that crosses runtime boundaries is a candidate for the same treatment. The system does not need to commit to a full rewrite. It accumulates portable boundaries at the rate that makes sense for the team, while the legacy surfaces continue to function through adapters.</p>
           </section>
 
           <section>
             <h2 id="avoiding-fragmentation-as-adoption-grows">Avoiding fragmentation as adoption grows</h2>
-            <p>Incremental adoption introduces a risk: if each team that adopts UMA independently develops its own contract conventions, its own adapter patterns, and its own runtime configuration, the result is a new form of fragmentation. not the fragmentation of duplicated logic, but the fragmentation of incompatible portable boundaries.</p>
+            <p>Incremental adoption introduces a risk: if each team that adopts <abbr title="Universal Microservices Architecture">UMA</abbr> independently develops its own contract conventions, its own adapter patterns, and its own runtime configuration, the result is a new form of fragmentation. not the fragmentation of duplicated logic, but the fragmentation of incompatible portable boundaries.</p>
             <p>The antidote is shared contract definitions and a consistent runtime governance model. When capability descriptors are defined in a shared location and referenced by multiple services, the runtime can enforce compatibility across the system rather than just within each service. Chapter 11 in the book covers this directly: how to structure adoption so that each new portable boundary integrates with the existing governance model rather than creating a parallel one.</p>
           </section>
 
@@ -135,10 +135,10 @@
             <p>Chapters 5 and 6 show the first runtime and portability steps: the smallest complete examples of an incremental boundary move. Chapter 11 addresses the governance model that prevents fragmentation as adoption grows.</p>
             <div class="subpage-inline-links">
               <a href="../../core-model/what-is-a-capability/">What is a capability</a>
-              <a href="../migrating-to-uma-incrementally/">Migrating to UMA incrementally</a>
+              <a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> incrementally</a>
               <a href="../../learn-uma/chapter-05-building-portable-microservices/">Chapter 5: Building portable microservices</a>
               <a href="../../proof/what-makes-a-service-portable/">What makes a service portable</a>
-              <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve</a>
+              <a href="../../why-uma/what-problem-does-uma-solve/">What problem does <abbr title="Universal Microservices Architecture">UMA</abbr> solve</a>
               <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Universal Microservices Architecture (book)</a>
             </div>
           </section>

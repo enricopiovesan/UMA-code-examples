@@ -89,7 +89,7 @@
 
       <details class="mobile-section-nav">
         <summary>In this section: Comparisons and Tradeoffs</summary>
-        <ul><li><a href="../uma-vs-serverless/">UMA vs Serverless</a></li><li><a href="../uma-vs-modular-monolith/">UMA vs Modular Monolith</a></li><li><a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a></li><li><a href="../uma-vs-service-mesh/">UMA vs Service Mesh</a></li><li><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of UMA</a></li><li><a href="./" class="section-nav-current" aria-current="page">Why Software Architecture Keeps Fragmenting</a></li><li><a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="../microservices-without-kubernetes/">Microservices without Kubernetes</a></li></ul>
+        <ul><li><a href="../uma-vs-serverless/">Universal Microservices Architecture (UMA) vs Serverless</a></li><li><a href="../uma-vs-modular-monolith/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Modular Monolith</a></li><li><a href="../uma-vs-traditional-microservices/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Traditional Microservices</a></li><li><a href="../uma-vs-service-mesh/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Service Mesh</a></li><li><a href="../common-criticisms-and-tradeoffs-of-uma/">Common Criticisms and Tradeoffs of <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="./" class="section-nav-current" aria-current="page">Why Software Architecture Keeps Fragmenting</a></li><li><a href="../wasm-vs-docker-kubernetes/">WASM vs Docker and Kubernetes</a></li><li><a href="../microservices-without-kubernetes/">Microservices without Kubernetes</a></li></ul>
       </details>
 
 <section class="subpage-hero">
@@ -162,7 +162,7 @@
   <section>
     <h2 id="what-changes-when-the-boundary-moves-inward">What changes when the boundary moves inward</h2>
     <p>
-      UMA separates the behavioral unit from the deployment unit. The portable service (compiled as a WASM module with an
+      <abbr title="Universal Microservices Architecture">UMA</abbr> separates the behavioral unit from the deployment unit. The portable service (compiled as a WASM module with an
       explicit contract) is the thing that does not change. The runtime layer (adapters, placement decisions, trust
       policy, governance) is the thing that varies by environment.
     </p>
@@ -181,7 +181,7 @@
   <section>
     <h2 id="when-this-matters-and-when-it-does-not">When this matters and when it does not</h2>
     <p>
-      If your system has one runtime and one team, behavioral fragmentation is not a current pressure. The overhead UMA
+      If your system has one runtime and one team, behavioral fragmentation is not a current pressure. The overhead <abbr title="Universal Microservices Architecture">UMA</abbr>
       introduces (WASM compilation, contract authoring, runtime infrastructure) produces no return in a single-context
       system. A well-structured monolith is the right answer until runtime diversity is real and growing.
     </p>
@@ -192,7 +192,7 @@
       each new surface.
     </p>
     <p>
-      UMA earns its overhead when behavior must cross runtime boundaries and the crossing is structural, not occasional.
+      <abbr title="Universal Microservices Architecture">UMA</abbr> earns its overhead when behavior must cross runtime boundaries and the crossing is structural, not occasional.
       That is the condition the model was designed for.
     </p>
   </section>
@@ -200,10 +200,10 @@
   <section class="subpage-callout">
     <strong>Related reading</strong>
     <div class="subpage-inline-links">
-      <a href="../uma-vs-traditional-microservices/">UMA vs Traditional Microservices</a>
-      <a href="../uma-vs-serverless/">UMA vs Serverless</a>
+      <a href="../uma-vs-traditional-microservices/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Traditional Microservices</a>
+      <a href="../uma-vs-serverless/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs Serverless</a>
       <a href="../../use-cases/portable-business-logic/">Portable business logic</a>
-      <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve?</a>
+      <a href="../../why-uma/what-problem-does-uma-solve/">What problem does <abbr title="Universal Microservices Architecture">UMA</abbr> solve?</a>
       <a href="../../proof/">Proof section</a>
     </div>
   </section>

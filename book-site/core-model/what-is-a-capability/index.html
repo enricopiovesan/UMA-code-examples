@@ -83,17 +83,17 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is a Capability in UMA?</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is a Capability in Universal Microservices Architecture (UMA)?</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Core Model</summary>
-        <ul><li><a href="./" class="section-nav-current" aria-current="page">What Is a Capability in UMA?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in UMA</a></li></ul>
+        <ul><li><a href="./" class="section-nav-current" aria-current="page">What Is a Capability in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a <abbr title="Universal Microservices Architecture">UMA</abbr> Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>What is a capability in UMA?</h1>
+          <h1>What is a capability in <abbr title="Universal Microservices Architecture">UMA</abbr>?</h1>
           <p>
             A capability is the unit the runtime can actually reason about. In Universal Microservices Architecture, a capability is not
             just code that exists somewhere. It is a named, discoverable, contract-shaped piece of behavior that the runtime can evaluate,
@@ -105,7 +105,7 @@
           <section>
             <h2 id="the-short-answer">The short answer</h2>
             <p>
-              In UMA, a capability is the actionable shape of a service. It tells the runtime what this piece of the system can do, what
+              In <abbr title="Universal Microservices Architecture">UMA</abbr>, a capability is the actionable shape of a service. It tells the runtime what this piece of the system can do, what
               it expects, what it produces, and under which conditions it should be considered valid. That makes it more useful than a
               vague service label and more durable than a one-off function call buried inside a stack-specific implementation.
             </p>
@@ -127,7 +127,7 @@
           </section>
 
           <section>
-            <h2 id="why-uma-uses-capabilities-instead-of-only-services">Why UMA uses capabilities instead of only services</h2>
+            <h2 id="why-uma-uses-capabilities-instead-of-only-services">Why <abbr title="Universal Microservices Architecture">UMA</abbr> uses capabilities instead of only services</h2>
             <p>
               The word service is useful, but it can stay too broad. It often tells you that some behavior exists without telling you what
               the runtime can do with it. A capability is more specific. It expresses the part of the service that is operationally
@@ -154,7 +154,7 @@
             </p>
             <p>
               Without those elements, the runtime is left inferring too much. The system may still work, but it becomes harder to discover,
-              validate, or explain why one path was chosen over another. UMA uses capabilities to keep that ambiguity low.
+              validate, or explain why one path was chosen over another. <abbr title="Universal Microservices Architecture">UMA</abbr> uses capabilities to keep that ambiguity low.
             </p>
           </section>
 
@@ -185,7 +185,7 @@
               understand because the unit of behavior and the unit of orchestration stop being separate.
             </p>
             <p>
-              UMA keeps them distinct on purpose. The capability stays reusable and inspectable. The workflow stays explainable as a
+              <abbr title="Universal Microservices Architecture">UMA</abbr> keeps them distinct on purpose. The capability stays reusable and inspectable. The workflow stays explainable as a
               composition of capabilities rather than a hidden chain of internal calls.
             </p>
           </section>
@@ -295,7 +295,7 @@
               <a href="../../proof/what-makes-a-service-portable/">What makes a service portable?</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
               <a href="../what-is-a-workflow/">What is a workflow?</a>
-              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</a>
               <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>
               <a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic architecture</a>

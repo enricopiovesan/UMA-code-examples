@@ -83,17 +83,17 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/discoverability/">Discovery and References</a></li><li><span aria-current="page">UMA Glossary</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/discoverability/">Discovery and References</a></li><li><span aria-current="page">Universal Microservices Architecture (UMA) Glossary</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Discovery and References</summary>
-        <ul><li><a href="../../wasm-microservices/">WASM Microservices</a></li><li><a href="../faq/">UMA FAQ</a></li><li><a href="./" class="section-nav-current" aria-current="page">UMA Glossary</a></li><li><a href="../diagrams/">UMA Diagrams</a></li><li><a href="../about-enrico/">About Enrico Piovesan</a></li><li><a href="../blog/">UMA Blog</a></li><li><a href="../../reference-application/">UMA Reference Application</a></li><li><a href="../white-paper/">Research Papers by Enrico Piovesan</a></li></ul>
+        <ul><li><a href="../../wasm-microservices/">WASM Microservices</a></li><li><a href="../faq/"><abbr title="Universal Microservices Architecture">UMA</abbr> FAQ</a></li><li><a href="./" class="section-nav-current" aria-current="page"><abbr title="Universal Microservices Architecture">UMA</abbr> Glossary</a></li><li><a href="../diagrams/"><abbr title="Universal Microservices Architecture">UMA</abbr> Diagrams</a></li><li><a href="../about-enrico/">About Enrico Piovesan</a></li><li><a href="../blog/"><abbr title="Universal Microservices Architecture">UMA</abbr> Blog</a></li><li><a href="../../reference-application/"><abbr title="Universal Microservices Architecture">UMA</abbr> Reference Application</a></li><li><a href="../white-paper/">Research Papers by Enrico Piovesan</a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>UMA Glossary</h1>
+          <h1><abbr title="Universal Microservices Architecture">UMA</abbr> Glossary</h1>
           <p>
             Definitions for core Universal Microservices Architecture terms. Each entry answers the definitional
             question directly so architects and engineers have a shared vocabulary when reading the book, working
@@ -148,7 +148,7 @@
                 The property of a system where the same business rule produces equivalent outcomes across all
                 execution surfaces. A behaviorally coherent system can have many runtimes and deployment targets.
                 What it does not have is multiple diverging copies of the same rule drifting apart over time.
-                UMA treats behavioral coherence as an explicit architectural goal, not an assumption.
+                <abbr title="Universal Microservices Architecture">UMA</abbr> treats behavioral coherence as an explicit architectural goal, not an assumption.
               </dd>
 
               <dt>Behavioral equivalence</dt>
@@ -175,7 +175,7 @@
               <dt>Contract</dt>
               <dd>
                 The explicit declaration of what a service expects as input, produces as output, emits as
-                events, requires as permissions, and leaves as execution evidence. In UMA, a contract is
+                events, requires as permissions, and leaves as execution evidence. In <abbr title="Universal Microservices Architecture">UMA</abbr>, a contract is
                 machine-readable and runtime-evaluated. not a human-readable agreement between teams.
                 Contracts are what make portability verifiable rather than assumed.
               </dd>
@@ -200,7 +200,7 @@
             <dl>
               <dt>Feature flag evaluator</dt>
               <dd>
-                A concrete portable service used throughout the UMA book and examples. It takes a flag key
+                A concrete portable service used throughout the <abbr title="Universal Microservices Architecture">UMA</abbr> book and examples. It takes a flag key
                 and evaluation context as inputs and returns a boolean or variant result. It is deterministic,
                 stateless, and free of runtime-specific dependencies, which makes it an ideal first portable
                 service. Chapter 4 runs it as a WASM module with an active descriptor, identically in native
@@ -230,7 +230,7 @@
               <dd>
                 The concrete runtime that executes a portable service: a browser, an edge worker, a server
                 running wasmtime, a Kubernetes sidecar, or an AI-adjacent workflow engine. The host supplies
-                capabilities through adapters and WASI interfaces. UMA's portability goal is that the host
+                capabilities through adapters and WASI interfaces. <abbr title="Universal Microservices Architecture">UMA</abbr>'s portability goal is that the host
                 can change without requiring the service to change. as long as the host satisfies the
                 service's declared contract.
               </dd>
@@ -245,7 +245,7 @@
                 Evidence that a portable service produces equivalent outputs across two or more execution
                 environments. A parity proof runs the same service with the same inputs against different
                 hosts (for example, native Rust and a WASM runtime) and compares outputs and observable
-                side effects. Chapter 6 of the UMA examples is structured as a parity proof. Portability
+                side effects. Chapter 6 of the <abbr title="Universal Microservices Architecture">UMA</abbr> examples is structured as a parity proof. Portability
                 that is not proved is an assumption.
               </dd>
 
@@ -262,7 +262,7 @@
                 A service whose business behavior stays stable across execution environments. It carries
                 an explicit contract, has no hidden runtime dependencies, and can be verified through
                 parity proofs. A portable service is not tied to a specific framework, queue, or host
-                assumption. In UMA, portable services are the durable center of the system. the runtime
+                assumption. In <abbr title="Universal Microservices Architecture">UMA</abbr>, portable services are the durable center of the system. the runtime
                 layer handles everything that varies by environment.
               </dd>
             </dl>
@@ -275,7 +275,7 @@
               <dd>
                 The ability to run the same portable service across structurally different host environments  (
                 browser, edge, server, workflow engine) without splitting business behavior into separate
-                implementations. Runtime diversity is an architectural goal in UMA. The system should be able
+                implementations. Runtime diversity is an architectural goal in <abbr title="Universal Microservices Architecture">UMA</abbr>. The system should be able
                 to add or change execution targets without triggering behavioral drift.
               </dd>
 
@@ -294,7 +294,7 @@
                 browser, edge node, backend server, or workflow engine. The decision is governed by the
                 service's declared placement constraints, the trust policy in effect, latency requirements,
                 and host capabilities. Moving placement decisions into the runtime layer (rather than
-                hardcoding them in services) is one of UMA's structural contributions.
+                hardcoding them in services) is one of <abbr title="Universal Microservices Architecture">UMA</abbr>'s structural contributions.
               </dd>
             </dl>
           </section>
@@ -305,7 +305,7 @@
               <dt>Service boundary</dt>
               <dd>
                 The declared edge of a portable service's responsibility: what it accepts as input, what it
-                produces as output, and what it does not own. In UMA, a service boundary is expressed through
+                produces as output, and what it does not own. In <abbr title="Universal Microservices Architecture">UMA</abbr>, a service boundary is expressed through
                 the active descriptor. not through implicit code-level coupling. A well-drawn boundary lets
                 the runtime validate compatibility, compose services into workflows, and detect when one
                 service's change would break another.
@@ -320,7 +320,7 @@
               <dd>
                 An execution model for distributed systems that keeps business behavior portable across
                 multiple environments (browser, edge, cloud, workflow, and AI-assisted paths) while
-                runtime governance, contracts, trust, and placement stay explicit. UMA splits
+                runtime governance, contracts, trust, and placement stay explicit. <abbr title="Universal Microservices Architecture">UMA</abbr> splits
                 responsibility in two: the portable service owns the durable business rule, and the
                 runtime layer owns everything that varies by environment. The goal is behavioral coherence
                 across runtimes without duplicating logic across surfaces.
@@ -336,7 +336,7 @@
                 A typed interface layer on top of core WebAssembly modules, stabilized alongside WASI 0.2.
                 Components define imports and exports using WIT (WebAssembly Interface Types), which supports
                 records, variants, options, lists, and streams. Two components that agree on a WIT interface
-                compose at the binary level with no serialization boundary. For UMA, this means service
+                compose at the binary level with no serialization boundary. For <abbr title="Universal Microservices Architecture">UMA</abbr>, this means service
                 contracts are machine-readable, version-aware, and embedded in the compiled artifact itself.
               </dd>
 
@@ -352,7 +352,7 @@
               <dt>Workflow</dt>
               <dd>
                 The execution path the runtime approves from one or more capabilities to satisfy a goal.
-                A workflow in UMA is not handwritten orchestration glue. It emerges from declared events,
+                A workflow in <abbr title="Universal Microservices Architecture">UMA</abbr> is not handwritten orchestration glue. It emerges from declared events,
                 subscriptions, capability contracts, and placement policy. The runtime can explain why that
                 path was chosen, which capabilities participated, and what evidence the run produced.
               </dd>
@@ -366,7 +366,7 @@
               in its full architectural context, with runnable examples where the idea matters most.
             </p>
             <div class="subpage-inline-links">
-              <a href="../faq/">UMA FAQ</a>
+              <a href="../faq/"><abbr title="Universal Microservices Architecture">UMA</abbr> FAQ</a>
               <a href="../../core-model/active-descriptors/">Active Descriptors</a>
               <a href="../../core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
               <a href="../../core-model/what-is-a-capability/">What is a capability?</a>

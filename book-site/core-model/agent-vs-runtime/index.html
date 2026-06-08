@@ -83,20 +83,20 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">Agent vs Runtime in UMA</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">Agent vs Runtime in Universal Microservices Architecture (UMA)</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Core Model</summary>
-        <ul><li><a href="../what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="./" class="section-nav-current" aria-current="page">Agent vs Runtime in UMA</a></li></ul>
+        <ul><li><a href="../what-is-a-capability/">What Is a Capability in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a <abbr title="Universal Microservices Architecture">UMA</abbr> Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="./" class="section-nav-current" aria-current="page">Agent vs Runtime in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>Agent vs runtime in UMA</h1>
+          <h1>Agent vs runtime in <abbr title="Universal Microservices Architecture">UMA</abbr></h1>
           <p>
             One of the easiest ways to misunderstand Universal Microservices Architecture is to assume that once agents enter the picture,
-            they become the real authority of the system. UMA makes the opposite claim. Agents can help discover, rank, and compose
+            they become the real authority of the system. <abbr title="Universal Microservices Architecture">UMA</abbr> makes the opposite claim. Agents can help discover, rank, and compose
             capabilities, but the runtime still decides what is valid, safe, and executable.
           </p>
         </section>
@@ -105,13 +105,13 @@
           <section>
             <h2 id="the-short-answer">The short answer</h2>
             <p>
-              In UMA, an agent is a reasoning component. It interprets a goal, looks at available capabilities, and proposes a path. The
+              In <abbr title="Universal Microservices Architecture">UMA</abbr>, an agent is a reasoning component. It interprets a goal, looks at available capabilities, and proposes a path. The
               runtime is the execution authority. It validates contracts, checks constraints, enforces trust and placement rules, and
               decides whether the proposal is acceptable.
             </p>
             <p>
               That distinction matters because modern systems increasingly include components that can generate plans dynamically. If those
-              plans are treated as self-justifying, architecture turns into improvisation. UMA avoids that by keeping a hard boundary
+              plans are treated as self-justifying, architecture turns into improvisation. <abbr title="Universal Microservices Architecture">UMA</abbr> avoids that by keeping a hard boundary
               between proposing work and authorizing work.
             </p>
             <ul>
@@ -171,13 +171,13 @@
           <section>
             <h2 id="if-you-remember-one-rule">If you remember one rule</h2>
             <p>
-              A good UMA system can benefit from an agent without becoming agent-governed. That is the practical test. If the planner goes
+              A good <abbr title="Universal Microservices Architecture">UMA</abbr> system can benefit from an agent without becoming agent-governed. That is the practical test. If the planner goes
               away, the runtime should still be coherent. If the runtime goes away, the planner should not be trusted to define the system
               alone.
             </p>
             <p>
               That rule is important because many systems sound flexible only as long as nobody asks who is accountable for the final
-              decision. UMA keeps that answer simple: the runtime is accountable for approval and execution, even when the proposal was
+              decision. <abbr title="Universal Microservices Architecture">UMA</abbr> keeps that answer simple: the runtime is accountable for approval and execution, even when the proposal was
               generated dynamically.
             </p>
           </section>
@@ -190,7 +190,7 @@
               still needed to the question: who gets to say yes?
             </p>
             <p>
-              UMA’s answer is that the runtime says yes or no. The agent can suggest. The runtime can accept, reject, or replace that
+              <abbr title="Universal Microservices Architecture">UMA</abbr>’s answer is that the runtime says yes or no. The agent can suggest. The runtime can accept, reject, or replace that
               suggestion according to contracts, placement rules, trust boundaries, and current system conditions. That keeps the system
               explainable even when planning becomes more fluid.
             </p>
@@ -206,7 +206,7 @@
             </p>
             <p>
               That is one reason many “AI-native” system stories still feel thin from an architectural standpoint. They show dynamic plans,
-              but not governed execution. UMA tries to keep that second part visible.
+              but not governed execution. <abbr title="Universal Microservices Architecture">UMA</abbr> tries to keep that second part visible.
             </p>
             <p>
               Discoverability strengthens that same boundary. Once proposal, validation, revision, and trace become inspectable artifacts,
@@ -241,21 +241,21 @@
             </p>
             <p>
               A second question helps too: can you explain, after execution, why one capability was approved and another was rejected? If
-              that answer only exists inside the planner’s prompt or hidden reasoning, the system is still missing the governed layer UMA is
+              that answer only exists inside the planner’s prompt or hidden reasoning, the system is still missing the governed layer <abbr title="Universal Microservices Architecture">UMA</abbr> is
               trying to make explicit.
             </p>
           </section>
 
           <section>
             <h2 id="frequently-asked-questions">Frequently asked questions</h2>
-            <h3 id="does-uma-require-an-agent">Does UMA require an agent?</h3>
+            <h3 id="does-uma-require-an-agent">Does <abbr title="Universal Microservices Architecture">UMA</abbr> require an agent?</h3>
             <p>
-              No. UMA does not require an agent in order to be coherent. A system can still use explicit workflows, fixed capability
+              No. <abbr title="Universal Microservices Architecture">UMA</abbr> does not require an agent in order to be coherent. A system can still use explicit workflows, fixed capability
               selection, and strong runtime governance. Agents become useful when the system needs dynamic selection or proposal behavior.
             </p>
             <h3 id="can-an-agent-ever-be-authoritative">Can an agent ever be authoritative?</h3>
             <p>
-              It can feel authoritative at the product layer, but in a governed UMA system it should still pass through runtime approval.
+              It can feel authoritative at the product layer, but in a governed <abbr title="Universal Microservices Architecture">UMA</abbr> system it should still pass through runtime approval.
               Otherwise the system loses the architectural distinction that keeps dynamic planning from turning into hidden control.
             </p>
             <h3 id="why-not-let-the-agent-decide-everything-if-it-performs-well">Why not let the agent decide everything if it performs well?</h3>
@@ -276,11 +276,11 @@
             <div class="subpage-inline-links">
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>
               <a href="../what-is-a-capability/">What is a capability?</a>
-              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</a>
               <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
               <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book</a>
               <a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
-              <a href="../../why-uma/what-is-uma/">What is UMA?</a>
+              <a href="../../why-uma/what-is-uma/">What is <abbr title="Universal Microservices Architecture">UMA</abbr>?</a>
             </div>
           </section>
         </div>

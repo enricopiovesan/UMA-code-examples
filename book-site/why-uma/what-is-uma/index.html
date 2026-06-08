@@ -83,19 +83,19 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/why-uma/">Why UMA</a></li><li><span aria-current="page">What Is UMA?</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/why-uma/">Why Universal Microservices Architecture (UMA)</a></li><li><span aria-current="page">What Is <abbr title="Universal Microservices Architecture">UMA</abbr>?</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: Why UMA</summary>
-        <ul><li><a href="../what-problem-does-uma-solve/">What Problem Does UMA Solve?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is UMA?</a></li><li><a href="../why-universal-microservices-exist/">Why Universal Microservices Exist</a></li><li><a href="../what-is-a-universal-microservice/">What Is a Universal Microservice?</a></li><li><a href="../from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></li></ul>
+        <summary>In this section: Why <abbr title="Universal Microservices Architecture">UMA</abbr></summary>
+        <ul><li><a href="../what-problem-does-uma-solve/">What Problem Does <abbr title="Universal Microservices Architecture">UMA</abbr> Solve?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../why-universal-microservices-exist/">Why Universal Microservices Exist</a></li><li><a href="../what-is-a-universal-microservice/">What Is a Universal Microservice?</a></li><li><a href="../from-stack-ownership-to-behavior-ownership/">From Stack Ownership to Behavior Ownership</a></li></ul>
       </details>
 
 <section class="subpage-hero">
             <h1>What is Universal Microservices Architecture?</h1>
             <p>
-              Universal Microservices Architecture, or UMA, is an execution model for distributed systems where compute can happen in many
+              Universal Microservices Architecture, or <abbr title="Universal Microservices Architecture">UMA</abbr>, is an execution model for distributed systems where compute can happen in many
               places and the system decides where logic runs. It keeps business behavior portable while still treating runtime policy,
               transport, trust, and execution boundaries as first-class architectural concerns.
             </p>
@@ -103,7 +103,7 @@
 
 <div class="subpage-body">
           <section>
-            <h2 id="the-problem-uma-is-trying-to-solve">The problem UMA is trying to solve</h2>
+            <h2 id="the-problem-uma-is-trying-to-solve">The problem <abbr title="Universal Microservices Architecture">UMA</abbr> is trying to solve</h2>
             <p>
               Most software teams do not struggle because they cannot build services. They struggle because the same behavior keeps being
               reimplemented in different places. A decision appears once in the browser, once in the backend, once in an edge worker, and
@@ -111,31 +111,31 @@
               harder to reason about.
             </p>
             <p>
-              UMA starts from the idea that architecture should preserve behavior before it preserves deployment shape. Instead of using
+              <abbr title="Universal Microservices Architecture">UMA</abbr> starts from the idea that architecture should preserve behavior before it preserves deployment shape. Instead of using
               “frontend,” “backend,” or “microservice” as the primary organizing principle, it treats the portable service boundary as the
               durable unit and then makes runtime-specific responsibilities explicit around it.
             </p>
             <p>
-              That is why one of the most useful early distinctions in UMA is the move from
+              That is why one of the most useful early distinctions in <abbr title="Universal Microservices Architecture">UMA</abbr> is the move from
               <a href="../from-stack-ownership-to-behavior-ownership/">stack ownership to behavior ownership</a>. Without that shift, the
               rest of the model can sound like a runtime technique instead of an architectural correction.
             </p>
             <p>
               If you want the direct cold-reader version of that gap before going deeper into the model, start with
-              <a href="../what-problem-does-uma-solve/">what problem UMA solves</a>.
+              <a href="../what-problem-does-uma-solve/">what problem <abbr title="Universal Microservices Architecture">UMA</abbr> solves</a>.
             </p>
           </section>
 
           <section>
-            <h2 id="a-practical-definition-of-uma">A practical definition of UMA</h2>
+            <h2 id="a-practical-definition-of-uma">A practical definition of <abbr title="Universal Microservices Architecture">UMA</abbr></h2>
             <p>
-              UMA is a design model for software that must survive across many execution environments without losing its architectural
+              <abbr title="Universal Microservices Architecture">UMA</abbr> is a design model for software that must survive across many execution environments without losing its architectural
               clarity. It treats the portable service boundary as the durable unit of the system, while treating validation, transport,
               policy, permissions, and runtime placement as explicit surrounding concerns. That distinction is what keeps portability from
               collapsing into duplication.
             </p>
             <p>
-              Another way to say it is this: UMA is not “write once, run everywhere.” It is “write once, run where it makes sense.” The
+              Another way to say it is this: <abbr title="Universal Microservices Architecture">UMA</abbr> is not “write once, run everywhere.” It is “write once, run where it makes sense.” The
               service remains recognizable, the runtime stays governed, and the system stays explainable for longer. In practical terms,
               this means the same discount rule, validation step, or feature flag evaluator can execute in a browser, an edge worker, and
               a backend service without becoming three separate codepaths that diverge silently over time.
@@ -162,15 +162,15 @@
           </section>
 
           <section>
-            <h2 id="how-uma-differs-from-conventional-boundaries">How UMA differs from conventional boundaries</h2>
+            <h2 id="how-uma-differs-from-conventional-boundaries">How <abbr title="Universal Microservices Architecture">UMA</abbr> differs from conventional boundaries</h2>
             <p>
-              Traditional architectural labels mostly describe where code runs or which team owns it. UMA is more interested in whether the
+              Traditional architectural labels mostly describe where code runs or which team owns it. <abbr title="Universal Microservices Architecture">UMA</abbr> is more interested in whether the
               behavior itself can remain stable while the runtime context changes. That is why the model aligns naturally with WebAssembly:
-              WebAssembly provides a portable execution boundary, while UMA provides the architectural discipline required to keep that
+              WebAssembly provides a portable execution boundary, while <abbr title="Universal Microservices Architecture">UMA</abbr> provides the architectural discipline required to keep that
               boundary meaningful at system scale.
             </p>
             <p>
-              In that sense, UMA is not trying to replace every existing architectural style with a new label. It is trying to answer a
+              In that sense, <abbr title="Universal Microservices Architecture">UMA</abbr> is not trying to replace every existing architectural style with a new label. It is trying to answer a
               modern problem that older labels do not explain well enough: how to keep one business capability coherent when it must execute
               across client, edge, server, background, and agent-like contexts.
             </p>
@@ -185,13 +185,13 @@
               step feels reasonable, but the result is drift.
             </p>
             <p>
-              UMA matters because it gives that organization a different architectural center of gravity. Instead of treating local runtime
+              <abbr title="Universal Microservices Architecture">UMA</abbr> matters because it gives that organization a different architectural center of gravity. Instead of treating local runtime
               ownership as the default, it starts from a portable behavior model and forces the runtime-specific decisions to stay visible.
             </p>
           </section>
 
           <section>
-            <h2 id="what-uma-is-not">What UMA is not</h2>
+            <h2 id="what-uma-is-not">What <abbr title="Universal Microservices Architecture">UMA</abbr> is not</h2>
             <ul>
               <li>It is not a promise that every service should run everywhere.</li>
               <li>It is not a claim that runtimes stop mattering once logic is portable.</li>
@@ -203,7 +203,7 @@
           <section>
             <h2 id="who-should-care-about-this-model">Who should care about this model</h2>
             <p>
-              UMA is useful for architects, platform engineers, senior developers, and technical leads who need a more stable way to think
+              <abbr title="Universal Microservices Architecture">UMA</abbr> is useful for architects, platform engineers, senior developers, and technical leads who need a more stable way to think
               about software that crosses runtime boundaries. It is especially useful when systems must preserve behavior across product
               surfaces and when architectural drift is starting to show up as duplicated rules, inconsistent outcomes, or governance gaps.
             </p>
@@ -211,10 +211,10 @@
 
           <section>
             <h2 id="frequently-asked-question">Frequently asked question</h2>
-            <h3 id="is-uma-only-relevant-if-i-use-webassembly">Is UMA only relevant if I use WebAssembly?</h3>
+            <h3 id="is-uma-only-relevant-if-i-use-webassembly">Is <abbr title="Universal Microservices Architecture">UMA</abbr> only relevant if I use WebAssembly?</h3>
             <p>
               No. WebAssembly is a strong fit because it provides a practical execution boundary for portable behavior, but the architectural
-              model is larger than the compilation target. UMA is fundamentally about keeping service meaning stable and runtime decisions
+              model is larger than the compilation target. <abbr title="Universal Microservices Architecture">UMA</abbr> is fundamentally about keeping service meaning stable and runtime decisions
               explicit.
             </p>
           </section>
@@ -222,17 +222,17 @@
           <section class="subpage-callout">
             <strong>Continue the path</strong>
             <p>
-              If you want the practical version of this idea, use the learning path and examples next. That is where UMA stops being a
+              If you want the practical version of this idea, use the learning path and examples next. That is where <abbr title="Universal Microservices Architecture">UMA</abbr> stops being a
               definition and becomes something you can inspect, run, and evaluate.
             </p>
             <div class="subpage-inline-links">
               <a href="../../learn-uma/learning-path/">Learning Path</a>
               <a href="../../examples/">Examples</a>
-              <a href="../what-problem-does-uma-solve/">What problem does UMA solve?</a>
-              <a href="../../comparisons/uma-vs-traditional-microservices/">UMA vs traditional microservices</a>
+              <a href="../what-problem-does-uma-solve/">What problem does <abbr title="Universal Microservices Architecture">UMA</abbr> solve?</a>
+              <a href="../../comparisons/uma-vs-traditional-microservices/"><abbr title="Universal Microservices Architecture">UMA</abbr> vs traditional microservices</a>
               <a href="../../core-model/what-is-a-capability/">What is a capability?</a>
               <a href="../../core-model/what-is-a-workflow/">What is a workflow?</a>
-              <a href="../../core-model/what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../../core-model/what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</a>
               <a href="../../core-model/agent-vs-runtime/">Agent vs runtime</a>
               <a href="../../how-uma-works/runtime-agnostic-architecture/">Runtime-agnostic architecture</a>
             </div>

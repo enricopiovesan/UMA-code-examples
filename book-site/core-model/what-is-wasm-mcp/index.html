@@ -83,19 +83,19 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is WASM MCP in UMA?</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is WASM MCP in Universal Microservices Architecture (UMA)?</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Core Model</summary>
-        <ul><li><a href="../what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in UMA?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is WASM MCP in UMA?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in UMA</a></li></ul>
+        <ul><li><a href="../what-is-a-capability/">What Is a Capability in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-workflow/">What Is a Workflow in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a <abbr title="Universal Microservices Architecture">UMA</abbr> Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>What is WASM MCP in UMA?</h1>
+          <h1>What is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</h1>
           <p>
-            In the UMA reference experience, <strong>WASM MCP</strong> is the discovery and invocation surface through which the runtime
+            In the <abbr title="Universal Microservices Architecture">UMA</abbr> reference experience, <strong>WASM MCP</strong> is the discovery and invocation surface through which the runtime
             learns what capabilities are available. It matters because it makes capability availability explicit instead of hiding it inside
             custom integration code or one-off runtime assumptions when compute can happen in many places and the system needs a visible
             way to decide where logic runs.
@@ -115,7 +115,7 @@
               inspectable way to surface capabilities if it wants runtime composition to stay governed instead of ad hoc.
             </p>
             <p>
-              This fits the same UMA summary as the rest of the site: not “write once, run everywhere,” but “write once, run where it
+              This fits the same <abbr title="Universal Microservices Architecture">UMA</abbr> summary as the rest of the site: not “write once, run everywhere,” but “write once, run where it
               makes sense,” with discovery staying explicit instead of hidden.
             </p>
           </section>
@@ -128,7 +128,7 @@
               but it becomes weak as soon as discovery, ranking, or dynamic selection enters the picture.
             </p>
             <p>
-              WASM MCP exists in the UMA story to make that surface explicit. It tells the runtime what is available without forcing the
+              WASM MCP exists in the <abbr title="Universal Microservices Architecture">UMA</abbr> story to make that surface explicit. It tells the runtime what is available without forcing the
               runtime to treat every capability as an opaque guess.
             </p>
           </section>
@@ -136,7 +136,7 @@
           <section>
             <h2 id="why-it-is-not-just-another-protocol-page">Why it is not just another protocol page</h2>
             <p>
-              This page is not trying to turn UMA into a protocol discussion. The key idea is not that one acronym is fashionable. The key
+              This page is not trying to turn <abbr title="Universal Microservices Architecture">UMA</abbr> into a protocol discussion. The key idea is not that one acronym is fashionable. The key
               idea is that runtime discovery needs a real interface. If a system claims to compose work from capabilities dynamically, it
               should be able to show how those capabilities are surfaced, described, and made available for runtime governance.
             </p>
@@ -239,9 +239,9 @@
 
           <section>
             <h2 id="frequently-asked-questions">Frequently asked questions</h2>
-            <h3 id="is-wasm-mcp-required-for-uma">Is WASM MCP required for UMA?</h3>
+            <h3 id="is-wasm-mcp-required-for-uma">Is WASM MCP required for <abbr title="Universal Microservices Architecture">UMA</abbr>?</h3>
             <p>
-              No. UMA as an architectural model is larger than one discovery surface. But Chapter 13 uses WASM MCP because it is a strong
+              No. <abbr title="Universal Microservices Architecture">UMA</abbr> as an architectural model is larger than one discovery surface. But Chapter 13 uses WASM MCP because it is a strong
               way to make capability discovery and invocation visible in a runtime-centered workflow.
             </p>
             <h3 id="why-not-let-the-runtime-keep-an-internal-registry-instead">Why not let the runtime keep an internal registry instead?</h3>
@@ -258,13 +258,13 @@
           <section class="subpage-callout">
             <strong>See the full chain</strong>
             <p>
-              The easiest way to understand WASM MCP is to place it beside the other UMA roles: capability, planner, runtime, and final
+              The easiest way to understand WASM MCP is to place it beside the other <abbr title="Universal Microservices Architecture">UMA</abbr> roles: capability, planner, runtime, and final
               workflow. The live reference app and the concept pages around it make that chain visible step by step, while the book takes
               the same discovery surface into the broader execution model behind it.
             </p>
             <div class="subpage-inline-links">
               <a href="../what-is-a-capability/">What is a capability?</a>
-              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</a>
               <a href="../what-is-a-workflow/">What is a workflow?</a>
               <a href="../agent-vs-runtime/">Agent vs runtime</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>

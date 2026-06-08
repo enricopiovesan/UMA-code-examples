@@ -85,24 +85,24 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">WASM Microservices Tutorial: TypeScript</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page">WASM Microservices Tutorial: TypeScript</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="./" class="section-nav-current" aria-current="page">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../uma-production-readiness/">UMA Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="./" class="section-nav-current" aria-current="page">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="../uma-production-readiness/"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
 <section class="subpage-hero">
   <h1>WASM Microservices Tutorial: TypeScript</h1>
-  <p>Build a portable microservice runtime in TypeScript using the UMA pattern. This tutorial walks through the Post Fetcher Runtime from Chapter 5: contract enforcement, adapter binding, event ordering, and parity with the Rust implementation.</p>
+  <p>Build a portable microservice runtime in TypeScript using the <abbr title="Universal Microservices Architecture">UMA</abbr> pattern. This tutorial walks through the Post Fetcher Runtime from Chapter 5: contract enforcement, adapter binding, event ordering, and parity with the Rust implementation.</p>
 </section>
 
 <div class="subpage-body">
   <section>
     <h2 id="what-you-will-build">What you will build</h2>
-    <p>This tutorial covers building wasm microservices in TypeScript using the UMA runtime discipline. The Post Fetcher Runtime is a complete UMA example: a TypeScript runtime that hosts a pure service, enforces its contract, binds the <code>network.fetch</code> adapter, and records lifecycle metadata. It is Chapter 5 of the UMA book rendered as runnable code.</p>
+    <p>This tutorial covers building wasm microservices in TypeScript using the <abbr title="Universal Microservices Architecture">UMA</abbr> runtime discipline. The Post Fetcher Runtime is a complete <abbr title="Universal Microservices Architecture">UMA</abbr> example: a TypeScript runtime that hosts a pure service, enforces its contract, binds the <code>network.fetch</code> adapter, and records lifecycle metadata. It is Chapter 5 of the <abbr title="Universal Microservices Architecture">UMA</abbr> book rendered as runnable code.</p>
     <p>By the end of this tutorial you will be able to:</p>
     <ul>
       <li>Explain what belongs in the service layer versus what belongs in the runtime layer</li>
@@ -110,7 +110,7 @@
       <li>Show how <code>compare_impls.sh</code> proves behavioral equivalence between the TypeScript and Rust runtimes</li>
       <li>Describe how the lifecycle record captures which adapter implementation actually ran</li>
     </ul>
-    <p>The TypeScript runtime in <code>ts/</code> is a reference implementation kept in parity with the Rust workspace for the core Chapter 5 scenarios. It demonstrates that UMA runtime anatomy is a design discipline, not a language feature. The same contract, the same event ordering, the same adapter binding model. in TypeScript instead of Rust.</p>
+    <p>The TypeScript runtime in <code>ts/</code> is a reference implementation kept in parity with the Rust workspace for the core Chapter 5 scenarios. It demonstrates that <abbr title="Universal Microservices Architecture">UMA</abbr> runtime anatomy is a design discipline, not a language feature. The same contract, the same event ordering, the same adapter binding model. in TypeScript instead of Rust.</p>
   </section>
 
   <section>
@@ -125,7 +125,7 @@
 
   <section>
     <h2 id="project-structure">Project structure</h2>
-    <p>The repository root is a Rust workspace. Each directory corresponds to a layer in the UMA runtime anatomy:</p>
+    <p>The repository root is a Rust workspace. Each directory corresponds to a layer in the <abbr title="Universal Microservices Architecture">UMA</abbr> runtime anatomy:</p>
     <ul>
       <li><strong><code>service/</code></strong>: pure normalization logic and service-facing API types. No I/O, no host dependency. This is the portable business logic that must produce identical results regardless of runtime.</li>
       <li><strong><code>contracts/</code></strong>: typed boundary definitions: the adapter capability contract (<code>adapter.network.contract.json</code>), the runtime policy (<code>policy.runtime.json</code>), and the lifecycle metadata schema (<code>metadata.schema.json</code>). These files are the declared contract, not generated artifacts.</li>
@@ -136,12 +136,12 @@
       <li><strong><code>scripts/</code></strong>: guided Chapter 5 lab helpers. Start here.</li>
       <li><strong><code>labs/</code></strong>: lab notes. See <code>labs/README.md</code> for the guided walkthrough.</li>
     </ul>
-    <p>The separation between <code>service/</code> and <code>runtime/</code> is the central UMA discipline this chapter demonstrates. The service does not know which adapter ran. The runtime does not contain business logic. The contract layer in <code>contracts/</code> makes the boundary machine-readable.</p>
+    <p>The separation between <code>service/</code> and <code>runtime/</code> is the central <abbr title="Universal Microservices Architecture">UMA</abbr> discipline this chapter demonstrates. The service does not know which adapter ran. The runtime does not contain business logic. The contract layer in <code>contracts/</code> makes the boundary machine-readable.</p>
   </section>
 
   <section>
     <h2 id="the-runtimes-job">The runtime's job</h2>
-    <p>A UMA runtime has three responsibilities, all visible in the Chapter 5 output:</p>
+    <p>A <abbr title="Universal Microservices Architecture">UMA</abbr> runtime has three responsibilities, all visible in the Chapter 5 output:</p>
     <ul>
       <li><strong>Adapter selection and recording.</strong> The runtime chooses which implementation satisfies the <code>network.fetch</code> capability and records that decision in the lifecycle binding. The <code>UMA_ENABLE_RETRY</code> and <code>UMA_ENABLE_CACHE</code> environment variables change the binding record from <code>host-fetch</code> to <code>cache-retry-host-fetch</code> without changing the normalized service output.</li>
       <li><strong>Fail-fast validation.</strong> The runtime validates the request before any side effect. An invalid <code>accept</code> header stops the run before the first <code>fetch_request</code> event is emitted. The service never sees the request.</li>
@@ -211,14 +211,14 @@ cargo test --locked</code></pre>
 
   <section>
     <h2 id="what-the-typescript-path-demonstrates">What the TypeScript path demonstrates</h2>
-    <p>A runtime does not have to be a WASM host to participate in the UMA model. The TypeScript runtime in <code>ts/</code> is a Node.js process. It hosts the same pure service logic, enforces the same contract, and produces the same observable behavior. The portable behavior lives in the service and the contract. the runtime is an adapter to a different host ecosystem.</p>
-    <p>This has a practical implication: the UMA discipline applies at the architecture level, not at the WASM toolchain level. Teams working in TypeScript ecosystems can adopt the runtime model (contract enforcement, adapter binding, deterministic event ordering, lifecycle recording) without compiling anything to WASM. The WASM compilation step adds the strongest portability guarantee (run anywhere without recompilation), but the architecture discipline delivers value independently of that step.</p>
+    <p>A runtime does not have to be a WASM host to participate in the <abbr title="Universal Microservices Architecture">UMA</abbr> model. The TypeScript runtime in <code>ts/</code> is a Node.js process. It hosts the same pure service logic, enforces the same contract, and produces the same observable behavior. The portable behavior lives in the service and the contract. the runtime is an adapter to a different host ecosystem.</p>
+    <p>This has a practical implication: the <abbr title="Universal Microservices Architecture">UMA</abbr> discipline applies at the architecture level, not at the WASM toolchain level. Teams working in TypeScript ecosystems can adopt the runtime model (contract enforcement, adapter binding, deterministic event ordering, lifecycle recording) without compiling anything to WASM. The WASM compilation step adds the strongest portability guarantee (run anywhere without recompilation), but the architecture discipline delivers value independently of that step.</p>
     <p>Same contract. Different host. Provably equivalent behavior. That is the point of <code>ts/</code>.</p>
   </section>
 
   <section>
     <h2 id="why-typescript-for-wasm-microservices">Why TypeScript for WASM microservices</h2>
-    <p>Most WebAssembly tutorials default to Rust because Rust has the most complete WASM toolchain, the smallest output binaries, and the best WASI 0.2 support. But TypeScript teams do not need to switch languages to adopt the WASM microservices architecture discipline. The UMA model separates the portable service layer from the runtime adapter layer. That separation applies regardless of whether the service core compiles to a <code>.wasm</code> binary or runs as a Node.js module.</p>
+    <p>Most WebAssembly tutorials default to Rust because Rust has the most complete WASM toolchain, the smallest output binaries, and the best WASI 0.2 support. But TypeScript teams do not need to switch languages to adopt the WASM microservices architecture discipline. The <abbr title="Universal Microservices Architecture">UMA</abbr> model separates the portable service layer from the runtime adapter layer. That separation applies regardless of whether the service core compiles to a <code>.wasm</code> binary or runs as a Node.js module.</p>
     <p>What the TypeScript path demonstrates is that the architecture discipline (not the WASM binary format) is the core value. A TypeScript microservice that enforces its contract at the boundary, records adapter decisions in a lifecycle log, and validates inputs before emitting side effects is architecturally equivalent to a Rust WASM module. The portable behavior lives in the service contract. The runtime is an implementation detail.</p>
     <p>For teams that do need to cross runtime boundaries (running the same logic in a browser and on a server) the step from this TypeScript runtime to a compiled WASM binary is additive. The contract, the adapter model, and the event ordering discipline transfer directly. You are not rewriting. you are compiling the service core to a different target.</p>
   </section>
@@ -239,7 +239,7 @@ cargo test --locked</code></pre>
     <p>After completing this tutorial:</p>
     <ul>
       <li><strong>Compare with the Rust runtime</strong>: the Rust workspace is the validated default path for Chapter 5. Reading both implementations side by side clarifies which choices are language-specific and which are architecture-level constraints. See the <a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a>.</li>
-      <li><strong>Chapter 6: UMA Portability Lab</strong>: the next chapter takes the same portable service and runs it across multiple host environments in a single lab, making the portability guarantee concrete rather than theoretical.</li>
+      <li><strong>Chapter 6: <abbr title="Universal Microservices Architecture">UMA</abbr> Portability Lab</strong>: the next chapter takes the same portable service and runs it across multiple host environments in a single lab, making the portability guarantee concrete rather than theoretical.</li>
       <li><strong>Active Descriptors</strong>: the contract layer in <code>contracts/</code> is a simplified version of the full active descriptor model. See the <a href="../../core-model/active-descriptors/">Active Descriptors</a> page for the complete governance and placement model that builds on this foundation.</li>
     </ul>
   </section>
@@ -259,7 +259,7 @@ cargo test --locked</code></pre>
     <strong>Source code and Rust tutorial</strong>
     <p>The full Chapter 5 source code, including the TypeScript reference runtime, all lab scripts, and the golden fixtures, is on GitHub. The Rust tutorial covers the same chapter from the validated Rust-first path.</p>
     <div class="subpage-inline-links">
-      <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub: UMA Code Examples</a>
+      <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub: <abbr title="Universal Microservices Architecture">UMA</abbr> Code Examples</a>
       <a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a>
       <a href="../../proof/what-makes-a-service-portable/">What makes a service portable?</a>
       <a href="../../learn-uma/chapter-07-webassembly-portability-wasm-runtimes/">Chapter 7: WebAssembly portability and WASM runtimes</a>

@@ -134,10 +134,10 @@
           </section>
 
           <section>
-            <h2 id="the-incremental-path-uma-enables">The incremental path UMA enables</h2>
+            <h2 id="the-incremental-path-uma-enables">The incremental path Universal Microservices Architecture (UMA) enables</h2>
             <p>
               Universal Microservices Architecture addresses this at the level of service contracts rather than service
-              implementations. A UMA-portable service expresses what it does through a stable, runtime-readable descriptor
+              implementations. A <abbr title="Universal Microservices Architecture">UMA</abbr>-portable service expresses what it does through a stable, runtime-readable descriptor
               rather than through its internal structure. That descriptor is what the rest of the system depends on, not
               the implementation behind it.
             </p>
@@ -168,7 +168,7 @@
               radius of any change is too large to reason about.
             </p>
             <p>
-              The team wraps the service in a UMA capability descriptor. The descriptor expresses what the service does
+              The team wraps the service in a <abbr title="Universal Microservices Architecture">UMA</abbr> capability descriptor. The descriptor expresses what the service does
               in terms the runtime can discover and validate. Existing callers are updated to resolve against the
               descriptor rather than a hard-coded endpoint. This is the only cross-team coordination required at this
               stage, and it is a change in how the service is addressed, not in what it does.
@@ -207,7 +207,7 @@
           <section class="subpage-callout">
             <strong>Read the underlying model</strong>
             <p>
-              The incremental migration path depends on how UMA defines portable service contracts and runtime resolution.
+              The incremental migration path depends on how <abbr title="Universal Microservices Architecture">UMA</abbr> defines portable service contracts and runtime resolution.
               The core model pages cover both in detail. The book extends that into a full treatment of how capability
               governance works across a live distributed system.
             </p>

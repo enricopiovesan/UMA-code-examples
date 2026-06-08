@@ -83,20 +83,20 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">WebAssembly Architecture and UMA</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="./" class="section-nav-current" aria-current="page">WebAssembly Architecture and UMA</a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../uma-production-readiness/">UMA Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="./" class="section-nav-current" aria-current="page">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="../uma-production-readiness/"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>WebAssembly architecture in UMA</h1>
+          <h1>WebAssembly architecture in <abbr title="Universal Microservices Architecture">UMA</abbr></h1>
           <p>
             WebAssembly matters to Universal Microservices Architecture because it gives portable service behavior a stable execution
-            boundary. But the architecture is not “just use WebAssembly.” UMA depends on contracts, runtime governance, and explicit system
+            boundary. But the architecture is not “just use WebAssembly.” <abbr title="Universal Microservices Architecture">UMA</abbr> depends on contracts, runtime governance, and explicit system
             composition as much as it depends on a portable binary target.
           </p>
         </section>
@@ -110,7 +110,7 @@
               answer the harder questions about orchestration, trust, capability access, or long-term change.
             </p>
             <p>
-              This is why UMA treats WebAssembly as an execution fit rather than the whole architectural answer. WebAssembly gives the
+              This is why <abbr title="Universal Microservices Architecture">UMA</abbr> treats WebAssembly as an execution fit rather than the whole architectural answer. WebAssembly gives the
               service a stable binary boundary. The rest of the model still has to explain contracts, policy, runtime governance, trust, and
               system evolution.
             </p>
@@ -136,7 +136,7 @@
             </article>
             <article class="subpage-card">
               <h3 id="runtime-boundaries">Runtime boundaries</h3>
-              <p>The host still matters, which is why UMA keeps runtime responsibilities explicit rather than pretending they disappear.</p>
+              <p>The host still matters, which is why <abbr title="Universal Microservices Architecture">UMA</abbr> keeps runtime responsibilities explicit rather than pretending they disappear.</p>
             </article>
             <article class="subpage-card">
               <h3 id="capability-control">Capability control</h3>
@@ -151,12 +151,12 @@
           <section>
             <h2 id="why-this-is-bigger-than-packaging">Why this is bigger than packaging</h2>
             <p>
-              Many discussions about WebAssembly focus on where binaries can run. UMA is more interested in what the system becomes when the
+              Many discussions about WebAssembly focus on where binaries can run. <abbr title="Universal Microservices Architecture">UMA</abbr> is more interested in what the system becomes when the
               same business behavior can move safely across runtimes. That is an architectural question, not a distribution feature.
             </p>
             <p>
               In other words, a WebAssembly artifact is only part of the story. The harder problem is deciding how the runtime knows what
-              the service is allowed to do, how it should be composed, how it is versioned, and how trust should be enforced. UMA exists to
+              the service is allowed to do, how it should be composed, how it is versioned, and how trust should be enforced. <abbr title="Universal Microservices Architecture">UMA</abbr> exists to
               answer those questions at the architectural level.
             </p>
           </section>
@@ -169,7 +169,7 @@
               more capabilities are added. Those are architectural responsibilities that still need a clear model around the portable unit.
             </p>
             <p>
-              This is where UMA adds value. It gives WebAssembly a larger architectural context so the binary target contributes to a durable
+              This is where <abbr title="Universal Microservices Architecture">UMA</abbr> adds value. It gives WebAssembly a larger architectural context so the binary target contributes to a durable
               system model rather than becoming one more technical layer that teams still have to interpret differently.
             </p>
           </section>
@@ -207,7 +207,7 @@
             </p>
             <p>
               Another failure mode is treating WebAssembly as only a packaging choice. That misses the bigger opportunity. Its real value in
-              UMA is that it gives portable service behavior a stable execution target that the surrounding runtime can govern explicitly.
+              <abbr title="Universal Microservices Architecture">UMA</abbr> is that it gives portable service behavior a stable execution target that the surrounding runtime can govern explicitly.
             </p>
           </section>
 
@@ -218,9 +218,9 @@
               No. It makes portable execution more practical, but the system still needs contracts, trust, policy, and a coherent service
               model. Without those, WebAssembly becomes another delivery mechanism rather than a durable architectural boundary.
             </p>
-            <h3 id="does-uma-require-webassembly-everywhere">Does UMA require WebAssembly everywhere?</h3>
+            <h3 id="does-uma-require-webassembly-everywhere">Does <abbr title="Universal Microservices Architecture">UMA</abbr> require WebAssembly everywhere?</h3>
             <p>
-              No. UMA benefits from WebAssembly as a strong portable execution target, but the architectural point is larger than one
+              No. <abbr title="Universal Microservices Architecture">UMA</abbr> benefits from WebAssembly as a strong portable execution target, but the architectural point is larger than one
               technology choice. The key question is whether service behavior stays durable while runtime responsibilities remain explicit.
             </p>
           </section>
@@ -228,7 +228,7 @@
           <section class="subpage-callout">
             <strong>Related pages</strong>
             <p>
-              If you want to connect WebAssembly to the rest of the UMA model, continue to portable business logic and runtime-agnostic
+              If you want to connect WebAssembly to the rest of the <abbr title="Universal Microservices Architecture">UMA</abbr> model, continue to portable business logic and runtime-agnostic
               architecture next.
             </p>
             <div class="subpage-inline-links">

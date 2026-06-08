@@ -141,9 +141,9 @@
   </section>
 
   <section>
-    <h2 id="wasm-microservices-in-uma">WASM microservices in UMA</h2>
-    <p>UMA uses WASM as the execution boundary for portable business logic. The WASM module provides the portability guarantee: compile once, run anywhere the WASM spec is implemented. UMA's active descriptors and runtime governance layer provide what WASM alone does not: contract definition, placement policy, version constraints, and audit evidence.</p>
-    <p>In UMA, a WASM microservice is not just a module. It is a module paired with a descriptor that declares:</p>
+    <h2 id="wasm-microservices-in-uma">WASM microservices in Universal Microservices Architecture (UMA)</h2>
+    <p><abbr title="Universal Microservices Architecture">UMA</abbr> uses WASM as the execution boundary for portable business logic. The WASM module provides the portability guarantee: compile once, run anywhere the WASM spec is implemented. <abbr title="Universal Microservices Architecture">UMA</abbr>'s active descriptors and runtime governance layer provide what WASM alone does not: contract definition, placement policy, version constraints, and audit evidence.</p>
+    <p>In <abbr title="Universal Microservices Architecture">UMA</abbr>, a WASM microservice is not just a module. It is a module paired with a descriptor that declares:</p>
     <ul>
       <li>The input and output schemas the module expects and produces.</li>
       <li>The deployment targets where the module is allowed to run (browser, edge, server, or a specific runtime class).</li>
@@ -151,8 +151,8 @@
       <li>The evidence requirements a successful run must satisfy to be considered compliant.</li>
     </ul>
     <p>The runtime evaluates the descriptor before scheduling execution. If the current environment does not satisfy the declared constraints, the module is not placed there. This is runtime governance: policy enforcement at execution time, not at deployment time as a one-off check.</p>
-    <p>The same WASM module runs without recompilation across the three UMA deployment contexts: browser (via the browser's native WASM API), edge (via Cloudflare Workers or Fastly Compute), and server (via wasmtime or WasmEdge inside a container). What changes between contexts is the capability surface the host provides. The module's behavior is invariant.</p>
-    <p>WASM portability plus descriptor-driven governance is what makes WASM microservices production-ready in complex distributed systems rather than just in toy examples. WASM provides the mechanism. UMA provides the model.</p>
+    <p>The same WASM module runs without recompilation across the three <abbr title="Universal Microservices Architecture">UMA</abbr> deployment contexts: browser (via the browser's native WASM API), edge (via Cloudflare Workers or Fastly Compute), and server (via wasmtime or WasmEdge inside a container). What changes between contexts is the capability surface the host provides. The module's behavior is invariant.</p>
+    <p>WASM portability plus descriptor-driven governance is what makes WASM microservices production-ready in complex distributed systems rather than just in toy examples. WASM provides the mechanism. <abbr title="Universal Microservices Architecture">UMA</abbr> provides the model.</p>
   </section>
 
   <section class="subpage-callout">

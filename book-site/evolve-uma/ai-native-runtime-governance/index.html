@@ -83,22 +83,22 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/evolve-uma/">System Evolution</a></li><li><span aria-current="page">AI-Native Runtime Governance in UMA</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/evolve-uma/">System Evolution</a></li><li><span aria-current="page">AI-Native Runtime Governance in Universal Microservices Architecture (UMA)</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: System Evolution</summary>
-        <ul><li><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="../runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></li><li><a href="./" class="section-nav-current" aria-current="page">AI-Native Runtime Governance in UMA</a></li><li><a href="../mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-Native Portable Microservices</a></li></ul>
+        <ul><li><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../trust-boundaries/">Trust Boundaries in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../runtime-provenance-and-trust/">Runtime Provenance and Trust in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="./" class="section-nav-current" aria-current="page">AI-Native Runtime Governance in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-Native Portable Microservices</a></li></ul>
       </details>
 
-<section class="subpage-hero"><h1>AI-native runtime governance</h1><p>UMA does not make the agent the authority. It lets AI propose, summarize, rank, or assist, while the runtime validates what is allowed and leaves an inspectable trail.</p></section>
+<section class="subpage-hero"><h1>AI-native runtime governance</h1><p><abbr title="Universal Microservices Architecture">UMA</abbr> does not make the agent the authority. It lets AI propose, summarize, rank, or assist, while the runtime validates what is allowed and leaves an inspectable trail.</p></section>
 
 <div class="subpage-body">
           <section>
             <h2 id="the-proposal-authority-split">The proposal-authority split</h2>
             <p>AI systems are increasingly capable at proposing: ranking options, assembling workflows, summarizing constraints, suggesting next steps. That capability is genuinely useful. What these systems should not do is become the authority for whether something is allowed.</p>
-            <p>UMA makes that split explicit and enforced at the runtime layer: not as a prompt instruction, not as a trust-but-verify policy, but as a structural boundary that the system upholds regardless of what the agent proposes. The agent can say anything. The runtime decides what runs.</p>
+            <p><abbr title="Universal Microservices Architecture">UMA</abbr> makes that split explicit and enforced at the runtime layer: not as a prompt instruction, not as a trust-but-verify policy, but as a structural boundary that the system upholds regardless of what the agent proposes. The agent can say anything. The runtime decides what runs.</p>
             <p>That is the difference between an AI-assisted workflow and an AI-owned architecture. In an AI-assisted workflow, the agent is a capable participant with a specific role. In an AI-owned architecture, the agent's output becomes the implicit approval mechanism. There is no governed boundary to recover from.</p>
           </section>
           <section>
@@ -108,9 +108,9 @@
             <p>MCP and similar agent coordination protocols are accelerating this shift in 2025 and 2026. The teams that will handle it well are the ones that establish runtime governance before the boundary question becomes urgent.</p>
           </section>
           <section>
-            <h2 id="what-uma-runtime-governance-looks-like-with-ai">What UMA runtime governance looks like with AI</h2>
+            <h2 id="what-uma-runtime-governance-looks-like-with-ai">What <abbr title="Universal Microservices Architecture">UMA</abbr> runtime governance looks like with AI</h2>
             <p>A concrete description: an agent (an LLM-backed planner) receives a goal. It inspects available capabilities through their descriptors. It proposes a workflow: a sequence of capabilities, data flow between them, event emissions, and expected outcomes.</p>
-            <p>The UMA runtime receives that proposal and validates it against declared contracts. Are the capabilities compatible at the schema level? Do the declared permissions cover the requested access? Does the placement policy allow this capability to run in this environment? Does the trust model allow this agent to trigger this execution? Each check has a specific answer.</p>
+            <p>The <abbr title="Universal Microservices Architecture">UMA</abbr> runtime receives that proposal and validates it against declared contracts. Are the capabilities compatible at the schema level? Do the declared permissions cover the requested access? Does the placement policy allow this capability to run in this environment? Does the trust model allow this agent to trigger this execution? Each check has a specific answer.</p>
             <p>If all checks pass, execution is approved and proceeds. If any check fails, the proposal is rejected with a specific reason: not a generic error, but the precise constraint that was not satisfied. The agent can use that reason to revise the proposal. The revision loop is deliberate: it is how the system stays collaborative without becoming permissive.</p>
           </section>
           <section>
@@ -129,21 +129,21 @@
           <section>
             <h2 id="the-distinction-from-conventional-ai-safety">The distinction from conventional AI safety</h2>
             <p>Conventional AI safety focuses on model output: whether the model produces harmful text, whether its reasoning is sound, whether its recommendations are accurate. These are real concerns worth addressing seriously.</p>
-            <p>UMA runtime governance focuses on a different layer: what the model's output can trigger. A model can produce a perfectly accurate, well-reasoned workflow proposal that nonetheless requests access to capabilities the agent was never authorized to use. The output is not harmful. The execution would be.</p>
+            <p><abbr title="Universal Microservices Architecture">UMA</abbr> runtime governance focuses on a different layer: what the model's output can trigger. A model can produce a perfectly accurate, well-reasoned workflow proposal that nonetheless requests access to capabilities the agent was never authorized to use. The output is not harmful. The execution would be.</p>
             <p>Both layers matter. They are complementary rather than competing. Model-level safety governs what the agent says. Runtime governance governs what the system does with it.</p>
           </section>
           <section class="subpage-grid"><article class="subpage-card"><h3 id="proposal">Proposal</h3><p>The agent can suggest a path or choose among candidates.</p></article><article class="subpage-card"><h3 id="validation">Validation</h3><p>The runtime checks constraints, authority, placement, and capability compatibility.</p></article><article class="subpage-card"><h3 id="execution">Execution</h3><p>Approved intent resolves into concrete runtime steps.</p></article><article class="subpage-card"><h3 id="trace">Trace</h3><p>The final result should explain the path, not hide it.</p></article></section>
           <section>
             <h2 id="questions-and-answers">Questions and answers</h2>
             <dl>
-              <dt>Does UMA require a specific AI framework or model?</dt>
+              <dt>Does <abbr title="Universal Microservices Architecture">UMA</abbr> require a specific AI framework or model?</dt>
               <dd>No. The runtime governance layer is independent of which model or framework produces the proposal. The runtime validates contracts and policies, not model outputs directly. You can use any LLM or agent framework on the proposal side. What changes is whether the execution side has a governed boundary.</dd>
-              <dt>Can an agent modify its own capabilities in UMA?</dt>
+              <dt>Can an agent modify its own capabilities in <abbr title="Universal Microservices Architecture">UMA</abbr>?</dt>
               <dd>No. Capabilities are declared in descriptors, not negotiated at runtime by the agent. The agent can propose workflows using declared capabilities. It cannot expand or redefine what those capabilities are. That constraint is what prevents the escalation pattern where an agent incrementally acquires access it was never granted.</dd>
             </dl>
           </section>
           <section><h2 id="why-this-supports-book-conversion">Why this supports book conversion</h2><p>This page gives enough to understand the distinction. The complete argument lives in Chapters 12 and 13, where discoverable decisions and the portable MCP runtime turn the boundary into runnable behavior.</p></section>
-          <section class="subpage-callout"><strong>Covered in the book</strong><p>Chapter 12 explains the proposal, validation, revision, execution, and trace ladder. Chapter 13 shows AI participation inside the portable MCP runtime.</p><div class="subpage-inline-links"><a href="../mcp-wasm-ai-native-microservices/">MCP + WASM: AI-native microservices</a><a href="../../how-uma-works/uma-mcp-runtime-governance/">UMA MCP runtime governance</a><a href="../../core-model/what-is-wasm-mcp/">What is WASM MCP</a><a href="../../learn-uma/chapter-13-ai-agents-mcp-runtime/">Chapter 13: AI agents and MCP runtime</a><a href="../../core-model/late-bound-policy-enforcement/">Late-bound policy enforcement</a><a href="../../core-model/agent-vs-runtime/">Agent vs runtime</a><a href="../../examples/chapter-12-discoverable-decisions/">Chapter 12 example</a><a href="../../examples/chapter-13-portable-mcp-runtime/">Chapter 13 example</a><a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book</a></div></section>
+          <section class="subpage-callout"><strong>Covered in the book</strong><p>Chapter 12 explains the proposal, validation, revision, execution, and trace ladder. Chapter 13 shows AI participation inside the portable MCP runtime.</p><div class="subpage-inline-links"><a href="../mcp-wasm-ai-native-microservices/">MCP + WASM: AI-native microservices</a><a href="../../how-uma-works/uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> MCP runtime governance</a><a href="../../core-model/what-is-wasm-mcp/">What is WASM MCP</a><a href="../../learn-uma/chapter-13-ai-agents-mcp-runtime/">Chapter 13: AI agents and MCP runtime</a><a href="../../core-model/late-bound-policy-enforcement/">Late-bound policy enforcement</a><a href="../../core-model/agent-vs-runtime/">Agent vs runtime</a><a href="../../examples/chapter-12-discoverable-decisions/">Chapter 12 example</a><a href="../../examples/chapter-13-portable-mcp-runtime/">Chapter 13 example</a><a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book</a></div></section>
         </div>
       </main>
 

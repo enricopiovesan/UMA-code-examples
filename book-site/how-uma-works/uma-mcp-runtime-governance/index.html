@@ -83,19 +83,19 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">UMA Runtime Governance for MCP</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="../uma-production-readiness/">UMA Production Readiness</a></li><li><a href="./" class="section-nav-current" aria-current="page">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="../uma-production-readiness/"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="./" class="section-nav-current" aria-current="page"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
 <section class="subpage-hero">
-  <h1>UMA Runtime Governance for MCP</h1>
+  <h1><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</h1>
   <p>
-    Model Context Protocol gives AI agents a structured way to discover and invoke tools. UMA's runtime governance layer applies
+    Model Context Protocol gives AI agents a structured way to discover and invoke tools. <abbr title="Universal Microservices Architecture">UMA</abbr>'s runtime governance layer applies
     to those invocations the same way it applies to any other capability call: contract validation before execution, trust
     enforcement at the boundary, and execution evidence after the fact. The result is AI tool invocation that is inspectable
     and governable. not a black box that bypasses the architectural model.
@@ -113,19 +113,19 @@
     <p>
       MCP introduces structure at the discovery layer. A server exposes a list of tools with names, descriptions, and input
       schemas. The agent uses that manifest to decide what to call and how to call it. This is structurally similar to what
-      UMA's active descriptor does for capabilities: a machine-readable surface that makes behavior discoverable before
+      <abbr title="Universal Microservices Architecture">UMA</abbr>'s active descriptor does for capabilities: a machine-readable surface that makes behavior discoverable before
       invocation rather than opaque until execution.
     </p>
     <p>
       The gap MCP does not close on its own: it describes tools, but it does not validate contracts, enforce trust policy,
-      or produce execution evidence at the business-logic level. Those are runtime concerns. UMA's runtime layer fills them.
+      or produce execution evidence at the business-logic level. Those are runtime concerns. <abbr title="Universal Microservices Architecture">UMA</abbr>'s runtime layer fills them.
     </p>
   </section>
 
   <section>
-    <h2 id="how-umas-runtime-layer-governs-mcp-tool-calls">How UMA's runtime layer governs MCP tool calls</h2>
+    <h2 id="how-umas-runtime-layer-governs-mcp-tool-calls">How <abbr title="Universal Microservices Architecture">UMA</abbr>'s runtime layer governs MCP tool calls</h2>
     <p>
-      In the UMA model, an MCP server is not the execution boundary: it is the discovery surface. The portable WASM service
+      In the <abbr title="Universal Microservices Architecture">UMA</abbr> model, an MCP server is not the execution boundary: it is the discovery surface. The portable WASM service
       is the execution boundary. The runtime layer sits between the two and applies governance at every invocation:
     </p>
     <ul>
@@ -160,7 +160,7 @@
       layer, every tool the agent can call becomes an implicit trust grant with no audit trail.
     </p>
     <p>
-      UMA treats the AI agent as a caller like any other: one that must satisfy the same contract requirements and
+      <abbr title="Universal Microservices Architecture">UMA</abbr> treats the AI agent as a caller like any other: one that must satisfy the same contract requirements and
       trust policy as a classical service. The agent's use of MCP to discover and invoke tools does not bypass
       governance. it becomes the structured entry point through which governance is applied.
     </p>
@@ -174,8 +174,8 @@
   <section>
     <h2 id="the-portable-mcp-runtime-in-chapter-13">The portable MCP runtime in Chapter 13</h2>
     <p>
-      Chapter 13 of the UMA book builds this as a complete runnable system. The portable MCP runtime is the reference
-      implementation of UMA's governance model applied to AI-native execution: an MCP server that exposes capabilities
+      Chapter 13 of the <abbr title="Universal Microservices Architecture">UMA</abbr> book builds this as a complete runnable system. The portable MCP runtime is the reference
+      implementation of <abbr title="Universal Microservices Architecture">UMA</abbr>'s governance model applied to AI-native execution: an MCP server that exposes capabilities
       as tools, a runtime layer that validates contracts and enforces trust before each WASM invocation, and an
       evidence layer that makes every agent decision queryable after the fact.
     </p>
@@ -199,7 +199,7 @@
       This collapses two distinct concerns into one layer.
     </p>
     <p>
-      UMA separates them deliberately. The MCP manifest is the discovery surface (what the agent can see and request.
+      <abbr title="Universal Microservices Architecture">UMA</abbr> separates them deliberately. The MCP manifest is the discovery surface (what the agent can see and request.
       The active descriptor is the governance surface) what the runtime validates before execution proceeds. These
       are different documents with different audiences: the manifest is for the AI model, the descriptor is for the
       runtime. Conflating them produces either over-permissive execution (governance is only as strict as the manifest
@@ -210,7 +210,7 @@
   <section>
     <h2 id="what-this-looks-like-in-practice">What this looks like in practice</h2>
     <p>
-      A request arrives from an AI agent via MCP tool call. The sequence in a governed UMA runtime:
+      A request arrives from an AI agent via MCP tool call. The sequence in a governed <abbr title="Universal Microservices Architecture">UMA</abbr> runtime:
     </p>
     <ol>
       <li>The MCP server receives the tool invocation and maps it to a capability by name and version</li>
@@ -229,11 +229,11 @@
   <section class="subpage-callout">
     <strong>Go deeper</strong>
     <div class="subpage-inline-links">
-      <a href="../../core-model/what-is-wasm-mcp/">What is WASM MCP in UMA?</a>
+      <a href="../../core-model/what-is-wasm-mcp/">What is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a>
       <a href="../../evolve-uma/mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-native microservices</a>
       <a href="../../core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
       <a href="../../learn-uma/chapter-13-ai-agents-mcp-runtime/">Chapter 13. Agents, MCP, and the Runtime of Reasoning</a>
-      <a href="../../learn-uma/book/">The UMA book</a>
+      <a href="../../learn-uma/book/">The <abbr title="Universal Microservices Architecture">UMA</abbr> book</a>
     </div>
   </section>
 </div>

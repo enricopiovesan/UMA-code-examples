@@ -889,6 +889,34 @@ function normalizeHtml(html) {
 }
 
 /**
+ * On each generated page, expand the first bare "UMA" in <main> to
+ * "Universal Microservices Architecture (UMA)" and wrap every subsequent
+ * occurrence in <abbr title="Universal Microservices Architecture">UMA</abbr>.
+ * Skips tag attributes, <pre>/<code>/<script>/<abbr> blocks, and any text
+ * that already contains the spelled-out form.
+ */
+function applyUmaAbbr(html) {
+  const mainRe = /(<main\b[^>]*>)([\s\S]*?)(<\/main>)/;
+  const m = mainRe.exec(html);
+  if (!m) return html;
+
+  let firstSeen = false;
+  const processed = m[2].replace(
+    /(<(?:pre|code|script|abbr)[^>]*>[\s\S]*?<\/(?:pre|code|script|abbr)>|<[^>]*>|Universal Microservices Architecture(?:\s*\(UMA\))?|\bUMA\b)/g,
+    (match) => {
+      if (match.startsWith("<") || /^Universal/.test(match)) return match;
+      if (!firstSeen) {
+        firstSeen = true;
+        return "Universal Microservices Architecture (UMA)";
+      }
+      return '<abbr title="Universal Microservices Architecture">UMA</abbr>';
+    }
+  );
+
+  return html.slice(0, m.index) + m[1] + processed + m[3] + html.slice(m.index + m[0].length);
+}
+
+/**
  * Rewrite relative content links (e.g. href="../some-slug/") to the correct
  * path using the slug→outPath map. This fixes cross-macro-area links that use
  * wrong relative depths in the source MD files.
@@ -958,7 +986,7 @@ async function main() {
       const log = execSync(`git log --follow --format="%aI" -- "${page.file}"`, { encoding: "utf8", cwd: ROOT }).trim().split("\n").filter(Boolean);
       if (log.length > 0) dates = { published: log[log.length - 1], modified: log[0] };
     } catch { /* git unavailable or file untracked — skip dates */ }
-    await fs.writeFile(outPath, normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug, dates)));
+    await fs.writeFile(outPath, applyUmaAbbr(normalizeHtml(renderPage(page.meta, page.intro, renderedMain, outPath, decorated.outline, siteMapGroups, pagesBySlug, dates))));
 
     const canonical = generatedCanonicalForOutPath(outPath);
     const lastmod = dates?.modified ? dates.modified.slice(0, 10) : "2026-06-01";

@@ -104,8 +104,8 @@
   </section>
 
   <section>
-    <h2 id="how-uma-solves-it">How UMA solves it</h2>
-    <p>A UMA portable service packages business logic as a WebAssembly module paired with an active descriptor. The WASM module contains the compiled logic. The descriptor declares what the module expects as input, what it produces as output, and what capabilities it requires from the host. The module has no ambient I/O access by default. It cannot open sockets, read files, or touch environment variables unless the host explicitly grants those capabilities at startup.</p>
+    <h2 id="how-uma-solves-it">How Universal Microservices Architecture (UMA) solves it</h2>
+    <p>A <abbr title="Universal Microservices Architecture">UMA</abbr> portable service packages business logic as a WebAssembly module paired with an active descriptor. The WASM module contains the compiled logic. The descriptor declares what the module expects as input, what it produces as output, and what capabilities it requires from the host. The module has no ambient I/O access by default. It cannot open sockets, read files, or touch environment variables unless the host explicitly grants those capabilities at startup.</p>
     <p>Because the module targets the WASM binary format, not a specific language runtime or OS, the same artifact runs in a browser via the native WebAssembly API, in a Cloudflare Worker or Fastly Compute instance at the edge, in a wasmtime process on a server, and inside an AI agent tool invocation. The execution semantics are defined by the WASM specification. The behavior is deterministic across all four targets from the same binary.</p>
     <p>The active descriptor is what makes the service governable rather than just portable. It carries the typed interface contract, versioning information, and the capability surface. A runtime can inspect the descriptor before executing to verify that its environment satisfies what the module needs. This moves compatibility checks from runtime surprises to load-time validation.</p>
     <p>Ownership of the rule stays with one team. That team ships one artifact. Every environment runs that artifact. When the rule changes, every environment gets the updated behavior on the next deployment without coordination across teams.</p>
@@ -114,7 +114,7 @@
   <section>
     <h2 id="concrete-example-a-pricing-rule-across-three-targets">Concrete example: a pricing rule across three targets</h2>
     <p>Consider a pricing rule that applies volume discounts, promotional codes, and region-specific tax rates. The rule takes a cart snapshot and a customer context object as inputs and returns a priced total with a breakdown of applied adjustments.</p>
-    <p>Written as a UMA portable service:</p>
+    <p>Written as a <abbr title="Universal Microservices Architecture">UMA</abbr> portable service:</p>
     <ul>
       <li><strong>In the browser.</strong> The WASM module is loaded once at page load. The pricing rule runs locally on every cart update with no round trip. The customer sees accurate totals while editing quantity fields, applying promo codes, or switching shipping regions. The module works offline. It does not call the server for every recalculation.</li>
       <li><strong>On the server.</strong> The same module runs inside the order processing service at checkout. The server hosts a wasmtime runtime, loads the module from the service registry, and invokes it with the final cart state before writing the order record. The output is bit-for-bit identical to what the browser showed the customer, because both ran the same module.</li>
@@ -125,14 +125,14 @@
 
   <section>
     <h2 id="where-to-go-next">Where to go next</h2>
-    <p>Portable business logic is one application of the broader UMA model. The approach works because the core model separates what a service does from where it runs, and because WASM provides an execution boundary that holds across environments without recompilation.</p>
+    <p>Portable business logic is one application of the broader <abbr title="Universal Microservices Architecture">UMA</abbr> model. The approach works because the core model separates what a service does from where it runs, and because WASM provides an execution boundary that holds across environments without recompilation.</p>
 
     <div class="callout-box">
       <h3 id="go-deeper">Go deeper</h3>
       <ul>
-        <li><a href="/core-model/">The UMA core model</a> — how active descriptors and portable services fit together as an architecture.</li>
+        <li><a href="/core-model/">The <abbr title="Universal Microservices Architecture">UMA</abbr> core model</a> — how active descriptors and portable services fit together as an architecture.</li>
         <li><a href="/wasm-microservices/">WASM microservices</a> — the execution model that makes environment-agnostic deployment possible.</li>
-        <li><a href="/how-uma-works/">How UMA works</a> — end-to-end walkthrough of the runtime, registry, and governance layer.</li>
+        <li><a href="/how-uma-works/">How <abbr title="Universal Microservices Architecture">UMA</abbr> works</a> — end-to-end walkthrough of the runtime, registry, and governance layer.</li>
         <li><a href="https://www.amazon.com/" target="_blank" rel="noopener">Pre-order on Amazon</a> — the full treatment of portable service design, with worked examples in Rust and TypeScript.</li>
       </ul>
     </div>

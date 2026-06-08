@@ -83,17 +83,17 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is a Workflow in UMA?</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/core-model/">Core Model</a></li><li><span aria-current="page">What Is a Workflow in Universal Microservices Architecture (UMA)?</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Core Model</summary>
-        <ul><li><a href="../what-is-a-capability/">What Is a Capability in UMA?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is a Workflow in UMA?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a UMA Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in UMA</a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in UMA</a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in UMA?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in UMA</a></li></ul>
+        <ul><li><a href="../what-is-a-capability/">What Is a Capability in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="./" class="section-nav-current" aria-current="page">What Is a Workflow in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../what-is-a-uma-runtime/">What Is a <abbr title="Universal Microservices Architecture">UMA</abbr> Runtime?</a></li><li><a href="../what-belongs-in-the-runtime-layer/">What Belongs in the Runtime Layer?</a></li><li><a href="../active-descriptors/">Active Descriptors in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../late-bound-policy-enforcement/">Late-Bound Policy Enforcement in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../what-makes-a-decision-discoverable/">What Makes a Decision Discoverable?</a></li><li><a href="../what-is-wasm-mcp/">What Is WASM MCP in <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../agent-vs-runtime/">Agent vs Runtime in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>What is a workflow in UMA?</h1>
+          <h1>What is a workflow in <abbr title="Universal Microservices Architecture">UMA</abbr>?</h1>
           <p>
             In Universal Microservices Architecture, a workflow is the approved path the runtime builds from capabilities to satisfy a
             goal. It is not just a sequence of function calls. It is a visible composition of runtime-validated behavior when compute can
@@ -105,13 +105,13 @@
           <section>
             <h2 id="the-short-answer">The short answer</h2>
             <p>
-              A workflow in UMA is the composition the runtime approves after considering the goal, the available capabilities, the active
+              A workflow in <abbr title="Universal Microservices Architecture">UMA</abbr> is the composition the runtime approves after considering the goal, the available capabilities, the active
               constraints, and any planning help from agents. That makes a workflow more than an implementation detail. It becomes an
               architectural object the system can explain.
             </p>
             <p>
               This distinction matters because many systems have workflows without ever making them explicit. The behavior still chains
-              together, but the path is hidden inside glue code, local assumptions, or framework orchestration. UMA makes the workflow
+              together, but the path is hidden inside glue code, local assumptions, or framework orchestration. <abbr title="Universal Microservices Architecture">UMA</abbr> makes the workflow
               visible so the system can justify why that path was valid.
             </p>
             <p>
@@ -129,7 +129,7 @@
               two ideas makes systems harder to reason about because the reusable units and the approved path stop being distinct.
             </p>
             <p>
-              UMA keeps them separate on purpose. Capabilities stay stable enough to be discovered and validated individually. Workflows
+              <abbr title="Universal Microservices Architecture">UMA</abbr> keeps them separate on purpose. Capabilities stay stable enough to be discovered and validated individually. Workflows
               remain visible enough to be approved, rejected, adapted, and explained as full paths.
             </p>
           </section>
@@ -174,7 +174,7 @@
             </p>
             <p>
               That is true whether the variability comes from policy, placement, user context, available providers, or AI-assisted
-              planning. A hidden workflow quickly turns into hidden architecture. UMA prevents that by keeping workflows visible and
+              planning. A hidden workflow quickly turns into hidden architecture. <abbr title="Universal Microservices Architecture">UMA</abbr> prevents that by keeping workflows visible and
               governed.
             </p>
           </section>
@@ -225,7 +225,7 @@
             <p>
               The live reference app works because it treats the workflow as a first-class explanation layer. It does not just show the
               result. It shows the path from discovery to planning to runtime approval to capability execution. That helps readers grasp
-              UMA much faster than a final output alone would.
+              <abbr title="Universal Microservices Architecture">UMA</abbr> much faster than a final output alone would.
             </p>
             <p>
               This is one of the biggest teaching advantages of the Chapter 13 experience. It turns workflow composition from a hidden
@@ -243,7 +243,7 @@
 
           <section>
             <h2 id="frequently-asked-questions">Frequently asked questions</h2>
-            <h3 id="does-every-uma-system-need-dynamic-workflows">Does every UMA system need dynamic workflows?</h3>
+            <h3 id="does-every-uma-system-need-dynamic-workflows">Does every <abbr title="Universal Microservices Architecture">UMA</abbr> system need dynamic workflows?</h3>
             <p>
               No. A workflow can still be explicit and valuable in a more deterministic system. Dynamic selection simply makes the need for
               visible workflows more obvious.
@@ -263,13 +263,13 @@
           <section class="subpage-callout">
             <strong>See the workflow vocabulary together</strong>
             <p>
-              A reader usually understands UMA faster once capability, runtime, workflow, and discovery surface are seen as one cluster.
+              A reader usually understands <abbr title="Universal Microservices Architecture">UMA</abbr> faster once capability, runtime, workflow, and discovery surface are seen as one cluster.
               The reference app and the pages around it are designed to make that cluster legible. In the book, I extend that cluster into
               a fuller explanation of how workflow approval stays governed as systems become more dynamic.
             </p>
             <div class="subpage-inline-links">
               <a href="../what-is-a-capability/">What is a capability?</a>
-              <a href="../what-is-a-uma-runtime/">What is a UMA runtime?</a>
+              <a href="../what-is-a-uma-runtime/">What is a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime?</a>
               <a href="../what-makes-a-decision-discoverable/">What makes a decision discoverable?</a>
               <a href="../what-is-wasm-mcp/">What is WASM MCP?</a>
               <a href="https://www.universalmicroservices.com/reference-application/">Live reference app</a>

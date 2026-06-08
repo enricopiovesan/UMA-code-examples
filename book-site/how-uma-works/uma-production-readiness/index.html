@@ -83,48 +83,48 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How UMA Works</a></li><li><span aria-current="page">UMA Production Readiness</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/how-uma-works/">How Universal Microservices Architecture (UMA) Works</a></li><li><span aria-current="page"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
-        <summary>In this section: How UMA Works</summary>
-        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and UMA</a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to UMA Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental UMA Adoption</a></li><li><a href="./" class="section-nav-current" aria-current="page">UMA Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/">UMA Runtime Governance for MCP</a></li></ul>
+        <summary>In this section: How <abbr title="Universal Microservices Architecture">UMA</abbr> Works</summary>
+        <ul><li><a href="../runtime-agnostic-architecture/">Runtime-agnostic Architecture</a></li><li><a href="../../use-cases/portable-business-logic/">Portable Business Logic Across Browser, Server, and Edge</a></li><li><a href="../architecture-drift-and-portable-business-logic/">Architecture Drift and Portable Business Logic</a></li><li><a href="../webassembly-architecture/">WebAssembly Architecture and <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../webassembly-microservices-architecture/">WebAssembly Microservices Architecture</a></li><li><a href="../wasm-microservices-tutorial-rust/">WASM Microservices Tutorial: Rust</a></li><li><a href="../wasm-microservices-tutorial-typescript/">WASM Microservices Tutorial: TypeScript</a></li><li><a href="../migrating-to-uma-incrementally/">Migrating to <abbr title="Universal Microservices Architecture">UMA</abbr> Incrementally</a></li><li><a href="../incremental-uma-adoption/">Incremental <abbr title="Universal Microservices Architecture">UMA</abbr> Adoption</a></li><li><a href="./" class="section-nav-current" aria-current="page"><abbr title="Universal Microservices Architecture">UMA</abbr> Production Readiness</a></li><li><a href="../uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Governance for MCP</a></li></ul>
       </details>
 
 <section class="subpage-hero">
-          <h1>UMA production readiness</h1>
-          <p>Production readiness in UMA is not just the question of whether portable code can run. The stronger question is whether the runtime can govern that code under real trust, versioning, observability, and deployment constraints.</p>
+          <h1><abbr title="Universal Microservices Architecture">UMA</abbr> production readiness</h1>
+          <p>Production readiness in <abbr title="Universal Microservices Architecture">UMA</abbr> is not just the question of whether portable code can run. The stronger question is whether the runtime can govern that code under real trust, versioning, observability, and deployment constraints.</p>
         </section>
 
 <div class="subpage-body">
           <section>
             <h2 id="security-and-trust">Security and trust</h2>
-            <p>A portable service can create new security pressure because the same behavior may run in different contexts. UMA treats trust boundaries, permissions, provenance, and authority as part of the runtime model.</p>
+            <p>A portable service can create new security pressure because the same behavior may run in different contexts. <abbr title="Universal Microservices Architecture">UMA</abbr> treats trust boundaries, permissions, provenance, and authority as part of the runtime model.</p>
             <p>The runtime must know what is allowed before it executes.</p>
           </section>
 
           <section>
             <h2 id="versioning-and-compatibility">Versioning and compatibility</h2>
-            <p>A production UMA system needs clear contracts, compatibility checks, and versioned evolution. Without that discipline, portability can turn into version sprawl.</p>
+            <p>A production <abbr title="Universal Microservices Architecture">UMA</abbr> system needs clear contracts, compatibility checks, and versioned evolution. Without that discipline, portability can turn into version sprawl.</p>
             <p>The service graph should make change visible rather than leaving teams to discover drift through incidents.</p>
           </section>
 
           <section>
             <h2 id="governance">Governance</h2>
-            <p>Governance means deciding who can expose a capability, who can call it, what evidence is required, and which runtime path is authoritative. UMA makes those questions architecture questions, not only operations questions.</p>
+            <p>Governance means deciding who can expose a capability, who can call it, what evidence is required, and which runtime path is authoritative. <abbr title="Universal Microservices Architecture">UMA</abbr> makes those questions architecture questions, not only operations questions.</p>
             <p>This is especially important when AI-assisted workflows participate in discovery or proposal.</p>
           </section>
 
           <section>
             <h2 id="observability">Observability</h2>
-            <p>Observability should show more than whether a process is alive. A UMA runtime should expose capability selection, validation decisions, approvals, rejections, execution paths, and relevant traces.</p>
+            <p>Observability should show more than whether a process is alive. A <abbr title="Universal Microservices Architecture">UMA</abbr> runtime should expose capability selection, validation decisions, approvals, rejections, execution paths, and relevant traces.</p>
             <p>That evidence is what makes runtime decisions explainable.</p>
           </section>
 
           <section>
             <h2 id="deployment">Deployment</h2>
-            <p>Deployment readiness depends on the hosts involved. Browser, edge, cloud, WASI, and workflow execution each introduce different constraints. UMA does not erase those differences. It gives teams a model for deciding where a capability should run and why.</p>
+            <p>Deployment readiness depends on the hosts involved. Browser, edge, cloud, WASI, and workflow execution each introduce different constraints. <abbr title="Universal Microservices Architecture">UMA</abbr> does not erase those differences. It gives teams a model for deciding where a capability should run and why.</p>
           </section>
           <section class="subpage-grid">
             <article class="subpage-card"><h3 id="security">Security</h3><p>Trust, permissions, and provenance must travel with the runtime decision.</p></article>
@@ -134,7 +134,7 @@
           </section>
           <section>
             <h2 id="the-three-readiness-gates">The three readiness gates</h2>
-            <p>Production readiness in UMA has three concrete gates. Until all three are met, the system is not production-ready in the UMA sense: it may be deployable, but it is not governed.</p>
+            <p>Production readiness in <abbr title="Universal Microservices Architecture">UMA</abbr> has three concrete gates. Until all three are met, the system is not production-ready in the <abbr title="Universal Microservices Architecture">UMA</abbr> sense: it may be deployable, but it is not governed.</p>
             <p><strong>Contract coverage.</strong> Every capability that participates in a production execution path must have an active descriptor with a validated schema. Not a file that exists. a file that the runtime reads, evaluates, and enforces on every invocation. Coverage means the descriptor is wired into the runtime decision path, not sitting in a repository as documentation.</p>
             <p><strong>Parity proof.</strong> Every portable service must have a CI-enforced equivalence test across at least two runtimes. The proof must run on every push. A parity test that runs locally but is not in CI is not a parity proof: it is a local experiment. Runtimes diverge silently. the only way to catch drift before production is to compare outputs automatically on every change.</p>
             <p><strong>Runtime governance.</strong> The runtime layer must enforce trust, validate contracts, and record execution evidence across all deployment paths. not just the production server path. This includes edge deployments, AI-assisted execution paths, and any path where the same portable binary runs in a context other than the primary deployment. Governance that covers only one path creates a false confidence boundary. The system is only as governed as its least-governed execution path.</p>
@@ -150,7 +150,7 @@
 
           <section>
             <h2 id="what-production-readiness-is-not">What production readiness is not</h2>
-            <p>Production readiness in UMA is a continuous enforcement posture, not a set of artifacts. Three common misreadings need direct correction.</p>
+            <p>Production readiness in <abbr title="Universal Microservices Architecture">UMA</abbr> is a continuous enforcement posture, not a set of artifacts. Three common misreadings need direct correction.</p>
             <p>It is not "the WASM binary compiles." A binary that compiles proves the toolchain works. It does not prove that the behavior is governed, that the contract is enforced, or that the parity across runtimes holds. Compilation is a precondition, not a gate.</p>
             <p>It is not "the descriptor file exists." A descriptor file in a repository is documentation. The gate is whether the runtime reads that descriptor and acts on it. approves or rejects the execution path based on what the descriptor declares. Existence without enforcement is not production readiness.</p>
             <p>It is not "we ran the parity test once." A parity test run at a point in time proves behavioral equivalence at that point. It does not prove it on the next change, or the change after that. Production readiness requires CI enforcement: the test runs on every push to main, blocks merges on failure, and is treated as a first-class gate rather than an optional check.</p>

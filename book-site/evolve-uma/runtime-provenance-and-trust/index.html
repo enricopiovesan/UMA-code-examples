@@ -83,21 +83,21 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/evolve-uma/">System Evolution</a></li><li><span aria-current="page">Runtime Provenance and Trust in UMA</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/evolve-uma/">System Evolution</a></li><li><span aria-current="page">Runtime Provenance and Trust in Universal Microservices Architecture (UMA)</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: System Evolution</summary>
-        <ul><li><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="./" class="section-nav-current" aria-current="page">Runtime Provenance and Trust in UMA</a></li><li><a href="../ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></li><li><a href="../mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-Native Portable Microservices</a></li></ul>
+        <ul><li><a href="../contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="../service-graph-evolution/">Service Graph Evolution</a></li><li><a href="../how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="../what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="../trust-boundaries/">Trust Boundaries in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="./" class="section-nav-current" aria-current="page">Runtime Provenance and Trust in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../ai-native-runtime-governance/">AI-Native Runtime Governance in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-Native Portable Microservices</a></li></ul>
       </details>
 
-<section class="subpage-hero"><h1>Runtime provenance and trust</h1><p>Portable behavior does not automatically become trusted behavior. UMA makes publisher identity, declared permissions, dependency provenance, placement, and communication rules visible to the runtime.</p></section>
+<section class="subpage-hero"><h1>Runtime provenance and trust</h1><p>Portable behavior does not automatically become trusted behavior. <abbr title="Universal Microservices Architecture">UMA</abbr> makes publisher identity, declared permissions, dependency provenance, placement, and communication rules visible to the runtime.</p></section>
 
 <div class="subpage-body">
           <section>
             <h2 id="the-architectural-shift">The architectural shift</h2>
-            <p>Traditional systems often inherit trust from location: inside the network, inside the cluster, inside the gateway. UMA asks a different question: what does this module declare, who published it, what does it depend on, and what is it allowed to communicate with?</p>
+            <p>Traditional systems often inherit trust from location: inside the network, inside the cluster, inside the gateway. <abbr title="Universal Microservices Architecture">UMA</abbr> asks a different question: what does this module declare, who published it, what does it depend on, and what is it allowed to communicate with?</p>
             <p>That makes trust part of the system model instead of a perimeter assumption. The difference matters because location-based trust is invisible: a service inside the perimeter is trusted, but the system has no record of why, what it was allowed to do, or whether the decision to allow it was ever evaluated. When something goes wrong (a misconfigured service, an undeclared dependency, a lateral move inside the network), there is nothing in the execution record to reconstruct what happened.</p>
             <p>Provenance changes that. When the runtime records who published a service, which permissions it declared, which dependencies it resolved, and which communication paths it was allowed to follow, that record becomes the basis for both runtime enforcement and post-hoc audit. The question is no longer "did the request come from inside the network?" but "was this execution authorized, and can we prove it?"</p>
           </section>
@@ -112,13 +112,13 @@
           <section>
             <h2 id="provenance-in-a-multi-runtime-system">Provenance in a multi-runtime system</h2>
             <p>In a single-runtime system, provenance is simple: one runtime approved the execution, and you can inspect its logs. In a multi-runtime system (browser, edge, cloud, or a mix of on-device and server), the same service may run under different runtimes with different trust policies. The question of whether a decision was authorized becomes: authorized by which runtime, under which policy, with which dependency graph resolved at what point in time?</p>
-            <p>UMA treats trust as a property of the execution graph, not of individual services. A service is not trusted in the abstract. It is trusted by a specific runtime in a specific deployment context, with a specific set of declared permissions verified and a specific set of dependencies resolved. That binding is what the active descriptor captures at runtime: not just what the service is, but what was evaluated and approved before it ran.</p>
+            <p><abbr title="Universal Microservices Architecture">UMA</abbr> treats trust as a property of the execution graph, not of individual services. A service is not trusted in the abstract. It is trusted by a specific runtime in a specific deployment context, with a specific set of declared permissions verified and a specific set of dependencies resolved. That binding is what the active descriptor captures at runtime: not just what the service is, but what was evaluated and approved before it ran.</p>
             <p>This matters when a service moves. If a capability that ran in the cloud is moved to an edge runtime, the trust evaluation does not transfer automatically. The edge runtime runs its own approval sequence (publisher verification, permission check, dependency resolution, communication policy) and produces its own provenance record. The two records can then be compared. If the edge runtime approved something the cloud runtime would have denied, that discrepancy is visible in the execution graph rather than hidden in runtime-specific logs.</p>
           </section>
 
           <section>
             <h2 id="what-the-runtime-records">What the runtime records</h2>
-            <p>When a UMA runtime evaluates a service for execution, it records the outcome of each evaluation step as part of the active descriptor. That record includes: which publisher identity was verified, which permissions were declared and which were granted, which dependencies were resolved and whether their checksums matched expected values, and which communication paths were approved under the current trust policy.</p>
+            <p>When a <abbr title="Universal Microservices Architecture">UMA</abbr> runtime evaluates a service for execution, it records the outcome of each evaluation step as part of the active descriptor. That record includes: which publisher identity was verified, which permissions were declared and which were granted, which dependencies were resolved and whether their checksums matched expected values, and which communication paths were approved under the current trust policy.</p>
             <p>This record is not a log file appended after the fact. It is structural metadata that travels with the service's execution context. When the service emits an event or produces output, the provenance record is part of the execution context that a downstream runtime can inspect. A service that receives an event can ask not just "is this event schema compatible?" but "was the service that emitted this event approved by a runtime I recognize, under a trust policy that includes the permissions this event implies?"</p>
             <p>For audit and compliance use cases, this is the difference between reconstructing what happened from logs and having a signed execution graph that records what was approved, by whom, and when.</p>
           </section>
@@ -137,7 +137,7 @@
               <a href="../ai-native-runtime-governance/">AI-native runtime governance</a>
               <a href="../../core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
               <a href="../../core-model/late-bound-policy-enforcement/">Late-bound policy enforcement</a>
-              <a href="../../how-uma-works/uma-mcp-runtime-governance/">UMA runtime governance for MCP</a>
+              <a href="../../how-uma-works/uma-mcp-runtime-governance/"><abbr title="Universal Microservices Architecture">UMA</abbr> runtime governance for MCP</a>
               <a href="../../learn-uma/chapter-10-security-trust-boundaries-microservices/">Chapter 10: Security and Trust</a>
               <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Universal Microservices Architecture (book)</a>
             </div>

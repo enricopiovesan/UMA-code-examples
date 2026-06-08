@@ -88,13 +88,13 @@
 
       <details class="mobile-section-nav">
         <summary>In this section: System Evolution</summary>
-        <ul><li><a href="contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="service-graph-evolution/">Service Graph Evolution</a></li><li><a href="how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="trust-boundaries/">Trust Boundaries in UMA</a></li><li><a href="runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></li><li><a href="ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></li><li><a href="mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-Native Portable Microservices</a></li></ul>
+        <ul><li><a href="contract-driven-orchestration/">Contract-Driven Orchestration</a></li><li><a href="service-graph-evolution/">Service Graph Evolution</a></li><li><a href="how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></li><li><a href="what-makes-a-system-coherent/">What Makes a System Coherent?</a></li><li><a href="trust-boundaries/">Trust Boundaries in Universal Microservices Architecture (UMA)</a></li><li><a href="runtime-provenance-and-trust/">Runtime Provenance and Trust in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="ai-native-runtime-governance/">AI-Native Runtime Governance in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="mcp-wasm-ai-native-microservices/">MCP and WebAssembly: AI-Native Portable Microservices</a></li></ul>
       </details>
 
 <section class="subpage-hero">
   <h1>System Evolution</h1>
   <p>
-    UMA treats change as part of the architecture, not as accidental drift. This area shows how the model handles growth, compatibility,
+    <abbr title="Universal Microservices Architecture">UMA</abbr> treats change as part of the architecture, not as accidental drift. This area shows how the model handles growth, compatibility,
     and policy without forcing the system to fragment.
   </p>
 </section>
@@ -103,7 +103,7 @@
   <section>
     <h2 id="what-this-macro-area-covers">What this macro area covers</h2>
     <p>
-      These pages explain how UMA keeps orchestration, trust, and governance explicit while systems evolve, so readers can inspect the
+      These pages explain how <abbr title="Universal Microservices Architecture">UMA</abbr> keeps orchestration, trust, and governance explicit while systems evolve, so readers can inspect the
       path from one compatible stage to the next.
     </p>
     <div class="subpage-inline-links">
@@ -122,9 +122,9 @@
     <p>
       This is the problem the System Evolution area addresses. Not how to design a system from scratch, but how to keep a system coherent as it changes. That is the harder and more common problem.
     </p>
-    <h2 id="what-coherent-evolution-means-in-uma-terms">What coherent evolution means in UMA terms</h2>
+    <h2 id="what-coherent-evolution-means-in-uma-terms">What coherent evolution means in <abbr title="Universal Microservices Architecture">UMA</abbr> terms</h2>
     <p>
-      In UMA, coherent evolution has a specific technical definition. A system evolves coherently when each change is expressed as a contract update, the runtime enforces compatibility at the boundary, and the service graph remains inspectable before and after the change.
+      In <abbr title="Universal Microservices Architecture">UMA</abbr>, coherent evolution has a specific technical definition. A system evolves coherently when each change is expressed as a contract update, the runtime enforces compatibility at the boundary, and the service graph remains inspectable before and after the change.
     </p>
     <p>
       The contract is the unit of change. Not the service implementation, not the deployment configuration, not the API version label in a URL path. The contract specifies what the service accepts, what it produces, and under what trust conditions it operates. A change to the contract is a first-class event that the rest of the graph can observe and verify against. A change to the implementation that stays within the existing contract is transparent to the graph.
@@ -134,7 +134,7 @@
     </p>
     <h2 id="trust-as-a-graph-property-not-a-service-property">Trust as a graph property, not a service property</h2>
     <p>
-      UMA treats trust as a property of the relationship between services, not as a property of any individual service. A service is not trusted or untrusted in isolation. It is trusted within a specific graph configuration, subject to specific runtime policies, given specific provenance claims.
+      <abbr title="Universal Microservices Architecture">UMA</abbr> treats trust as a property of the relationship between services, not as a property of any individual service. A service is not trusted or untrusted in isolation. It is trusted within a specific graph configuration, subject to specific runtime policies, given specific provenance claims.
     </p>
     <p>
       This matters for evolution because the trust configuration of a graph can change without changing the services themselves. A service that was trusted to call a privileged endpoint under one deployment configuration may not be trusted under another. If trust is embedded in the service (encoded as credentials, hardwired endpoint permissions, or implicit in the network topology), then reconfiguring trust means modifying services. If trust is a graph-level property enforced by the runtime, then reconfiguring trust is a policy change that leaves the services untouched.
@@ -147,7 +147,7 @@
       Runtime enforcement is what converts the rest of these properties from design intentions into operational guarantees. Contracts that are not enforced at runtime are documentation. Trust boundaries that are not enforced at runtime are conventions. A service graph that is not validated at runtime is a diagram.
     </p>
     <p>
-      UMA's architecture places the runtime in the role of enforcer. When a service invokes another, the runtime checks the contract. When a service is deployed, the runtime validates its trust claims against the graph configuration. When provenance matters (who produced this service, under what build conditions, with what verification), the runtime holds and exposes that record. This is what makes the evolution of the system legible: the runtime is the source of truth for what the graph actually is at any point in time, not what it was designed to be.
+      <abbr title="Universal Microservices Architecture">UMA</abbr>'s architecture places the runtime in the role of enforcer. When a service invokes another, the runtime checks the contract. When a service is deployed, the runtime validates its trust claims against the graph configuration. When provenance matters (who produced this service, under what build conditions, with what verification), the runtime holds and exposes that record. This is what makes the evolution of the system legible: the runtime is the source of truth for what the graph actually is at any point in time, not what it was designed to be.
     </p>
   </section>
 
@@ -158,9 +158,9 @@
       <article class="subpage-card"><h3 id="service-graph-evolution"><a href="service-graph-evolution/">Service Graph Evolution</a></h3><p>How a service graph changes while preserving meaning and compatibility.</p></article>
       <article class="subpage-card"><h3 id="how-do-systems-evolve-without-fragmentation"><a href="how-systems-evolve-without-fragmentation/">How Do Systems Evolve Without Fragmentation?</a></h3><p>The architectural pattern behind incremental growth.</p></article>
       <article class="subpage-card"><h3 id="what-makes-a-system-coherent"><a href="what-makes-a-system-coherent/">What Makes a System Coherent?</a></h3><p>Why coherence is a design outcome, not an accident.</p></article>
-      <article class="subpage-card"><h3 id="trust-boundaries-in-uma"><a href="trust-boundaries/">Trust Boundaries in UMA</a></h3><p>How trust affects placement, policy, and service interaction.</p></article>
-      <article class="subpage-card"><h3 id="runtime-provenance-and-trust-in-uma"><a href="runtime-provenance-and-trust/">Runtime Provenance and Trust in UMA</a></h3><p>How provenance helps runtime decisions remain explainable.</p></article>
-      <article class="subpage-card"><h3 id="ai-native-runtime-governance-in-uma"><a href="ai-native-runtime-governance/">AI-Native Runtime Governance in UMA</a></h3><p>How governance changes when the runtime must supervise AI-influenced behavior.</p></article>
+      <article class="subpage-card"><h3 id="trust-boundaries-in-uma"><a href="trust-boundaries/">Trust Boundaries in <abbr title="Universal Microservices Architecture">UMA</abbr></a></h3><p>How trust affects placement, policy, and service interaction.</p></article>
+      <article class="subpage-card"><h3 id="runtime-provenance-and-trust-in-uma"><a href="runtime-provenance-and-trust/">Runtime Provenance and Trust in <abbr title="Universal Microservices Architecture">UMA</abbr></a></h3><p>How provenance helps runtime decisions remain explainable.</p></article>
+      <article class="subpage-card"><h3 id="ai-native-runtime-governance-in-uma"><a href="ai-native-runtime-governance/">AI-Native Runtime Governance in <abbr title="Universal Microservices Architecture">UMA</abbr></a></h3><p>How governance changes when the runtime must supervise AI-influenced behavior.</p></article>
     </div>
   </section>
 </div>

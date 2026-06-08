@@ -83,13 +83,13 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/learn-uma/">Learning Path</a></li><li><span aria-current="page">Ch.1: Introduction to UMA</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><a href="https://www.universalmicroservices.com/learn-uma/">Learning Path</a></li><li><span aria-current="page">Ch.1: Introduction to Universal Microservices Architecture (UMA)</span></li>
           </ol>
         </nav>
 
       <details class="mobile-section-nav">
         <summary>In this section: Learning Path</summary>
-        <ul><li><a href="../learning-path/">UMA Learning Path</a></li><li><a href="../book/">The Book. Pre-order</a></li><li><a href="../end-to-end-feature-flag-example/">End-to-End UMA Example: Feature Flag Service</a></li><li><a href="./" class="section-nav-current" aria-current="page">Ch.1: Introduction to UMA</a></li><li><a href="../chapter-02-device-independent-architecture/">Ch.2: Device Independence</a></li><li><a href="../chapter-03-what-is-universal-microservices-architecture/">Ch.3: What Is UMA?</a></li><li><a href="../chapter-04-from-soa-to-metadata-driven-services/">Ch.4: From SOA to Metadata</a></li><li><a href="../chapter-05-building-portable-microservices/">Ch.5: Building UMA Services</a></li><li><a href="../chapter-06-uma-runtime-layer/">Ch.6: The UMA Runtime Layer</a></li><li><a href="../chapter-07-webassembly-portability-wasm-runtimes/">Ch.7: WebAssembly and WASM Runtimes</a></li><li><a href="../chapter-08-service-contracts-events-orchestration/">Ch.8: Contracts and Orchestration</a></li><li><a href="../chapter-09-microservices-to-distributed-systems/">Ch.9: From Services to Systems</a></li><li><a href="../chapter-10-security-trust-boundaries-microservices/">Ch.10: Security and Trust in UMA</a></li><li><a href="../chapter-11-microservices-architecture-patterns/">Ch.11: UMA Patterns and Tradeoffs</a></li><li><a href="../chapter-12-evolving-distributed-systems/">Ch.12: Evolving UMA Systems</a></li><li><a href="../chapter-13-ai-agents-mcp-runtime/">Ch.13: Agents, MCP, and Reasoning</a></li><li><a href="../chapter-14-uma-reference-application/">Ch.14: The Reference Experience</a></li></ul>
+        <ul><li><a href="../learning-path/"><abbr title="Universal Microservices Architecture">UMA</abbr> Learning Path</a></li><li><a href="../book/">The Book. Pre-order</a></li><li><a href="../end-to-end-feature-flag-example/">End-to-End <abbr title="Universal Microservices Architecture">UMA</abbr> Example: Feature Flag Service</a></li><li><a href="./" class="section-nav-current" aria-current="page">Ch.1: Introduction to <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../chapter-02-device-independent-architecture/">Ch.2: Device Independence</a></li><li><a href="../chapter-03-what-is-universal-microservices-architecture/">Ch.3: What Is <abbr title="Universal Microservices Architecture">UMA</abbr>?</a></li><li><a href="../chapter-04-from-soa-to-metadata-driven-services/">Ch.4: From SOA to Metadata</a></li><li><a href="../chapter-05-building-portable-microservices/">Ch.5: Building <abbr title="Universal Microservices Architecture">UMA</abbr> Services</a></li><li><a href="../chapter-06-uma-runtime-layer/">Ch.6: The <abbr title="Universal Microservices Architecture">UMA</abbr> Runtime Layer</a></li><li><a href="../chapter-07-webassembly-portability-wasm-runtimes/">Ch.7: WebAssembly and WASM Runtimes</a></li><li><a href="../chapter-08-service-contracts-events-orchestration/">Ch.8: Contracts and Orchestration</a></li><li><a href="../chapter-09-microservices-to-distributed-systems/">Ch.9: From Services to Systems</a></li><li><a href="../chapter-10-security-trust-boundaries-microservices/">Ch.10: Security and Trust in <abbr title="Universal Microservices Architecture">UMA</abbr></a></li><li><a href="../chapter-11-microservices-architecture-patterns/">Ch.11: <abbr title="Universal Microservices Architecture">UMA</abbr> Patterns and Tradeoffs</a></li><li><a href="../chapter-12-evolving-distributed-systems/">Ch.12: Evolving <abbr title="Universal Microservices Architecture">UMA</abbr> Systems</a></li><li><a href="../chapter-13-ai-agents-mcp-runtime/">Ch.13: Agents, MCP, and Reasoning</a></li><li><a href="../chapter-14-uma-reference-application/">Ch.14: The Reference Experience</a></li></ul>
       </details>
 
 <section class="subpage-hero">
@@ -145,7 +145,7 @@
   <section>
     <h2 id="why-this-matters-now">Why this matters now</h2>
     <p>
-      The pressure that UMA responds to is accelerating. In 2018, most distributed systems had one canonical execution environment:
+      The pressure that <abbr title="Universal Microservices Architecture">UMA</abbr> responds to is accelerating. In 2018, most distributed systems had one canonical execution environment:
       a backend service, deployed to a cluster. Since then, three things have changed simultaneously. Edge computing moved execution
       to the network boundary. Mobile and browser applications began running business logic locally. for offline support, latency
       reduction, or cost. AI-assisted execution paths arrived, bringing a new class of runtime where the caller is a reasoning model,
@@ -153,7 +153,7 @@
     </p>
     <p>
       Each addition multiplied the fragmentation pressure. Teams that had one version of a rule now had three or four. The duplication
-      was not a choice: it was the only available option in a model where the service is inseparable from its host. UMA is a response
+      was not a choice: it was the only available option in a model where the service is inseparable from its host. <abbr title="Universal Microservices Architecture">UMA</abbr> is a response
       to that specific pressure. It is not a universal replacement for every architectural pattern. It is the answer to a specific
       question: how do you keep behavior coherent when execution surfaces are structurally different and growing in number?
     </p>
@@ -176,9 +176,9 @@
   <section>
     <h2 id="what-chapter-1-covers">What Chapter 1 covers</h2>
     <ul>
-      <li>The specific failure mode that UMA addresses: behavioral fragmentation as execution surfaces multiply</li>
+      <li>The specific failure mode that <abbr title="Universal Microservices Architecture">UMA</abbr> addresses: behavioral fragmentation as execution surfaces multiply</li>
       <li>Why existing models (microservices, serverless, modular monolith) solve adjacent problems but not this one</li>
-      <li>The three structural separations that define UMA: behavior from runtime, contract from implementation, placement from business logic</li>
+      <li>The three structural separations that define <abbr title="Universal Microservices Architecture">UMA</abbr>: behavior from runtime, contract from implementation, placement from business logic</li>
       <li>The role of WebAssembly as the portability boundary. not as a deployment format, but as the mechanism that makes behavioral equivalence verifiable</li>
       <li>How the rest of the book builds on these separations, chapter by chapter</li>
     </ul>
@@ -189,13 +189,13 @@
     <p>
       Chapter 1 is the problem statement. Every subsequent chapter addresses one layer of the solution. Chapter 2 takes the first
       specific failure mode in depth: what concretely breaks when business logic is coupled to a single execution environment. Chapter 3
-      defines UMA precisely: the three durable separations that distinguish it from conventional microservices and from generic
+      defines <abbr title="Universal Microservices Architecture">UMA</abbr> precisely: the three durable separations that distinguish it from conventional microservices and from generic
       "portable service" claims. By Chapter 5, the first runnable portable service appears, with a working contract and a parity proof.
       The arc from Chapter 1's diagnosis to Chapter 14's complete reference system is the book's structure.
     </p>
     <div class="subpage-inline-links">
       <a href="../chapter-02-device-independent-architecture/">Chapter 2: Why Device Independence Matters →</a>
-      <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve?</a>
+      <a href="../../why-uma/what-problem-does-uma-solve/">What problem does <abbr title="Universal Microservices Architecture">UMA</abbr> solve?</a>
       <a href="../learning-path/">Full learning path</a>
       <a href="../book/">About the book</a>
       <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
