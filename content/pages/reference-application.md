@@ -7,7 +7,7 @@ content_type: reference
 slug: reference-application
 canonical_url: "https://www.universalmicroservices.com/reference-application/"
 left_nav_group: reference-application
-seo_description: "The UMA reference application: runnable proof of portable microservices, WebAssembly execution, contract enforcement, and runtime governance across browser, edge, and cloud."
+seo_description: "The UMA reference application: runnable WebAssembly microservices with contract enforcement and runtime governance across browser, edge, and cloud."
 breadcrumbs:
   - "Home"
   - "Reference Application"

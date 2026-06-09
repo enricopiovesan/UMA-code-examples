@@ -8,7 +8,7 @@ slug: chapter-11-microservices-architecture-patterns
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "UMA architecture decisions, patterns, and tradeoffs guide."
+seo_description: "Chapter 11: microservices architecture patterns. Decisions, tradeoffs, and UMA structural patterns for coherent distributed systems at scale."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

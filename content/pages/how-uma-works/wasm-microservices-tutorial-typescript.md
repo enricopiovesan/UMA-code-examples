@@ -8,7 +8,7 @@ slug: wasm-microservices-tutorial-typescript
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-typescript/"
 left_nav_group: how-uma-works
 chapter_ref: chapter-05-post-fetcher-runtime
-seo_description: "Build wasm microservices in TypeScript: a step-by-step tutorial using the UMA Post Fetcher Runtime. Covers wasm microservices typescript runtime design, contract enforcement, adapter binding, and behavioral parity with the Rust WASM implementation."
+seo_description: "Build WASM microservices in TypeScript with the UMA Post Fetcher Runtime. Runtime design, contract enforcement, adapter binding, and Rust parity."
 breadcrumbs:
   - "Home"
   - "How UMA Works"

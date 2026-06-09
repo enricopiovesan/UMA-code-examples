@@ -8,7 +8,7 @@ slug: webassembly-architecture
 canonical_url: "https://www.universalmicroservices.com/webassembly-architecture/"
 left_nav_group: how-uma-works
 chapter_ref: null
-seo_description: "Learn how WebAssembly architecture supports Universal Microservices Architecture and why portable execution still needs contracts, policy, and runtime governance."
+seo_description: "WebAssembly architecture and UMA: portable execution still requires contracts, policy enforcement, and runtime governance to stay safe at scale."
 breadcrumbs:
   - "Home"
   - "How Uma Works"

@@ -8,7 +8,7 @@ slug: wasm-microservices-tutorial-rust
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/wasm-microservices-tutorial-rust/"
 left_nav_group: how-uma-works
 chapter_ref: chapter-04-feature-flag-evaluator
-seo_description: "Build wasm microservices in Rust: a step-by-step tutorial using the UMA Feature Flag Evaluator. Covers wasm microservices rust toolchain setup, WASI compilation targets, wasmtime execution, and cross-language parity with TypeScript."
+seo_description: "Build WASM microservices in Rust with the UMA Feature Flag Evaluator. Covers Rust toolchain, WASI compilation targets, wasmtime, and TypeScript parity."
 breadcrumbs:
   - "Home"
   - "How UMA Works"

@@ -8,7 +8,7 @@ slug: benchmark-and-footprint
 canonical_url: "https://www.universalmicroservices.com/proof/benchmark-and-footprint/"
 left_nav_group: proof
 chapter_ref: null
-seo_description: "Initial UMA benchmark and footprint notes: reproducible local measurements for portable services, WASI runners, and runtime tradeoffs."
+seo_description: "UMA benchmark and footprint: reproducible measurements for portable services, WASI runners, and runtime tradeoffs affecting deployment decisions."
 breadcrumbs:
   - "Home"
   - "Proof"

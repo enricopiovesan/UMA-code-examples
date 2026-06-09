@@ -8,7 +8,7 @@ slug: chapter-09-microservices-to-distributed-systems
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-09-microservices-to-distributed-systems/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "System-level properties that emerge when UMA services compose at scale."
+seo_description: "Chapter 9: from microservices to distributed systems. System-level properties that emerge when UMA services compose across runtimes at scale."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UMA Reference Application | Universal Microservices Architecture</title>
-    <meta name="description" content="The UMA reference application: runnable proof of portable microservices, WebAssembly execution, contract enforcement, and runtime governance across browser, edge, and cloud." />
+    <meta name="description" content="The UMA reference application: runnable WebAssembly microservices with contract enforcement and runtime governance across browser, edge, and cloud." />
     <meta name="author" content="Enrico Piovesan" />
 
     <link rel="canonical" href="https://www.universalmicroservices.com/reference-application/" />
     <meta property="og:title" content="UMA Reference Application" />
-    <meta property="og:description" content="The UMA reference application: runnable proof of portable microservices, WebAssembly execution, contract enforcement, and runtime governance across browser, edge, and cloud." />
+    <meta property="og:description" content="The UMA reference application: runnable WebAssembly microservices with contract enforcement and runtime governance across browser, edge, and cloud." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://www.universalmicroservices.com/reference-application/" />
     <meta property="og:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
@@ -17,12 +17,12 @@
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="UMA Reference Application" />
-    <meta name="twitter:description" content="The UMA reference application: runnable proof of portable microservices, WebAssembly execution, contract enforcement, and runtime governance across browser, edge, and cloud." />
+    <meta name="twitter:description" content="The UMA reference application: runnable WebAssembly microservices with contract enforcement and runtime governance across browser, edge, and cloud." />
     <meta name="twitter:image" content="https://www.universalmicroservices.com/assets/og-cover.jpg" />
     <meta name="article:published_time" content="2026-05-30T17:23:34-06:00" />
     <meta name="article:modified_time" content="2026-06-01T20:05:45-06:00" />
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.universalmicroservices.com/"},{"@type":"ListItem","position":2,"name":"UMA Reference Application","item":"https://www.universalmicroservices.com/reference-application/"}]}</script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.universalmicroservices.com/reference-application/#webpage","name":"UMA Reference Application","description":"The UMA reference application: runnable proof of portable microservices, WebAssembly execution, contract enforcement, and runtime governance across browser, edge, and cloud.","url":"https://www.universalmicroservices.com/reference-application/","inLanguage":"en","isPartOf":{"@id":"https://www.universalmicroservices.com/#website"},"author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"},"datePublished":"2026-05-30T17:23:34-06:00","dateModified":"2026-06-01T20:05:45-06:00"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.universalmicroservices.com/reference-application/#webpage","name":"UMA Reference Application","description":"The UMA reference application: runnable WebAssembly microservices with contract enforcement and runtime governance across browser, edge, and cloud.","url":"https://www.universalmicroservices.com/reference-application/","inLanguage":"en","isPartOf":{"@id":"https://www.universalmicroservices.com/#website"},"author":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"},"datePublished":"2026-05-30T17:23:34-06:00","dateModified":"2026-06-01T20:05:45-06:00"}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.universalmicroservices.com/#organization","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","logo":"https://www.universalmicroservices.com/assets/og-cover.jpg","sameAs":["https://github.com/enricopiovesan/UMA-code-examples","https://medium.com/the-rise-of-device-independent-architecture"]}</script>
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://www.universalmicroservices.com/#website","name":"Universal Microservices Architecture","url":"https://www.universalmicroservices.com/","description":"Technical reference, book, and runnable examples for Universal Microservices Architecture by Enrico Piovesan.","inLanguage":"en","publisher":{"@type":"Person","@id":"https://www.universalmicroservices.com/discoverability/about-enrico/#enrico-piovesan","name":"Enrico Piovesan"}}</script>
     <link rel="stylesheet" href="../styles.css" />
@@ -78,13 +78,13 @@
 
         <nav class="page-breadcrumbs" aria-label="Breadcrumb">
           <ol>
-            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><span aria-current="page">UMA Reference Application</span></li>
+            <li><a href="https://www.universalmicroservices.com/">Home</a></li><li><span aria-current="page">Universal Microservices Architecture (UMA) Reference Application</span></li>
           </ol>
         </nav>
 
 
 <section class="subpage-hero">
-          <h1>UMA Reference Application</h1>
+          <h1><abbr title="Universal Microservices Architecture">UMA</abbr> Reference Application</h1>
           <p>
             A live, runnable implementation of Universal Microservices Architecture. The reference application demonstrates portable services,
             governed runtimes, contract enforcement, and behavioral equivalence across execution contexts.
@@ -95,7 +95,7 @@
           <section>
             <h2 id="what-the-reference-application-is">What the reference application is</h2>
             <p>
-              The reference application is a single runnable system that demonstrates UMA's core claims in working code. It is not a slide deck,
+              The reference application is a single runnable system that demonstrates <abbr title="Universal Microservices Architecture">UMA</abbr>'s core claims in working code. It is not a slide deck,
               a diagram, or a set of aspirational descriptions. Every architectural claim it makes is backed by code that runs, output that can
               be inspected, and CI checks that execute on every commit.
             </p>
@@ -106,7 +106,7 @@
               equivalence across native, WASI, TypeScript, browser, edge, and cloud paths.
             </p>
             <p>
-              The examples repository is the companion to the UMA book. It is structured so that each chapter proves a distinct architectural
+              The examples repository is the companion to the <abbr title="Universal Microservices Architecture">UMA</abbr> book. It is structured so that each chapter proves a distinct architectural
               claim, and so the claims compound as the reader progresses from Chapter 4 through Chapter 13.
             </p>
           </section>
@@ -125,7 +125,7 @@
           <section>
             <h2 id="what-it-proves">What it proves</h2>
             <p>
-              Each chapter example proves a specific UMA claim with runnable output. The claims are not described and left for the reader to
+              Each chapter example proves a specific <abbr title="Universal Microservices Architecture">UMA</abbr> claim with runnable output. The claims are not described and left for the reader to
               accept. They are verified by CI on every commit to the repository.
             </p>
             <p>
@@ -146,12 +146,12 @@
           <section>
             <h2 id="chapter-walkthrough">Chapter walkthrough</h2>
             <p>
-              The three foundational chapters each prove a distinct layer of the UMA model.
+              The three foundational chapters each prove a distinct layer of the <abbr title="Universal Microservices Architecture">UMA</abbr> model.
             </p>
 
             <h3 id="chapter-4-feature-flag-evaluator">Chapter 4: Feature Flag Evaluator</h3>
             <p>
-              The smallest portable UMA service boundary. The core is written in Rust: a pure evaluator with one contract, deterministic rule
+              The smallest portable <abbr title="Universal Microservices Architecture">UMA</abbr> service boundary. The core is written in Rust: a pure evaluator with one contract, deterministic rule
               semantics, and a WASI CLI. A TypeScript implementation runs the same contract in parallel so that parity can be checked from
               observable output rather than inferred from shared intent. Labs cover country matching, rollout percentages, default fallback,
               and the full rule language. The smoke script <code>./scripts/smoke_flag_labs.sh</code> builds the WASI evaluator, runs the Rust
@@ -202,7 +202,7 @@
           <section>
             <h2 id="the-ci-proof">The CI proof</h2>
             <p>
-              Two CI workflows run on every commit and represent the proof methodology UMA requires.
+              Two CI workflows run on every commit and represent the proof methodology <abbr title="Universal Microservices Architecture">UMA</abbr> requires.
             </p>
             <p>
               <strong>Reader Smoke CI</strong> executes the complete guided reader path from checkout to final lab output. It validates that
@@ -211,10 +211,10 @@
             <p>
               <strong>Business Logic Coverage CI</strong> measures coverage of the portable Rust core independently of any host. The 100%
               business logic coverage badge means every branch of the portable evaluator and service logic is exercised by tests that do not
-              depend on a specific runtime host. This is how UMA separates the proof of portable logic from the proof of runtime integration.
+              depend on a specific runtime host. This is how <abbr title="Universal Microservices Architecture">UMA</abbr> separates the proof of portable logic from the proof of runtime integration.
             </p>
             <p>
-              That separation is not incidental. It is the proof methodology the UMA model requires: business behavior must be verifiable
+              That separation is not incidental. It is the proof methodology the <abbr title="Universal Microservices Architecture">UMA</abbr> model requires: business behavior must be verifiable
               independently of execution context. The CI structure enforces that constraint mechanically rather than relying on convention
               or manual review.
             </p>
@@ -234,7 +234,7 @@
             </ul>
             <p>
               The full repository is at
-              <a href="https://github.com/enricopiovesan/UMA-code-examples">github.com/enricopiovesan/UMA-code-examples</a>.
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">github.com/enricopiovesan/<abbr title="Universal Microservices Architecture">UMA</abbr>-code-examples</a>.
             </p>
           </section>
 
@@ -243,8 +243,8 @@
 
             <h3 id="is-this-production-code">Is this production code?</h3>
             <p>
-              No. This is a reference implementation. Its purpose is to prove the UMA model with running code that readers can inspect,
-              fork, and challenge. Production use of UMA requires adapting the patterns to your specific runtime constraints, trust model,
+              No. This is a reference implementation. Its purpose is to prove the <abbr title="Universal Microservices Architecture">UMA</abbr> model with running code that readers can inspect,
+              fork, and challenge. Production use of <abbr title="Universal Microservices Architecture">UMA</abbr> requires adapting the patterns to your specific runtime constraints, trust model,
               and deployment context. The reference application makes no claims about production readiness of any specific implementation.
             </p>
 
@@ -264,7 +264,7 @@
               WebAssembly execution model the reference application uses.
             </p>
             <div class="subpage-inline-links">
-              <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub: UMA Code Examples</a>
+              <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub: <abbr title="Universal Microservices Architecture">UMA</abbr> Code Examples</a>
               <a href="/wasm-microservices-tutorial-rust/">WebAssembly Microservices Tutorial (Rust)</a>
             </div>
           </section>

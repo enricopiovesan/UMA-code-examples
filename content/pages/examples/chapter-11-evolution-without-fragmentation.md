@@ -8,7 +8,7 @@ slug: chapter-11-evolution-without-fragmentation
 canonical_url: "https://www.universalmicroservices.com/examples/chapter-11-evolution-without-fragmentation/"
 left_nav_group: examples
 chapter_ref: "Chapter 11"
-seo_description: "Follow the Chapter 11 UMA evolution tutorial to watch drift, duplication, version sprawl, governed coexistence, and hybrid adoption unfold through runnable labs."
+seo_description: "Chapter 11 UMA tutorial: drift, duplication, version sprawl, and governed coexistence demonstrated through runnable labs and hybrid adoption scenarios."
 breadcrumbs:
   - "Home"
   - "Examples"

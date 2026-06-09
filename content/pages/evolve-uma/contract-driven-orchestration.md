@@ -8,7 +8,7 @@ slug: contract-driven-orchestration
 canonical_url: "https://www.universalmicroservices.com/contract-driven-orchestration/"
 left_nav_group: evolve-uma
 chapter_ref: null
-seo_description: "Learn how contract-driven orchestration works in UMA, where events, policies, and metadata shape execution without hardcoded workflow glue."
+seo_description: "Contract-driven orchestration in UMA: how events, policies, and metadata coordinate execution without hardcoded workflow glue or tight service coupling."
 breadcrumbs:
   - "Home"
   - "Evolve Uma"

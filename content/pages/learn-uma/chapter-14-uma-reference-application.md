@@ -8,7 +8,7 @@ slug: chapter-14-uma-reference-application
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-14-uma-reference-application/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "The complete UMA reference application: all pieces assembled."
+seo_description: "Chapter 14: the UMA reference application. Portable services, descriptors, runtime governance, and trust boundaries in a complete working system."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

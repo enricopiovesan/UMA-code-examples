@@ -8,7 +8,7 @@ slug: proof
 canonical_url: "https://www.universalmicroservices.com/proof/"
 left_nav_group: proof
 chapter_ref: null
-seo_description: "Review the evidence surface for UMA with portability proof, benchmark notes, and service portability examples."
+seo_description: "UMA portability proof: methodology, benchmark measurements, and service portability examples verifying runtime-agnostic distributed systems."
 breadcrumbs:
   - "Home"
   - "Proof"

@@ -8,7 +8,7 @@ slug: chapter-03-what-is-universal-microservices-architecture
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-03-what-is-universal-microservices-architecture/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "UMA defined: three separations that distinguish it from microservices."
+seo_description: "Chapter 3: UMA defined. Three architectural separations that distinguish Universal Microservices Architecture from conventional microservices."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

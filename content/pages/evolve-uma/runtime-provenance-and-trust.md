@@ -8,7 +8,7 @@ slug: runtime-provenance-and-trust
 canonical_url: "https://www.universalmicroservices.com/runtime-provenance-and-trust/"
 left_nav_group: evolve-uma
 chapter_ref: null
-seo_description: "Learn how UMA makes provenance, permissions, dependencies, and trust boundaries explicit in runtime decisions instead of hiding them in perimeter infrastructure."
+seo_description: "UMA runtime provenance: permissions, dependencies, and trust boundaries recorded per execution decision, not assumed from network perimeter infrastructure."
 breadcrumbs:
   - "Home"
   - "Evolve Uma"

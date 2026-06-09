@@ -8,7 +8,7 @@ slug: discoverability
 canonical_url: "https://www.universalmicroservices.com/discoverability/"
 left_nav_group: discoverability
 chapter_ref: null
-seo_description: "Find the supporting UMA reference pages: FAQ, diagrams, author bio, blog, reference application, and book links."
+seo_description: "Universal Microservices Architecture reference hub: FAQ, diagrams, author bio, white papers, blog, reference application, and book pre-order links in one place."
 breadcrumbs:
   - "Home"
   - "Discovery and References"

@@ -8,7 +8,7 @@ slug: chapter-08-service-contracts-events-orchestration
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-08-service-contracts-events-orchestration/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "How UMA contracts and declared events replace hardcoded orchestration."
+seo_description: "Chapter 8: service contracts, events, and orchestration in UMA. How declared events and contracts replace hardcoded workflow logic and coupling."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

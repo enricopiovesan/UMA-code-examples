@@ -8,7 +8,7 @@ slug: comparisons
 canonical_url: "https://www.universalmicroservices.com/comparisons/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "Review UMA compared with serverless, modular monoliths, traditional microservices, and the criticisms that shape the tradeoff analysis."
+seo_description: "Compare UMA against serverless, modular monoliths, and traditional microservices. Runtime portability, governance, and adoption tradeoffs analyzed in one place."
 breadcrumbs:
   - "Home"
   - "Comparisons and Tradeoffs"

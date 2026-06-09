@@ -8,7 +8,7 @@ slug: architecture-drift-and-portable-business-logic
 canonical_url: "https://www.universalmicroservices.com/architecture-drift-and-portable-business-logic/"
 left_nav_group: how-uma-works
 chapter_ref: null
-seo_description: "Learn how UMA reduces architecture drift by keeping business behavior portable, contract-shaped, and governed across browser, edge, backend, and AI-assisted runtime paths."
+seo_description: "Architecture drift and portable business logic: UMA keeps behavior contract-shaped and governed across browser, edge, backend, and AI paths."
 breadcrumbs:
   - "Home"
   - "How Uma Works"

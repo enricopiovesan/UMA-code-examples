@@ -8,7 +8,7 @@ slug: what-is-a-universal-microservice
 canonical_url: "https://www.universalmicroservices.com/what-is-a-universal-microservice/"
 left_nav_group: why-uma
 chapter_ref: null
-seo_description: "Define a Universal Microservice, what makes it portable, how its lifecycle works, and how it differs from a traditional service."
+seo_description: "What is a Universal Microservice: how it differs from a traditional service, what makes it portable, and the contract that governs its behavior across runtimes."
 breadcrumbs:
   - "Home"
   - "Why Uma"

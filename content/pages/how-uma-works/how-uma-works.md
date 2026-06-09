@@ -8,7 +8,7 @@ slug: how-uma-works
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/"
 left_nav_group: how-uma-works
 chapter_ref: null
-seo_description: "See how UMA keeps services portable while still making runtime placement, portability, adoption, and readiness explicit."
+seo_description: "How Universal Microservices Architecture works: portable services, active descriptors, runtime placement, and incremental adoption explained."
 breadcrumbs:
   - "Home"
   - "How UMA Works"

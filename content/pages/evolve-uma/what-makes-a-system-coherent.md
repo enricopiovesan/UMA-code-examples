@@ -8,7 +8,7 @@ slug: what-makes-a-system-coherent
 canonical_url: "https://www.universalmicroservices.com/what-makes-a-system-coherent/"
 left_nav_group: evolve-uma
 chapter_ref: null
-seo_description: "Learn what makes a UMA system coherent instead of merely functional, and how metadata, capability boundaries, event semantics, and runtime decisions shape that outcome."
+seo_description: "What makes a UMA system coherent: metadata, capability boundaries, event semantics, and governance decisions that keep behavior consistent as it scales."
 breadcrumbs:
   - "Home"
   - "Evolve Uma"

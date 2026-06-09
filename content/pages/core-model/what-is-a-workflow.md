@@ -8,7 +8,7 @@ slug: what-is-a-workflow
 canonical_url: "https://www.universalmicroservices.com/what-is-a-workflow/"
 left_nav_group: core-model
 chapter_ref: null
-seo_description: "Learn what a workflow means in Universal Microservices Architecture and how workflows differ from capabilities, agents, and the runtime."
+seo_description: "What a workflow means in UMA: how it differs from capabilities, agents, and the runtime, and how workflows orchestrate behavior across distributed services."
 breadcrumbs:
   - "Home"
   - "Core Model"

@@ -8,7 +8,7 @@ slug: chapter-10-security-trust-boundaries-microservices
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-10-security-trust-boundaries-microservices/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "How UMA enforces per-execution trust across multi-runtime microservice systems."
+seo_description: "Chapter 10: security and trust boundaries in microservices. How UMA enforces per-execution trust across multi-runtime systems, beyond perimeter models."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

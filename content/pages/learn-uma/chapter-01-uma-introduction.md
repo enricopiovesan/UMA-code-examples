@@ -8,7 +8,7 @@ slug: chapter-01-uma-introduction
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-01-uma-introduction/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "Chapter 1 of Universal Microservices Architecture: the case for a new model as execution surfaces multiply across browser, edge, backend, workflow, and AI-assisted paths."
+seo_description: "Chapter 1: the case for a new architectural model as execution surfaces multiply across browser, edge, backend, workflow, and AI-assisted environments. Why now."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

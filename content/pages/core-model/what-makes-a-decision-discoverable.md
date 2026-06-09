@@ -8,7 +8,7 @@ slug: what-makes-a-decision-discoverable
 canonical_url: "https://www.universalmicroservices.com/what-makes-a-decision-discoverable/"
 left_nav_group: core-model
 chapter_ref: null
-seo_description: "Learn what makes a runtime decision discoverable in UMA: visible proposals, authoritative validation, bounded revision, approved execution, and traceable artifacts."
+seo_description: "What makes a decision discoverable in UMA: visible proposals, authoritative validation, bounded revision, and traceable execution artifacts for governance."
 breadcrumbs:
   - "Home"
   - "Core Model"

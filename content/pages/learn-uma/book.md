@@ -8,7 +8,7 @@ slug: book
 canonical_url: "https://www.universalmicroservices.com/learn-uma/book/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "Universal Microservices Architecture: the book for architects and senior engineers building portable, runtime-agnostic distributed systems with WebAssembly. Available on Amazon."
+seo_description: "Universal Microservices Architecture (Apress, 2026): 14 chapters for architects building portable, WASM-native distributed systems. Pre-order now on Amazon."
 breadcrumbs:
   - "Home"
   - "Learn Uma"

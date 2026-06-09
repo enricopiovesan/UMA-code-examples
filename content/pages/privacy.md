@@ -6,7 +6,7 @@ macro_area: discoverability
 content_type: page
 slug: privacy
 canonical_url: "https://www.universalmicroservices.com/discoverability/privacy/"
-seo_description: "Privacy policy for universalmicroservices.com: what data is collected, how it is used, and your rights."
+seo_description: "Privacy policy for universalmicroservices.com: data collected via analytics, how it is used, your rights, and how to contact the site owner."
 breadcrumbs:
   - "Home"
   - "Privacy"

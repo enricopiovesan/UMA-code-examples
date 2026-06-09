@@ -8,7 +8,7 @@ slug: core-model
 canonical_url: "https://www.universalmicroservices.com/core-model/"
 left_nav_group: core-model
 chapter_ref: null
-seo_description: "Explore UMA's core model: capability boundaries, workflow orchestration, runtime rules, and how decisions stay discoverable."
+seo_description: "The UMA core model: capability boundaries, workflow orchestration, runtime authority, and discoverable decisions across distributed services."
 breadcrumbs:
   - "Home"
   - "Core Model"

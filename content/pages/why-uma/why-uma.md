@@ -8,7 +8,7 @@ slug: why-uma
 canonical_url: "https://www.universalmicroservices.com/why-uma/"
 left_nav_group: why-uma
 chapter_ref: null
-seo_description: "Start here to understand why UMA exists, what problem it solves, and how the model shifts architecture toward portable behavior."
+seo_description: "Why UMA exists: the problem it solves and the model it proposes. Start here to understand how portable behavior ownership changes distributed architecture."
 breadcrumbs:
   - "Home"
   - "Why UMA"

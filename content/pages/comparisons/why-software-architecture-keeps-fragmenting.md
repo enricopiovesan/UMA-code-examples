@@ -8,7 +8,7 @@ slug: why-software-architecture-keeps-fragmenting
 canonical_url: "https://www.universalmicroservices.com/comparisons/why-software-architecture-keeps-fragmenting/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "Why distributed systems fragment: the same business logic gets rewritten for browser, edge, backend, workflow, and AI paths. The structural cause and how UMA addresses it."
+seo_description: "Why architecture keeps fragmenting: the structural cause behind reimplementing logic per execution surface, and how UMA's portability model breaks the cycle."
 breadcrumbs:
   - "Home"
   - "Comparisons and Tradeoffs"

@@ -8,7 +8,7 @@ slug: evolve-uma
 canonical_url: "https://www.universalmicroservices.com/evolve-uma/"
 left_nav_group: evolve-uma
 chapter_ref: null
-seo_description: "Explore how UMA evolves through orchestration, trust boundaries, compatibility, and governance without losing coherence."
+seo_description: "How UMA evolves distributed systems: orchestration, trust boundaries, compatibility, and runtime governance without losing architectural coherence."
 breadcrumbs:
   - "Home"
   - "System Evolution"

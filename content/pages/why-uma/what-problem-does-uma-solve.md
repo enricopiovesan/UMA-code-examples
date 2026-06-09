@@ -8,7 +8,7 @@ slug: what-problem-does-uma-solve
 canonical_url: "https://www.universalmicroservices.com/what-problem-does-uma-solve/"
 left_nav_group: why-uma
 chapter_ref: null
-seo_description: "Understand the core problem Universal Microservices Architecture solves: keeping one business behavior coherent across browser, edge, cloud, workflows, and AI-assisted execution."
+seo_description: "What problem does UMA solve: business behavior reimplemented per execution surface. The structural cause of distributed system drift and UMA's fix."
 breadcrumbs:
   - "Home"
   - "Why Uma"

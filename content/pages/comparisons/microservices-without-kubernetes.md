@@ -8,7 +8,7 @@ slug: microservices-without-kubernetes
 canonical_url: "https://www.universalmicroservices.com/comparisons/microservices-without-kubernetes/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "Run microservices without Kubernetes: WASM runtimes, edge platforms, serverless, and UMA's approach to portable service placement without container orchestration."
+seo_description: "Microservices without Kubernetes: WASM runtimes, edge platforms, and UMA placement as an alternative to container orchestration for portable services."
 breadcrumbs:
   - "Home"
   - "Comparisons"

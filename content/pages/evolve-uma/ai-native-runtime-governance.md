@@ -8,7 +8,7 @@ slug: ai-native-runtime-governance
 canonical_url: "https://www.universalmicroservices.com/ai-native-runtime-governance/"
 left_nav_group: evolve-uma
 chapter_ref: null
-seo_description: "Learn how UMA lets AI participate in workflow proposals while the runtime remains authoritative, explainable, and traceable."
+seo_description: "AI-native runtime governance in UMA: AI agents propose workflows while the runtime validates and maintains an explainable, traceable record."
 breadcrumbs:
   - "Home"
   - "Evolve Uma"

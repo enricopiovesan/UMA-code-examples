@@ -8,7 +8,7 @@ slug: chapter-04-feature-flag-evaluator
 canonical_url: "https://www.universalmicroservices.com/examples/chapter-04-feature-flag-evaluator/"
 left_nav_group: examples
 chapter_ref: "Chapter 4"
-seo_description: "Run the Chapter 4 UMA feature flag evaluator tutorial and learn how one Rust-first portable service keeps deterministic rule behavior aligned with TypeScript parity."
+seo_description: "Chapter 4 UMA example: the feature flag evaluator in Rust. Portable service with deterministic behavior and TypeScript parity across execution runtimes."
 breadcrumbs:
   - "Home"
   - "Examples"

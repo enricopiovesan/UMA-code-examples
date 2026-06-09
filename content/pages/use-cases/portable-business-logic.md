@@ -7,7 +7,7 @@ content_type: concept
 slug: portable-business-logic
 canonical_url: "https://www.universalmicroservices.com/use-cases/portable-business-logic/"
 left_nav_group: use-cases
-seo_description: "Write business logic once and run it on browser, server, edge, and AI agents without duplicating code. How UMA portable services solve the multi-environment problem."
+seo_description: "Write business logic once and run it across browser, server, edge, and AI agents. UMA portable services eliminate multi-environment reimplementation."
 breadcrumbs:
   - "Home"
   - "Use Cases"

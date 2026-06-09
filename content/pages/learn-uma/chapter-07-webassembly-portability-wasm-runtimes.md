@@ -8,7 +8,7 @@ slug: chapter-07-webassembly-portability-wasm-runtimes
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-07-webassembly-portability-wasm-runtimes/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "How WASM and UMA descriptors make microservice portability inspectable."
+seo_description: "Chapter 7: WebAssembly portability and WASM runtimes. How WASM modules and UMA descriptors make portable microservice execution inspectable and verifiable."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

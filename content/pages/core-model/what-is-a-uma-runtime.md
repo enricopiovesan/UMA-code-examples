@@ -8,7 +8,7 @@ slug: what-is-a-uma-runtime
 canonical_url: "https://www.universalmicroservices.com/what-is-a-uma-runtime/"
 left_nav_group: core-model
 chapter_ref: null
-seo_description: "Learn what the UMA runtime is, what it owns, and why runtime authority matters in Universal Microservices Architecture."
+seo_description: "What is a UMA runtime: the component that validates placements, enforces contracts, and owns execution authority in portable microservices systems."
 breadcrumbs:
   - "Home"
   - "Core Model"

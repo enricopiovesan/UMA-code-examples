@@ -8,7 +8,7 @@ slug: chapter-04-from-soa-to-metadata-driven-services
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-04-from-soa-to-metadata-driven-services/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "From SOA to microservices to metadata-driven portable services."
+seo_description: "Chapter 4: the evolution from SOA to microservices to metadata-driven portable services, and how that trajectory leads to Universal Microservices Architecture."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

@@ -8,7 +8,7 @@ slug: chapter-05-building-portable-microservices
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "Three requirements for genuine portability: no hidden deps, declared contract, parity proof."
+seo_description: "Chapter 5: building portable microservices. Three requirements: no hidden dependencies, a declared contract, and cross-runtime behavioral parity."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

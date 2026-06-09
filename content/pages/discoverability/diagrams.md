@@ -8,7 +8,7 @@ slug: diagrams
 canonical_url: "https://www.universalmicroservices.com/diagrams/"
 left_nav_group: discoverability
 chapter_ref: null
-seo_description: "Structured UMA diagrams for service boundaries, runtime flow, trust decisions, service graph evolution, governed evolution without fragmentation, and discoverable decision lifecycles."
+seo_description: "UMA architecture diagrams: service boundaries, runtime flow, trust decisions, service graph evolution, and discoverable decision lifecycles."
 breadcrumbs:
   - "Home"
   - "Discoverability"

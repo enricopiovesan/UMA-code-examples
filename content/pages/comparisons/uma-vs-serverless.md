@@ -8,7 +8,7 @@ slug: uma-vs-serverless
 canonical_url: "https://www.universalmicroservices.com/uma-vs-serverless/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "Compare UMA and serverless across runtime model, deployment model, portability, governance, and cost considerations."
+seo_description: "UMA vs serverless: runtime model, portability, governance, and cost compared. When Universal Microservices Architecture beats function-based design."
 breadcrumbs:
   - "Home"
   - "Comparisons"

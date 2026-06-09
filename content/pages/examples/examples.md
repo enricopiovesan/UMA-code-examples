@@ -8,7 +8,7 @@ slug: examples
 canonical_url: "https://www.universalmicroservices.com/examples/"
 left_nav_group: examples
 chapter_ref: null
-seo_description: "Explore the practical Universal Microservices Architecture examples, including chapter-aligned Rust-first labs, portable MCP runtime composition, and runnable tutorials."
+seo_description: "Universal Microservices Architecture code examples: chapter-aligned Rust labs, portable MCP runtime composition, and runnable UMA tutorials."
 breadcrumbs:
   - "Home"
   - "Examples"

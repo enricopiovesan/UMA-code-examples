@@ -8,7 +8,7 @@ slug: migrating-to-uma-incrementally
 canonical_url: "https://www.universalmicroservices.com/migrating-to-uma-incrementally/"
 left_nav_group: how-uma-works
 chapter_ref: null
-seo_description: "A practical conceptual guide to incremental UMA migration for greenfield and brownfield systems without requiring a full rewrite."
+seo_description: "Incremental UMA migration: patterns for greenfield and brownfield microservices moving to portable services architecture without a full rewrite."
 breadcrumbs:
   - "Home"
   - "How Uma Works"

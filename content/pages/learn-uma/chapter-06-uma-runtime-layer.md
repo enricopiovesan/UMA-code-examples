@@ -8,7 +8,7 @@ slug: chapter-06-uma-runtime-layer
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-06-uma-runtime-layer/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "What the UMA runtime layer owns and why explicit ownership matters."
+seo_description: "Chapter 6: the UMA runtime layer. What the runtime owns, why explicit authority matters, and how it separates governance from service logic."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

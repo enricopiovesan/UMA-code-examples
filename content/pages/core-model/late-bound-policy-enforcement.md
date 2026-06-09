@@ -8,7 +8,7 @@ slug: late-bound-policy-enforcement
 canonical_url: "https://www.universalmicroservices.com/late-bound-policy-enforcement/"
 left_nav_group: core-model
 chapter_ref: null
-seo_description: "A conversion-focused preview of late-bound policy enforcement in UMA: how runtimes apply policy, placement, trust, and compliance rules around portable services."
+seo_description: "Late-bound policy in UMA: runtimes apply placement, trust, and compliance rules around portable services at execution time, not deploy time."
 breadcrumbs:
   - "Home"
   - "Core Model"

@@ -8,7 +8,7 @@ slug: common-criticisms-and-tradeoffs-of-uma
 canonical_url: "https://www.universalmicroservices.com/common-criticisms-and-tradeoffs-of-uma/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "A credible look at UMA tradeoffs, including learning curve, runtime complexity, governance needs, and organizational readiness."
+seo_description: "UMA tradeoffs: learning curve, runtime complexity, governance overhead, and what organizational readiness really means for portable microservices adoption."
 breadcrumbs:
   - "Home"
   - "Comparisons"

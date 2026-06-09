@@ -8,7 +8,7 @@ slug: about-enrico
 canonical_url: "https://www.universalmicroservices.com/discoverability/about-enrico/"
 left_nav_group: discoverability
 chapter_ref: null
-seo_description: "Enrico Piovesan. principal platform architect at Autodesk, author of Universal Microservices Architecture (Apress 2026), and writer on portable distributed systems and WebAssembly."
+seo_description: "Enrico Piovesan: principal architect at Autodesk, author of Universal Microservices Architecture (Apress 2026), writing on portable systems."
 breadcrumbs:
   - "Home"
   - "Discoverability"

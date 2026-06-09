@@ -8,7 +8,7 @@ slug: chapter-02-device-independent-architecture
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-02-device-independent-architecture/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "Four failure modes when business logic couples to one execution environment."
+seo_description: "Chapter 2: four failure modes when business logic couples to one execution environment and why device-independent architecture is the answer."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

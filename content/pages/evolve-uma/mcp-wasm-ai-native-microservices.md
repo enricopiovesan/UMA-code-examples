@@ -8,7 +8,7 @@ slug: mcp-wasm-ai-native-microservices
 canonical_url: "https://www.universalmicroservices.com/evolve-uma/mcp-wasm-ai-native-microservices/"
 left_nav_group: evolve-uma
 chapter_ref: null
-seo_description: "How MCP and WebAssembly combine to enable AI-native portable microservices: structured tool invocation with sandboxed portable execution."
+seo_description: "MCP and WebAssembly in UMA: structured tool invocation and sandboxed portable execution for AI-native microservices with contract governance."
 breadcrumbs:
   - "Home"
   - "System Evolution"

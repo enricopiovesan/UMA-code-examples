@@ -8,7 +8,7 @@ slug: speaking
 canonical_url: "https://www.universalmicroservices.com/discoverability/speaking/"
 left_nav_group: discoverability
 chapter_ref: null
-seo_description: "Enrico Piovesan speaks on Universal Microservices Architecture, WebAssembly portability, and AI-native software design. Available for architecture and AI engineering conference tracks."
+seo_description: "Enrico Piovesan: speaker on Universal Microservices Architecture, WebAssembly, and AI-native design. Available for architecture conferences."
 breadcrumbs:
   - "Home"
   - "About"

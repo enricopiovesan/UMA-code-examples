@@ -8,7 +8,7 @@ slug: wasm-vs-docker-kubernetes
 canonical_url: "https://www.universalmicroservices.com/comparisons/wasm-vs-docker-kubernetes/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "WASM vs Docker and Kubernetes: a technical comparison covering isolation model, portability guarantees, startup time, binary size, and wasm containers in Kubernetes via runwasi. Includes guidance on when WebAssembly vs Kubernetes is the right architectural choice."
+seo_description: "WASM vs Docker and Kubernetes: isolation, portability, startup time, and binary size compared. When WebAssembly beats container orchestration."
 breadcrumbs:
   - "Home"
   - "Comparisons"

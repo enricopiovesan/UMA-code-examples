@@ -8,7 +8,7 @@ slug: how-to-prove-portability
 canonical_url: "https://www.universalmicroservices.com/how-to-prove-portability/"
 left_nav_group: proof
 chapter_ref: null
-seo_description: "Learn how to prove portability in UMA by comparing observable behavior across runtimes instead of assuming that shared code is enough."
+seo_description: "How to prove portability in UMA: compare observable behavior across runtimes instead of assuming shared code is enough. Three verification steps."
 breadcrumbs:
   - "Home"
   - "Proof"

@@ -8,7 +8,7 @@ slug: wasm-microservices
 canonical_url: "https://www.universalmicroservices.com/wasm-microservices/"
 left_nav_group: null
 chapter_ref: null
-seo_description: "What WebAssembly microservices are, how they work, and why WASM is the right execution boundary for portable distributed systems. Practical guides for Rust and TypeScript."
+seo_description: "WebAssembly microservices: what they are and how they work. WASM as the execution boundary for portable distributed systems. Rust and TypeScript guides."
 breadcrumbs:
   - "Home"
   - "WASM Microservices"

@@ -8,7 +8,7 @@ slug: chapter-12-evolving-distributed-systems
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-12-evolving-distributed-systems/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "Evolve UMA systems without drift or breaking compatibility."
+seo_description: "Chapter 12: evolving distributed systems. How UMA governs change and prevents drift while keeping service behavior coherent as systems grow."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

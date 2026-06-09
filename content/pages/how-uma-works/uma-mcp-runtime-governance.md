@@ -8,7 +8,7 @@ slug: uma-mcp-runtime-governance
 canonical_url: "https://www.universalmicroservices.com/how-uma-works/uma-mcp-runtime-governance/"
 left_nav_group: how-uma-works
 chapter_ref: null
-seo_description: "How UMA runtime governance extends to MCP tool calls: contract validation, trust boundaries, and execution evidence for AI agents invoking portable WebAssembly services."
+seo_description: "UMA governance for MCP tool calls: contract validation, trust boundaries, and execution evidence for AI agents invoking WebAssembly services."
 breadcrumbs:
   - "Home"
   - "How UMA Works"

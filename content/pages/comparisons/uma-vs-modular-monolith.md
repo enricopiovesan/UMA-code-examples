@@ -8,7 +8,7 @@ slug: uma-vs-modular-monolith
 canonical_url: "https://www.universalmicroservices.com/uma-vs-modular-monolith/"
 left_nav_group: comparisons
 chapter_ref: null
-seo_description: "Compare UMA and modular monoliths across modularity, deployment boundaries, runtime boundaries, and system evolution paths."
+seo_description: "UMA vs modular monolith: modularity, deployment boundaries, runtime isolation, and how each architecture handles scale and team growth over time."
 breadcrumbs:
   - "Home"
   - "Comparisons"

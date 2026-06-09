@@ -8,7 +8,7 @@ slug: chapter-13-ai-agents-mcp-runtime
 canonical_url: "https://www.universalmicroservices.com/learn-uma/chapter-13-ai-agents-mcp-runtime/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "UMA runtime governance for AI agents and MCP-compatible services."
+seo_description: "Chapter 13: AI agents and MCP runtime in UMA. How AI participates in distributed execution while the runtime stays authoritative and auditable."
 breadcrumbs:
   - "Home"
   - "Learn UMA"

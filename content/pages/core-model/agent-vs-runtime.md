@@ -8,7 +8,7 @@ slug: agent-vs-runtime
 canonical_url: "https://www.universalmicroservices.com/agent-vs-runtime/"
 left_nav_group: core-model
 chapter_ref: null
-seo_description: "Understand the difference between agents and the runtime in Universal Microservices Architecture: agents propose, the runtime validates, and the system stays governed."
+seo_description: "Agents propose, the runtime validates: how UMA separates AI agent intent from governed execution to keep distributed system behavior auditable and explainable."
 breadcrumbs:
   - "Home"
   - "Core Model"
