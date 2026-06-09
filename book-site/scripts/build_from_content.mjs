@@ -622,6 +622,7 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
       "@id": `${canonical}#article`,
       "headline": meta.title || "",
       "description": meta.seo_description || meta.subtitle || "",
+      "image": "https://www.universalmicroservices.com/assets/og-cover.jpg",
       "url": canonical,
       "inLanguage": "en",
       "author": {
@@ -644,6 +645,27 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     const ta = scripts[scripts.length - 1];
     if (dates?.published) ta.datePublished = dates.published;
     if (dates?.modified) ta.dateModified = dates.modified;
+  }
+
+  // FAQPage schema — for the faq page
+  if (meta.ref === "faq") {
+    const qas = [];
+    const qaRe = /<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g;
+    let qm;
+    while ((qm = qaRe.exec(rawMain)) !== null) {
+      const question = qm[1].replace(/<[^>]+>/g, "").trim();
+      const answer = qm[2].replace(/<[^>]+>/g, "").trim();
+      if (question && answer) {
+        qas.push({
+          "@type": "Question",
+          "name": question,
+          "acceptedAnswer": { "@type": "Answer", "text": answer }
+        });
+      }
+    }
+    if (qas.length) {
+      scripts.push({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": qas });
+    }
   }
 
   // DefinedTermSet schema — for the glossary page
@@ -807,7 +829,13 @@ function renderPage(meta, intro, main, outPath, outline, siteMapGroups, pagesByS
   const canonical = escapeHtml(generatedCanonicalForOutPath(outPath));
   const ogUrl = canonical;
   const ogType = meta.content_type === "hub" ? "website" : "article";
-  const pageTitle = `${title} | Universal Microservices Architecture`;
+  const SUFFIX_FULL = " | Universal Microservices Architecture";
+  const SUFFIX_SHORT = " | UMA";
+  const pageTitle = title.length + SUFFIX_FULL.length <= 62
+    ? `${title}${SUFFIX_FULL}`
+    : title.length + SUFFIX_SHORT.length <= 62
+    ? `${title}${SUFFIX_SHORT}`
+    : title;
   const structuredData = renderStructuredData(meta, main, outPath, siteMapGroups, pagesBySlug, dates);
 
   return `<!DOCTYPE html>
