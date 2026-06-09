@@ -710,7 +710,12 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
     "@id": "https://www.universalmicroservices.com/#organization",
     "name": "Universal Microservices Architecture",
     "url": "https://www.universalmicroservices.com/",
-    "logo": "https://www.universalmicroservices.com/assets/og-cover.jpg",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.universalmicroservices.com/assets/logo.png",
+      "width": 1254,
+      "height": 1254
+    },
     "sameAs": [
       "https://github.com/enricopiovesan/UMA-code-examples",
       "https://medium.com/the-rise-of-device-independent-architecture"
