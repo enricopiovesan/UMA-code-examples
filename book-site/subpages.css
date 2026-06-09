@@ -241,6 +241,23 @@ a.section-nav-label:hover {
   color: var(--accent);
 }
 
+.article-meta {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  padding: 10px 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+.article-meta a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.article-meta a:hover { border-bottom-color: var(--accent); }
+.article-author::before { content: "✍ "; }
+
 .subpage-hero {
   padding: 24px 0 36px;
   border-bottom: 1px solid var(--line);

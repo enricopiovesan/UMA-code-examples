@@ -896,6 +896,11 @@ ${renderMobileSectionNav(meta, siteMapGroups, pagesBySlug, outPath)}
 
 ${intro}
 
+${(meta.content_type !== "hub" && dates?.modified) ? `<div class="article-meta">
+  <span class="article-author">By <a href="${prefix}discoverability/about-enrico/">Enrico Piovesan</a></span>
+  <span class="article-date">Updated <time datetime="${dates.modified.slice(0,10)}">${new Date(dates.modified).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}</time></span>
+</div>` : ""}
+
 ${main}
       </main>
 

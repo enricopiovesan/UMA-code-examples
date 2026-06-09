@@ -23,7 +23,7 @@ related_refs:
 ## intro
 
 <section class="subpage-hero">
-  <h1>Why UMA</h1>
+  <h1>Why Universal Microservices Architecture Exists</h1>
   <p>
     UMA starts with a simple claim: the durable unit of architecture is behavior, not the stack that happened to host it first.
     This area explains why that shift matters and why it keeps systems coherent for longer.

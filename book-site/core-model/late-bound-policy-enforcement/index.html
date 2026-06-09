@@ -94,6 +94,11 @@
 
 <section class="subpage-hero"><h1>Late-bound policy enforcement</h1><p><abbr title="Universal Microservices Architecture">UMA</abbr> treats policy as something evaluated near execution, not as a static diagram note. The runtime can apply placement, trust, compliance, and fail-fast rules without rewriting the portable service.</p></section>
 
+<div class="article-meta">
+  <span class="article-author">By <a href="../../discoverability/about-enrico/">Enrico Piovesan</a></span>
+  <span class="article-date">Updated <time datetime="2026-06-09">June 9, 2026</time></span>
+</div>
+
 <div class="subpage-body">
           <section><h2 id="why-late-bound-policy-matters">Why late-bound policy matters</h2><p>Distributed systems often hardwire policy into deployment scripts, gateway configuration, or application code. That makes the policy hard to audit and hard to move with the behavior it governs.</p><p><abbr title="Universal Microservices Architecture">UMA</abbr> keeps the portable behavior separate while letting runtime authority decide whether a specific execution path is allowed under current conditions.</p></section>
           <section class="subpage-grid"><article class="subpage-card"><h3 id="local-decision">Local decision</h3><p>The runtime evaluates the metadata it has, instead of relying on hidden centralized coordination for every choice.</p></article><article class="subpage-card"><h3 id="fail-fast">Fail fast</h3><p>Invalid or disallowed runs should stop before adapter execution and side effects begin.</p></article><article class="subpage-card"><h3 id="policy-evidence">Policy evidence</h3><p>The run should show which policy shaped the outcome.</p></article><article class="subpage-card"><h3 id="portable-core">Portable core</h3><p>The service logic remains stable while execution conditions change around it.</p></article></section>
