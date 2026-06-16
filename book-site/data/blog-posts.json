@@ -1,17 +1,31 @@
 [
   {
+    "title": "Your health check is lying to you",
+    "subtitle": "How runtime enforcement catches what documentation contracts wave through",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*2i91y8USojp0L1o3k91D9A.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/your-health-check-is-lying-to-you-8367821e6c87",
+    "alt": "Your health check is lying to you"
+  },
+  {
     "title": "Your deployment decision is already too late",
-    "subtitle": "The service declares what it needs. The runtime decides where it runs, at execution time, against the host it actually finds.",
+    "subtitle": "The Rise of Device-Independent Architecture",
     "image": "https://cdn-images-1.medium.com/max/1024/1*eihtk7fC_vyBE-mBb57lHQ.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/your-deployment-decision-is-already-too-late-d0c7988438df",
     "alt": "Your deployment decision is already too late"
   },
   {
-    "title": "The 40ms Your System Can't Explain",
-    "subtitle": "What actually happens in the 40ms between request and response.",
+    "title": "The 40ms Your System Can’t Explain",
+    "subtitle": "What actually happens in the 40ms between request and response",
     "image": "https://cdn-images-1.medium.com/max/1024/1*hpEktwyu7ylQ85l_RPMH0A.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/the-40ms-your-system-cant-explain-3d5bb80298a8",
-    "alt": "The 40ms Your System Can't Explain"
+    "alt": "The 40ms Your System Can’t Explain"
+  },
+  {
+    "title": "Invisible Safety: How We Learn to Trust What We Don’t See",
+    "subtitle": "From the world’s first mountain cable car to modern runtime, the secret to progress lies in hidden reliability.",
+    "image": "https://miro.medium.com/v2/resize:fit:1200/1*pYuNhJRnoHg6SQ9gHUm3wA.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/invisible-safety-how-we-learn-to-trust-what-we-dont-see-5851fa8d14bd",
+    "alt": "Invisible Safety: How We Learn to Trust What We Don’t See"
   },
   {
     "title": "Why Agents Make Bad Decisions in Distributed Systems",
@@ -42,15 +56,15 @@
     "alt": "The End of Control: Building Software That Thinks Together"
   },
   {
-    "title": "The Runtime That Knows It\u2019s Alive",
-    "subtitle": "Inside UMA\u2019s new Runtime API, where every service, policy, and capability can describe itself in real time.",
+    "title": "The Runtime That Knows It’s Alive",
+    "subtitle": "Inside UMA’s new Runtime API, where every service, policy, and capability can describe itself in real time.",
     "image": "https://cdn-images-1.medium.com/max/1024/1*ld6yISpBGKEclvuJSQ2sdg.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/the-runtime-that-knows-its-alive-9ac65f09dc92",
-    "alt": "The Runtime That Knows It\u2019s Alive"
+    "alt": "The Runtime That Knows It’s Alive"
   },
   {
     "title": "From Java to WebAssembly: The Long Road to True Portability",
-    "subtitle": "How UMA and WASM move portability beyond slogans toward running logic where it makes sense.",
+    "subtitle": "How UMA and WASM deliver what decades of “write once, run anywhere” promises couldn’t.",
     "image": "https://cdn-images-1.medium.com/max/1024/1*anIZRd4Y4KV44p9uMhYbLQ.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/from-java-to-webassembly-the-long-road-to-true-portability-d846ac953311",
     "alt": "From Java to WebAssembly: The Long Road to True Portability"
@@ -61,12 +75,5 @@
     "image": "https://cdn-images-1.medium.com/max/1024/1*_Vg-QBWVy4oghUne3kqlpQ.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/how-to-keep-going-when-the-connection-breaks-89bbaae23771",
     "alt": "How to Keep Going When the Connection Breaks"
-  },
-  {
-    "title": "Invisible Safety: How We Learn to Trust What We Don\u2019t See",
-    "subtitle": "From the world\u2019s first mountain cable car to modern runtime, the secret to progress lies in hidden reliability.",
-    "image": "https://cdn-images-1.medium.com/max/1024/1*pYuNhJRnoHg6SQ9gHUm3wA.png",
-    "url": "https://medium.com/the-rise-of-device-independent-architecture/invisible-safety-how-we-learn-to-trust-what-we-dont-see-5851fa8d14bd",
-    "alt": "Invisible Safety: How We Learn to Trust What We Don\u2019t See"
   }
 ]
