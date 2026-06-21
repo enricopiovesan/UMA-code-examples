@@ -2396,3 +2396,22 @@ h3 {
   max-width: 100%;
   height: auto;
 }
+
+.runtime-placement-wrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0b0d12;
+}
+
+#uma-rp {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .diagram-section--rp {
+    display: none;
+  }
+}

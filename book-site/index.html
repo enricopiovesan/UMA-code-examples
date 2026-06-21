@@ -180,6 +180,218 @@
         </section>
         <!-- ── end UMA Architecture Flow Diagram ── -->
 
+        <!-- ── Runtime Placement Animated Diagram ── -->
+        <section class="section diagram-section diagram-section--rp">
+          <div class="diagram-header">
+            <p class="section-kicker">RUNTIME PLACEMENT</p>
+            <p class="diagram-caption">The same WASM service, loaded from a shared registry, runs where it fits. Each client's runtime decides independently — on device when it can, deferred to the server when it can't.</p>
+          </div>
+          <div class="runtime-placement-wrap">
+            <div id="uma-rp" aria-label="Animated diagram: UMA runtime placement across web, mobile, and server" role="img"></div>
+          </div>
+        </section>
+        <script>
+        (function () {
+          var container = document.getElementById('uma-rp');
+          if (!container) return;
+          var A = '#ffdc5c', BG = '#0b0d12', D = 26000;
+          var start = null, raf = null;
+          var clamp = function(v,a,b){return Math.max(a,Math.min(b,v));};
+          var seg = function(t,a,b){return clamp((t-a)/(b-a),0,1);};
+          var ease = function(x){return x<0.5?2*x*x:1-Math.pow(-2*x+2,2)/2;};
+          var lerp = function(a,b,x){return a+(b-a)*x;};
+          var win = function(t,a,b,c,d){return ease(seg(t,a,b))*(1-seg(t,c,d));};
+
+          function calc(t) {
+            var appear = function(a){return win(t,a,a+0.035,0.96,0.995);};
+            var pulse = function(ph){return 0.3+0.7*(0.5+0.5*Math.sin(t*Math.PI*2*3+ph));};
+            var bootPulse=win(t,0.04,0.09,0.13,0.19), summaryPulse=win(t,0.86,0.90,0.95,0.99);
+            var uPcl=ease(seg(t,0.24,0.34)), uPsv=ease(seg(t,0.35,0.45));
+            var uAcl=ease(seg(t,0.40,0.50)), uAsv=ease(seg(t,0.51,0.61));
+            var lit=function(a,b){return win(t,a,a+0.02,b,b+0.02)>0.08?A:'rgba(255,255,255,0.1)';};
+            var webGlow=Math.max(bootPulse,win(t,0.28,0.32,0.40,0.44),summaryPulse);
+            var mobGlow=Math.max(bootPulse,win(t,0.44,0.48,0.56,0.60),summaryPulse);
+            var srvGlow=Math.max(bootPulse,win(t,0.38,0.42,0.58,0.62),summaryPulse);
+            var gS=function(g){return g>0.12?A:'rgba(255,255,255,0.2)';};
+            var gL=function(g){return g>0.12?A:'rgba(255,255,255,0.85)';};
+            var uiOp=win(t,0.10,0.14,0.93,0.97), crossOp=win(t,0.64,0.68,0.93,0.97);
+            var routes=[
+              {x1:421,y1:208,x2:421,y2:248,op:uiOp,n:3},
+              {x1:421,y1:568,x2:421,y2:608,op:uiOp,n:3},
+              {x1:752,y1:392,x2:844,y2:358,op:crossOp,n:3},
+              {x1:752,y1:794,x2:844,y2:492,op:crossOp,n:3}
+            ];
+            var events=[];
+            routes.forEach(function(r,ri){
+              if(r.op<0.02) return;
+              var dx=r.x2-r.x1,dy=r.y2-r.y1,L=Math.hypot(dx,dy)||1;
+              var ox=-dy/L*7,oy=dx/L*7;
+              for(var k=0;k<r.n;k++){
+                var pf=((t*3)+k/r.n+ri*0.19)%1;
+                events.push({cx:lerp(r.x1,r.x2,pf)+ox,cy:lerp(r.y1,r.y2,pf)+oy,op:r.op*(0.2+0.8*Math.sin(Math.PI*pf))});
+                var pb=((t*3)+k/r.n+ri*0.19)%1;
+                events.push({cx:lerp(r.x2,r.x1,pb)-ox,cy:lerp(r.y2,r.y1,pb)-oy,op:r.op*(0.2+0.8*Math.sin(Math.PI*pb))});
+              }
+            });
+            var step=t<0.10?1:t<0.16?2:t<0.28?3:t<0.46?4:t<0.66?5:6;
+            var dots=[];
+            for(var i=0;i<6;i++) dots.push({cx:760+i*16,fill:i<=step-1?A:'rgba(255,255,255,0.18)'});
+            return {
+              master:ease(seg(t,0,0.04))*(1-seg(t,0.97,1)),
+              structureOp:ease(seg(t,0.0,0.06)),
+              emptyOp:(1-seg(t,0.34,0.40))*ease(seg(t,0.0,0.06)),
+              regPricing:lit(0.24,0.46), regAi:lit(0.40,0.62), regCart:lit(0.12,0.20), regCatalog:lit(0.16,0.24),
+              webStroke:gS(webGlow), webW:1.3+webGlow*1.4, webLabel:gL(webGlow),
+              mobStroke:gS(mobGlow), mobW:1.3+mobGlow*1.4, mobLabel:gL(mobGlow),
+              srvStroke:gS(srvGlow), srvW:1.3+srvGlow*1.4, srvLabel:gL(srvGlow),
+              wBusOp:uiOp*0.55, mBusOp:uiOp*0.55,
+              wR1:appear(0.14), wR2:appear(0.19), wR3:appear(0.30), wR4:appear(0.46),
+              mR1:appear(0.14), mR2:appear(0.19), mR3:appear(0.30), mR4:appear(0.46),
+              wd1:pulse(0.0), wd2:pulse(0.8), wd4:pulse(2.0),
+              md1:pulse(0.4), md2:pulse(1.2), md3:pulse(2.4),
+              sPricingOp:appear(0.40), sAiOp:appear(0.56), sDot1:pulse(0.8), sDot2:pulse(1.9),
+              loadLines:[
+                {x1:692,y1:78,x2:208,y2:392,op:win(t,0.24,0.27,0.32,0.35)*0.5},
+                {x1:692,y1:78,x2:208,y2:752,op:win(t,0.24,0.27,0.32,0.35)*0.5},
+                {x1:692,y1:78,x2:1100,y2:358,op:win(t,0.35,0.38,0.43,0.46)*0.5},
+                {x1:812,y1:78,x2:208,y2:434,op:win(t,0.40,0.43,0.48,0.51)*0.5},
+                {x1:812,y1:78,x2:208,y2:794,op:win(t,0.40,0.43,0.48,0.51)*0.5},
+                {x1:812,y1:78,x2:1100,y2:492,op:win(t,0.51,0.54,0.59,0.62)*0.5}
+              ],
+              ldPwebOp:win(t,0.24,0.27,0.31,0.34), ldPwebX:lerp(692,208,uPcl), ldPwebY:lerp(92,392,uPcl),
+              ldPmobOp:win(t,0.24,0.27,0.31,0.34), ldPmobX:lerp(692,208,uPcl), ldPmobY:lerp(92,752,uPcl),
+              ldPsrvOp:win(t,0.35,0.38,0.43,0.46), ldPsrvX:lerp(692,1100,uPsv), ldPsrvY:lerp(92,358,uPsv),
+              ldAwebOp:win(t,0.40,0.43,0.47,0.50), ldAwebX:lerp(812,208,uAcl), ldAwebY:lerp(92,434,uAcl),
+              ldAmobOp:win(t,0.40,0.43,0.47,0.50), ldAmobX:lerp(812,208,uAcl), ldAmobY:lerp(92,794,uAcl),
+              ldAsrvOp:win(t,0.51,0.54,0.59,0.62), ldAsrvX:lerp(812,1100,uAsv), ldAsrvY:lerp(92,492,uAsv),
+              events:events, dots:dots,
+              n1:step===1?1:0, n2:step===2?1:0, n3:step===3?1:0,
+              n4:step===4?1:0, n5:step===5?1:0, n6:step===6?1:0
+            };
+          }
+
+          function tok(op,x,y,label,w) {
+            return '<g opacity="'+op+'" transform="translate('+x+' '+y+')"><rect x="-'+(w/2)+'" y="-15" width="'+w+'" height="30" rx="7" fill="'+BG+'" stroke="'+A+'" stroke-width="1.2"></rect><text x="0" y="4" text-anchor="middle" font-family="\'IBM Plex Mono\',monospace" font-size="12" fill="'+A+'">'+label+'</text></g>';
+          }
+
+          function svg(v) {
+            var M="'IBM Plex Mono',monospace", S="'Space Grotesk',system-ui,sans-serif";
+            return '<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">'
+            +'<rect x="0" y="0" width="1600" height="900" fill="'+BG+'"></rect>'
+            +'<g opacity="'+v.master+'">'
+            // Registry
+            +'<g opacity="'+v.structureOp+'">'
+            +'<rect x="250" y="10" width="1100" height="68" rx="12" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.15)" stroke-width="1.1"></rect>'
+            +'<text x="282" y="38" font-family="'+S+'" font-size="17" font-weight="600" fill="rgba(255,255,255,0.85)">Shared Registry</text>'
+            +'<text x="282" y="60" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.45)">portable wasm — every service loads from here</text>'
+            +'<rect x="636" y="20" width="112" height="48" rx="9" fill="rgba(255,255,255,0.02)" stroke="'+v.regPricing+'" stroke-width="1.1"></rect><text x="692" y="49" text-anchor="middle" font-family="'+S+'" font-size="14" fill="rgba(255,255,255,0.84)">pricing</text>'
+            +'<rect x="756" y="20" width="112" height="48" rx="9" fill="rgba(255,255,255,0.02)" stroke="'+v.regAi+'" stroke-width="1.1"></rect><text x="812" y="49" text-anchor="middle" font-family="'+S+'" font-size="14" fill="rgba(255,255,255,0.84)">ai-agent</text>'
+            +'<rect x="876" y="20" width="112" height="48" rx="9" fill="rgba(255,255,255,0.02)" stroke="'+v.regCart+'" stroke-width="1.1"></rect><text x="932" y="49" text-anchor="middle" font-family="'+S+'" font-size="14" fill="rgba(255,255,255,0.84)">cart</text>'
+            +'<rect x="996" y="20" width="112" height="48" rx="9" fill="rgba(255,255,255,0.02)" stroke="'+v.regCatalog+'" stroke-width="1.1"></rect><text x="1052" y="49" text-anchor="middle" font-family="'+S+'" font-size="14" fill="rgba(255,255,255,0.84)">catalog</text>'
+            +'<rect x="1116" y="20" width="112" height="48" rx="9" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" stroke-width="1"></rect><text x="1172" y="49" text-anchor="middle" font-family="'+S+'" font-size="14" fill="rgba(255,255,255,0.4)">fraud</text>'
+            +'</g>'
+            // Load lines
+            +v.loadLines.map(function(l){return '<line x1="'+l.x1+'" y1="'+l.y1+'" x2="'+l.x2+'" y2="'+l.y2+'" stroke="'+A+'" stroke-width="1.1" stroke-dasharray="4 6" stroke-opacity="'+l.op+'"></line>';}).join('')
+            // Web client
+            +'<text x="92" y="136" font-family="'+S+'" font-size="18" font-weight="600" fill="rgba(255,255,255,0.82)" opacity="'+v.structureOp+'">Web client · browser</text>'
+            +'<rect x="70" y="148" width="700" height="326" rx="13" fill="rgba(255,255,255,0.015)" stroke="'+v.webStroke+'" stroke-width="'+v.webW+'"></rect>'
+            +'<g opacity="'+v.structureOp+'">'
+            +'<rect x="90" y="162" width="662" height="46" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.24)" stroke-width="1"></rect>'
+            +'<text x="114" y="183" font-family="'+S+'" font-size="15" font-weight="600" fill="rgba(255,255,255,0.86)">UI layer</text>'
+            +'<text x="114" y="200" font-family="'+M+'" font-size="11.5" fill="rgba(255,255,255,0.5)">app interface — emits user events</text>'
+            +'<text x="728" y="189" text-anchor="end" font-family="'+M+'" font-size="12" fill="'+A+'">events ⇅</text>'
+            +'</g>'
+            +'<line x1="421" y1="210" x2="421" y2="246" stroke="'+A+'" stroke-width="1" stroke-dasharray="2 5" stroke-opacity="'+v.wBusOp+'"></line>'
+            +'<rect x="90" y="248" width="662" height="212" rx="9" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.24)" stroke-width="1"></rect>'
+            +'<text x="114" y="272" font-family="'+S+'" font-size="15" font-weight="600" fill="'+v.webLabel+'">UMA Runtime · decides placement</text>'
+            +'<rect x="522" y="258" width="80" height="20" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)" stroke-width="1"></rect><text x="562" y="272" text-anchor="middle" font-family="'+M+'" font-size="11" fill="rgba(255,255,255,0.65)">WebGPU</text>'
+            +'<rect x="610" y="258" width="118" height="20" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)" stroke-width="1"></rect><text x="669" y="272" text-anchor="middle" font-family="'+M+'" font-size="11" fill="rgba(255,255,255,0.65)">reliable network</text>'
+            +'<g opacity="'+v.wR1+'"><rect x="110" y="290" width="630" height="36" rx="8" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.18)" stroke-width="1"></rect><circle cx="132" cy="308" r="3.5" fill="'+A+'" opacity="'+v.wd1+'"></circle><text x="152" y="313" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">cart</text><text x="728" y="313" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.72)">▸ runs locally</text></g>'
+            +'<g opacity="'+v.wR2+'"><rect x="110" y="332" width="630" height="36" rx="8" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.18)" stroke-width="1"></rect><circle cx="132" cy="350" r="3.5" fill="'+A+'" opacity="'+v.wd2+'"></circle><text x="152" y="355" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">catalog</text><text x="728" y="355" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.72)">▸ runs locally</text></g>'
+            +'<g opacity="'+v.wR3+'"><rect x="110" y="374" width="630" height="36" rx="8" fill="rgba(255,255,255,0.015)" stroke="'+A+'" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="5 5"></rect><circle cx="132" cy="392" r="4" fill="none" stroke="'+A+'" stroke-width="1.3"></circle><text x="152" y="397" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">pricing</text><text x="320" y="397" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.52)">needs live server data</text><text x="728" y="397" text-anchor="end" font-family="'+M+'" font-size="13" fill="'+A+'">→ defer to server</text></g>'
+            +'<g opacity="'+v.wR4+'"><rect x="110" y="416" width="630" height="36" rx="8" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.18)" stroke-width="1"></rect><circle cx="132" cy="434" r="3.5" fill="'+A+'" opacity="'+v.wd4+'"></circle><text x="152" y="439" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">ai-agent</text><text x="320" y="439" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.52)">WebGPU · low-latency</text><text x="728" y="439" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.72)">▸ runs locally</text></g>'
+            // Mobile client
+            +'<text x="92" y="496" font-family="'+S+'" font-size="18" font-weight="600" fill="rgba(255,255,255,0.82)" opacity="'+v.structureOp+'">Native mobile client · offline-first</text>'
+            +'<rect x="70" y="508" width="700" height="326" rx="13" fill="rgba(255,255,255,0.015)" stroke="'+v.mobStroke+'" stroke-width="'+v.mobW+'"></rect>'
+            +'<g opacity="'+v.structureOp+'">'
+            +'<rect x="90" y="522" width="662" height="46" rx="9" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.24)" stroke-width="1"></rect>'
+            +'<text x="114" y="543" font-family="'+S+'" font-size="15" font-weight="600" fill="rgba(255,255,255,0.86)">UI layer</text>'
+            +'<text x="114" y="560" font-family="'+M+'" font-size="11.5" fill="rgba(255,255,255,0.5)">app interface — emits user events</text>'
+            +'<text x="728" y="549" text-anchor="end" font-family="'+M+'" font-size="12" fill="'+A+'">events ⇅</text>'
+            +'</g>'
+            +'<line x1="421" y1="570" x2="421" y2="606" stroke="'+A+'" stroke-width="1" stroke-dasharray="2 5" stroke-opacity="'+v.mBusOp+'"></line>'
+            +'<rect x="90" y="608" width="662" height="212" rx="9" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.24)" stroke-width="1"></rect>'
+            +'<text x="114" y="632" font-family="'+S+'" font-size="15" font-weight="600" fill="'+v.mobLabel+'">UMA Runtime · decides placement</text>'
+            +'<rect x="504" y="618" width="96" height="20" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)" stroke-width="1"></rect><text x="552" y="632" text-anchor="middle" font-family="'+M+'" font-size="11" fill="rgba(255,255,255,0.65)">offline-first</text>'
+            +'<rect x="608" y="618" width="120" height="20" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.16)" stroke-width="1"></rect><text x="668" y="632" text-anchor="middle" font-family="'+M+'" font-size="11" fill="rgba(255,255,255,0.65)">limited compute</text>'
+            +'<g opacity="'+v.mR1+'"><rect x="110" y="650" width="630" height="36" rx="8" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.18)" stroke-width="1"></rect><circle cx="132" cy="668" r="3.5" fill="'+A+'" opacity="'+v.md1+'"></circle><text x="152" y="673" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">cart</text><text x="728" y="673" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.72)">▸ on device</text></g>'
+            +'<g opacity="'+v.mR2+'"><rect x="110" y="692" width="630" height="36" rx="8" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.18)" stroke-width="1"></rect><circle cx="132" cy="710" r="3.5" fill="'+A+'" opacity="'+v.md2+'"></circle><text x="152" y="715" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">catalog</text><text x="728" y="715" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.72)">▸ on device</text></g>'
+            +'<g opacity="'+v.mR3+'"><rect x="110" y="734" width="630" height="36" rx="8" fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.18)" stroke-width="1"></rect><circle cx="132" cy="752" r="3.5" fill="'+A+'" opacity="'+v.md3+'"></circle><text x="152" y="757" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">pricing</text><text x="320" y="757" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.52)">offline required</text><text x="728" y="757" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.72)">▸ on device</text></g>'
+            +'<g opacity="'+v.mR4+'"><rect x="110" y="776" width="630" height="36" rx="8" fill="rgba(255,255,255,0.015)" stroke="'+A+'" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="5 5"></rect><circle cx="132" cy="794" r="4" fill="none" stroke="'+A+'" stroke-width="1.3"></circle><text x="152" y="799" font-family="'+S+'" font-size="16" font-weight="500" fill="rgba(255,255,255,0.92)">ai-agent</text><text x="320" y="799" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.52)">model too large for device</text><text x="728" y="799" text-anchor="end" font-family="'+M+'" font-size="13" fill="'+A+'">→ defer to server</text></g>'
+            // Server
+            +'<text x="822" y="136" font-family="'+S+'" font-size="18" font-weight="600" fill="rgba(255,255,255,0.82)" opacity="'+v.structureOp+'">Server · cloud · scale</text>'
+            +'<rect x="800" y="148" width="730" height="686" rx="13" fill="rgba(255,255,255,0.015)" stroke="'+v.srvStroke+'" stroke-width="'+v.srvW+'"></rect>'
+            +'<rect x="820" y="166" width="690" height="636" rx="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.24)" stroke-width="1"></rect>'
+            +'<text x="848" y="198" font-family="'+S+'" font-size="15" font-weight="600" fill="'+v.srvLabel+'">UMA Runtime · runs placed services</text>'
+            +'<text x="848" y="222" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.45)">starts empty — runs only what clients defer, loaded from the registry</text>'
+            +'<text x="1165" y="494" text-anchor="middle" font-family="'+M+'" font-size="14" fill="rgba(255,255,255,0.24)" opacity="'+v.emptyOp+'">— no services yet —</text>'
+            +'<g opacity="'+v.sPricingOp+'">'
+            +'<rect x="844" y="300" width="642" height="116" rx="10" fill="rgba(255,255,255,0.03)" stroke="'+A+'" stroke-width="1" stroke-opacity="0.5"></rect>'
+            +'<circle cx="876" cy="340" r="5" fill="'+A+'" opacity="'+v.sDot1+'"></circle>'
+            +'<text x="900" y="348" font-family="'+S+'" font-size="19" font-weight="500" fill="rgba(255,255,255,0.93)">pricing</text>'
+            +'<text x="900" y="378" font-family="'+M+'" font-size="13" fill="'+A+'">placement decided by web client</text>'
+            +'<text x="900" y="399" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.5)">↳ wasm loaded from shared registry</text>'
+            +'<text x="1462" y="340" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.55)">running</text>'
+            +'</g>'
+            +'<g opacity="'+v.sAiOp+'">'
+            +'<rect x="844" y="434" width="642" height="116" rx="10" fill="rgba(255,255,255,0.03)" stroke="'+A+'" stroke-width="1" stroke-opacity="0.5"></rect>'
+            +'<circle cx="876" cy="474" r="5" fill="'+A+'" opacity="'+v.sDot2+'"></circle>'
+            +'<text x="900" y="482" font-family="'+S+'" font-size="19" font-weight="500" fill="rgba(255,255,255,0.93)">ai-agent</text>'
+            +'<text x="900" y="512" font-family="'+M+'" font-size="13" fill="'+A+'">placement decided by mobile client</text>'
+            +'<text x="900" y="533" font-family="'+M+'" font-size="12" fill="rgba(255,255,255,0.5)">↳ wasm loaded from shared registry</text>'
+            +'<text x="1462" y="474" text-anchor="end" font-family="'+M+'" font-size="13" fill="rgba(255,255,255,0.55)">running</text>'
+            +'</g>'
+            // Tokens
+            +tok(v.ldPwebOp,v.ldPwebX,v.ldPwebY,'pricing.wasm',104)
+            +tok(v.ldPmobOp,v.ldPmobX,v.ldPmobY,'pricing.wasm',104)
+            +tok(v.ldPsrvOp,v.ldPsrvX,v.ldPsrvY,'pricing.wasm',104)
+            +tok(v.ldAwebOp,v.ldAwebX,v.ldAwebY,'ai-agent.wasm',108)
+            +tok(v.ldAmobOp,v.ldAmobX,v.ldAmobY,'ai-agent.wasm',108)
+            +tok(v.ldAsrvOp,v.ldAsrvX,v.ldAsrvY,'ai-agent.wasm',108)
+            // Events
+            +v.events.map(function(e){return '<circle cx="'+e.cx+'" cy="'+e.cy+'" r="5" fill="'+A+'" opacity="'+e.op+'"></circle>';}).join('')
+            // Narration
+            +'<g text-anchor="middle" font-family="'+M+'" font-size="20" fill="rgba(255,255,255,0.84)">'
+            +'<text x="800" y="866" opacity="'+v.n1+'">Each client has a UI layer and a UMA runtime — every service loads from the shared registry</text>'
+            +'<text x="800" y="866" opacity="'+v.n2+'">The UI layer and the runtime communicate through events</text>'
+            +'<text x="800" y="866" opacity="'+v.n3+'">cart and catalog load into both clients — light enough to run locally on each</text>'
+            +'<text x="800" y="866" opacity="'+v.n4+'">pricing loads into both at once — web defers to the server, mobile runs it on-device</text>'
+            +'<text x="800" y="866" opacity="'+v.n5+'">the AI agent loads into both at once — web runs it locally, mobile defers to the server</text>'
+            +'<text x="800" y="866" opacity="'+v.n6+'">Same service, same moment — only the heuristics, and so the placement, differ</text>'
+            +'</g>'
+            +v.dots.map(function(d){return '<circle cx="'+d.cx+'" cy="890" r="3" fill="'+d.fill+'"></circle>';}).join('')
+            +'</g></svg>';
+          }
+
+          function frame(now) {
+            if (!start) start = now;
+            var t = ((now - start) % D) / D;
+            container.innerHTML = svg(calc(t));
+            raf = requestAnimationFrame(frame);
+          }
+
+          var obs = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting) {
+              if (!raf) { start = null; raf = requestAnimationFrame(frame); }
+            } else {
+              if (raf) { cancelAnimationFrame(raf); raf = null; }
+            }
+          }, { threshold: 0.1 });
+          obs.observe(container);
+        })();
+        </script>
+        <!-- ── end Runtime Placement Diagram ── -->
+
 <section id="why-uma" class="section section-panel">
           <div class="statement-band">
             <div class="statement-copy">
