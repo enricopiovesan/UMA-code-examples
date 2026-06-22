@@ -1,5 +1,12 @@
 [
   {
+    "title": "Your events arrived. But in what order?",
+    "subtitle": "Most systems record what was delivered. This one records what was executed.",
+    "image": "https://cdn-images-1.medium.com/max/1024/1*PkZfkJr4K-E5VKupIo6NPQ.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/your-events-arrived-but-in-what-order-f5d1c6ff489a",
+    "alt": "Your events arrived. But in what order?"
+  },
+  {
     "title": "Your health check is lying to you",
     "subtitle": "How runtime enforcement catches what documentation contracts wave through",
     "image": "https://cdn-images-1.medium.com/max/1024/1*2i91y8USojp0L1o3k91D9A.png",
@@ -21,11 +28,11 @@
     "alt": "The 40ms Your System Can’t Explain"
   },
   {
-    "title": "Invisible Safety: How We Learn to Trust What We Don’t See",
-    "subtitle": "From the world’s first mountain cable car to modern runtime, the secret to progress lies in hidden reliability.",
-    "image": "https://miro.medium.com/v2/resize:fit:1200/1*pYuNhJRnoHg6SQ9gHUm3wA.png",
-    "url": "https://medium.com/the-rise-of-device-independent-architecture/invisible-safety-how-we-learn-to-trust-what-we-dont-see-5851fa8d14bd",
-    "alt": "Invisible Safety: How We Learn to Trust What We Don’t See"
+    "title": "How to Keep Going When the Connection Breaks",
+    "subtitle": "From mountain trails to modern runtimes, endurance starts where control ends.",
+    "image": "https://miro.medium.com/v2/resize:fit:1200/1*_Vg-QBWVy4oghUne3kqlpQ.png",
+    "url": "https://medium.com/the-rise-of-device-independent-architecture/how-to-keep-going-when-the-connection-breaks-89bbaae23771",
+    "alt": "How to Keep Going When the Connection Breaks"
   },
   {
     "title": "Why Agents Make Bad Decisions in Distributed Systems",
@@ -68,12 +75,5 @@
     "image": "https://cdn-images-1.medium.com/max/1024/1*anIZRd4Y4KV44p9uMhYbLQ.png",
     "url": "https://medium.com/the-rise-of-device-independent-architecture/from-java-to-webassembly-the-long-road-to-true-portability-d846ac953311",
     "alt": "From Java to WebAssembly: The Long Road to True Portability"
-  },
-  {
-    "title": "How to Keep Going When the Connection Breaks",
-    "subtitle": "From mountain trails to modern runtimes, endurance starts where control ends.",
-    "image": "https://cdn-images-1.medium.com/max/1024/1*_Vg-QBWVy4oghUne3kqlpQ.png",
-    "url": "https://medium.com/the-rise-of-device-independent-architecture/how-to-keep-going-when-the-connection-breaks-89bbaae23771",
-    "alt": "How to Keep Going When the Connection Breaks"
   }
 ]
