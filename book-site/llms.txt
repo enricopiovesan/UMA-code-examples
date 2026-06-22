@@ -15,40 +15,40 @@ License: CC-BY-4.0
 
 ## Key pages
 
-- /discoverability/glossary/: Complete glossary of UMA terms — capability, workflow, runtime, active descriptor, behavioral coherence, adapter, and more
-- /discoverability/faq/: Full FAQ — definitions, comparisons, adoption guidance (28 Q&A pairs)
-- /why-uma/what-is-uma/: What is Universal Microservices Architecture? — core definition and motivation
-- /core-model/what-is-a-capability/: What is a capability in UMA? — the portable unit of business behavior
-- /core-model/: Core vocabulary — capabilities, workflows, runtimes, active descriptors
-- /why-uma/: Architectural motivation and problem framing
-- /how-uma-works/: How portability, runtime placement, and adoption work in practice
-- /proof/: Evidence-based portability proofs and benchmark data
-- /evolve-uma/: System evolution, contract-driven orchestration, trust boundaries
-- /comparisons/: UMA vs serverless, microservices, modular monolith, service mesh
-- /how-uma-works/uma-mcp-runtime-governance/: UMA runtime governance for MCP — contract validation, trust enforcement, and execution evidence for AI agent tool calls
-- /comparisons/uma-vs-service-mesh/: UMA vs Istio/Linkerd — network-layer vs behavior-layer governance, and why they coexist
-- /comparisons/why-software-architecture-keeps-fragmenting/: The structural cause of behavioral drift — why systems fragment as execution surfaces multiply
-- /discoverability/white-paper/: Research papers — CSMA (2023), UMA (2024), ECCA (2025)
-- /discoverability/blog/: Writing on UMA and distributed systems — Medium channels
-- /learn-uma/book/: The book — available on Amazon
-- /discoverability/about-enrico/: About the author, Enrico Piovesan
-- /examples/: Chapter-aligned runnable code labs (chapters 4–13)
-- /learn-uma/learning-path/: Sequenced reading guide through all 14 chapters
-- /learn-uma/chapter-01-uma-introduction/: Chapter 1 — why distributed systems need a new architectural model
-- /learn-uma/chapter-02-device-independent-architecture/: Chapter 2 — what breaks when logic is coupled to one execution environment
-- /learn-uma/chapter-03-what-is-universal-microservices-architecture/: Chapter 3 — precise definition of UMA vs conventional microservices
-- /learn-uma/chapter-04-from-soa-to-metadata-driven-services/: Chapter 4 — evolution from SOA to metadata-driven portable services
-- /learn-uma/chapter-05-building-portable-microservices/: Chapter 5 — building a genuinely portable service with contract and parity proof
-- /learn-uma/chapter-06-uma-runtime-layer/: Chapter 6 — what the runtime layer owns and why that ownership must be explicit
-- /learn-uma/chapter-07-webassembly-portability-wasm-runtimes/: Chapter 7 — WebAssembly portability and what UMA adds on top
-- /learn-uma/chapter-08-service-contracts-events-orchestration/: Chapter 8 — contract-driven orchestration emerging from declared events
-- /learn-uma/chapter-09-microservices-to-distributed-systems/: Chapter 9 — system-level coherence from portable, well-governed services
-- /learn-uma/chapter-10-security-trust-boundaries-microservices/: Chapter 10 — trust as a per-execution runtime decision across environments
-- /learn-uma/chapter-11-microservices-architecture-patterns/: Chapter 11 — recurring architectural decisions and tradeoffs in UMA
-- /learn-uma/chapter-12-evolving-distributed-systems/: Chapter 12 — contract-driven evolution without behavioral drift
-- /learn-uma/chapter-13-ai-agents-mcp-runtime/: Chapter 13 — UMA runtime governance extended to AI agent invocation via MCP
-- /learn-uma/chapter-14-uma-reference-application/: Chapter 14 — the complete UMA system assembled and running
-- /wasm-microservices/: WASM microservices hub — what WebAssembly microservices are, how they work, and why WASM is the right execution boundary for portable distributed systems. Practical guides for Rust and TypeScript.
+- [Glossary](https://www.universalmicroservices.com/discoverability/glossary/): Complete glossary of UMA terms — capability, workflow, runtime, active descriptor, behavioral coherence, adapter, and more
+- [FAQ](https://www.universalmicroservices.com/discoverability/faq/): Full FAQ — definitions, comparisons, adoption guidance (28 Q&A pairs)
+- [What is UMA?](https://www.universalmicroservices.com/why-uma/what-is-uma/): Core definition and motivation
+- [What is a capability?](https://www.universalmicroservices.com/core-model/what-is-a-capability/): The portable unit of business behavior
+- [Core Model](https://www.universalmicroservices.com/core-model/): Core vocabulary — capabilities, workflows, runtimes, active descriptors
+- [Why UMA](https://www.universalmicroservices.com/why-uma/): Architectural motivation and problem framing
+- [How UMA Works](https://www.universalmicroservices.com/how-uma-works/): How portability, runtime placement, and adoption work in practice
+- [Proof](https://www.universalmicroservices.com/proof/): Evidence-based portability proofs and benchmark data
+- [Evolve UMA](https://www.universalmicroservices.com/evolve-uma/): System evolution, contract-driven orchestration, trust boundaries
+- [Comparisons](https://www.universalmicroservices.com/comparisons/): UMA vs serverless, microservices, modular monolith, service mesh
+- [UMA and MCP Runtime Governance](https://www.universalmicroservices.com/how-uma-works/uma-mcp-runtime-governance/): Contract validation, trust enforcement, and execution evidence for AI agent tool calls
+- [UMA vs Service Mesh](https://www.universalmicroservices.com/comparisons/uma-vs-service-mesh/): UMA vs Istio/Linkerd — network-layer vs behavior-layer governance
+- [Why Software Architecture Keeps Fragmenting](https://www.universalmicroservices.com/comparisons/why-software-architecture-keeps-fragmenting/): The structural cause of behavioral drift
+- [White Papers](https://www.universalmicroservices.com/discoverability/white-paper/): Research papers — CSMA (2023), UMA (2024), ECCA (2025)
+- [Blog](https://www.universalmicroservices.com/discoverability/blog/): Writing on UMA and distributed systems
+- [The Book](https://www.universalmicroservices.com/learn-uma/book/): Universal Microservices Architecture — available on Amazon
+- [About Enrico Piovesan](https://www.universalmicroservices.com/discoverability/about-enrico/): About the author
+- [Code Examples](https://www.universalmicroservices.com/examples/): Chapter-aligned runnable code labs (chapters 4–13)
+- [Learning Path](https://www.universalmicroservices.com/learn-uma/learning-path/): Sequenced reading guide through all 14 chapters
+- [Chapter 1 — UMA Introduction](https://www.universalmicroservices.com/learn-uma/chapter-01-uma-introduction/): Why distributed systems need a new architectural model
+- [Chapter 2 — Device-Independent Architecture](https://www.universalmicroservices.com/learn-uma/chapter-02-device-independent-architecture/): What breaks when logic is coupled to one execution environment
+- [Chapter 3 — What is UMA](https://www.universalmicroservices.com/learn-uma/chapter-03-what-is-universal-microservices-architecture/): Precise definition of UMA vs conventional microservices
+- [Chapter 4 — From SOA to Metadata-Driven Services](https://www.universalmicroservices.com/learn-uma/chapter-04-from-soa-to-metadata-driven-services/): Evolution from SOA to metadata-driven portable services
+- [Chapter 5 — Building Portable Microservices](https://www.universalmicroservices.com/learn-uma/chapter-05-building-portable-microservices/): Building a genuinely portable service with contract and parity proof
+- [Chapter 6 — UMA Runtime Layer](https://www.universalmicroservices.com/learn-uma/chapter-06-uma-runtime-layer/): What the runtime layer owns and why that ownership must be explicit
+- [Chapter 7 — WebAssembly Portability](https://www.universalmicroservices.com/learn-uma/chapter-07-webassembly-portability-wasm-runtimes/): WebAssembly portability and what UMA adds on top
+- [Chapter 8 — Service Contracts and Orchestration](https://www.universalmicroservices.com/learn-uma/chapter-08-service-contracts-events-orchestration/): Contract-driven orchestration emerging from declared events
+- [Chapter 9 — Microservices to Distributed Systems](https://www.universalmicroservices.com/learn-uma/chapter-09-microservices-to-distributed-systems/): System-level coherence from portable, well-governed services
+- [Chapter 10 — Security and Trust Boundaries](https://www.universalmicroservices.com/learn-uma/chapter-10-security-trust-boundaries-microservices/): Trust as a per-execution runtime decision across environments
+- [Chapter 11 — Architecture Patterns](https://www.universalmicroservices.com/learn-uma/chapter-11-microservices-architecture-patterns/): Recurring architectural decisions and tradeoffs in UMA
+- [Chapter 12 — Evolving Distributed Systems](https://www.universalmicroservices.com/learn-uma/chapter-12-evolving-distributed-systems/): Contract-driven evolution without behavioral drift
+- [Chapter 13 — AI Agents and MCP Runtime](https://www.universalmicroservices.com/learn-uma/chapter-13-ai-agents-mcp-runtime/): UMA runtime governance extended to AI agent invocation via MCP
+- [Chapter 14 — UMA Reference Application](https://www.universalmicroservices.com/learn-uma/chapter-14-uma-reference-application/): The complete UMA system assembled and running
+- [WASM Microservices](https://www.universalmicroservices.com/wasm-microservices/): What WebAssembly microservices are, how they work, and why WASM is the right execution boundary for portable distributed systems
 
 ## Key concepts
 
@@ -64,6 +64,6 @@ License: CC-BY-4.0
 
 ## External
 
-- Book on Amazon: https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4
-- Code examples on GitHub: https://github.com/enricopiovesan/UMA-code-examples
-- Blog on Medium: https://medium.com/the-rise-of-device-independent-architecture
+- [Book on Amazon](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4): Pre-order Universal Microservices Architecture (Apress, August 2026)
+- [Code examples on GitHub](https://github.com/enricopiovesan/UMA-code-examples): Chapter-aligned runnable labs
+- [Blog on Medium](https://medium.com/the-rise-of-device-independent-architecture): Writing on UMA and distributed systems
