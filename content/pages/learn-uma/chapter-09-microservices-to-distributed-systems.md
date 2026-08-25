@@ -62,7 +62,7 @@ related_refs:
       <a href="../chapter-10-security-trust-boundaries-microservices/">Chapter 10: Security and Trust Boundaries →</a>
       <a href="../../evolve-uma/service-graph-evolution/">Service graph evolution</a>
       <a href="../../evolve-uma/how-systems-evolve-without-fragmentation/">How systems evolve without fragmentation</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book on Amazon</a>
     </div>
   </section>
 </div>

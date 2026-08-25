@@ -62,7 +62,7 @@ related_refs:
       <a href="../chapter-07-webassembly-portability-wasm-runtimes/">Chapter 7: Portability with WebAssembly →</a>
       <a href="../../core-model/what-is-a-uma-runtime/">What is a UMA runtime?</a>
       <a href="../../core-model/what-belongs-in-the-runtime-layer/">What belongs in the runtime layer?</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book on Amazon</a>
     </div>
   </section>
 </div>

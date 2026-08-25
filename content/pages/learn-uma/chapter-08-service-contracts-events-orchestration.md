@@ -62,7 +62,7 @@ related_refs:
       <a href="../chapter-09-microservices-to-distributed-systems/">Chapter 9: From Services to Systems →</a>
       <a href="../../core-model/what-is-a-workflow/">What is a UMA workflow?</a>
       <a href="../../evolve-uma/contract-driven-orchestration/">Contract-driven orchestration</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book on Amazon</a>
     </div>
   </section>
 </div>

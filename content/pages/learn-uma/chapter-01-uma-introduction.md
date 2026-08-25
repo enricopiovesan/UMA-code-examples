@@ -130,7 +130,7 @@ related_refs:
       <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve?</a>
       <a href="../learning-path/">Full learning path</a>
       <a href="../book/">About the book</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy on Amazon</a>
     </div>
   </section>
 </div>

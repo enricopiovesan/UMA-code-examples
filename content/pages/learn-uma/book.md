@@ -1,6 +1,6 @@
 ---
 ref: book
-title: "The Book. Pre-order"
+title: "The Book"
 subtitle: "The Universal Microservices Architecture book This book is for architects and senior engineers who can already ship distributed systems, but are no longer satisfied with how quickly those systems fragment across browser, edge, backend, workflow, and AI-assisted execution paths. It uses WebAssembly as an enabling boundary, but the deeper subject is architectural coherence under runtime diversity."
 macro_area: learn-uma
 content_type: onboarding
@@ -8,7 +8,7 @@ slug: book
 canonical_url: "https://www.universalmicroservices.com/learn-uma/book/"
 left_nav_group: learn-uma
 chapter_ref: null
-seo_description: "Universal Microservices Architecture (Apress, 2026): 14 chapters for architects building portable, WASM-native distributed systems. Pre-order now on Amazon."
+seo_description: "Universal Microservices Architecture (Apress, 2026): 14 chapters for architects building portable, WASM-native distributed systems. Buy now on Amazon."
 breadcrumbs:
   - "Home"
   - "Learn Uma"
@@ -199,9 +199,9 @@ related_refs:
           </section>
 
           <section>
-            <h2>Pre-order the book</h2>
+            <h2>Buy the book</h2>
             <p>
-              <em>Universal Microservices Architecture</em> is available for pre-order on Amazon (ASIN: B0GTTTTQH4, releasing August 2026).
+              <em>Universal Microservices Architecture</em> is available now on Amazon (ASIN: B0GTTTTQH4).
             </p>
             <p>
               This is the portable microservices architecture book that treats WASM as an execution boundary, verifies its claims with CI,
@@ -212,11 +212,11 @@ related_refs:
           <section class="subpage-callout">
             <strong>Ready to read?</strong>
             <p>
-              Pre-order on Amazon or start with the companion repository. Both are designed to be evaluated independently before
+              Buy on Amazon or start with the companion repository. Both are designed to be evaluated independently before
               committing to either.
             </p>
             <div class="subpage-inline-links">
-              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy on Amazon</a>
               <a href="https://github.com/enricopiovesan/UMA-code-examples">GitHub examples</a>
               <a href="../../why-uma/what-problem-does-uma-solve/">What problem does UMA solve?</a>
               <a href="../../reference-application/">Live reference app</a>
