@@ -153,7 +153,7 @@ related_refs:
             <div class="subpage-inline-links">
               <a href="../../core-model/">Core Model</a>
               <a href="../../comparisons/">Comparisons</a>
-              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order on Amazon</a>
+              <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy on Amazon</a>
             </div>
           </section>
         </div>

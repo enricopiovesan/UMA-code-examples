@@ -46,7 +46,7 @@ breadcrumbs:
       See <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noreferrer noopener">Google Fonts privacy FAQ</a>.
     </p>
     <p>
-      <strong>Amazon</strong>: the "Pre-order on Amazon" links go to amazon.com. Amazon's own privacy policy applies when you visit their site.
+      <strong>Amazon</strong>: the "Buy on Amazon" links go to amazon.com. Amazon's own privacy policy applies when you visit their site.
     </p>
   </section>
 

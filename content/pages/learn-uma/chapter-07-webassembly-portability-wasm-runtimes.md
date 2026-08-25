@@ -62,7 +62,7 @@ related_refs:
       <a href="../chapter-08-service-contracts-events-orchestration/">Chapter 8: Contracts, Events, and Orchestration →</a>
       <a href="../../how-uma-works/webassembly-architecture/">WebAssembly architecture in UMA</a>
       <a href="../../core-model/active-descriptors/">Active descriptors</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book on Amazon</a>
     </div>
   </section>
 </div>
