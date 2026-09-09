@@ -54,7 +54,7 @@ related_refs:
     <div class="subpage-inline-links">
       <a href="../../core-model/">Continue to: Core Model →</a>
       <a href="../../how-uma-works/">See how UMA works in practice →</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4" target="_blank" rel="noreferrer noopener">Pre-order on Amazon →</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4" target="_blank" rel="noreferrer noopener">Buy on Amazon →</a>
     </div>
   </section>
 

@@ -64,6 +64,6 @@ License: CC-BY-4.0
 
 ## External
 
-- [Book on Amazon](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4): Pre-order Universal Microservices Architecture (Apress, August 2026)
+- [Book on Amazon](https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4): Buy Universal Microservices Architecture (Apress, August 2026)
 - [Code examples on GitHub](https://github.com/enricopiovesan/UMA-code-examples): Chapter-aligned runnable labs
 - [Blog on Medium](https://medium.com/the-rise-of-device-independent-architecture): Writing on UMA and distributed systems

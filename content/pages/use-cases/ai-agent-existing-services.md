@@ -70,7 +70,7 @@ related_refs:
     <div class="subpage-inline-links">
       <a href="../../core-model/">Core Model: capabilities, descriptors, and runtime governance</a>
       <a href="../../core-model/what-is-wasm-mcp/">MCP and WASM: making services agent-callable</a>
-      <a href="../../learn-uma/book/">Pre-order on Amazon</a>
+      <a href="../../learn-uma/book/">Buy on Amazon</a>
     </div>
   </section>
 </div>

@@ -72,7 +72,7 @@ related_refs:
         <li><a href="/core-model/">The UMA core model</a> — how active descriptors and portable services fit together as an architecture.</li>
         <li><a href="/wasm-microservices/">WASM microservices</a> — the execution model that makes environment-agnostic deployment possible.</li>
         <li><a href="/how-uma-works/">How UMA works</a> — end-to-end walkthrough of the runtime, registry, and governance layer.</li>
-        <li><a href="https://www.amazon.com/" target="_blank" rel="noopener">Pre-order on Amazon</a> — the full treatment of portable service design, with worked examples in Rust and TypeScript.</li>
+        <li><a href="https://www.amazon.com/" target="_blank" rel="noopener">Buy on Amazon</a> — the full treatment of portable service design, with worked examples in Rust and TypeScript.</li>
       </ul>
     </div>
   </section>

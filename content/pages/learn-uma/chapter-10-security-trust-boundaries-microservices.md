@@ -62,7 +62,7 @@ related_refs:
       <a href="../chapter-11-microservices-architecture-patterns/">Chapter 11: Microservices Architecture Patterns →</a>
       <a href="../../evolve-uma/trust-boundaries/">Trust boundaries in UMA</a>
       <a href="../../evolve-uma/runtime-provenance-and-trust/">Runtime provenance and trust</a>
-      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order the book on Amazon</a>
+      <a href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy the book on Amazon</a>
     </div>
   </section>
 </div>

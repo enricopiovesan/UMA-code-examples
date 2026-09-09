@@ -245,7 +245,7 @@ function renderTopNav(prefix) {
   return `
         <div class="topbar-utility">
           ${utilityLinks}
-          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Pre-order</a>
+          <a class="button button-primary header-cta" href="https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4">Buy on Amazon</a>
           <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
         </div>
       </div>
@@ -765,7 +765,7 @@ function renderStructuredData(meta, rawMain, currentOutPath, siteMapGroups, page
         "@type": "Offer",
         "url": "https://www.amazon.com/Universal-Microservices-Architecture-Device-Independent-Modelling/dp/B0GTTTTQH4",
         "seller": { "@type": "Organization", "name": "Amazon" },
-        "availability": "https://schema.org/PreOrder",
+        "availability": "https://schema.org/InStock",
         "priceCurrency": "USD",
         "price": "56.99",
         "priceValidUntil": "2027-08-21"
